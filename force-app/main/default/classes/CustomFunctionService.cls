@@ -3,7 +3,6 @@
  * Criado em: 05/11/2021
 */
 global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
-
 {
     global Boolean invokeMethod(String methodName, Map<String, Object> inputs, Map<String, Object> output, Map<String, Object> options)
     {
