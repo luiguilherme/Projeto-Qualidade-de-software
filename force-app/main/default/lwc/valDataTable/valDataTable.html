@@ -1,0 +1,53 @@
+<template>
+    <template if:true={isLoaded}>
+        <div>
+            <lightning-input 
+                type="search" 
+                onchange={handleKeyChange} 
+                class="slds-m-bottom_small" 
+                label="Filtrar"
+                value={searchKey}
+                placeholder="O filtro é feito através dos campos Bairro e Logradouro.">
+            </lightning-input>
+
+            <lightning-datatable
+                    data-id="datarow"
+                    key-field="Id"
+                    data={pagedData}
+                    columns={columns}
+                    max-row-selection = 1
+                    onrowselection={handleSelection}
+                    selected-rows={preSelectedRows}>
+            </lightning-datatable>  
+        </div>    
+
+        <div class="slds-var-p-top_small slds-align_absolute-center">
+            <lightning-button 
+                name="buttonBackwards" 
+                label="" 
+                title="" 
+                icon-name="utility:back" 
+                onclick={handleButtonPrevious}  
+                class="slds-var-m-left_x-small" 
+                disabled={disabledPreviousButton}>
+            </lightning-button>
+            
+            &nbsp;&nbsp;Página {currentPage} de {maxPages}
+            
+            <lightning-button 
+                name="buttonForwards" 
+                label="" 
+                title="" 
+                icon-name="utility:forward" 
+                onclick={handleButtonNext} 
+                class="slds-var-m-left_x-small" 
+                disabled={disabledNextButton}>
+            </lightning-button>
+        </div>
+    </template>
+    <!--<template if:true={emptyData}>
+
+        <div>A pesquisa não retornou dados</div>
+
+    </template>  -->
+</template>

@@ -1,0 +1,41 @@
+<template>
+    <slot name="msmextensionslot">
+    <div class="via-slds">
+        
+        <vlocity_cmt-input
+            oninput={searchActions}
+            size="x-small"
+            icon-name-left="utility:search"
+            value={searchText}
+        ></vlocity_cmt-input>
+        
+    </div>
+    
+    <div class = "slds-m-top_small b2cCmex-actions-container slds-scrollable_y">
+        <template for:each={currentActionList} for:item="actionList">
+            <div key={actionList.category} class = "slds-m-bottom_small">
+                <div class="slds-text-title_caps b2cCmex-category-text">
+                    <strong>{actionList.category}</strong>
+                </div>
+                <template for:each={actionList.action} for:item="actionEle">
+                    <div if:false={actionEle.IsDisabled} key={actionEle.DisplayName} class = "slds-m-top_small">
+                        
+                        <vlocity_cmt-navigate-action
+                            target-type="Component"
+                            target-name={navigateActionTargetName}
+                            target-params={actionEle.ActionURL}
+                            use-href
+                            open-target-in="newTab"
+                            >
+                            {Teste}
+                            </vlocity_cmt-navigate-action>
+                    </div>
+                    <div if:true={actionEle.IsDisabled} key={actionEle.DisplayName} class = "slds-m-top_small">
+                        Teste2
+                    </div>
+                </template>
+            </div>
+        </template>
+    </div>
+    </slot>
+</template>
