@@ -1,0 +1,217 @@
+{
+    "GlobalKey__c": "sfi-customer-order-story/Salesforce/1/1623067360427",
+    "dataSource": {
+        "type": null
+    },
+    "enableLwc": false,
+    "filter": {
+        "['objAPIName']": "Order"
+    },
+    "sessionVars": [
+        {
+            "name": "iconName",
+            "val": "standard:orders"
+        }
+    ],
+    "sfiVersion": "234.0",
+    "states": [
+        {
+            "collapse": false,
+            "conditions": {
+                "group": [
+                    {
+                        "field": "$scope.data.status",
+                        "operator": "===",
+                        "type": "system",
+                        "value": "'active'"
+                    },
+                    {
+                        "field": "['onGoing']",
+                        "logicalOperator": "&&",
+                        "operator": "==",
+                        "type": "custom",
+                        "value": "true"
+                    }
+                ]
+            },
+            "definedActions": {
+                "actions": [
+                ]
+            },
+            "disableAddCondition": false,
+            "fields": [
+                {
+                    "collapse": true,
+                    "displayLabel": "<<Custom Field>>",
+                    "editing": false,
+                    "fieldType": "custom",
+                    "label": "Status",
+                    "name": "['subtitle']",
+                    "type": "string"
+                },
+                {
+                    "collapse": true,
+                    "displayLabel": "<<Custom Field>>",
+                    "editing": false,
+                    "fieldType": "custom",
+                    "label": "Valor Total",
+                    "name": "['highlight']",
+                    "type": "string"
+                },
+                {
+                    "collapse": true,
+                    "displayLabel": "<<Custom Field>>",
+                    "editing": false,
+                    "fieldType": "custom",
+                    "label": "Data",
+                    "name": "['formatedLastActivityDate']",
+                    "type": "string"
+                }
+            ],
+            "filter": "$scope.data.status === 'active' && $scope.obj['onGoing'] == true",
+            "flyout": {
+                "lwc": {
+                    "DeveloperName": "storyEditStateFlyout",
+                    "Id": "0Rb5w000000c6j6CAA",
+                    "MasterLabel": "storyEditStateFlyout",
+                    "name": "storyEditStateFlyout"
+                }
+            },
+            "flyoutAttributes": [
+                {
+                    "name": "parent",
+                    "val": "$scope.obj"
+                }
+            ],
+            "isSmartAction": false,
+            "lwc": {
+                "DeveloperName": "storyOngoingState",
+                "Id": "0Rb5w000000c6j8CAA",
+                "MasterLabel": "storyOngoingState",
+                "name": "storyOngoingState"
+            },
+            "name": "Order Ongoing",
+            "sObjectType": "Order",
+            "smartAction": {
+            }
+        },
+        {
+            "blankCardState": false,
+            "collapse": false,
+            "conditions": {
+                "group": [
+                    {
+                        "field": "$scope.data.status",
+                        "operator": "===",
+                        "type": "system",
+                        "value": "'active'"
+                    },
+                    {
+                        "field": "['onGoing']",
+                        "logicalOperator": "&&",
+                        "operator": "==",
+                        "type": "custom",
+                        "value": "false"
+                    }
+                ]
+            },
+            "definedActions": {
+                "actions": [
+                ]
+            },
+            "disableAddCondition": false,
+            "fields": [
+                {
+                    "collapse": true,
+                    "displayLabel": "<<Custom Field>>",
+                    "editing": false,
+                    "fieldType": "custom",
+                    "label": "Status",
+                    "name": "['subtitle']",
+                    "type": "string"
+                },
+                {
+                    "collapse": true,
+                    "displayLabel": "<<Custom Field>>",
+                    "editing": false,
+                    "fieldType": "custom",
+                    "label": "Valor Total",
+                    "name": "['highlight']",
+                    "type": "string"
+                },
+                {
+                    "collapse": true,
+                    "displayLabel": "<<Custom Field>>",
+                    "editing": false,
+                    "fieldType": "custom",
+                    "label": "Data",
+                    "name": "['formatedLastActivityDate']",
+                    "type": "string"
+                }
+            ],
+            "filter": "$scope.data.status === 'active' && $scope.obj['onGoing'] == false",
+            "flyout": {
+                "lwc": ""
+            },
+            "flyoutAttributes": [
+            ],
+            "isSmartAction": false,
+            "lwc": {
+                "DeveloperName": "storyNormalState",
+                "Id": "0Rb5f000001A42PCAS",
+                "MasterLabel": "storyNormalState",
+                "NamespacePrefix": "%vlocity_namespace%",
+                "name": "storyNormalState"
+            },
+            "name": "Order",
+            "sObjectType": "Order",
+            "smartAction": {
+            }
+        }
+    ],
+    "title": "Histórico do Pedido",
+    "xmlJson": [
+        {
+            "@attributes": {
+                "targets": "lightning__AppPage"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "name": "debug",
+                        "type": "Boolean"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "name": "recordId",
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        {
+            "@attributes": {
+                "targets": "lightning__RecordPage"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "name": "debug",
+                        "type": "Boolean"
+                    }
+                }
+            ]
+        }
+    ],
+    "xmlObject": {
+        "targetConfigs": "PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgogICAgICAgICAgICAgICAgICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgICAgICAgICAgICAgICAgICA8cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPgogICAgICAgICAgICAgICAgICA8L3RhcmdldENvbmZpZz4KICAgICAgICAgICAgICAgICAgPHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPgogICAgICAgICAgICAgICAgICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgICAgICAgICAgICAgIDwvdGFyZ2V0Q29uZmlnPg==",
+        "targets": {
+            "target": [
+                "lightning__RecordPage",
+                "lightning__AppPage",
+                "lightning__HomePage"
+            ]
+        }
+    }
+}

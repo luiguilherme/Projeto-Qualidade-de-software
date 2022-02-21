@@ -1,0 +1,65 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "SFI-GetAssetAndActionDetailsAgentConsole",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/sfi/GetAssetAndActionDetailsAgentConsole/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "additionalChainableResponse": {
+        },
+        "additionalInput": {
+            "AccountHoldDetails": "%SetAccountHoldList:AccountHoldList%",
+            "AssetDetailsAccount360": "%GetAssetDetailsAccount360DR:Service%"
+        },
+        "additionalOutput": {
+            "AssetStatus": "=IF(%GetAssetDetailsAccount360DR:Service|1:AssetId%==\"\",\"NoAsset\",GetAssetDetailsAccount360DR:Service|1:AssetStatus)",
+            "MessageInteractionWithoutAsset": "=IF(%GetAssetDetailsAccount360DR:Service|1:AssetId%==\"\",\"Cliente sem produtos ativos na Linha\",\"\")"
+        },
+        "advancedMerge": false,
+        "advancedMergeMap": [
+        ],
+        "allowMergeNulls": true,
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "dynamicOutputFields": "AccountHoldDetails",
+        "executionConditionalFormula": "",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "failureResponse": {
+        },
+        "filterListFormula": "",
+        "hasPrimary": false,
+        "label": "ListAction1",
+        "mergeFields": [
+            "AssetId"
+        ],
+        "mergeListsOrder": [
+            "AccountHoldDetails",
+            "AssetDetailsAccount360"
+        ],
+        "primaryListKey": "",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "returnOnlyAdditionalOutput": false,
+        "returnOnlyFailureResponse": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "sendOnlyAdditionalInput": true,
+        "show": null,
+        "sortBy": [
+        ],
+        "sortInDescendingOrder": false,
+        "updateFieldValue": {
+        },
+        "useFormulas": true
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "List Merge Action",
+    "Name": "CombineAssetDetailsListAction",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/sfi/GetAssetAndActionDetailsAgentConsole/Procedure/CombineAssetDetailsListAction"
+}

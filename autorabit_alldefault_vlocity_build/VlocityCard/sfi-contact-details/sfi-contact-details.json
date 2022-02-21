@@ -1,0 +1,215 @@
+{
+    "GlobalKey__c": "sfi-contact-details/Salesforce/1/1623067876194",
+    "dataSource": {
+        "type": null
+    },
+    "enableLwc": true,
+    "filter": {
+    },
+    "sessionVars": [
+        {
+            "name": "FraudDescription",
+            "val": "Uma fraude foi relatada nesta conta"
+        },
+        {
+            "name": "ActiveAccountText",
+            "val": "Conta Ativa"
+        },
+        {
+            "name": "PendingAccountText",
+            "val": "Pendente"
+        }
+    ],
+    "sfiVersion": "234.0",
+    "states": [
+        {
+            "collapse": false,
+            "conditions": {
+                "group": [
+                    {
+                        "field": "$scope.data.status",
+                        "operator": "===",
+                        "type": "system",
+                        "value": "'active'"
+                    },
+                    {
+                        "field": "['AccountStatus']",
+                        "logicalOperator": "&&",
+                        "operator": "==",
+                        "type": "custom",
+                        "value": "Pending"
+                    }
+                ]
+            },
+            "definedActions": {
+                "actions": [
+                    {
+                        "ContextId": "{{params.id}}",
+                        "collapse": true,
+                        "conditions": {
+                            "group": [
+                            ]
+                        },
+                        "displayName": "Solicitar Aprovação",
+                        "extraParams": {
+                            "c__ContextId": "{{params.id}}",
+                            "c__tabLabel": "Solicitar Aprovação"
+                        },
+                        "hasExtraParams": true,
+                        "id": "SolicitarAprovacao",
+                        "isCustomAction": true,
+                        "isLwcOS": true,
+                        "layoutType": "lightning",
+                        "omniLang": "",
+                        "omniSubType": "",
+                        "omniType": {
+                            "Id": "a30760000004CaIAAU",
+                            "Language": "English",
+                            "Name": "val/activateAccount/English",
+                            "SubType": "activateAccount",
+                            "Type": "val",
+                            "isLwc": true
+                        },
+                        "openUrlIn": "_self",
+                        "tabLabel": "Solicitar Aprovação",
+                        "type": "OmniScript",
+                        "vForcewithNsPrefix": "%vlocity_namespace%__OmniScriptUniversalPage"
+                    }
+                ]
+            },
+            "disableAddCondition": false,
+            "fields": [
+                {
+                    "collapse": true,
+                    "displayLabel": "<<Custom Field>>",
+                    "editing": false,
+                    "fieldType": "custom",
+                    "label": "Conta Bloqueada",
+                    "name": "['ShowStatus']",
+                    "type": "string"
+                }
+            ],
+            "filter": "$scope.data.status === 'active' && $scope.obj['AccountStatus'] == 'Pending'",
+            "isSmartAction": false,
+            "lwc": {
+                "DeveloperName": "b2cCmexContactDetails",
+                "Id": "0Rb5e000000W54rCAC",
+                "MasterLabel": "b2cCmexContactDetails",
+                "NamespacePrefix": "%vlocity_namespace%",
+                "name": "b2cCmexContactDetails"
+            },
+            "name": "Pending",
+            "sObjectType": "Account",
+            "smartAction": {
+            }
+        },
+        {
+            "collapse": false,
+            "conditions": {
+                "group": [
+                    {
+                        "field": "$scope.data.status",
+                        "operator": "===",
+                        "type": "system",
+                        "value": "'active'"
+                    },
+                    {
+                        "field": "['AccountStatus']",
+                        "logicalOperator": "&&",
+                        "operator": "==",
+                        "type": "custom",
+                        "value": "Active"
+                    }
+                ]
+            },
+            "definedActions": {
+                "actions": [
+                    {
+                        "collapse": true,
+                        "conditions": {
+                            "group": [
+                            ]
+                        },
+                        "displayName": "Editar",
+                        "extraParams": {
+                            "c__ContextId": "{{params.id}}",
+                            "c__tabLabel": "Editar"
+                        },
+                        "hasExtraParams": true,
+                        "id": "ChangePersonalDetails",
+                        "isCustomAction": true,
+                        "isLwcOS": true,
+                        "layoutType": "lightning",
+                        "omniLang": "",
+                        "omniSubType": "",
+                        "omniType": {
+                            "Id": "a2j5e000000ksGiAAI",
+                            "Language": "English",
+                            "Name": "sfi/ChangePersonalDetails/English",
+                            "SubType": "ChangePersonalDetails",
+                            "Type": "sfi",
+                            "isLwc": true
+                        },
+                        "openUrlIn": "New Tab / Window",
+                        "type": "OmniScript",
+                        "vForcewithNsPrefix": "%vlocity_namespace%__OmniScriptUniversalPage"
+                    }
+                ]
+            },
+            "disableAddCondition": false,
+            "fields": [
+                {
+                    "collapse": true,
+                    "displayLabel": "['Phone']",
+                    "editing": false,
+                    "fieldType": "standard",
+                    "group": "Custom Properties",
+                    "label": "['Phone']",
+                    "name": "['Phone']",
+                    "type": "string"
+                },
+                {
+                    "collapse": true,
+                    "displayLabel": "['GoogleMapAPI']",
+                    "editing": false,
+                    "fieldType": "standard",
+                    "group": "Custom Properties",
+                    "label": "GoogleMapAPI",
+                    "name": "['GoogleMapAPI']",
+                    "type": "string"
+                },
+                {
+                    "collapse": true,
+                    "displayLabel": "['MailingCity']",
+                    "fieldType": "standard",
+                    "group": "Custom Properties",
+                    "label": "MailingCity",
+                    "name": "['MailingCity']",
+                    "type": "string"
+                },
+                {
+                    "collapse": true,
+                    "displayLabel": "['FirstName']",
+                    "fieldType": "standard",
+                    "group": "Custom Properties",
+                    "label": "FirstName",
+                    "name": "['FirstName']",
+                    "type": "string"
+                }
+            ],
+            "filter": "$scope.data.status === 'active' && $scope.obj['AccountStatus'] == 'Active'",
+            "isSmartAction": false,
+            "lwc": {
+                "DeveloperName": "b2cCmexContactDetails",
+                "Id": "0Rb5e000000W54rCAC",
+                "MasterLabel": "b2cCmexContactDetails",
+                "NamespacePrefix": "%vlocity_namespace%",
+                "name": "b2cCmexContactDetails"
+            },
+            "name": "Active",
+            "smartAction": {
+            }
+        }
+    ],
+    "title": "Contact Information"
+}
