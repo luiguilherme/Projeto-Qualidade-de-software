@@ -1,0 +1,36 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valValidateCPF",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ValidateCPF/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "ResponseDocumentNumber": "=IF(%DocumentBlock:DocumentNumberCNPJ% <> NULL, %DocumentBlock:DocumentNumberCNPJ%, %DocumentBlock:DocumentNumberForeign%)",
+            "StepRegistration:DocumentBlock:DocumentNumberCNPJRO": "%DocumentBlock:DocumentNumberCNPJ%",
+            "StepRegistration:DocumentBlock:DocumentNumberForeignRO": "%DocumentBlock:DocumentNumberForeign%",
+            "customerName": "",
+            "isBlocked": false,
+            "isDocumentValid": "=IF(%DRValidDocumentsSalesforce:ExistingCustomer%==true||%DRValidCalcCNPJ:IsCNPJNumberValid%==false,false,true)",
+            "validationMessage": "=IF(%DRValidCalcCNPJ:IsCNPJNumberValid%==false, \"O CNPJ informado não é válido\",IF(%DRValidDocumentsSalesforce:ExistingCustomer%==true,\"Cliente já cadastrado. Por favor utilizar outro documento\",\"Cliente Prospect\")"
+        },
+        "executionConditionalFormula": "IF(%DRVerifyData% == null, true, false)",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues4",
+        "responseJSONNode": "DRVerifyData",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVException",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ValidateCPF/Procedure/SVException"
+}
