@@ -9,7 +9,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
           
           import styleDef from "./styleDefinition";
               
-          export default class cfCpqConfigureCartItem extends FlexCardMixin(LightningElement){
+          export default class cfCpqConfigureCartItem_3_Vlocity extends FlexCardMixin(LightningElement){
               @api debug;
               @api recordId;
               @api objectApiName;
@@ -18,10 +18,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               @track _sessionApiVars = {};
 
               _regexPattern = /\{([a-zA-Z.0-9_]+)\}/g; //for {} fields by default
-              @track Label={Quantity2:"Quantity",
-      CPQDelete:"Delete",
-      Action:"Action"
-      };
+              
               pubsubEvent = [];
               customEvent = [];
               
@@ -32,15 +29,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
                 data.Session = {} //reinitialize on reload
                 
                 
-                this.customLabels = this.Label;
-                      
-                        fetchCustomLabels(Object.keys(this.Label)).then(labels => {
-                          this.Label = labels;
-                          let card = {...this.card};
-                          card.Label = labels;
-                          this.card = card;
-                          this.customLabels = this.Label;
-                      });
+                
                 this.setDefinition(data);
                 
                 

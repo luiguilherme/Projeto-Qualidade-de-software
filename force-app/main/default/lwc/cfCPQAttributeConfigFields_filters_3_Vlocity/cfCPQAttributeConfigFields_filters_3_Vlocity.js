@@ -4,24 +4,27 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
           import { LightningElement, api, track } from "lwc";
           
           import pubsub from "vlocity_cmt/pubsub";
-          
+          import { OmniscriptBaseMixin } from "vlocity_cmt/omniscriptBaseMixin";
           import data from "./definition";
           
           import styleDef from "./styleDefinition";
               
-          export default class cfCpqConfigureCartItem extends FlexCardMixin(LightningElement){
+          export default class cfCPQAttributeConfigFields_filters_3_Vlocity extends FlexCardMixin(OmniscriptBaseMixin(LightningElement)){
               @api debug;
               @api recordId;
               @api objectApiName;
-              
+              @track _omniSupportKey = 'cfCPQAttributeConfigFields_filters_3_Vlocity';
+                  @api get omniSupportKey() {
+                    return this._omniSupportKey;
+                  }
+                  set omniSupportKey(parentRecordKey) {
+                    this._omniSupportKey = this._omniSupportKey  + '_' + parentRecordKey;
+                  }
               @track record;
-              @track _sessionApiVars = {};
+              
 
               _regexPattern = /\{([a-zA-Z.0-9_]+)\}/g; //for {} fields by default
-              @track Label={Quantity2:"Quantity",
-      CPQDelete:"Delete",
-      Action:"Action"
-      };
+              
               pubsubEvent = [];
               customEvent = [];
               
@@ -32,15 +35,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
                 data.Session = {} //reinitialize on reload
                 
                 
-                this.customLabels = this.Label;
-                      
-                        fetchCustomLabels(Object.keys(this.Label)).then(labels => {
-                          this.Label = labels;
-                          let card = {...this.card};
-                          card.Label = labels;
-                          this.card = card;
-                          this.customLabels = this.Label;
-                      });
+                
                 this.setDefinition(data);
                 
                 
@@ -48,7 +43,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               
               disconnectedCallback(){
                 super.disconnectedCallback();
-                    
+                    this.omniSaveState(this.records,this.omniSupportKey,true);
                     
 
                   this.unregisterEvents();
