@@ -3,7 +3,6 @@
  * Criado em: 05/11/2021
 */
 @isTest
-
 public class CustomFunctionServiceTest {
 	@isTest
     public static void validateEmailFormat(){
