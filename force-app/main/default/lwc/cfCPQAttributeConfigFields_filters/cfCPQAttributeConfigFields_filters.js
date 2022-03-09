@@ -24,9 +24,9 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               
 
               _regexPattern = /\{([a-zA-Z.0-9_]+)\}/g; //for {} fields by default
-              @track Label={CPQBetween:"Between",
-      CPQTo:"To",
-      CPQFrom:"From"
+              @track Label={CPQFrom:"De",
+      CPQTo:"Até",
+      CPQBetween:"Entre"
       };
               pubsubEvent = [];
               customEvent = [];
@@ -58,6 +58,10 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
                     
 
                   this.unregisterEvents();
+              }
+
+              executeActionWithKeyboard(event) {
+                event.keyCode != 13  || this.executeAction(event);
               }
                   
               executeAction(event) {

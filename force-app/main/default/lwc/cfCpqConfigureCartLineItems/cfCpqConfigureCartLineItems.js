@@ -18,9 +18,9 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               @track _sessionApiVars = {};
 
               _regexPattern = /\{([a-zA-Z.0-9_]+)\}/g; //for {} fields by default
-              @track Label={Quantity2:"Quantity",
-      CPQDelete:"Delete",
-      Action:"Action"
+              @track Label={Quantity2:"Quantidade",
+      CPQDelete:"Deletar",
+      Action:"Ação"
       };
               pubsubEvent = [];
               customEvent = [];
@@ -52,6 +52,10 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
                     
 
                   this.unregisterEvents();
+              }
+
+              executeActionWithKeyboard(event) {
+                event.keyCode != 13  || this.executeAction(event);
               }
                   
               executeAction(event) {
