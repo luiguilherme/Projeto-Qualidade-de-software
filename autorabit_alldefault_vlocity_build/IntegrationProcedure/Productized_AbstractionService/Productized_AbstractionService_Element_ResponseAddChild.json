@@ -1,0 +1,53 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "AbstractionService",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/Productized/AbstractionService/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__ParentElementId__c": {
+        "%vlocity_namespace%__OmniScriptId__c": {
+            "Name": "AbstractionService",
+            "VlocityDataPackType": "VlocityMatchingKeyObject",
+            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/Productized/AbstractionService/Procedure",
+            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+        },
+        "Name": "AddProductBlock",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Productized/AbstractionService/Procedure/AddProductBlock",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
+    },
+    "%vlocity_namespace%__ParentElementName__c": "AddProductBlock",
+    "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
+    "%vlocity_namespace%__PropertySet__c": {
+        "additionalOutput": {
+            "ItemId": "%AddProductChild:records|1:Id:value%",
+            "SObject": "%CacheProcessProduct:ProcessProduct:SObject%",
+            "ServiceError:ErrorCode": "=IF(%AddProductChild:messages|1:code%== \"150\",\"00000\",\"99999\")",
+            "ServiceError:ErrorMessage": "=%AddProductChild:messages|1:message%"
+        },
+        "disOnTplt": false,
+        "executionConditionalFormula": "(%CacheProcessProduct:ProcessProduct:targetProduct:TargetEntityContext% != \"Root\") AND (RunOption == null OR RunOption == 5 OR RunOption == 6 OR %AddProductChild:messages|1:code% != \"150\")",
+        "label": "ResponseAction1",
+        "responseDefaultData": {
+        },
+        "responseFormat": "JSON",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "returnFullDataJSON": false,
+        "returnOnlyAdditionalOutput": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "AddProductChild:messages|1",
+        "show": null,
+        "useFormulas": true,
+        "vlcResponseHeaders": {
+        }
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Response Action",
+    "Name": "ResponseAddChild",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Productized/AbstractionService/Procedure/ResponseAddChild"
+}

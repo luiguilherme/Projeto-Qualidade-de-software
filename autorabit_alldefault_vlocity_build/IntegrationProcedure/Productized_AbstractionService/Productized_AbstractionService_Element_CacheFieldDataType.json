@@ -1,0 +1,33 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "AbstractionService",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/Productized/AbstractionService/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "cacheBlockOutput": {
+            "SObject": "%GetFieldDataType:SObject%",
+            "mapDataTypeByFieldName": "%GetFieldDataType:mapDataTypeByFieldName%"
+        },
+        "cacheKeys": {
+            "ObjectId": "%ObjectId%",
+            "sObjectName": "=IF(ISBLANK(%SObject%),\"OrderItem\",%SObject%)"
+        },
+        "cacheType": "Org Cache",
+        "disOnTplt": false,
+        "executionConditionalFormula": "IF(%RunOption% == 9 OR %RunOption% == 10 OR %RunOption% == 12 OR %Action% ==\"SetFieldTech\" OR %Action% ==\"SetAttributeFieldTech\", \n    IF(ISBLANK(%getFieldDataType%),true,\n        IF(%getFieldDataType% ==\"auto\", true, false)\n    ),false\n) OR Operation ==\"CacheFieldDataType\"",
+        "ignoreCacheConditionalFormula": "IF(%IgnoreCacheFieldDataType% !=null AND %IgnoreCacheFieldDataType% !='', %IgnoreCacheFieldDataType%, false)",
+        "label": "CacheBlock6",
+        "refreshCacheConditionalFormula": "IF(%RefreshCacheFieldDataType% !=null AND %RefreshCacheFieldDataType% !='', %RefreshCacheFieldDataType%, false)",
+        "show": null,
+        "ttlMinutes": 2880
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Cache Block",
+    "Name": "CacheFieldDataType",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Productized/AbstractionService/Procedure/CacheFieldDataType"
+}

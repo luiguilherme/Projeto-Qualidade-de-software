@@ -9,6 +9,13 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
+            "aplicacaoErro": "%aplicacaoErro%",
+            "cdErro": "%cdErro%",
+            "dsErro": "%dsErro%",
+            "iccid": "%iccid%",
+            "idSolicitacao": "%idSolicitacao%",
+            "msisdn": "%msisdn%",
+            "tipoOperacao": "%tipoOperacao%"
         },
         "additionalOutput": {
         },
@@ -20,7 +27,7 @@
         "failureResponse": {
         },
         "label": "HTTPAction1",
-        "namedCredential": "EnvVIvo",
+        "namedCredential": "APITelefonica",
         "postActionLogging": "",
         "preActionLogging": "%endpoint%",
         "responseJSONNode": "",
@@ -29,6 +36,7 @@
         "restOptions": {
             "clientCertificateName": "",
             "headers": {
+                "Content-Type": "application/json; charset=utf-8"
             },
             "isCompressed": false,
             "params": {
@@ -37,13 +45,13 @@
             "timeout": 0,
             "xmlEscapeResponse": false
         },
-        "restPath": "/Service/ServiceOrderMgmt/RemoteConfigurationCallback/Rest/v1/callbackHabilitacaoRemota",
+        "restPath": "/remoteConfigurationCallback/v1/callbackHabilitacaoRemota",
         "retryCount": 0,
         "returnOnlyAdditionalOutput": false,
         "returnOnlyFailureResponse": false,
         "sendJSONNode": "",
-        "sendJSONPath": "DRTCallbackStatusHRSRequest",
-        "sendOnlyAdditionalInput": false,
+        "sendJSONPath": "",
+        "sendOnlyAdditionalInput": true,
         "show": null,
         "type": "Integration",
         "useFormulas": true

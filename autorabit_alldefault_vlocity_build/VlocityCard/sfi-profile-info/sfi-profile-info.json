@@ -19,7 +19,7 @@
     "sfiVersion": "234.0",
     "states": [
         {
-            "collapse": false,
+            "collapse": true,
             "conditions": {
                 "group": [
                     {
@@ -46,51 +46,54 @@
             "name": "Active",
             "smartAction": {
             }
-        }
-    ],
-    "title": "Profile Information",
-    "xmlJson": [
-        {
-            "@attributes": {
-                "targets": "lightning__AppPage"
-            },
-            "property": [
-                {
-                    "@attributes": {
-                        "name": "debug",
-                        "type": "Boolean"
-                    }
-                },
-                {
-                    "@attributes": {
-                        "name": "recordId",
-                        "type": "String"
-                    }
-                }
-            ]
         },
         {
-            "@attributes": {
-                "targets": "lightning__RecordPage"
-            },
-            "property": [
-                {
-                    "@attributes": {
-                        "name": "debug",
-                        "type": "Boolean"
+            "collapse": false,
+            "conditions": {
+                "group": [
+                    {
+                        "field": "$scope.data.status",
+                        "operator": "===",
+                        "type": "system",
+                        "value": "'active'"
+                    },
+                    {
+                        "field": "['AccountStatus']",
+                        "logicalOperator": "&&",
+                        "operator": "==",
+                        "type": "custom",
+                        "value": "Pending"
                     }
+                ]
+            },
+            "definedActions": {
+                "actions": [
+                ]
+            },
+            "disableAddCondition": false,
+            "fields": [
+                {
+                    "collapse": true,
+                    "displayLabel": "<<Custom Field>>",
+                    "editing": false,
+                    "fieldType": "custom",
+                    "label": "",
+                    "name": "['ShowStatus']",
+                    "type": "string"
                 }
-            ]
+            ],
+            "filter": "$scope.data.status === 'active' && $scope.obj['AccountStatus'] == 'Pending'",
+            "isSmartAction": false,
+            "lwc": {
+                "DeveloperName": "profileCardState",
+                "Id": "0Rb5w000000c6ifCAA",
+                "MasterLabel": "profileCardState",
+                "name": "profileCardState"
+            },
+            "name": "Pending",
+            "smartAction": {
+            }
         }
     ],
-    "xmlObject": {
-        "targetConfigs": "PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgogICAgICAgICAgICAgICAgICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgICAgICAgICAgICAgICAgICA8cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPgogICAgICAgICAgICAgICAgICA8L3RhcmdldENvbmZpZz4KICAgICAgICAgICAgICAgICAgPHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPgogICAgICAgICAgICAgICAgICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgICAgICAgICAgICAgIDwvdGFyZ2V0Q29uZmlnPg==",
-        "targets": {
-            "target": [
-                "lightning__RecordPage",
-                "lightning__AppPage",
-                "lightning__HomePage"
-            ]
-        }
-    }
+    "title": "Profile Information"
 }

@@ -1,0 +1,72 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "AbstractionService",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/Productized/AbstractionService/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__ParentElementId__c": {
+        "%vlocity_namespace%__OmniScriptId__c": {
+            "Name": "AbstractionService",
+            "VlocityDataPackType": "VlocityMatchingKeyObject",
+            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/Productized/AbstractionService/Procedure",
+            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+        },
+        "Name": "ProcessForConfig",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Productized/AbstractionService/Procedure/ProcessForConfig",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
+    },
+    "%vlocity_namespace%__ParentElementName__c": "ProcessForConfig",
+    "%vlocity_namespace%__ParentElementType__c": "Cache Block",
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "additionalChainableResponse": {
+        },
+        "additionalInput": {
+            "ContextId": "=IF(%RunOption%==8,     (     IF(ISBLANK(%AddProductChild:records|1:Id:value%),%AddProductRoot:records|1:Id:value%,%AddProductChild:records|1:Id:value%)     ), %ContextId% )",
+            "ListAttributes": "=FILTER(LIST(%Match:MatchData:ListAttributes%),\"TargetType == 'Field' OR TargetType == 'Attribute'\")",
+            "ObjectId": "%ObjectId%",
+            "OperationType": "=IF(%Action% == \"SetFieldTech\" OR %RunOption% ==9 OR %Action% == \"SetAttributeTech\" OR %RunOption% ==11 OR %RunOption% ==12 OR %RunOption% == \"SetAttributeFieldTech\" OR %RunOption% ==10,\"SetValueTech\",'')",
+            "OrderID": "%OrderId%",
+            "SObject": "%SObject%",
+            "depth": "%depth%",
+            "excludeListGroupItemId": "%excludeListGroupItemId%",
+            "fieldOnly": "=IF(%Action% == \"SetFieldTech\" OR %RunOption% == 9, true, false)",
+            "ignoreProductInMetadata": "%ignoreProductInMetadata%",
+            "listGroupItemId": "%listGroupItemId%",
+            "useAnyMetadata": "%useAnyMetadata%"
+        },
+        "additionalOutput": {
+        },
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "executionConditionalFormula": "",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "failureResponse": {
+            "ServiceError": "%ProcessAttributes:ServiceError%"
+        },
+        "label": "RemoteAction11",
+        "remoteClass": "%vlocity_namespace%.B2CCmexProcessProductsAndAttributes",
+        "remoteMethod": "preProcessAttributes",
+        "remoteOptions": {
+        },
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "returnOnlyAdditionalOutput": false,
+        "returnOnlyFailureResponse": true,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "sendOnlyAdditionalInput": true,
+        "show": null,
+        "useFormulas": true
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Remote Action",
+    "Name": "ProcessAttributes",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Productized/AbstractionService/Procedure/ProcessAttributes"
+}

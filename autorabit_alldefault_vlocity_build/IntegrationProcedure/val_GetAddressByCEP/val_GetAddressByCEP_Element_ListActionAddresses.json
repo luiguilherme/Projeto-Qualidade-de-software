@@ -26,13 +26,13 @@
         "failureConditionalFormula": "",
         "failureResponse": {
         },
-        "filterListFormula": "=IF(%SVRequiredFields:hasRequiredFieldsError% == true,\"\",IF(%SearchType% == \"CEP\",CEP == %CEP%,TOUPPERCASE(Cidade) == TOUPPERCASE(%City%) && TOUPPERCASE(Estado) == TOUPPERCASE(%State%) && STRINGINDEXOF(TOUPPERCASE(Logradouro),TOUPPERCASE(%Street%)) != -1))",
+        "filterListFormula": "",
         "hasPrimary": false,
         "label": "ListAction1",
         "mergeFields": [
         ],
         "mergeListsOrder": [
-            "SVFullAddressByStreet:Addresses"
+            "Addresses"
         ],
         "primaryListKey": "",
         "responseJSONNode": "",
@@ -47,6 +47,8 @@
         ],
         "sortInDescendingOrder": false,
         "updateFieldValue": {
+            "Numeracao": "=CONCAT(%streetNrSuffix%,\" a \",%streetNrLastSuffix%)",
+            "TipoLogradouro": "=IF(%TipoLogradouro% >= \" \",%TipoLogradouro%, \".\")"
         },
         "useFormulas": true
     },
