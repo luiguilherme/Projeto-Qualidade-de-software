@@ -1,0 +1,44 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "VPL-DeliveryOptions",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/vpl/DeliveryOptions/English",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "HTMLTemplateId": "",
+        "controlWidth": 12,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "12-hourclock": "=MOMENT(%DeliveryTime%, [\"HH:mm\"]).format(\"h:mm A\")",
+            "DeliveryOption": {
+                "SameCurrentAddress": true
+            },
+            "FormattedPremiumDeliveryDate": "=CONCATENATE(IF(HOUR(MOMENT())<%DeliveryTime%, IF(OR(MOMENT().day()==5,MOMENT().day()==6), MOMENT().weekday(8).format('YYYY-MM-DD'), MOMENT().add(%PreAddDays1%,'days').format('YYYY-MM-DD')), IF(OR(MOMENT().day()==5,MOMENT().day()==6), MOMENT().weekday(8).add(%PreAddDays1%,'days').format('YYYY-MM-DD'), MOMENT().add(%PreAddDays2%,'days').format('YYYY-MM-DD')))+\" \"+'00:00:00')",
+            "FormattedStandardDeliveryDate": "=CONCATENATE(IF(HOUR(MOMENT())<%DeliveryTime%, IF(OR(MOMENT().day()==5,MOMENT().day()==6), MOMENT().weekday(8).format('YYYY-MM-DD'), MOMENT().add(%StdAddDays1%,'days').format('YYYY-MM-DD')), IF(OR(MOMENT().day()==5,MOMENT().day()==6), MOMENT().weekday(8).add(%StdAddDays1%,'days').format('YYYY-MM-DD'), MOMENT().add(%StdAddDays2%,'days').format('YYYY-MM-DD')))+\" \"+'00:00:00')",
+            "PremiumDeliveryDate": "=IF(HOUR(MOMENT())<%DeliveryTime%, IF(OR(MOMENT().day()==5,MOMENT().day()==6), MOMENT().weekday(8).format('DD-MM-YYYY'), MOMENT().add(%PreAddDays1%,'days').format('DD-MM-YYYY')), IF(OR(MOMENT().day()==5,MOMENT().day()==6), MOMENT().weekday(8).add(%PreAddDays1%,'days').format('DD-MM-YYYY'), MOMENT().add(%PreAddDays2%,'days').format('DD-MM-YYYY')))",
+            "ShippingOptionLabel": "Choose a shipping option",
+            "StandardDeliveryDate": "=IF(HOUR(MOMENT())<%DeliveryTime%, IF(OR(MOMENT().day()==5,MOMENT().day()==6), MOMENT().weekday(8).format('DD-MM-YYYY'), MOMENT().add(%StdAddDays1%,'days').format('DD-MM-YYYY')), IF(OR(MOMENT().day()==5,MOMENT().day()==6), MOMENT().weekday(8).add(%StdAddDays1%,'days').format('DD-MM-YYYY'), MOMENT().add(%StdAddDays2%,'days').format('DD-MM-YYYY')))",
+            "label": "DefaultshippingOption"
+        },
+        "label": "SetValues2",
+        "message": {
+        },
+        "pubsub": false,
+        "show": null,
+        "showPersistentComponent": [
+            false,
+            false
+        ],
+        "ssm": false,
+        "validationRequired": "Step",
+        "wpm": false
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": true,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "AddressMapping",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/vpl/DeliveryOptions/English/AddressMapping"
+}

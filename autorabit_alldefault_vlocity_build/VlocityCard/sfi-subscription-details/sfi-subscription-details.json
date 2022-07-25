@@ -1,0 +1,187 @@
+{
+    "GlobalKey__c": "sfi-subscription-details/Salesforce/1/1623063761759",
+    "dataSource": {
+        "contextVariables": [
+            {
+                "name": "params.id",
+                "val": "a1c760000008d83AAA"
+            }
+        ],
+        "type": "IntegrationProcedures",
+        "value": {
+            "bundle": "VPL-GetsubscriptionDetailsFromInteractionId",
+            "inputMap": {
+                "PerformAction": "getServiceDetails",
+                "contextName": "AgentConsole",
+                "interactionId": "{{params.id}}"
+            },
+            "ipMethod": "sfi_GetAssetAndActionDetailsAgentConsole",
+            "optionsMap": {
+                "vlcClass": "%vlocity_namespace%.IntegrationProcedureService"
+            },
+            "resultVar": "ServiceDetails",
+            "vlocityAsync": false
+        }
+    },
+    "enableLwc": true,
+    "filter": {
+    },
+    "sessionVars": [
+        {
+            "name": "SimSuspendedText",
+            "val": "SIM Suspenso"
+        },
+        {
+            "name": "SimSuspendedColor",
+            "val": "#FF0000"
+        }
+    ],
+    "sfiVersion": "234.0",
+    "states": [
+        {
+            "actionCtxId": "",
+            "collapse": false,
+            "conditions": {
+                "group": [
+                    {
+                        "field": "$scope.data.status",
+                        "operator": "===",
+                        "type": "system",
+                        "value": "active"
+                    },
+                    {
+                        "field": "['AssetId']",
+                        "logicalOperator": "&&",
+                        "operator": "!=",
+                        "type": "custom",
+                        "value": ""
+                    }
+                ]
+            },
+            "definedActions": {
+                "actions": [
+                ]
+            },
+            "disableAddCondition": true,
+            "editMode": false,
+            "fields": [
+                {
+                    "collapse": true,
+                    "displayLabel": "['AssetServiceIdentifier']",
+                    "editing": false,
+                    "fieldType": "standard",
+                    "group": "Custom Properties",
+                    "label": "Número da Linha",
+                    "name": "['AssetServiceIdentifier']",
+                    "type": "phone"
+                },
+                {
+                    "collapse": true,
+                    "displayLabel": "['ServiceName']",
+                    "editing": false,
+                    "fieldType": "standard",
+                    "group": "Custom Properties",
+                    "label": "Plano",
+                    "name": "['ServiceName']",
+                    "type": "string"
+                },
+                {
+                    "collapse": true,
+                    "displayLabel": "['Status']",
+                    "fieldType": "standard",
+                    "group": "Custom Properties",
+                    "label": "Status",
+                    "name": "['Status']",
+                    "type": "string"
+                }
+            ],
+            "filter": "$scope.data.status === 'active'",
+            "flyout": {
+                "lwc": {
+                    "DeveloperName": "b2cCmexConsoleActions_ext",
+                    "Id": "0Rb780000004HimCAE",
+                    "MasterLabel": "b2cCmexConsoleActions_ext",
+                    "name": "b2cCmexConsoleActions_ext"
+                }
+            },
+            "flyoutAttributes": [
+                {
+                    "name": "actionsdata",
+                    "val": "['Actions']"
+                },
+                {
+                    "name": "subscriptionid",
+                    "val": "['SubscriptionId']"
+                },
+                {
+                    "name": "assetid",
+                    "val": "['AssetId']"
+                },
+                {
+                    "name": "contextname",
+                    "val": "['contextName']"
+                },
+                {
+                    "name": "interaction-id",
+                    "val": "['customerInteractionId']"
+                },
+                {
+                    "name": "productsubtype",
+                    "val": "['ProductSubtype']"
+                }
+            ],
+            "isSmartAction": false,
+            "lwc": {
+                "DeveloperName": "b2cCmexAccountSubscriptions_ext",
+                "Id": "0Rb780000004Hi3CAE",
+                "MasterLabel": "b2cCmexAccountSubscriptions_ext",
+                "name": "b2cCmexAccountSubscriptions_ext"
+            },
+            "name": "Active",
+            "sObjectType": "",
+            "smartAction": {
+            }
+        },
+        {
+            "collapse": false,
+            "conditions": {
+                "group": [
+                    {
+                        "field": "$scope.data.status",
+                        "operator": "===",
+                        "type": "system",
+                        "value": "'active'"
+                    }
+                ]
+            },
+            "definedActions": {
+                "actions": [
+                ]
+            },
+            "fields": [
+                {
+                    "collapse": true,
+                    "displayLabel": "['MessageInteractionWithoutAsset']",
+                    "editing": false,
+                    "fieldType": "standard",
+                    "group": "Custom Properties",
+                    "label": "",
+                    "name": "['MessageInteractionWithoutAsset']",
+                    "type": "string"
+                }
+            ],
+            "isSmartAction": false,
+            "lwc": {
+                "DeveloperName": "b2cCmexAccountSubscriptions_ext",
+                "Id": "0Rb760000004KA9CAM",
+                "MasterLabel": "b2cCmexAccountSubscriptions_ext",
+                "name": "b2cCmexAccountSubscriptions_ext"
+            },
+            "name": "NoAsset",
+            "sObjectType": "",
+            "smartAction": {
+            }
+        }
+    ],
+    "title": "Detalhes da Assinatura"
+}

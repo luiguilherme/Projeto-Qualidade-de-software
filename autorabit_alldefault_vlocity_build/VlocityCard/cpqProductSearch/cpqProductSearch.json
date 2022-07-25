@@ -8,7 +8,7 @@
         },
         "type": "Custom",
         "value": {
-            "body": "{\"options\": [{\"name\":\"\"}], \"value\": \"\", \"select\": false, \"catalogId\":-1, \"multiselectoptions\": [{\"name\":\"\"}], \"multiProdValue\": \"\", \"selectedProductsForPills\": [] }",
+            "body": "{\"options\": [{\"name\":\"\"}], \"value\": \"\", \"select\": false, \"cartSelect\": false, \"catalogId\":-1,\"cartCatalogId\":-1, \"multiselectoptions\": [{\"name\":\"\"}], \"multiProdValue\": \"\", \"selectedProductsForPills\": [], \"resultQuery\":\"\",\"phaseSelect\":\"\"}",
             "dsDelay": "",
             "resultVar": ""
         }
@@ -41,23 +41,48 @@
             },
             "actionList": [
                 {
+                    "actionIndex": 0,
                     "card": "{card}",
                     "draggable": true,
                     "isOpen": false,
-                    "key": "1640109774725-6jckm9ei7",
+                    "key": "1636363214847-d9b1cqjfh",
                     "label": "Action",
                     "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "Parent.phase",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-0",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "browse"
+                                },
+                                {
+                                    "field": "Parent.flow",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-7",
+                                    "logicalOperator": "||",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "cop"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
                         "eventName": "cpqutils_{recordId}",
                         "extraParams": {
                             "cartId": "{recordId}",
                             "catalogId": "{catalogId}",
                             "ipMethod": "CPQ_GetCartsProducts",
+                            "phase": "{Parent.phase}",
                             "select": "{select}",
                             "utilMethod": "productSearch",
                             "value": "{action.value}"
                         },
                         "hasExtraParams": true,
-                        "id": "flex-action-1626780135224",
+                        "id": "flex-action-1639157447070",
                         "message": "cpq_ui_event",
                         "subType": "PubSub",
                         "type": "Event"
@@ -67,7 +92,7 @@
                     "card": "{card}",
                     "draggable": true,
                     "isOpen": false,
-                    "key": "1640109774725-4o6izya4n",
+                    "key": "1636363214847-vehnckkpq",
                     "label": "Action",
                     "stateAction": {
                         "eventName": "setValues",
@@ -93,7 +118,8 @@
             "eventname": "basetypeaheadinputchange",
             "eventtype": "pubsub",
             "key": "event-0",
-            "recordIndex": "2"
+            "recordIndex": "0",
+            "showSpinner": "false"
         },
         {
             "actionData": {
@@ -120,10 +146,11 @@
             },
             "actionList": [
                 {
+                    "actionIndex": 0,
                     "card": "{card}",
-                    "draggable": true,
-                    "isOpen": false,
-                    "key": "1640109774725-acpdg5cu3",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1636363214847-qnbdwnlji",
                     "label": "Action",
                     "stateAction": {
                         "actionConditions": {
@@ -144,6 +171,29 @@
                                     "operator": "==",
                                     "type": "custom",
                                     "value": "false"
+                                },
+                                {
+                                    "group": [
+                                        {
+                                            "field": "Parent.phase",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-5",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "browse"
+                                        },
+                                        {
+                                            "field": "Parent.flow",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-37",
+                                            "logicalOperator": "||",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "cop"
+                                        }
+                                    ],
+                                    "id": "state-new-group-6",
+                                    "logicalOperator": "&&"
                                 }
                             ],
                             "id": "state-condition-object",
@@ -156,15 +206,16 @@
                                 "fieldValue": "{action.value}"
                             }
                         ],
-                        "id": "flex-action-1640108507722",
+                        "id": "flex-action-1638781279234",
                         "type": "cardAction"
                     }
                 },
                 {
+                    "actionIndex": 1,
                     "card": "{card}",
-                    "draggable": true,
-                    "isOpen": false,
-                    "key": "1640109774725-rqbu7yrsn",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1636363214847-x4wpm68x1",
                     "label": "Action",
                     "stateAction": {
                         "actionConditions": {
@@ -176,6 +227,29 @@
                                     "operator": "<",
                                     "type": "custom",
                                     "value": "3"
+                                },
+                                {
+                                    "group": [
+                                        {
+                                            "field": "Parent.phase",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-82",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "browse"
+                                        },
+                                        {
+                                            "field": "parent.flow",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-107",
+                                            "logicalOperator": "||",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "cop"
+                                        }
+                                    ],
+                                    "id": "state-new-group-83",
+                                    "logicalOperator": "&&"
                                 }
                             ],
                             "id": "state-condition-object",
@@ -188,8 +262,115 @@
                                 "fieldValue": "[]"
                             }
                         ],
-                        "id": "flex-action-1639753389527",
+                        "id": "flex-action-1638781258686",
                         "type": "cardAction"
+                    }
+                },
+                {
+                    "actionIndex": 2,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1638780796095-cfg144mfw",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "Session.cartValue.length",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-144",
+                                    "operator": ">=",
+                                    "type": "custom",
+                                    "value": "3"
+                                },
+                                {
+                                    "field": "Session.cartSelect",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-151",
+                                    "logicalOperator": "&&",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "false"
+                                },
+                                {
+                                    "field": "Parent.phase",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-198",
+                                    "logicalOperator": "&&",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "cart"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.cartOptions",
+                                "fieldValue": "{action.value}"
+                            }
+                        ],
+                        "id": "flex-action-1639150157695",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 3,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1638780919655-vfu3e3cs4",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "Session.cartValue.length",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-211",
+                                    "operator": "<",
+                                    "type": "custom",
+                                    "value": "3"
+                                },
+                                {
+                                    "field": "Parent.phase",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-255",
+                                    "logicalOperator": "&&",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "cart"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.cartOptions",
+                                "fieldValue": "[]"
+                            }
+                        ],
+                        "id": "flex-action-1638781300097",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
                     }
                 }
             ],
@@ -200,7 +381,8 @@
             "eventname": "cpqresponse",
             "eventtype": "pubsub",
             "key": "event-1",
-            "recordIndex": "2"
+            "recordIndex": "0",
+            "showSpinner": "false"
         },
         {
             "actionData": {
@@ -227,12 +409,36 @@
             },
             "actionList": [
                 {
+                    "actionIndex": 0,
                     "card": "{card}",
-                    "draggable": true,
-                    "isOpen": false,
-                    "key": "1640109774725-hnlb91nnm",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1636363214847-m15l4vrwn",
                     "label": "Action",
                     "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "Parent.phase",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-0",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "browse"
+                                },
+                                {
+                                    "field": "Parent.flow",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-7",
+                                    "logicalOperator": "||",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "cop"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
                         "eventName": "cpqutils_{recordId}",
                         "extraParams": {
                             "catalogId": "{catalogId}",
@@ -243,7 +449,7 @@
                             "value": "{action.event.detail.name}"
                         },
                         "hasExtraParams": true,
-                        "id": "flex-action-1626806029694",
+                        "id": "flex-action-1638783140496",
                         "message": "cpq_ui_event",
                         "subType": "PubSub",
                         "type": "Event"
@@ -253,7 +459,7 @@
                     "card": "{card}",
                     "draggable": true,
                     "isOpen": false,
-                    "key": "1640109774725-2nl0g7tp4",
+                    "key": "1636363214847-kcdepkxgi",
                     "label": "Action",
                     "stateAction": {
                         "eventName": "setValues",
@@ -267,7 +473,7 @@
                                 "fieldValue": "true"
                             }
                         ],
-                        "id": "flex-action-1626849788364",
+                        "id": "flex-action-1636362385984",
                         "type": "cardAction"
                     }
                 }
@@ -279,7 +485,8 @@
             "eventname": "baseinputvaluechange",
             "eventtype": "pubsub",
             "key": "event-2",
-            "recordIndex": "2"
+            "recordIndex": "0",
+            "showSpinner": "false"
         },
         {
             "actionData": {
@@ -306,12 +513,27 @@
             },
             "actionList": [
                 {
+                    "actionIndex": 0,
                     "card": "{card}",
                     "draggable": true,
-                    "isOpen": false,
-                    "key": "1640109774725-y7ho86ikr",
+                    "isOpen": true,
+                    "key": "1636363214847-kwzis4o1j",
                     "label": "Action",
                     "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "Parent.phase",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-218",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "browse"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
                         "eventName": "setValues",
                         "fieldValues": [
                             {
@@ -327,8 +549,56 @@
                                 "fieldValue": ""
                             }
                         ],
-                        "id": "flex-action-1626804963203",
+                        "id": "flex-action-1638781225009",
                         "type": "cardAction"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1638781347677-kxo2qp1j6",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "Parent.phase",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-265",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "cart"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "cartSelect",
+                                "fieldValue": "false"
+                            },
+                            {
+                                "fieldName": "Session.value",
+                                "fieldValue": ""
+                            },
+                            {
+                                "fieldName": "Session.options",
+                                "fieldValue": ""
+                            }
+                        ],
+                        "id": "flex-action-1638781374503",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
                     }
                 }
             ],
@@ -339,7 +609,8 @@
             "eventname": "apply_filter",
             "eventtype": "pubsub",
             "key": "event-3",
-            "recordIndex": "0"
+            "recordIndex": "0",
+            "showSpinner": "false"
         },
         {
             "actionList": [
@@ -347,7 +618,7 @@
                     "card": "{card}",
                     "draggable": true,
                     "isOpen": false,
-                    "key": "1640109774725-y3z8zj57c",
+                    "key": "1636363214847-wncm0znju",
                     "label": "Action",
                     "stateAction": {
                         "eventName": "cpqutils_{recordId}",
@@ -373,7 +644,8 @@
             "eventname": "basetypeaheadinputchange",
             "eventtype": "pubsub",
             "key": "event-4",
-            "recordIndex": "0"
+            "recordIndex": "0",
+            "showSpinner": "false"
         },
         {
             "actionList": [
@@ -381,7 +653,7 @@
                     "card": "{card}",
                     "draggable": true,
                     "isOpen": false,
-                    "key": "1640109774725-mzrwpjd7r",
+                    "key": "1636363214847-x8add0f84",
                     "label": "productlistDataSet",
                     "stateAction": {
                         "eventName": "setValues",
@@ -407,7 +679,8 @@
             "eventname": "productlist",
             "eventtype": "pubsub",
             "key": "event-5",
-            "recordIndex": "0"
+            "recordIndex": "0",
+            "showSpinner": "false"
         },
         {
             "actionList": [
@@ -415,7 +688,7 @@
                     "card": "{card}",
                     "draggable": true,
                     "isOpen": false,
-                    "key": "1640109774725-hqfh8xe2m",
+                    "key": "1636363214847-hr3up2m5j",
                     "label": "Action",
                     "stateAction": {
                         "eventName": "cpqutils_{recordId}",
@@ -439,7 +712,8 @@
             "eventname": "baseinputvaluechange",
             "eventtype": "pubsub",
             "key": "event-6",
-            "recordIndex": "0"
+            "recordIndex": "0",
+            "showSpinner": "false"
         },
         {
             "actionList": [
@@ -447,7 +721,7 @@
                     "card": "{card}",
                     "draggable": true,
                     "isOpen": false,
-                    "key": "1640109774725-z1y9uyh4q",
+                    "key": "1636363214847-lcteelnks",
                     "label": "Action",
                     "stateAction": {
                         "eventName": "setValues",
@@ -473,29 +747,44 @@
             "eventname": "selectedproductsevent",
             "eventtype": "pubsub",
             "key": "event-7",
-            "recordIndex": "0"
+            "recordIndex": "0",
+            "showSpinner": "false"
         },
         {
             "actionList": [
                 {
+                    "actionIndex": 0,
                     "card": "{card}",
                     "draggable": true,
-                    "isOpen": false,
-                    "key": "1640109774725-ka8ltuz0c",
+                    "isOpen": true,
+                    "key": "1636363214847-u2h7xpixj",
                     "label": "Action",
                     "stateAction": {
                         "actionConditions": {
                             "group": [
+                                {
+                                    "field": "Parent.phase",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-272",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "browse"
+                                },
+                                {
+                                    "field": "Parent.flow",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-289",
+                                    "logicalOperator": "||",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "cop"
+                                }
                             ],
                             "id": "state-condition-object",
                             "isParent": true
                         },
                         "eventName": "setValues",
                         "fieldValues": [
-                            {
-                                "fieldName": "select",
-                                "fieldValue": "true"
-                            },
                             {
                                 "fieldName": "catalogId",
                                 "fieldValue": "{action.Id}"
@@ -505,12 +794,86 @@
                                 "fieldValue": "[]"
                             },
                             {
-                                "fieldName": "Session.select",
-                                "fieldValue": "true"
+                                "fieldName": "resultQuery",
+                                "fieldValue": "{action.query}"
+                            },
+                            {
+                                "fieldName": "phaseSelect",
+                                "fieldValue": "{action.phase}"
                             }
                         ],
-                        "id": "flex-action-1626849825369",
+                        "id": "flex-action-1639153801584",
                         "type": "cardAction"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1638781550549-p50kl34g0",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "Parent.phase",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-302",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "cart"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "cartCatalogId",
+                                "fieldValue": "{action.Id}"
+                            },
+                            {
+                                "fieldName": "Session.cartOptions",
+                                "fieldValue": "[]"
+                            },
+                            {
+                                "fieldName": "resultQuery",
+                                "fieldValue": "{action.query}"
+                            },
+                            {
+                                "fieldName": "phaseSelect",
+                                "fieldValue": "{action.phase}"
+                            }
+                        ],
+                        "id": "flex-action-1639153831309",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 2,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1639152715567-1cvgkhtuz",
+                    "label": "Action",
+                    "stateAction": {
+                        "displayName": "Action",
+                        "eventName": "cpq_{recordId}",
+                        "id": "flex-action-1639152715764",
+                        "message": "resultselect",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
                     }
                 }
             ],
@@ -521,7 +884,8 @@
             "eventname": "result",
             "eventtype": "pubsub",
             "key": "event-8",
-            "recordIndex": "0"
+            "recordIndex": "0",
+            "showSpinner": "false"
         },
         {
             "actionList": [
@@ -529,7 +893,7 @@
                     "card": "{card}",
                     "draggable": true,
                     "isOpen": false,
-                    "key": "1640109774725-dztdnfiqy",
+                    "key": "1636363214847-0w12gzumw",
                     "label": "Action",
                     "stateAction": {
                         "eventName": "setValues",
@@ -559,25 +923,27 @@
             "eventname": "cpq_catalog_item_select_browse",
             "eventtype": "pubsub",
             "key": "event-9",
-            "recordIndex": "0"
+            "recordIndex": "0",
+            "showSpinner": "false"
         },
         {
             "actionList": [
                 {
+                    "actionIndex": 0,
                     "card": "{card}",
-                    "draggable": true,
-                    "isOpen": false,
-                    "key": "1640109774725-pcc18o4ib",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1636363214847-fztfeyfx0",
                     "label": "Action",
                     "stateAction": {
                         "eventName": "setValues",
                         "fieldValues": [
                             {
-                                "fieldName": "select",
+                                "fieldName": "cartSelect",
                                 "fieldValue": "false"
                             },
                             {
-                                "fieldName": "Session.options",
+                                "fieldName": "Session.cartOptions",
                                 "fieldValue": "[]"
                             },
                             {
@@ -585,7 +951,7 @@
                                 "fieldValue": ""
                             }
                         ],
-                        "id": "flex-action-1626845298074",
+                        "id": "flex-action-1638781657322",
                         "type": "cardAction"
                     }
                 }
@@ -597,16 +963,573 @@
             "eventname": "cpq_catalog_item_select_cart",
             "eventtype": "pubsub",
             "key": "event-10",
-            "recordIndex": "0"
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1636363214847-d0w9fkvvh",
+                    "label": "Action",
+                    "stateAction": {
+                        "eventName": "cpqutils_{recordId}",
+                        "extraParams": {
+                            "cartId": "{recordId}",
+                            "ipMethod": "CPQ_getCartsTargetOffers",
+                            "productId": "{Parent.productId}",
+                            "select": "{select}",
+                            "type": "offer",
+                            "utilMethod": "productSearch",
+                            "value": "{action.value}"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1636362293503",
+                        "message": "cpq_ui_event",
+                        "subType": "PubSub",
+                        "type": "Event"
+                    }
+                },
+                {
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1636363214847-z1f90vm0q",
+                    "label": "Action",
+                    "stateAction": {
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.value",
+                                "fieldValue": "{action.value}"
+                            },
+                            {
+                                "fieldName": "Session.select",
+                                "fieldValue": "false"
+                            }
+                        ],
+                        "id": "flex-action-1635842608011",
+                        "subType": "PubSub",
+                        "type": "cardAction"
+                    }
+                }
+            ],
+            "channelname": "offers",
+            "displayLabel": "offers:basetypeaheadinputchange",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "basetypeaheadinputchange",
+            "eventtype": "pubsub",
+            "key": "event-11",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1636363214847-xpqymns5y",
+                    "label": "Action",
+                    "stateAction": {
+                        "eventName": "cpqutils_{recordId}",
+                        "extraParams": {
+                            "cartId": "{recordId}",
+                            "ipMethod": "CPQ_getCartsTargetOffers",
+                            "productId": "{Parent.productId}",
+                            "select": "{select}",
+                            "type": "offerSelect",
+                            "utilMethod": "productSearch",
+                            "value": "{action.value}"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1635881814539",
+                        "message": "cpq_ui_event",
+                        "subType": "PubSub",
+                        "type": "Event"
+                    }
+                },
+                {
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1636363214847-fcf9sh5kq",
+                    "label": "Action",
+                    "stateAction": {
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.value",
+                                "fieldValue": "{action.value}"
+                            },
+                            {
+                                "fieldName": "Session.select",
+                                "fieldValue": "true"
+                            }
+                        ],
+                        "id": "flex-action-1636360919342",
+                        "type": "cardAction"
+                    }
+                }
+            ],
+            "channelname": "offers",
+            "displayLabel": "offers:baseinputvaluechange",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "baseinputvaluechange",
+            "eventtype": "pubsub",
+            "key": "event-12",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1636363225075-oibxe6ll6",
+                    "label": "Action",
+                    "stateAction": {
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "select",
+                                "fieldValue": "true"
+                            }
+                        ],
+                        "id": "flex-action-1636363225201",
+                        "type": "cardAction"
+                    }
+                }
+            ],
+            "channelname": "cpq_{recordId}",
+            "displayLabel": "cpq_{recordId}:offersearchselect",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "offersearchselect",
+            "eventtype": "pubsub",
+            "key": "event-13",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1638780063148-fsjd5uxms",
+                    "label": "Action",
+                    "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "Parent.phase",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-20",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "cart"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "cpqutils_{recordId}",
+                        "extraParams": {
+                            "cartId": "{recordId}",
+                            "catalogId": "{catalogId}",
+                            "ipMethod": "CPQ_GetCartsProducts",
+                            "phase": "{Parent.phase}",
+                            "select": "{cartSelect}",
+                            "utilMethod": "productSearch",
+                            "value": "{action.value}"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1639157506763",
+                        "message": "cpq_ui_event",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1638780233751-kjkw238z8",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.cartValue",
+                                "fieldValue": "{action.value}"
+                            },
+                            {
+                                "fieldName": "Session.cartSelect",
+                                "fieldValue": "false"
+                            }
+                        ],
+                        "id": "flex-action-1638780582288",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "typeCart",
+            "displayLabel": "typeCart:basetypeaheadinputchange",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "basetypeaheadinputchange",
+            "eventtype": "pubsub",
+            "key": "event-14",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1638780983588-br2dx288u",
+                    "label": "Action",
+                    "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "Parent.phase",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-23",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "cart"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "cpqutils_{recordId}",
+                        "extraParams": {
+                            "catalogId": "{cartCatalogId}",
+                            "ipMethod": "CPQ_GetCartsProducts",
+                            "phase": "{Parent.phase}",
+                            "type": "select",
+                            "utilMethod": "productSearch",
+                            "value": "{action.event.detail.name}"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1638783169961",
+                        "message": "cpq_ui_event",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": true,
+                    "key": "1638781137906-2cfxvw6h2",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.cartValue",
+                                "fieldValue": "{action.event.detail.name}"
+                            },
+                            {
+                                "fieldName": "Session.cartSelect",
+                                "fieldValue": "true"
+                            }
+                        ],
+                        "id": "flex-action-1638781183626",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "typeCart",
+            "displayLabel": "typeCart:baseinputvaluechange",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "baseinputvaluechange",
+            "eventtype": "pubsub",
+            "key": "event-15",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1639152951999-uyak9f6y1",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "resultQuery.length",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-19",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "0"
+                                },
+                                {
+                                    "field": "phaseSelect",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-28",
+                                    "logicalOperator": "&&",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "cart"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "cartSelect",
+                                "fieldValue": "false"
+                            }
+                        ],
+                        "id": "flex-action-1639156021330",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1639153033402-bv8v4xhd2",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "resultQuery.length",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-38",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "0"
+                                },
+                                {
+                                    "group": [
+                                        {
+                                            "field": "phaseSelect",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-51",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "browse"
+                                        },
+                                        {
+                                            "field": "phaseSelect",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-76",
+                                            "logicalOperator": "||",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "undefined"
+                                        }
+                                    ],
+                                    "id": "state-new-group-52",
+                                    "logicalOperator": "&&"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "select",
+                                "fieldValue": "false"
+                            }
+                        ],
+                        "id": "flex-action-1639156030648",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 2,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1639153971863-mb3r9lua1",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "phaseSelect",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-53",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "cart"
+                                },
+                                {
+                                    "field": "resultQuery.length",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-60",
+                                    "logicalOperator": "&&",
+                                    "operator": ">",
+                                    "type": "custom",
+                                    "value": "0"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "cartSelect",
+                                "fieldValue": "true"
+                            }
+                        ],
+                        "id": "flex-action-1639154029152",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 3,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1639154067209-h86gm8xly",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "resultQuery.length",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-73",
+                                    "operator": ">",
+                                    "type": "custom",
+                                    "value": "0"
+                                },
+                                {
+                                    "group": [
+                                        {
+                                            "field": "phaseSelect",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-82",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "browse"
+                                        },
+                                        {
+                                            "field": "phaseSelect",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-107",
+                                            "logicalOperator": "||",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "undefined"
+                                        }
+                                    ],
+                                    "id": "state-new-group-83",
+                                    "logicalOperator": "&&"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "select",
+                                "fieldValue": "true"
+                            }
+                        ],
+                        "id": "flex-action-1639154697961",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "cpq_{recordId}",
+            "displayLabel": "cpq_{recordId}:resultselect",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "resultselect",
+            "eventtype": "pubsub",
+            "key": "event-16",
+            "recordIndex": "0",
+            "showSpinner": "false"
         }
     ],
     "globalCSS": false,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfCpqProductSearch_1_CPQ1",
-        "Id": "0Rb5e000002NGeUCAW",
+        "DeveloperName": "cfCpqProductSearch_5_CPQ1",
+        "Id": "0Rb5g000000SUYDCA4",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfCpqProductSearch_1_CPQ1",
+        "MasterLabel": "cfCpqProductSearch_5_CPQ1",
         "NamespacePrefix": "%vlocity_namespace%"
     },
     "multilanguageSupport": true,
@@ -623,6 +1546,18 @@
         },
         {
             "name": "select",
+            "val": "false"
+        },
+        {
+            "name": "cartOptions",
+            "val": ""
+        },
+        {
+            "name": "cartValue",
+            "val": ""
+        },
+        {
+            "name": "cartSelect",
             "val": "false"
         }
     ],
@@ -667,19 +1602,9 @@
                                     ],
                                     "label": " ",
                                     "name": "type",
-                                    "options": [
-                                        {
-                                            "group": "",
-                                            "id": 0,
-                                            "index": 0,
-                                            "label": "teste",
-                                            "selected": false,
-                                            "value": "teste"
-                                        }
-                                    ],
                                     "placeholder": "{Label.CPQSearch}",
                                     "type": "typeahead",
-                                    "value": ""
+                                    "value": "{value}"
                                 },
                                 "record": "{record}",
                                 "type": "typeahead"
@@ -701,19 +1626,208 @@
             "conditions": {
                 "group": [
                     {
-                        "field": "Parent.multiProductsSelect",
-                        "id": "state-new-condition-11",
-                        "operator": "==",
-                        "type": "custom",
-                        "value": "false"
+                        "group": [
+                            {
+                                "field": "Parent.multiProductsSelect",
+                                "hasMergeField": false,
+                                "id": "state-new-condition-100",
+                                "operator": "==",
+                                "type": "custom",
+                                "value": "false"
+                            },
+                            {
+                                "field": "Parent.multiProductsSelect",
+                                "hasMergeField": false,
+                                "id": "state-new-condition-134",
+                                "logicalOperator": "||",
+                                "operator": "==",
+                                "type": "custom",
+                                "value": "undefined"
+                            }
+                        ],
+                        "id": "state-new-group-101"
                     },
                     {
-                        "field": "Parent.multiProductsSelect",
-                        "id": "state-new-condition-18",
-                        "logicalOperator": "||",
+                        "field": "Parent.flow",
+                        "hasMergeField": false,
+                        "id": "state-new-condition-183",
+                        "logicalOperator": "&&",
+                        "operator": "!=",
+                        "type": "custom",
+                        "value": "cop"
+                    },
+                    {
+                        "field": "Parent.phase",
+                        "hasMergeField": false,
+                        "id": "state-new-condition-0",
+                        "logicalOperator": "&&",
                         "operator": "==",
                         "type": "custom",
-                        "value": "undefined"
+                        "value": "browse"
+                    }
+                ],
+                "id": "state-condition-object",
+                "isParent": true
+            },
+            "definedActions": {
+                "actions": [
+                ]
+            },
+            "documents": [
+            ],
+            "fields": [
+            ],
+            "isSmartAction": false,
+            "name": "Active",
+            "omniscripts": [
+            ],
+            "smartAction": {
+            },
+            "styleObject": {
+                "background": {
+                    "color": "",
+                    "image": "",
+                    "position": "",
+                    "repeat": "",
+                    "size": ""
+                },
+                "border": {
+                    "color": "",
+                    "radius": "",
+                    "style": "",
+                    "type": "",
+                    "width": ""
+                },
+                "class": "cpq__product-search-field slds-p-around_x-small ",
+                "container": {
+                    "class": "cpq__product-search-field"
+                },
+                "elementStyleProperties": {
+                },
+                "inlineStyle": "",
+                "margin": [
+                ],
+                "padding": [
+                    {
+                        "label": "around:x-small",
+                        "size": "x-small",
+                        "type": "around"
+                    }
+                ],
+                "size": {
+                    "default": "12",
+                    "isResponsive": false
+                },
+                "sizeClass": "slds-size_12-of-12 ",
+                "style": "     : #ccc 1px solid; \n         ",
+                "text": {
+                    "align": "",
+                    "color": ""
+                }
+            }
+        },
+        {
+            "actions": [
+            ],
+            "childCards": [
+            ],
+            "components": {
+                "layer-0": {
+                    "children": [
+                        {
+                            "class": "slds-col ",
+                            "element": "baseInputElement",
+                            "elementLabel": "type",
+                            "name": "Typeahead",
+                            "property": {
+                                "card": "{card}",
+                                "propertyObj": {
+                                    "customProperties": [
+                                        {
+                                            "id": 0,
+                                            "label": "options",
+                                            "value": "{Session.cartOptions}"
+                                        },
+                                        {
+                                            "id": 1,
+                                            "label": "iconNameLeft",
+                                            "value": "utility:search"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "label": "name",
+                                            "value": "typeCart"
+                                        },
+                                        {
+                                            "id": 3,
+                                            "label": "value",
+                                            "value": "{Session.cartValue}"
+                                        }
+                                    ],
+                                    "label": " ",
+                                    "name": "type",
+                                    "placeholder": "{Label.CPQSearch}",
+                                    "type": "typeahead",
+                                    "value": "{value}"
+                                },
+                                "record": "{record}",
+                                "type": "typeahead"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 1,
+                            "styleObject": {
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "element",
+                            "userUpdatedElementLabel": true
+                        }
+                    ]
+                }
+            },
+            "conditions": {
+                "group": [
+                    {
+                        "group": [
+                            {
+                                "field": "Parent.multiProductsSelect",
+                                "hasMergeField": false,
+                                "id": "state-new-condition-100",
+                                "operator": "==",
+                                "type": "custom",
+                                "value": "false"
+                            },
+                            {
+                                "field": "Parent.multiProductsSelect",
+                                "hasMergeField": false,
+                                "id": "state-new-condition-134",
+                                "logicalOperator": "||",
+                                "operator": "==",
+                                "type": "custom",
+                                "value": "undefined"
+                            }
+                        ],
+                        "id": "state-new-group-101"
+                    },
+                    {
+                        "field": "Parent.flow",
+                        "hasMergeField": false,
+                        "id": "state-new-condition-183",
+                        "logicalOperator": "&&",
+                        "operator": "!=",
+                        "type": "custom",
+                        "value": "cop"
+                    },
+                    {
+                        "field": "Parent.phase",
+                        "hasMergeField": false,
+                        "id": "state-new-condition-0",
+                        "logicalOperator": "&&",
+                        "operator": "==",
+                        "type": "custom",
+                        "value": "cart"
                     }
                 ],
                 "id": "state-condition-object",
@@ -1103,6 +2217,151 @@
                     "color": ""
                 }
             }
+        },
+        {
+            "actions": [
+            ],
+            "blankCardState": false,
+            "childCards": [
+            ],
+            "components": {
+                "layer-0": {
+                    "children": [
+                        {
+                            "class": "slds-col ",
+                            "element": "baseInputElement",
+                            "elementLabel": "Typeahead-0",
+                            "name": "Typeahead",
+                            "property": {
+                                "card": "{card}",
+                                "propertyObj": {
+                                    "customProperties": [
+                                        {
+                                            "id": 0,
+                                            "label": "iconNameLeft",
+                                            "value": "utility:search"
+                                        },
+                                        {
+                                            "id": 1,
+                                            "label": "options",
+                                            "value": "{Session.options}"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "label": "name",
+                                            "value": "offers"
+                                        },
+                                        {
+                                            "id": 3,
+                                            "label": "value",
+                                            "value": "{Session.value}"
+                                        },
+                                        {
+                                            "id": 4,
+                                            "label": "disableFilter",
+                                            "value": "true"
+                                        }
+                                    ],
+                                    "fieldBinding": "",
+                                    "label": " ",
+                                    "placeholder": "Search Plans...",
+                                    "type": "typeahead"
+                                },
+                                "record": "{record}",
+                                "type": "typeahead"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 2,
+                            "styleObject": {
+                                "class": "slds-p-right_x-small",
+                                "margin": [
+                                    {
+                                        "size": "xx-small",
+                                        "type": "bottom"
+                                    }
+                                ],
+                                "padding": [
+                                    {
+                                        "size": "small",
+                                        "type": "right"
+                                    }
+                                ],
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "element"
+                        }
+                    ]
+                }
+            },
+            "conditions": {
+                "group": [
+                    {
+                        "field": "Parent.flow",
+                        "hasMergeField": false,
+                        "id": "state-new-condition-0",
+                        "operator": "==",
+                        "type": "custom",
+                        "value": "cop"
+                    }
+                ],
+                "id": "state-condition-object",
+                "isParent": true
+            },
+            "documents": [
+            ],
+            "fields": [
+            ],
+            "isSmartAction": false,
+            "name": "Target Offer Search",
+            "omniscripts": [
+            ],
+            "smartAction": {
+            },
+            "styleObject": {
+                "background": {
+                    "color": "",
+                    "image": "",
+                    "position": "",
+                    "repeat": "",
+                    "size": ""
+                },
+                "border": {
+                    "color": "",
+                    "radius": "",
+                    "style": "",
+                    "type": "",
+                    "width": ""
+                },
+                "class": "slds-card slds-m-bottom_x-small ",
+                "container": {
+                    "class": "slds-card"
+                },
+                "elementStyleProperties": {
+                },
+                "inlineStyle": "",
+                "margin": [
+                    {
+                        "label": "bottom:x-small",
+                        "size": "x-small",
+                        "type": "bottom"
+                    }
+                ],
+                "padding": [
+                ],
+                "size": {
+                    "default": "12",
+                    "isResponsive": false
+                },
+                "sizeClass": "slds-size_12-of-12 ",
+                "style": "      \n         ",
+                "text": {
+                    "align": "",
+                    "color": ""
+                }
+            }
         }
     ],
     "theme": "slds",
@@ -1110,7 +2369,8 @@
     "xmlJson": [
         {
             "@attributes": {
-                "targets": "lightning__AppPage"
+                "targets": "lightning__AppPage",
+                "xmlns": "http://soap.sforce.com/2006/04/metadata"
             },
             "property": [
                 {
@@ -1129,7 +2389,8 @@
         },
         {
             "@attributes": {
-                "targets": "lightning__RecordPage"
+                "targets": "lightning__RecordPage",
+                "xmlns": "http://soap.sforce.com/2006/04/metadata"
             },
             "property": [
                 {
@@ -1142,7 +2403,12 @@
         }
     ],
     "xmlObject": {
-        "targetConfigs": "PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgogICAgICAgICAgICAgICAgICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgICAgICAgICAgICAgICAgICA8cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPgogICAgICAgICAgICAgICAgICA8L3RhcmdldENvbmZpZz4KICAgICAgICAgICAgICAgICAgPHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPgogICAgICAgICAgICAgICAgICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgICAgICAgICAgICAgIDwvdGFyZ2V0Q29uZmlnPg==",
+        "apiVersion": 51,
+        "isExplicitImport": false,
+        "isExposed": true,
+        "masterLabel": "cpqProductSearch",
+        "runtimeNamespace": "%vlocity_namespace%",
+        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiIvPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIi8+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiIvPjwvdGFyZ2V0Q29uZmlnPg==",
         "targets": {
             "target": [
                 "lightning__RecordPage",

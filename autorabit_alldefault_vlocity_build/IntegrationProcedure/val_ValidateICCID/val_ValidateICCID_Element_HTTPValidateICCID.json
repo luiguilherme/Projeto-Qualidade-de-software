@@ -1,5 +1,5 @@
 {
-    "%vlocity_namespace%__Active__c": false,
+    "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
         "Name": "valValidateICCID",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
@@ -29,29 +29,32 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "executionConditionalFormula": "",
-        "failOnStepError": true,
+        "failOnStepError": false,
         "failureConditionalFormula": "",
         "failureResponse": {
         },
         "label": "HTTPAction1",
-        "namedCredential": "",
+        "namedCredential": "APITelefonicaPreProd",
         "postActionLogging": "",
         "preActionLogging": "%endpoint%",
-        "responseJSONNode": "",
+        "responseJSONNode": "ResponseDataValICCID",
         "responseJSONPath": "",
-        "restMethod": "",
+        "restMethod": "GET",
         "restOptions": {
             "clientCertificateName": "",
             "headers": {
+                "clientId": "SalesForce",
+                "content-type": "application/json; charset=utf-8"
             },
             "isCompressed": false,
             "params": {
+                "category": "%SVInputIdParams:category%"
             },
-            "sendBody": true,
+            "sendBody": false,
             "timeout": 0,
             "xmlEscapeResponse": false
         },
-        "restPath": "",
+        "restPath": "/resourceInventoryManagement/v1/logical-resource/%SVInputIdParams:id%",
         "retryCount": 0,
         "returnOnlyAdditionalOutput": false,
         "returnOnlyFailureResponse": false,

@@ -1,0 +1,30 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "Get Customer Data",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/GetAccountData/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "CustomerDetails:Documents:DocumentNumber": "=SUBSTRING(%responseDR:CustomerDetails:Documents:DocumentNumber%,0,3) + \".\"\r\n+ SUBSTRING(%responseDR:CustomerDetails:Documents:DocumentNumber%,3,6) + \".\"\r\n+ SUBSTRING(%responseDR:CustomerDetails:Documents:DocumentNumber%,6,9) + \"-\"\r\n+ SUBSTRING(%responseDR:CustomerDetails:Documents:DocumentNumber%,9,11)"
+        },
+        "executionConditionalFormula": "%responseDR:CustomerDetails:Documents:DocumentType% == \"CPF\"",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues3",
+        "responseJSONNode": "responseDR",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVSetCPFMask",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetAccountData/Procedure/SVSetCPFMask"
+}

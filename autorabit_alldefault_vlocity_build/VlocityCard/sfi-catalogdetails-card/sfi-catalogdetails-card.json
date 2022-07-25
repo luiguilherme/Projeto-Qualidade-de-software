@@ -1,0 +1,78 @@
+{
+    "GlobalKey__c": "sfi-catalogdetails-card/Salesforce/1/1623066929062",
+    "dataSource": {
+        "contextVariables": [
+        ],
+        "type": "IntegrationProcedures",
+        "value": {
+            "inputMap": {
+                "CatalogCode": "ROOT"
+            },
+            "ipMethod": "sfi_GetOffersByCatalogCode",
+            "optionsMap": {
+                "vlcClass": "%vlocity_namespace%.IntegrationProcedureService"
+            },
+            "vlocityAsync": false
+        }
+    },
+    "enableLwc": true,
+    "filter": {
+    },
+    "sessionVars": [
+        {
+            "name": "getCartKeyForSavedUserIp",
+            "val": "sfi_FetchBasketFromInteraction"
+        },
+        {
+            "name": "upsertBasket",
+            "val": "sfi_UpsertBasketForAccount"
+        },
+        {
+            "name": "catalog",
+            "val": "ROOT"
+        }
+    ],
+    "sfiVersion": "234.0",
+    "states": [
+        {
+            "conditions": {
+                "group": [
+                    {
+                        "field": "$scope.data.status",
+                        "operator": "===",
+                        "type": "system",
+                        "value": "'active'"
+                    }
+                ]
+            },
+            "definedActions": {
+                "actions": [
+                    {
+                        "collapse": true,
+                        "displayName": "Prepaid",
+                        "hasExtraParams": false,
+                        "id": "Prepaid",
+                        "isCustomAction": true,
+                        "openUrlIn": "New Tab / Window",
+                        "type": "Custom",
+                        "url": "/lightning/cmp/%vlocity_namespace%__vlocityLWCOmniWrapper?c__target=c:vplJoinJourneyGuestSessionEnglish&c__layout=lightning&c__tabIcon=custom:custom18"
+                    }
+                ]
+            },
+            "fields": [
+            ],
+            "isSmartAction": false,
+            "lwc": {
+                "DeveloperName": "b2cCmexChooseCatalog",
+                "Id": "0Rb4x000000SdenCAC",
+                "MasterLabel": "b2cCmexChooseCatalog",
+                "NamespacePrefix": "%vlocity_namespace%",
+                "name": "b2cCmexChooseCatalog"
+            },
+            "name": "Active",
+            "smartAction": {
+            }
+        }
+    ],
+    "title": "Shop"
+}

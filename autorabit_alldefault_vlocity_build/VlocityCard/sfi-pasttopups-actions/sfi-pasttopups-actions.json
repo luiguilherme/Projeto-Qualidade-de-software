@@ -1,0 +1,126 @@
+{
+    "GlobalKey__c": "sfi-pasttopups-actions/Salesforce/1/1623066308689",
+    "dataSource": {
+        "type": null
+    },
+    "enableLwc": true,
+    "filter": {
+    },
+    "sessionVars": [
+    ],
+    "sfiVersion": "234.0",
+    "states": [
+        {
+            "conditions": {
+                "group": [
+                    {
+                        "field": "$scope.data.status",
+                        "operator": "===",
+                        "type": "system",
+                        "value": "'active'"
+                    },
+                    {
+                        "field": "['ProductSubtype']",
+                        "logicalOperator": "&&",
+                        "operator": "==",
+                        "type": "custom",
+                        "value": "Prepaid"
+                    }
+                ]
+            },
+            "definedActions": {
+                "actions": [
+                    {
+                        "collapse": true,
+                        "conditions": {
+                            "group": [
+                            ]
+                        },
+                        "displayName": "Voucher top up",
+                        "extraParams": {
+                            "c__ContextId": "{{params.id}}",
+                            "c__ContextName": "AgentConsoleService",
+                            "c__interactionId": "['customerInteractionId']",
+                            "c__offerCodeNotAvailable": true,
+                            "c__tabLabel": "Voucher top up",
+                            "c__topUpType": "Voucher",
+                            "c__vlocEvents": "VplpasttopupsAction-reload"
+                        },
+                        "hasExtraParams": true,
+                        "id": "VoucherTopUpSubscriptionHeader",
+                        "isCustomAction": true,
+                        "isLwcOS": true,
+                        "layoutType": "lightning",
+                        "omniLang": "",
+                        "omniSubType": "",
+                        "omniType": {
+                            "Id": "a2j5e000000kXT1AAM",
+                            "Language": "English",
+                            "Name": "sfi/VoucherTopUp/English",
+                            "SubType": "VoucherTopUp",
+                            "Type": "sfi",
+                            "isLwc": true
+                        },
+                        "openUrlIn": "New Tab / Window",
+                        "type": "OmniScript",
+                        "vForcewithNsPrefix": "%vlocity_namespace%__OmniScriptUniversalPage",
+                        "vlocityIcon": "utility:forward_up"
+                    },
+                    {
+                        "collapse": true,
+                        "conditions": {
+                            "group": [
+                            ]
+                        },
+                        "displayName": "Cash top up",
+                        "extraParams": {
+                            "c__ContextId": "{{params.id}}",
+                            "c__ContextName": "AgentConsoleService",
+                            "c__catalog": "VPL_TOPUP",
+                            "c__interactionId": "['customerInteractionId']",
+                            "c__offerCodeNotAvailable": true,
+                            "c__tabLabel": "Cash top up",
+                            "c__topUpType": "Cash",
+                            "c__vlocEvents": "VplpasttopupsAction-reload"
+                        },
+                        "hasExtraParams": true,
+                        "id": "CashTopUpSubscriptionHeader",
+                        "isCustomAction": true,
+                        "isLwcOS": true,
+                        "layoutType": "lightning",
+                        "omniLang": "",
+                        "omniSubType": "",
+                        "omniType": {
+                            "Id": "a2j5e000000kVjvAAE",
+                            "Language": "English",
+                            "Name": "sfi/CashTopUp/English",
+                            "SubType": "CashTopUp",
+                            "Type": "sfi",
+                            "isLwc": true
+                        },
+                        "openUrlIn": "New Tab / Window",
+                        "type": "OmniScript",
+                        "vForcewithNsPrefix": "%vlocity_namespace%__OmniScriptUniversalPage",
+                        "vlocityIcon": "utility:forward_up"
+                    }
+                ]
+            },
+            "disableAddCondition": false,
+            "fields": [
+            ],
+            "filter": "$scope.data.status === 'active' && $scope.obj['ProductSubtype'] == 'Prepaid'",
+            "isSmartAction": false,
+            "lwc": {
+                "DeveloperName": "b2cCmexActionsLayout",
+                "Id": "0Rb4x000000DvmoCAC",
+                "MasterLabel": "b2cCmexActionsLayout",
+                "NamespacePrefix": "%vlocity_namespace%",
+                "name": "b2cCmexActionsLayout"
+            },
+            "name": "Active",
+            "smartAction": {
+            }
+        }
+    ],
+    "title": "Past Top Ups Header"
+}
