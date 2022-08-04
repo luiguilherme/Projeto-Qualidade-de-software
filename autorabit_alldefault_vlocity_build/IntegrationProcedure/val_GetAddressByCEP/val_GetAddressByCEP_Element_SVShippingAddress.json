@@ -12,7 +12,10 @@
         "disOnTplt": false,
         "elementValueMap": {
             "AddressSelected": false,
-            "Addresses": "%ListActionAddresses%"
+            "Addresses": "%ListActionAddresses%",
+            "paginationLimit": "=IF(%SearchType% == \"CEP\", IF(%SVServiceCEP:paginationLimit%!=NULL,%SVServiceCEP:paginationLimit%,1), IF(%SVServiceLogradouro:paginationLimit%!=NULL,%SVServiceLogradouro:paginationLimit%,1))",
+            "paginationPage": "=IF(%SearchType% == \"CEP\", IF(%SVServiceCEP:paginationPage%!=NULL,%SVServiceCEP:paginationPage%,1),IF(%SVServiceLogradouro:paginationPage%!=NULL,%SVServiceLogradouro:paginationPage%,1))",
+            "paginationTotal": "=IF(%SearchType% == \"CEP\", IF(%SVServiceCEP:paginationTotal%!=NULL,%SVServiceCEP:paginationTotal%,1), IF(%SVServiceLogradouro:paginationTotal%!=NULL,%SVServiceLogradouro:paginationTotal%,1))"
         },
         "executionConditionalFormula": "%SearchGroup% == \"ShippingAddress\"",
         "failOnStepError": true,

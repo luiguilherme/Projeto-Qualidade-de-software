@@ -1,0 +1,64 @@
+{
+    "GlobalKey__c": "sfi-buy-additional-card/Salesforce/1/1623326412557",
+    "dataSource": {
+        "contextVariables": [
+            {
+                "name": "params.id",
+                "val": "a1c760000008br6AAA"
+            }
+        ],
+        "type": "IntegrationProcedures",
+        "value": {
+            "inputMap": {
+                "InteractionId": "{{params.id}}"
+            },
+            "ipMethod": "sfi_PreProcessForBuyAdditional",
+            "optionsMap": {
+                "vlcClass": "%vlocity_namespace%.IntegrationProcedureService"
+            }
+        }
+    },
+    "enableLwc": true,
+    "filter": {
+    },
+    "sessionVars": [
+    ],
+    "sfiVersion": "234.0",
+    "states": [
+        {
+            "blankCardState": false,
+            "conditions": {
+                "group": [
+                    {
+                        "field": "$scope.data.status",
+                        "operator": "===",
+                        "type": "system",
+                        "value": "'active'"
+                    }
+                ]
+            },
+            "customLwc": false,
+            "customLwcRepeat": true,
+            "definedActions": {
+                "actions": [
+                ]
+            },
+            "disableAddCondition": false,
+            "editMode": false,
+            "fields": [
+            ],
+            "filter": "$scope.data.status === 'active'",
+            "isSmartAction": false,
+            "lwc": {
+                "DeveloperName": "b2cCmexAdditionalBuyBtn",
+                "Id": "0Rb4x0000015IvpCAE",
+                "MasterLabel": "b2cCmexBuyAdditionalBtn",
+                "name": "b2cCmexAdditionalBuyBtn"
+            },
+            "name": "Active",
+            "smartAction": {
+            }
+        }
+    ],
+    "title": "Additional buy card"
+}

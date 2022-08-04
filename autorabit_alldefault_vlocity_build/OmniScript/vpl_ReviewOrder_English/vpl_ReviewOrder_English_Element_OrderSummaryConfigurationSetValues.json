@@ -1,0 +1,63 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "VPL-ReviewOrder",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/vpl/ReviewOrder/English",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "HTMLTemplateId": "",
+        "controlWidth": 12,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "OrderInformation": {
+                "AdditionalCharges": {
+                    "Discount": "0",
+                    "Shipping": "0",
+                    "SubTotal": "%OrderDetails:OrderTotalValue%"
+                },
+                "BillingAddressLine1": "%OrderDetails:BillingStreet%",
+                "BillingAddressLine2": "%OrderDetails:BillingStreet%",
+                "BillingAddressLine3": "%OrderDetails:BillingCity%, %OrderDetails:BillingState%, %OrderDetails:BillingZipCode%",
+                "CurrencySymbol": "$",
+                "IsOrderConfirmed": "%IsOrderConfirmed%",
+                "OneTimeAmountColumnTitle": "Due Today",
+                "OrderBaseOneTimeCharge": "%OrderDetails:BaseOneTimeCharge%",
+                "OrderBaseRecurringCharge": "%OrderDetails:BaseRecurringCharge%",
+                "OrderId": "%OrderId%",
+                "OrderLineItemDetails": "%CartProductName%",
+                "OrderNumberTitle": "Order Number",
+                "OrderNumberValue": "%OrderDetails:OrderNumberValue%",
+                "OrderPlacedOnTitle": "Placed on",
+                "OrderPlacedOnValue": "=CONCATENATE(DAYOFMONTH(%OrderDetails:CreatedDate%),\"/\",MONTH(%OrderDetails:CreatedDate%),\"/\",YEAR(%OrderDetails:CreatedDate%))",
+                "OrderRecurringValue": "%OrderDetails:DueMonthly%",
+                "OrderTotalValue": "%OrderDetails:DueToday%",
+                "ParentItemDetails": "%CartDetailsToDisplay%",
+                "QuantityColumnTitle": "Quantity",
+                "RecurringAmountColumnTitle": "Due Monthly",
+                "ShippingAddressLine1": "%OrderDetails:ShippingStreet%",
+                "ShippingAddressLine2": "%OrderDetails:ShippingStreet%",
+                "ShippingAddressLine3": "%OrderDetails:ShippingCity%, %OrderDetails:ShippingState% , %OrderDetails:ShippingZipCode%"
+            }
+        },
+        "label": null,
+        "message": {
+        },
+        "pubsub": false,
+        "show": null,
+        "showPersistentComponent": [
+            false,
+            false
+        ],
+        "ssm": false,
+        "validationRequired": "Step",
+        "wpm": false
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": true,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "OrderSummaryConfigurationSetValues",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/vpl/ReviewOrder/English/OrderSummaryConfigurationSetValues"
+}
