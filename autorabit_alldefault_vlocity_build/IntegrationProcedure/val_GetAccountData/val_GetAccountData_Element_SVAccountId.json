@@ -11,9 +11,9 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "AccountId": "%recordId%"
+            "AccountId": "=IF(%DRGetParentIdByAccount:RecordTypeDeveloperName% == 'Billing' || %DRGetParentIdByAccount:RecordTypeDeveloperName% == 'Service', %DRGetParentIdByAccount:ParentId%, %recordId%)"
         },
-        "executionConditionalFormula": "IF(%objectApiName% == 'Account',true,false)",
+        "executionConditionalFormula": "IF(SUBSTRING(%recordId%,0,3) == '001',true,false)",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "label": "SetValues1",
