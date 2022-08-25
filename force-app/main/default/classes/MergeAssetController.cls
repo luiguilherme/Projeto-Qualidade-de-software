@@ -87,7 +87,6 @@ global with sharing class MergeAssetController implements vlocity_cmt.VlocityOpe
 
         String type;
         String product_type;
-        Map<String, List<String>> something = new Map<String, List<String>>();
 
         for(WrapperAPI assetToCreate : lstAssetsToCreate){
             type = mapFromTo.get(assetToCreate.product_type + 'Type__c');
@@ -95,9 +94,9 @@ global with sharing class MergeAssetController implements vlocity_cmt.VlocityOpe
                         vlocity_cmt__ServiceIdentifier__c = assetToCreate.identifiers[0],
                         StartDate__c = assetToCreate.start_date,
                         ProductType__c = type == 'Móvel' ? getProductType(assetToCreate.subscription_type, mapFromTo) : getProductType(assetToCreate.product_type, mapFromTo),
-                        Name = assetToCreate.display_name,
+                        Name = assetToCreate.identifiers[0],
                         Status = assetToCreate.status,
-                        MainProductDescription__c = assetToCreate.descriptions[0].text,
+                        MainProductDescription__c = assetToCreate.descriptions != null ? assetToCreate.descriptions[0].text : assetToCreate.display_name != null ? assetToCreate.display_name : null, 
                         AccountId = accountId,
                         Type__c = type,
                         Technology__c = type == 'Móvel' ? type : null,
@@ -152,7 +151,7 @@ global with sharing class MergeAssetController implements vlocity_cmt.VlocityOpe
 
     private static String getLegacyAssetId(String identifier, String documentNumber){
         if(identifier.contains('+55')){
-            return identifier.substring(3, identifier.length()) + documentNumber;
+            return documentNumber + identifier.substring(3, identifier.length());
         }else{
             return documentNumber + identifier;
         }
