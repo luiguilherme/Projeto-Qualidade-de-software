@@ -1,0 +1,38 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "IP_panGetBalanceDetail",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/pan/GetBalanceDetailed/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "disOnTplt": false,
+        "executionConditionalFormula": "",
+        "label": "LoopBlock2",
+        "loopList": "APIGetBalanceDetails:balanceList",
+        "loopOutput": {
+            "abbreviatedUnit": "%APIGetBalanceDetails:balanceList:abbreviatedUnit%",
+            "availableBalance": "=IF(SUBSTRING(%APIGetBalanceDetails:balanceList:unitOfMeasure%,0,3) == \"MON\", \"R$ \" + %APIGetBalanceDetails:balanceList:availableBalance%,IF(SUBSTRING(%APIGetBalanceDetails:balanceList:unitOfMeasure%,0,1) == \"V\", ROUND(%APIGetBalanceDetails:balanceList:availableBalance%/(1024*1024)) + \" MB\",IF(SUBSTRING(%APIGetBalanceDetails:balanceList:unitOfMeasure%,0,1) == \"E\",%APIGetBalanceDetails:balanceList:availableBalance% + \" Unidade\",%APIGetBalanceDetails:balanceList:availableBalance% + \" Minutos\")))",
+            "balanceTypeDesc": "%APIGetBalanceDetails:balanceList:balanceType:description%",
+            "balanceTypeId": "%APIGetBalanceDetails:balanceList:balanceType:id%",
+            "bucketDescription": "%APIGetBalanceDetails:balanceList:bucket:description%",
+            "bucketId": "%APIGetBalanceDetails:balanceList:bucket:id%",
+            "consumedBalance": "=IF(SUBSTRING(%APIGetBalanceDetails:balanceList:unitOfMeasure%,0,3) == \"MON\", \"- \" + %APIGetBalanceDetails:balanceList:consumedBalance%,IF(SUBSTRING(%APIGetBalanceDetails:balanceList:unitOfMeasure%,0,1) == \"V\",ROUND(%APIGetBalanceDetails:balanceList:consumedBalance%/(1024*1024)) + \" MB\",IF(SUBSTRING(%APIGetBalanceDetails:balanceList:unitOfMeasure%,0,1) == \"E\",%APIGetBalanceDetails:balanceList:consumedBalance% + \" Unidade\",%APIGetBalanceDetails:balanceList:consumedBalance% + \" Minutos\")))",
+            "grantedBalance": "=IF(SUBSTRING(%APIGetBalanceDetails:balanceList:unitOfMeasure%,0,3) == \"MON\", \"- \" + %APIGetBalanceDetails:balanceList:grantedBalance%,IF(SUBSTRING(%APIGetBalanceDetails:balanceList:unitOfMeasure%,0,2) == \"VO\",ROUND(%APIGetBalanceDetails:balanceList:grantedBalance%/(1024*1024)) + \" MB\",IF(SUBSTRING(%APIGetBalanceDetails:balanceList:unitOfMeasure%,0,2) == \"EV\",%APIGetBalanceDetails:balanceList:grantedBalance% + \" Unidade\",%APIGetBalanceDetails:balanceList:grantedBalance% + \" Minutos\")))",
+            "group": "%APIGetBalanceDetails:balanceList:group%",
+            "rootConsumedBalance": "%APIGetBalanceDetails:balanceList:consumedBalance%",
+            "unitOfMeasure": "%APIGetBalanceDetails:balanceList:unitOfMeasure%",
+            "validForDuration": "=IF(DATEDIFF(SUBSTRING(%APIGetBalanceDetails:balanceList:validFor:startDateTime%, 0, 10), SUBSTRING(%APIGetBalanceDetails:balanceList:validFor:endTime%, 0, 10)) == 1,\"1 dia\", DATEDIFF(SUBSTRING(%APIGetBalanceDetails:balanceList:validFor:startDateTime%, 0, 10), SUBSTRING(%APIGetBalanceDetails:balanceList:validFor:endTime%, 0, 10)) + \" dias\")",
+            "validForEndTime": "%APIGetBalanceDetails:balanceList:validFor:endTime%",
+            "validForStartDateTime": "%APIGetBalanceDetails:balanceList:validFor:startDateTime%"
+        },
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Loop Block",
+    "Name": "LBBalanceList",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/pan/GetBalanceDetailed/Procedure/LBBalanceList"
+}
