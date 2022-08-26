@@ -1,0 +1,30 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "IP_panPagination",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/pan/pagination/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "disOnTplt": false,
+        "executionConditionalFormula": "",
+        "label": "LoopBlock3",
+        "loopList": "LAsetValues",
+        "loopOutput": {
+            "balanceKB": "=LAsetValues:object:summaryConsumption:aggregatedBalance/1024",
+            "networkType": "=SUBSTRING(TOSTRING(LAsetValues:object:3gppPattern:userLocation),0,2)",
+            "object": "=LAsetValues:object",
+            "timeHH": "=IF(LAsetValues:object:summaryConsumption:aggregatedBalance/3600>0,ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/3600,0,DOWN),0)",
+            "timeMM": "=IF(LAsetValues:object:summaryConsumption:aggregatedBalance/60>0,SUM(ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/60,0,DOWN),IF(LAsetValues:object:summaryConsumption:aggregatedBalance/3600>0,ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/3600,0,DOWN)*-60,0),0)",
+            "timeSS": "=IF(ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/3600,0,DOWN)>0&&ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/60,0,DOWN)>0,SUM(LAsetValues:object:summaryConsumption:aggregatedBalance,ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/60,0,DOWN)*-60),IF(ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/60,0,DOWN)>0,SUM(LAsetValues:object:summaryConsumption:aggregatedBalance,ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/60,0,DOWN)*-60),LAsetValues:object:summaryConsumption:aggregatedBalance),0)"
+        },
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Loop Block",
+    "Name": "LBIndex",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/pan/pagination/Procedure/LBIndex"
+}
