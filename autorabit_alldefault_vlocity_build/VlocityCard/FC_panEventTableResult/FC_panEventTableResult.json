@@ -1,0 +1,602 @@
+{
+    "dataSource": {
+        "contextVariables": [
+        ],
+        "orderBy": {
+        },
+        "type": null,
+        "value": {
+        }
+    },
+    "enableLwc": true,
+    "events": [
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": true,
+                    "key": "1657591225678-f4m99cqo8",
+                    "label": "UpdateDatasourcePagination",
+                    "stateAction": {
+                        "displayName": "Action",
+                        "eventName": "updatedatasource",
+                        "id": "flex-action-1659978041880",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"pan_pagination\",\"vlocityAsync\":false,\"inputMap\":{\"contextNumber\":\"{action.contextNumber}\",\"startDateBind\":\"{action.startDateBind}\",\"endDateBind\":\"{action.endDateBind}\",\"numberOfDays\":\"{action.numberOfDays}\",\"type\":\"{action.type}\",\"currentPage\":\"{action.currentPage}\",\"amount\":\"{action.amount}\",\"event\":\"{action.event}\",\"eventError\":\"{action.eventError}\"}},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"action.contextNumber\",\"val\":\"11950954129\",\"id\":13},{\"name\":\"action.startDateBind\",\"val\":\"\",\"id\":14},{\"name\":\"action.endDateBind\",\"val\":\"\",\"id\":15},{\"name\":\"action.numberOfDays\",\"val\":\"0\",\"id\":16},{\"name\":\"action.type\",\"val\":\"all\",\"id\":17},{\"name\":\"action.currentPage\",\"val\":\"1\",\"id\":18},{\"name\":\"action.amount\",\"val\":\"7\",\"id\":19},{\"name\":\"action.event\",\"val\":\"default\",\"id\":20},{\"name\":\"action.eventError\",\"val\":\"false\",\"id\":17}]}",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": true,
+                    "key": "1657597307508-ms43vhh74",
+                    "label": "SetDateBind",
+                    "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "{action.numberOfDays}",
+                                    "hasMergeField": true,
+                                    "id": "state-new-condition-0",
+                                    "operator": ">",
+                                    "type": "custom",
+                                    "value": "0"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "FC_panFilterDate",
+                        "extraParams": {
+                            "endDateBind": "{records[0].endDateTime}",
+                            "startDateBind": "{records[0].startDateTime}"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1659979153648",
+                        "message": "datebind",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 2,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1659979168064-jjv10ulfw",
+                    "label": "SetStatusCode",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.statusCode",
+                                "fieldValue": "{records[0].statusCode}"
+                            }
+                        ],
+                        "id": "flex-action-1659979176009",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "FC_panEventTableResult",
+            "displayLabel": "FC_panEventTableResult:loaddata",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "loaddata",
+            "eventtype": "pubsub",
+            "key": "event-0",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        }
+    ],
+    "isFlex": true,
+    "isRepeatable": false,
+    "lwc": {
+        "DeveloperName": "cfFC_panEventTableResult_5_VitorSSM",
+        "Id": "0Rb8D000000Uu8QSAS",
+        "ManageableState": "unmanaged",
+        "MasterLabel": "cfFC_panEventTableResult_5_VitorSSM",
+        "NamespacePrefix": "c"
+    },
+    "selectableMode": "Multi",
+    "sessionVars": [
+        {
+            "name": "statusCode",
+            "val": "init"
+        }
+    ],
+    "states": [
+        {
+            "actions": [
+            ],
+            "blankCardState": false,
+            "childCards": [
+                "FC_panEventTableConsuption",
+                "FC_panEventTableHeader",
+                "valMessageAlert",
+                "FC_panEventTableResultList",
+                "FC_panEventPageControl"
+            ],
+            "components": {
+                "layer-0": {
+                    "children": [
+                        {
+                            "class": "slds-col ",
+                            "element": "childCardPreview",
+                            "elementLabel": "FlexCard-0",
+                            "name": "FlexCard",
+                            "property": {
+                                "cardName": "FC_panEventTableConsuption",
+                                "cardNode": "{records[0]}",
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "typeService",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-4",
+                                            "operator": "!=",
+                                            "type": "custom",
+                                            "value": "all"
+                                        },
+                                        {
+                                            "field": "object",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-0",
+                                            "logicalOperator": "&&",
+                                            "operator": "!=",
+                                            "type": "custom",
+                                            "value": "undefined"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "data-preloadConditionalElement": false,
+                                "isChildCardTrackingEnabled": false,
+                                "recordId": "{recordId}",
+                                "selectedState": "Active"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "element"
+                        },
+                        {
+                            "class": "slds-col ",
+                            "element": "outputField",
+                            "elementLabel": "Text-1",
+                            "name": "Text",
+                            "property": {
+                                "card": "{card}",
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "Session.statusCode",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-111",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "init"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "mergeField": "%3Cdiv%3EAguarde%20alguns%20segundos%20at&eacute;%20o%20processo%20ser%20finalizado...%3C/div%3E",
+                                "record": "{record}"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "background": {
+                                    "color": "",
+                                    "image": "",
+                                    "position": "",
+                                    "repeat": "",
+                                    "size": ""
+                                },
+                                "border": {
+                                    "color": "",
+                                    "radius": "",
+                                    "style": "",
+                                    "type": "",
+                                    "width": ""
+                                },
+                                "class": "slds-text-align_center ",
+                                "container": {
+                                    "class": ""
+                                },
+                                "elementStyleProperties": {
+                                },
+                                "inlineStyle": "",
+                                "margin": [
+                                ],
+                                "padding": [
+                                ],
+                                "size": {
+                                    "default": "12",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_12-of-12 ",
+                                "style": "      \n         ",
+                                "text": {
+                                    "align": "center",
+                                    "color": ""
+                                }
+                            },
+                            "styleObjects": [
+                                {
+                                    "conditionString": "",
+                                    "conditions": "default",
+                                    "draggable": false,
+                                    "key": 0,
+                                    "label": "Default",
+                                    "name": "Default",
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "slds-text-align_center ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "center",
+                                            "color": ""
+                                        }
+                                    }
+                                }
+                            ],
+                            "type": "text"
+                        },
+                        {
+                            "class": "slds-col ",
+                            "element": "childCardPreview",
+                            "elementLabel": "FlexCard-2",
+                            "name": "FlexCard",
+                            "property": {
+                                "cardName": "FC_panEventTableHeader",
+                                "cardNode": "{records[0]}",
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "object",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-80",
+                                            "operator": "!=",
+                                            "type": "custom",
+                                            "value": "undefined"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "data-preloadConditionalElement": false,
+                                "isChildCardTrackingEnabled": false,
+                                "recordId": "{recordId}",
+                                "selectedState": "Active"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "element"
+                        },
+                        {
+                            "children": [
+                                {
+                                    "class": "slds-col ",
+                                    "element": "childCardPreview",
+                                    "elementLabel": "Block-2-FlexCard-0",
+                                    "key": "element_element_block_2_0_childCardPreview_0_0",
+                                    "name": "FlexCard",
+                                    "parentElementKey": "element_block_2_0",
+                                    "property": {
+                                        "cardName": "valMessageAlert",
+                                        "cardNode": "",
+                                        "data-conditions": {
+                                            "group": [
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "data-preloadConditionalElement": false,
+                                        "isChildCardTrackingEnabled": false,
+                                        "parentAttribute": {
+                                            "ErrorMessage": "Nenhum evento registrado."
+                                        },
+                                        "recordId": "{recordId}",
+                                        "selectedState": "WarningCustomAttribute"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "sizeClass": "slds-size_12-of-12"
+                                    },
+                                    "type": "element"
+                                }
+                            ],
+                            "class": "slds-col ",
+                            "element": "block",
+                            "elementLabel": "Block-3",
+                            "name": "Block",
+                            "property": {
+                                "card": "{card}",
+                                "collapsedByDefault": false,
+                                "collapsible": false,
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "Session.statusCode",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-0",
+                                            "operator": "!=",
+                                            "type": "custom",
+                                            "value": "200"
+                                        },
+                                        {
+                                            "field": "Session.statusCode",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-93",
+                                            "logicalOperator": "&&",
+                                            "operator": "!=",
+                                            "type": "custom",
+                                            "value": "init"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "data-preloadConditionalElement": false,
+                                "label": "Block",
+                                "record": "{record}"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "class": "slds-p-around_x-small",
+                                "padding": [
+                                    {
+                                        "size": "x-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "block"
+                        },
+                        {
+                            "class": "slds-col ",
+                            "element": "childCardPreview",
+                            "elementLabel": "FlexCard-4",
+                            "name": "FlexCard",
+                            "property": {
+                                "cardName": "FC_panEventTableResultList",
+                                "cardNode": "{records}",
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "object",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-38",
+                                            "operator": "!=",
+                                            "type": "custom",
+                                            "value": "undefined"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "data-preloadConditionalElement": false,
+                                "isChildCardTrackingEnabled": false,
+                                "recordId": "{recordId}",
+                                "selectedState": "Active"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "element"
+                        },
+                        {
+                            "class": "slds-col ",
+                            "element": "childCardPreview",
+                            "elementLabel": "FlexCard-5",
+                            "name": "FlexCard",
+                            "property": {
+                                "cardName": "FC_panEventPageControl",
+                                "cardNode": "{records[0]}",
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "object",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-45",
+                                            "operator": "!=",
+                                            "type": "custom",
+                                            "value": "undefined"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "data-preloadConditionalElement": false,
+                                "isChildCardTrackingEnabled": false,
+                                "recordId": "{recordId}",
+                                "selectedState": "Active"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "element"
+                        }
+                    ]
+                }
+            },
+            "conditions": {
+                "group": [
+                    {
+                        "field": "Parent.eventError",
+                        "hasMergeField": false,
+                        "id": "state-new-condition-7",
+                        "operator": "==",
+                        "type": "custom",
+                        "value": "false"
+                    }
+                ],
+                "id": "state-condition-object",
+                "isParent": true
+            },
+            "definedActions": {
+                "actions": [
+                ]
+            },
+            "documents": [
+            ],
+            "fields": [
+            ],
+            "isSmartAction": false,
+            "name": "Active",
+            "omniscripts": [
+            ],
+            "smartAction": {
+            },
+            "styleObject": {
+                "class": "slds-card slds-p-around_x-small slds-m-bottom_x-small",
+                "container": {
+                    "class": "slds-card"
+                },
+                "margin": [
+                    {
+                        "size": "none",
+                        "type": "around"
+                    }
+                ],
+                "padding": [
+                    {
+                        "size": "x-small",
+                        "type": "around"
+                    }
+                ],
+                "size": {
+                    "default": "12",
+                    "isResponsive": false
+                },
+                "sizeClass": "slds-size_12-of-12"
+            }
+        }
+    ],
+    "theme": "slds",
+    "title": "FC_panEventTableResult",
+    "xmlJson": [
+        {
+            "@attributes": {
+                "targets": "lightning__AppPage"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "name": "debug",
+                        "type": "Boolean"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "name": "recordId",
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        {
+            "@attributes": {
+                "targets": "lightning__RecordPage"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "name": "debug",
+                        "type": "Boolean"
+                    }
+                }
+            ]
+        }
+    ],
+    "xmlObject": {
+        "targetConfigs": "PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgogICAgICAgICAgICAgICAgICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgICAgICAgICAgICAgICAgICA8cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPgogICAgICAgICAgICAgICAgICA8L3RhcmdldENvbmZpZz4KICAgICAgICAgICAgICAgICAgPHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPgogICAgICAgICAgICAgICAgICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgICAgICAgICAgICAgIDwvdGFyZ2V0Q29uZmlnPg==",
+        "targets": {
+            "target": [
+                "lightning__RecordPage",
+                "lightning__AppPage",
+                "lightning__HomePage"
+            ]
+        }
+    }
+}
