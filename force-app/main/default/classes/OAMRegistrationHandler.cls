@@ -124,7 +124,7 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             for (Schema.PicklistEntry item : field.getPicklistValues()) {
                 setPartnerGroup.add(item.getValue());
             }
-            
+            System.debug(setPartnerGroup);
             return (setPartnerGroup.contains(roleResponse) ? roleResponse : 'null');
         }
     }
@@ -197,6 +197,9 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             updatePermissionSetFuture(JSON.serialize(userRecord), JSON.serialize(ltPermissionSetSF));
             return userRecord;
         } catch (Exception e) {
+            System.debug(e);            
+            System.debug(e.getStackTraceString());            
+            System.debug(e.getCause());            
             throw new RegHandlerException('Erro em criar/atualizar usuário: ' + e.getMessage());
         } 
     }
