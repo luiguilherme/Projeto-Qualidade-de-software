@@ -15,27 +15,40 @@ public class OAuthEndUserRequestConfiguratorTest {
         
     }
     
-    @isTest
-    private static void test(){
+    //@isTest
+    //private static void test(){
         
-        Webservice__c wsConfig = Webservice__c.getInstance('GenericWS');
+    //    Webservice__c wsConfig = Webservice__c.getInstance('GenericWS');
+        
+    //    Test.startTest();
+    //    OAuthEndUserRequestConfigurator config = new OAuthEndUserRequestConfigurator();
+    //    HttpRequest request = new HttpRequest();
+    //    request = config.configure(request, wsConfig);
+    //    Test.stopTest();
+    //}
+    
+    //@isTest
+    //private static void filledConstructorTest(){
+        
+    //    Webservice__c wsConfig = Webservice__c.getInstance('GenericWS');
+        
+    //    Test.startTest();
+    //    OAuthEndUserRequestConfigurator config = new OAuthEndUserRequestConfigurator(new QuartaPlataformaRequestConfigurator());
+    //    HttpRequest request = new HttpRequest();
+    //    request = config.configure(request, wsConfig);
+    //    Test.stopTest();
+    //}
+    
+    @isTest
+    private static void testmockdata(){
+        
+        //Webservice__c wsConfig = Webservice__c.getInstance('GenericWS');
         
         Test.startTest();
         OAuthEndUserRequestConfigurator config = new OAuthEndUserRequestConfigurator();
-        HttpRequest request = new HttpRequest();
-        request = config.configure(request, wsConfig);
-        Test.stopTest();
-    }
-    
-    @isTest
-    private static void filledConstructorTest(){
-        
-        Webservice__c wsConfig = Webservice__c.getInstance('GenericWS');
-        
-        Test.startTest();
-        OAuthEndUserRequestConfigurator config = new OAuthEndUserRequestConfigurator(new QuartaPlataformaRequestConfigurator());
-        HttpRequest request = new HttpRequest();
-        request = config.configure(request, wsConfig);
+        testResult = config.mockMethod();
+        //HttpRequest request = new HttpRequest();
+        //request = config.configure(request, wsConfig);
         Test.stopTest();
     }
 
