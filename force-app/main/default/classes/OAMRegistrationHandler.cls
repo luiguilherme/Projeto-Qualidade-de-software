@@ -124,7 +124,7 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             for (Schema.PicklistEntry item : field.getPicklistValues()) {
                 setPartnerGroup.add(item.getValue());
             }
-            System.debug(setPartnerGroup);
+            
             return (setPartnerGroup.contains(roleResponse) ? roleResponse : 'null');
         }
     }
