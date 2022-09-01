@@ -101,7 +101,7 @@ private class OAMRegistrationHandlerTest {
                                                              'profile_name' => 'AliadoExterno',
                                                              'CNPJ' => '112233445566',
                                                              'active' => '1',
-                                                             'role' => 'AliadosOuvidoria',
+                                                             'role' => 'AliadosPAP',
                                                              'adabas' => 'teste',
                                                              'sub' => 'teste@salesforce.com.br',
                                                              'permission_sets' => ''});
@@ -119,7 +119,7 @@ private class OAMRegistrationHandlerTest {
                                                'profile_name' => 'AliadoExterno',
                                                'CNPJ' => '112233445566',
                                                'active' => '1',
-                                               'role' => 'RetencaoFixa',
+                                               'role' => 'AliadosPAP',
                                                'sub' => 'teste@salesforce.com.br',
                                                'adabas' => 'teste',
                                                'permission_sets' => ''});
@@ -146,7 +146,7 @@ private class OAMRegistrationHandlerTest {
             Test.StartTest();
             
             OAMRegistrationHandler handler = new OAMRegistrationHandler();
-            Auth.UserData sampleData = new Auth.UserData('testId', 'Nome', 'Sobre',
+            Auth.UserData sampleData = new Auth.UserData('testId', 'Nome', null,
                                                          'Nome', 'null@test.com', null, 'teste2@salesforce.com.br.test', 'pt-BR', 'facebook',
                                                          null, new Map<String, String>{'aud' => 'oamIdToken.aud',
                                                              'iat' => 'oamIdToken.iat',
