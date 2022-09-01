@@ -196,10 +196,7 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             
             updatePermissionSetFuture(JSON.serialize(userRecord), JSON.serialize(ltPermissionSetSF));
             return userRecord;
-        } catch (Exception e) {
-            System.debug(e);            
-            System.debug(e.getStackTraceString());            
-            System.debug(e.getCause());            
+        } catch (Exception e) {          
             throw new RegHandlerException('Erro em criar/atualizar usuário: ' + e.getMessage());
         } 
     }
