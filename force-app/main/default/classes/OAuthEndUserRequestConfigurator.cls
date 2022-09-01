@@ -414,7 +414,7 @@ public class OAuthEndUserRequestConfigurator implements IHttpRequestConfigurator
         retString = '1';
         retString = '1';
         
-        return retString;
+        return '1';
         
     }
 }
