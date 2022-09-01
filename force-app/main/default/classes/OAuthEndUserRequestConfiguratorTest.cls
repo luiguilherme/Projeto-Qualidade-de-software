@@ -46,7 +46,9 @@ public class OAuthEndUserRequestConfiguratorTest {
         
         Test.startTest();
         OAuthEndUserRequestConfigurator config = new OAuthEndUserRequestConfigurator();
+        String testResult = '1';
         testResult = config.mockMethod();
+        System.assertEquals(testResult, '1');
         //HttpRequest request = new HttpRequest();
         //request = config.configure(request, wsConfig);
         Test.stopTest();
