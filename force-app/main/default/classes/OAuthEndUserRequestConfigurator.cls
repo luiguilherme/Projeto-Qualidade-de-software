@@ -106,7 +106,7 @@ public class OAuthEndUserRequestConfigurator implements IHttpRequestConfigurator
     
     public String mockMethod(){
     
-        retString = '1';
+        String retString = '1';
         retString = '1';
         retString = '1';
         retString = '1';
