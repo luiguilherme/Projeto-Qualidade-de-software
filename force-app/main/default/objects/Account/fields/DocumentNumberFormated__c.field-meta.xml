@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DocumentNumberFormated__c</fullName>
+    <description>Campo criado para usar apresentação de máscara em Vlocity Interaction Launcher</description>
+    <externalId>false</externalId>
+    <formula>IF(AND(ISPICKVAL(DocumentType__c, &apos;CPF&apos;), DocumentNumber__c != &apos;&apos;), 
+			(LEFT(DocumentNumber__c ,3) &amp;&quot;.&quot;&amp; RIGHT(LEFT(DocumentNumber__c ,6),3) &amp; &quot;.&quot; &amp; LEFT(RIGHT(DocumentNumber__c ,5),3) &amp; &quot;-&quot; &amp; RIGHT(DocumentNumber__c,2)), 
+			IF(AND(ISPICKVAL(DocumentType__c, &apos;CNPJ&apos;), DocumentNumber__c != &apos;&apos;),
+						(LEFT(DocumentNumber__c ,2)&amp; &quot;.&quot;&amp; RIGHT(LEFT(DocumentNumber__c ,5),3) &amp; &quot;.&quot; &amp; RIGHT(LEFT(DocumentNumber__c ,8),3) &amp; &quot;/&quot; &amp; LEFT(RIGHT(DocumentNumber__c ,6),4) &amp; &quot;-&quot; &amp; RIGHT(DocumentNumber__c,2)), 
+						DocumentNumber__c))</formula>
+    <label>Número do Documento</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
