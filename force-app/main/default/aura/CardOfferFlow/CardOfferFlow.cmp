@@ -1,0 +1,21 @@
+<aura:component controller="CardOfferFlowController">
+
+    <aura:attribute name="offerId" type="String" />
+    <aura:attribute name="isToOpenScript" type="Boolean" default="false"/>
+    <aura:attribute name="offerFlow" type="Offer__c" />
+
+    <aura:handler   name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <section class="slds-modal slds-modal_medium slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header slds-modal__header_empty">
+                <lightning:buttonIcon class="slds-modal__close slds-button_icon-inverse" iconName="utility:close" variant="bare" 
+                                      size="large" alternativeText="Fechar" title="Fechar" onclick="{!c.closeModal}"/>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium">
+                <lightning:flow aura:id="flowData" onstatuschange="{!c.statusChange}"/>
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</aura:component>

@@ -15,42 +15,27 @@ public class OAuthEndUserRequestConfiguratorTest {
         
     }
     
-    //@isTest
-    //private static void test(){
-        
-    //    Webservice__c wsConfig = Webservice__c.getInstance('GenericWS');
-        
-    //    Test.startTest();
-    //    OAuthEndUserRequestConfigurator config = new OAuthEndUserRequestConfigurator();
-    //    HttpRequest request = new HttpRequest();
-    //    request = config.configure(request, wsConfig);
-    //    Test.stopTest();
-    //}
-    
-    //@isTest
-    //private static void filledConstructorTest(){
-        
-    //    Webservice__c wsConfig = Webservice__c.getInstance('GenericWS');
-        
-    //    Test.startTest();
-    //    OAuthEndUserRequestConfigurator config = new OAuthEndUserRequestConfigurator(new QuartaPlataformaRequestConfigurator());
-    //    HttpRequest request = new HttpRequest();
-    //    request = config.configure(request, wsConfig);
-    //    Test.stopTest();
-    //}
-    
     @isTest
-    private static void testmockdata(){
+    private static void test(){
         
-        //Webservice__c wsConfig = Webservice__c.getInstance('GenericWS');
+        Webservice__c wsConfig = Webservice__c.getInstance('GenericWS');
         
         Test.startTest();
         OAuthEndUserRequestConfigurator config = new OAuthEndUserRequestConfigurator();
-        String testResult = '1';
-        testResult = config.mockMethod();
-        System.assertEquals(testResult, '1');
-        //HttpRequest request = new HttpRequest();
-        //request = config.configure(request, wsConfig);
+        HttpRequest request = new HttpRequest();
+        request = config.configure(request, wsConfig);
+        Test.stopTest();
+    }
+    
+    @isTest
+    private static void filledConstructorTest(){
+        
+        Webservice__c wsConfig = Webservice__c.getInstance('GenericWS');
+        
+        Test.startTest();
+        OAuthEndUserRequestConfigurator config = new OAuthEndUserRequestConfigurator(new QuartaPlataformaRequestConfigurator());
+        HttpRequest request = new HttpRequest();
+        request = config.configure(request, wsConfig);
         Test.stopTest();
     }
 

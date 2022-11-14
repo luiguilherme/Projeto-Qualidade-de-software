@@ -1,0 +1,210 @@
+<aura:component controller="ServiceAvailabilityController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+                access="global">
+  <!--Attributes-->
+  <aura:attribute name="selectedStep"         type="String" description="Extending from its parent cmp, ServiceAvailability.cmp" />
+  <aura:attribute name="ltAddress"            type="Object" description="Used to store datatable data." />
+  <aura:attribute name="data"                 type="Object" description="Used to store datatable data." />
+  <aura:attribute name="columnsAddress"       type="List"   description="Used to create datatable columns" />
+  <aura:attribute name="selectedAddress"      type="Object" default="[]" description="Used to get the selected address object from the DataTable" />
+  <aura:attribute name="streetNameSelected"   type="String" default="Nenhum" description="Used to validate if streetName field returned any value or not as per business requirement." />
+  <aura:attribute name="EventName"            type="String" default="ADDRESS_CHECK" />
+  <aura:attribute name="freeText"             type="Boolean" default="false" />
+  <aura:attribute name="JSONResponse"         type="String" />
+  <aura:attribute name="isReadOnly"           type="Object" default="[]" />
+  <aura:attribute name="isRequired"           type="Boolean" default="true" />
+  <aura:attribute name="isBtnDisabled"        type="Boolean" default="true" />
+  <aura:attribute name="showForm"             type="Boolean" default="false" />
+  <aura:attribute name="selectedRows"         type="List" />
+  <aura:attribute name="isLoading"            type="Boolean" default="true" />
+  <aura:attribute name="errorMessage"         type="String" />
+  <aura:attribute name="ltAdressComplement"   type="List" default="[]" />
+  <aura:attribute name="addressSpecialCities" type="List" default="[]"/>
+  <aura:attribute name="isSpecialCity"        type="Boolean" default="false"/>
+  <aura:attribute name="addressBlockLotCities" type="List" default="[]"/>
+  <aura:attribute name="isBlockLotCity"       type="Boolean" default="false"/>
+  <aura:attribute name="Complement1"          type="String" default=""/>
+  <aura:attribute name="ComplementType1"      type="String" default=""/>
+  <aura:attribute name="ltAdressComplement1"  type="List" default="[]" />
+  <aura:attribute name="Complement2"          type="String" default=""/>
+  <aura:attribute name="ComplementType2"      type="String" default=""/>
+  <aura:attribute name="ltAdressComplement2"  type="List" default="[]" />
+  <aura:attribute name="Complement3"          type="String" default=""/>
+  <aura:attribute name="ComplementType3"      type="String" default=""/>
+  <aura:attribute name="ltAdressComplement3"  type="List" default="[]" />
+  <aura:attribute name="isComplementDisabled" type="Boolean" default="false"/>
+  <aura:attribute name="complementInstruction" type="Boolean" default="false"/>
+
+  <!--Handlers-->
+  <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+  <aura:handler event="c:BroadcastNotification" action="{!c.handleComponentEvent}" access="global" />
+
+  <!-- LOADING -->
+  <aura:if isTrue="{!v.isLoading}">
+    <div class="slds-spinner_container">
+      <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+        <div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+      </div>
+    </div>
+  </aura:if>
+
+  <aura:if isTrue="{!v.errorMessage}">
+    <div class="slds-notify slds-notify_alert" role="alert">
+      {!v.errorMessage}
+    </div>
+  </aura:if>
+
+  <!-- LOADED -->
+  <lightning:datatable keyField="id" aura:id="addressDataTable" data="{! v.data }" columns="{! v.columnsAddress }"
+    hideCheckboxColumn="false" maxRowSelection="1" onrowselection="{!c.getSelectedAddressRow}"
+    selectedRows="{!v.selectedRows}" />
+
+  <aura:if isTrue="{!v.showForm}">
+    <article class="slds-card">
+      <div class="slds-card__body">
+          <aura:if isTrue="{!v.isSpecialCity}">
+            <div class="slds-notify slds-notify_alert " role="alert">{!$Label.c.ServiceAvailabilitySpecialCities}</div>
+          </aura:if>
+          <aura:if isTrue="{!v.isBlockLotCity}">
+            <div class="slds-notify slds-notify_alert " role="alert">{!$Label.c.ServiceAvailabilityBlockLotCities}</div>
+          </aura:if>
+          <aura:if isTrue="{!v.complementInstruction}">
+            <div class="slds-notify slds-notify_alert " role="alert">{!$Label.c.ServiceAvailabilityComplementInstruction}</div>
+          </aura:if>
+          <fieldset class="slds-form-element slds-form-element_compound">
+            <div class="slds-form-element__control">
+
+              <div class="slds-form-element__row slds-grid slds-wrap slds-grid_align-center slds-p-around_small">
+                <div class="slds-small-size_1-of-1 slds-medium-size_2-of-7 slds-large-size_3-of-12">
+                  <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                      <lightning:input name="StreetName__c" label="Logradouro" value="{!v.selectedAddress[0].streetName}" required="true" readonly="{!v.isReadOnly.streetNameReadOnly}" onchange="{!c.isBtnDisabledCheck}"/>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="slds-small-size_1-of-1 slds-medium-size--1-of-7 slds-large-size_2-of-12">
+                  <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                      <lightning:input name="Number__c" label="Número" value="{!v.selectedAddress[0].streetNrFirst}" required="{!v.isRequired}" readonly="{!v.isReadOnly.streetNrFirstReadOnly}" onchange="{!c.isBtnDisabledCheck}"/>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="slds-small-size_1-of-1 slds-medium-size_2-of-7 slds-large-size_3-of-12">
+                  <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                      <lightning:input name="Neighborhood__c" label="Bairro" value="{!v.selectedAddress[0].locality}"
+                        readonly="{!v.isReadOnly.localityReadOnly}" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="slds-form-element__row slds-grid slds-wrap slds-grid_align-center slds-p-around_small">
+                <div class="slds-small-size_1-of-1 slds-medium-size_2-of-7 slds-large-size_3-of-12">
+                  <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                      <lightning:input name="City__c" label="Cidade" value="{!v.selectedAddress[0].city}"
+                        readonly="{!v.isReadOnly.cityReadOnly}" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="slds-small-size_1-of-1 slds-medium-size--1-of-7 slds-large-size_2-of-12">
+                  <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                      <lightning:input name="State__c" label="Estado" value="{!v.selectedAddress[0].stateOrProvince}"
+                        readonly="{!v.isReadOnly.stateReadOnly}" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="slds-small-size_1-of-1 slds-medium-size_2-of-7 slds-large-size_3-of-12">
+                  <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                      <lightning:input name="ZipCode__c" label="CEP" value="{!v.selectedAddress[0].postcode}"
+                        readonly="{!v.isReadOnly.postCodeReadOnly}" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="slds-form-element__row slds-grid slds-wrap slds-grid_align-center slds-p-around_small">
+                <div class="slds-small-size_1-of-1 slds-medium-size_2-of-6 slds-large-size_2-of-6">
+                  <div class="slds-form-element__control">
+                      <lightning:select name="ComplementType1" label="Tipo de Complemento 1" aura:id="ComplementType1" value="{!v.ComplementType1}" onchange="{!c.onChangeType1Controller}" disabled="{!v.isComplementDisabled}">
+                        <option value="">Nenhum</option> 
+                        <aura:iteration items="{!v.ltAdressComplement1}" var="val"> 
+                          <option value="{!val.Value}"> {!val.Label} </option>
+                        </aura:iteration>
+                      </lightning:select>
+                  </div>
+                </div>
+
+                <div class="slds-small-size_1-of-1 slds-medium-size_2-of-6 slds-large-size_2-of-6">
+                  <div class="slds-form-element__control">
+                      <lightning:input name="Complement1" value="{!v.Complement1}" label="Complemento 1" disabled="{!v.isComplementDisabled}" onchange="{!c.onChangeType1Controller}"/>
+                  </div>
+                </div>
+              </div>
+
+              <aura:if isTrue="{! and(!empty(v.Complement1), !empty(v.ComplementType1)) }">
+                <div class="slds-form-element__row slds-grid slds-wrap slds-grid_align-center slds-p-around_small">
+                  <div class="slds-size_2-of-6">
+                    <div class="slds-form-element__control">
+                      <lightning:select name="ComplementType2" label="Tipo de Complemento 2" aura:id="ComplementType2" value="{!v.ComplementType2}" onchange="{!c.onChangeType2Controller}">
+                        <option value="">Nenhum</option>
+                        <aura:iteration items="{!v.ltAdressComplement2}" var="val">
+                          <option value="{!val.Value}"> {!val.Label} </option> 
+                        </aura:iteration>
+                      </lightning:select>
+                    </div>
+                  </div>
+  
+                  <div class="slds-small-size_1-of-1 slds-medium-size_2-of-6 slds-large-size_2-of-6">
+                    <div class="slds-form-element__control">
+                        <lightning:input name="Complement2" value="{!v.Complement2}" label="Complemento 2" onchange="{!c.onChangeType2Controller}"/>
+                    </div>
+                  </div>
+                </div>
+              </aura:if>
+
+              <aura:if isTrue="{! and(!empty(v.Complement2), !empty(v.ComplementType2)) }">
+                <div class="slds-form-element__row slds-grid slds-wrap slds-grid_align-center slds-p-around_small">
+                  <div class="slds-small-size_1-of-1 slds-medium-size_2-of-6 slds-large-size_2-of-6">
+                    <div class="slds-form-element__control">
+                      <lightning:select name="ComplementType3" label="Tipo de Complemento 3" aura:id="ComplementType3" value="{!v.ComplementType3}" onchange="{!c.onChangeType3Controller}">
+                        <option value="">Nenhum</option>
+                        <aura:iteration items="{!v.ltAdressComplement3}" var="val">
+                          <option value="{!val.Value}"> {!val.Label} </option> 
+                        </aura:iteration>
+                      </lightning:select>
+                    </div>
+                  </div>
+  
+                  <div class="slds-small-size_1-of-1 slds-medium-size_2-of-6 slds-large-size_2-of-6">
+                    <div class="slds-form-element__control">
+                        <lightning:input name="Complement3" value="{!v.Complement3}" onchange="{!c.onChangeType3Controller}" label="Complemento 3"/>
+                    </div>
+                  </div>
+                </div>
+              </aura:if>
+
+            </div>
+          </fieldset>
+        </div>
+      </article>
+    </aura:if>
+
+ 
+    <div class="slds-grid slds-grid_align-center slds-p-around_small">
+      <lightning:button variant="brand"
+                        name="btnAvancar"
+                        disabled="{!v.isBtnDisabled}"
+                        onclick="{!c.btnController}"
+                        label="Avançar">
+      </lightning:button>
+    </div>
+</aura:component>

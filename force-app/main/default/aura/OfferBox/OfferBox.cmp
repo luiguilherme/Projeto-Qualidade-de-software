@@ -1,0 +1,43 @@
+<aura:component>
+
+    <!-- Attributes -->
+    <aura:attribute name="ltOffer" type="Object[]" />
+    <aura:attribute name="selectedOfferId" type="String" default="" />
+    <aura:attribute name="selectedOfferAltaId" type="String" default="" />
+    <aura:attribute name="sourceItem" type="String" />
+    <aura:attribute name="offerMessage" type="String" default="" />
+    <aura:attribute name="comboMessage" type="String" default="Ofertas Disponíveis:" />
+
+    <aura:attribute name="cmpAble" type="Boolean" access="PRIVATE" default="true" />
+
+    <!-- <aura:handler event="c:OfferFilterFixedEvent" action="{!c.doInit}" /> -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler event="force:refreshView" action="{!c.doInit}" />
+
+
+    <aura:if isTrue="{! v.cmpAble}">
+        <div>
+            <div class="slds-grid slds-gutters slds-var-p-horizontal_large">
+                <br />
+                <p style="color: red;" class="slds-form-element__legend slds-form-element__label"><b><i>
+                            <lightning:formattedText value="{!v.offerMessage}" />
+                        </i></b></p>
+                <br />
+            </div>
+            <br />
+            <div class="slds-grid slds-gutters ">
+                <lightning:formattedText value="{!v.comboMessage}"
+                    class="slds-form-element__legend slds-form-element__label slds-var-p-horizontal_large " />
+                <span style="padding: 1vw;"></span>
+            </div>
+            <div class="slds-grid slds-gutters slds-scrollable slds-var-p-horizontal_large"
+                style="padding-bottom: 0.7vw;">
+                <aura:iteration items="{!v.ltOffer}" var="offer">
+                    <c:OfferBoxItem offer="{!offer}" sourceItem="{!v.sourceItem}" selectedOfferId="{!v.selectedOfferId}"
+                        selectedOfferAltaId="{!v.selectedOfferAltaId}" />
+                </aura:iteration>
+            </div>
+        </div>
+    </aura:if>
+
+</aura:component>

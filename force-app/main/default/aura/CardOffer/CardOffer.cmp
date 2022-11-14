@@ -1,0 +1,455 @@
+<aura:component controller="CardOfferController"
+    implements="forceCommunity:availableForAllPageTypes,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+    access="global">
+
+    <!-- Attributes -->
+    <aura:attribute name="ltBillingAccountFixed" type="Object[]" />
+    <aura:attribute name="ltBillingAccountMobile" type="Object[]" />
+    <aura:attribute name="ltBillingFixed" type="Object[]" />
+    <aura:attribute name="ltBillingMobile" type="Object[]" />
+    <aura:attribute name="ltOfferAlta" type="Object[]" />
+    <aura:attribute name="ltCardFixed" type="Object[]" />
+    <aura:attribute name="ltCardMobile" type="Object[]" />
+    <aura:attribute name="ltCardProposal" type="Object[]" />
+    <aura:attribute name="ltCardOfferAlta" type="Object[]" />
+    <aura:attribute name="ltCardProposalAlta" type="Object[]" />
+    <aura:attribute name="selectedOfferAltaId" type="String" />
+    <aura:attribute name="returnProposal" type="String" />
+    <aura:attribute name="hasOfferFixed" type="Boolean" default="false" />
+    <aura:attribute name="hasOfferMobile" type="Boolean" default="false" />
+    <aura:attribute name="hasOfferAlta" type="Boolean" default="false" />
+    <aura:attribute name="hasTotalProposal" type="Boolean" default="false" />
+    <aura:attribute name="hasProposal" type="Boolean" default="true" />
+    <aura:attribute name="setOfferSelected" type="String" />
+    <aura:attribute name="selectedOfferId" type="String" />
+    <aura:attribute name="isToOpenScript" type="Boolean" default="false" />
+    <aura:attribute name="totalDiscount" type="String" />
+    <aura:attribute name="stringMonth" type="String" default=" meses" />
+    <aura:attribute name="totalProposal" type="String" />
+
+    <!-- Event -->
+    <aura:handler event="c:CardOfferEvent" action="{!c.updateOffer}" />
+
+    <!-- Handlers -->
+    <!-- <aura:handler name="init" value="{!this}" action="{!c.doInit}" /> -->
+
+    <!-- Body -->
+    <lightning:card>
+        <!-- Header-->
+        <article class="slds-card">
+            <div class="slds-card__header slds-grid slds-align_absolute-center slds-box ">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-account" title="account">
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <a href="javascript:void(0);"
+                                class="slds-card__header-link slds-truncate slds-align_absolute-center" title="Fixa">
+                                <div class="slds-align_absolute-center">
+                                    <br></br>
+                                    <legend class="slds-form-element__legend slds-form-element__label"
+                                        style="color: black;"><b>Menu de Ofertas</b></legend><br></br>
+                                </div>
+                            </a>
+                        </h2>
+                    </div>
+                </header>
+            </div>
+        </article>
+
+        <div class="slds-grid ">
+
+            <!--Card Combo Fixa-->
+            <div class="slds-grid slds-size_1-of-3 slds-box">
+                <div class="slds-grid_vertical ">
+                    <div class="slds-align_absolute-center slds-box cardOfferFixed">
+                        <br></br>
+                        <legend class="slds-form-element__legend slds-form-element__label" style="color: white;">
+                            <b>Fixa</b>
+                        </legend><br></br>
+                    </div>
+                    <div class="{!'bodyofferfixed '}">
+                        <div class="slds-grid slds-grid_vertical ">
+                            <div class="slds-col slds-size_1-of-3 valor_ofertas">
+                                <aura:if isTrue="{!v.hasOfferFixed}">
+                                    <aura:iteration items="{!v.ltCardFixed}" var="accBillingFixed">
+                                        <div class="detalhamento">
+                                            <br></br>
+                                            <legend class="slds-form-element__legend slds-form-element__label"
+                                                style="color: blue;"><b>{!accBillingFixed.billingAccountName}</b>
+                                            </legend><br></br>
+                                            <br />
+                                        </div>
+                                        <div class="detalhamento">
+                                            <br></br><b>
+                                                <legend class="slds-form-element__legend slds-form-element__label"
+                                                    style="color: black;"><b>{!accBillingFixed.field9}</b></legend>
+                                            </b><br></br>
+                                            <br />
+                                        </div>
+                                        <div class="detalhamento">
+                                            <br></br>
+                                            <legend class="slds-form-element__legend slds-form-element__label"
+                                                style="color: black;"> <b>
+                                                    <b>
+                                                        <lightning:formattedNumber label="Valor da oferta: "
+                                                            id="valor_fixa" value="{!accBillingFixed.billingValue}"
+                                                            style="currency" currencyCode="BRL"
+                                                            currencyDisplayAs="symbol" minimumFractionDigits="2"
+                                                            maximumFractionDigits="2" />
+                                                    </b></b></legend><br></br>
+                                        </div>
+                                        <br></br>
+                                        <div class="detalhamento">
+                                            <aura:if isTrue="{!accBillingFixed.field5 != null}">
+                                                <span aura:id="campanha" class="campanha">
+                                                    <b>Campanha :</b>
+                                                    <lightning:button iconName="utility:copy" variant="bare"
+                                                        onclick="{! c.copytextfixa }" value="{!accBillingFixed.field5}"
+                                                        label="" />
+
+                                                </span>
+                                                <aura:unescapedHtml aura:id="campanha_fixa"
+                                                    value="{!accBillingFixed.field5}" />
+                                                <input style="position:absolute;left:-1000px;top:-1000px;"
+                                                    aura:id="campanha_fixa_copy" id="campanha_fixa"
+                                                    value="{!accBillingFixed.field5}" />
+
+                                            </aura:if>
+
+                                            <br></br>
+                                            <br></br><b>Descrição da Oferta : </b>
+                                            <br></br>
+                                            <aura:unescapedHtml value="{!accBillingFixed.field2}" />
+                                            <br></br>
+                                            <br></br>
+
+                                            <b>Desconto Banda Larga : </b>
+                                            <b>
+                                                <lightning:formattedNumber value="{!accBillingFixed.field6}"
+                                                    style="currency" currencyCode="BRL" currencyDisplayAs="symbol"
+                                                    minimumFractionDigits="2" maximumFractionDigits="2" />
+                                            </b><br></br>
+                                            <br></br>
+
+                                            <!-- Implementado em 18/03/2021-->
+                                            <b>Duração do desconto : </b>
+                                            <b>
+                                                <aura:if isTrue="{!accBillingFixed.field10 == null}">
+                                                    <aura:unescapedHtml value="Indeterminada" />
+                                                    <aura:set attribute="else">
+                                                        <aura:unescapedHtml
+                                                            value="{!accBillingFixed.field10+v.stringMonth}" />
+                                                    </aura:set>
+                                                </aura:if>
+                                            </b><br></br>
+                                            <br></br>
+
+                                            <b>Desconto Voz : </b>
+                                            <b>
+                                                <lightning:formattedNumber value="{!accBillingFixed.field8}"
+                                                    style="currency" currencyCode="BRL" currencyDisplayAs="symbol"
+                                                    minimumFractionDigits="2" maximumFractionDigits="2" />
+                                            </b><br></br>
+                                            <br></br>
+
+                                            <!-- Implementado em 18/03/2021-->
+                                            <b>Duração do desconto : </b>
+                                            <b>
+                                                <aura:if isTrue="{!accBillingFixed.field11 == null}">
+                                                    <aura:unescapedHtml value="Indeterminada" />
+                                                    <aura:set attribute="else">
+                                                        <aura:unescapedHtml
+                                                            value="{!accBillingFixed.field11+v.stringMonth}" />
+                                                    </aura:set>
+                                                </aura:if>
+                                            </b><br></br>
+                                            <br></br>
+
+                                            <b>Desconto TV : </b>
+                                            <b>
+                                                <lightning:formattedNumber value="{!accBillingFixed.field7}"
+                                                    style="currency" currencyCode="BRL" currencyDisplayAs="symbol"
+                                                    minimumFractionDigits="2" maximumFractionDigits="2" />
+                                            </b><br></br>
+                                            <br></br>
+
+                                            <!-- Implementado em 18/03/2021-->
+                                            <b>Duração do desconto : </b>
+                                            <b>
+                                                <aura:if isTrue="{!accBillingFixed.field12 == null}">
+                                                    <aura:unescapedHtml value="Indeterminada" />
+                                                    <aura:set attribute="else">
+                                                        <aura:unescapedHtml
+                                                            value="{!accBillingFixed.field12+v.stringMonth}" />
+                                                    </aura:set>
+                                                </aura:if>
+                                            </b><br></br>
+                                            <br></br>
+
+                                            <!-- Implementado em 18/03/2021-->
+                                            <b>Desconto total : </b>
+                                            <b>
+                                                <lightning:formattedNumber value="{!v.totalDiscount}" style="currency"
+                                                    currencyCode="BRL" currencyDisplayAs="symbol"
+                                                    minimumFractionDigits="2" maximumFractionDigits="2" />
+                                            </b><br></br>
+                                            <br></br>
+
+                                        </div>
+                                    </aura:iteration>
+                                </aura:if>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Card Combo Móvel-->
+            <div class="slds-grid slds-size_1-of-3 slds-box  ">
+
+                <div class="slds-grid_vertical ">
+
+                    <div class="slds-align_absolute-center slds-box cardOfferMobile">
+                        <br></br>
+                        <legend class="slds-form-element__legend slds-form-element__label" style="color: white;">
+                            <b>Móvel</b>
+                        </legend><br></br>
+                    </div>
+                    <div class="{!'bodyoffermobile '}">
+
+                        <div class="slds-grid slds-grid_vertical ">
+
+                            <div class="slds-col slds-size_1-of-3 valor_ofertas">
+                                <aura:if isTrue="{!v.hasOfferMobile}">
+                                    <aura:iteration items="{!v.ltCardMobile}" var="accBillingMobile">
+                                        <div class="detalhamento">
+                                            <br></br>
+                                            <legend class="slds-form-element__legend slds-form-element__label"
+                                                style="color: purple;"><b>{!accBillingMobile.billingAccountName}</b>
+                                            </legend><br></br>
+                                            <br />
+                                        </div>
+                                        <div class="detalhamento">
+                                            <br></br><b>
+                                                <legend class="slds-form-element__legend slds-form-element__label"
+                                                    style="color: black;"><b>{!accBillingMobile.field5}</b></legend>
+                                            </b><br></br>
+                                            <br />
+                                        </div>
+                                        <div class="detalhamento">
+                                            <br></br>
+                                            <legend class="slds-form-element__legend slds-form-element__label"
+                                                style="color: black;"> <b>
+                                                    <b>
+                                                        <lightning:formattedNumber label="Valor da oferta: "
+                                                            id="valor_movel" value="{!accBillingMobile.billingValue}"
+                                                            style="currency" currencyCode="BRL"
+                                                            currencyDisplayAs="symbol" minimumFractionDigits="2"
+                                                            maximumFractionDigits="2" />
+                                                    </b></b></legend><br></br>
+                                        </div>
+                                        <br></br>
+                                        <div class="detalhamento">
+                                            <aura:if isTrue="{!accBillingMobile.field2 != null}">
+                                                <span aura:id="campanha" class="campanha">
+                                                    <b>Campanha : </b>
+                                                    <lightning:button iconName="utility:copy" variant="bare"
+                                                        onclick="{! c.copytextmovel }"
+                                                        value="{!accBillingMobile.field2}" label="" />
+                                                    <aura:unescapedHtml aura:id="campanha_movel"
+                                                        value="{!accBillingMobile.field2}" />
+                                                </span>
+                                            </aura:if>
+                                            <input style="position:absolute;left:-1000px;top:-1000px;"
+                                                aura:id="campanha_movel_copy" id="campanha_movel"
+                                                value="{!accBillingMobile.field2}" />
+                                            <br></br>
+                                            <br></br>{!accBillingMobile.field3}<br></br>
+                                        </div>
+                                        <br></br>
+                                        <div class="detalhamento">
+                                            <aura:if isTrue="{!accBillingMobile.field4 != null}">
+                                                <span aura:id="sistemaOrigem" class="sistemaOrigem">
+                                                    <b>Sistema de origem : </b>
+                                                    <aura:unescapedHtml aura:id="sistemaOrigem_movel"
+                                                        value="{!accBillingMobile.field4}" />
+                                                </span>
+                                            </aura:if>
+                                        </div>
+                                    </aura:iteration>
+
+                                </aura:if>
+                                <aura:if isTrue="{!v.hasOfferAlta}">
+                                    <aura:iteration items="{!v.ltCardOfferAlta}" var="accOfferAlta">
+                                        <div class="detalhamento">
+                                            <br></br>
+                                            <legend class="slds-form-element__legend slds-form-element__label"
+                                                style="color: purple;"><b>{!accOfferAlta.field6}</b></legend><br></br>
+                                            <br />
+                                        </div>
+
+                                        <div class="detalhamento">
+                                            <br></br>
+                                            <legend class="slds-form-element__legend slds-form-element__label"
+                                                style="color: black;"> <b>
+                                                    <b>
+                                                        <lightning:formattedNumber label="Valor da oferta: "
+                                                            id="valor_movel" value="{!accOfferAlta.field1}"
+                                                            style="currency" currencyCode="BRL"
+                                                            currencyDisplayAs="symbol" minimumFractionDigits="2"
+                                                            maximumFractionDigits="2" />
+                                                    </b></b></legend><br></br>
+                                        </div>
+                                        <br></br>
+                                        <div class="detalhamento">
+                                            <aura:if isTrue="{!accOfferAlta.field2 != null}">
+                                                <span aura:id="campanha" class="campanha">
+                                                    <b>Campanha : </b>
+                                                    <lightning:button iconName="utility:copy" variant="bare"
+                                                        onclick="{! c.copytextmovel }" value="{!accOfferAlta.field2}"
+                                                        label="" />
+                                                    <aura:unescapedHtml aura:id="campanha_movel"
+                                                        value="{!accOfferAlta.field2}" />
+                                                </span>
+                                            </aura:if>
+                                            <input style="position:absolute;left:-1000px;top:-1000px;"
+                                                aura:id="campanha_movel_copy" id="campanha_movel"
+                                                value="{!accOfferAlta.field2}" />
+                                            <br></br>
+                                            <br></br>{!accOfferAlta.field3}<br></br>
+                                            <br></br>{!accOfferAlta.field4}<br></br>
+                                            <br></br>
+                                            <aura:if isTrue="{!accOfferAlta.field8 != null}">
+                                                <span aura:id="sistemaOrigem" class="sistemaOrigem">
+                                                    <b>Sistema de origem : </b>
+                                                    <aura:unescapedHtml aura:id="sistemaOrigem_movel"
+                                                        value="{!accOfferAlta.field8}" />
+                                                </span>
+                                            </aura:if>
+                                        </div>
+                                    </aura:iteration>
+                                    <br />
+
+
+                                </aura:if>
+
+                                <aura:if isTrue="{!v.hasOfferAlta}">
+                                    <lightning:button variant="brand" label="Iniciar Script" title="Iniciar Script"
+                                        onclick="{!c.openScript}"
+                                        class="slds-var-m-around_xx-large buttom-theme script_button" />
+                                </aura:if>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Card Combo Proposal-->
+            <div class="slds-grid slds-size_1-of-3 slds-box ">
+                <div class="slds-grid_vertical ">
+                    <div class="slds-align_absolute-center slds-box cardOfferProposal">
+                        <br></br>
+                        <legend class="slds-form-element__legend slds-form-element__label" style="color: white;">
+                            <b>Proposta</b>
+                        </legend><br></br>
+                    </div>
+                    <div class="{!'bodyoffermobile '}">
+                        <div class="slds-grid slds-grid_vertical ">
+                            <div class="slds-col slds-size_2-of-3 valor_ofertas">
+                                <aura:if isTrue="{!v.hasTotalProposal}">
+                                    <aura:iteration items="{!v.ltCardProposal}" var="accCardProposal">
+                                        <div style="margin-right: 20px;">
+                                            <div class="detalhamento slds-align_absolute-center">
+                                                <br></br>
+                                                <legend class="slds-form-element__legend slds-form-element__label"
+                                                    style="color: green;"><b>{!accCardProposal.field3}</b></legend>
+                                                <br></br>
+                                                <br />
+                                            </div><br> </br>
+                                            <b>
+                                                <lightning:formattedNumber
+                                                    value="{!accCardProposal.billingProposalValue}" style="currency"
+                                                    currencyCode="BRL" currencyDisplayAs="symbol"
+                                                    minimumFractionDigits="2" maximumFractionDigits="2" />
+                                            </b>
+                                            <br></br>
+                                            <br></br><b>{!accCardProposal.field1} </b>
+                                            <b>
+                                                <lightning:formattedNumber value="{!accCardProposal.field2}"
+                                                    style="currency" currencyCode="BRL" currencyDisplayAs="symbol"
+                                                    minimumFractionDigits="2" maximumFractionDigits="2" />
+                                            </b> <br></br>
+                                            <br> </br>
+                                            <br> </br>
+                                            <br> </br>
+                                        </div>
+                                    </aura:iteration>
+
+                                </aura:if>
+
+                                <aura:if isTrue="{!v.hasOfferAlta}">
+                                    <aura:iteration items="{!v.ltCardOfferAlta}" var="accOfferAlta">
+                                        <div style="margin-right: 20px;">
+                                            <div class="detalhamento slds-align_absolute-center">
+                                                <br></br>
+                                                <legend class="slds-form-element__legend slds-form-element__label"
+                                                    style="color: green;"><b>Proposta de Oferta Alta: </b></legend>
+                                                <br></br>
+                                                <br />
+                                            </div><br> </br>
+                                            <b>
+                                                <lightning:formattedNumber value="{!accOfferAlta.field1}"
+                                                    style="currency" currencyCode="BRL" currencyDisplayAs="symbol"
+                                                    minimumFractionDigits="2" maximumFractionDigits="2" />
+                                            </b>
+                                            <br></br>
+                                            <br></br><b>{!accOfferAlta.field7} </b>
+                                            <b>
+                                                <lightning:formattedNumber value="{!accOfferAlta.field5}"
+                                                    style="currency" currencyCode="BRL" currencyDisplayAs="symbol"
+                                                    minimumFractionDigits="2" maximumFractionDigits="2" />
+                                            </b> <br></br>
+                                            <br> </br>
+                                            <br> </br>
+                                            <br> </br>
+                                        </div>
+
+                                    </aura:iteration>
+                                </aura:if>
+                                <!--Inclusão do campo total-->
+                                <aura:if isTrue="{!v.hasTotalProposal || v.hasOfferAlta}">
+                                    <div style="margin-right: 20px;">
+                                        <div class="valorTotal">
+                                            <b>Total: </b>
+                                            <b>
+                                                <lightning:formattedNumber value="{!v.totalProposal}" style="currency"
+                                                    currencyCode="BRL" currencyDisplayAs="symbol"
+                                                    minimumFractionDigits="2" maximumFractionDigits="2" />
+                                            </b>
+                                            <br></br>
+                                        </div>
+                                    </div>
+                                </aura:if>
+
+                                <c:SelectCart setOfferSelected="{!v.setOfferSelected}"
+                                    ltCardProposal="{!v.ltCardProposal}" selectedOfferAltaId="{!v.selectedOfferAltaId}"
+                                    accountId="{!v.recordId}" ltBillingAccountFixed="{!v.ltBillingAccountFixed}"
+                                    ltBillingAccountMobile="{!v.ltBillingAccountMobile}"
+                                    ltCardOfferAlta="{!v.ltCardOfferAlta}" />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </lightning:card>
+
+    <aura:if isTrue="{!v.isToOpenScript}">
+        <c:CardOfferFlow offerId="{!v.selectedOfferId}" isToOpenScript="{!v.isToOpenScript}" />
+    </aura:if>
+
+</aura:component>
