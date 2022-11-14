@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DoNotContainSpecialCharacters</fullName>
+    <active>true</active>
+    <description>Identificador para não conter caracteres especiais</description>
+    <errorConditionFormula>NOT( 
+OR( 
+ISBLANK(ReferencePoint__c),REGEX(ReferencePoint__c,&quot;([a-zA-Z- ])*&quot;)))</errorConditionFormula>
+    <errorDisplayField>ReferencePoint__c</errorDisplayField>
+    <errorMessage>O campo não pode conter caracteres especiais</errorMessage>
+</ValidationRule>
