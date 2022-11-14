@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ManualPotentialReach__c</fullName>
+    <description>Utilizado para mostrar o potencial de alcance do aviso manual</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Mostra o número total de clientes, que podem ser impactados.</inlineHelpText>
+    <label>Alcance Potencial Manual</label>
+    <summaryFilterItems>
+        <field>ScriptDetail__c.RecordTypeId</field>
+        <operation>equals</operation>
+        <value>Log de Avisos</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>ScriptDetail__c.Log__c</field>
+        <operation>equals</operation>
+        <value>False</value>
+    </summaryFilterItems>
+    <summaryForeignKey>ScriptDetail__c.Script__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

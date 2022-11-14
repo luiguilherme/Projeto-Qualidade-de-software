@@ -1,8 +1,3 @@
-/** 
- * @author Diego Costa @ Deloitte
- * @date 02/06/2022
- * @description Controla a busca e criação do objeto Account
- */
 public with sharing class AccountDAO {
     
     public static Account getByIds(Id accountId){
@@ -22,10 +17,23 @@ public with sharing class AccountDAO {
                  DocumentNumber__c,
                  UserId__c,
                  RecordTypeId,
-              //   CustomerSegment__c, 
+                 vlocity_cmt__CustomerValue__c, 
                  vlocity_cmt__CustomerClass__c, 
                  WhiteListCharacteristic__c, 
-                 LastModifiedDate
+                 LastModifiedDate,
+                 ShippingAddress,
+                 BillingAddress,
+                 ShippingStreet,
+                 ShippingPostalCode,
+                 ShippingCity,
+                 ShippingState,
+                 ShippingNumber__c,
+                 BillingStreet,
+                 BillingPostalCode,
+                 BillingCity,
+                 BillingState,
+                 BillingNumber__c,
+                 CustomerSegment__c
                 FROM 
                   Account
                 WHERE 
@@ -33,15 +41,16 @@ public with sharing class AccountDAO {
                ];
     }
 
-    public static List<Account> getAccountById(Id accountId){
+    public static List<Account> getAccountById(String accountId){
         return [
             SELECT    
                 Id,
                 Name,
                 DocumentNumber__c,
                 UserId__c,
-        //        CustomerSegment__c,
-                vlocity_cmt__PrimaryContactId__r.MotherName__c,                
+				vlocity_cmt__CustomerValue__c,
+                vlocity_cmt__PrimaryContactId__r.MotherName__c,
+            	vlocity_cmt__PrimaryContactId__r.Birthdate,
                 CreditScoreDate__c,
                 RecordTypeId,
                 vlocity_cmt__CreditScore__c
@@ -55,7 +64,7 @@ public with sharing class AccountDAO {
     public static List<Account> getActiveById(String accountId){
         return [
             SELECT Id, 
-          //      CustomerSegment__c, 
+                vlocity_cmt__CustomerValue__c,
                 vlocity_cmt__CustomerClass__c, 
                 WhiteListCharacteristic__c, 
                 LastModifiedDate,

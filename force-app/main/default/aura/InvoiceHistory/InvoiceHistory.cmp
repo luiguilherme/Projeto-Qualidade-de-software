@@ -1,0 +1,86 @@
+<aura:component controller="InvoiceHistoryController"  implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:attribute name="hasInvoiceHistory" type="boolean" default="false"/>
+    <aura:attribute name="hasUserIdAccount" type="boolean" default="false"/>
+    
+    <aura:attribute name="messageInvoice" type="Object" />
+    <aura:handler event="c:UserProfileEvent" action="{!c.onShowComponent}"/>   
+    
+    <!--Validação para saber se o UserId esta carregado a conta-->
+    <aura:if isTrue="{!and(v.hasUserIdAccount, v.messageInvoice.lstMessage != null)}">
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_2-of-3">
+                <div class="slds-box slds-m-around_xxx-small" style="height: 140px;">
+                    <div class="slds-grid slds-grid_vertical">
+                        <aura:if isTrue="{!not(empty(v.messageInvoice.lstMessage))}">
+                            <div class="slds-col">
+                                <h1><b>Atenção!</b></h1>
+                            </div>  
+                            <aura:iteration items="{!v.messageInvoice.lstMessage}" var="item">
+                                <div class="slds-col">          
+                                    <div class="slds-m-vertical_xx-small">
+                                        <lightning:icon iconName="utility:warning" alternativeText="Atenção" title="Atenção"  size="small" variant="warning"/>
+                                        <span class="slds-m-left_x-small">{!item}</span>
+                                    </div>
+                                </div>
+                            </aura:iteration>
+                            <aura:set attribute="else">
+                                <div class="slds-col">
+                                    <h1><b>Tudo certo!</b></h1>
+                                </div>
+                                <div class="slds-col">            
+                                    <div class="slds-m-vertical_xx-small slds-m-top_large">
+                                        <lightning:icon iconName="utility:check" alternativeText="Tudo acerto" title="tudo certo"  size="small"/>
+                                        <span class="slds-m-left_x-small">No momento, não há ponto de atenção para esse cliente.</span>
+                                    </div>
+                                </div>
+                            </aura:set>
+                        </aura:if>
+                    </div>
+                </div>    
+            </div>
+            <div class="slds-col slds-size_1-of-3">
+                <div class="slds-box slds-m-around_xxx-small" style="height : 140px">
+                    <div class="slds-grid slds-grid_vertical">
+                        <div class="slds-col slds-m-bottom_small">
+                            <b>
+                                <span class="slds-align_absolute-center">Média das Faturas</span>
+                            </b>
+                        </div>
+                        <div class="slds-col">            
+                            <div class="slds-m-vertical_xx-small slds-m-left_medium">
+                                <lightning:icon class="purple" iconName="utility:chart" alternativeText="Média Fixa" title="Média Fixa"  size="small" style='color: #651A8F;'/>
+                                <span class="slds-m-left_xx-small">
+                                    Média Fixa: 
+                                    <lightning:formattedNumber value="{!v.messageInvoice.FixedAverage}" currencyCode="BRL"  style="currency" currencyDisplayAs="symbol" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="slds-col">
+                            <div class="slds-m-vertical_xx-small slds-m-left_medium">
+                                <lightning:icon class="blue" iconName="utility:chart" alternativeText="Média móvel" title="Média Móvel" size="small"/>
+                                <span class="slds-m-left_xx-small">
+                                    Média Móvel: 
+                                    <lightning:formattedNumber value="{!v.messageInvoice.MovingAverage}" currencyCode="BRL"  style="currency" currencyDisplayAs="symbol" /></span>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <aura:set attribute="else">
+            <div class="slds-grid slds-gutters slds-m-around_x-large">
+                <div class="slds-col">
+                    <lightning:icon iconName="utility:warning" alternativeText="Warning!" variant="warning" title="warning variant" />
+                </div>
+                <div class="slds-col">
+                  <span>
+                    Informações importantes ainda não foram carregadas, assim que o sistema completar o preenchimento será liberado o componente de faturas.
+                  </span>                   
+                </div>
+            </div>    
+        </aura:set>     
+    </aura:if>
+</aura:component>

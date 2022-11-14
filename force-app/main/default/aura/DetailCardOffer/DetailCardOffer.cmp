@@ -1,0 +1,54 @@
+<aura:component>
+    <aura:attribute name="ltOffer" type="Object[]" />
+    <aura:attribute name="isPhone" type="Boolean" default="false" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <div class="slds-grid slds-wrap slds-p-top_medium">
+        <div class="slds-size_1-of-1  slds-medium-size_2-of-12">
+            <lightning:formattedText class="titleFont" value="Descrição:" />
+        </div>
+        <div class="slds-size_1-of-1  slds-medium-size_8-of-12">
+            <div class="slds-grid slds-wrap">
+                <aura:iteration items="{!v.ltOffer}" var="item" indexVar="i">
+                    <aura:if isTrue="{!item.categories != 'D'}">
+                        <div class="slds-size_1-of-1  slds-medium-size_1-of-1">
+                            <lightning:formattedText class="titleFont" value="Oferta Total" />
+                        </div>
+                        <div class="slds-size_1-of-1  slds-medium-size_11-of-12 slds-p-bottom_small slds-p-top_xx-small">
+                            <lightning:formattedText value="{!item.name}" />
+                        </div>
+                        <div class="slds-size_1-of-1  slds-medium-size_1-of-12 slds-p-bottom_large">
+                            <lightning:formattedText value="{!'R$' + ((item.offerPrice == '0.0') ? '0.0' : item.offerPrice)}" />
+                        </div>
+                    </aura:if>
+
+                    <aura:if isTrue="{!item.categories == 'D'}">
+                        <div class="{!'slds-size_1-of-1  slds-medium-size_1-of-1 slds-border_top slds-p-top_medium'}">
+                            <lightning:formattedText class="titleFont" value="{!item.type}" />
+                        </div>
+                        <div class="slds-grid slds-wrap slds-medium-size_1-of-1 slds-p-top_x-small">
+                            <div class="slds-size_1-of-1  slds-medium-size_11-of-12">
+                                <lightning:formattedText value="{!item.name}" />
+                            </div>
+                            <div class="{! 'slds-size_1-of-1  slds-medium-size_1-of-12 ' + ((item.campaignCode) ? '' : 'slds-p-bottom_medium')}"> 
+                                <lightning:formattedText value="{!'R$' + ((item.offerPrice == '0.0') ? '0.0' : item.offerPrice)}" />
+                            </div>
+                            <div class="{!'slds-size_1-of-1  slds-medium-size_1-of-1 slds-p-top_medium ' + ((item.campaignCode) ? 'slds-show' : 'slds-hide')}">
+                                <lightning:formattedText class="titleFont" value="Código da Campanha" />
+                            </div>
+                            <div class="{!'slds-size_1-of-1  slds-medium-size_1-of-1 slds-p-bottom_medium ' + ((item.campaignCode) ? 'slds-show' : 'slds-hide')}">
+                                <lightning:button iconName="utility:copy_to_clipboard" 
+                                variant="bare"
+                                iconPosition="right" 
+                                label="{!item.campaignCode}"
+                                onclick="{!c.copyInputFieldValue}" value="{!item.campaignCode}"
+                                aura:id="buttonId"/>                          
+                            </div>
+                        </div>
+                    </aura:if>
+                </aura:iteration>
+            </div>
+        </div>
+    </div>
+</aura:component>

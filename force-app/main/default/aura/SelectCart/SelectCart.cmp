@@ -1,0 +1,159 @@
+<aura:component controller="InsertCartController"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+    access="global">
+    <!-- Attributes -->
+    <aura:attribute name="isOpen" type="boolean" default="false" />
+    <aura:attribute name="setOfferSelected" type="String" />
+    <aura:attribute name="ltCardProposal" type="Object[]" />
+    <aura:attribute name="listProposal" type="String" />
+    <aura:attribute name="selectedOfferAltaId" type="String" />
+    <aura:attribute name="accountId" type="String" />
+    <aura:attribute name="templateOffer" type="String" />
+    <aura:attribute name="ltBillingAccountFixed" type="Object[]" />
+    <aura:attribute name="ltBillingAccountMobile" type="Object[]" />
+    <aura:attribute name="hasOfferAlta" type="Boolean" />
+    <aura:attribute name="returnValidate" type="Boolean" default="false" />
+    <aura:attribute name="ltCardOfferAlta" type="Object[]" />
+    <aura:attribute name="msgValidationAltaMovel" type="String"
+        default="Não é possível realizar a venda para cliente não retido." />
+    <aura:attribute name="msgValidationResult" type="String" />
+    <aura:attribute name="showClienteRetido" type="Boolean" default="false" />
+    <aura:attribute name="showClientWithoutPermission" type="Boolean" default="false" />
+    <aura:attribute name="showClientWithoutLimit" type="Boolean" default="false" />
+
+    <aura:attribute name="recordId" type="String" />
+    <!-- Event -->
+
+    <div class="slds-m-around_xx-large">
+        <lightning:button variant="brand" label="Proposta aceita" title="Proposta aceita" onclick="{! c.openModel }"
+            class="buttom-theme" />
+        <aura:if isTrue="{!v.isOpen}">
+
+            <!--###### MODAL BOX Start######-->
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- ###### MODAL BOX HEADER Start ######-->
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close" onclick="{! c.closeModel }"
+                            alternativeText="close" variant="bare-inverse" class="slds-modal__close" />
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Resumo do atendimento
+                        </h2>
+                    </header>
+                    <!--###### MODAL BOX BODY Part Start######-->
+                    <div class="slds-modal__content slds-p-around_medium slds-text-title slds-text-align_left">
+                        <p>
+                            <lightning:formattedText value="{!v.templateOffer}" />
+                        </p>
+
+                    </div>
+                    <!--###### MODAL BOX FOOTER Part Start ######-->
+                    <footer class="slds-modal__footer">
+                        <lightning:button variant="neutral" label="Fechar" title="Fechar" onclick="{! c.closeModel }" />
+                        <lightning:button variant="brand" label="Copiar" title="Copiar" onclick="{! c.copytextmovel }"
+                            value="{!v.templateOffer}" iconName="utility:copy" />
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+            <!--###### MODAL BOX Part END Here ######-->
+
+        </aura:if>
+        <!--Mensagem de validação da regra.-->
+        <aura:if isTrue="{!v.returnValidate}">
+            <!--###### MODAL BOX Start######-->
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- ###### MODAL BOX HEADER Start ######-->
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close" onclick="{! c.closeModal }"
+                            alternativeText="close" variant="bare-inverse" class="slds-modal__close" />
+                        <h1 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Cliente não retido
+                        </h1>
+                    </header>
+                    <!--###### MODAL BOX BODY Part Start######-->
+                    <div class="slds-modal__content slds-p-around_medium slds-text-title slds-text-align_left">
+                        <p style="text-align: center; font-size: 14px">
+                            <lightning:formattedText value="{!v.msgValidationResult}" />
+                        </p>
+                    </div>
+                    <!--###### MODAL BOX FOOTER Part Start ######-->
+                    <footer class="slds-modal__footer">
+                        <lightning:button variant="neutral" label="Fechar" title="Fechar" onclick="{! c.closeModal }" />
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+            <!--###### MODAL BOX Part END Here ######-->
+        </aura:if>
+
+        <aura:if isTrue="{!v.showClienteRetido}">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close">
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Banda Larga do cliente
+                            retida?</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <div class="slds-align_absolute-center">
+                            <button class="slds-button slds-button_neutral" style="margin-right: 5px;"
+                                onclick="{! c.trueBtnModalClienteRetido }">Sim</button>
+                            <button class="slds-button slds-button_brand" style="margin-left: 5px;;"
+                                onclick="{! c.notBtnModalClienteRetido }">Não</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </aura:if>
+
+        <aura:if isTrue="{!v.showClientWithoutPermission}">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- ###### MODAL BOX HEADER Start ######-->
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close" onclick="{! c.closeShowClientWithoutPermission }"
+                            alternativeText="close" variant="bare-inverse" class="slds-modal__close" />
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Aviso</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium slds-text-title slds-text-align_left">
+                        <p style="text-align: center; font-size: 14px">
+                            <lightning:formattedText
+                                value="Seu usuário não faz parte do Piloto de automação de altas móvel, por favor prosseguir normalmente com a sua jornada de atendimento" />
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </aura:if>
+
+        <aura:if isTrue="{!v.showClientWithoutLimit}">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- ###### MODAL BOX HEADER Start ######-->
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close" onclick="{! c.closeShowClientWithoutLimit }"
+                            alternativeText="close" variant="bare-inverse" class="slds-modal__close" />
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Aviso</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium slds-text-title slds-text-align_left">
+                        <p style="text-align: center; font-size: 14px">
+                            <lightning:formattedText
+                                value="Operador, o cliente alcançou o número máximo de ofertas por dia." />
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </aura:if>
+    </div>
+
+</aura:component>

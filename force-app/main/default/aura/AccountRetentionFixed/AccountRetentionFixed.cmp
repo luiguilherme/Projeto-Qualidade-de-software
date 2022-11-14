@@ -1,0 +1,95 @@
+<aura:component controller="AccountRetentionController"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes"
+    access="global">
+
+    <!-- Attributes -->
+
+    <aura:attribute name="ltBillingAccount" type="Object[]" />
+    <aura:attribute name="columnsAsset" type="List" />
+    <aura:attribute name="hasBillingAccount" type="Boolean" default="true" />
+
+    <!-- Event -->
+    <aura:handler event="c:OfferBoxItemEvent" action="{!c.doEvent}" />
+
+    <!-- Handlers -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <!-- Body -->
+    <lightning:card>
+        <!-- Header-->
+        <article class="slds-card">
+            <div class="slds-card__header slds-grid slds-align_absolute-center">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-account" title="account">
+                            <lightning:icon iconName="custom:custom100" title="Fixa" />
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="Fixa">
+                                <span>Fixa</span>
+                            </a>
+                        </h2>
+                    </div>
+                </header>
+            </div>
+        </article>
+
+        <aura:if isTrue="{!v.hasBillingAccount}">
+            <!-- Accordion Conta Faturamento -->
+            <lightning:accordion aura:id="accordionBilling" allowMultipleSectionsOpen="true">
+                <aura:iteration items="{!v.ltBillingAccount}" var="accBilling">
+                    <lightning:accordionSection name="A" label="{!accBilling.name}">
+                        <aura:set attribute="actions">
+                            <div style="margin-right: 20px;">
+                                <b>
+                                    <lightning:formattedNumber value="{!accBilling.totalPrice}" style="currency"
+                                        currencyCode="BRL" currencyDisplayAs="symbol" minimumFractionDigits="2"
+                                        maximumFractionDigits="2" />
+                                </b>
+                            </div>
+                        </aura:set>
+
+                        <aura:set attribute="body">
+                            <aura:if isTrue="{!accBilling.hasAsset}">
+
+                                <!-- List Asset -->
+                                <lightning:datatable keyField="id" data="{! accBilling.ltAsset }"
+                                    columns="{! v.columnsAsset }" hideCheckboxColumn="true" />
+                                <br />
+                                <aura:if isTrue="{!accBilling.hasMultipleAssets}">
+                                    <legend class="slds-form-element__legend slds-form-element__label"
+                                        style="color: red;">
+                                        <b><i> {!$Label.c.OfferComponentValidationAssets}</i></b>
+                                    </legend><br />
+                                </aura:if>
+
+                                <div class="slds-var-p-top_x-large">
+                                    <c:OfferFilterFixed accBilling="{!accBilling}" />
+                                </div>
+                                <aura:set attribute="else">
+                                    <legend class="slds-form-element__legend slds-form-element__label"
+                                        style="color: red;">
+                                        <b><i> x {!$Label.c.OfferComponentValidationAddress}</i></b>
+                                    </legend><br />
+                                </aura:set>
+                            </aura:if>
+                        </aura:set>
+                    </lightning:accordionSection>
+                </aura:iteration>
+
+            </lightning:accordion>
+
+            <aura:set attribute="else">
+                <div class="slds-var-p-top_x-large slds-var-p-horizontal_medium">
+                    <c:OfferFilterFixed hasBillingAccount="{!v.hasBillingAccount}" recordId="{!v.recordId}"
+                        accBilling="{!v.ltBillingAccount[0]}" />
+                </div>
+            </aura:set>
+        </aura:if>
+
+
+    </lightning:card>
+
+</aura:component>
