@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ImpactedCustomers__c</fullName>
+    <description>Mostra o total de clientes impactados pelo aviso, filtrando pelo campo de &apos;Primeiro Aviso&apos; do Detalhe do Script</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Mostra o total de clientes já impactados por este aviso (em avisos recorrentes, apenas a primeira verbalização é considerada)</inlineHelpText>
+    <label>Clientes Impactados</label>
+    <summaryFilterItems>
+        <field>ScriptDetail__c.FirstNotification__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>ScriptDetail__c.Verbalized__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </summaryFilterItems>
+    <summaryForeignKey>ScriptDetail__c.Script__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

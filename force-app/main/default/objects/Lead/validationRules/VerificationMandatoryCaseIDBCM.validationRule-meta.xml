@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VerificationMandatoryCaseIDBCM</fullName>
+    <active>true</active>
+    <description>Verifica se foi informado o ID do Caso no BCM em caso de Conclusão do Lead ou alteração do Sub Status para &apos;Emissão do Contrato&apos;</description>
+    <errorConditionFormula>AND
+(
+  RecordType.DeveloperName = &quot;FibraRural&quot;,
+  NOT ISNEW(),
+  ISBLANK(CaseIdBCM__c),
+  OR
+  (
+  ISPICKVAL(Status,&apos;FinishedFR&apos;),
+  ISPICKVAL(SubStatus__c,&apos;IssuanceOfTheContractFR&apos;)
+  )
+)</errorConditionFormula>
+    <errorDisplayField>CaseIdBCM__c</errorDisplayField>
+    <errorMessage>Para avançar para o Sub Status &apos;Emissão do Contrato&apos; ou para Concluir o Lead é necessário informar o campo &apos;ID do Caso no BCM&apos;!</errorMessage>
+</ValidationRule>
