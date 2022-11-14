@@ -1,0 +1,10 @@
+<aura:component controller="TicketPrevisionDateController" implements="flexipage:availableForAllPageTypes,lightning:backgroundUtilityItem,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:appHostable" access="global"> 
+    <aura:attribute name="loadUtil" type="Boolean" default="false"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:renderIf isTrue="{!v.loadUtil}">
+        <ltng:require scripts="{!$Resource.LightningUtil}"  afterScriptsLoaded="{!c.doInit}" /> 
+    </aura:renderIf>
+    
+</aura:component>

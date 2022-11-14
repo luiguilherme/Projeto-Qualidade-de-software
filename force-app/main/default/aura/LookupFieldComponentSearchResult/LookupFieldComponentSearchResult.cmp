@@ -1,0 +1,40 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+                access="global">
+    
+    <aura:attribute name="oRecord" type="sObject" />
+    <aura:attribute name="iconName" type="string" />
+    <aura:attribute name="labels" access="public" type="string" />
+    <aura:attribute name="campolabel" type="string" />
+    <aura:attribute name="isAvantAppTheme" type="Boolean" access="public" default="false" />
+
+    <aura:attribute name="useEventOutput" type="Boolean" default="false" />
+    <aura:attribute name="EventName" type="string" default="SELECTED_RECORD" />
+
+    <!-- <aura:registerEvent name="oSelectedRecordEvent" type="c:BroadcastNotification" /> -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <li role="presentation" class="slds-listbox__item" onclick="{!c.selectRecord}">
+        <span id="listbox-option-unique-id-01"
+              class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+              role="option">
+            <span class="slds-media__figure">
+                <span class="slds-icon_container">
+                    
+                    <aura:if isTrue="{! v.isAvantAppTheme}">
+                        <lightning:icon iconName="{!v.iconName}" class="slds-icon slds-icon_x-small icn" size="xx-small"
+                                        alternativeText="icon" />
+                        <aura:set attribute="else">
+                            <lightning:icon iconName="{!v.iconName}" class="slds-icon slds-icon_x-small" size="xx-small"
+                                            alternativeText="icon" />
+                        </aura:set>
+                        
+                    </aura:if>
+                    <span class="slds-assistive-text">Description of icon</span>
+                </span>
+            </span>
+            <span class="slds-media__body">
+                <span class="slds-listbox__option-text slds-listbox__option-text_entity">{!v.labels}</span>
+            </span>
+        </span>
+    </li>
+</aura:component>

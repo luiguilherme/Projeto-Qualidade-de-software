@@ -1,0 +1,165 @@
+<aura:component controller="CarouselCardOfferController"  implements="flexipage:availableForAllPageTypes,lightning:backgroundUtilityItem,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:appHostable"  access="global">
+    <aura:attribute name="ltCard" type="Object[]"  />
+    <aura:attribute name="ltOfferToChild" type="Object[]" />
+    <aura:attribute name="showModalDetail" type="Boolean" default="false" />
+    <aura:attribute name="dontHaveResponse" type="Boolean" default="false" />
+    <aura:attribute name="openDropDown" type="Boolean" default="false" />
+    <aura:attribute name="loadUtil" type="Boolean" default="false" />
+    <aura:attribute name="isPhone" type="Boolean" default="false" />
+    <aura:attribute name="isWaitingForCheckUserId" type="Boolean" default="true" />
+    <aura:attribute name="iconName" type="String" />
+    <aura:attribute name="returnMsg" type="String" />
+    <aura:attribute name="mainTextError" type="String" />
+    <aura:attribute name="secondTextError" type="String" />
+    <aura:attribute name="titleOfComponent" type="String" />
+    <aura:attribute name="titleWhenHaveError" type="String" />
+    <aura:attribute name="record" type="sObject" />
+    <force:recordData   fields="vlocity_cmt__AccountId__c" 
+                        recordId="{!v.recordId}"
+                        targetFields="{!v.record}"
+                        targetError="{!v.recordLoadError}"
+                        recordUpdated="{!c.recordUpdated}" />
+
+    <aura:renderIf isTrue="{!v.loadUtil}">
+        <ltng:require scripts="{!$Resource.LightningUtil}" afterScriptsLoaded="{!c.recordUpdated}" />
+    </aura:renderIf>
+
+    <!-- aura:handler name="init" value="{!this}" action="{!c.doInit}" / -->
+    <aura:handler event="c:BroadcastNotification" action="{!c.showCardOffers}" access="global" />
+
+    <div class="slds-grid slds-wrap">
+        <aura:if isTrue="{!v.isWaitingForCheckUserId}">
+            <div class="slds-size_1-of-1 slds-medium-size_2-of-4 throwToBack" style="height: 300px">
+                <lightning:card class="maxLenght">
+                    <aura:set attribute="title">
+                        <lightning:icon iconName="standard:einstein_replies" size="medium" />
+                        <lightning:formattedText class="slds-var-p-left_small" value="{!v.titleOfComponent}" />
+                    </aura:set>
+
+                    <div class="slds-card__body slds-card__body_inner">
+                        <lightning:spinner alternativeText="Loading" size="large" />
+                    </div>
+                </lightning:card>
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{! and(v.dontHaveResponse, v.isWaitingForCheckUserId != true)}">
+            <div class="slds-size_1-of-1 slds-medium-size_2-of-4" style="height: 300px">
+                <lightning:card class="maxLenght">
+                    <aura:set attribute="title">
+                        <lightning:icon iconName="standard:einstein_replies" size="medium" />
+                        <lightning:formattedText class="slds-var-p-left_small" value="{!v.titleOfComponent}" />
+                    </aura:set>
+
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="slds-grid">
+                            <div class="slds-p-top_xxx-small">
+                                <lightning:icon iconName="utility:sentiment_neutral" size="small" class="iconColor" />
+                            </div>
+                            <div class="titleWhenError slds-p-left_xx-small">
+                                <b><lightning:formattedText class="slds-text-heading_medium" value="{!v.titleWhenHaveError}" /></b>
+                            </div>
+                            <aura:if isTrue="{!v.returnMsg != 'fromToMappingIsRetencao'}">
+                                <div class="goToBookIntegrado slds-p-top_xx-small slds-text-align_right">
+                                    <a onclick="{!c.goToBookIntegrado}">Book Integrado</a>
+                                </div>
+                            </aura:if>
+                        </div>                        
+                        <div class="bodyContentWhenError" style="font-weight: bold;">
+                            <lightning:formattedText  value="{!v.mainTextError}" />
+                        </div>
+                        <div class="bodyContentWhenError">
+                            <lightning:formattedText  value="{!v.secondTextError}" />
+                        </div>
+                    </div>
+                </lightning:card>
+            </div>
+
+            <aura:set attribute="else">
+                <div aura:id="divCarousel" class="slds-size_1-of-1 slds-medium-size_6-of-12" style="height: 300px">
+                    <div class="css-slider-wrapper">
+
+                        <aura:iteration items="{!v.ltCard}" var="index" indexVar="i">
+                            <input data-selected-Index="{!i}" type="radio" name="slider" class="{!'slide-radio'+(i+1)}" checked="{!index.isFocused}" id="{!'slider_'+v.recordId+'_'+(i+1)}" />
+                        </aura:iteration>
+
+                        <div class="slider-pagination slds-border_top slds-p-top_small slds-p-bottom_small">
+                            <aura:iteration items="{!v.ltCard}" var="index" indexVar="i">
+                                <label data-selected-Index="{!i}" for="{!'slider_'+v.recordId+'_'+(i+1)}" class="{!'page'+(i+1)}" onclick="{!c.changePageNumber}"></label>
+                            </aura:iteration>
+                        </div>
+
+                        <aura:iteration items="{!v.ltCard}" var="index" indexVar="i">
+                            <div class="{!'slider slide'+(i+1)}" style="{!'left:'+(i*100)+'%'}">
+                                <lightning:card class="maxLenght">
+                                    <aura:set attribute="title">
+                                        <lightning:icon iconName="standard:einstein_replies" size="medium" />
+                                        <lightning:formattedText class="slds-var-p-left_small" value="{!v.titleOfComponent}" />
+                                    </aura:set>
+
+                                    <div class="slds-card__body slds-card__body_inner">
+                                        <div class="slds-grid">
+                                            <div class="slds-p-top_xxx-small">
+                                                <lightning:icon iconName="{!v.iconName}" size="small" class="iconColor" />
+                                            </div>
+                                            <div class="titleContent">
+                                                <b><lightning:formattedText class="slds-text-heading_medium slds-p-left_xx-small" value="{!index.title}" /></b>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="bodyContentWhenSuccess slds-scrollable_y" >
+                                            <div class="slds-p-left_xx-small">
+                                                <p><b>{!index.actionDescription}</b></p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="priceBottom slds-p-left_xx-small">
+                                            Por <strong>R${!index.voucher_code} / mês </strong>
+                                        </div>
+
+                                        <div class="slds-grid">
+                                            <div class="detailBottom">
+                                                <a class="slds-p-left_xx-small" data-hash="{!index.id}" onclick="{!c.showDetail}">Mais Detalhes</a>
+                                            </div>
+                                            <div class="buttonBottom">
+                                                <div class="slds-button-group" role="group">
+                                                    <button data-indexAccepted ="{!index.id}" onclick="{!c.clickAccepted}" class="buttonAceitou slds-button_first slds-button slds-button_outline-brand" disabled="{!index.isDisabled}">Aceitou</button>
+                                                    <div class="{! v.openDropDown ? 'slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open' : 'slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click'}">
+                                                        <lightning:button label="Não Aceitou" class="slds-button_last buttonNaoAceitou" iconPosition="right"  iconName="utility:jump_to_bottom" onclick="{!c.showDropDown}" disabled="{!index.isDisabled}" />
+                                                        <div aura:id="dropDownList" class="slds-dropdown dropDown slds-dropdown_bottom slds-dropdown_length-5">
+                                                            <ul class="slds-dropdown__list" role="menu" aria-label="Show More">
+                                                                <aura:iteration items="{!index.ltOptions}" var="item" indexVar="indexVarButton">
+                                                                    <li class="slds-dropdown__item" role="presentation">
+                                                                        <a data-index="{!index.id}" data-item="{!item}" onclick="{!c.clickNotAccepted}" role="menuitem" >
+                                                                            <span data-index="{!index.id}" data-item="{!item}" class="slds-truncate showInline">{!item}</span>
+                                                                        </a>
+                                                                    </li>
+                                                                </aura:iteration>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+                                </lightning:card>
+                            </div>
+                        </aura:iteration>
+                    </div>
+                </div>
+            </aura:set>
+        </aura:if>
+
+        <div aura:id="divDetailForPhone" class="slds-size_1-of-1 slds-medium-size_2-of-4">
+            <c:DetailCardOfferForPhone ltOffer="{!v.ltOfferToChild}"></c:DetailCardOfferForPhone>
+        </div>
+
+        <div class="slds-size_1-of-1 slds-medium-size_2-of-4 slds-m-left_xx-small flowCmp">
+            <lightning:flow aura:id="flowData" />
+        </div>
+
+    </div>
+
+    <c:DetailCardOfferModal isOpen="{!v.showModalDetail}" ltOffer="{!v.ltOfferToChild}" ></c:DetailCardOfferModal>
+
+</aura:component>
