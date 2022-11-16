@@ -1,0 +1,23 @@
+<aura:component>
+
+     <!-- Attributes -->
+     <aura:attribute name="offer" type="Object"/>
+     <aura:attribute name="selectedOfferId" type="String" default=""/>
+     <aura:attribute name="selectedOfferAltaId" type="String" default=""/>
+     <aura:attribute name="sourceItem" type="String"/>
+    <!-- Event -->
+    <aura:registerEvent name="cmpEventOffer" type="c:OfferBoxItemEvent"/>
+    <div class="itoffer" onclick="{!c.setOffer}" >
+        <div class="{! v.offer.idOffer == v.selectedOfferId ? 'itoffer selectcolor' : 'itoffer non-selectcolor'}" style="cursor: pointer;">
+            <ul>
+                <li style="padding: 10px;">
+                    <b><lightning:formattedNumber value="{!v.offer.field1}" style="currency" currencyCode="BRL" currencyDisplayAs="symbol" minimumFractionDigits="2" maximumFractionDigits="2"/></b>
+                </li>
+                <li style="padding: 2px; font-size: 12px">
+                    <aura:unescapedHtml value="{!v.offer.field2}"/>
+                </li>
+            <!-- -->
+            </ul>
+        </div>
+    </div>
+</aura:component>

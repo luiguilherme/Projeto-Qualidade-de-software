@@ -1,0 +1,44 @@
+<aura:component controller="ServiceAvailabilityController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    <aura:attribute name="selectedStep" type="String" default="step1"/>
+    <aura:attribute name="disableAccountField" type="Boolean" default="false"/>
+    <aura:attribute name="useEventOutput" type="Boolean" default="true" />
+    <aura:attribute name="addressSelected" type="Object" description="Used to capture selection from the lightningSelect."/>
+    <aura:attribute name="zipCode" type="String" default="" description="Used to store value of the 'CEP' input field."/>
+    <aura:attribute name="stNumber" type="String" default="" description="Used to store value of the 'Numero' input field."/>
+    <aura:attribute name="selectedLookUpRecord" type="sObject" default="{}"/> 
+    <aura:attribute name="record" type="sObject" />
+    <force:recordData   fields="vlocity_cmt__AccountId__c" 
+                        recordId="{!v.recordId}"
+                        targetFields="{!v.record}"
+                        targetError="{!v.recordLoadError}"
+                        recordUpdated="{!c.recordUpdated}" />
+    
+    <!--Handlers-->
+    <aura:handler event="c:BroadcastNotification" action="{!c.handleComponentEvent}" access="global"/>
+
+    <!--Building the custom PATH to control the flow of the component and what to render on the screen -->
+    <article class="slds-card">
+    <div class="progressIndicatorPath">
+        <lightning:progressIndicator currentStep="{!v.selectedStep}" type="path">
+            <lightning:progressStep label="Pesquisar Endereço" value="step1" style="pointer-events:none;"/>
+            <lightning:progressStep label="Complemento de Endereço" value="step2" style="pointer-events:none;"/>
+            <lightning:progressStep label="Validação de Endereço" value="step3" style="pointer-events:none;"/>
+            <lightning:progressStep label="Consulta Cobertura" value="step4" style="pointer-events:none;"/>
+        </lightning:progressIndicator>
+    </div>   
+        <div class="slds-p-around--medium">
+            <div class="{!v.selectedStep == 'step1' ? 'slds-show' : 'slds-hide'}">
+                <c:ServiceAvailabilitySearch aura:id="searchComp" disableAccountField="{!v.disableAccountField}" recordId="{!v.record.vlocity_cmt__AccountId__c}" addressSelected="{!v.addressSelected}" zipCode="{!v.zipCode}" stNumber="{!v.stNumber}"/>                       
+            </div>
+            <div class="{!v.selectedStep == 'step2' ? 'slds-show' : 'slds-hide'}">
+                <c:ServiceAvailabilityAddressCheck ltAddress="{!v.ltAddress}"/>                       
+            </div>
+            <div class="{!v.selectedStep == 'step3' ? 'slds-show' : 'slds-hide'}">
+                <c:ServiceAvailabilityValidate/>
+            </div>
+            <div class="{!v.selectedStep == 'step4' ? 'slds-show' : 'slds-hide'}">
+                <c:ServiceAvailabilityCoverage />
+            </div>
+        </div>
+</article>
+</aura:component>
