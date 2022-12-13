@@ -9,15 +9,15 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "Page": "=IF(%Navigation%==\"next\",IF(%CurrentPage%==%TotalPages%,(%CurrentPage%-1)*6,%CurrentPage%*6),IF(%Navigation%==\"previous\" && %CurrentPage% > 1,(%CurrentPage%-2)*6,(%CurrentPage%-1)*6))",
-            "accountId": "%Account:AccountId%"
+            "CurrentPage": "=%CurrentPage%",
+            "Navigation": "=%Navigation%",
+            "RecordList": "=LIST(%DRGetBillingAccounts:AccountDetails%)",
+            "TotalPages": "=%DRGetBillingAccounts:PageControl:TotalPages%"
         },
         "additionalOutput": {
         },
-        "bundle": "getBillingAccountsByAccId",
+        "bundle": "valTransformCardPagination",
         "chainOnStep": false,
-        "dataRaptor Input Parameters": [
-        ],
         "disOnTplt": false,
         "executionConditionalFormula": "",
         "failOnStepError": true,
@@ -25,21 +25,21 @@
         "failureResponse": {
         },
         "ignoreCache": false,
-        "label": "DataRaptorExtractAction2",
-        "responseJSONNode": "",
+        "label": "DataRaptorTransformAction1",
+        "responseJSONNode": "Response",
         "responseJSONPath": "",
         "returnOnlyAdditionalOutput": false,
         "returnOnlyFailureResponse": false,
         "sendJSONNode": "",
         "sendJSONPath": "",
-        "sendOnlyAdditionalInput": false,
+        "sendOnlyAdditionalInput": true,
         "show": null,
         "useFormulas": true
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
-    "%vlocity_namespace%__Type__c": "DataRaptor Extract Action",
-    "Name": "DRGetBillingAccounts",
+    "%vlocity_namespace%__Type__c": "DataRaptor Transform Action",
+    "Name": "DRCardPagination",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetBillingAccountsByAccId/Procedure/DRGetBillingAccounts"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetBillingAccountsByAccId/Procedure/DRCardPagination"
 }
