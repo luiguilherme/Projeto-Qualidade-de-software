@@ -1,0 +1,9 @@
+<aura:component controller="TicketHistoryController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"  access="global">
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+
+    <aura:handler   name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner alternativeText="Loading" variant="brand" size="medium" />
+    </aura:if>
+</aura:component>

@@ -150,7 +150,8 @@ public without sharing class AssetDAO {
     public static List<Asset> getByAccountIdRecordtypeDeveloperNameLastModifiedDate(Id accountId, String recordtypeName, Datetime lastModifiedDate){
         return[
             SELECT 
-                Id,            	
+                Id,
+            	Name,
                 vlocity_cmt__BillingAccountId__c,
             	vlocity_cmt__ServiceAccountId__r.FullAddress__c,
                 MainProductDescription__c,
@@ -175,7 +176,20 @@ public without sharing class AssetDAO {
                 LastModifiedDate > :lastModifiedDate   
         ];
     }
-
+	
+    public static Asset getAssetById(String Id) {
+        return   [
+            SELECT  Id,
+                    toLabel(Status),
+                    Instance__c,
+                    Name
+        FROM 
+            Asset 
+        WHERE 
+            Id =: Id
+        LIMIT 1 
+        ];
+    }
 
     public static List<Asset> getAssetByName(String Name) {
         return   [
@@ -183,7 +197,8 @@ public without sharing class AssetDAO {
                 AccountId,
                 Account.Name,
                 Account.Id,
-                Account.DocumentNumber__c
+                Account.DocumentNumber__c,
+                Account.CustomerSegment__c
         FROM 
             Asset 
         WHERE 
@@ -206,6 +221,22 @@ public without sharing class AssetDAO {
         ];
     }
 
+    public static List<Asset> getAccountId(Id accountId){
+        return[
+            SELECT  
+                Id,
+                Name,
+            	vlocity_cmt__BillingAccountId__c,
+                vlocity_cmt__BillingAccountId__r.Name,
+                LegacyAssetId__c,
+                Type__c
+            FROM 
+                Asset
+            WHERE
+                AccountId = :accountId 
+        ];
+    }    
+    
     public static List<Asset> getByBillingAccountId(Set<Id> setBillingAccounId){
         return[
             SELECT
