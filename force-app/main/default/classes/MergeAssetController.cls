@@ -60,9 +60,10 @@ global with sharing class MergeAssetController implements vlocity_cmt.VlocityOpe
             if(!assetsToUpdate.isEmpty()) updateAsset(assetsToUpdate, sfIdsToUpdate, action);
             if(!assetsToDelete.isEmpty()) deleteAsset(assetsToDelete, action);
             if(!assetsToCreate.isEmpty()) createAsset(assetsToCreate, accountId, action, documentNumber, mapSVAProducts, mapLegacy);
+            deleteEmptyBillingAccount(accountId);
             return 'Execução sem erros';
         }catch(Exception e){
-            return 'Erro na execução';
+            return 'Erro na execução: ' + e.getMessage();
         }
     }
 
@@ -96,6 +97,7 @@ global with sharing class MergeAssetController implements vlocity_cmt.VlocityOpe
                         ProductType__c = type == 'Móvel' ? getProductType(assetToCreate.subscription_type, mapFromTo) : getProductType(assetToCreate.product_type, mapFromTo),
                         Name = assetToCreate.identifiers[0],
                         Status = assetToCreate.status,
+                        IsHolder__c = assetToCreate.tags != null ? getStringValue(assetToCreate.tags, 'multivivo:') : 'TIT',
                         MainProductDescription__c = assetToCreate.descriptions != null ? assetToCreate.descriptions[0].text : assetToCreate.display_name != null ? assetToCreate.display_name : null, 
                         AccountId = accountId,
                         Type__c = type,
@@ -194,6 +196,32 @@ global with sharing class MergeAssetController implements vlocity_cmt.VlocityOpe
                     apiIds.put(wrap.identifiers[0], wrap);
                     mapLegacy.put(wrap.identifiers[0], wrap.tags);
                 }
+            }
+        }
+    }
+
+    private static String getStringValue(List<String> ltTags, String searchedString){
+        String returnString;
+
+        for(String stringValue :ltTags){
+           
+            if(stringValue.contains(searchedString)){
+                List<String> lst = stringValue.split(':'); 
+                returnString = lst[1];
+                break;
+            }
+        }
+
+        return returnString;
+    }
+
+    
+    private static void deleteEmptyBillingAccount(String accountId) {
+        Account accountObject = [SELECT BillingAccount__c FROM Account WHERE Id = :accountId];
+        if(String.isNotEmpty(accountObject.BillingAccount__c)) {
+            List<Asset> assetList = [SELECT Id FROM Asset WHERE AccountId = :accountId];
+            if(assetList.isEmpty()) {
+                delete new Account(Id = accountObject.BillingAccount__c);
             }
         }
     }

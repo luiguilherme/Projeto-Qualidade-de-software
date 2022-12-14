@@ -2,6 +2,7 @@
 * @description - Classe Controller do componente de Fatura, buscando as informações de Fatura na 4P
 */
 public without sharing class InvoiceHistoryController {
+    
     private static final String WEBSERVICE_NAME = 'FourthPlataformInvoiceCallout';
 
     @AuraEnabled
@@ -31,32 +32,26 @@ public without sharing class InvoiceHistoryController {
     }
     
     @AuraEnabled
-    public static List<Asset> createInvoiceHistory(Id customerInteractionId) {
+    public static void createInvoiceHistory(Id customerInteractionId) {
         Id accountId = getAccountIdFromCustomerInteraction(customerInteractionId);
         
         List<Asset> ltAssetObj = new List<Asset>();
         Webservice__c wsConfig = Webservice__c.getInstance(WEBSERVICE_NAME);
         
-        if (wsConfig == null) {            
-            return ltAssetObj; 
+        if (wsConfig == null) {
+            return; 
         }
         
         List<Invoice__c> ltInvoiceHistory = new List<Invoice__c>();
         List<InvoiceItem__c> ltInvoiceItem = new List<InvoiceItem__c>();
         List<GeneralParam__c> lstGeneralParams = new List<GeneralParam__c>();
-        lstGeneralParams = GeneralParamDAO.getLoadParams();  
-        
-        String UserId;
-                
-        List<Account> ltAccount = new List<Account>([SELECT UserId__c, RecordTypeId FROM Account WHERE ID =: accountId]);	
-                
-        UserId = ltAccount[0].UserId__c; 
-                
-        Integer searchRange = Integer.valueOf(lstGeneralParams[0].SearchRangeInvoice__c) *-1;
-        
+        lstGeneralParams = GeneralParamDAO.getLoadParams();          
+        String UserId;                
+        List<Account> ltAccount = new List<Account>([SELECT UserId__c, RecordTypeId FROM Account WHERE ID =: accountId]);	        
+        UserId = ltAccount[0].UserId__c;                 
+        Integer searchRange = Integer.valueOf(lstGeneralParams[0].SearchRangeInvoice__c) *-1;        
         Date startDate = System.Today().addDays(searchRange);
-        Date endDate = System.Today();
-        
+        Date endDate = System.Today();        
         String parameters = '/'+ UserId + '/invoices?start_date=' + String.valueOf(startDate) +('T00:00:00Z') + '&end_date=' + String.valueOf(endDate) +('T23:59:59Z') ;
         String endpoint = wsConfig.Endpoint__c + parameters;
         
@@ -73,9 +68,9 @@ public without sharing class InvoiceHistoryController {
         } else {
             invoiceResponse.success = false;
         }
-
+        
         if (invoiceResponse.success) {
-            lstInvoiceReturn = (List<InvoiceServiceReturn>) Json.deserialize(invoiceResponse.body, List<InvoiceServiceReturn>.class);
+            lstInvoiceReturn = (List<InvoiceServiceReturn>) Json.deserialize(invoiceResponse.body, List<InvoiceServiceReturn>.class);            
         } 
         
         String sStartDate;
@@ -92,12 +87,8 @@ public without sharing class InvoiceHistoryController {
         integer dtmonth;
         integer dtyear;
         
-        if(lstInvoiceReturn.isEmpty()){
-            return ltAssetObj;
-        }
-
         map<String, String> mapProductsForBillingAccount = new Map<String, String>();
-               
+        
         for(InvoiceServiceReturn result : lstInvoiceReturn){
             
             Invoice__c invoiceHistory = new Invoice__c();
@@ -176,8 +167,9 @@ public without sharing class InvoiceHistoryController {
             invoiceHistory.TotalAmount__c = decimal.valueOf(result.Total_amount.value);   
             invoiceHistory.TaxInclude__c = result.Total_amount.tax_included;
             invoiceHistory.PaymentStatus__c = result.payment_status;
-            invoiceHistory.Downloadurl__c = result.download_url;
-
+			invoiceHistory.Downloadurl__c = result.download_url;
+            invoiceHistory.URLDownloadFatura__c = '<a href=' + result.download_url + ' target=_blank>' + result.download_url + '</a>';
+            
             if (result.secondary_download_urls != null && !result.secondary_download_urls.isEmpty()) {
                 invoiceHistory.SecondaryDownloadUrl__c = result.secondary_download_urls[0].url;
                 invoiceHistory.InvoiceContestedStatus__c = true;
@@ -192,8 +184,7 @@ public without sharing class InvoiceHistoryController {
             mapProductsForBillingAccount.put(String.join(result.identifiers,','), result.account_id);
         }
         
-        ltAssetObj = AssetDAO.getByAccountId(accountId);
-                
+        ltAssetObj = AssetDAO.getAccountId(accountId);                
         List<Account> billingAccounts = new List<Account>();
         Set<String> validateName = new Set<String>();
         
@@ -210,14 +201,17 @@ public without sharing class InvoiceHistoryController {
 
                     billingAccounts.add(createBillingAccount(
                         billingAccount,
-                        'Billing',
-                        accountId
+                        assetObj.Type__c.contains('Móvel') ? 'Movel' : assetObj.Type__c,
+                        accountId,                        
+                        'Billing'
                     ));                   
 
                     validateName.add(billingAccount);
                 }
             }
         }
+        
+        upsert billingAccounts LegacyAccountId__c;
 
         Map<String,Id> mapIdBillingAccountForName = new Map<String,Id>();
         
@@ -230,13 +224,14 @@ public without sharing class InvoiceHistoryController {
             for(String keyValue : mapProductsForBillingAccount.keySet()){
 
                 if(keyValue.contains(assetObj.Name)){
-                    String name = mapProductsForBillingAccount.get(keyValue);                    
-                    assetObj.Name = mapIdBillingAccountForName.get(name);
+                    String name = mapProductsForBillingAccount.get(keyValue);
+                    assetObj.vlocity_cmt__BillingAccountId__c = mapIdBillingAccountForName.get(name);
                 }
             }
         }
-        
+                  
         if(ltInvoiceHistory.size() > 0){
+            
             upsert ltInvoiceHistory InvoiceId__c;
             
             Map<String, Id> mapInvoiceExternalId = new Map<String, Id>();
@@ -254,6 +249,7 @@ public without sharing class InvoiceHistoryController {
             for(InvoiceServiceReturn result : lstInvoiceReturn){
                 if(mapInvoiceExternalId.containsKey(result.id)){
                     for(InvoiceServiceReturn.billed_items_summary item : result.billed_items_summary){
+                                                
                         if ((item.parent_id =='1000' || item.parent_id =='-1000') &&
                             (item.description.contains('TV') || item.description.contains('Fixo') || 
                                 item.description.contains('Internet') || item.description.contains('Celular')))
@@ -287,13 +283,11 @@ public without sharing class InvoiceHistoryController {
         }
 		
         updateCustomerInteractionIdInvoice(accountId, customerInteractionId);
-        
-        return ltAssetObj;
     }
     
-    private static Account createBillingAccount(String name, String recordTypeName, Id accountId) { 
+    private static Account createBillingAccount(String name, String billingAccountType, String parentId, String recordTypeName) {         
         Id recordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get(recordTypeName).getrecordTypeId();
-        return new Account(Id = accountId, Name = name, recordTypeId = recordTypeId);
+        return new Account(Name = name, BillingAccountType__c = billingAccountType, ParentId = parentId, recordTypeId = recordTypeId, LegacyAccountId__c = name);
     }
     
     public static Date getFormatedDate(String stringDate){
@@ -309,29 +303,27 @@ public without sharing class InvoiceHistoryController {
     }
     
     @AuraEnabled
-    public static InvoiceHistoryTO.InformationMessageTO getMessage(Id accountId){        
+    public static InvoiceHistoryTO.InformationMessageTO getMessage(String customerInteractionId){     
+                
+        Id accountId = getAccountIdFromCustomerInteraction(customerInteractionId);          
         InvoiceHistoryTO.InformationMessageTO returnTO = new InvoiceHistoryTO.InformationMessageTO();
         returnTO.lstMessage = new List<String>();
 
         Boolean hasAtlys = false;
         Boolean hasNext = false;
         
-        // Consulta para verificar qual sistema de origem do Cliente
-        
+        // Consulta para verificar qual sistema de origem do Cliente        
         List<Asset> ltsearchLegacySystem = new List<Asset>();
         ltsearchLegacySystem = [SELECT Id, LegacySystem__c FROM Asset WHERE AccountId =: accountId];
         
-        // Consulta para verificar qual status de pagamento tem nas faturas do cliente
-        
+        // Consulta para verificar qual status de pagamento tem nas faturas do cliente        
         List<Invoice__c> ltsearchInvoices = new List<Invoice__c>();
         ltsearchInvoices = [SELECT ID,PaymentStatus__c, MobileRollup__c, FixedAmount__c, DueDate__c FROM Invoice__c WHERE AccountId__c =: accountId ];
         
-        // Consulta para verificar os meses correspondentes as faturas móveis
-        
+        // Consulta para verificar os meses correspondentes as faturas móveis        
         List<AggregateResult> ltMonthInvoice = new List<AggregateResult>();
         ltMonthInvoice = [SELECT CALENDAR_MONTH(DueDate__c) FROM Invoice__c WHERE AccountId__c =: accountId AND  MobileRollup__c != 0 GROUP BY CALENDAR_MONTH(DueDate__c)];
-        
-        
+                
         Decimal sunValuesMobile = 0;
         Decimal sunValuesFixed = 0;
         Set<Integer> fixedMonths = new Set<Integer>();
@@ -339,12 +331,12 @@ public without sharing class InvoiceHistoryController {
 
         for(Invoice__c invoiceObj :ltsearchInvoices){
             
-            if(invoiceObj.MobileRollup__c != null){
+            if(invoiceObj.MobileRollup__c != null && invoiceObj.MobileRollup__c > 0){
                 sunValuesMobile += invoiceObj.MobileRollup__c;
                 mobileMonths.add(invoiceObj.DueDate__c.month());
             }
 
-            if(invoiceObj.FixedAmount__c != null){
+            if(invoiceObj.FixedAmount__c != null && invoiceObj.FixedAmount__c > 0){
                 sunValuesFixed += invoiceObj.FixedAmount__c;
                 fixedMonths.add(invoiceObj.DueDate__c.month());
             }
@@ -404,14 +396,6 @@ public without sharing class InvoiceHistoryController {
         }
         
         return returnTO;
-    }
-
-    //Solução adotada para quebrar o contexto do retorno da invoice e atualizar os asset´s
-    @AuraEnabled
-    public static void updateAssetList(List<Asset> lstAssetObj){
-        if(lstAssetObj != null && !lstAssetObj.isEmpty()){
-            update lstAssetObj;
-        }
     }
     
     // Solução adotada para receber o recordId do objeto Protocolo e retornar o Id da conta relacionada a ele.
