@@ -24,7 +24,7 @@ public with sharing class MassiveFixedCaseRequest {
 
     public MassiveFixedCaseRequest(String assetInstance, String serviceName){
         WebService__c wsConfig = Webservice__c.getInstance(serviceName);
-        this.openDate = String.valueOf(System.today().addDays(getValidateTime(wsConfig))) + 'T00:00:00';
+        this.openDate = String.valueOf(System.today().addDays(getValidateTime(wsConfig))) + 'T00:00:00Z';
 
 		this.customerFacingService = customerFacingService;
 		this.assetInstance = assetInstance;
