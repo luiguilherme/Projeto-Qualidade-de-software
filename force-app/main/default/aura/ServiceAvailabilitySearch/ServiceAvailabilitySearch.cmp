@@ -1,0 +1,130 @@
+<aura:component controller="ServiceAvailabilityController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+                access="global">
+
+    <aura:attribute name="recordId"                     type="String" />
+    <aura:attribute name="addressList"                  type="String" />
+    <aura:attribute name="selectedLookUpRecord"         type="sObject"  default="{}" />
+    <aura:attribute name="ltAddressesToLightningSelect" type="String[]" description="Used on the populate the LightningSelect from Apex DAO class." />
+    <aura:attribute name="addressSelected"              type="Object"   description="Used to capture selection from the lightningSelect." />
+    <aura:attribute name="zipCode"                      type="String"   default="" description="Used to store value of the 'CEP' input field." />
+    <aura:attribute name="stNumber"                     type="String"   default="" description="Used to store value of the 'Numero' input field." />
+    <aura:attribute name="disableAccountField"          type="Boolean"  default="false" />
+    <aura:attribute name="hasError"                     type="Boolean"  default="false" />
+    <aura:attribute name="errorMessage"                 type="String"   default="" />
+    <aura:attribute name="fullNameAddress"              type="String"   description="" />
+    <aura:attribute name="addressId"                    type="String"   description="" />
+    <aura:attribute name="ltAddress"                    type="Object"   description="Used to pass the value for the next component." />
+    <aura:attribute name="EventName"                    type="string"   default="SELECT_ACCOUNT" />
+    <aura:attribute name="hasNumber"                    type="Boolean"  default="false"/>
+    <aura:attribute name="isZipCodeFieldDisabled"       type="Boolean" default="false"/>
+    <aura:attribute name="isNumberFieldDisabled"        type="Boolean" default="false"/>
+
+
+    <!--Handlers-->
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+    <aura:handler event="c:BroadcastNotification" action="{!c.handleComponentEvent}" access="global" />
+
+    <aura:method name="doInit" action="{!c.doInit}" access="PUBLIC" /> 
+
+    <aura:if isTrue="{!v.hasError == true}">
+        <div class="slds-notify slds-theme_error">
+            <div class="slds-notify__content">
+                <h5 class="slds-text-heading_small slds-align_absolute-center">{!v.errorMessage}</h5>
+            </div>  
+        </div>
+    </aura:if>  
+
+    <aura:if isTrue="{!v.hasError == false}">
+        <aura:if isTrue="{!v.errorMessage}">
+            <div class="slds-notify slds-notify_alert " role="alert">{!v.errorMessage}</div>
+        </aura:if>
+            
+        <div class="slds-grid slds-grid_vertical-align slds-grid_align-center">
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-3 slds-large-size--3-of-7">
+                <c:LookupFieldComponent objectAPIName="Account" 
+                                        iconName="standard:account" 
+                                        aura:id="accountLookup"
+                                        searchfield="Name" 
+                                        listOffields=" Id,
+                                                        Name,
+                                                        DocumentNumber__c,
+                                                        UserId__c,
+                                                        RecordTypeId,
+                                                        vlocity_cmt__CustomerValue__c, 
+                                                        vlocity_cmt__CustomerClass__c, 
+                                                        WhiteListCharacteristic__c, 
+                                                        LastModifiedDate,
+                                                        ShippingAddress,
+                                                        BillingAddress,
+                                                        ShippingStreet,
+                                                        ShippingPostalCode,
+                                                        ShippingCity,
+                                                        ShippingState,
+                                                        ShippingNumber__c,
+                                                        BillingStreet,
+                                                        BillingPostalCode,
+                                                        BillingCity,
+                                                        BillingState,
+                                                        BillingNumber__c,
+                                                        CustomerSegment__c"     
+                                        label="Pesquisar Conta: " 
+                                        tamanhoMin="3"
+                                        selectedRecord="{!v.selectedLookUpRecord }" 
+                                        resultlabel="Name"   
+                                        disabled="{!v.disableAccountField}" 
+                                        useEventOutput="{!v.useEventOutput}"
+                                        EventName="{!v.EventName}" />
+                
+                <lightning:select       name="addressListSelect" 
+                                        label="Selecione um endereço: " 
+                                        value="{!v.addressId}"
+                                        onchange="{!c.onChangeAddress}">
+                                        <option value="">Nenhum</option>
+                                        <aura:if isTrue="{!not(empty(v.selectedLookUpRecord.ShippingStreet))}">
+                                            <option value="shipping">{!v.selectedLookUpRecord.ShippingStreet}</option>
+                                        </aura:if>
+                                        <aura:if isTrue="{!not(empty(v.selectedLookUpRecord.ShippingStreet))}">
+                                            <option value="billing">{!v.selectedLookUpRecord.ShippingStreet}</option>
+                                        </aura:if>
+                </lightning:select>
+        
+                <div class="slds-grid slds-grid_align-center slds-p-top_small">Ou então</div>
+
+                <lightning:input        aura:id="zipCode" 
+                                        label="CEP" 
+                                        name="zipCode" 
+                                        placeholder="Digite o CEP"
+                                        value="{!v.zipCode}" 
+                                        pattern="^([0-9]{8})"
+                                        messageWhenPatternMismatch="Campo deve conter 8 caracteres numéricos apenas."
+                                        disabled="{!v.isZipCodeFieldDisabled}"  />
+                                        
+                <lightning:input        aura:id="stNumber" 
+                                        label="Número" 
+                                        name="streetNumber"
+                                        placeholder="Digite o Número"
+                                        value="{!v.stNumber}"
+                                        pattern="^[0-9]+$"
+                                        messageWhenPatternMismatch="Campo deve conter apenas números."
+                                        disabled="{!v.isNumberFieldDisabled}" 
+                                        onchange="{c.isDisabledCheck}"/>
+                
+                                        <!-- Passar a validação do disabled para uma função JS ao invés de fórmula aqui no CMP.  -->
+                <lightning:input        name="hasNumber"
+                                        type="checkbox"
+                                        label="Sem número"
+                                        checked="{!v.hasNumber}"
+                                        onchange="{!c.hasNumberCheck}"/>
+
+            </div>
+        </div>
+        <div class="slds-grid slds-grid_align-center slds-p-around_small">
+            <lightning:button   variant="brand"
+                                disabled="{!and(empty(v.addressSelected), not(and(v.zipCode != '', v.stNumber != '' )))}"
+                                onclick="{!c.getAddressCheck}"
+                                label="Avançar">
+            </lightning:button>
+        </div>
+    </aura:if>
+</aura:component>

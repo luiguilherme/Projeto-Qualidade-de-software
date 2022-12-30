@@ -1,0 +1,20 @@
+<aura:component>
+    <aura:attribute name="ltOffer" type="Object[]" />
+
+    <aura:registerEvent name="showCardEvent" type="c:BroadcastNotification"/>
+
+    <lightning:card class="maxLenght">
+        
+        <aura:set attribute="title">
+            <lightning:icon iconName="standard:lead_list" size="medium"/>
+            Detalhes da oferta
+        </aura:set>
+        
+        <a class="moreDetails" onclick="{!c.returnToCarousel}">voltar</a> 
+
+        <div class="slds-card__body slds-card__body_inner ">
+            <c:DetailCardOffer ltOffer="{!v.ltOffer}"></c:DetailCardOffer>
+        </div>
+            
+    </lightning:card>
+</aura:component>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SubstatusValidation</fullName>
+    <active>true</active>
+    <description>Se o usuário não possui permissão de edição do substatus para valores &lt;&gt; de Improcedente, o sistema apresenta erro.</description>
+    <errorConditionFormula>AND 
+    (
+    RecordType.DeveloperName = &apos;ProblemaTecnico&apos;, 
+				AND(
+								TEXT(SubStatus__c) &lt;&gt; NULL, 
+								TEXT(SubStatus__c)&lt;&gt; &apos;Improcedente&apos;,
+								NOT($Permission.EditInteractionsAtAllSubstatus)
+								)
+					)</errorConditionFormula>
+    <errorMessage>Não possui permissão para Editar o campo Substatus com o valor colocado.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,92 @@
+<aura:component controller="AccountRetentionController" implements="flexipage:availableForRecordHome,force:hasRecordId"
+    access="global">
+
+    <aura:attribute name="accBilling" type="Object" />
+    <aura:attribute name="recordId" type="String" />
+
+    <aura:attribute name="errorFlag" type="Boolean" access="PRIVATE" default="false" />
+    <aura:attribute name="spinnerFlag" type="Boolean" access="PRIVATE" default="false" />
+    <aura:attribute name="hasBillingAccount" type="Boolean" default="true" />
+
+    <aura:attribute name="errorText" type="String" access="PRIVATE" />
+    <aura:attribute name="errorIcon" type="String" access="PRIVATE" />
+    <aura:attribute name="errorIconVariant" type="String" access="PRIVATE" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <lightning:card title="Filtro de Ofertas">
+        <div class="slds-clearfix slds-grid slds-grid_vertical">
+            <div class="slds-col slds-grid slds-var-p-top_large">
+
+                <lightning:select class="slds-size_1-of-4 slds-var-p-right_x-large" name="offerGroup"
+                    label="Grupo de Oferta" aura:id="offerGroup" value="{!v.accBilling.offerGroupSelected}">
+                    <aura:iteration items="{!v.accBilling.OfferGroupList}" var="option">
+                        <option text="{!option}" value="{!option}"
+                            selected="{!option == v.accBilling.offerGroupSelected ? 'true' : 'false'}" />
+                    </aura:iteration>
+                </lightning:select>
+
+                <lightning:select class="slds-size_1-of-4 slds-var-p-right_x-large" name="broadband"
+                    label="Plano de Banda Larga" aura:id="broadband" value="{!v.accBilling.speedSelected}"
+                    disabled="{!v.accBilling.accTechnology == 'FTTH' ? false : true}">
+                    <aura:iteration items="{!v.accBilling.SpeedList}" var="option2">
+                        <option text="{!option2 == 'Sem Banda Larga' ? option2 : option2 + ' Mbps'}" value="{!option2}"
+                            selected="{!option2 == v.accBilling.speedSelected ? 'true' : 'false'}" />
+                    </aura:iteration>
+                </lightning:select>
+
+                <lightning:select class="slds-size_1-of-4 slds-var-p-right_x-large" name="tvPlan" label="Plano de TV"
+                    aura:id="tvplan" value="{!v.accBilling.tvPlanSelected}">
+                    <aura:iteration items="{!v.accBilling.TVPlanList}" var="option3">
+                        <option text="{!option3}" value="{!option3}"
+                            selected="{!option3 == v.accBilling.tvPlanSelected ? 'true' : 'false'}" />
+                    </aura:iteration>
+                </lightning:select>
+
+                <lightning:select class="slds-size_1-of-4" name="voicePlan" label="Plano de Voz" aura:id="voicePlan"
+                    value="{!v.accBilling.fixedLineSelected}">
+                    <aura:iteration items="{!v.accBilling.FixedLineList}" var="option4">
+                        <option text="{!option4}" value="{!option4}"
+                            selected="{!option4 == v.accBilling.fixedLineSelected ? 'true' : 'false'}" />
+                    </aura:iteration>
+                </lightning:select>
+            </div>
+
+            <div class="slds-col">
+                <div class="slds-float_right slds-var-p-bottom_medium slds-var-p-top_xx-large">
+                    <lightning:button onclick="{!c.handleClick}" label="Pesquisar" title="Search Button"
+                        class="myButton" />
+                </div>
+
+            </div>
+
+            <aura:if isTrue="{!!v.accBilling.hasOffer }">
+                <aura:if isTrue="{!v.errorFlag}">
+                    <div class="slds-grid slds-col slds-var-p-bottom_large slds-var-p-top_large">
+
+                        <lightning:icon iconName="{!v.errorIcon}" variant="{!v.errorIconVariant}" size="xx-small"
+                            class="slds-var-p-top_xx-small" />
+
+                        <div class="slds-form-element__legend slds-form-element__label slds-var-p-left_x-small"
+                            style="color: red;">
+                            <i>{!v.errorText}</i>
+                        </div>
+                    </div>
+                </aura:if>
+            </aura:if>
+        </div>
+
+        <aura:if isTrue="{! v.spinnerFlag }">
+            <lightning:spinner alternativeText="Loading" variant="brand" />
+        </aura:if>
+
+    </lightning:card>
+    <aura:if isTrue="{!v.accBilling.hasOffer}">
+        <div>
+            <c:OfferBox ltOffer="{!v.accBilling.ltOffer}" selectedOfferId="{!v.accBilling.selectedOfferId}"
+                offerMessage="{!v.accBilling.offerMessage}" sourceItem="fixed" />
+        </div>
+    </aura:if>
+
+
+</aura:component>

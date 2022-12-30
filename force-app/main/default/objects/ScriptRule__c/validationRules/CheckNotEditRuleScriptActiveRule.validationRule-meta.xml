@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CheckNotEditRuleScriptActiveRule</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ISPICKVAL(Script__r.Status__c, &apos;Active&apos;),
+Script__r.RecordType.DeveloperName = &apos;AutomaticWarning&apos;,
+OR(
+ISCHANGED(RuleNumber__c),
+ISCHANGED(FieldAPI__c),
+ISCHANGED(ObjectAPI__c),
+ISCHANGED(Field__c),
+ISCHANGED(Object__c),
+ISCHANGED(Operator__c),
+ISCHANGED(Value__c),
+ISCHANGED(Script__c),
+ISCHANGED(FilterBy__c)
+
+)
+)</errorConditionFormula>
+    <errorMessage>Não é possível editar uma regra quando o aviso está ativo</errorMessage>
+</ValidationRule>

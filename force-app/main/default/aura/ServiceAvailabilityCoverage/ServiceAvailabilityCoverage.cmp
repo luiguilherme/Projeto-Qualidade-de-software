@@ -1,0 +1,123 @@
+<aura:component controller="ServiceAvailabilityController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+
+  <aura:attribute name="selectedStep" type="String" description="Extending from its parent cmp, ServiceAvailability.cmp"/>    
+  <aura:attribute name="broadBand" type="String" description="Field used to display broadband info retrieved from API."/>
+  <aura:attribute name="tv" type="String" description="Field used to display TV info retrieved from API."/>
+  <aura:attribute name="voice" type="String" description="Field used to display TV info retrieved from API."/>
+  <aura:attribute name="selectedAddress" type="Object"/> 
+  <aura:attribute name="selectedLookUpRecord" type="sObject" default="{}"/> 
+  <aura:attribute name="addressSelected" type="Object" description="Used to capture selection from the lightningSelect."/>
+  <aura:attribute name="zipCode" type="String" default="" description="Used to store value of the 'CEP' input field."/>
+  <aura:attribute name="stNumber" type="String" default="" description="Used to store value of the 'Numero' input field."/>
+  <aura:attribute name="EventName" type="string" default="ADDRESS_CLEAR"/>
+  <aura:attribute name="objectResponse" type="Object" default=""/>
+  <aura:attribute name="isDisabled" type="Boolean" default="true"/>
+  <aura:attribute name="errorMessage" type="String" default="" />
+  <aura:attribute name="isLoading" type="Boolean" default="true" />
+  
+  <aura:handler event="c:BroadcastNotification" action="{!c.handleComponentEvent}" access="global"/>
+  
+  <aura:if isTrue="{!v.isLoading}">
+      <div class="slds-spinner_container">
+          <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+              <div class="slds-spinner__dot-a"></div>
+              <div class="slds-spinner__dot-b"></div>
+          </div>
+      </div>
+  </aura:if>
+
+  <aura:if isTrue="{!v.errorMessage}">
+    <div class="slds-grid slds-grid_align-center slds-p-around_x-small">
+      <lightning:icon iconName="action:close" alternativeText="Endereço não encontrado ou indisponível" size="small" variant="error"/>
+    </div>
+    <div class="slds-grid slds-grid_align-center slds-p-around_x-small">
+      <div class="slds-notify slds-notify_alert " role="alert">{!v.errorMessage}</div>
+    </div>
+    <div class="slds-grid slds-grid_align-center slds-p-around_x-small">
+      <span>Endereço pesquisado: {!v.selectedAddress.aliasedGeographicAddress.streetType} {!v.selectedAddress.aliasedGeographicAddress.streetName}, {!v.selectedAddress.aliasedGeographicAddress.streetNrFirst}, {!v.selectedAddress.aliasedGeographicAddress.locality}, {!v.selectedAddress.aliasedGeographicAddress.postcode},  {!v.selectedAddress.aliasedGeographicAddress.city}-{!v.selectedAddress.aliasedGeographicAddress.stateOrProvince}</span>
+    </div>
+  </aura:if>
+
+  <aura:if isTrue="{! not(v.errorMessage)}">
+    <div class="{!v.objectResponse.returnMessage == null ? 'slds-show' : 'slds-hide'}">
+      <div class="slds-grid slds-grid_align-center slds-p-around_x-small">
+        <lightning:icon iconName="action:approval" alternativeText="Endereço encontrado" size="small" variant="success"/>
+      </div>
+      <div class="slds-grid slds-grid_align-center slds-p-around_x-small">
+        <span>Endereço pesquisado: {!v.selectedAddress.aliasedGeographicAddress.streetType} {!v.selectedAddress.aliasedGeographicAddress.streetName}, {!v.selectedAddress.aliasedGeographicAddress.streetNrFirst}, {!v.selectedAddress.aliasedGeographicAddress.locality}, {!v.selectedAddress.aliasedGeographicAddress.postcode},  {!v.selectedAddress.aliasedGeographicAddress.city}-{!v.selectedAddress.aliasedGeographicAddress.stateOrProvince}</span>
+      </div>
+
+      <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_fixed-layout slds-p-around_x-small">
+        <thead>
+          <tr class="slds-line-height_reset">
+            <th class="slds-text-align_left" scope="col">
+              <div class="slds-truncate slds-size_1-of-2" title="ServiceColumn">Serviço</div>
+            </th>
+            <th class="slds-text-align_left" scope="col">
+              <div class="slds-truncate slds-size_1-of-2" title="ServiceAvailabilityCoverage">Disponibilidade de Cobertura</div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="slds-hint-parent">
+            <th data-label="ServiceColumn" scope="row">
+              <div class="slds-truncate">Banda Larga </div>
+            </th>
+            <td class="slds-cell-wrap" data-label="ServiceAvailabilityCoverage">
+              <div class="slds-line-clamp_large" title="Informações de Banda Larga"> <p>Disponibilidade: {!v.objectResponse.available}</p>
+                                                                        <p>Tecnologia: {!v.objectResponse.broadbandName}</p>
+                                                                        <p>Velocidade Máxima: {!v.objectResponse.maxBroadbandSpeed}Mbps</p>
+                                                                        <p>Armário disponível: {!v.objectResponse.available}</p>
+                                                                        <p>Nome do armário: {!v.objectResponse.cabinetName}</p>
+                                                                        <p>Distância do armário: {!v.objectResponse.cabinetDistance}</p>
+
+              </div>
+            </td>
+        </tr>
+        <tr class="slds-hint-parent">
+            <th data-label="ServiceColumn" scope="row">
+              <div class="slds-truncate">TV </div>
+            </th>
+            <td class="slds-cell-wrap" data-label="ServiceAvailabilityCoverage">
+              <div class="slds-line-clamp" title="Informações de TV">{!v.objectResponse.tvPlatform}</div>
+              </td>
+          </tr>
+          <tr class="slds-hint-parent">
+              <th data-label="ServiceColumn" scope="row">
+                <div class="slds-truncate">Voz </div>
+              </th>
+              <td class="slds-cell-wrap" data-label="ServiceAvailabilityCoverage">
+                <div class="slds-line-clamp" title="Informações de Voz"><p>Tecnologia {!v.objectResponse.voiceProtocol}</p></div>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="{!v.objectResponse.returnMessage != null ? 'slds-show' : 'slds-hide'}">
+      <div class="slds-grid slds-grid_align-center slds-p-around_x-small">
+        <lightning:icon iconName="action:close" alternativeText="Endereço não encontrado ou indisponível" size="small" variant="error"/>
+      </div>
+      <div class="slds-grid slds-grid_align-center slds-p-around_x-small">
+        <span>{!v.objectResponse.returnMessage}</span>
+      </div>
+      <div class="slds-grid slds-grid_align-center slds-p-around_x-small">
+        <span>Endereço pesquisado: {!v.selectedAddress.aliasedGeographicAddress.streetType} {!v.selectedAddress.aliasedGeographicAddress.streetName}, {!v.selectedAddress.aliasedGeographicAddress.streetNrFirst}, {!v.selectedAddress.aliasedGeographicAddress.locality}, {!v.selectedAddress.aliasedGeographicAddress.postcode},  {!v.selectedAddress.aliasedGeographicAddress.city}-{!v.selectedAddress.aliasedGeographicAddress.stateOrProvince}</span>
+      </div>
+    </div>
+  </aura:if>
+  
+  <div class="slds-grid slds-grid_align-center slds-p-around_small">
+    <lightning:button variant="neutral"
+                      name="btnVoltar" 
+                      disabled="{!v.isDisabled}" 
+                      onclick="{!c.handlePrevious}"
+                      label="Voltar">
+    </lightning:button>
+    
+    <lightning:button variant="brand" 
+                      name="btnAvancar"
+                      onclick="{!c.handleFinish}"
+                      label="Realizar Nova Pesquisa">
+    </lightning:button>
+  </div>
+</aura:component>

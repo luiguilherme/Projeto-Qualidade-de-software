@@ -1,0 +1,66 @@
+<aura:component controller="ServiceAvailabilityController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    <aura:attribute name="selectedStep" type="String" description="Extending from its parent cmp, ServiceAvailability.cmp"/>
+    <aura:attribute name="data" type="Object" description="Used to store datatable data."/>
+    <aura:attribute name="columnsAddress" type="String" description="Used to create datatable columns" />
+    <aura:attribute name="EventName" type="string" default="ADDRESS_VALIDATE"/>
+    <aura:attribute name="JSONResponse" type="String"/>
+    <aura:attribute name="selectedAddress" type="Object" default="[]"/>
+    <aura:attribute name="ltFilteredData" type="Object"/>
+    <aura:attribute name="sameAddress" type="Boolean" default="false"/>
+    <aura:attribute name="errorMessage" type="String" default="" />
+    <aura:attribute name="isLoading" type="Boolean" default="true" />
+    <aura:attribute name="enterSearch" type="String" default="" />
+    <aura:attribute name="isBtnDisabled" type="Boolean" default="true" />
+
+    <!--Handlers-->
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>   
+    <aura:handler event="c:BroadcastNotification" action="{!c.handleComponentEvent}" access="global"/>
+    <aura:handler name="change" value="{!v.JSONResponse}" action="{!c.disableButton}" />
+
+    <aura:if isTrue="{!v.isLoading}">
+        <div class="slds-spinner_container">
+            <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.sameAddress}">
+        <div class="slds-notify slds-notify_alert " role="alert">{!$Label.c.ServiceAvailabilityAddressNotFound} </div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.errorMessage}">
+        <div class="slds-notify slds-notify_alert " role="alert">{!v.errorMessage}</div>
+        <div class="slds-grid slds-grid_align-center slds-p-top_small">
+            <button class="slds-button slds-button--brand slds-m-around_x-smalls" onclick="{!c.handleFinish}">Realizar Nova Pesquisa</button> 
+        </div>
+    </aura:if>
+
+    <aura:if isTrue="{! not(v.errorMessage)}">
+        <div>
+            <div class="slds-p-bottom_small">
+                <div onkeyup="{! c.filterAddresses}" style="padding: 0 5px 0 5px;">
+                    <lightning:input value="{!v.enterSearch}" name="enterSearch" type="search"/>
+                </div>
+            </div>
+            <div style="height: 250px">
+                <lightning:datatable    keyField="Id"
+                                        aura:id="ValidateDataTable"
+                                        data="{! v.ltFilteredData }"    
+                                        columns="{! v.columnsAddress }" 
+                                        hideCheckboxColumn="false"
+                                        maxRowSelection="1"
+                                        onrowselection="{!c.getSelectedAddressRow}"/>
+            </div>
+        </div>
+        <div class="slds-grid slds-grid_align-center slds-p-around_small">
+            <lightning:button   variant="brand" 
+                                name="btnAvancar"
+                                disabled="{!v.isBtnDisabled}"
+                                onclick="{!c.getCoverage}"
+                                label="Avançar">
+            </lightning:button>
+        </div>   
+    </aura:if>                                         
+</aura:component>

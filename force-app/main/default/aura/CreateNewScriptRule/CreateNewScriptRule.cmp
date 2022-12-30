@@ -1,0 +1,144 @@
+<aura:component controller="ScriptRuleController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global">
+
+    <aura:attribute name="lstScriptRule" type="List"/>
+    <aura:attribute name="lstObjects" type="List"/>
+    <aura:attribute name="lstOperadores" type="List"/>
+    <aura:attribute name="lstFilterRecords" type="List"/>
+    <aura:attribute name="strValorComparativo" type="String"/>
+    <aura:attribute name="lstScriptRulesExisting" type="List"/>
+    <aura:attribute name="blnAllScriptRulesIsValid" type="Boolean" default="true"/>
+    <aura:attribute name="mapInfoFields" type="Map"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:html tag="style">
+        .slds-modal__container{
+            max-width: 90%;
+            width: 90%;
+        }
+        .slds-p-around_medium, .slds-p-around--medium {
+            padding: 0rem !important;
+        }
+        .cuf-content {
+            padding: 0 0rem !important;
+        }
+    </aura:html>
+    
+    <div>
+        <header class="slds-modal__header">
+            <ui:outputText value="{!$Label.c.ScriptRuleCreateTitleModal}" class="slds-modal__title slds-hyphenate"/>
+        </header>
+
+        <div class="slds-m-left_small sizeContentModal">
+            <aura:iteration items="{!v.lstScriptRule}" var="itemScript" indexVar="indexAtual">
+                <lightning:layout class="slds-grid slds-wrap">
+                   
+                    <aura:if isTrue="{!v.lstScriptRule.length > 1}">
+                        <lightning:layoutItem padding="around-small">
+                            <div class="custom-box posButtonRemove">
+                                <lightning:buttonIcon iconName="utility:dash" name="{!indexAtual}" variant="brand" alternativeText="{!$Label.c.ScriptRuleCreateAlternativeTextDash}" title="{!$Label.c.ScriptRuleCreateAlternativeTextDash}" onclick="{!c.removeNewRule}"/>
+                            </div>
+                        </lightning:layoutItem>
+                    </aura:if>
+
+                    <lightning:layoutItem class="sizeInputNumberRule" padding="around-small">
+                        <div class="custom-box">
+                            <lightning:input name="{!indexAtual}" label="{!$Label.c.ScriptRuleCreateInputNumberRule}" disabled="true" value="{!itemScript.numberRule}"/>
+                        </div>
+                    </lightning:layoutItem>
+                    
+                    <lightning:layoutItem class="sizeInputObject" padding="around-small">
+                        <div class="custom-box">
+                            <lightning:select required="true" aura:id="idInputObject" name="{!indexAtual}" label="{!$Label.c.ScriptRuleCreateInputObject}" onchange="{!c.getSpecificsFields}" value="{!itemScript.objectAPI}">
+                                <option value=""></option>    
+                                <aura:iteration items="{!v.lstObjects}" var="item">
+                                    <option value="{!item.apiName}">{!item.name}</option>
+                                </aura:iteration>
+                            </lightning:select>
+                        </div>
+                    </lightning:layoutItem>
+
+                    <lightning:layoutItem class="sizeInputFields" padding="around-small">
+                        <lightning:select required="true" aura:id="idInputField" name="{!indexAtual}" label="{!$Label.c.ScriptRuleCreateInputFields}" onchange="{!c.resetByFieldScriptRule}" value="{!itemScript.fieldScriptAPI}">
+                            <option value=""></option>
+                                <aura:iteration items="{!itemScript.lstCampos}" var="item">
+                                    <option value="{!item.fieldAPI}">{!item.fieldLabel}</option>
+                                </aura:iteration>
+                        </lightning:select>
+                    </lightning:layoutItem>
+
+                    <lightning:layoutItem class="sizeInputOperators" padding="around-small">
+                        <lightning:select required="true" aura:id="idInputOperator" name="{!indexAtual}" label="{!$Label.c.ScriptRuleCreateInputOperator}" onchange="{!c.checkIsValid}" value="{!itemScript.operatorScript}">
+                            <option value=""></option>
+                            <aura:iteration items="{!v.lstOperadores}" var="item">
+                                <option value="{!item.picklistValueAPI}">{!item.picklistValueLabel}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </lightning:layoutItem>
+
+					
+                    <aura:if isTrue="{! and(itemScript.operatorScript != 'itHas', itemScript.operatorScript != 'doesntHave')}">
+                        <aura:if isTrue="{! and(itemScript.objectAPI != '', itemScript.fieldScriptAPI != '')}">
+                            <lightning:layoutItem class="sizeInputValueField" padding="around-small">   
+                                
+                                <aura:if isTrue="{!itemScript.fieldType == 'text'}">
+                                    <lightning:input required="true" aura:id="idInputValueText" name="{!indexAtual}" type="text" value="{!itemScript.valueToCompare}" label="{!$Label.c.ScriptRuleCreateInputValueToCompare}" onblur="{!c.checkIsValid}"/>
+                                </aura:if>
+                                
+                                <aura:if isTrue="{!itemScript.fieldType == 'date'}">
+                                    <lightning:input required="true" aura:id="idInputValueDate" name="{!indexAtual}" type="date" value="{!itemScript.valueToCompare}" label="{!$Label.c.ScriptRuleCreateInputValueToCompare}" messageWhenBadInput="{!$Label.c.ScriptRuleBadInputDate}" fieldLevelHelp="{!$Label.c.ScriptRuleHelpTextInputDate}" onblur="{!c.checkIsValid}"/>
+                                </aura:if>
+                                
+                                <aura:if isTrue="{!itemScript.fieldType == 'number'}">
+                                    <lightning:input required="true" aura:id="idInputValueNumber" name="{!indexAtual}" type="number" value="{!itemScript.valueToCompare}" label="{!$Label.c.ScriptRuleCreateInputValueToCompare}" onblur="{!c.checkIsValid}"/>
+                                </aura:if>
+
+                                <aura:if isTrue="{!itemScript.fieldType == 'numberCurrency'}">
+                                    <lightning:input required="true" aura:id="idInputValueNumberCurrency" name="{!indexAtual}" type="number" value="{!itemScript.valueToCompare}" formatter="currency" label="{!$Label.c.ScriptRuleCreateInputValueToCompare}" onblur="{!c.checkIsValid}"/>
+                                </aura:if>
+
+                                <aura:if isTrue="{!itemScript.fieldType == 'numberPercent'}">
+                                    <lightning:input required="true" aura:id="idInputValueNumberPercent" name="{!indexAtual}" type="number" value="{!itemScript.valueToCompare}" formatter="percent" step="0.01" label="{!$Label.c.ScriptRuleCreateInputValueToCompare}" onblur="{!c.checkIsValid}"/>
+                                </aura:if>
+                                
+                                <aura:if isTrue="{!itemScript.fieldType == 'checkbox'}">
+                                    <lightning:input class="paddingCheckbox" aura:id="idInputValueCheckbox" name="{!indexAtual}" type="checkbox" checked="{!itemScript.valueToCompare}" label="{!$Label.c.ScriptRuleInputLabelCheckbox}"/>
+                                </aura:if>
+                                
+                                <aura:if isTrue="{!itemScript.fieldType == 'picklist'}">
+                                    <lightning:select required="true" aura:id="idInputValuePicklist" name="{!indexAtual}" value="{!itemScript.valueToCompare}" label="{!$Label.c.ScriptRuleCreateInputValueToCompare}" onblur="{!c.checkIsValid}">
+                                        <option value=""></option>
+                                        <aura:iteration items="{!itemScript.lstPicklist}" var="item">
+                                            <option value="{!item.strAPIPicklistValue}">{!item.strLabelPicklistValue}</option>
+                                        </aura:iteration>
+                                    </lightning:select>
+                                </aura:if>
+
+                            </lightning:layoutItem>
+                        </aura:if>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{! and(itemScript.objectAPI != 'Account', itemScript.objectAPI != '')}">
+                        <lightning:layoutItem class="sizeInputFilter" padding="around-small">
+                            <lightning:select required="true" name="{!indexAtual}" onchange="{!c.checkIsValid}" label="{!$Label.c.ScriptRuleCreateInputFilter}" value="{! itemScript.filterScript}">
+                                <option value=""></option>
+                                <aura:iteration items="{!v.lstFilterRecords}" var="item">
+                                    <option value="{!item.picklistValueAPI}">{!item.picklistValueLabel}</option>
+                                </aura:iteration>
+                            </lightning:select>
+                        </lightning:layoutItem>
+                    </aura:if>
+                    
+                    <lightning:layoutItem padding="around-small">
+                        <div class="custom-box posButtonAdd">
+                            <lightning:buttonIcon iconName="utility:add" name="{!indexAtual}" variant="brand" alternativeText="{!$Label.c.ScriptRuleCreateAlternativeTextAdd}" title="{!$Label.c.ScriptRuleCreateAlternativeTextAdd}" onclick="{!c.addNewRule}"/>
+                        </div>
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </aura:iteration>
+        </div>
+        <div class="modal-footer slds-modal__footer">
+            <lightning:button class="slds-button slds-button_neutral" label="{!$Label.c.ScriptRuleCreateCancelButton}" onclick="{!c.closeModal}"/>
+            <lightning:button disabled="{!v.blnAllScriptRulesIsValid}" class="slds-button slds-button_brand" label="{!$Label.c.ScriptRuleCreateSaveButton}" onclick="{!c.saveRecords}"/>
+        </div>            
+    </div>
+</aura:component>
