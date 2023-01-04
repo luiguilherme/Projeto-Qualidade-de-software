@@ -72,7 +72,7 @@ public class AccountRetentionControllerTest {
             Asset asset = DataFactory.createAsset(lAccount.Id, lBillingAccountFixed.Id, lServiceAccountFixed.Id, 'Fixa');
             // asset.Address__c = address.Id;
             lstAsset.add(asset);
-            lstAsset.add(DataFactory.createAsset(lAccount.Id, lBillingAccountMobile.Id, lServiceAccountMobile.Id, 'Movel'));
+            lstAsset.add(DataFactory.createAsset(lAccount.Id, lBillingAccountMobile.Id, lServiceAccountMobile.Id, 'Móvel'));
             insert lstAsset;
             
             List<OfferFilter__c> lstOfferFilter = new List<OfferFilter__c>();

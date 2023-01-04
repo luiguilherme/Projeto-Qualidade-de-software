@@ -19,8 +19,7 @@ public with sharing class AccountRetentionEngine {
         return ltAccount;
     }
 
-    public static List<Asset> getAsset(Account accountObj, GeneralParam__c generalParamObj, String developerName){
-	
+    public static List<Asset> getAsset(Account accountObj, GeneralParam__c generalParamObj, String developerName){	
         List<String> ltCustomerSegment = CollectionUtil.stringForList(generalParamObj.CustomerSegment__c);
         List<String> ltCustomerType = CollectionUtil.stringForList(generalParamObj.CustomerType__c);
         List<Asset> ltAsset = new List<Asset>();
