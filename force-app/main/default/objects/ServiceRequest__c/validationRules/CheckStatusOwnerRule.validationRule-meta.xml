@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CheckStatusOwnerRule</fullName>
+    <active>true</active>
+    <description>Verificar se o Owner da Solicitação é um usuário para permitir alterar s status para em andamento</description>
+    <errorConditionFormula>AND(LEFT(OwnerId,3) = &apos;00G&apos;, ISCHANGED(Status__c) )</errorConditionFormula>
+    <errorMessage>Não é possível alterar o status da solicitação de serviço com o responsável  fila. Altere antes o responsável para seu usuário e tente novamente.</errorMessage>
+</ValidationRule>
