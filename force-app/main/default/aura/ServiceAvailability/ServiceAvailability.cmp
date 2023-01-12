@@ -7,7 +7,7 @@
     <aura:attribute name="stNumber" type="String" default="" description="Used to store value of the 'Numero' input field."/>
     <aura:attribute name="selectedLookUpRecord" type="sObject" default="{}"/> 
     <aura:attribute name="record" type="sObject" />
-    <force:recordData   fields="vlocity_cmt__AccountId__c" 
+    <force:recordData   fields="vlocity_cmt__AccountId__c"
                         recordId="{!v.recordId}"
                         targetFields="{!v.record}"
                         targetError="{!v.recordLoadError}"
@@ -27,8 +27,8 @@
         </lightning:progressIndicator>
     </div>   
         <div class="slds-p-around--medium">
-            <div class="{!v.selectedStep == 'step1' ? 'slds-show' : 'slds-hide'}">
-                <c:ServiceAvailabilitySearch aura:id="searchComp" disableAccountField="{!v.disableAccountField}" recordId="{!v.record.vlocity_cmt__AccountId__c}" addressSelected="{!v.addressSelected}" zipCode="{!v.zipCode}" stNumber="{!v.stNumber}"/>                       
+            <div class="{!v.selectedStep == 'step1' ? 'slds-show' : 'slds-hide'}">                
+                <c:ServiceAvailabilitySearch aura:id="searchComp" disableAccountField="{!v.disableAccountField}" recordId="{!v.record.vlocity_cmt__AccountId__c}" addressSelected="{!v.addressSelected}" zipCode="{!v.zipCode}" stNumber="{!v.stNumber}"/>
             </div>
             <div class="{!v.selectedStep == 'step2' ? 'slds-show' : 'slds-hide'}">
                 <c:ServiceAvailabilityAddressCheck ltAddress="{!v.ltAddress}"/>                       

@@ -26,13 +26,14 @@
     <aura:attribute name="totalDiscount" type="String" />
     <aura:attribute name="stringMonth" type="String" default=" meses" />
     <aura:attribute name="totalProposal" type="String" />
-
+    <aura:attribute name="isPhone" type="Boolean" default="false" />
+    
     <!-- Event -->
     <aura:handler event="c:CardOfferEvent" action="{!c.updateOffer}" />
 
     <!-- Handlers -->
     <!-- <aura:handler name="init" value="{!this}" action="{!c.doInit}" /> -->
-
+    
     <!-- Body -->
     <lightning:card>
         <!-- Header-->
@@ -59,10 +60,11 @@
             </div>
         </article>
 
-        <div class="slds-grid ">
+        <!-- Tratativa para Mobile -->
+        <div class="{!$Browser.isPhone ? 'slds-grid slds-grid_vertical' : 'slds-grid'}">
 
             <!--Card Combo Fixa-->
-            <div class="slds-grid slds-size_1-of-3 slds-box">
+            <div class="slds-grid slds-size_1-of-1 slds-large-size_1-of-3 slds-box">
                 <div class="slds-grid_vertical ">
                     <div class="slds-align_absolute-center slds-box cardOfferFixed">
                         <br></br>
@@ -208,7 +210,7 @@
             </div>
 
             <!--Card Combo Móvel-->
-            <div class="slds-grid slds-size_1-of-3 slds-box  ">
+            <div class="slds-grid slds-size_1-of-1 slds-large-size_1-of-3 slds-box">
 
                 <div class="slds-grid_vertical ">
 
@@ -347,8 +349,9 @@
                     </div>
                 </div>
             </div>
+
             <!--Card Combo Proposal-->
-            <div class="slds-grid slds-size_1-of-3 slds-box ">
+            <div class="slds-grid slds-size_1-of-1 slds-large-size_1-of-3 slds-box">
                 <div class="slds-grid_vertical ">
                     <div class="slds-align_absolute-center slds-box cardOfferProposal">
                         <br></br>
@@ -445,6 +448,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </lightning:card>
 
