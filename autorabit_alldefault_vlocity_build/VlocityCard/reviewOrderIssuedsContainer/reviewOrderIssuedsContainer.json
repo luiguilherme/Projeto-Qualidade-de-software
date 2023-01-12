@@ -22,6 +22,9 @@
             "resultVar": ""
         }
     },
+    "dynamicCanvasWidth": {
+        "type": "mobile"
+    },
     "enableLwc": true,
     "isFlex": true,
     "lwc": {
@@ -31,6 +34,7 @@
         "MasterLabel": "cfReviewOrderIssuedsContainer_1_FEU",
         "NamespacePrefix": "c"
     },
+    "osSupport": true,
     "selectableMode": "Multi",
     "states": [
         {
@@ -154,7 +158,8 @@
     "xmlJson": [
         {
             "@attributes": {
-                "targets": "lightning__AppPage"
+                "targets": "lightning__AppPage",
+                "xmlns": "http://soap.sforce.com/2006/04/metadata"
             },
             "property": [
                 {
@@ -173,7 +178,8 @@
         },
         {
             "@attributes": {
-                "targets": "lightning__RecordPage"
+                "targets": "lightning__RecordPage",
+                "xmlns": "http://soap.sforce.com/2006/04/metadata"
             },
             "property": [
                 {
@@ -182,14 +188,48 @@
                         "type": "Boolean"
                     }
                 }
+            ],
+            "supportedFormFactors": {
+                "supportedFormFactor": [
+                    {
+                        "@attributes": {
+                            "type": "Small"
+                        }
+                    },
+                    {
+                        "@attributes": {
+                            "type": "Large"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "@attributes": {
+                "targets": "lightningCommunity__Default",
+                "xmlns": "http://soap.sforce.com/2006/04/metadata"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "name": "recordId",
+                        "type": "String"
+                    }
+                }
             ]
         }
     ],
     "xmlObject": {
+        "apiVersion": 51,
+        "isExplicitImport": false,
+        "isExposed": true,
         "masterLabel": "reviewOrderIssuedsContainer",
-        "targetConfigs": "PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgogICAgICAgICAgICAgICAgICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgICAgICAgICAgICAgICAgICA8cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPgogICAgICAgICAgICAgICAgICA8L3RhcmdldENvbmZpZz4KICAgICAgICAgICAgICAgICAgPHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPgogICAgICAgICAgICAgICAgICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgICAgICAgICAgICAgIDwvdGFyZ2V0Q29uZmlnPg==",
+        "runtimeNamespace": "%vlocity_namespace%",
+        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgoJCQk8cHJvcGVydHkgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iLz4KCQkJPHByb3BlcnR5IG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciLz4KCQk8L3RhcmdldENvbmZpZz4KCQk8dGFyZ2V0Q29uZmlnIHhtbG5zPSJodHRwOi8vc29hcC5zZm9yY2UuY29tLzIwMDYvMDQvbWV0YWRhdGEiIHRhcmdldHM9ImxpZ2h0bmluZ19fUmVjb3JkUGFnZSI+CgkJCTxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiIvPgoJCQk8c3VwcG9ydGVkRm9ybUZhY3RvcnM+CgkJCQk8c3VwcG9ydGVkRm9ybUZhY3RvciB0eXBlPSJTbWFsbCIvPgoJCQkJPHN1cHBvcnRlZEZvcm1GYWN0b3IgdHlwZT0iTGFyZ2UiLz4KCQkJPC9zdXBwb3J0ZWRGb3JtRmFjdG9ycz4KCQk8L3RhcmdldENvbmZpZz4KCQk8dGFyZ2V0Q29uZmlnIHhtbG5zPSJodHRwOi8vc29hcC5zZm9yY2UuY29tLzIwMDYvMDQvbWV0YWRhdGEiIHRhcmdldHM9ImxpZ2h0bmluZ0NvbW11bml0eV9fRGVmYXVsdCI+CgkJCTxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIi8+CgkJPC90YXJnZXRDb25maWc+",
         "targets": {
             "target": [
+                "lightningCommunity__Page",
+                "lightningCommunity__Default",
                 "lightning__RecordPage",
                 "lightning__AppPage",
                 "lightning__HomePage"
