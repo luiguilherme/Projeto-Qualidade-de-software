@@ -1,25 +1,54 @@
 /*
- * Autor: Giovani de Souza - Deloitte
- * Criado em: 05/11/2021
+* Autor: Giovani de Souza - Deloitte
+* Criado em: 05/11/2021
 */
 global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
 {
     global Boolean invokeMethod(String methodName, Map<String, Object> inputs, Map<String, Object> output, Map<String, Object> options)
     {
-        List<Object> arguments = (List<Object>) inputs.get('arguments');        
+        List<Object> arguments = (List<Object>) inputs.get('arguments');  
+
         switch on methodName {
             when 'validateEmailFormat' 
-            	{output.put('result', validateEmailFormat(arguments));}        
+            {output.put('result', validateEmailFormat(arguments));}        
             when 'validateCPF' 
-            	{output.put('result', validateCPF(arguments));}
+            {output.put('result', validateCPF(arguments));}
             when 'validateCNPJ' 
-            	{output.put('result', validateCNPJ(arguments));}
+            {output.put('result', validateCNPJ(arguments));}
+            when 'mapKeysValues' 
+            {output.put('result', mapKeysValues(arguments));}  
+            when 'trim' 
+            {output.put('result', trimValues(arguments));}   
             when 'formatDate' 
-            	{output.put('result', formatDate(arguments));}            
+            {output.put('result', formatDate(arguments));}
+            when 'translatePickListValues' 
+            {output.put('result', translatePickListValues(arguments));}
+            when 'getPickListKeyValues' 
+            {output.put('result', getPickListKeyValues(arguments));}
+            when 'replaceString' 
+            {output.put('result', replaceString(arguments));} 
+            when 'replaceBackslashTopicName'
+	        {output.put('result', replaceBackslashTopicName(arguments));}            
+            when 'GetListRange' 
+            {output.put('result', GetListRange(arguments));}
+			when 'convertByte' 
+            {output.put('result', convertByte(arguments));}
+            when 'getElementApiName'
+            {output.put('result', getElementApiName(arguments));}
+            when 'removeValueFromList'
+            {output.put('result', removeValueFromList(arguments));}   
+            when 'getPathTree'
+            {output.put('result', getPathTree(arguments));}
+			when 'getPath'
+            {output.put('result', getPath(arguments));}             
+			when 'getUserRole'
+            {output.put('result', getUserRole(arguments));} 
+            /*when 'getTotalChannels'
+            {output.put('result', getTotalChannels(arguments));} */
         }
         return true;
     }
-
+    
     Boolean validateEmailFormat(List<Object> argument)
     {
         Pattern emailPattern = Pattern.compile('(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$)');
@@ -76,11 +105,14 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         else dig11 = r;
         
         if (dig10 == Integer.valueOf(cpfString[9]) && dig11 == Integer.ValueOf(cpfString[10])){
+            system.debug('Kaiser -> :'+true);
             return true;
         }else{
+            system.debug('Kaiser -> :'+false);
             return false;
         }
     }    
+    
     /*
     * Autor....: Guilherme Kaiser - Deloitte
     * Projeto..: Vivo - VALENTINA
@@ -142,9 +174,35 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             System.debug('Validar CNPJ - FALSO 2');
             return false ;
         }
+    }
+    
+    /*
+    * Autor....: Leandro Alexandrino - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Entrada do método é uma lista de objetos. Cada objeto deve conter uma chave name e uma chave value.
+    Saída do método é um mapa de string,string formado por chaves de names e valores de values.
+    * Data.....: 2021
+    */    
+    Map<String,String> mapKeysValues(List<Object> argument)
+    {
+        //Entrada do método é uma lista de objetos. Cada objeto deve conter uma chave name e uma chave value.
+        //Saída do método é um mapa de string,string formado por chaves de names e valores de values.
+        Map<String,String> mapKeysValues = new Map<String,String>();
+        Map<String,Object> argumentMap = new Map<String,Object>();
+        for(Object obj : argument) {
+            argumentMap = (Map<String,Object>) obj;
+            mapKeysValues.put((String) argumentMap.get('name'),(String) argumentMap.get('value'));
+        }
+        return mapKeysValues;
+    }
+    
+    String trimValues(List<Object> argument) {
+        String value = (String) argument[0];  
+        
+        return value.replace(' ', '');
     }   
-
-   /*
+    
+    /*
     * Autor....: Guilherme Kaiser - Deloitte
     * Projeto..: Vivo - VALENTINA
     * Descrição: Método criado para formatar data em DR
@@ -152,10 +210,270 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     */
     public static String formatDate(List<Object> argument)
     {
-    	String dataNascimento = (String) argument[0];
-		Date d = date.parse(dataNascimento);
-		String dt = DateTime.newInstance(d.year(),d.month(),d.day()).format('dd/MM/YYYY');
-		system.debug(logginglevel.error,dt);		        
+        String dataNascimento = (String) argument[0];
+        Date d = date.parse(dataNascimento);
+        String dt = DateTime.newInstance(d.year(),d.month(),d.day()).format('dd/MM/YYYY');
+        system.debug(logginglevel.error,dt);		        
         return dt;
+    }
+    
+    /*
+    * Autor....: Lucas Ferreira Magalhães - Deloitte 22/04/2022
+    * Modificado por: Giovani de Souza 22/04/2022
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Metodo para capturar os valores traduzidos de uma picklist com Objeto e campo como parametro.
+    Retornando uma lista de Map com apiName = key, Label = Value.
+    * Data.....: 2021
+    */
+    public static List<Map<String, String>> translatePickListValues(List<Object> argument) {
+        
+        String objectApiName = (String) argument[0];
+        String objectFieldName = (String) argument[1];
+        
+        Map<String, Schema.SObjectType> gd = Schema.getGlobalDescribe();
+        
+        Schema.SObjectField sField;
+        Schema.SObjectType sObjType = gd.get(objectApiName);
+        Schema.DescribeSObjectResult objectResult = sobjType.getDescribe();
+        
+        Map<String,Schema.SObjectField> fieldsMap = objectResult.fields.getMap();
+        sField = fieldsMap.get(objectFieldName);		
+        
+        List<Schema.PicklistEntry> picklistValues = sField.getDescribe().getPicklistValues();
+        List<Map<String, String>> listValuesTranslated = new List<Map<String, String>>();
+        
+        Map<String, Object> finalMap = new Map<String, Object>();
+        
+        for (Schema.PicklistEntry pe: picklistValues) {
+            Map<String, String> mapTranslatedValues = new Map<String, String>();
+            mapTranslatedValues.put(objectApiName+objectFieldName+'Value', pe.getLabel());
+            mapTranslatedValues.put(objectApiName+objectFieldName+'Key', pe.getValue());
+            
+            listValuesTranslated.add(mapTranslatedValues);	
+        }
+        
+        return listValuesTranslated;
+    }
+    
+    /*
+	* Autor....: Guilherme Kaiser - Deloitte
+	* Projeto..: Vivo - VALENTINA
+	* Descrição: Método para retornar o Key/Valeu de um picklist - usado no filtro de parms do palito
+	* Data.....: 10/10/2022
+	*/	     
+    public static List<Map<String, String>> getPickListKeyValues(List<Object> argument) {
+        
+        String objectApiName = (String) argument[0];
+        String objectFieldName = (String) argument[1];
+        
+        Map<String, Schema.SObjectType> gd = Schema.getGlobalDescribe();
+        
+        Schema.SObjectField sField;
+        Schema.SObjectType sObjType = gd.get(objectApiName);
+        Schema.DescribeSObjectResult objectResult = sobjType.getDescribe();
+        
+        Map<String,Schema.SObjectField> fieldsMap = objectResult.fields.getMap();
+        sField = fieldsMap.get(objectFieldName);		
+        
+        List<Schema.PicklistEntry> picklistValues = sField.getDescribe().getPicklistValues();
+        List<Map<String, String>> listValuesTranslated = new List<Map<String, String>>();
+        
+        Map<String, Object> finalMap = new Map<String, Object>();
+        
+        for (Schema.PicklistEntry pe: picklistValues) {
+            Map<String, String> mapTranslatedValues = new Map<String, String>();
+            mapTranslatedValues.put('Value', pe.getLabel());
+            mapTranslatedValues.put('Key', pe.getValue());
+            
+            listValuesTranslated.add(mapTranslatedValues);	
+        }
+        
+        return listValuesTranslated;
     }    
+
+    /*
+	* Autor....: Guilherme Kaiser - Deloitte
+	* Projeto..: Vivo - VALENTINA
+	* Descrição: Método criado para substituir valores DE/PARA em uma string
+	* Data.....: 08/11/2021
+	*/	    
+    public static String replaceString(List<Object> argument){
+        
+        String stringToReplace = (String) argument[0];
+        String searchString = (String) argument[1];
+        String replacementString = (String) argument[2];
+        
+        return stringToReplace.replace(searchString, replacementString);
+    }
+
+    /*
+    * Autor....: Guilherme Kaiser - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método criado para substituir o scape '\\' por '\' em uma string
+    * Data.....: 29/06/2022
+    */
+    public static String replaceBackslashTopicName(List<Object> argument){
+        
+        String stringToReplace = (String) argument[0];
+        String searchString =  '\\';
+        String replacementString = String.fromCharArray( new integer[] { 92 });
+        
+        return stringToReplace.replace(searchString, replacementString);
+    }    
+
+    
+    public static List<Object> GetListRange(List<Object> arguments){
+        
+        try{
+            Map <String, Object> objectsMap =  (Map <String, Object>) arguments[0];
+            
+            List<Object> objects = (List<Object>) objectsMap.get('Objects');
+            
+            Integer startIndex = Integer.valueOf(arguments[1]);
+            Integer endIndex = Integer.valueOf(arguments[2]);
+            
+            
+            List<Object> filtredList =  new List<Object> ();
+            
+            for(Integer index = startIndex; index < endIndex && index <objects.Size(); index++){
+                filtredList.add(objects[index]);
+            }
+            
+            return filtredList;
+            
+        } 
+        catch(Exception e){
+            System.debug(e.getMessage());
+            
+            return null;
+        }
+    }
+    
+    public static Decimal convertByte (List<Object> arguments) {
+        Long value = Long.valueOf(String.valueof(arguments[0]));
+        String unitMeasurementValue = (String) arguments[1];
+        String targetUnitMeasurement = (String) arguments[2];
+        
+        return valUnitConvert.convertByte(value, unitMeasurementValue, targetUnitMeasurement);
+    }
+    
+    /*
+    * Autor....: Giovani de Souza - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método para identificar o nome do objeto com base no recordId
+    * Data.....: 20/09/2022
+    */	
+    public static String getElementApiName (List<Object> arguments) {
+        Id id = Id.valueOf(String.valueof(arguments[0]));
+        
+        return id.getSObjectType().getDescribe().getName();
+    }
+    
+        /*
+    * Autor....: Giovani de Souza - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método para remover valor de uma lista
+    * Data.....: 13/10/2022
+    */	
+    public static List<Object> removeValueFromList (List<Object> arguments) {     
+        
+        Map<String,Object> menusMap  = (Map<String,Object>) arguments[0];
+        List<Object> menus = (List<Object>) menusMap.get('VLOCITY-FORMULA-LIST');
+        String valueToRemove = (String.valueOf(arguments[1]));
+        List<Object> listToReturn = new List<Object>();
+
+        while(menus.contains(valueToRemove)){            
+			menus.remove(menus.indexOf(valueToRemove));
+        }
+        
+        return menus;
+    }
+
+    /*
+    * Autor....: Guilherme Kaiser - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método criado para retornar o nome dos níveis a partir de um ID
+    * Data.....: 13/10/2022
+    */	    
+    public static List<String>  getPathTree (List<Object> arguments){
+        
+        String recordId = (String) Id.valueOf(String.valueof(arguments[0]));
+       	String recordIdNext;
+        Boolean ignoreFirstId =true;
+        List<String> lstNewTree = new List<String>();
+        
+        if(recordId != null){
+            List<CustomerInteractionTopicTree__c> lstTree =[select Id, Name, ParentTopicId__c, Type__c from CustomerInteractionTopicTree__c];
+            Map<Id,CustomerInteractionTopicTree__c> mapTree = new Map<Id,CustomerInteractionTopicTree__c>(lstTree);            
+			recordIdNext = recordId;                
+            if(mapTree.containsKey(recordIdNext)){
+                do {
+                    CustomerInteractionTopicTree__c recordTree = mapTree.get(recordIdNext);
+                    if(!ignoreFirstId || recordTree.get('Type__c')=='Pasta'){
+                    	lstNewTree.add((String) recordTree.get('Name'));   
+                    }                    
+                    ignoreFirstId=false;                                            
+                    recordIdNext = (String) recordTree.get('ParentTopicId__c');
+                } while (mapTree.containsKey(recordIdNext));
+            }
+        }        
+        List<String> lstNewTreeReversed = new List<String>();        
+        for(Integer i = lstNewTree.size() - 1; i >= 0; i--){
+            lstNewTreeReversed.add(lstNewTree[i]);
+        }                
+        return lstNewTreeReversed;
+    }    
+    
+    /*
+    * Autor....: Otávio Fonseca - Deloitte
+    * 
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método criado para retornar o nome dos níveis a partir de um ID
+    * Data.....: 24/10/2022
+    */	    
+    public static String getPath(List<Object> arguments) {
+    	String finalPath = '';
+        
+        String recordId = (String) arguments[0];
+        String delimiter = ' > ';
+        
+        CustomerInteractionTopicTree__c topic = [SELECT Id, Name FROM CustomerInteractionTopicTree__c WHERE Id = :recordId];
+
+        List<String> lstPath = getPathTree(arguments);
+
+        if (lstPath.size() > 0) {
+            finalPath = lstPath.get(0);
+        } 
+        
+        for (Integer i=1; i<lstPath.size(); i++) {
+                finalPath += delimiter + lstPath.get(i);                                    
+        }
+
+       	finalPath += delimiter + topic.Name;            
+
+        return finalPath;
+    }   
+    
+    public static String getUserRole(List<Object> arguments) {
+    
+        Id roleId=userinfo.getUserRoleId();
+        String RoleName=[Select Id, Name, DeveloperName from UserRole where Id=:roleId].DeveloperName;
+
+        return RoleName;
+    }
+    
+   /* public Integer getTotalChannels(List<Object> arguments) {
+        Map<String, String> mapChannel;
+        List<Map<String, String>> lstChannels = new List<Map<String, String>>();
+        
+        String strChannel = (String) arguments[0];      
+        Integer page = Integer.valueOf(arguments[1]);
+        
+        List<String> channels = strChannel.split(';');
+        
+        List<TopicsAuto__c> lstTopicsAuto = [SELECT Id FROM TopicsAuto__c WHERE Channel__c IN :channels OFFSET :page];
+        Integer total = lstTopicsAuto.size();
+
+        return total;
+    }*/
 }
