@@ -1,0 +1,38 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valGetCustomerInteractionTopicSearch",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/GetCustomerInteractionTopicSearch/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "AssetType": "=IF(%DRGetAssetDetails:Product:Type%=='Fixa','Fixed',IF(%DRGetAssetDetails:Product:Type%=='Pre','Pre','Mobile'))",
+            "ChannelName": "=IF(TOUPPERCASE(%DRGetUserData:ChannelName%)='LOJAS PROPRIAS','LOJAS PRÓPRIAS'TOUPPERCASE(%DRGetUserData:ChannelName%))",
+            "CustomerSegment": "=TOUPPERCASE(%DRGetCustomerInteractionDetails:CustomerSegment%)",
+            "CustomerType": "=IF(%DRGetCustomerInteractionDetails:CustomerType%='Customer','CLIENTE',TOUPPERCASE(%DRGetCustomerInteractionDetails:CustomerType%))",
+            "Instance": "=TOUPPERCASE(%DRGetAssetDetails:Product:ProductType%)",
+            "LineType": "=LIST(%DRGetCustomerInteractionDetails:Asset:Plataform%)",
+            "OperatorSegment": "=TOUPPERCASE(%DRGetServiceTree:OperatorSegment%)",
+            "RoleName": "=getUserRole()",
+            "isActive": "=IF(%SelectedFunction%=='RelationshipTopic','true',IF(%Active%=='Active','true','false'))"
+        },
+        "executionConditionalFormula": "",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues1",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVRelationshipTopic",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetCustomerInteractionTopicSearch/Procedure/SVRelationshipTopic"
+}

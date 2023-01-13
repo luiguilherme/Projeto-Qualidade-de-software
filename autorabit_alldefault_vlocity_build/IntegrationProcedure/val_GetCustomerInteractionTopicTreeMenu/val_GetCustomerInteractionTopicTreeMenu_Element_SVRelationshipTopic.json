@@ -1,0 +1,37 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valGetCustomerInteractionTopicTreeMenu",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/GetCustomerInteractionTopicTreeMenu/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "AssetType": "=IF(%DRGetAssetDetails:Product:Type%=='Fixa','Fixed',IF(%DRGetAssetDetails:Product:Type%=='Pre','Pre','Mobile'))",
+            "Channel": "=IF(TOUPPERCASE(%DRGetUserData:ChannelName%)='LOJAS PROPRIAS','LOJAS PRÓPRIAS'TOUPPERCASE(%DRGetUserData:ChannelName%))",
+            "CustomerType": "=IF(%DRGetCustomerInteractionDetails:CustomerType%='Customer','CLIENTE',TOUPPERCASE(%DRGetCustomerInteractionDetails:CustomerType%))",
+            "Instance": "=TOUPPERCASE(%DRGetAssetDetails:Product:ProductType%)",
+            "LineType": "=%DRGetCustomerInteractionDetails:Asset%",
+            "OperatorSegment": "=TOUPPERCASE(%DRGetServiceTree:OperatorSegment%)",
+            "Segmentation": "=TOUPPERCASE(%DRGetCustomerInteractionDetails:CustomerSegment%)",
+            "ServiceTree": "=%DRGetServiceTree:ServiceTree%"
+        },
+        "executionConditionalFormula": "%SelectedFunction% == 'RelationshipTopic'",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues4",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVRelationshipTopic",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetCustomerInteractionTopicTreeMenu/Procedure/SVRelationshipTopic"
+}

@@ -1,0 +1,31 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valGetCustomerInteractionTopicSearch",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/GetCustomerInteractionTopicSearch/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "response": "=IF(%SelectedFunction% == 'RelationshipTopic' && ((ISNOTBLANK(%SVRelationshipTopic:AssetType%) && (%SVRelationshipTopic:AssetType% == 'Pre')) || (ISBLANK(%SVRelationshipTopic:AssetType%) && ( %ProductType% == 'Pre'))),DRGetTopicTreeSearchFilter,IF(%SelectedFunction% == 'RelationshipTopic' && ((ISNOTBLANK(%SVRelationshipTopic:AssetType%) && (%SVRelationshipTopic:AssetType% == 'Mobile' || %SVRelationshipTopic:AssetType% == 'Fixed' )) || (ISBLANK(%SVRelationshipTopic:AssetType%) && ( %ProductType% == 'Mobile' ||  %ProductType% == 'Fixed' ))),DRGetTopicTreeSearchFilterFront, IF(%SelectedFunction% == 'TopicsTree' ||%SelectedFunction% == 'TopicsAuto',DRGetTopicTreeSearch,  IF(%SelectedFunction% == 'TopicsTreeFront' && %Active%=='Active',DRGetTopicTreeSearchFrontActive,DRGetTopicTreeSearchFrontAll))))",
+            "responseOld": "=IF(%SelectedFunction% == 'RelationshipTopic',DRGetTopicTreeSearchFilter, IF(%SelectedFunction% == 'TopicsTree' ||%SelectedFunction% == 'TopicsAuto',DRGetTopicTreeSearch,  IF(%SelectedFunction% == 'TopicsTreeFront' && %Active%=='Active',DRGetTopicTreeSearchFrontActive,DRGetTopicTreeSearchFrontAll)))"
+        },
+        "executionConditionalFormula": "",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues2",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVTransformResult",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetCustomerInteractionTopicSearch/Procedure/SVTransformResult"
+}
