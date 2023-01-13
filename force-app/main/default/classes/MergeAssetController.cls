@@ -95,7 +95,7 @@ global with sharing class MergeAssetController implements vlocity_cmt.VlocityOpe
                         vlocity_cmt__ServiceIdentifier__c = assetToCreate.identifiers[0],
                         StartDate__c = assetToCreate.start_date,
                         ProductType__c = type == 'Movel' ? getProductType(assetToCreate.subscription_type, mapFromTo) : getProductType(assetToCreate.product_type, mapFromTo),
-                        Name = assetToCreate.identifiers[0],
+                        Name = assetToCreate.identifiers[0].contains('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : assetToCreate.identifiers[0],
                         Status = assetToCreate.status,
                         IsHolder__c = assetToCreate.tags != null ? getStringValue(assetToCreate.tags, 'multivivo:') : 'TIT',
                         MainProductDescription__c = assetToCreate.descriptions != null ? assetToCreate.descriptions[0].text : assetToCreate.display_name != null ? assetToCreate.display_name : null, 
@@ -116,11 +116,21 @@ global with sharing class MergeAssetController implements vlocity_cmt.VlocityOpe
         action = 'atualizar';
         Asset asset;
         List<Asset> lstAssetsToUpdate = new List<Asset>();
+        Set<Id> setAssetsToUpdate = new Set<Id>();
         
         for(String id : assets.keySet()){
+            setAssetsToUpdate.add(sfIdsToUpdate.get(id));
+        }
+        
+        Map<Id, String> mapNameAsset = getAssetName(setAssetsToUpdate);
+        
+        for(String id : assets.keySet()){
+            
+            String assetName = String.valueOf(mapNameAsset.get(sfIdsToUpdate.get(id)));
+            
             asset = new Asset(Id = sfIdsToUpdate.get(id),
-                              StartDate__c = assets.get(id)
-            );
+                              StartDate__c = assets.get(id),                              
+                              Name = assetName.contains('+55') ? assetName.substring(3, assetName.length()) : assetName);
             lstAssetsToUpdate.add(asset);
         }
         update lstAssetsToUpdate;
@@ -226,6 +236,18 @@ global with sharing class MergeAssetController implements vlocity_cmt.VlocityOpe
         }
     }
 
+    public static Map<Id, String> getAssetName(Set<Id> setAssetsToUpdate){
+        Map<Id, String> returnAssetName = new Map<Id, String>();
+        List<Asset> lstAsset = [SELECT Id, Name FROM Asset WHERE Id IN : setAssetsToUpdate];
+        
+        for(Asset varAsset : lstAsset)
+        {
+        	returnAssetName.put(varAsset.Id, varAsset.Name);
+        }
+        
+        return returnAssetName;
+    }
+    
     private class WrapperAPI{
         private List<String> identifiers {get; set;}
         private DateTime start_date {get; set;}
