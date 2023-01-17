@@ -92,10 +92,10 @@ global with sharing class MergeAssetController implements vlocity_cmt.VlocityOpe
         for(WrapperAPI assetToCreate : lstAssetsToCreate){
             type = mapFromTo.get(assetToCreate.product_type + 'Type__c');
             asset = new Asset(                
-                        vlocity_cmt__ServiceIdentifier__c = assetToCreate.identifiers[0].contains('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : assetToCreate.identifiers[0],                                
+                        vlocity_cmt__ServiceIdentifier__c = assetToCreate.identifiers[0].startsWith('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : assetToCreate.identifiers[0],                                
                         StartDate__c = assetToCreate.start_date,
                         ProductType__c = type == 'Movel' ? getProductType(assetToCreate.subscription_type, mapFromTo) : getProductType(assetToCreate.product_type, mapFromTo),
-                        Name = assetToCreate.identifiers[0].contains('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : assetToCreate.identifiers[0],
+                        Name = assetToCreate.identifiers[0].startsWith('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : assetToCreate.identifiers[0],
                         Status = assetToCreate.status,
                         IsHolder__c = assetToCreate.tags != null ? getStringValue(assetToCreate.tags, 'multivivo:') : 'TIT',
                         MainProductDescription__c = assetToCreate.descriptions != null ? assetToCreate.descriptions[0].text : assetToCreate.display_name != null ? assetToCreate.display_name : null, 
@@ -127,11 +127,11 @@ global with sharing class MergeAssetController implements vlocity_cmt.VlocityOpe
         for(String id : assets.keySet()){
             
             String assetName = String.valueOf(mapNameAsset.get(sfIdsToUpdate.get(id)));
-            
+
             asset = new Asset(Id = sfIdsToUpdate.get(id),
                               StartDate__c = assets.get(id),                              
-                              Name = assetName.contains('+55') ? assetName.substring(3, assetName.length()) : assetName,
-                              vlocity_cmt__ServiceIdentifier__c = assetName.contains('+55') ? assetName.substring(3, assetName.length()) : assetName);
+                              Name = assetName.startsWith('+55') ? assetName.substring(3, assetName.length()) : assetName,
+                              vlocity_cmt__ServiceIdentifier__c = assetName.startsWith('+55') ? assetName.substring(3, assetName.length()) : assetName);
             lstAssetsToUpdate.add(asset);
         }
         update lstAssetsToUpdate;
