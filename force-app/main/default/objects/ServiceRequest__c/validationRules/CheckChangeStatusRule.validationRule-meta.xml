@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CheckChangeStatusRule</fullName>
+    <active>true</active>
+    <description>Não permite alterar o Status para um valor anterior.</description>
+    <errorConditionFormula>Case(PRIORVALUE(Status__c),
+&apos;NotStarted&apos;,1,
+&apos;InProgress&apos;,2,
+&apos;AnalysisComplete&apos;,3, 3) &gt;
+Case(Status__c,
+&apos;NotStarted&apos;,1,
+&apos;InProgress&apos;,2,
+&apos;AnalysisComplete&apos;,3, 3)</errorConditionFormula>
+    <errorDisplayField>Status__c</errorDisplayField>
+    <errorMessage>Não é permitida a alteração para um status anterior.</errorMessage>
+</ValidationRule>
