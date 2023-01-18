@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CustomerProfileListView__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( 		
+				OR( OpenTicketBD__c = true,
+								TDNA__c = true,
+        Recaller__c = true,
+        Bottom__c = true,
+        HighTemperature__c = true,
+        Reincident__c = true,
+        TDNARetention__c = true,
+        TicketBDReincident__c = true,
+        ODC__c = true,
+        NCC__c = true,
+        HDENoContact__c = true,
+								TEXT(CustomerMoodRating__c) = &quot;Sim&quot;),				
+				IMAGE(&quot;/resource/HDERed&quot;, &quot;Red&quot;, 24, 170),
+    IF(	HDELastUpdateDate__c +2 &gt;= today(), 
+        IMAGE(&quot;/resource/HDEGreen?&quot;, &quot;green&quot;, 24, 170),
+        IMAGE(&quot;/resource/HDEGray&quot;, &quot;Gray&quot;, 24, 170)))</formula>
+    <label>Perfil do cliente lista</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
