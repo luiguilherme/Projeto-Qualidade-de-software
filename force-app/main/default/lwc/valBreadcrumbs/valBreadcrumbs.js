@@ -1,6 +1,6 @@
 import { LightningElement, api } from 'lwc';
 import pubsub from "vlocity_cmt/pubsub";
-
+ 
 export default class ValBreadcrumbs extends LightningElement {
     menuName="";    
     menuPathName= "";
