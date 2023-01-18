@@ -1,0 +1,33 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
+                access="global">
+    <!-- Attributes -->
+    <aura:attribute name="attendant" type="User" />
+    <aura:attribute name="ltWorkPosition" type="List" default="[]" />
+    <aura:attribute name="workPositionId" type="String" default="" />
+    <aura:attribute name="ltPauseReason" type="List" default="[]" />
+    <aura:attribute name="pauseReasonId" type="String" default="" />
+    <aura:attribute name="automaticTicketCall" type="Integer" default="10" />
+    <aura:attribute name="ViewFieldService" type="Boolean" default="false" />
+    
+    <!-- Attendant -->
+    <c:SSMAttendant
+        aura:id="homeAttendant"
+        attendant="{! v.attendant}"
+        ltWorkPosition="{! v.ltWorkPosition}"
+        workPositionId="{! v.workPositionId}"
+        ltPauseReason="{! v.ltPauseReason}" 
+        pauseReasonId="{! v.pauseReasonId}" />
+
+    <!-- Waiting Customers -->
+    <c:SSMTickets
+        aura:id="homeTickets"
+        attendant="{! v.attendant}"
+        workPositionId="{! v.workPositionId}" />
+
+    <!-- Operations -->
+    <c:SSMHomeOperations
+        aura:id="homeOperations"
+        attendant="{! v.attendant}"
+        workPositionId="{! v.workPositionId}" 
+        pauseReasonId="{! v.pauseReasonId}" />
+</aura:component>

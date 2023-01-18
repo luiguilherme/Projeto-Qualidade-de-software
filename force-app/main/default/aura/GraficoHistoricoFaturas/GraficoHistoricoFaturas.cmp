@@ -1,0 +1,45 @@
+<aura:component controller="B2C_GraficoHistorico" implements="forceCommunity:availableForAllPageTypes,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" >
+ 
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:attribute name="HistoricoFatura" type="String" Default="Histórico de Faturas" />
+
+	<!--Atributos-->
+    <aura:attribute name="URLGraficoHistoricoFaturas" type="String" />
+    <aura:attribute name="labelGraficoHistoricoFaturas" type="String"/>
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="dataTableFixaMovel" type="Object[]" />
+	<aura:attribute name="canvasId" type="String" />
+	<aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+
+    <!--Configurador de cores, títulos e URL-->
+    <aura:attribute name="corfixa" type="String" Default="#7054FF"/>
+    <aura:attribute name="cormovel" type="String" Default="#C060FD"/>  
+    
+    <ltng:require
+                  scripts="{!join(',',$Resource.Charts, $Resource.chartsjsDatalabel)}"
+                  afterScriptsLoaded="{!c.geraChart}"
+                  />
+
+    <!--Redirecionamento-->
+    <aura:dependency resource="markup://force:navigateToURL" type="EVENT"/>
+    
+    <lightning:card>    
+        <!--Título do Componente-->
+        <aura:set attribute="title">
+            {!v.HistoricoFatura}
+        </aura:set>    
+    
+        <div class="chart">
+            <div class="redirecionamento_url" label="gotoURL" >
+            </div>
+            <div class="span_chart1">
+                <span>{!v.labelGraficoHistoricoFaturas}</span>
+            </div>
+            <div class="chart-container">
+                <canvas id="{!v.canvasId}"></canvas>
+            </div>
+        </div>
+    
+	</lightning:card>
+</aura:component>

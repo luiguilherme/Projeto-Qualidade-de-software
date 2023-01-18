@@ -1,0 +1,84 @@
+<aura:component controller="SSMAttendanceOperationsController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
+                access="global">
+    <!-- Attributes -->
+    <aura:attribute name="serviceTicket" type="Object" default="{}" />
+    <aura:attribute name="isOpenGiveUpDialog" type="Boolean" default="false" />
+    <aura:attribute name="ltGiveUpReasons" type="List" default="[]" />
+    <aura:attribute name="showView" type="String" default="ATTENDANCE" />
+
+    <!-- Handler -->
+    <aura:handler event="c:BroadcastNotification" action="{! c.BroadcastNotificationHandler}" access="global" />
+
+    <!-- Event -->
+    <aura:registerEvent name="BroadcastNotificationEvent" type="c:BroadcastNotification"/>
+    
+    <div class="slds-docked-form-footer">
+        <lightning:layout>
+            <lightning:layoutItem flexibility="auto">
+            </lightning:layoutItem>
+
+            <lightning:layoutItem flexibility="auto, no-grow">
+                <aura:if isTrue="{! v.showView == 'ATTENDANCE'}">
+                    <aura:if isTrue="{! v.serviceTicket.type != 'MANUAL'}">
+                        <!-- Recall -->
+                        <lightning:button aura:id="btnRecall" 
+                                        variant="neutral"
+                                        iconName="utility:announcement"
+                                        label="{! $Label.c.Recall}" 
+                                        disabled="false"
+                                        onclick="{! c.btnRecallClick}"/>
+                        
+                        <!-- Return to home -->
+                        <lightning:button aura:id="btnBackToHomePage" 
+                                        variant="neutral"
+                                        iconName="utility:back"
+                                        label="{! $Label.c.Return}" 
+                                        disabled="false"
+                                        onclick="{! c.btnBackToHomePageClick}"/>
+
+                        <!-- GiveUp -->
+                        <lightning:button aura:id="btnGiveUp" 
+                                        variant="neutral"
+                                        iconName="utility:clear"
+                                        label="{! $Label.c.GiveUp}" 
+                                        disabled="false"
+                                        onclick="{! c.btnGiveUpClick}"/>
+                    </aura:if>
+                    
+                    <!-- Finish -->
+                    <lightning:button aura:id="btnFinish" 
+                                    variant="brand"
+                                    iconName="utility:priority"
+                                    label="{! $Label.c.Finish}" 
+                                    disabled="false"
+                                    onclick="{! c.btnFinishClick}"/>
+                </aura:if>
+
+                <aura:if isTrue="{! v.showView == 'ENDSERVICE'}">
+                    <!-- Return to service home page -->
+                    <lightning:button aura:id="btnReturnToAttendance" 
+                                    variant="neutral"
+                                    iconName="utility:back"
+                                    label="{! $Label.c.Return}" 
+                                    disabled="false"
+                                    onclick="{! c.btnReturnToAttendanceClick}" />
+    
+                    <!-- Confirm -->
+                    <lightning:button aura:id="btnConfirmService" 
+                                    variant="brand"
+                                    iconName="utility:check"
+                                    label="{! $Label.c.Confirm}" 
+                                    disabled="false"
+                                    onclick="{! c.btnConfirmServiceClick}" />
+                </aura:if>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+
+    <aura:if isTrue="{! v.isOpenGiveUpDialog}">
+        <c:SSMGiveUpDialog
+            aura:id="giveUpDialog" 
+            ltGiveUpReasons="{! v.ltGiveUpReasons}" />
+    </aura:if>
+</aura:component>

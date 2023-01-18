@@ -1,0 +1,65 @@
+<aura:component controller="SSMAttendanceEndServiceController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
+                access="global">
+    <!-- Attributes -->
+    <aura:attribute name="serviceTicket" type="Object" default="{}" />
+    <aura:attribute name="ltCategories" type="List" default="[]" />
+    <aura:attribute name="ltActivities" type="List" default="[]" />
+    <aura:attribute name="ltFilteredActivities" type="List" default="[]" />
+    <aura:attribute name="ltSelecteds" type="List" default="[]" />
+
+    <!-- Handler -->
+    <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
+
+    <!-- Event -->
+    <aura:registerEvent name="BroadcastNotificationEvent" type="c:BroadcastNotification"/>
+    
+    <div style="padding: 0.5rem;">
+        <div class="slds-card__header-title slds-text-heading_small slds-text-heading--small">
+            {! $Label.c.StoreServiceManagerEndService}
+        </div>
+    </div>
+
+    <lightning:layout>
+        <!-- Activities -->
+        <lightning:layoutItem size="8" 
+                            padding="around-small">
+            <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                    <lightning:dualListbox aura:id="dltActivities" 
+                        label= "{! $Label.c.Activities}"
+                        sourceLabel="{! $Label.c.Availables}"
+                        selectedLabel="{! '* ' + $Label.c.Selecteds}"
+                        size="4"
+                        options="{! v.ltFilteredActivities}"
+                        value="{! v.ltSelecteds}"
+                        onchange="{! c.onSelectActivity}"/>
+                </div>
+            </div>
+        </lightning:layoutItem>
+        
+        <!-- Notes -->
+        <lightning:layoutItem size="4" 
+                            padding="around-small">
+            <div lightning-duallistbox_duallistbox="" 
+                class="slds-form-element__label slds-form-element__legend">
+                &nbsp;
+            </div>
+
+            <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                    <lightning:textarea aura:id="txtNotes" 
+                        label="{! $Label.c.Notes}"
+                        class="textarea-ssm"
+                        value="{! v.serviceTicket.notes}" />
+                </div>
+            </div>
+
+            <div style="margin-top: -0.5rem;">
+                <label class="slds-form-element__label">
+                    {! $Label.c.SpecialCharacterNotAllowed}
+                </label>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

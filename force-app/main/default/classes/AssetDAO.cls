@@ -198,7 +198,10 @@ public without sharing class AssetDAO {
                 Account.Name,
                 Account.Id,
                 Account.DocumentNumber__c,
-                Account.CustomerSegment__c
+                Account.vlocity_cmt__CustomerValue__c,
+            	Account.vlocity_cmt__PrimaryContactId__c,
+            	Account.phone,
+            	PhoneNumber__c            	
         FROM 
             Asset 
         WHERE 

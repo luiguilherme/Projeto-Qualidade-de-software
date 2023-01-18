@@ -1,0 +1,33 @@
+<aura:component controller="SSMTicketsController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
+                access="global">
+    <!-- Attributes -->
+    <aura:attribute name="attendant" type="User" />
+    <aura:attribute name="ltServiceTicketsColumns" type="List" default="[]" />
+    <aura:attribute name="ltServiceTickets" type="List" default="[]" />
+    <aura:attribute name="workPositionId" type="String" default="" />
+    <aura:attribute name="viewFieldService" type="Integer" />
+
+    <!-- Handler -->
+    <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
+
+    <aura:handler event="c:BroadcastNotification" action="{! c.BroadcastNotificationHandler}" access="global" />
+
+    <!-- Event -->
+    <aura:registerEvent name="BroadcastNotificationEvent" type="c:BroadcastNotification"/>
+
+    <!-- Tickets -->
+    <div style="padding: 1rem;">
+        <div class="slds-card__header-title slds-text-heading_small slds-text-heading--small">
+            {! $Label.c.StoreServiceManagerWaitingCustomers}
+        </div>
+
+        <br />
+        
+        <lightning:datatable aura:id="tblWaitingCustomers"
+                            keyField="ticketId"
+                            columns="{! v.ltServiceTicketsColumns}"
+                            data="{! v.ltServiceTickets}"
+                            maxRowSelection="1" />
+    </div>
+</aura:component>

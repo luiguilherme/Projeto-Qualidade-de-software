@@ -1,0 +1,89 @@
+<aura:component controller="StoreServiceManagerController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
+                access="global">
+    <!-- Attributes -->
+    <aura:attribute name="supportsPopOut" type="Boolean" default="false" />
+    <aura:attribute name="loadUtil" type="Boolean" default="false" />
+    <aura:attribute name="isLoading" type="Boolean" default="false" />
+    <aura:attribute name="errorMessage" type="String"/>
+    <aura:attribute name="attendant" type="Object" default="{}" />
+    <aura:attribute name="ltWorkPosition" type="List" default="[]" />
+    <aura:attribute name="workPositionId" type="String" default="" />
+    <aura:attribute name="ltPauseReason" type="List" default="[]" />
+    <aura:attribute name="serviceTicket" type="Object" default="{}" />
+    <aura:attribute name="homePage" type="Boolean" default="false" />
+    <aura:attribute name="servicePage" type="Boolean" default="false" />
+    <aura:attribute name="ltCategories" type="List" default="[]" />
+    <aura:attribute name="ltDocumentTypes" type="List" default="[]" />
+    <aura:attribute name="ltGiveUpReasons" type="List" default="[]" />
+    <aura:attribute name="ltActivities" type="List" default="[]" />
+
+    <!-- LightningUtil -->
+    <ltng:require scripts="{! $Resource.LightningUtil}" afterScriptsLoaded="{! c.doInit}" />
+
+    <!--Handlers-->
+    <aura:handler event="c:BroadcastNotification" action="{! c.BroadcastNotificationHandler}" access="global" />
+
+    <!-- Custom styles -->
+    <aura:html tag="style">
+        .slds-docked-form-footer {
+            display: flex;
+            justify-content: flex-end;
+            flex-direction: column;
+            padding: var(--lwc-spacingXSmall,0.5rem) 0.5rem;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--lwc-colorBackground,rgb(243, 242, 242));
+            box-shadow: var(--lwc-shadowDocked,0 -2px 2px 0 rgba(0, 0, 0, 0.16));
+            z-index: var(--lwc-zIndexOverlay,8000);
+        }
+
+        .slds-modal__content {  
+            overflow-y: hidden !important;  
+            overflow-x: hidden !important;
+        }
+    </aura:html>
+    
+    <!-- Loading-->
+    <aura:if isTrue="{! v.isLoading}">
+        <div class="slds-spinner_container">
+            <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    
+    <!-- Error message handling -->
+    <aura:if isTrue="{! v.errorMessage}">
+        <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+            {! v.errorMessage}
+        </div>
+    </aura:if>
+  
+    <aura:if isTrue="{! v.attendant}">
+        <!-- Home -->
+        <aura:if isTrue="{! v.homePage}">
+            <c:SSMHome
+                aura:id="homePage" 
+                attendant="{! v.attendant}"
+                ltWorkPosition="{! v.ltWorkPosition}"
+                workPositionId="{! v.workPositionId}"
+                ltPauseReason="{! v.ltPauseReason}" />
+            </aura:if>
+
+        <!-- Attendance -->
+        <aura:if isTrue="{! v.servicePage}">
+            <c:SSMAttendance
+                aura:id="servicePage" 
+                attendant="{! v.attendant}"
+                serviceTicket="{! v.serviceTicket}" 
+                ltCategories="{! v.ltCategories}" 
+                ltDocumentTypes="{! v.ltDocumentTypes}"
+                ltGiveUpReasons="{! v.ltGiveUpReasons}"
+                ltActivities="{! v.ltActivities}" />
+        </aura:if>
+    </aura:if>
+</aura:component>
