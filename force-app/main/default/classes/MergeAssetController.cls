@@ -1,4 +1,4 @@
-global with sharing class MergeAssetController implements vlocity_cmt.VlocityOpenInterface2 {
+global without sharing class MergeAssetController implements vlocity_cmt.VlocityOpenInterface2 {
 
     global boolean invokeMethod(String methodName, Map<String, Object> inputs, Map<String, Object> output, Map<String, Object> options){    
         switch on methodName {
