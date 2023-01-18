@@ -1,0 +1,19 @@
+<aura:component implements="lightning:availableForFlowScreens" access="global">
+    <aura:attribute name="route"    type="String"   access="global" />
+    <aura:attribute name="ltItem"   type="String[]" access="global" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <div class="slds-border_top slds-border_left slds-border_right slds-border_bottom">
+        <ul class="slds-has-dividers_bottom-space slds-border_top">
+            <aura:iteration items="{!v.ltItem}" var="item">
+                <li class="slds-item">
+                    <aura:unescapedHtml value="{!item}" />
+                </li>
+            </aura:iteration>
+        </ul>
+    </div>
+    
+    <br/>
+    
+</aura:component>

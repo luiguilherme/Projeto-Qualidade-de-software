@@ -1,6 +1,6 @@
 public with sharing class AccountDAO {
     
-    public static Account getByIds(Id accountId){
+    public static Account getByIds(Id accountId){ 
         List<Account> lst = getByIds(new Set<Id>{accountId});
         return lst.isEmpty() ? null : lst[0];
     }
@@ -32,8 +32,7 @@ public with sharing class AccountDAO {
                  BillingPostalCode,
                  BillingCity,
                  BillingState,
-                 BillingNumber__c,
-                 CustomerSegment__c
+                 BillingNumber__c
                 FROM 
                   Account
                 WHERE 
@@ -53,7 +52,8 @@ public with sharing class AccountDAO {
             	vlocity_cmt__PrimaryContactId__r.Birthdate,
                 CreditScoreDate__c,
                 RecordTypeId,
-                vlocity_cmt__CreditScore__c
+                vlocity_cmt__CreditScore__c,
+            	OwnerId
             FROM 
                 Account
             WHERE 
@@ -119,15 +119,33 @@ public with sharing class AccountDAO {
                     Name,
                     DocumentNumber__c,
                     UserId__c,
-                    vlocity_cmt__PrimaryContactId__r.MotherName__c,                    
+                    vlocity_cmt__PrimaryContactId__r.MotherName__c,
+            		vlocity_cmt__PrimaryContactId__c,
                     CreditScoreDate__c,
                     RecordTypeId,
-                    vlocity_cmt__CreditScore__c
+                    vlocity_cmt__CreditScore__c,
+            		vlocity_cmt__CustomerValue__c,
+            		Phone
                 FROM 
                     Account
                 WHERE 
                     DocumentNumber__c =: cnpjSet
                 LIMIT 1
             ];
+    }
+    
+    public static List<Account> getAccountByPhoneNumber(String phoneNumber) {
+        return [
+            SELECT 
+                Id, 
+                Name,
+                DocumentNumber__c,
+                vlocity_cmt__CustomerValue__c
+            FROM 
+                Account 
+            WHERE 
+                Phone = :phoneNumber
+            LIMIT 1
+        ];
     }
 }

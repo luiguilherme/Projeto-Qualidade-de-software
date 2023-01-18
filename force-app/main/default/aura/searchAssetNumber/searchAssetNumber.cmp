@@ -1,0 +1,71 @@
+<aura:component controller="SearchAccountByAssetController" implements="force:appHostable,force:hasSObjectName,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction">
+    <aura:attribute name="account" type="Object"/>
+    <aura:attribute name="searchString" type="object"/>
+    <aura:attribute name="userInfo" type="Object"/>
+    <aura:attribute name="showCustomerDetail" type="Boolean" default="false"/>
+    <aura:attribute name="emptyAccount" type="Boolean" default="false"/>
+    <aura:attribute name="isloading" type="Boolean" />
+
+
+    <ltng:require scripts="{! $Resource.LightningUtil }"/>
+    <lightning:overlayLibrary aura:id="overlayLib"  />
+    <lightning:notificationsLibrary aura:id="notifLib" />
+    
+    <aura:if isTrue="{! v.isloading }">
+        <lightning:spinner alternativeText="Loading" size="medium" />
+    </aura:if>
+
+    <div class="slds-grid slds-scrollable_y">
+        <div class="slds-col slds-size_1-of-1 searchCard">
+            <header class="slds-modal__header">
+                <div class="slds-text-title_caps">Buscar por número</div>
+            </header>
+            <div class="row p20 searchCard">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12">
+                        <lightning:input aura:id="searchInput" class="mb20" maxlenght="255" label="Número da linha"
+                                         name="tel"/>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-text-align_right">
+                        <lightning:button type="submit" class="top22" variant="brand" label="Buscar" title="Buscar" onclick="{!c.searchAccount}" />
+                    </div>
+                </div>           
+
+                <aura:if isTrue="{!v.showCustomerDetail}">
+                    <div class="slds-tabs--default__content slds-show slds-p-top_none" role="tabpanel" aria-labelledby="tab-default-2__item">
+                       <!-- <ui:scrollerWrapper class="scrollerSize"> -->
+                            <article class="slds-card slds-card--narrow white" style="margin-top:5px;">
+                                <lightning:card class="slds-card__header-link" variant="Narrow" title="Dados do Cliente" iconName="standard:account"></lightning:card>
+                                
+                                <div class="slds-card__body">
+                                    <div class="slds-grid slds-wrap">
+                                        <div class="slds-size_1-of-1">
+                                            <div class="slds-text-align--left" style="margin-left:10px; margin-top:10px; font-size:.875rem; font-weight:bold;">Nome</div>
+                                            <div class="slds-text-align--left" style="margin-left:10px; margin-right:10px;">{! v.account.Name}</div>
+                                        </div>
+                                        <div class="slds-size_1-of-1">
+                                            <div class="slds-text-align--left" style="margin-left:10px; margin-top:10px; font-size:.875rem; font-weight:bold;">CPF</div>
+                                            <div class="slds-text-align--left" style="margin-left:10px; margin-right:10px;">{! v.account.DocumentNumber__c}</div>
+                                        </div>          
+                                    </div>
+                                </div>
+                            </article>
+                        <!--</ui:scrollerWrapper>-->
+                    </div>
+                    <aura:set attribute="else">
+                        <aura:if isTrue="{!v.emptyAccount}">
+                            <div class="slds-grid slds-gutters"  style="margin-left: 25px;">
+                                <br></br>
+                                <legend class="slds-form-element__legend slds-form-element__label" style="color: red;"><b><i>Nenhum registro encontrado!</i></b></legend>
+                                <br></br>
+                            </div>
+                        </aura:if>
+                    </aura:set>
+                    <div class="slds-text-align_right">                      
+                        <lightning:button type="submit" variant="brand" label="Visualizar Cliente" title="Visualizar Cliente" onclick="{!c.onclickViewAccount}"  />
+                    </div>
+                </aura:if>
+            </div>
+        </div>
+    </div>
+</aura:component>

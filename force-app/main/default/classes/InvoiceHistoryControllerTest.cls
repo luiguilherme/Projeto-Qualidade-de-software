@@ -1,6 +1,4 @@
 /*
-* @authors - Diego Costa @Deloitte   
-* @date - 07/06/2022
 * @description - Classe de teste da Controller InvoiceHistoryController
 */
 @isTest
@@ -17,7 +15,7 @@ public class InvoiceHistoryControllerTest {
         Asset lAsset = DataFactory.createAsset(lAccount.Id, type );
         insert lAsset;
         
-        vlocity_cmt__CustomerInteraction__c customerInteraction = DataFactory.createCustomerInteraction(lAccount.Id);
+        vlocity_cmt__CustomerInteraction__c customerInteraction = DataFactory.createCustomerInteraction(lAccount.Id);        
         insert customerInteraction;
         
         insert new GeneralParam__c(
@@ -102,10 +100,9 @@ public class InvoiceHistoryControllerTest {
         lAccount.UserId__c = 'userid';
         
         update lAccount;
-        System.debug('Account: ' + lAccount);
-        vlocity_cmt__CustomerInteraction__c customerInteraction = [SELECT Id, vlocity_cmt__AccountId__c FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
         
-        System.debug('customerInteraction: ' + customerInteraction);
+        vlocity_cmt__CustomerInteraction__c customerInteraction = [SELECT Id, vlocity_cmt__AccountId__c FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];        
+        
         Test.startTest();
         Test.setMock(HttpCalloutMock.class, new InvoiceCalloutMock(500));
 
@@ -116,7 +113,7 @@ public class InvoiceHistoryControllerTest {
     
     @isTest
     public static void createInvoiceHistoryWebServiceWhenNull() {
-        Webservice__c wsConfig = Webservice__c.getInstance('FourthPlataformInvoiceCallout');
+        WebService__c wsConfig = Webservice__c.getInstance('FourthPlataformInvoiceCallout');
         Account lAccount = [ SELECT Id,UserId__c FROM Account LIMIT 1];
 		
         delete wsConfig;
@@ -124,11 +121,13 @@ public class InvoiceHistoryControllerTest {
         lAccount.UserId__c = 'userid';
         
         update lAccount;
-
+        
+        Id customerInteraction = [SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1].Id;                        
+        
         Test.startTest();
         Test.setMock(HttpCalloutMock.class, new InvoiceCalloutMock());
 
-        InvoiceHistoryController.createInvoiceHistory(lAccount.Id);
+        InvoiceHistoryController.createInvoiceHistory(customerInteraction);
         
         Test.stopTest();
     }

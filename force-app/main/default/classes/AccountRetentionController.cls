@@ -592,9 +592,9 @@ public class AccountRetentionController  {
         
         List<Account> lstBillingAccount = new List<Account>();
         if(lstCustomerSegment.contains(lstAccount[0].vlocity_cmt__CustomerValue__c) && lstCustomerType.contains(lstAccount[0].vlocity_cmt__CustomerClass__c)){
-            lstBillingAccount = [SELECT Id, ParentId, FullAddress__c, ExternalId__c, TotalAmount__c, OfferReferenceValue__c FROM Account WHERE Id IN (SELECT vlocity_cmt__BillingAccountId__c FROM Asset WHERE AccountId =: accountId) AND BillingAccountType__c = 'Móvel' AND LastModifiedDate > : billingAccountLoadDate];
+            lstBillingAccount = [SELECT Id, ParentId, FullAddress__c, ExternalId__c, TotalAmount__c, OfferReferenceValue__c FROM Account WHERE Id IN (SELECT vlocity_cmt__BillingAccountId__c FROM Asset WHERE AccountId =: accountId) AND BillingAccountType__c = 'Movel' AND LastModifiedDate > : billingAccountLoadDate];
         } else {
-            lstBillingAccount = [SELECT Id, ParentId, FullAddress__c, ExternalId__c, TotalAmount__c, OfferReferenceValue__c FROM Account WHERE Id IN (SELECT vlocity_cmt__BillingAccountId__c FROM Asset WHERE AccountId =: accountId) AND BillingAccountType__c = 'Móvel'];
+            lstBillingAccount = [SELECT Id, ParentId, FullAddress__c, ExternalId__c, TotalAmount__c, OfferReferenceValue__c FROM Account WHERE Id IN (SELECT vlocity_cmt__BillingAccountId__c FROM Asset WHERE AccountId =: accountId) AND BillingAccountType__c = 'Movel'];
         }
 
         List<Offer> ltOfferAlta = new List<Offer>();

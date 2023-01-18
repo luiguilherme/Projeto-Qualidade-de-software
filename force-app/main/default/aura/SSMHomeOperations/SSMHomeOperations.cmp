@@ -1,0 +1,87 @@
+<aura:component controller="SSMHomeOperationsController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
+                access="global">
+    <!-- Attributes -->
+    <aura:attribute name="attendant" type="User" />
+    <aura:attribute name="workPositionId" type="String" default="" />
+    <aura:attribute name="pauseReasonId" type="String" default="" />
+    <aura:attribute name="activated" type="Boolean" default="false" />
+    <aura:attribute name="activatedOthers" type="Boolean" default="false" />
+    <aura:attribute name="timeAutomaticTicketCall" type="Integer" />
+    <aura:attribute name="chronometerActionNotificationId" type="String" default="SSMChronometerAutomaticCall" />
+    <aura:attribute name="isOpenManualServiceDialog" type="Boolean" default="false" />
+    <aura:attribute name="displayAlert" type="Boolean" default="true" />
+    <aura:attribute name="serviceTicket" type="SObject" default="{}" />
+    <aura:attribute name="attendanceType" type="String" default="" />
+    
+    <!-- Handler -->
+    <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
+    
+    <aura:handler event="c:BroadcastNotification" action="{! c.BroadcastNotificationHandler}" access="global" />
+    
+    <!-- Event -->
+    <aura:registerEvent name="BroadcastNotificationEvent" type="c:BroadcastNotification"/>
+
+    <div class="slds-docked-form-footer">
+        <lightning:layout verticalAlign="center">
+            <!-- Send to panel -->
+            <lightning:layoutItem flexibility="auto, no-grow">
+                <lightning:input type="toggle"
+                                aura:id="togSendToPanel"
+                                label="{! $Label.c.StoreServiceManagerSendToDashboard}"
+                                name="displayAlert"
+                                messageToggleActive="{! $Label.c.TurnedOn}"
+                                messageToggleInactive="{! $Label.c.TurnedOff}"
+                                disabled="{! !v.activatedOthers}"
+                                checked="{! v.displayAlert}" />
+            </lightning:layoutItem>
+
+            <!-- Just to adjust the components -->
+            <lightning:layoutItem flexibility="auto">
+            </lightning:layoutItem>
+
+            <!-- Wait to automatic call elapsed time  -->
+            <lightning:layoutItem flexibility="auto, no-grow">
+                <aura:if isTrue="{! v.activated}">
+                    <div style="margin-right: 0.5rem;">
+                        <c:SSMChronometer
+                            aura:id="chronometerAutomaticCall" 
+                            animation="true"
+                            format="00" 
+                            prefix="{! $Label.c.StoreServiceManagerChronometerPrefix}" 
+                            suffix="{! $Label.c.StoreServiceManagerChronometerSuffix}"
+                            secondsToAction="{! v.timeAutomaticTicketCall}"
+                            directionUpOrDown="Down"
+                            actionNotificationId="{! v.chronometerActionNotificationId}" />
+                    </div>
+                </aura:if>
+            </lightning:layoutItem>
+
+            <!-- Call buttons -->
+            <lightning:layoutItem flexibility="auto, no-grow"> 
+                <!-- Manual service -->
+                <lightning:button aura:id="btnManualService" 
+                                variant="neutral"
+                                iconName="utility:announcement"
+                                label="{! $Label.c.StoreServiceManagerManualService}" 
+                                disabled="{! !v.activatedOthers}"
+                                onclick="{! c.btnManualServiceClick}" />
+                
+                <!-- Call -->
+                <lightning:button aura:id="btnService" 
+                                variant="brand"
+                                iconName="utility:announcement"
+                                label="{! $Label.c.Call}" 
+                                disabled="{! !v.activated}"
+                                onclick="{! c.btnServiceClick}" />
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+
+    <aura:if isTrue="{! v.isOpenManualServiceDialog}">
+        <c:SSMManualServiceDialog
+            aura:id="manualServiceDialog" 
+            workPositionId="{! v.workPositionId}" 
+            displayAlert="{! v.displayAlert}" />
+    </aura:if>
+</aura:component>

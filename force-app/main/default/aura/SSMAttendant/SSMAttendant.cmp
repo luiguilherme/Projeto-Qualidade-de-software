@@ -1,0 +1,161 @@
+<aura:component controller="SSMAttendantController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
+                access="global">
+    <!-- Attributes -->
+    <aura:attribute name="attendant" type="User" />
+    <aura:attribute name="mode" type="String" default="WAIT" />
+    <aura:attribute name="ltWorkPosition" type="List" default="[]" />
+    <aura:attribute name="disablePosition" type="Boolean" default="true" />
+    <aura:attribute name="workPositionId" type="String" default="" />
+    <aura:attribute name="ltPauseReason" type="List" default="[]" />
+    <aura:attribute name="isOwnerStore" type="Boolean" default="true" />
+    <aura:attribute name="disablePauseReason" type="Boolean" default="true" />
+    <aura:attribute name="pauseReasonId" type="String" default="" />
+    <aura:attribute name="disablePause" type="Boolean" default="true" />
+    <aura:attribute name="disableUpdate" type="Boolean" default="true" />
+    <aura:attribute name="disableStart" type="Boolean" default="true" />
+    <aura:attribute name="disableFnish" type="Boolean" default="true" />
+    <aura:attribute name="isOpenPauseWithLogoutDialog" type="Boolean" default="false" />
+    <aura:attribute name="doLogout" type="Boolean" default="false" />
+
+    <!-- Handler -->
+    <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
+
+    <aura:handler event="c:BroadcastNotification" action="{! c.BroadcastNotificationHandler}" access="global" />
+
+    <!-- Event -->
+    <aura:registerEvent name="BroadcastNotificationEvent" type="c:BroadcastNotification"/>
+        
+    <lightning:card class="slds-var-m-around_x-small">
+        <aura:set attribute="title">
+            {! $Label.c.Attendant}
+        </aura:set>
+        
+        <aura:set attribute="body">
+            <lightning:layout verticalAlign="end">
+                <!-- Store -->
+                <lightning:layoutItem flexibility="auto" 
+                                    padding="around-small">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="txtStoreName">
+                            {! $Label.c.Store}
+                        </label>
+                        <div class="slds-form-element__control">
+                            <input type="text" 
+                                aura:id="txtStoreName" 
+                                class="slds-input" 
+                                placeholder="{! $Label.c.StoreName}" 
+                                value="{! v.attendant.StoreName__c}"
+                                disabled="true" />
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+                
+                <!-- Position -->
+                <lightning:layoutItem size="{! ((v.isOwnerStore) ? '2' : '3')}" 
+                                    padding="around-small">
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <lightning:combobox aura:id="cmbPosition" 
+                                                label="{! $Label.c.Position}" 
+                                                placeholder="{! $Label.c.Select}" 
+                                                options="{! v.ltWorkPosition}" 
+                                                value="{! v.workPositionId}" 
+                                                disabled="{! v.disablePosition}" />
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+                
+                <!-- Reason pause -->
+                <aura:if isTrue="{! v.isOwnerStore}">
+                    <lightning:layoutItem size="2" 
+                                    padding="around-small">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <lightning:combobox aura:id="cmbReasonPause" 
+                                                    label="{! $Label.c.StoreServiceManagerReasonPause}" 
+                                                    placeholder="{! $Label.c.Select}" 
+                                                    options="{! v.ltPauseReason}" 
+                                                    value="{! v.pauseReasonId}" 
+                                                    disabled="{! v.disablePauseReason}" />
+                            </div>
+                        </div>
+                    </lightning:layoutItem>
+                </aura:if>
+                
+                <!-- Buttons -->
+                <lightning:layoutItem flexibility="auto" 
+                                    padding="around-small">
+                    <!-- Pause -->
+                    <lightning:button aura:id="btnPause" 
+                                    iconName="utility:pause" 
+                                    label="{! $Label.c.Pause}" 
+                                    disabled="{! v.disablePause}" 
+                                    onclick="{! c.btnPauseClick}" />
+                    
+                    <!-- Update -->
+                    <lightning:button aura:id="btnUpdate" 
+                                    iconName="utility:rotate" 
+                                    label="{! $Label.c.Update}" 
+                                    disabled="{! v.disableUpdate}" 
+                                    onclick="{! c.btnUpdateClick}" />
+                    
+                    <!-- Start -->
+                    <lightning:button aura:id="btnStart" 
+                                    iconName="utility:play" 
+                                    label="{! $Label.c.Start}" 
+                                    disabled="{! v.disableStart}" 
+                                    onclick="{! c.btnStartClick}" />
+                    
+                    <!-- Finish -->
+                    <lightning:button aura:id="btnFinish" 
+                                    iconName="utility:stop" 
+                                    label="{! $Label.c.ShutDown}" 
+                                    disabled="{! v.disableFnish}" 
+                                    onclick="{! c.btnFinishClick}" />
+                </lightning:layoutItem>
+            </lightning:layout>
+        </aura:set>
+    </lightning:card>
+
+    <aura:if isTrue="{! v.isOpenPauseWithLogoutDialog}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close" onclick="{! c.btnCancelClick}"
+                        alternativeText="close" variant="bare-inverse" class="slds-modal__close" />
+                    <h1 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                        {! $Label.c.Warning}
+                    </h1>
+                </header>
+                
+                <div class="slds-modal__content slds-p-around_medium slds-text-title slds-text-align_left" style="overflow: visible !important;">
+                    <lightning:layout verticalAlign="center">
+                        <lightning:layoutItem flexibility="auto">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control" style="margin-right: 0.5rem;">
+                                    <p><lightning:formattedText value="{! $Label.c.StoreServiceManagerAttendantLogout}" /></p>
+                                    <br />
+                                    <p><lightning:formattedText value="{! $Label.c.DoYouWishToContinue}" /></p>
+                                </div>
+                            </div>
+                        </lightning:layoutItem>
+                    </lightning:layout>
+                </div>
+
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral"
+                                    label="{! $Label.c.No}"
+                                    onclick="{! c.btnCancelPauseDialog}"/>
+    
+                    <lightning:button variant="brand"
+                                    label="{! $Label.c.Yes}"
+                                    onclick="{! c.btnConfirmPauseDialog}"/>
+                </footer>
+            </div>
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+</aura:component>

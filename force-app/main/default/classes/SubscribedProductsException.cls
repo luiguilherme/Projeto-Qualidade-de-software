@@ -1,0 +1,1 @@
+public class SubscribedProductsException extends Exception {}
