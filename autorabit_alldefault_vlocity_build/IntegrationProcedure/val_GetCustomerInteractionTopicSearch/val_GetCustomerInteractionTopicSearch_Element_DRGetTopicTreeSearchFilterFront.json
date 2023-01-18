@@ -1,0 +1,48 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valGetCustomerInteractionTopicSearch",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/GetCustomerInteractionTopicSearch/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "additionalInput": {
+            "Active": "=%SVRelationshipTopic:isActive%",
+            "Instance": "=%SVRelationshipTopic:Instance%",
+            "OperatorSegment": "=%SVRelationshipTopic:OperatorSegment%",
+            "ProductType": "=IF((ISNOTBLANK(%SVRelationshipTopic:AssetType%),%SVRelationshipTopic:AssetType%, %ProductType%)",
+            "ServiceTree": "=%ServiceTree%"
+        },
+        "additionalOutput": {
+        },
+        "bundle": "valGetTopicTreeSearchFilterFront",
+        "chainOnStep": false,
+        "dataRaptor Input Parameters": [
+        ],
+        "disOnTplt": false,
+        "executionConditionalFormula": "%SelectedFunction% == 'RelationshipTopic' && ((ISNOTBLANK(%SVRelationshipTopic:AssetType%) && (%SVRelationshipTopic:AssetType% == 'Mobile' || %SVRelationshipTopic:AssetType% == 'Fixed' )) || (ISBLANK(%SVRelationshipTopic:AssetType%) && ( %ProductType% == 'Mobile' ||  %ProductType% == 'Fixed' )))\r\n",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "failureResponse": {
+        },
+        "ignoreCache": false,
+        "label": "DataRaptorTurboAction1",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "returnOnlyAdditionalOutput": false,
+        "returnOnlyFailureResponse": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "sendOnlyAdditionalInput": true,
+        "show": null,
+        "useFormulas": true
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "DataRaptor Turbo Action",
+    "Name": "DRGetTopicTreeSearchFilterFront",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetCustomerInteractionTopicSearch/Procedure/DRGetTopicTreeSearchFilterFront"
+}

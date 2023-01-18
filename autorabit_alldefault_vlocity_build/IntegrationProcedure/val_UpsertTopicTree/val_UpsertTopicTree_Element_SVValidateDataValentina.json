@@ -1,0 +1,32 @@
+{
+    "%vlocity_namespace%__Active__c": false,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valUpsertTopicTree",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/UpsertTopicTree/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "ErrorFolder": "=IF(%data:Type__c%=='Pasta',IF(ISBLANK(%data:RelationshipType__c%)||ISBLANK(%data:Name%),'Tipo de Relacionamento e Descrição devem estar preenchidos',''),IF(ISBLANK(%data:Type__c%),'Tipo deve ser Pasta ou Palito',''))",
+            "ErrorTopic": "=IF(%data:Type__c%=='Palito',IF(ISBLANK(%data:RelationshipType__c%)||ISBLANK(%data:Name%)||ISBLANK(%data:SendSMS__c%)||ISBLANK(%data:Classification__c%)||ISBLANK(%data:IdVivoNet__c%),'Tipo de Relacionamento, Descrição, Envio SMS, Classificação e Identificação VivoNet devem estar preenchidos',''),IF(ISBLANK(%data:Type__c%),'Tipo deve ser Pasta ou Palito',''))",
+            "Topic": "=%data:Type__c%"
+        },
+        "executionConditionalFormula": "Data:SelectedFunction=='TopicsTree'",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues1",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVValidateDataValentina",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/UpsertTopicTree/Procedure/SVValidateDataValentina"
+}
