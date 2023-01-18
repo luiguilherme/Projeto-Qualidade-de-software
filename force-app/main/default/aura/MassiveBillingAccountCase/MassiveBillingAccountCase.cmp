@@ -46,15 +46,42 @@
                             <aura:if isTrue="{!accBilling.hasAsset}">
                             
                                 <!-- List Asset -->
-                                <lightning:datatable    keyField="id" 
-                                                        data="{! accBilling.ltAsset }" 
-                                                        columns="{! v.columnsAsset }" 
-                                                        hideCheckboxColumn="true"
-                                                        onrowaction="{! c.handleRowAction }"/>
+                                <aura:if isTrue ="{!$Browser.isPhone}">
+                                    <div style="width:30rem">
+                                        <aura:iteration items="{!accBilling.ltAsset}" var="descr">
+                                        <article class="slds-tile">
+                                            <h3 class="slds-tile__title slds-truncate">
+                                            Instância: {!descr.Instance__c}
+                                            </h3>
+                                          <div class="slds-tile__detail">
+                                            <dl class="slds-list_horizontal slds-wrap">
+                                                <dt class="slds-item_label slds-text-color_weak slds-truncate" title="First Label">Plano:</dt>
+                                                <dd class="slds-item_detail slds-truncate" title="Description for first label">{!descr.MainProductDescription__c}</dd>
+                                            </dl>
+                                            <lightning:button title = "Click para visualizar casos de suspeita de massivas" name= "viewSuspicionMassive" label= "Suspeita de Massiva" iconName= "utility:preview" class= "btn_next" onclick = "{! c.handleClickAction }" value = "{!descr}"> </lightning:button>
+                                        <lightning:button title = "Click para visualizar casos de massiva fixa" name= "viewFixedMassive" label= "Massiva Fixa" iconName= "utility:preview" class= "btn_next" onclick = "{! c.handleClickAction }" value = "{!descr}"> </lightning:button>
+                                          </div>
+                                        </article>
+                                    </aura:iteration>
+                                      </div>
+                                      <aura:set attribute="else">
+                                        <lightning:datatable    keyField="id" 
+                                        data="{! accBilling.ltAsset }" 
+                                        columns="{! v.columnsAsset }" 
+                                        hideCheckboxColumn="true"
+                                        onrowaction="{! c.handleRowAction }"/>
+                                      </aura:set>
+                                </aura:if>
+                                
                                 <br/>
+                                
+                                
+                                  
+
 
                                 <!--Incluir registros de caso de massiva-->
                                 <aura:if isTrue="{!v.showMassive}">
+                                    
                                     <div class="slds-box">
                                         <div class="slds-grid slds-grid_vertical">
                                             <div class="slds-col">
@@ -68,11 +95,33 @@
                                                 </span>
                                             </div>
                                             <div class="slds-col">
-                                                <lightning:datatable    
-                                                    keyField="id" 
-                                                    data="{!v.ltMassive}" 
-                                                    columns="{!v.columnsTicket}" 
-                                                    hideCheckboxColumn="true"/>
+                                                <aura:if isTrue ="{!$Browser.isPhone}">
+                                                    <div style="width:30rem">
+                                                        <aura:iteration items="{!v.ltMassive}" var="descr">
+                                                        <article class="slds-tile">
+                                                            <h3 class="slds-tile__title slds-truncate">
+                                                            Origem da Incidência: {!descr.OrigemIncidencia}
+                                                            </h3>
+                                                          <div class="slds-tile__detail">
+                                                            <dl class="slds-list_horizontal slds-wrap">
+                                                                <dt class="slds-item_label slds-text-color_weak slds-truncate" title="First Label">Produto Afetado:</dt>
+                                                                <dd class="slds-item_detail slds-truncate" title="Description for first label">{!descr.ProdutoAfetado}</dd>
+                                                                <dt class="slds-item_label slds-text-color_weak slds-truncate" title="First Label">Previsão de Normalização:</dt>
+                                                                <dd class="slds-item_detail slds-truncate" title="Description for first label">{!descr.PrevisaoNormalizacao}</dd>
+                                                            </dl>
+                                                          </div>
+                                                        </article>
+                                                    </aura:iteration>
+                                                      </div>
+                                                      <aura:set attribute="else">
+                                                        <lightning:datatable    
+                                                        keyField="id" 
+                                                        data="{!v.ltMassive}" 
+                                                        columns="{!v.columnsTicket}" 
+                                                        hideCheckboxColumn="true"/>
+                                                      </aura:set>
+                                                </aura:if>
+
                                             </div>
                                         </div>
                                     </div>        
