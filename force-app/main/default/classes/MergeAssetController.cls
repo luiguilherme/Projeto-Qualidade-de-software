@@ -1,4 +1,4 @@
-global with sharing class MergeAssetController implements vlocity_cmt.VlocityOpenInterface2 {
+global without sharing class MergeAssetController implements vlocity_cmt.VlocityOpenInterface2 {
 
     global boolean invokeMethod(String methodName, Map<String, Object> inputs, Map<String, Object> output, Map<String, Object> options){    
         switch on methodName {
@@ -91,17 +91,17 @@ global with sharing class MergeAssetController implements vlocity_cmt.VlocityOpe
 
         for(WrapperAPI assetToCreate : lstAssetsToCreate){
             type = mapFromTo.get(assetToCreate.product_type + 'Type__c');
-            asset = new Asset(
-                        vlocity_cmt__ServiceIdentifier__c = assetToCreate.identifiers[0],
+            asset = new Asset(                
+                        vlocity_cmt__ServiceIdentifier__c = assetToCreate.identifiers[0].startsWith('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : assetToCreate.identifiers[0],                                
                         StartDate__c = assetToCreate.start_date,
-                        ProductType__c = type == 'Móvel' ? getProductType(assetToCreate.subscription_type, mapFromTo) : getProductType(assetToCreate.product_type, mapFromTo),
-                        Name = assetToCreate.identifiers[0],
+                        ProductType__c = type == 'Movel' ? getProductType(assetToCreate.subscription_type, mapFromTo) : getProductType(assetToCreate.product_type, mapFromTo),
+                        Name = assetToCreate.identifiers[0].startsWith('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : assetToCreate.identifiers[0],
                         Status = assetToCreate.status,
                         IsHolder__c = assetToCreate.tags != null ? getStringValue(assetToCreate.tags, 'multivivo:') : 'TIT',
                         MainProductDescription__c = assetToCreate.descriptions != null ? assetToCreate.descriptions[0].text : assetToCreate.display_name != null ? assetToCreate.display_name : null, 
                         AccountId = accountId,
                         Type__c = type,
-                        Technology__c = type == 'Móvel' ? type : null,
+                        Technology__c = type == 'Movel' ? type : null,
                         Speed__c = assetToCreate.connection != null ? assetToCreate.connection.downlink_mbps : null,
                         ExternalId__c = assetToCreate.identifiers[0] != null ?  getLegacyAssetId(assetToCreate.identifiers[0], documentNumber) : null,
                         SourceSystem__c = getLegacySystem(mapLegacy.get(assetToCreate.identifiers[0]), mapFromTo),
@@ -116,11 +116,22 @@ global with sharing class MergeAssetController implements vlocity_cmt.VlocityOpe
         action = 'atualizar';
         Asset asset;
         List<Asset> lstAssetsToUpdate = new List<Asset>();
+        Set<Id> setAssetsToUpdate = new Set<Id>();
         
         for(String id : assets.keySet()){
+            setAssetsToUpdate.add(sfIdsToUpdate.get(id));
+        }
+        
+        Map<Id, String> mapNameAsset = getAssetName(setAssetsToUpdate);
+        
+        for(String id : assets.keySet()){
+            
+            String assetName = String.valueOf(mapNameAsset.get(sfIdsToUpdate.get(id)));
+
             asset = new Asset(Id = sfIdsToUpdate.get(id),
-                              StartDate__c = assets.get(id)
-            );
+                              StartDate__c = assets.get(id),                              
+                              Name = assetName.startsWith('+55') ? assetName.substring(3, assetName.length()) : assetName,
+                              vlocity_cmt__ServiceIdentifier__c = assetName.startsWith('+55') ? assetName.substring(3, assetName.length()) : assetName);
             lstAssetsToUpdate.add(asset);
         }
         update lstAssetsToUpdate;
@@ -226,6 +237,18 @@ global with sharing class MergeAssetController implements vlocity_cmt.VlocityOpe
         }
     }
 
+    public static Map<Id, String> getAssetName(Set<Id> setAssetsToUpdate){
+        Map<Id, String> returnAssetName = new Map<Id, String>();
+        List<Asset> lstAsset = [SELECT Id, Name FROM Asset WHERE Id IN : setAssetsToUpdate];
+        
+        for(Asset varAsset : lstAsset)
+        {
+        	returnAssetName.put(varAsset.Id, varAsset.Name);
+        }
+        
+        return returnAssetName;
+    }
+    
     private class WrapperAPI{
         private List<String> identifiers {get; set;}
         private DateTime start_date {get; set;}

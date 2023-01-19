@@ -1,0 +1,179 @@
+<aura:component controller="SSMAttendanceCustomerDataController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
+                access="global">
+    <!-- Attributes -->
+    <aura:attribute name="serviceTicket" type="Object" default="{}" />
+    <aura:attribute name="ltCategories" type="List" default="[]" />
+    <aura:attribute name="ltDocumentTypes" type="List" default="[]" />
+    <aura:attribute name="placeholderDocumentNumber" type="String" default="00000000000000000000" />
+
+    <!-- Handler -->
+    <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
+
+    <!-- Event -->
+    <aura:registerEvent name="BroadcastNotificationEvent" type="c:BroadcastNotification"/>
+
+    <div style="padding: 0.5rem;">
+        <div class="slds-card__header-title slds-text-heading_small slds-text-heading--small">
+            {! $Label.c.CustomerData}
+        </div>
+    </div>
+
+    <lightning:layout verticalAlign="end">
+        <!-- Customer -->
+        <lightning:layoutItem size="6" 
+                            padding="around-small">
+            <div class="slds-form-element">
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                        <lightning:input type="text" 
+                            aura:id="txtCustomerName" 
+                            label="{! '* '+ $Label.c.Customer}"
+                            value="{! v.serviceTicket.customerName}"
+                            disabled="false" />
+                    </div>
+                </div>
+            </div>
+        </lightning:layoutItem>
+
+        <!-- Alias -->
+        <lightning:layoutItem size="3" 
+                            padding="around-small">
+            <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                    <lightning:input type="text" 
+                        aura:id="txtCustomerAlias" 
+                        label="{! $Label.c.NickName}"
+                        value="{! v.serviceTicket.customerAlias}"
+                        disabled="true" />
+                </div>
+            </div>
+        </lightning:layoutItem>
+
+        <!-- Cell Phone -->
+        <lightning:layoutItem size="3" 
+                            padding="around-small">
+            <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                    <lightning:input type="tel" 
+                        aura:id="txtCustomerCellPhone" 
+                        label="{! '* ' + $Label.c.CellPhone}"
+                        placeholder="11 00000-0000" 
+                        value="{! v.serviceTicket.customerCellPhone}"
+                        disabled="false"
+                        onchange="{! c.onCellPhoneChange}" />
+                </div>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+
+    <lightning:layout verticalAlign="end">
+        <!-- CPF -->
+        <lightning:layoutItem size="3" 
+                            padding="around-small">
+            <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                    <lightning:input type="text" 
+                        aura:id="txtCPF" 
+                        label="{! $Label.c.CPF}"
+                        value="{! v.serviceTicket.customerDocument}"
+                        disabled="true" />
+                </div>
+            </div>
+        </lightning:layoutItem>
+
+        <!-- Segmentation -->
+        <lightning:layoutItem size="3" 
+                            padding="around-small">
+            <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                    <lightning:input type="text" 
+                        aura:id="txtSegmentation" 
+                        label="{! $Label.c.Segmentation}"
+                        value="{! v.serviceTicket.segmentationName}"
+                        disabled="true" />
+                </div>
+            </div>
+        </lightning:layoutItem>
+
+        <!-- Activity -->
+        <lightning:layoutItem size="3" 
+                            padding="around-small">
+            <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                    <lightning:input type="text" 
+                        aura:id="txtActivity" 
+                        label="{! $Label.c.Activity}"
+                        value="{! v.serviceTicket.activity}"
+                        disabled="true" />
+                </div>
+            </div>
+        </lightning:layoutItem>
+
+        <!-- Protocol -->
+        <lightning:layoutItem size="3" 
+                            padding="around-small">
+            <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                    <lightning:input type="text" 
+                        aura:id="txtProtocol" 
+                        label="{! $Label.c.Protocol}"
+                        value="{! v.serviceTicket.protocol}"
+                        disabled="true" />
+                </div>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+
+    <lightning:layout verticalAlign="end">
+        <!-- Category -->
+        <lightning:layoutItem size="3" 
+                            padding="around-small">
+            <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                    <lightning:combobox aura:id="cmbCategory" 
+                        label="{! '* ' + $Label.c.Category}"
+                        placeholder="{! $Label.c.Select}" 
+                        dropdownAlignment="bottom-left"
+                        options="{! v.ltCategories}" 
+                        value="{! v.serviceTicket.category}" 
+                        disabled="false"
+                        onchange="{! c.onCategoryChange}" />
+                </div>
+            </div>
+        </lightning:layoutItem>
+
+        <!-- Main document type -->
+        <lightning:layoutItem size="3" 
+                            padding="around-small">
+            <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                    <lightning:combobox aura:id="cmbMainDocumentType"
+                        label="{! $Label.c.MainDocumentType}"
+                        placeholder="{! $Label.c.Select}" 
+                        dropdownAlignment="bottom-left"
+                        options="{! v.ltDocumentTypes}" 
+                        value="{! v.serviceTicket.mainDocumentType}" 
+                        disabled="false" 
+                        onchange="{! c.onMainDocumentTypeChange}" />
+                </div>
+            </div>
+        </lightning:layoutItem>
+
+        <!-- Document number -->
+        <lightning:layoutItem size="3" 
+                            padding="around-small">
+            <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                    <lightning:input type="text" 
+                        aura:id="txtDocumentNumber" 
+                        label="{! ((v.serviceTicket.mainDocumentType) ? '* ' : '') + $Label.c.DocumentNumber}"
+                        placeholder="{! v.placeholderDocumentNumber}" 
+                        value="{! v.serviceTicket.documentNumber}"
+                        disabled="false"
+                        onchange="{! c.onDocumentNumberChange}" />
+                </div>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

@@ -16,7 +16,7 @@
                     }
                 }
                 component.set('v.ltAccount', retorno);
-            });
+             });
         }   
     },
 
@@ -35,5 +35,24 @@
             default:
                 break;    
         }
+    },
+
+    handleClickAction :function(component, event, helper){ 
+        var action = event.getSource().get("v.name");
+        var row = event.getSource().get("v.value");
+        helper.showToast('', $A.get("$Label.c.LoadingDataMessage"),'info', 3000);
+
+
+
+        switch(action){
+            case 'viewFixedMassive':
+                helper.getMassive(component, row, 'Massiva');
+                break;
+                case 'viewSuspicionMassive':
+                helper.getSuspicion(component, row, 'Suspeita de Massiva');
+                break;
+            default:
+                break;    
     }
+}
 })

@@ -1,0 +1,45 @@
+<aura:component controller="B2C_GraficoMediaFatura" implements="forceCommunity:availableForAllPageTypes,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" >
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:attribute name="GraficoMediaFatura" type="String" Default="Média - 03 Meses" />
+
+	<!--Atributos-->
+    <aura:attribute name="URLGraficoHistoricoFaturas" type="String" />
+    <aura:attribute name="labelGraficoMediaFatura" type="String"/>
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="dataTableFixaMovel" type="Object[]" />
+	<aura:attribute name="canvasId" type="String" />
+	<aura:attribute name="scriptsLoaded" type="Boolean" default="false" />
+
+    <!--Configurador de cores, títulos e URL-->
+    <aura:attribute name="corfixa" type="String" Default="#0066cc"/>
+    <aura:attribute name="cormovel" type="String" Default="#660099"/>  
+
+    <ltng:require
+                  scripts="{!join(',',$Resource.Charts, $Resource.chartsjsDatalabel)}"
+                  afterScriptsLoaded="{!c.geraChart}"
+                  />
+
+    <!--Redirecionamento-->
+    <aura:dependency resource="markup://force:navigateToURL" type="EVENT"/>
+    
+    <lightning:card>    
+        <!--Título do Componente-->
+        <aura:set attribute="title">
+            {!v.GraficoMediaFatura}
+        </aura:set>    
+    
+        <div class="chart">
+            <div class="redirecionamento_url" label="gotoURL">
+            </div>
+            <div class="span_chart1">
+                <span>{!v.labelGraficoMediaFatura}</span>
+            </div>
+            <div class="chart-container">
+                <canvas id="{!v.canvasId}"></canvas>
+            </div>
+        </div>
+    
+	</lightning:card>
+</aura:component>

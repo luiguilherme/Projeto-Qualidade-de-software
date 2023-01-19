@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HDECaseSegmentMustBeTheSameFromOperator</fullName>
+    <active>false</active>
+    <description>O Operador só poderá abrir chamados para o mesmo segmento ao qual ele pertence</description>
+    <errorConditionFormula>AND(
+				IsHDE__c = true,
+    OR(
+        AND(ISPICKVAL(Segment__c, &quot;Vivo V&quot;), Not(CONTAINS($UserRole.DeveloperName, &quot;VivoV&quot;))),
+        AND(ISPICKVAL(Segment__c, &quot;Gold&quot;), Not(CONTAINS($UserRole.DeveloperName, &quot;Gold&quot;))),
+        AND(ISPICKVAL(Segment__c, &quot;Platinum&quot;), Not(CONTAINS($UserRole.DeveloperName, &quot;Platinum&quot;))),
+        AND(ISPICKVAL(Segment__c, &quot;Loja&quot;), Not(CONTAINS($UserRole.DeveloperName, &quot;Lojas&quot;))),																																										
+        AND(ISPICKVAL(Segment__c, &quot;Prime&quot;), Not(CONTAINS($UserRole.DeveloperName, &quot;Prime&quot;))),
+        AND(ISPICKVAL(Segment__c, &quot;Ouvidoria&quot;), Not(CONTAINS($UserRole.DeveloperName, &quot;Ouvidoria&quot;)))),
+				NOT(ISCHANGED(CriticalComment__c)),
+    $Profile.Name &lt;&gt; &apos;Administrador do sistema&apos;, 
+				$Profile.Name &lt;&gt; &apos;System Administrator&apos;,
+				$Profile.Name &lt;&gt; &apos;AdministracaoSistema&apos;,
+				$Profile.Name &lt;&gt; &apos;IntegracaoB2C&apos;)</errorConditionFormula>
+    <errorDisplayField>Segment__c</errorDisplayField>
+    <errorMessage>Por favor, selecione o segmento correto para o seu atendimento</errorMessage>
+</ValidationRule>

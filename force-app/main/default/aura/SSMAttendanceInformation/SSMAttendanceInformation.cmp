@@ -1,0 +1,76 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
+                access="global">
+    <!-- Attributes -->
+    <aura:attribute name="attendant" type="Object" default="{}" />
+    <aura:attribute name="serviceTicket" type="Object" default="{}" />
+    
+    <lightning:card class="slds-var-m-around_x-small">
+        <aura:set attribute="title">
+            {! $Label.c.Attendance}
+        </aura:set>
+        
+        <aura:set attribute="body">
+            <lightning:layout verticalAlign="center">
+                <!-- Ticket -->
+                <lightning:layoutItem size="2" 
+                                    padding="around-small">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="txtTicket">
+                            {! $Label.c.Ticket}
+                        </label>
+                        <div class="slds-form-element__control">
+                            <input type="text" 
+                                aura:id="txtTicket" 
+                                class="slds-input" 
+                                value="{! v.serviceTicket.ticketId}"
+                                disabled="true" />
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+                
+                <!-- Wait -->
+                <lightning:layoutItem size="2" 
+                                    padding="around-small">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="txtWait">
+                            {! $Label.c.Wait}
+                        </label>
+                        <div class="slds-form-element__control">
+                            <input type="text" 
+                                aura:id="txtWait" 
+                                class="slds-input" 
+                                value="{! v.serviceTicket.waitTime}"
+                                disabled="true" />
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+                
+                <!-- Customer -->
+                <lightning:layoutItem size="6" 
+                                    padding="around-small">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="txtCustomer">
+                            {! $Label.c.Customer}
+                        </label>
+                        <div class="slds-form-element__control">
+                            <input type="text" 
+                                aura:id="txtCustomer" 
+                                class="slds-input" 
+                                value="{! v.serviceTicket.customerName}"
+                                disabled="true" />
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+
+                <!-- Service elapsed time  -->
+                <lightning:layoutItem size="2" class="center-align">
+                    <c:SSMChronometer
+                        aura:id="chronometerAttendance" 
+                        format="00:00:00" 
+                        startAutomatically="true"
+                    />
+                </lightning:layoutItem>
+            </lightning:layout>
+        </aura:set>
+    </lightning:card>
+</aura:component>

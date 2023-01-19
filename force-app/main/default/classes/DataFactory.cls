@@ -42,7 +42,7 @@ public class DataFactory {
         account.Name = 'Account Test';
         account.DocumentNumber__c = '11111111111111';
         account.vlocity_cmt__CustomerClass__c = 'Móvel';
-        account.CustomerSegment__c = 'PLATINUM';
+        account.vlocity_cmt__CustomerValue__c = 'PLATINUM';
         account.vlocity_cmt__Active__c = 'Yes';
         account.ExternalId__c = '899941326811';
         
@@ -379,7 +379,7 @@ public class DataFactory {
         account.Name = 'Account Test';
         account.DocumentNumber__c = '11111111111111';
         account.vlocity_cmt__CustomerClass__c = 'Totalizado';
-        account.CustomerSegment__c = 'PLATINUM';
+        account.vlocity_cmt__CustomerValue__c = 'PLATINUM';
         account.vlocity_cmt__Active__c = 'Yes';
         account.ExternalId__c = '899941326811';
         account.ShippingState = 'SP';
@@ -396,7 +396,7 @@ public class DataFactory {
         account.vlocity_cmt__CustomerClass__c = 'Totalizado';
         account.DocumentNumber__c = '11111111111111';
         account.BillingAccountType__c = accountType;
-        account.CustomerSegment__c = 'PLATINUM';
+        account.vlocity_cmt__CustomerValue__c = 'PLATINUM';
         account.vlocity_cmt__Active__c = 'Yes';
         account.ExternalId__c = '899941326811b'+accountType;
         account.BillingState = 'SP';
@@ -413,7 +413,7 @@ public class DataFactory {
         account.Name = 'Account Test';
         account.DocumentNumber__c = '11111111111111';
         account.BillingAccountType__c = accountType;
-        account.CustomerSegment__c = 'PLATINUM';
+        account.vlocity_cmt__CustomerValue__c = 'PLATINUM';
         account.vlocity_cmt__Active__c = 'Yes';
         account.ExternalId__c = '899941326811s'+accountType;
         account.ShippingState = 'SP';
@@ -432,5 +432,166 @@ public class DataFactory {
                         Status__c = 'OPEN',
                         Reason__c = 'Problemas de conexão da Banda Larga'
         );
-    }       
+    }
+    
+        public static Account createPersonAccount(){ 
+        Account account = new Account();
+
+        //account.RecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('PersonAccount').getrecordTypeId();
+        account.Name = 'Person Account Test';
+        account.DocumentNumber__c = '11111111111111';
+        //account.CustomerType__c = 'Móvel';
+        account.vlocity_cmt__CustomerValue__c = 'PLATINUM';
+        //account.Active__c = true;
+
+        return account;
+    }
+    
+        public static ServiceHistory__c createServiceHistory(Id accountId){
+        ServiceHistory__c serviceHistory = new ServiceHistory__c();
+        
+        serviceHistory.Name = 'serviceHistory';
+        serviceHistory.Account__c = accountId;
+        serviceHistory.StartDate__c = System.now();
+        serviceHistory.ContactReason__c = 'Test Reason';
+        serviceHistory.LegacyCaseNumber__c = '1910';
+
+        return serviceHistory;
+    } 
+    
+    // public static List<ServiceQualification__c> createServiceQualificationLevels() {
+    //     String recordTypeFirstLevelId = Schema.SObjectType.ServiceQualification__c.getRecordTypeInfosByDeveloperName().
+    //         get('FirstLevel').getrecordTypeId();
+        
+    //     String recordTypeSecondLevelId = Schema.SObjectType.ServiceQualification__c.getRecordTypeInfosByDeveloperName().
+    //         get('SecondLevel').getrecordTypeId();
+        
+    //     String recordTypeThirdLevelId = Schema.SObjectType.ServiceQualification__c.getRecordTypeInfosByDeveloperName().
+    //         get('ThirdLevel').getrecordTypeId();
+        
+    //     String recordTypeFouthLevelId = Schema.SObjectType.ServiceQualification__c.getRecordTypeInfosByDeveloperName().
+    //         get('FourthLevel').getrecordTypeId();
+        
+    //     ServiceQualification__c serviceQualificationType = new ServiceQualification__c(   
+    //             Name = 'Tipo',
+    //             FirstLevel__c = null,
+    //             SecondLevel__c = null,
+    //             ThirdLevel__c = null,
+    //             ProductType__c = 'Mobile',
+    //             ServiceTree__c = 'Service',
+    //             RecordTypeId = recordTypeFirstLevelId,
+    //             Active__c = true
+    //     );
+            
+    //     ServiceQualification__c serviceQualificationReason = new ServiceQualification__c(
+    //         Name = 'Motivo',
+    //         FirstLevel__c = serviceQualificationType.Id,
+    //         SecondLevel__c = null,
+    //         ThirdLevel__c = null,
+    //         ProductType__c ='Mobile',
+    //         ServiceTree__c ='Service',
+    //         RecordTypeId = recordTypeSecondLevelId,
+    //         Active__c = true
+    //     );
+            
+    //     ServiceQualification__c serviceQualificationSubReason = new ServiceQualification__c(
+    //         Name = 'Sub-motivo',
+    //         FirstLevel__c = serviceQualificationType.Id,
+    //         SecondLevel__c = serviceQualificationReason.Id,
+    //         ThirdLevel__c = null,
+    //         ProductType__c ='Mobile',
+    //         ServiceTree__c ='Service',
+    //         RecordTypeId = recordTypeThirdLevelId,
+    //         Active__c = true
+    //     );
+            
+    //     ServiceQualification__c serviceQualificationDetail = new ServiceQualification__c(
+    //         Name = 'Detalhe',
+    //         FirstLevel__c = serviceQualificationType.Id,
+    //         SecondLevel__c = serviceQualificationReason.Id,
+    //         ThirdLevel__c = serviceQualificationSubReason.Id,
+    //         ProductType__c = 'Mobile',
+    //         ServiceTree__c = 'Service',
+    //         RecordTypeId = recordTypeFouthLevelId,
+    //         Active__c = true
+    //     );
+            
+    //     List<ServiceQualification__c> ltServiceQualificationLevels = new List<ServiceQualification__c> {
+    //         serviceQualificationType,
+    //         serviceQualificationReason,
+    //         serviceQualificationSubReason,
+    //         serviceQualificationDetail
+    //     };
+            
+    //     return ltServiceQualificationLevels;
+    // }
+    
+// public static List<ServiceQualification__c> createServiceQualificationFixedLevels() {
+    //     String recordTypeFirstLevelId = Schema.SObjectType.ServiceQualification__c.getRecordTypeInfosByDeveloperName().
+    //         get('FirstLevel').getrecordTypeId();
+        
+    //     String recordTypeSecondLevelId = Schema.SObjectType.ServiceQualification__c.getRecordTypeInfosByDeveloperName().
+    //         get('SecondLevel').getrecordTypeId();
+        
+    //     String recordTypeThirdLevelId = Schema.SObjectType.ServiceQualification__c.getRecordTypeInfosByDeveloperName().
+    //         get('ThirdLevel').getrecordTypeId();
+        
+    //     String recordTypeFouthLevelId = Schema.SObjectType.ServiceQualification__c.getRecordTypeInfosByDeveloperName().
+    //         get('FourthLevel').getrecordTypeId();
+        
+    //     ServiceQualification__c serviceQualificationType = new ServiceQualification__c(   
+    //             Name = 'Tipo',
+    //             ProductType__c = 'Fixed',
+    //             Instance__c = 'TV',
+    //             RecordTypeId = recordTypeFirstLevelId,
+    //             Active__c = true,
+    //             VisibleTo__c = 'OrgVivo'
+    //     );
+            
+    //     ServiceQualification__c serviceQualificationReason = new ServiceQualification__c(
+    //         Name = 'Motivo',
+    //         FirstLevel__c = serviceQualificationType.Id,
+    //         ProductType__c ='Fixed',
+    //         Instance__c = 'TV',
+    //         RecordTypeId = recordTypeSecondLevelId,
+    //         Active__c = true,
+    //         VisibleTo__c = 'OrgVivo'
+    //     );
+            
+    //     ServiceQualification__c serviceQualificationSubReason = new ServiceQualification__c(
+    //         Name = 'Sub-motivo',
+    //         FirstLevel__c = serviceQualificationType.Id,
+    //         SecondLevel__c = serviceQualificationReason.Id,
+    //         ThirdLevel__c = null,
+    //         ProductType__c ='Fixed',
+    //         Instance__c = 'TV',
+    //         RecordTypeId = recordTypeThirdLevelId,
+    //         Active__c = true,
+    //         VisibleTo__c = 'OrgVivo'
+    //     );
+            
+    //     ServiceQualification__c serviceQualificationDetail = new ServiceQualification__c(
+    //         Name = 'Detalhe',
+    //         FirstLevel__c = serviceQualificationType.Id,
+    //         SecondLevel__c = serviceQualificationReason.Id,
+    //         ThirdLevel__c = serviceQualificationSubReason.Id,
+    //         ProductType__c = 'Fixed',
+    //         Instance__c = 'TV',
+    //         OperatorSegment__c = 'Gold',
+    //         GpsId__c = '1234',
+    //         RecordTypeId = recordTypeFouthLevelId,
+    //         Active__c = true,
+    //         VisibleTo__c = 'OrgVivo'
+    //     );
+            
+    //     List<ServiceQualification__c> ltServiceQualificationLevels = new List<ServiceQualification__c> {
+    //         serviceQualificationType,
+    //         serviceQualificationReason,
+    //         serviceQualificationSubReason,
+    //         serviceQualificationDetail
+    //     };
+            
+    //     return ltServiceQualificationLevels;
+    // }
+    
 }

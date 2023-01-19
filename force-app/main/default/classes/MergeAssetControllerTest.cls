@@ -18,13 +18,13 @@ public with sharing class MergeAssetControllerTest {
         Asset asset = new Asset(vlocity_cmt__ServiceIdentifier__c='SPO-V0001NO4OR-013',
                                 StartDate__c = Datetime.newInstance(2022,03,29,18,11,34),
                                 accountId = acc.id,
-                                name = 'Asset'          
+                                name = 'SPO-V0001NO4OR-013'          
         );
         List<Asset> lstAssets = new List<Asset>{asset};
         asset = new Asset(vlocity_cmt__ServiceIdentifier__c='SPI-V0001NO4OR-013',
                                 StartDate__c = system.now().addDays(-1),
                                 accountId = acc.id,
-                                name = 'Asset2'          
+                                name = 'SPI-V0001NO4OR-013'          
         );
         lstAssets.add(asset);
         insert lstAssets;

@@ -1,0 +1,59 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
+                access="global">
+    <!-- Attributes -->
+    <aura:attribute name="inicialized" type="Boolean" default="false" access="private" />
+    <aura:attribute name="animation" type="Boolean" default="false" access="public" />
+    <aura:attribute name="prefix" type="String" default="" access="public" />
+    <aura:attribute name="suffix" type="String" default="" access="public" />
+    <aura:attribute name="format" type="String" default="" access="public" required="true" />
+    <aura:attribute name="chronometer" type="Object" default="{}" access="private" />
+    <aura:attribute name="directionUpOrDown" type="String" default="Up" access="public" />
+    <aura:attribute name="secondsToAction" type="Integer" default="0" access="public" />
+    <aura:attribute name="startAutomatically" type="Boolean" default="false" access="public" />
+    <aura:attribute name="actionNotificationId" type="String" default="" access="public" />
+
+    <!-- Handler -->
+    <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
+    
+    <aura:handler event="c:BroadcastNotification" action="{! c.BroadcastNotificationHandler}" access="global" />
+
+    <!-- Component body -->
+    <aura:if isTrue="{! v.inicialized}">
+        <div id="chronometerBody">
+            <lightning:layout verticalAlign="center">
+                <aura:if isTrue="{! v.animation}">      
+                    <lightning:layoutItem flexibility="auto">
+                        <div id="animation" class="loading-container slds-is-relative">
+                            <lightning:spinner size="small" />
+                        </div>
+        
+                        <div style="margin-right: 2rem;">
+                        </div>
+                    </lightning:layoutItem>
+                </aura:if>
+
+                <lightning:layoutItem flexibility="auto">
+                    <aura:if isTrue="{! v.prefix}">
+                        <div id="prefix" class="loading-container slds-is-relative">
+                            &nbsp;{! v.prefix}&nbsp;
+                        </div>
+                    </aura:if>
+                </lightning:layoutItem>
+
+                <lightning:layoutItem flexibility="auto">
+                    <span style="font-weight: bold; font-size: 22px;">
+                        {! v.chronometer.display}
+                    </span>
+                </lightning:layoutItem>
+
+                <lightning:layoutItem flexibility="auto">
+                    <aura:if isTrue="{! v.suffix}">
+                        <div id="prefix" class="loading-container slds-is-relative">
+                            &nbsp;{! v.suffix}&nbsp;
+                        </div>
+                    </aura:if>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </div>
+    </aura:if>
+</aura:component>

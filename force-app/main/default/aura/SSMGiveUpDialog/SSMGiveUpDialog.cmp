@@ -1,0 +1,69 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
+                access="global">
+    <!-- Attributes -->
+    <aura:attribute name="ltGiveUpReasons" type="List" default="[]" />
+    <aura:attribute name="giveUpReason" type="String" default="" />
+    <aura:attribute name="disableConfirmButton" type="Boolean" default="true" />
+    <aura:attribute name="errorMessage" type="String" default=""/>
+    
+    <!-- Handler -->
+    <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
+
+    <!-- Event -->
+    <aura:registerEvent name="BroadcastNotificationEvent" type="c:BroadcastNotification"/>
+ 
+    <!-- Dialog -->
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <lightning:buttonIcon iconName="utility:close" onclick="{! c.btnCancelClick}"
+                    alternativeText="close" variant="bare-inverse" class="slds-modal__close" />
+                <h1 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                    {! $Label.c.StoreServiceManagerReasonWithdrawal}
+                </h1>
+            </header>
+
+            <!-- Error message handling -->
+            <aura:if isTrue="{! v.errorMessage}">
+                <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                    {! v.errorMessage}
+                </div>
+            </aura:if>
+            
+            <div class="slds-modal__content slds-p-around_small slds-text-title slds-text-align_left">
+                <lightning:layout verticalAlign="center">
+                    <lightning:layoutItem flexibility="auto">
+                        <div style="padding: 0.5rem;">
+                            <div class="slds-card__header-title slds-text-heading_small slds-text-heading--small">
+                                {! $Label.c.StoreServiceManagerListReasonsWithdrawal}
+                            </div>
+                        </div>
+
+                        <br />
+                        
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control" style="margin-right: 0.5rem;">
+                                <lightning:tree items="{! v.ltGiveUpReasons}"
+                                    onselect="{! c.onSelectGiveUpReason}"/>
+                            </div>
+                        </div>
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </div>
+
+            <footer class="slds-modal__footer">
+                <lightning:button variant="neutral"
+                                label="{! $Label.c.Cancel}"
+                                onclick="{! c.btnCancelClick}"/>
+
+                <lightning:button variant="brand"
+                                label="{! $Label.c.Confirm}"
+                                disabled="{! v.disableConfirmButton}"
+                                onclick="{! c.btnConfirmClick}"/>
+            </footer>
+        </div>
+    </section>
+
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</aura:component>

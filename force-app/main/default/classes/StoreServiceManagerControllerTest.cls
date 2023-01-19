@@ -1,0 +1,266 @@
+@IsTest
+public with sharing class StoreServiceManagerControllerTest {
+    @TestSetup
+    public static void setup() {
+        Profile profileTest = [
+            SELECT Id 
+            FROM Profile 
+            WHERE Name = 'Representante'
+        ];
+
+        UserRole userRoleTest = new UserRole();
+        
+        userRoleTest.Name = 'Telefonica Brasil';
+        
+        Database.insert(userRoleTest);
+
+        User userTest = new User(
+            Alias = 'SysAdmin', 
+            Email = 'atendimento.senha@ssmgssvssf.com',
+            EmailEncodingKey = 'UTF-8', 
+            LastName = 'Testing', 
+            LanguageLocaleKey = 'en_US',
+            LocaleSidKey = 'en_US', 
+            ProfileId = profileTest.Id, 
+            UserRoleId = userRoleTest.Id,
+            TimeZoneSidKey = 'America/Sao_Paulo', 
+            UserName = 'ssmgssvssf@ssmgssvssf.com',
+            Login__c = 'A024895'
+        );
+        
+        Database.insert(userTest);
+
+        System.runAs(userTest) {
+            GeneralParam__c generalParamTest = new GeneralParam__c(
+                TimeAutomaticTicketCall__c = 10,
+                ViewFieldServiceStoreService__c = true
+            );
+
+            Database.insert(generalParamTest);
+
+            List<GenericOptionsLists__c> ltWorkPositionsTest = new List<GenericOptionsLists__c>();
+
+            for (Integer positionTest = 2; positionTest <= 5; positionTest++) {
+                GenericOptionsLists__c newWorkPositionTest = new GenericOptionsLists__c();
+
+                newWorkPositionTest.Name = ('WorkPositions0' + positionTest);
+                newWorkPositionTest.Code__c = ('0' + positionTest);
+                newWorkPositionTest.Description__c = '0' + positionTest;
+                newWorkPositionTest.Description2__c = '';
+                newWorkPositionTest.APIName__c = 'PointOfService';
+                newWorkPositionTest.APIDateTime__c = Date.today();
+                newWorkPositionTest.UsedIn__c = 'WorkPositions';
+                newWorkPositionTest.Active__c = true;
+
+                ltWorkPositionsTest.add(newWorkPositionTest);
+            }
+
+            GenericOptionsLists__c newReasonPauseTest = new GenericOptionsLists__c();
+
+            newReasonPauseTest.Name = 'AttendantPauseOptions2';
+            newReasonPauseTest.Code__c = '2';
+            newReasonPauseTest.Description__c = 'Banheiro';
+            newReasonPauseTest.Description2__c = '';
+            newReasonPauseTest.APIName__c = 'OperationalInformations';
+            newReasonPauseTest.APIDateTime__c = Date.today();
+            newReasonPauseTest.UsedIn__c = 'AttendantPauseOptions';
+            newReasonPauseTest.Active__c = true;
+
+            Database.insert(newReasonPauseTest);
+
+            GenericOptionsLists__c newInteractionTest = new GenericOptionsLists__c();
+
+            newInteractionTest.Name = 'Interactions705';
+            newInteractionTest.Code__c = '705';
+            newInteractionTest.Description__c = 'Alteração Cadastral - TV';
+            newInteractionTest.Description2__c = 'TV';
+            newInteractionTest.APIName__c = 'OperationalInformations';
+            newInteractionTest.APIDateTime__c = Date.today();
+            newInteractionTest.UsedIn__c = 'Interactions';
+            newInteractionTest.Active__c = true;
+
+            Database.insert(newInteractionTest);
+
+            GenericOptionsLists__c newCustomerSegmentTest = new GenericOptionsLists__c();
+
+            newCustomerSegmentTest.Name = 'PLATINUM';
+            newCustomerSegmentTest.Code__c = 'PLATINUM';
+            newCustomerSegmentTest.Description__c = 'PREMIUM';
+            newCustomerSegmentTest.Description2__c = '1';
+            newCustomerSegmentTest.APIName__c = 'CustomerSegment';
+            newCustomerSegmentTest.APIDateTime__c = Date.today();
+            newCustomerSegmentTest.UsedIn__c = 'CustomerSegment';
+            newCustomerSegmentTest.Active__c = true;
+
+            Database.insert(newCustomerSegmentTest);
+
+            List<Webservice__c> ltWebservicesSSM = new List<Webservice__c>();
+
+            ltWebservicesSSM.add(
+                new Webservice__c(
+                    Name = 'PointOfServiceCallout',
+                    switchedOn__c = true,
+                    Endpoint__c = 'https://api-hml.telefonica.com.br/pointServiceQueueManagement/v1/pointOfServices?attendantId={attendantId}',
+                    SubscriptionKey__c = '36cfd2713668489bb3f7d23d042be3a3'
+                )
+            );
+
+            ltWebservicesSSM.add(
+                new Webservice__c(
+                    Name = 'OperationalInformationsCallout',
+                    switchedOn__c = true,
+                    Endpoint__c = 'https://api-hml.telefonica.com.br/channelSalesManagement/v1/pointOfServices/operationalInformations/',
+                    SubscriptionKey__c = '36cfd2713668489bb3f7d23d042be3a3'
+                )
+            );          
+
+            ltWebservicesSSM.add(
+                new Webservice__c(
+                    Name = 'UpdateWorkPositionCallout',
+                    switchedOn__c = true,
+                    Endpoint__c = 'https://api-hml.telefonica.com.br/pointOfServices/{pointOfServiceId}/workPositions/{workPositionId}',
+                    SubscriptionKey__c = '36cfd2713668489bb3f7d23d042be3a3'
+                )
+            );
+        
+            ltWebservicesSSM.add(
+                new Webservice__c(
+                    Name = 'PointOfServiceAttendantCallout',
+                    switchedOn__c = true,
+                    Endpoint__c = 'https://api-hml.telefonica.com.br//pointOfServices/{pointOfServiceId}/attendants/{attendantId}',
+                    SubscriptionKey__c = '36cfd2713668489bb3f7d23d042be3a3'
+                )
+            );
+
+            ltWebservicesSSM.add(
+                new Webservice__c(
+                    Name = 'PointOfServiceAttendanceCallout',
+                    switchedOn__c = true,
+                    Endpoint__c = 'https://api-hml.telefonica.com.br/pointOfServices/{pointOfServiceId}/attendants/{attendantId}/attendances',
+                    SubscriptionKey__c = '36cfd2713668489bb3f7d23d042be3a3'
+                )
+            );
+        
+            ltWebservicesSSM.add(
+                new Webservice__c(
+                    Name = 'PointOfServiceTicketsCallout',
+                    switchedOn__c = true,
+                    Endpoint__c = 'https://api-hml.telefonica.com.br/pointOfServices/{pointOfServiceId}/tickets',
+                    SubscriptionKey__c = '36cfd2713668489bb3f7d23d042be3a3'
+                )
+            );
+
+            Database.insert(ltWebservicesSSM);
+        }
+    }
+
+    @IsTest
+    public static void  hasPermissionSetToAccessTest() {
+        User userTest = [
+            SELECT id 
+            FROM User 
+            WHERE UserName = 'ssmgssvssf@ssmgssvssf.com' 
+            LIMIT 1
+        ];
+
+        System.runAs(userTest) {
+            Boolean hasPermissionSetTest = StoreServiceManagerController.hasPermissionSetToAccess();
+
+            System.assertEquals(false, hasPermissionSetTest);
+        }
+    }
+ 
+    @IsTest
+    public static void  loadStoreServiceManagerTest() {
+        User userTest = [
+            SELECT id 
+            FROM User 
+            WHERE UserName = 'ssmgssvssf@ssmgssvssf.com' 
+            LIMIT 1
+        ];
+
+        System.runAs(userTest) {
+            Test.startTest();
+                Test.setMock(HttpCalloutMock.class, new PointOfServiceCalloutMock());
+
+                Map<String, Object> mapAttendantTest = StoreServiceManagerController.loadStoreServiceManager();
+            Test.stopTest();
+
+            User attendant = (User) mapAttendantTest.get('success');
+
+            System.assertEquals('307', attendant.StoreCode__c);
+        }
+    }
+
+    @IsTest
+    public static void fetchPointOfServiceTest() {
+        User userTest = [
+            SELECT id 
+            FROM User 
+            WHERE UserName = 'ssmgssvssf@ssmgssvssf.com' 
+            LIMIT 1
+        ];
+
+        System.runAs(userTest) {
+            Test.startTest();
+                Test.setMock(HttpCalloutMock.class, new PointOfServiceCalloutMock());
+
+                Map<String, Object> mapPointOfServiceTest = StoreServiceManagerController.fetchPointOfService();
+            Test.stopTest();
+
+            String jsonPointOfService = (String) mapPointOfServiceTest.get('success');
+
+            StoreServiceManagerResponse.PointOfService pointOfService = (StoreServiceManagerResponse.PointOfService) 
+                JSON.deserialize(jsonPointOfService, StoreServiceManagerResponse.PointOfService.class);
+
+            System.assertEquals('01', pointOfService.workPosition[0].id);
+        }
+    }
+
+    @IsTest
+    public static void fetchOperationalInformationsTest() {
+        User userTest = [
+            SELECT id 
+            FROM User 
+            WHERE UserName = 'ssmgssvssf@ssmgssvssf.com' 
+            LIMIT 1
+        ];
+
+        System.runAs(userTest) {
+            Test.startTest();
+                Test.setMock(HttpCalloutMock.class, new OperationalInformationsCalloutMock());
+
+                Map<String, Object> mapOperationalInformationsTest = StoreServiceManagerController.fetchOperationalInformations();
+            Test.stopTest();
+
+            String jsonOperationalInformations = (String) mapOperationalInformationsTest.get('success');
+
+            StoreServiceManagerResponse.OperationalInformations ltOperationalInformations = (StoreServiceManagerResponse.OperationalInformations) 
+                JSON.deserialize(jsonOperationalInformations, StoreServiceManagerResponse.OperationalInformations.class);
+
+            System.assertEquals('2', ltOperationalInformations.attendantPauseOptions[0].id);
+            System.assertEquals('1', ltOperationalInformations.businessLines[0].id);
+            System.assertEquals('QR1', ltOperationalInformations.quittingReasons[0].id);
+            System.assertEquals('705', ltOperationalInformations.interactions[0].id);
+        }
+    }
+
+    @IsTest
+    public static void getAccountCustomerSegmentGSSTest() {
+        String CUSTOMER_SEGMENT_PLATINUM_IN = 'PLATINUM';
+        String CUSTOMER_SEGMENT_PLATINUM_OUT = '1';
+        String CUSTOMER_SEGMENT_NONE_IN = NULL;
+        String CUSTOMER_SEGMENT_NONE_OUT = '3';
+
+        StoreServiceManagerTO.ItemPicklistValue segmentPLATINUM = StoreServiceManagerController.getAccountCustomerSegmentGSS(
+            CUSTOMER_SEGMENT_PLATINUM_IN
+        );
+
+        StoreServiceManagerTO.ItemPicklistValue segmentNONE = StoreServiceManagerController.getAccountCustomerSegmentGSS(
+            CUSTOMER_SEGMENT_NONE_IN
+        );
+        
+        System.assertEquals(CUSTOMER_SEGMENT_PLATINUM_OUT, segmentPLATINUM.value);
+        System.assertEquals(CUSTOMER_SEGMENT_NONE_OUT, segmentNONE.value);
+    }
+}

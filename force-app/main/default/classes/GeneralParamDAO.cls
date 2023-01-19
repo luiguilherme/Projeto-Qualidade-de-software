@@ -1,6 +1,4 @@
-/** 
- * @author Diego Costa @ Deloitte
- * @date 07/06/2022
+/**  
  * @description Controla a busca e criação do objeto Custom Settings
  */
 public with sharing class GeneralParamDAO {
@@ -26,7 +24,9 @@ public with sharing class GeneralParamDAO {
                 CustomerType__c,
                 CustomerSegment__c,
                 ScriptDetailHistoryExpiration__c,
-                AccessesMinute__c
+                AccessesMinute__c,
+                TimeAutomaticTicketCall__c,
+                ViewFieldServiceStoreService__c
             FROM 
                 GeneralParam__c    
         ];

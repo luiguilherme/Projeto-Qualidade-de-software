@@ -1,18 +1,16 @@
 public with sharing class AccountRetentionEngine {
     
-    public static List<Account> getAccount(Account accountObj, GeneralParam__c generalParamObj, String developerName){
-	
+    public static List<Account> getAccount(Account accountObj, GeneralParam__c generalParamObj, String developerName){	
         List<String> ltCustomerSegment = CollectionUtil.stringForList(generalParamObj.CustomerSegment__c);
         List<String> ltCustomerType = CollectionUtil.stringForList(generalParamObj.CustomerType__c);
         List<Account> ltAccount = new List<Account>();
-        
-        if(accountObj == null || (ltCustomerSegment.contains(accountObj.CustomerSegment__c) && ltCustomerType.contains(accountObj.vlocity_cmt__CustomerClass__c) && accountObj.LastModifiedDate < generalParamObj.AccountLoadDate__c) ){
 
+        if(accountObj == null || (ltCustomerSegment.contains(accountObj.vlocity_cmt__CustomerValue__c) && ltCustomerType.contains(accountObj.vlocity_cmt__CustomerClass__c) && accountObj.LastModifiedDate < generalParamObj.AccountLoadDate__c) ){
             return ltAccount;
         }
 
         
-        if(ltCustomerSegment.contains(accountObj.CustomerSegment__c) && ltCustomerType.contains(accountObj.vlocity_cmt__CustomerClass__c)){        
+        if(ltCustomerSegment.contains(accountObj.vlocity_cmt__CustomerValue__c) && ltCustomerType.contains(accountObj.vlocity_cmt__CustomerClass__c)){    
             ltAccount = BillingAccountDAO.getByAccountIdDeveloperNameLastmodifiedDate(accountObj.Id, developerName, generalParamObj.BillingAccountLoadDate__c);
         }else{
             ltAccount = BillingAccountDAO.getByAccountIdDeveloperName(accountObj.Id, developerName);
@@ -21,19 +19,17 @@ public with sharing class AccountRetentionEngine {
         return ltAccount;
     }
 
-    public static List<Asset> getAsset(Account accountObj, GeneralParam__c generalParamObj, String developerName){
-	
+    public static List<Asset> getAsset(Account accountObj, GeneralParam__c generalParamObj, String developerName){	
         List<String> ltCustomerSegment = CollectionUtil.stringForList(generalParamObj.CustomerSegment__c);
         List<String> ltCustomerType = CollectionUtil.stringForList(generalParamObj.CustomerType__c);
         List<Asset> ltAsset = new List<Asset>();
 
-        
-        if(ltCustomerSegment.contains(accountObj.CustomerSegment__c) && ltCustomerType.contains(accountObj.vlocity_cmt__CustomerClass__c)){            
+        if(ltCustomerSegment.contains(accountObj.vlocity_cmt__CustomerValue__c) && ltCustomerType.contains(accountObj.vlocity_cmt__CustomerClass__c)){  
             ltAsset = AssetDAO.getByAccountIdRecordtypeDeveloperNameLastModifiedDate(accountObj.Id,developerName,generalParamObj.AssetLoadDate__c);
         }else{
             ltAsset = AssetDAO.getByAccountIdRecordtypeDeveloperName(accountObj.Id, developerName);
         }
-        
+
         return ltAsset;
     }
 

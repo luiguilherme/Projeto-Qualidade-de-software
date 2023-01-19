@@ -1,0 +1,79 @@
+<aura:component controller="SSMManualServiceDialogController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
+                access="global">
+    <!-- Attributes -->
+    <aura:attribute name="workPositionId" type="String" default="" />
+    <aura:attribute name="displayAlert" type="Boolean" default="true" />
+    <aura:attribute name="scheduleTime" type="String" default="00:00" />
+    <aura:attribute name="cellPhone" type="String" default="" />
+    <aura:attribute name="errorMessage" type="String" default=""/>
+
+    <!-- Handler -->
+    <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
+
+    <!-- Event -->
+    <aura:registerEvent name="BroadcastNotificationEvent" type="c:BroadcastNotification"/>
+
+    <!-- Dialog -->
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+             aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <lightning:buttonIcon iconName="utility:close" onclick="{! c.btnCancelClick}"
+                    alternativeText="close" variant="bare-inverse" class="slds-modal__close" />
+                <h1 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                    {! $Label.c.StoreServiceManagerManualService}
+                </h1>
+            </header>
+
+            <!-- Error message handling -->
+            <aura:if isTrue="{! v.errorMessage}">
+                <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                    {! v.errorMessage}
+                </div>
+            </aura:if>
+            
+            <div class="slds-modal__content slds-p-around_medium slds-text-title slds-text-align_left" style="overflow: visible !important;">
+                <lightning:layout verticalAlign="center">
+                    <lightning:layoutItem flexibility="auto">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control" style="margin-right: 0.5rem;">
+                                <lightning:input type="time" 
+                                    aura:id="txtTimeScheduling" 
+                                    label="{! '* ' + $Label.c.ScheduleTime}"
+                                    timeStyle="short"
+                                    placeholder="00:00" 
+                                    value="{! v.scheduleTime}" />
+                            </div>
+                        </div>
+                    </lightning:layoutItem>
+
+                    <lightning:layoutItem flexibility="auto">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <lightning:input type="tel" 
+                                    aura:id="txtMobileScheduling" 
+                                    label="{! '* ' + $Label.c.CellPhone}"
+                                    placeholder="11 00000-0000" 
+                                    value="{! v.cellPhone}"
+                                    onchange="{! c.onCellPhoneChange}" />
+                            </div>
+                        </div>
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </div>
+
+            <footer class="slds-modal__footer">
+                <lightning:button variant="neutral"
+                                label="{! $Label.c.Cancel}"
+                                onclick="{! c.btnCancelClick}"/>
+
+                <lightning:button variant="brand"
+                                label="{! $Label.c.Confirm}"
+                                onclick="{! c.btnConfirmClick}"/>
+            </footer>
+        </div>
+    </section>
+
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</aura:component>

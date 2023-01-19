@@ -1,0 +1,12 @@
+<aura:component controller="SubscribedProductsController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"  access="global">
+
+    <aura:attribute name="loadUtil" type="Boolean" default="false"/>
+    <aura:registerEvent name="BroadcastNotification" type="c:BroadcastNotification"/> 
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler event="c:UserProfileEvent" action="{!c.onNotifyFieldFilling}"/>
+
+    <aura:renderIf isTrue="{!v.loadUtil}">
+        <ltng:require scripts="{!$Resource.LightningUtil}"  afterScriptsLoaded="{!c.doInit}" /> 
+    </aura:renderIf>
+</aura:component>
