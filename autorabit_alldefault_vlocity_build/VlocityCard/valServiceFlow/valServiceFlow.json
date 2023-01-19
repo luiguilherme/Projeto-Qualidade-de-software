@@ -25,6 +25,21 @@
                 "id": 44,
                 "name": "User.userProfileName",
                 "val": ""
+            },
+            {
+                "id": 17,
+                "name": "Address",
+                "val": ""
+            },
+            {
+                "id": 21,
+                "name": "FirstRead",
+                "val": ""
+            },
+            {
+                "id": 57,
+                "name": "Session.PageReference",
+                "val": ""
             }
         ],
         "orderBy": {
@@ -35,10 +50,13 @@
         "value": {
             "dsDelay": "",
             "inputMap": {
-                "Line": "{Line}",
+                "Address": "",
+                "FirstRead": "true",
+                "Line": "",
                 "ProductType": "{ProductType}",
                 "ProfileName": "{User.userProfileName}",
-                "RecordId": "{recordId}"
+                "RecordId": "{recordId}",
+                "VisibleTo": "{Session.PageReference}"
             },
             "ipMethod": "val_getServiceFlowAddressProduct",
             "resultVar": "",
@@ -54,18 +72,36 @@
                     "card": "{card}",
                     "draggable": false,
                     "isOpen": true,
-                    "key": "1671584500949-ue16zs44j",
+                    "key": "1672682441069-32biwnpdg",
                     "label": "Action",
                     "stateAction": {
                         "Web Page": {
                             "targetName": "/apex"
                         },
                         "displayName": "Action",
-                        "id": "flex-action-1671671375259",
-                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_getServiceFlowAddressProduct\",\"vlocityAsync\":false,\"inputMap\":{\"RecordId\":\"{recordId}\",\"ProductType\":\"{action.ProductType}\",\"Line\":\"{action.Line}\",\"ProfileName\":\"{User.userProfileName}\"}},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"action.recordId\",\"val\":\"\",\"id\":8},{\"name\":\"action.ProductType\",\"val\":\"\",\"id\":9},{\"name\":\"action.Line\",\"val\":\"\",\"id\":10},{\"name\":\"action.ProfileName\",\"val\":\"\",\"id\":11},{\"name\":\"recordId\",\"val\":\"\",\"id\":8},{\"name\":\"Line\",\"val\":\"\",\"id\":9},{\"name\":\"User.userProfileName\",\"val\":\"\",\"id\":10}]}",
+                        "id": "flex-action-1673982374664",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_getServiceFlowAddressProduct\",\"vlocityAsync\":false,\"inputMap\":{\"RecordId\":\"{recordId}\",\"Line\":\"{Line}\",\"ProductType\":\"{ProductType}\",\"ProfileName\":\"{User.userProfileName}\",\"Address\":\"{Address}\",\"FirstRead\":\"{FirstRead}\"}},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"\",\"id\":0},{\"name\":\"ProductType\",\"val\":\"\",\"id\":3},{\"name\":\"Line\",\"val\":\"\",\"id\":9},{\"name\":\"ServiceTree\",\"val\":\"\",\"id\":55},{\"name\":\"Address\",\"val\":\"\",\"id\":17},{\"name\":\"FirstRead\",\"val\":\"\",\"id\":11},{\"name\":\"User.userProfileName\",\"val\":\"\",\"id\":14}]}",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "DataAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1672853665994-h9rozac8o",
+                    "label": "Action",
+                    "stateAction": {
+                        "displayName": "Action",
+                        "eventName": "valServiceFlow",
+                        "id": "flex-action-1672853666042",
+                        "message": "hidespinner",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
                         "vlocityIcon": "standard-default"
                     }
                 }
@@ -78,7 +114,7 @@
             "eventtype": "pubsub",
             "key": "event-0",
             "recordIndex": "0",
-            "showSpinner": "false"
+            "showSpinner": "true"
         },
         {
             "actionList": [
@@ -124,7 +160,7 @@
                 {
                     "actionIndex": 0,
                     "card": "{card}",
-                    "draggable": true,
+                    "draggable": false,
                     "isOpen": true,
                     "key": "1672183304996-n0tz8n0s8",
                     "label": "Action",
@@ -156,7 +192,7 @@
             "eventtype": "pubsub",
             "key": "event-2",
             "recordIndex": "0",
-            "showSpinner": "false"
+            "showSpinner": "true"
         },
         {
             "actionList": [
@@ -190,27 +226,393 @@
             "key": "event-3",
             "recordIndex": "0",
             "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1672853510477-5bnkfx7a5",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.ShowSpinner",
+                                "fieldValue": "true"
+                            }
+                        ],
+                        "id": "flex-action-1672853604018",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "valServiceFlow",
+            "displayLabel": "valServiceFlow:showspinner",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "showspinner",
+            "eventtype": "pubsub",
+            "key": "event-4",
+            "recordIndex": "0",
+            "showSpinner": "true"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": true,
+                    "key": "1672853609464-gxu1ijhko",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.ShowSpinner",
+                                "fieldValue": "false"
+                            }
+                        ],
+                        "id": "flex-action-1672853620558",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "valServiceFlow",
+            "displayLabel": "valServiceFlow:hidespinner",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "hidespinner",
+            "eventtype": "pubsub",
+            "key": "event-5",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1672920222024-6bubw0xfd",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "ProductType",
+                                "fieldValue": "''"
+                            },
+                            {
+                                "fieldName": "Address",
+                                "fieldValue": "''"
+                            },
+                            {
+                                "fieldName": "ServiceTree",
+                                "fieldValue": "''"
+                            },
+                            {
+                                "fieldName": "Line",
+                                "fieldValue": "''"
+                            },
+                            {
+                                "fieldName": "OtherProduct",
+                                "fieldValue": "''"
+                            },
+                            {
+                                "fieldName": "SourceSystem",
+                                "fieldValue": "''"
+                            }
+                        ],
+                        "id": "flex-action-1672920303211",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "valServiceFlow",
+            "displayLabel": "valServiceFlow:clearvalues",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "clearvalues",
+            "eventtype": "pubsub",
+            "key": "event-6",
+            "recordIndex": "0",
+            "showSpinner": "true"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1673463350618-g21aog9h7",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.OpenedCanvas",
+                                "fieldValue": "{action.openedcanvas}"
+                            }
+                        ],
+                        "id": "flex-action-1673463400578",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "valServiceFlow",
+            "displayLabel": "valServiceFlow:openedcanvas",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "openedcanvas",
+            "eventtype": "pubsub",
+            "key": "event-7",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": true,
+                    "key": "1673559707526-hp255k68a",
+                    "label": "Action",
+                    "stateAction": {
+                        "bubbles": true,
+                        "composed": true,
+                        "displayName": "Action",
+                        "eventName": "open",
+                        "extraParams": {
+                            "Session.VisibleTo": "'ABACAXI'"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1673559803511",
+                        "openUrlIn": "Current Window",
+                        "subType": "Custom",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "valServiceFlow",
+            "displayLabel": "valServiceFlow:open",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "open",
+            "eventtype": "pubsub",
+            "key": "event-8",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1673879713220-dx8mqey9q",
+                    "label": "ActionClearValues",
+                    "stateAction": {
+                        "displayName": "Action",
+                        "eventName": "valServiceFlow",
+                        "id": "flex-action-1673879991252",
+                        "message": "clearvalues",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1673880048673-ub4833b9y",
+                    "label": "ActionHideTree",
+                    "stateAction": {
+                        "displayName": "Action",
+                        "eventName": "valServiceFlow",
+                        "id": "flex-action-1673880048774",
+                        "message": "hidetree",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 2,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1673881618871-q003qc2ac",
+                    "label": "ActionValServiceFlowUpdate",
+                    "stateAction": {
+                        "displayName": "Action",
+                        "eventName": "valServiceFlow",
+                        "id": "flex-action-1673882645682",
+                        "message": "update",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 3,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1673880378515-cp4jq4uxm",
+                    "label": "ActionSetSessionClosedCanvas",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.OpenedCanvas",
+                                "fieldValue": "false"
+                            }
+                        ],
+                        "id": "flex-action-1673880384937",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "canvasGPS",
+            "displayLabel": "canvasGPS:finishFlow",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "finishFlow",
+            "eventtype": "pubsub",
+            "key": "event-9",
+            "recordIndex": "0",
+            "showSpinner": "true"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1673986057524-plvgk9wha",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.CaseId",
+                                "fieldValue": "{action.CaseId}"
+                            },
+                            {
+                                "fieldName": "Session.AccountId",
+                                "fieldValue": "{action.AccountId}"
+                            },
+                            {
+                                "fieldName": "Session.AssetId",
+                                "fieldValue": "{action.AssetId}"
+                            }
+                        ],
+                        "id": "flex-action-1673986464824",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "valServiceFlow",
+            "displayLabel": "valServiceFlow:recoveryids",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "recoveryids",
+            "eventtype": "pubsub",
+            "key": "event-10",
+            "recordIndex": "0",
+            "showSpinner": "false"
         }
     ],
     "globalCSS": false,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValServiceFlow_4_usPalitagemCrossRegistrarPalito",
-        "Id": "0Rb8D000000td1KSAQ",
+        "DeveloperName": "cfValServiceFlow_7_usPalitagemCrossRegistrarPalito",
+        "Id": "0Rb8D000000u2hUSAQ",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValServiceFlow_4_usPalitagemCrossRegistrarPalito",
+        "MasterLabel": "cfValServiceFlow_7_usPalitagemCrossRegistrarPalito",
         "NamespacePrefix": "c"
     },
     "multilanguageSupport": true,
     "osSupport": true,
+    "requiredPermission": "",
     "selectableMode": "Multi",
     "sessionVars": [
+        {
+            "name": "OpenedCanvas",
+            "val": "false"
+        },
         {
             "name": "ShowTree",
             "val": "false"
         },
         {
-            "name": "OtherProduct",
+            "isApi": true,
+            "name": "PageReference",
+            "val": "ORG VIVO - B2C"
+        },
+        {
+            "name": "CaseId",
+            "val": ""
+        },
+        {
+            "name": "AccountId",
             "val": ""
         }
     ],
@@ -219,30 +621,83 @@
             "actions": [
             ],
             "childCards": [
-                "valAddRelationshipTopicModal"
+                "valAddRelationshipTopicFrontEnd"
             ],
             "components": {
                 "layer-0": {
                     "children": [
                         {
-                            "children": [
+                            "class": "slds-col ",
+                            "element": "outputField",
+                            "elementLabel": "Block-0-Text-0",
+                            "name": "Text",
+                            "property": {
+                                "card": "{card}",
+                                "data-conditions": {
+                                    "group": [
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2014pt;%22%3E%3Cstrong%3EFluxo%20de%20Atendimento%3C/strong%3E%3C/span%3E%3C/div%3E",
+                                "record": "{record}"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "background": {
+                                    "color": "",
+                                    "image": "",
+                                    "position": "",
+                                    "repeat": "",
+                                    "size": ""
+                                },
+                                "border": {
+                                    "color": "#cccccc",
+                                    "radius": "",
+                                    "style": "",
+                                    "type": [
+                                    ],
+                                    "width": ""
+                                },
+                                "class": " slds-p-around_x-small ",
+                                "container": {
+                                    "class": ""
+                                },
+                                "elementStyleProperties": {
+                                },
+                                "inlineStyle": "",
+                                "margin": [
+                                ],
+                                "padding": [
+                                    {
+                                        "label": "around:x-small",
+                                        "size": "x-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "size": {
+                                    "default": "12",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_12-of-12 ",
+                                "style": "      \n         ",
+                                "text": {
+                                    "align": "",
+                                    "color": ""
+                                }
+                            },
+                            "styleObjects": [
                                 {
-                                    "class": "slds-col ",
-                                    "element": "outputField",
-                                    "elementLabel": "Block-1-Text-0",
-                                    "key": "element_element_block_0_0_outputField_0_0",
-                                    "name": "Text",
-                                    "parentElementKey": "element_block_0_0",
-                                    "property": {
-                                        "card": "{card}",
-                                        "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2014pt;%22%3E%3Cstrong%3EFluxo%20de%20Atendimento%3C/strong%3E%3C/span%3E%3C/div%3E",
-                                        "record": "{record}"
-                                    },
-                                    "size": {
-                                        "default": "12",
-                                        "isResponsive": false
-                                    },
-                                    "stateIndex": 0,
+                                    "conditionString": "",
+                                    "conditions": "default",
+                                    "draggable": false,
+                                    "key": 0,
+                                    "label": "Default",
+                                    "name": "Default",
                                     "styleObject": {
                                         "background": {
                                             "color": "",
@@ -259,7 +714,7 @@
                                             ],
                                             "width": ""
                                         },
-                                        "class": " slds-m-bottom_x-small ",
+                                        "class": " slds-p-around_x-small ",
                                         "container": {
                                             "class": ""
                                         },
@@ -267,13 +722,13 @@
                                         },
                                         "inlineStyle": "",
                                         "margin": [
-                                            {
-                                                "label": "bottom:x-small",
-                                                "size": "x-small",
-                                                "type": "bottom"
-                                            }
                                         ],
                                         "padding": [
+                                            {
+                                                "label": "around:x-small",
+                                                "size": "x-small",
+                                                "type": "around"
+                                            }
                                         ],
                                         "size": {
                                             "default": "12",
@@ -285,69 +740,248 @@
                                             "align": "",
                                             "color": ""
                                         }
-                                    },
-                                    "styleObjects": [
-                                        {
-                                            "conditionString": "",
-                                            "conditions": "default",
-                                            "draggable": false,
-                                            "key": 0,
-                                            "label": "Default",
-                                            "name": "Default",
-                                            "styleObject": {
-                                                "background": {
-                                                    "color": "",
-                                                    "image": "",
-                                                    "position": "",
-                                                    "repeat": "",
-                                                    "size": ""
-                                                },
-                                                "border": {
-                                                    "color": "#cccccc",
-                                                    "radius": "",
-                                                    "style": "",
-                                                    "type": [
+                                    }
+                                }
+                            ],
+                            "type": "text"
+                        },
+                        {
+                            "children": [
+                                {
+                                    "class": "slds-col ",
+                                    "element": "action",
+                                    "elementLabel": "Block-0-Action-1",
+                                    "key": "element_element_block_1_0_action_0_0",
+                                    "name": "Action",
+                                    "parentElementKey": "element_block_1_0",
+                                    "property": {
+                                        "actionList": [
+                                            {
+                                                "actionIndex": 0,
+                                                "draggable": true,
+                                                "isOpen": false,
+                                                "key": "1673463544128-v6nctg2mz",
+                                                "label": "ActionSetSessionOpenedCanvas",
+                                                "stateAction": {
+                                                    "Web Page": {
+                                                        "targetName": "/apex"
+                                                    },
+                                                    "eventName": "setValues",
+                                                    "fieldValues": [
+                                                        {
+                                                            "fieldName": "Session.OpenedCanvas",
+                                                            "fieldValue": "false"
+                                                        }
                                                     ],
-                                                    "width": ""
-                                                },
-                                                "class": " slds-m-bottom_x-small ",
-                                                "container": {
-                                                    "class": ""
-                                                },
-                                                "elementStyleProperties": {
-                                                },
-                                                "inlineStyle": "",
-                                                "margin": [
-                                                    {
-                                                        "label": "bottom:x-small",
-                                                        "size": "x-small",
-                                                        "type": "bottom"
-                                                    }
-                                                ],
-                                                "padding": [
-                                                ],
-                                                "size": {
-                                                    "default": "12",
-                                                    "isResponsive": false
-                                                },
-                                                "sizeClass": "slds-size_12-of-12 ",
-                                                "style": "      \n         ",
-                                                "text": {
-                                                    "align": "",
-                                                    "color": ""
+                                                    "id": "flex-action-1673533653769",
+                                                    "openUrlIn": "Current Window",
+                                                    "targetType": "Web Page",
+                                                    "type": "cardAction"
+                                                }
+                                            },
+                                            {
+                                                "actionIndex": 1,
+                                                "card": "{card}",
+                                                "draggable": true,
+                                                "isOpen": false,
+                                                "key": "1673533571047-rb6zoc4df",
+                                                "label": "ActionCloseCanvas",
+                                                "stateAction": {
+                                                    "displayName": "Action",
+                                                    "eventName": "canvasGPS",
+                                                    "id": "flex-action-1673533572403",
+                                                    "message": "closecanvas",
+                                                    "openUrlIn": "Current Window",
+                                                    "subType": "PubSub",
+                                                    "type": "Event",
+                                                    "vlocityIcon": "standard-default"
+                                                }
+                                            },
+                                            {
+                                                "actionIndex": 2,
+                                                "card": "{card}",
+                                                "draggable": true,
+                                                "isOpen": false,
+                                                "key": "1673991314087-hmhbiwyda",
+                                                "label": "Action",
+                                                "stateAction": {
+                                                    "displayName": "Action",
+                                                    "eventName": "valtopicstreeconfigparms",
+                                                    "id": "flex-action-1673991317969",
+                                                    "message": "clearselection",
+                                                    "openUrlIn": "Current Window",
+                                                    "subType": "PubSub",
+                                                    "type": "Event",
+                                                    "vlocityIcon": "standard-default"
+                                                }
+                                            },
+                                            {
+                                                "actionIndex": 3,
+                                                "card": "{card}",
+                                                "draggable": true,
+                                                "isOpen": true,
+                                                "key": "1673992005265-tnkwjct61",
+                                                "label": "Action",
+                                                "stateAction": {
+                                                    "displayName": "Action",
+                                                    "eventName": "valAddRelationshipTopicModal",
+                                                    "extraParams": {
+                                                        "AssetId": "",
+                                                        "Id": "",
+                                                        "Name": "",
+                                                        "OtherProduct": "",
+                                                        "ProductType": "",
+                                                        "ServiceTree": ""
+                                                    },
+                                                    "hasExtraParams": true,
+                                                    "id": "flex-action-1673992075970",
+                                                    "message": "clearselection",
+                                                    "openUrlIn": "Current Window",
+                                                    "subType": "PubSub",
+                                                    "type": "Event",
+                                                    "vlocityIcon": "standard-default"
                                                 }
                                             }
-                                        }
+                                        ],
+                                        "buttonVariant": "neutral",
+                                        "card": "{card}",
+                                        "displayAsButton": true,
+                                        "flyoutDetails": {
+                                        },
+                                        "hideActionIcon": true,
+                                        "iconName": "standard-default",
+                                        "label": "Reiniciar Fluxo",
+                                        "record": "{record}",
+                                        "showSpinner": "false",
+                                        "stateObj": "{record}"
+                                    },
+                                    "size": {
+                                        "default": "2",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "size": {
+                                            "default": "2",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_2-of-12 "
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "children": [
                                     ],
-                                    "type": "text"
+                                    "class": "slds-col ",
+                                    "element": "block",
+                                    "elementLabel": "Block-0-Block-2",
+                                    "key": "element_element_block_1_0_block_1_0",
+                                    "name": "Block",
+                                    "parentElementKey": "element_block_1_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "collapsedByDefault": false,
+                                        "collapsible": false,
+                                        "label": "Block",
+                                        "record": "{record}"
+                                    },
+                                    "size": {
+                                        "default": "8",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "class": "slds-p-around_x-small",
+                                        "padding": [
+                                            {
+                                                "size": "x-small",
+                                                "type": "around"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "8",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_8-of-12 "
+                                    },
+                                    "type": "block"
                                 },
                                 {
                                     "class": "slds-col ",
+                                    "element": "customLwc",
+                                    "elementLabel": "Block-0-Custom LWC-4",
+                                    "key": "element_element_block_1_0_customLwc_2_0",
+                                    "name": "Custom LWC",
+                                    "parentElementKey": "element_block_1_0",
+                                    "property": {
+                                        "customlwcname": "ctiCallDroppedButtonChild"
+                                    },
+                                    "size": {
+                                        "default": "2",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "size": {
+                                            "default": "2",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_2-of-12 "
+                                    },
+                                    "type": "element"
+                                }
+                            ],
+                            "class": "slds-col ",
+                            "element": "block",
+                            "elementLabel": "Block-0-clone-0",
+                            "name": "Block",
+                            "property": {
+                                "card": "{card}",
+                                "collapsedByDefault": false,
+                                "collapsible": false,
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "Session.OpenedCanvas",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-2",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "true"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "label": "Block",
+                                "record": "{record}"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "class": "slds-p-around_x-small",
+                                "padding": [
+                                    {
+                                        "size": "x-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "block"
+                        },
+                        {
+                            "children": [
+                                {
+                                    "class": "slds-col ",
                                     "element": "baseInputElement",
-                                    "elementLabel": "Block-1-Select-1",
-                                    "key": "element_element_block_0_0_baseInputElement_1_0",
+                                    "elementLabel": "Block-0-Select-1",
+                                    "key": "element_element_block_2_0_baseInputElement_0_0",
                                     "name": "Select",
-                                    "parentElementKey": "element_block_0_0",
+                                    "parentElementKey": "element_block_2_0",
                                     "property": {
                                         "action": {
                                             "actionList": [
@@ -356,8 +990,74 @@
                                                     "card": "{card}",
                                                     "draggable": true,
                                                     "isOpen": false,
+                                                    "key": "1672853723832-g020xngn6",
+                                                    "label": "ActionShowSpinner",
+                                                    "stateAction": {
+                                                        "displayName": "Action",
+                                                        "eventName": "valServiceFlow",
+                                                        "id": "flex-action-1672859521509",
+                                                        "message": "showspinner",
+                                                        "openUrlIn": "Current Window",
+                                                        "subType": "PubSub",
+                                                        "type": "Event",
+                                                        "vlocityIcon": "standard-default"
+                                                    }
+                                                },
+                                                {
+                                                    "actionIndex": 1,
+                                                    "card": "{card}",
+                                                    "draggable": true,
+                                                    "isOpen": false,
+                                                    "key": "1672183415530-943v1vkwd",
+                                                    "label": "ActionHideTree",
+                                                    "stateAction": {
+                                                        "displayName": "Action",
+                                                        "eventName": "valServiceFlow",
+                                                        "id": "flex-action-1672225966979",
+                                                        "message": "hidetree",
+                                                        "openUrlIn": "Current Window",
+                                                        "subType": "PubSub",
+                                                        "type": "Event",
+                                                        "vlocityIcon": "standard-default"
+                                                    }
+                                                },
+                                                {
+                                                    "actionIndex": 2,
+                                                    "card": "{card}",
+                                                    "draggable": true,
+                                                    "isOpen": false,
+                                                    "key": "1672864571620-xkwu3ddq9",
+                                                    "label": "ActionClearAddressAndLine",
+                                                    "stateAction": {
+                                                        "Web Page": {
+                                                            "targetName": "/apex"
+                                                        },
+                                                        "displayName": "Action",
+                                                        "eventName": "setValues",
+                                                        "fieldValues": [
+                                                            {
+                                                                "fieldName": "Address",
+                                                                "fieldValue": "''"
+                                                            },
+                                                            {
+                                                                "fieldName": "Line",
+                                                                "fieldValue": "''"
+                                                            }
+                                                        ],
+                                                        "id": "flex-action-1672864588428",
+                                                        "openUrlIn": "Current Window",
+                                                        "targetType": "Web Page",
+                                                        "type": "cardAction",
+                                                        "vlocityIcon": "standard-default"
+                                                    }
+                                                },
+                                                {
+                                                    "actionIndex": 2,
+                                                    "card": "{card}",
+                                                    "draggable": false,
+                                                    "isOpen": true,
                                                     "key": "1671585634594-h2zcmhxxe",
-                                                    "label": "Action",
+                                                    "label": "ActionUpdate",
                                                     "stateAction": {
                                                         "actionConditions": {
                                                             "group": [
@@ -368,11 +1068,12 @@
                                                         "displayName": "Action",
                                                         "eventName": "valServiceFlow",
                                                         "extraParams": {
+                                                            "Address": "",
                                                             "Line": "",
                                                             "ProductType": "{ProductType}"
                                                         },
                                                         "hasExtraParams": true,
-                                                        "id": "flex-action-1671588436125",
+                                                        "id": "flex-action-1672864496731",
                                                         "message": "update",
                                                         "openUrlIn": "Current Window",
                                                         "subType": "PubSub",
@@ -381,17 +1082,26 @@
                                                     }
                                                 },
                                                 {
-                                                    "actionIndex": 1,
+                                                    "actionIndex": 4,
                                                     "card": "{card}",
-                                                    "draggable": false,
+                                                    "draggable": true,
                                                     "isOpen": true,
-                                                    "key": "1672183415530-943v1vkwd",
+                                                    "key": "1673037042951-02shhfg9w",
                                                     "label": "Action",
                                                     "stateAction": {
                                                         "displayName": "Action",
-                                                        "eventName": "valServiceFlow",
-                                                        "id": "flex-action-1672225966979",
-                                                        "message": "hidetree",
+                                                        "eventName": "valAddRelationshipTopicModal",
+                                                        "extraParams": {
+                                                            "AssetId": "",
+                                                            "Id": "",
+                                                            "Name": "",
+                                                            "OtherProduct": "",
+                                                            "ProductType": "",
+                                                            "ServiceTree": ""
+                                                        },
+                                                        "hasExtraParams": true,
+                                                        "id": "flex-action-1673037703999",
+                                                        "message": "clearselection",
                                                         "openUrlIn": "Current Window",
                                                         "subType": "PubSub",
                                                         "type": "Event",
@@ -413,8 +1123,74 @@
                                                         "card": "{card}",
                                                         "draggable": true,
                                                         "isOpen": false,
+                                                        "key": "1672853723832-g020xngn6",
+                                                        "label": "ActionShowSpinner",
+                                                        "stateAction": {
+                                                            "displayName": "Action",
+                                                            "eventName": "valServiceFlow",
+                                                            "id": "flex-action-1672859521509",
+                                                            "message": "showspinner",
+                                                            "openUrlIn": "Current Window",
+                                                            "subType": "PubSub",
+                                                            "type": "Event",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    },
+                                                    {
+                                                        "actionIndex": 1,
+                                                        "card": "{card}",
+                                                        "draggable": true,
+                                                        "isOpen": false,
+                                                        "key": "1672183415530-943v1vkwd",
+                                                        "label": "ActionHideTree",
+                                                        "stateAction": {
+                                                            "displayName": "Action",
+                                                            "eventName": "valServiceFlow",
+                                                            "id": "flex-action-1672225966979",
+                                                            "message": "hidetree",
+                                                            "openUrlIn": "Current Window",
+                                                            "subType": "PubSub",
+                                                            "type": "Event",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    },
+                                                    {
+                                                        "actionIndex": 2,
+                                                        "card": "{card}",
+                                                        "draggable": true,
+                                                        "isOpen": false,
+                                                        "key": "1672864571620-xkwu3ddq9",
+                                                        "label": "ActionClearAddressAndLine",
+                                                        "stateAction": {
+                                                            "Web Page": {
+                                                                "targetName": "/apex"
+                                                            },
+                                                            "displayName": "Action",
+                                                            "eventName": "setValues",
+                                                            "fieldValues": [
+                                                                {
+                                                                    "fieldName": "Address",
+                                                                    "fieldValue": "''"
+                                                                },
+                                                                {
+                                                                    "fieldName": "Line",
+                                                                    "fieldValue": "''"
+                                                                }
+                                                            ],
+                                                            "id": "flex-action-1672864588428",
+                                                            "openUrlIn": "Current Window",
+                                                            "targetType": "Web Page",
+                                                            "type": "cardAction",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    },
+                                                    {
+                                                        "actionIndex": 2,
+                                                        "card": "{card}",
+                                                        "draggable": false,
+                                                        "isOpen": true,
                                                         "key": "1671585634594-h2zcmhxxe",
-                                                        "label": "Action",
+                                                        "label": "ActionUpdate",
                                                         "stateAction": {
                                                             "actionConditions": {
                                                                 "group": [
@@ -425,11 +1201,12 @@
                                                             "displayName": "Action",
                                                             "eventName": "valServiceFlow",
                                                             "extraParams": {
+                                                                "Address": "",
                                                                 "Line": "",
                                                                 "ProductType": "{ProductType}"
                                                             },
                                                             "hasExtraParams": true,
-                                                            "id": "flex-action-1671588436125",
+                                                            "id": "flex-action-1672864496731",
                                                             "message": "update",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -438,17 +1215,26 @@
                                                         }
                                                     },
                                                     {
-                                                        "actionIndex": 1,
+                                                        "actionIndex": 4,
                                                         "card": "{card}",
-                                                        "draggable": false,
+                                                        "draggable": true,
                                                         "isOpen": true,
-                                                        "key": "1672183415530-943v1vkwd",
+                                                        "key": "1673037042951-02shhfg9w",
                                                         "label": "Action",
                                                         "stateAction": {
                                                             "displayName": "Action",
-                                                            "eventName": "valServiceFlow",
-                                                            "id": "flex-action-1672225966979",
-                                                            "message": "hidetree",
+                                                            "eventName": "valAddRelationshipTopicModal",
+                                                            "extraParams": {
+                                                                "AssetId": "",
+                                                                "Id": "",
+                                                                "Name": "",
+                                                                "OtherProduct": "",
+                                                                "ProductType": "",
+                                                                "ServiceTree": ""
+                                                            },
+                                                            "hasExtraParams": true,
+                                                            "id": "flex-action-1673037703999",
+                                                            "message": "clearselection",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
                                                             "type": "Event",
@@ -462,9 +1248,14 @@
                                                 "showSpinner": "true"
                                             },
                                             "customProperties": [
+                                                {
+                                                    "id": 0,
+                                                    "label": "messageWhenValueMissing",
+                                                    "value": "Este campo é obrigatório."
+                                                }
                                             ],
                                             "fieldBinding": "{ProductType}",
-                                            "label": "Produto:",
+                                            "label": "Produto",
                                             "options": [
                                                 {
                                                     "group": "",
@@ -482,7 +1273,7 @@
                                             "placeholder": "",
                                             "required": true,
                                             "type": "combobox",
-                                            "value": ""
+                                            "value": "Fixa"
                                         },
                                         "record": "{record}",
                                         "type": "combobox"
@@ -605,10 +1396,10 @@
                                     ],
                                     "class": "slds-col ",
                                     "element": "block",
-                                    "elementLabel": "Block-1-Block-2",
-                                    "key": "element_element_block_0_0_block_2_0",
+                                    "elementLabel": "Block-0-Block-2",
+                                    "key": "element_element_block_2_0_block_1_0",
                                     "name": "Block",
-                                    "parentElementKey": "element_block_0_0",
+                                    "parentElementKey": "element_block_2_0",
                                     "property": {
                                         "card": "{card}",
                                         "collapsedByDefault": false,
@@ -617,7 +1408,7 @@
                                         "record": "{record}"
                                     },
                                     "size": {
-                                        "default": "2",
+                                        "default": "1",
                                         "isResponsive": false
                                     },
                                     "stateIndex": 0,
@@ -630,10 +1421,10 @@
                                             }
                                         ],
                                         "size": {
-                                            "default": "2",
+                                            "default": "1",
                                             "isResponsive": false
                                         },
-                                        "sizeClass": "slds-size_2-of-12 "
+                                        "sizeClass": "slds-size_1-of-12 "
                                     },
                                     "type": "block"
                                 },
@@ -641,10 +1432,125 @@
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
                                     "elementLabel": "Select",
-                                    "key": "element_element_block_0_0_baseInputElement_3_0",
+                                    "key": "element_element_block_2_0_baseInputElement_2_0",
                                     "name": "Select",
-                                    "parentElementKey": "element_block_0_0",
+                                    "parentElementKey": "element_block_2_0",
                                     "property": {
+                                        "action": {
+                                            "actionList": [
+                                                {
+                                                    "actionIndex": 1,
+                                                    "card": "{card}",
+                                                    "draggable": true,
+                                                    "isOpen": false,
+                                                    "key": "1672859565713-j7ortbiz8",
+                                                    "label": "ActionShowSpinner",
+                                                    "stateAction": {
+                                                        "displayName": "Action",
+                                                        "eventName": "valServiceFlow",
+                                                        "id": "flex-action-1672859586573",
+                                                        "message": "showspinner",
+                                                        "openUrlIn": "Current Window",
+                                                        "subType": "PubSub",
+                                                        "type": "Event",
+                                                        "vlocityIcon": "standard-default"
+                                                    }
+                                                },
+                                                {
+                                                    "actionIndex": 1,
+                                                    "card": "{card}",
+                                                    "draggable": true,
+                                                    "isOpen": false,
+                                                    "key": "1672918433551-iyhuzgczl",
+                                                    "label": "ActionClearLine",
+                                                    "stateAction": {
+                                                        "Web Page": {
+                                                            "targetName": "/apex"
+                                                        },
+                                                        "displayName": "Action",
+                                                        "eventName": "setValues",
+                                                        "fieldValues": [
+                                                            {
+                                                                "fieldName": "Line",
+                                                                "fieldValue": "''"
+                                                            }
+                                                        ],
+                                                        "id": "flex-action-1672920206616",
+                                                        "openUrlIn": "Current Window",
+                                                        "targetType": "Web Page",
+                                                        "type": "cardAction",
+                                                        "vlocityIcon": "standard-default"
+                                                    }
+                                                },
+                                                {
+                                                    "actionIndex": 3,
+                                                    "card": "{card}",
+                                                    "draggable": true,
+                                                    "isOpen": false,
+                                                    "key": "1672918484971-nqtckk8tk",
+                                                    "label": "ActionHideTree",
+                                                    "stateAction": {
+                                                        "displayName": "Action",
+                                                        "eventName": "valServiceFlow",
+                                                        "id": "flex-action-1672918495812",
+                                                        "message": "hidetree",
+                                                        "openUrlIn": "Current Window",
+                                                        "subType": "PubSub",
+                                                        "type": "Event",
+                                                        "vlocityIcon": "standard-default"
+                                                    }
+                                                },
+                                                {
+                                                    "actionIndex": 0,
+                                                    "card": "{card}",
+                                                    "draggable": true,
+                                                    "isOpen": false,
+                                                    "key": "1672682997771-rna8eob6c",
+                                                    "label": "ActionUpdate",
+                                                    "stateAction": {
+                                                        "displayName": "Action",
+                                                        "eventName": "valServiceFlow",
+                                                        "id": "flex-action-1672683175858",
+                                                        "message": "update",
+                                                        "openUrlIn": "Current Window",
+                                                        "subType": "PubSub",
+                                                        "type": "Event",
+                                                        "vlocityIcon": "standard-default"
+                                                    }
+                                                },
+                                                {
+                                                    "actionIndex": 4,
+                                                    "card": "{card}",
+                                                    "draggable": false,
+                                                    "isOpen": true,
+                                                    "key": "1673037198813-mezhfq1te",
+                                                    "label": "Action",
+                                                    "stateAction": {
+                                                        "displayName": "Action",
+                                                        "eventName": "valAddRelationshipTopicModal",
+                                                        "extraParams": {
+                                                            "AssetId": "",
+                                                            "Id": "",
+                                                            "Name": "",
+                                                            "OtherProduct": "",
+                                                            "ProductType": "",
+                                                            "ServiceTree": ""
+                                                        },
+                                                        "hasExtraParams": true,
+                                                        "id": "flex-action-1673037847179",
+                                                        "message": "clearselection",
+                                                        "openUrlIn": "Current Window",
+                                                        "subType": "PubSub",
+                                                        "type": "Event",
+                                                        "vlocityIcon": "standard-default"
+                                                    }
+                                                }
+                                            ],
+                                            "eventType": "onchange",
+                                            "iconName": "standard-default",
+                                            "label": "Action",
+                                            "showSpinner": "true"
+                                        },
                                         "card": "{card}",
                                         "data-conditions": {
                                             "group": [
@@ -664,12 +1570,145 @@
                                                     "operator": "==",
                                                     "type": "custom",
                                                     "value": "true"
+                                                },
+                                                {
+                                                    "field": "Session.ShowSpinner",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-6",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "false"
+                                                },
+                                                {
+                                                    "field": "qtdAddress",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-0",
+                                                    "logicalOperator": "&&",
+                                                    "operator": ">",
+                                                    "type": "custom",
+                                                    "value": "1"
                                                 }
                                             ],
                                             "id": "state-condition-object",
                                             "isParent": true
                                         },
                                         "propertyObj": {
+                                            "action": {
+                                                "actionList": [
+                                                    {
+                                                        "actionIndex": 1,
+                                                        "card": "{card}",
+                                                        "draggable": true,
+                                                        "isOpen": false,
+                                                        "key": "1672859565713-j7ortbiz8",
+                                                        "label": "ActionShowSpinner",
+                                                        "stateAction": {
+                                                            "displayName": "Action",
+                                                            "eventName": "valServiceFlow",
+                                                            "id": "flex-action-1672859586573",
+                                                            "message": "showspinner",
+                                                            "openUrlIn": "Current Window",
+                                                            "subType": "PubSub",
+                                                            "type": "Event",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    },
+                                                    {
+                                                        "actionIndex": 1,
+                                                        "card": "{card}",
+                                                        "draggable": true,
+                                                        "isOpen": false,
+                                                        "key": "1672918433551-iyhuzgczl",
+                                                        "label": "ActionClearLine",
+                                                        "stateAction": {
+                                                            "Web Page": {
+                                                                "targetName": "/apex"
+                                                            },
+                                                            "displayName": "Action",
+                                                            "eventName": "setValues",
+                                                            "fieldValues": [
+                                                                {
+                                                                    "fieldName": "Line",
+                                                                    "fieldValue": "''"
+                                                                }
+                                                            ],
+                                                            "id": "flex-action-1672920206616",
+                                                            "openUrlIn": "Current Window",
+                                                            "targetType": "Web Page",
+                                                            "type": "cardAction",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    },
+                                                    {
+                                                        "actionIndex": 3,
+                                                        "card": "{card}",
+                                                        "draggable": true,
+                                                        "isOpen": false,
+                                                        "key": "1672918484971-nqtckk8tk",
+                                                        "label": "ActionHideTree",
+                                                        "stateAction": {
+                                                            "displayName": "Action",
+                                                            "eventName": "valServiceFlow",
+                                                            "id": "flex-action-1672918495812",
+                                                            "message": "hidetree",
+                                                            "openUrlIn": "Current Window",
+                                                            "subType": "PubSub",
+                                                            "type": "Event",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    },
+                                                    {
+                                                        "actionIndex": 0,
+                                                        "card": "{card}",
+                                                        "draggable": true,
+                                                        "isOpen": false,
+                                                        "key": "1672682997771-rna8eob6c",
+                                                        "label": "ActionUpdate",
+                                                        "stateAction": {
+                                                            "displayName": "Action",
+                                                            "eventName": "valServiceFlow",
+                                                            "id": "flex-action-1672683175858",
+                                                            "message": "update",
+                                                            "openUrlIn": "Current Window",
+                                                            "subType": "PubSub",
+                                                            "type": "Event",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    },
+                                                    {
+                                                        "actionIndex": 4,
+                                                        "card": "{card}",
+                                                        "draggable": false,
+                                                        "isOpen": true,
+                                                        "key": "1673037198813-mezhfq1te",
+                                                        "label": "Action",
+                                                        "stateAction": {
+                                                            "displayName": "Action",
+                                                            "eventName": "valAddRelationshipTopicModal",
+                                                            "extraParams": {
+                                                                "AssetId": "",
+                                                                "Id": "",
+                                                                "Name": "",
+                                                                "OtherProduct": "",
+                                                                "ProductType": "",
+                                                                "ServiceTree": ""
+                                                            },
+                                                            "hasExtraParams": true,
+                                                            "id": "flex-action-1673037847179",
+                                                            "message": "clearselection",
+                                                            "openUrlIn": "Current Window",
+                                                            "subType": "PubSub",
+                                                            "type": "Event",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    }
+                                                ],
+                                                "eventType": "onchange",
+                                                "iconName": "standard-default",
+                                                "label": "Action",
+                                                "showSpinner": "true"
+                                            },
                                             "customProperties": [
                                                 {
                                                     "id": 0,
@@ -680,9 +1719,14 @@
                                                     "id": 1,
                                                     "label": "options",
                                                     "value": "{options2}"
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "label": "mesageWhenValueMissing",
+                                                    "value": "{Label.cmpFieldRequired}"
                                                 }
                                             ],
-                                            "fieldBinding": "{options2}",
+                                            "fieldBinding": "{Address}",
                                             "label": "Endereço",
                                             "placeholder": "Selecione o Endereço",
                                             "type": "combobox"
@@ -691,7 +1735,7 @@
                                         "type": "combobox"
                                     },
                                     "size": {
-                                        "default": "3",
+                                        "default": "4",
                                         "isResponsive": false
                                     },
                                     "stateIndex": 0,
@@ -710,10 +1754,10 @@
                                             }
                                         ],
                                         "size": {
-                                            "default": "3",
+                                            "default": "4",
                                             "isResponsive": false
                                         },
-                                        "sizeClass": "slds-size_3-of-12 "
+                                        "sizeClass": "slds-size_4-of-12 "
                                     },
                                     "type": "element",
                                     "userUpdatedElementLabel": true
@@ -722,12 +1766,30 @@
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
                                     "elementLabel": "Typeahead",
-                                    "key": "element_element_block_0_0_baseInputElement_4_0",
+                                    "key": "element_element_block_2_0_baseInputElement_3_0",
                                     "name": "Typeahead",
-                                    "parentElementKey": "element_block_0_0",
+                                    "parentElementKey": "element_block_2_0",
                                     "property": {
                                         "action": {
                                             "actionList": [
+                                                {
+                                                    "actionIndex": 2,
+                                                    "card": "{card}",
+                                                    "draggable": true,
+                                                    "isOpen": true,
+                                                    "key": "1672859672857-sibrhlo9d",
+                                                    "label": "ActionShowSpinner",
+                                                    "stateAction": {
+                                                        "displayName": "Action",
+                                                        "eventName": "valServiceFlow",
+                                                        "id": "flex-action-1672859672963",
+                                                        "message": "showspinner",
+                                                        "openUrlIn": "Current Window",
+                                                        "subType": "PubSub",
+                                                        "type": "Event",
+                                                        "vlocityIcon": "standard-default"
+                                                    }
+                                                },
                                                 {
                                                     "actionIndex": 0,
                                                     "card": "{card}",
@@ -789,10 +1851,10 @@
                                                 {
                                                     "actionIndex": 1,
                                                     "card": "{card}",
-                                                    "draggable": false,
+                                                    "draggable": true,
                                                     "isOpen": true,
                                                     "key": "1671593091356-9qdzolmu0",
-                                                    "label": "Action",
+                                                    "label": "ActionUpdate",
                                                     "stateAction": {
                                                         "displayName": "Action",
                                                         "eventName": "valServiceFlow",
@@ -842,6 +1904,24 @@
                                         "propertyObj": {
                                             "action": {
                                                 "actionList": [
+                                                    {
+                                                        "actionIndex": 2,
+                                                        "card": "{card}",
+                                                        "draggable": true,
+                                                        "isOpen": true,
+                                                        "key": "1672859672857-sibrhlo9d",
+                                                        "label": "ActionShowSpinner",
+                                                        "stateAction": {
+                                                            "displayName": "Action",
+                                                            "eventName": "valServiceFlow",
+                                                            "id": "flex-action-1672859672963",
+                                                            "message": "showspinner",
+                                                            "openUrlIn": "Current Window",
+                                                            "subType": "PubSub",
+                                                            "type": "Event",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    },
                                                     {
                                                         "actionIndex": 0,
                                                         "card": "{card}",
@@ -903,10 +1983,10 @@
                                                     {
                                                         "actionIndex": 1,
                                                         "card": "{card}",
-                                                        "draggable": false,
+                                                        "draggable": true,
                                                         "isOpen": true,
                                                         "key": "1671593091356-9qdzolmu0",
-                                                        "label": "Action",
+                                                        "label": "ActionUpdate",
                                                         "stateAction": {
                                                             "displayName": "Action",
                                                             "eventName": "valServiceFlow",
@@ -951,7 +2031,7 @@
                                                     "value": "{options}"
                                                 }
                                             ],
-                                            "fieldBinding": "{Line}",
+                                            "fieldBinding": "",
                                             "label": "Linha ou Instância",
                                             "options": [
                                             ],
@@ -1079,20 +2159,105 @@
                                 {
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
-                                    "elementLabel": "Block-1-Select-5",
-                                    "key": "element_element_block_0_0_baseInputElement_5_0",
+                                    "elementLabel": "Block-0-Select-5",
+                                    "key": "element_element_block_2_0_baseInputElement_4_0",
                                     "name": "Select",
-                                    "parentElementKey": "element_block_0_0",
+                                    "parentElementKey": "element_block_2_0",
                                     "property": {
                                         "action": {
                                             "actionList": [
                                                 {
-                                                    "actionIndex": 0,
+                                                    "actionIndex": 3,
+                                                    "card": "{card}",
+                                                    "draggable": true,
+                                                    "isOpen": false,
+                                                    "key": "1672859784730-v0cd98n34",
+                                                    "label": "ActionShowSpinner",
+                                                    "stateAction": {
+                                                        "displayName": "Action",
+                                                        "eventName": "valServiceFlow",
+                                                        "id": "flex-action-1672859784811",
+                                                        "message": "showspinner",
+                                                        "openUrlIn": "Current Window",
+                                                        "subType": "PubSub",
+                                                        "type": "Event",
+                                                        "vlocityIcon": "standard-default"
+                                                    }
+                                                },
+                                                {
+                                                    "actionIndex": 1,
+                                                    "card": "{card}",
+                                                    "draggable": false,
+                                                    "isOpen": true,
+                                                    "key": "1673019245448-4xexkbf2z",
+                                                    "label": "ActionServiceFlowUpdate",
+                                                    "stateAction": {
+                                                        "displayName": "Action",
+                                                        "eventName": "valServiceFlow",
+                                                        "id": "flex-action-1673620785898",
+                                                        "message": "update",
+                                                        "openUrlIn": "Current Window",
+                                                        "subType": "PubSub",
+                                                        "type": "Event",
+                                                        "vlocityIcon": "standard-default"
+                                                    }
+                                                },
+                                                {
+                                                    "actionIndex": 5,
+                                                    "card": "{card}",
+                                                    "draggable": true,
+                                                    "isOpen": false,
+                                                    "key": "1672948558968-ristqm0er",
+                                                    "label": "ActionClearSourceSystem",
+                                                    "stateAction": {
+                                                        "Web Page": {
+                                                            "targetName": "/apex"
+                                                        },
+                                                        "actionConditions": {
+                                                            "group": [
+                                                                {
+                                                                    "field": "Line",
+                                                                    "hasMergeField": false,
+                                                                    "id": "state-new-condition-250",
+                                                                    "operator": "==",
+                                                                    "type": "custom",
+                                                                    "value": "Outros"
+                                                                },
+                                                                {
+                                                                    "field": "ProductType",
+                                                                    "hasMergeField": false,
+                                                                    "id": "state-new-condition-257",
+                                                                    "logicalOperator": "&&",
+                                                                    "operator": "==",
+                                                                    "type": "custom",
+                                                                    "value": "Fixed"
+                                                                }
+                                                            ],
+                                                            "id": "state-condition-object",
+                                                            "isParent": true
+                                                        },
+                                                        "displayName": "Action",
+                                                        "eventName": "setValues",
+                                                        "fieldValues": [
+                                                            {
+                                                                "fieldName": "SourceSystem",
+                                                                "fieldValue": "''"
+                                                            }
+                                                        ],
+                                                        "id": "flex-action-1672948613355",
+                                                        "openUrlIn": "Current Window",
+                                                        "targetType": "Web Page",
+                                                        "type": "cardAction",
+                                                        "vlocityIcon": "standard-default"
+                                                    }
+                                                },
+                                                {
+                                                    "actionIndex": 3,
                                                     "card": "{card}",
                                                     "draggable": false,
                                                     "isOpen": true,
                                                     "key": "1671824358214-tgdjwwwt8",
-                                                    "label": "Action",
+                                                    "label": "ActionNavigationTreeUpdate",
                                                     "stateAction": {
                                                         "actionConditions": {
                                                             "group": [
@@ -1116,12 +2281,12 @@
                                                             "CustomerInteractionId": "{recordId}",
                                                             "OtherProduct": "{OtherProduct}",
                                                             "ProductType": "{ProductType}",
-                                                            "ProfileName": "''",
-                                                            "SelectedFunction": "RelationshipTopic",
-                                                            "ServiceTree": "{ServiceTree}"
+                                                            "SelectedFunction": "RelationshipTopicFront",
+                                                            "ServiceTree": "{ServiceTree}",
+                                                            "VisibleTo": "{Session.PageReference}"
                                                         },
                                                         "hasExtraParams": true,
-                                                        "id": "flex-action-1672235296882",
+                                                        "id": "flex-action-1673619160472",
                                                         "message": "update",
                                                         "openUrlIn": "Current Window",
                                                         "subType": "PubSub",
@@ -1130,12 +2295,12 @@
                                                     }
                                                 },
                                                 {
-                                                    "actionIndex": 1,
+                                                    "actionIndex": 3,
                                                     "card": "{card}",
-                                                    "draggable": false,
-                                                    "isOpen": true,
+                                                    "draggable": true,
+                                                    "isOpen": false,
                                                     "key": "1672183342149-t8n3vpm1p",
-                                                    "label": "Action",
+                                                    "label": "ActionShowTree",
                                                     "stateAction": {
                                                         "actionConditions": {
                                                             "group": [
@@ -1153,7 +2318,7 @@
                                                         },
                                                         "displayName": "Action",
                                                         "eventName": "valServiceFlow",
-                                                        "id": "flex-action-1672225994362",
+                                                        "id": "flex-action-1673017839926",
                                                         "message": "showtree",
                                                         "openUrlIn": "Current Window",
                                                         "subType": "PubSub",
@@ -1162,12 +2327,12 @@
                                                     }
                                                 },
                                                 {
-                                                    "actionIndex": 2,
+                                                    "actionIndex": 4,
                                                     "card": "{card}",
-                                                    "draggable": false,
-                                                    "isOpen": true,
+                                                    "draggable": true,
+                                                    "isOpen": false,
                                                     "key": "1672226231925-jm1rvw3ji",
-                                                    "label": "Action",
+                                                    "label": "ActionHideTree",
                                                     "stateAction": {
                                                         "actionConditions": {
                                                             "group": [
@@ -1185,8 +2350,53 @@
                                                         },
                                                         "displayName": "Action",
                                                         "eventName": "valServiceFlow",
-                                                        "id": "flex-action-1672226246841",
+                                                        "id": "flex-action-1673017861656",
                                                         "message": "hidetree",
+                                                        "openUrlIn": "Current Window",
+                                                        "subType": "PubSub",
+                                                        "type": "Event",
+                                                        "vlocityIcon": "standard-default"
+                                                    }
+                                                },
+                                                {
+                                                    "actionIndex": 4,
+                                                    "card": "{card}",
+                                                    "draggable": true,
+                                                    "isOpen": false,
+                                                    "key": "1672859817667-jak9ebw14",
+                                                    "label": "ActionHideSpinner",
+                                                    "stateAction": {
+                                                        "displayName": "Action",
+                                                        "eventName": "valServiceFlow",
+                                                        "id": "flex-action-1672859817750",
+                                                        "message": "hidespinner",
+                                                        "openUrlIn": "Current Window",
+                                                        "subType": "PubSub",
+                                                        "type": "Event",
+                                                        "vlocityIcon": "standard-default"
+                                                    }
+                                                },
+                                                {
+                                                    "actionIndex": 7,
+                                                    "card": "{card}",
+                                                    "draggable": true,
+                                                    "isOpen": false,
+                                                    "key": "1673037082702-bkfhw1cp3",
+                                                    "label": "Action",
+                                                    "stateAction": {
+                                                        "displayName": "Action",
+                                                        "eventName": "valAddRelationshipTopicModal",
+                                                        "extraParams": {
+                                                            "AssetId": "",
+                                                            "Id": "",
+                                                            "Name": "",
+                                                            "OtherProduct": "",
+                                                            "ProductType": "",
+                                                            "ServiceTree": ""
+                                                        },
+                                                        "hasExtraParams": true,
+                                                        "id": "flex-action-1673037771438",
+                                                        "message": "clearselection",
                                                         "openUrlIn": "Current Window",
                                                         "subType": "PubSub",
                                                         "type": "Event",
@@ -1220,6 +2430,15 @@
                                                             "operator": "==",
                                                             "type": "custom",
                                                             "value": "true"
+                                                        },
+                                                        {
+                                                            "field": "Session.ShowSpinner",
+                                                            "hasMergeField": false,
+                                                            "id": "state-new-condition-20",
+                                                            "logicalOperator": "&&",
+                                                            "operator": "==",
+                                                            "type": "custom",
+                                                            "value": "false"
                                                         }
                                                     ],
                                                     "id": "state-new-group-1"
@@ -1242,6 +2461,15 @@
                                                             "operator": "==",
                                                             "type": "custom",
                                                             "value": "true"
+                                                        },
+                                                        {
+                                                            "field": "Session.ShowSpinner",
+                                                            "hasMergeField": false,
+                                                            "id": "state-new-condition-71",
+                                                            "logicalOperator": "&&",
+                                                            "operator": "==",
+                                                            "type": "custom",
+                                                            "value": "false"
                                                         }
                                                     ],
                                                     "id": "state-new-group-3",
@@ -1255,12 +2483,97 @@
                                             "action": {
                                                 "actionList": [
                                                     {
-                                                        "actionIndex": 0,
+                                                        "actionIndex": 3,
+                                                        "card": "{card}",
+                                                        "draggable": true,
+                                                        "isOpen": false,
+                                                        "key": "1672859784730-v0cd98n34",
+                                                        "label": "ActionShowSpinner",
+                                                        "stateAction": {
+                                                            "displayName": "Action",
+                                                            "eventName": "valServiceFlow",
+                                                            "id": "flex-action-1672859784811",
+                                                            "message": "showspinner",
+                                                            "openUrlIn": "Current Window",
+                                                            "subType": "PubSub",
+                                                            "type": "Event",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    },
+                                                    {
+                                                        "actionIndex": 1,
+                                                        "card": "{card}",
+                                                        "draggable": false,
+                                                        "isOpen": true,
+                                                        "key": "1673019245448-4xexkbf2z",
+                                                        "label": "ActionServiceFlowUpdate",
+                                                        "stateAction": {
+                                                            "displayName": "Action",
+                                                            "eventName": "valServiceFlow",
+                                                            "id": "flex-action-1673620785898",
+                                                            "message": "update",
+                                                            "openUrlIn": "Current Window",
+                                                            "subType": "PubSub",
+                                                            "type": "Event",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    },
+                                                    {
+                                                        "actionIndex": 5,
+                                                        "card": "{card}",
+                                                        "draggable": true,
+                                                        "isOpen": false,
+                                                        "key": "1672948558968-ristqm0er",
+                                                        "label": "ActionClearSourceSystem",
+                                                        "stateAction": {
+                                                            "Web Page": {
+                                                                "targetName": "/apex"
+                                                            },
+                                                            "actionConditions": {
+                                                                "group": [
+                                                                    {
+                                                                        "field": "Line",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-250",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "Outros"
+                                                                    },
+                                                                    {
+                                                                        "field": "ProductType",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-257",
+                                                                        "logicalOperator": "&&",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "Fixed"
+                                                                    }
+                                                                ],
+                                                                "id": "state-condition-object",
+                                                                "isParent": true
+                                                            },
+                                                            "displayName": "Action",
+                                                            "eventName": "setValues",
+                                                            "fieldValues": [
+                                                                {
+                                                                    "fieldName": "SourceSystem",
+                                                                    "fieldValue": "''"
+                                                                }
+                                                            ],
+                                                            "id": "flex-action-1672948613355",
+                                                            "openUrlIn": "Current Window",
+                                                            "targetType": "Web Page",
+                                                            "type": "cardAction",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    },
+                                                    {
+                                                        "actionIndex": 3,
                                                         "card": "{card}",
                                                         "draggable": false,
                                                         "isOpen": true,
                                                         "key": "1671824358214-tgdjwwwt8",
-                                                        "label": "Action",
+                                                        "label": "ActionNavigationTreeUpdate",
                                                         "stateAction": {
                                                             "actionConditions": {
                                                                 "group": [
@@ -1284,12 +2597,12 @@
                                                                 "CustomerInteractionId": "{recordId}",
                                                                 "OtherProduct": "{OtherProduct}",
                                                                 "ProductType": "{ProductType}",
-                                                                "ProfileName": "''",
-                                                                "SelectedFunction": "RelationshipTopic",
-                                                                "ServiceTree": "{ServiceTree}"
+                                                                "SelectedFunction": "RelationshipTopicFront",
+                                                                "ServiceTree": "{ServiceTree}",
+                                                                "VisibleTo": "{Session.PageReference}"
                                                             },
                                                             "hasExtraParams": true,
-                                                            "id": "flex-action-1672235296882",
+                                                            "id": "flex-action-1673619160472",
                                                             "message": "update",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -1298,12 +2611,12 @@
                                                         }
                                                     },
                                                     {
-                                                        "actionIndex": 1,
+                                                        "actionIndex": 3,
                                                         "card": "{card}",
-                                                        "draggable": false,
-                                                        "isOpen": true,
+                                                        "draggable": true,
+                                                        "isOpen": false,
                                                         "key": "1672183342149-t8n3vpm1p",
-                                                        "label": "Action",
+                                                        "label": "ActionShowTree",
                                                         "stateAction": {
                                                             "actionConditions": {
                                                                 "group": [
@@ -1321,7 +2634,7 @@
                                                             },
                                                             "displayName": "Action",
                                                             "eventName": "valServiceFlow",
-                                                            "id": "flex-action-1672225994362",
+                                                            "id": "flex-action-1673017839926",
                                                             "message": "showtree",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -1330,12 +2643,12 @@
                                                         }
                                                     },
                                                     {
-                                                        "actionIndex": 2,
+                                                        "actionIndex": 4,
                                                         "card": "{card}",
-                                                        "draggable": false,
-                                                        "isOpen": true,
+                                                        "draggable": true,
+                                                        "isOpen": false,
                                                         "key": "1672226231925-jm1rvw3ji",
-                                                        "label": "Action",
+                                                        "label": "ActionHideTree",
                                                         "stateAction": {
                                                             "actionConditions": {
                                                                 "group": [
@@ -1353,8 +2666,53 @@
                                                             },
                                                             "displayName": "Action",
                                                             "eventName": "valServiceFlow",
-                                                            "id": "flex-action-1672226246841",
+                                                            "id": "flex-action-1673017861656",
                                                             "message": "hidetree",
+                                                            "openUrlIn": "Current Window",
+                                                            "subType": "PubSub",
+                                                            "type": "Event",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    },
+                                                    {
+                                                        "actionIndex": 4,
+                                                        "card": "{card}",
+                                                        "draggable": true,
+                                                        "isOpen": false,
+                                                        "key": "1672859817667-jak9ebw14",
+                                                        "label": "ActionHideSpinner",
+                                                        "stateAction": {
+                                                            "displayName": "Action",
+                                                            "eventName": "valServiceFlow",
+                                                            "id": "flex-action-1672859817750",
+                                                            "message": "hidespinner",
+                                                            "openUrlIn": "Current Window",
+                                                            "subType": "PubSub",
+                                                            "type": "Event",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    },
+                                                    {
+                                                        "actionIndex": 7,
+                                                        "card": "{card}",
+                                                        "draggable": true,
+                                                        "isOpen": false,
+                                                        "key": "1673037082702-bkfhw1cp3",
+                                                        "label": "Action",
+                                                        "stateAction": {
+                                                            "displayName": "Action",
+                                                            "eventName": "valAddRelationshipTopicModal",
+                                                            "extraParams": {
+                                                                "AssetId": "",
+                                                                "Id": "",
+                                                                "Name": "",
+                                                                "OtherProduct": "",
+                                                                "ProductType": "",
+                                                                "ServiceTree": ""
+                                                            },
+                                                            "hasExtraParams": true,
+                                                            "id": "flex-action-1673037771438",
+                                                            "message": "clearselection",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
                                                             "type": "Event",
@@ -1375,8 +2733,8 @@
                                                 },
                                                 {
                                                     "id": 1,
-                                                    "label": "messageWhenFieldRequired",
-                                                    "value": "{Label.cmpFieldRequired}"
+                                                    "label": "messageWhenValueMissing",
+                                                    "value": "Este campo é obrigatório."
                                                 }
                                             ],
                                             "fieldBinding": "{Line}",
@@ -1385,7 +2743,8 @@
                                             ],
                                             "placeholder": "Escolha a Linha ou Instância",
                                             "required": true,
-                                            "type": "combobox"
+                                            "type": "combobox",
+                                            "value": ""
                                         },
                                         "record": "{record}",
                                         "type": "combobox"
@@ -1420,17 +2779,17 @@
                                 {
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
-                                    "elementLabel": "Block-1-Text-6",
-                                    "key": "element_element_block_0_0_baseInputElement_6_0",
+                                    "elementLabel": "Block-0-Text-6",
+                                    "key": "element_element_block_2_0_baseInputElement_5_0",
                                     "name": "Text",
-                                    "parentElementKey": "element_block_0_0",
+                                    "parentElementKey": "element_block_2_0",
                                     "property": {
                                         "action": {
                                             "actionList": [
                                                 {
-                                                    "actionIndex": 1,
+                                                    "actionIndex": 0,
                                                     "card": "{card}",
-                                                    "draggable": true,
+                                                    "draggable": false,
                                                     "isOpen": true,
                                                     "key": "1671223332532-69o5ojhpr",
                                                     "label": "Action",
@@ -1443,12 +2802,12 @@
                                                             "CustomerInteractionId": "{recordId}",
                                                             "OtherProduct": "{Session.OtherProduct}",
                                                             "ProductType": "{ProductType}",
-                                                            "ProfileName": "''",
-                                                            "SelectedFunction": "RelationshipTopic",
-                                                            "ServiceTree": "{ServiceTree}"
+                                                            "SelectedFunction": "RelationshipTopicFront",
+                                                            "ServiceTree": "{ServiceTree}",
+                                                            "VisibleTo": "{Session.PageReference}"
                                                         },
                                                         "hasExtraParams": true,
-                                                        "id": "flex-action-1672235917015",
+                                                        "id": "flex-action-1673619235031",
                                                         "message": "update",
                                                         "openUrlIn": "Current Window",
                                                         "subType": "PubSub",
@@ -1468,6 +2827,33 @@
                                                         "eventName": "valServiceFlow",
                                                         "id": "flex-action-1672226033306",
                                                         "message": "showtree",
+                                                        "openUrlIn": "Current Window",
+                                                        "subType": "PubSub",
+                                                        "type": "Event",
+                                                        "vlocityIcon": "standard-default"
+                                                    }
+                                                },
+                                                {
+                                                    "actionIndex": 2,
+                                                    "card": "{card}",
+                                                    "draggable": false,
+                                                    "isOpen": true,
+                                                    "key": "1673037282270-nygkyvf89",
+                                                    "label": "Action",
+                                                    "stateAction": {
+                                                        "displayName": "Action",
+                                                        "eventName": "valAddRelationshipTopicModal",
+                                                        "extraParams": {
+                                                            "AssetId": "",
+                                                            "Id": "",
+                                                            "Name": "",
+                                                            "OtherProduct": "",
+                                                            "ProductType": "",
+                                                            "ServiceTree": ""
+                                                        },
+                                                        "hasExtraParams": true,
+                                                        "id": "flex-action-1673037887293",
+                                                        "message": "clearselection",
                                                         "openUrlIn": "Current Window",
                                                         "subType": "PubSub",
                                                         "type": "Event",
@@ -1499,6 +2885,15 @@
                                                     "operator": "==",
                                                     "type": "custom",
                                                     "value": "Mobile"
+                                                },
+                                                {
+                                                    "field": "Session.ShowSpinner",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-123",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "false"
                                                 }
                                             ],
                                             "id": "state-condition-object",
@@ -1508,9 +2903,9 @@
                                             "action": {
                                                 "actionList": [
                                                     {
-                                                        "actionIndex": 1,
+                                                        "actionIndex": 0,
                                                         "card": "{card}",
-                                                        "draggable": true,
+                                                        "draggable": false,
                                                         "isOpen": true,
                                                         "key": "1671223332532-69o5ojhpr",
                                                         "label": "Action",
@@ -1523,12 +2918,12 @@
                                                                 "CustomerInteractionId": "{recordId}",
                                                                 "OtherProduct": "{Session.OtherProduct}",
                                                                 "ProductType": "{ProductType}",
-                                                                "ProfileName": "''",
-                                                                "SelectedFunction": "RelationshipTopic",
-                                                                "ServiceTree": "{ServiceTree}"
+                                                                "SelectedFunction": "RelationshipTopicFront",
+                                                                "ServiceTree": "{ServiceTree}",
+                                                                "VisibleTo": "{Session.PageReference}"
                                                             },
                                                             "hasExtraParams": true,
-                                                            "id": "flex-action-1672235917015",
+                                                            "id": "flex-action-1673619235031",
                                                             "message": "update",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -1553,6 +2948,33 @@
                                                             "type": "Event",
                                                             "vlocityIcon": "standard-default"
                                                         }
+                                                    },
+                                                    {
+                                                        "actionIndex": 2,
+                                                        "card": "{card}",
+                                                        "draggable": false,
+                                                        "isOpen": true,
+                                                        "key": "1673037282270-nygkyvf89",
+                                                        "label": "Action",
+                                                        "stateAction": {
+                                                            "displayName": "Action",
+                                                            "eventName": "valAddRelationshipTopicModal",
+                                                            "extraParams": {
+                                                                "AssetId": "",
+                                                                "Id": "",
+                                                                "Name": "",
+                                                                "OtherProduct": "",
+                                                                "ProductType": "",
+                                                                "ServiceTree": ""
+                                                            },
+                                                            "hasExtraParams": true,
+                                                            "id": "flex-action-1673037887293",
+                                                            "message": "clearselection",
+                                                            "openUrlIn": "Current Window",
+                                                            "subType": "PubSub",
+                                                            "type": "Event",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
                                                     }
                                                 ],
                                                 "eventType": "onchange",
@@ -1564,7 +2986,7 @@
                                                 {
                                                     "id": 0,
                                                     "label": "messageWhenValueMissing",
-                                                    "value": "{Label.cmpFieldValueMissing}"
+                                                    "value": "Este campo é obrigatório."
                                                 }
                                             ],
                                             "fieldBinding": "{Session.OtherProduct}",
@@ -1605,10 +3027,10 @@
                                 {
                                     "class": "slds-col ",
                                     "element": "outputField",
-                                    "elementLabel": "Block-1-Text-7",
-                                    "key": "element_element_block_0_0_outputField_7_0",
+                                    "elementLabel": "Block-0-Text-7",
+                                    "key": "element_element_block_2_0_outputField_6_0",
                                     "name": "Text",
-                                    "parentElementKey": "element_block_0_0",
+                                    "parentElementKey": "element_block_2_0",
                                     "property": {
                                         "card": "{card}",
                                         "data-conditions": {
@@ -1755,16 +3177,428 @@
                                         }
                                     ],
                                     "type": "text"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "flexImg",
+                                    "elementLabel": "Block-0-Image-8",
+                                    "key": "element_element_block_2_0_flexImg_7_0",
+                                    "name": "Image",
+                                    "parentElementKey": "element_block_2_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "Session.ShowSpinner",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-0",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "true"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "extraclass": "slds-align_absolute-center",
+                                        "record": "{record}",
+                                        "size": "",
+                                        "stateImg": {
+                                            "alternativeText": "Image description",
+                                            "imgsrc": "/resource/%vlocity_namespace%__WAITGIF"
+                                        }
+                                    },
+                                    "size": {
+                                        "default": "5",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "slds-m-top_small ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                            {
+                                                "label": "top:small",
+                                                "size": "small",
+                                                "type": "top"
+                                            }
+                                        ],
+                                        "padding": [
+                                        ],
+                                        "size": {
+                                            "default": "5",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_5-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    },
+                                    "styleObjects": [
+                                        {
+                                            "conditionString": "",
+                                            "conditions": "default",
+                                            "draggable": false,
+                                            "key": 0,
+                                            "label": "Default",
+                                            "name": "Default",
+                                            "styleObject": {
+                                                "background": {
+                                                    "color": "",
+                                                    "image": "",
+                                                    "position": "",
+                                                    "repeat": "",
+                                                    "size": ""
+                                                },
+                                                "border": {
+                                                    "color": "",
+                                                    "radius": "",
+                                                    "style": "",
+                                                    "type": "",
+                                                    "width": ""
+                                                },
+                                                "class": "slds-m-top_small ",
+                                                "container": {
+                                                    "class": ""
+                                                },
+                                                "elementStyleProperties": {
+                                                },
+                                                "inlineStyle": "",
+                                                "margin": [
+                                                    {
+                                                        "label": "top:small",
+                                                        "size": "small",
+                                                        "type": "top"
+                                                    }
+                                                ],
+                                                "padding": [
+                                                ],
+                                                "size": {
+                                                    "default": "5",
+                                                    "isResponsive": false
+                                                },
+                                                "sizeClass": "slds-size_5-of-12 ",
+                                                "style": "      \n         ",
+                                                "text": {
+                                                    "align": "",
+                                                    "color": ""
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "outputField",
+                                    "elementLabel": "Block-0-Field-9",
+                                    "key": "element_element_block_2_0_outputField_8_0",
+                                    "name": "Field",
+                                    "parentElementKey": "element_block_2_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "1",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-138",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "2"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "label": "{ProductType}",
+                                        "placeholder": "ProductType",
+                                        "record": "{record}",
+                                        "type": "text"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "sizeClass": "slds-size_12-of-12"
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "outputField",
+                                    "elementLabel": "Block-0-Field-9-clone-0",
+                                    "key": "element_element_block_2_0_outputField_9_0",
+                                    "name": "Field",
+                                    "parentElementKey": "element_block_2_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "1",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-145",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "2"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "label": "{Line}",
+                                        "placeholder": "Line",
+                                        "record": "{record}",
+                                        "type": "text"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "sizeClass": "slds-size_12-of-12"
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "outputField",
+                                    "elementLabel": "Block-0-Field-10-clone-0",
+                                    "key": "element_element_block_2_0_outputField_10_0",
+                                    "name": "Field",
+                                    "parentElementKey": "element_block_2_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "1",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-152",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "2"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "label": "{OtherProduct}",
+                                        "placeholder": "OtherProduct",
+                                        "record": "{record}",
+                                        "type": "text"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "sizeClass": "slds-size_12-of-12"
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "outputField",
+                                    "elementLabel": "Block-0-Field-11-clone-0",
+                                    "key": "element_element_block_2_0_outputField_11_0",
+                                    "name": "Field",
+                                    "parentElementKey": "element_block_2_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "1",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-159",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "2"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "label": "{Address}",
+                                        "placeholder": "Address",
+                                        "record": "{record}",
+                                        "type": "text"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "sizeClass": "slds-size_12-of-12"
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "outputField",
+                                    "elementLabel": "Block-0-Field-12-clone-0",
+                                    "key": "element_element_block_2_0_outputField_12_0",
+                                    "name": "Field",
+                                    "parentElementKey": "element_block_2_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "1",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-166",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "2"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "label": "{SourceSystem}",
+                                        "placeholder": "SourceSystem",
+                                        "record": "{record}",
+                                        "type": "text"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "sizeClass": "slds-size_12-of-12"
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "outputField",
+                                    "elementLabel": "Block-0-Field-13-clone-0",
+                                    "key": "element_element_block_2_0_outputField_13_0",
+                                    "name": "Field",
+                                    "parentElementKey": "element_block_2_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "1",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-173",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "2"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "label": "{Session.ShowTree}",
+                                        "placeholder": "ShowTree",
+                                        "record": "{record}",
+                                        "type": "text"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "sizeClass": "slds-size_12-of-12"
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "outputField",
+                                    "elementLabel": "Block-0-Field-14-clone-0",
+                                    "key": "element_element_block_2_0_outputField_14_0",
+                                    "name": "Field",
+                                    "parentElementKey": "element_block_2_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "1",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-180",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "2"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "label": "{Session.PageReference}",
+                                        "placeholder": "PageReference",
+                                        "record": "{record}",
+                                        "type": "text"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "sizeClass": "slds-size_12-of-12"
+                                    },
+                                    "type": "element"
                                 }
                             ],
                             "class": "slds-col ",
                             "element": "block",
-                            "elementLabel": "Block-1",
+                            "elementLabel": "Block-0",
                             "name": "Block",
                             "property": {
                                 "card": "{card}",
                                 "collapsedByDefault": false,
                                 "collapsible": false,
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "Session.OpenedCanvas",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-15",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "false"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
                                 "label": "Block",
                                 "record": "{record}"
                             },
@@ -1795,11 +3629,11 @@
                                     "class": "slds-col ",
                                     "element": "childCardPreview",
                                     "elementLabel": "Block-2-FlexCard-1",
-                                    "key": "element_element_block_1_0_childCardPreview_1_0",
+                                    "key": "element_element_block_1_0_childCardPreview_0_0",
                                     "name": "FlexCard",
                                     "parentElementKey": "element_block_1_0",
                                     "property": {
-                                        "cardName": "valAddRelationshipTopicModal",
+                                        "cardName": "valAddRelationshipTopicFrontEnd",
                                         "cardNode": "",
                                         "data-conditions": {
                                             "group": [
@@ -1810,7 +3644,7 @@
                                         "isChildCardTrackingEnabled": false,
                                         "parentAttribute": {
                                             "CustomerInteractionId": "CustomerInteractionId",
-                                            "{PCusttedFunction}": "RelationshipTopic"
+                                            "SelectedFunction": "RelationshipTopicFront"
                                         },
                                         "recordId": "{recordId}",
                                         "selectedState": "Active"
@@ -1828,7 +3662,7 @@
                             ],
                             "class": "slds-col ",
                             "element": "block",
-                            "elementLabel": "Block-2",
+                            "elementLabel": "Block-1",
                             "name": "Block",
                             "property": {
                                 "card": "{card}",
@@ -1847,36 +3681,22 @@
                                                     "value": "Mobile"
                                                 },
                                                 {
-                                                    "group": [
-                                                        {
-                                                            "field": "Line",
-                                                            "hasMergeField": false,
-                                                            "id": "state-new-condition-190",
-                                                            "operator": "==",
-                                                            "type": "custom",
-                                                            "value": "Outros"
-                                                        },
-                                                        {
-                                                            "field": "Line",
-                                                            "hasMergeField": false,
-                                                            "id": "state-new-condition-277",
-                                                            "logicalOperator": "||",
-                                                            "operator": "!=",
-                                                            "type": "custom",
-                                                            "value": ""
-                                                        }
-                                                    ],
-                                                    "id": "state-new-group-191",
-                                                    "logicalOperator": "&&"
-                                                },
-                                                {
-                                                    "field": "1",
+                                                    "field": "Session.ShowTree",
                                                     "hasMergeField": false,
-                                                    "id": "state-new-condition-8",
+                                                    "id": "state-new-condition-111",
                                                     "logicalOperator": "&&",
                                                     "operator": "==",
                                                     "type": "custom",
-                                                    "value": "2"
+                                                    "value": "true"
+                                                },
+                                                {
+                                                    "field": "Session.OpenedCanvas",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-23",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "false"
                                                 }
                                             ],
                                             "id": "state-new-group-12"
@@ -1892,35 +3712,35 @@
                                                     "value": "Fixed"
                                                 },
                                                 {
-                                                    "field": "Line",
+                                                    "field": "SourceSystem",
                                                     "hasMergeField": false,
                                                     "id": "state-new-condition-114",
                                                     "logicalOperator": "&&",
-                                                    "operator": "!=",
+                                                    "operator": "==",
                                                     "type": "custom",
-                                                    "value": "Outros"
+                                                    "value": "Siebel"
                                                 },
                                                 {
-                                                    "field": "1",
+                                                    "field": "Session.ShowTree",
                                                     "hasMergeField": false,
-                                                    "id": "state-new-condition-73",
+                                                    "id": "state-new-condition-40",
                                                     "logicalOperator": "&&",
                                                     "operator": "==",
                                                     "type": "custom",
-                                                    "value": "2"
+                                                    "value": "true"
+                                                },
+                                                {
+                                                    "field": "Session.OpenedCanvas",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-80",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "false"
                                                 }
                                             ],
                                             "id": "state-new-group-76",
                                             "logicalOperator": "||"
-                                        },
-                                        {
-                                            "field": "Session.ShowTree",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-137",
-                                            "logicalOperator": "||",
-                                            "operator": "==",
-                                            "type": "custom",
-                                            "value": "true"
                                         }
                                     ],
                                     "id": "state-condition-object",
@@ -1957,7 +3777,7 @@
                                     "parentElementKey": "element_block_2_0",
                                     "property": {
                                         "card": "{card}",
-                                        "mergeField": "%3Cdiv%3E%3Cstrong%3EFixa+Outros%3C/strong%3E.Cliente%20indispon&iacute;vel%20em%20Salesforce,%20prossiga%20com%20o%20pedido%20do%20cliente%20diretamente%20pelo%20GPS.&nbsp;%3C/div%3E",
+                                        "mergeField": "%3Cdiv%3E&nbsp;%3C/div%3E%0A%3Cdiv%3E%3Cspan%20style=%22color:%20#e03e2d;%20font-size:%2012pt;%22%3ECliente%20indispon&iacute;vel%20em%20Salesforce,%20prossiga%20com%20o%20pedido%20do%20cliente%20diretamente%20pelo%20GPS.&nbsp;%3C/span%3E%3C/div%3E%0A%3Cdiv%3E&nbsp;%3C/div%3E",
                                         "record": "{record}"
                                     },
                                     "size": {
@@ -2114,7 +3934,7 @@
                                     "parentElementKey": "element_block_3_0",
                                     "property": {
                                         "card": "{card}",
-                                        "mergeField": "%3Cdiv%3E%3Cstrong%3Efixa+!Sibel%3C/strong%3E.Aten&ccedil;&atilde;o!%20Esse%20produto%20est&aacute;%20no%20Next,%20acesse%20o%20sistema%20e%20siga%20com%20o%20atendimento.%3C/div%3E",
+                                        "mergeField": "%3Cdiv%3E&nbsp;%3C/div%3E%0A%3Cdiv%3E%3Cspan%20style=%22color:%20#e03e2d;%20font-size:%2012pt;%22%3EAten&ccedil;&atilde;o!%20Esse%20produto%20est&aacute;%20no%20Next,%20acesse%20o%20sistema%20e%20siga%20com%20o%20atendimento.%3C/span%3E%3C/div%3E%0A%3Cdiv%3E&nbsp;%3C/div%3E",
                                         "record": "{record}"
                                     },
                                     "size": {
@@ -2234,16 +4054,16 @@
                                             "logicalOperator": "&&",
                                             "operator": "!=",
                                             "type": "custom",
-                                            "value": ""
+                                            "value": "Outros"
                                         },
                                         {
                                             "field": "SourceSystem",
                                             "hasMergeField": false,
-                                            "id": "state-new-condition-33",
+                                            "id": "state-new-condition-132",
                                             "logicalOperator": "&&",
-                                            "operator": "!=",
+                                            "operator": "==",
                                             "type": "custom",
-                                            "value": "SIEBEL"
+                                            "value": "Next"
                                         }
                                     ],
                                     "id": "state-condition-object",
@@ -2349,8 +4169,9 @@
         {
             "actions": [
             ],
-            "blankCardState": true,
+            "blankCardState": false,
             "childCards": [
+                "valMessageAlert"
             ],
             "components": {
                 "layer-0": {
@@ -2469,40 +4290,19 @@
                             "type": "text"
                         },
                         {
-                            "children": [
-                                {
-                                    "class": "slds-col ",
-                                    "element": "outputField",
-                                    "elementLabel": "Block-1-Text-0",
-                                    "key": "element_element_block_1_1_outputField_0_1",
-                                    "name": "Text",
-                                    "parentElementKey": "element_block_1_1",
-                                    "property": {
-                                        "card": "{card}",
-                                        "mergeField": "%3Cdiv%3EOperador%20sem%20permiss&atilde;o.%3C/div%3E",
-                                        "record": "{record}"
-                                    },
-                                    "size": {
-                                        "default": "12",
-                                        "isResponsive": false
-                                    },
-                                    "stateIndex": 1,
-                                    "styleObject": {
-                                        "sizeClass": "slds-size_12-of-12"
-                                    },
-                                    "type": "text"
-                                }
-                            ],
                             "class": "slds-col ",
-                            "element": "block",
-                            "elementLabel": "Block-2",
-                            "name": "Block",
+                            "element": "childCardPreview",
+                            "elementLabel": "FlexCard-1",
+                            "name": "FlexCard",
                             "property": {
-                                "card": "{card}",
-                                "collapsedByDefault": false,
-                                "collapsible": false,
-                                "label": "Block",
-                                "record": "{record}"
+                                "cardName": "valMessageAlert",
+                                "cardNode": "",
+                                "isChildCardTrackingEnabled": false,
+                                "parentAttribute": {
+                                    "ErrorMessage": "Acesso não autorizado"
+                                },
+                                "recordId": "{recordId}",
+                                "selectedState": "WarningCustomAttribute"
                             },
                             "size": {
                                 "default": "12",
@@ -2510,20 +4310,9 @@
                             },
                             "stateIndex": 1,
                             "styleObject": {
-                                "class": "slds-p-around_x-small",
-                                "padding": [
-                                    {
-                                        "size": "x-small",
-                                        "type": "around"
-                                    }
-                                ],
-                                "size": {
-                                    "default": "12",
-                                    "isResponsive": false
-                                },
-                                "sizeClass": "slds-size_12-of-12 "
+                                "sizeClass": "slds-size_12-of-12"
                             },
-                            "type": "block"
+                            "type": "element"
                         }
                     ]
                 }
@@ -2543,7 +4332,7 @@
             "fields": [
             ],
             "isSmartAction": false,
-            "name": "Operador sem permissão",
+            "name": "NoPermission",
             "omniscripts": [
             ],
             "smartAction": {
@@ -2618,6 +4407,14 @@
                         "name": "recordId",
                         "type": "String"
                     }
+                },
+                {
+                    "@attributes": {
+                        "default": "ORG VIVO - B2C",
+                        "label": "VisibleTo",
+                        "name": "cfPageReference",
+                        "type": "String"
+                    }
                 }
             ]
         },
@@ -2632,6 +4429,36 @@
                         "name": "debug",
                         "type": "Boolean"
                     }
+                },
+                {
+                    "@attributes": {
+                        "default": "ORG VIVO - B2C",
+                        "label": "VisibleTo",
+                        "name": "cfPageReference",
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        {
+            "@attributes": {
+                "targets": "lightningCommunity__Default",
+                "xmlns": "http://soap.sforce.com/2006/04/metadata"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "name": "recordId",
+                        "type": "String"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "default": "ORG VIVO - B2C",
+                        "label": "VisibleTo",
+                        "name": "cfPageReference",
+                        "type": "String"
+                    }
                 }
             ]
         }
@@ -2642,12 +4469,13 @@
         "isExposed": true,
         "masterLabel": "valServiceFlow",
         "runtimeNamespace": "%vlocity_namespace%",
-        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiIvPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIi8+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiIvPjwvdGFyZ2V0Q29uZmlnPg==",
+        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiIvPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIi8+PHByb3BlcnR5IGRlZmF1bHQ9Ik9SRyBWSVZPIC0gQjJDIiBuYW1lPSJjZlBhZ2VSZWZlcmVuY2UiIHR5cGU9IlN0cmluZyIgbGFiZWw9IlZpc2libGVUbyIvPjwvdGFyZ2V0Q29uZmlnPjx0YXJnZXRDb25maWcgeG1sbnM9Imh0dHA6Ly9zb2FwLnNmb3JjZS5jb20vMjAwNi8wNC9tZXRhZGF0YSIgdGFyZ2V0cz0ibGlnaHRuaW5nX19SZWNvcmRQYWdlIj48cHJvcGVydHkgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iLz48cHJvcGVydHkgZGVmYXVsdD0iT1JHIFZJVk8gLSBCMkMiIG5hbWU9ImNmUGFnZVJlZmVyZW5jZSIgdHlwZT0iU3RyaW5nIiBsYWJlbD0iVmlzaWJsZVRvIi8+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdDb21tdW5pdHlfX0RlZmF1bHQiPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIi8+PHByb3BlcnR5IGRlZmF1bHQ9Ik9SRyBWSVZPIC0gQjJDIiBuYW1lPSJjZlBhZ2VSZWZlcmVuY2UiIHR5cGU9IlN0cmluZyIgbGFiZWw9IlZpc2libGVUbyIvPjwvdGFyZ2V0Q29uZmlnPg==",
         "targets": {
             "target": [
                 "lightning__RecordPage",
                 "lightning__AppPage",
-                "lightning__HomePage"
+                "lightningCommunity__Page",
+                "lightningCommunity__Default"
             ]
         }
     }
