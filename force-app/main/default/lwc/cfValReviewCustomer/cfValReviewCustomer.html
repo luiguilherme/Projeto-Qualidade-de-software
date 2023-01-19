@@ -1,0 +1,433 @@
+<template>
+            <div class="slds-grid slds-wrap slds-is-relative ">
+            <div style="position: fixed;z-index: 999999;top: 0;right: 0;">
+  <vlocity_cmt-toast class="flexcard-toast-element" theme="slds" title="" message="" styletype=""> </vlocity_cmt-toast>
+</div>
+            <div if:true={showLoader} class="slds-is-absolute vloc-loader_override" style="height: 100%; width: 100%; min-height:50px; background: transparent; z-index: 99;">
+  <div>
+   <vlocity_cmt-spinner
+      variant="brand"
+      alternative-text="Loading content..."
+      size="medium"
+      theme="slds"
+      ></vlocity_cmt-spinner>
+  </div>
+</div>
+            <template if:false={hasPermission}>
+              You don't have required permissions to view this card.
+            </template>
+            <template if:true={hasPermission}>
+              <template if:true={hasRecords}>
+                        <template for:each={_records} for:item="record" for:index="rindex">
+                            <vlocity_cmt-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-bottom_x-small " style="      
+         ">
+          <div data-style-id="state0element0" class="slds-col    slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0" class="slds-col   slds-p-bottom_xx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0block_element0" class="slds-col  slds-p-top_x-small slds-p-left_x-small  slds-size_9-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element0block_element0block_element0_child"   record={record}  card={card}  merge-field="%3Cdiv%3E%3Cstrong%3E%3Cspan%20style=%22font-size:%2018pt;%22%3E%7BCustomerDetails.PersonalData.CustomerName%7D%3C/span%3E%3C/strong%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element0block_element0block_element1" class="slds-col   slds-p-around_x-small slds-size_3-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element0block_element0block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0block_element1block_element0" class="slds-col  slds-p-top_xx-small slds-m-top_xx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         background: #9B5299;
+no-repeat padding-box;
+border-radius: 12px;
+text-align: center;
+color: #FFFFFF;
+height: 27px;
+letter-spacing: 0px;" ><vlocity_cmt-output-field data-style-id="state0element0block_element0block_element1block_element0_child"   record={record}  card={card}  field-name="CustomerDetails.CustomerSegment"  placeholder="Purpura"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1" class="slds-col   slds-p-around_x-small slds-size_12-of-12 " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element0block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element1block_element0" class="slds-col  slds-m-bottom_small  slds-size_12-of-12  " data-rindex={rindex} style="      
+           width: 100%;
+  border-bottom: 1px solid #DDDBDA;
+   height: 8px;" ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element0_child"   record={record}  card={card}  merge-field=""  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element0block_element1block_element1" class="slds-col    slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element1block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element1block_element1block_element0" class="slds-col  classe slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element0block_element1block_element1block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element1block_element1block_element0_child flexActionElement" 
+        data-action-element-class="state0element0block_element1block_element1block_element0_child" data-action-key="state0element0block_element1block_element1block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0block1block2action0"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":false,"isOpen":true,"key":"1648232047845-ew5io5iee","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"actionConditions":{"group":[{"field":"1","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"2"}],"id":"state-condition-object","isParent":true},"id":"flex-action-1648232072549","openUrlIn":"Current Window","targetType":"Web Page","type":"Custom"}}]'  display-as-button="false"  flyout-details='\{}'  icon-color="#DDDBDA"  icon-name="utility:identity"  icon-only="true"  icon-size="x-small"  label="\{CustomerDetails.Documents.DocumentType}"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element0block_element1block_element1block_element1" class="slds-col  slds-p-left_xx-small slds-p-top_xx-small  slds-size_7-of-12  " data-rindex={rindex} style="      
+         
+" ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element1block_element1_child"   record={record}  card={card}  field-level-help=""  field-name="\{CustomerDetails.Documents.DocumentNumber}"  label=""  placeholder=""  styles='\{"label":{"color":""},"value":{"color":"","textDecoration":"teste"}}'  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element0block_element1block_element1block_element2" class="slds-col  slds-text-align_right  slds-size_4-of-12  " data-rindex={rindex} style="      
+          font-size: 14px;" ><vlocity_cmt-flex-action data-style-id="state0element0block_element1block_element1block_element2_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element1block_element1block_element2_child flexActionElement" 
+        data-action-element-class="state0element0block_element1block_element1block_element2_child" data-action-key="state0element0block_element1block_element1block_element2" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0block1block2action2"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"card":"{card}","contextId":"\\{CustomerDetails.PersonalData.AccountId}","displayAsButton":false,"draggable":true,"hideActionIcon":true,"isOpen":true,"key":"1658262224820-71wsjdgcv","label":"Action","record":"{record}","stateAction":{"displayName":"Detalhes","id":"flex-action-1659123135196","isLwcOS":true,"layoutType":"lightning","omniType":{"Id":"a308D00000020qUQAQ","Name":"val/AccountDetailsPage/English","isLwcOs":true},"openUrlIn":"New Tab/Window","tabLabel":"{CustomerDetails.PersonalData.CustomerName}","type":"OmniScript","vlocityIcon":"standard-default"},"stateObj":"{record}","styles":{"label":{"color":"#1589EE"}}}]'  display-as-button="false"  flyout-details='\{}'  hide-action-icon="true"  icon-name="standard-default"  label="Detalhes"  styles='\{"label":{"color":"#1589EE"}}'  theme="slds"  ></vlocity_cmt-flex-action>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1block_element2" class="slds-col   slds-p-vertical_xxx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element1block_element2_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element1block_element2block_element0" class="slds-col  classe slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element0block_element1block_element2block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element1block_element2block_element0_child flexActionElement" 
+        data-action-element-class="state0element0block_element1block_element2block_element0_child" data-action-key="state0element0block_element1block_element2block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0block1block2action0clone0"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":false,"isOpen":true,"key":"1648232047845-ew5io5iee","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"actionConditions":{"group":[{"field":"1","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"2"}],"id":"state-condition-object","isParent":true},"id":"flex-action-1648232072549","openUrlIn":"Current Window","targetType":"Web Page","type":"Custom"}}]'  display-as-button="false"  flyout-details='\{}'  icon-color="#DDDBDA"  icon-name="utility:user"  icon-only="true"  icon-size="x-small"  label="Tipo de Pessoa"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element0block_element1block_element2block_element1" class="slds-col  slds-p-left_xx-small slds-p-top_xx-small  slds-size_11-of-12  " data-rindex={rindex} style="      
+         color:#3E3E3C;" ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element2block_element1_child"   record={record}  card={card}  field-name="\{CustomerDetails.PersonalData.PersonType}"  format="DD/MM/YYYY"  label=""  mask="#,##0.###"  placeholder="---"  type="date"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1block_element3" class="slds-col   slds-p-vertical_xxx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element1block_element3_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element1block_element3block_element0" class="slds-col  classe slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element0block_element1block_element3block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element1block_element3block_element0_child flexActionElement" 
+        data-action-element-class="state0element0block_element1block_element3block_element0_child" data-action-key="state0element0block_element1block_element3block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0block1block4action0clone0"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":false,"isOpen":true,"key":"1648232047845-ew5io5iee","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"actionConditions":{"group":[{"field":"1","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"2"}],"id":"state-condition-object","isParent":true},"id":"flex-action-1648232072549","openUrlIn":"Current Window","targetType":"Web Page","type":"Custom"}}]'  display-as-button="false"  flyout-details='\{}'  icon-color="#DDDBDA"  icon-name="utility:key_dates"  icon-only="true"  icon-size="x-small"  label="Data de Nascimento"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element0block_element1block_element3block_element1" class="slds-col  slds-p-left_xx-small slds-p-top_xx-small  slds-size_11-of-12  " data-rindex={rindex} style="      
+         color:#3E3E3C;" ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element3block_element1_child"   record={record}  card={card}  field-name="CustomerDetails.PersonalData.Birthdate"  format="DD/MM/YYYY"  label=""  mask="#,##0.###"  placeholder="---"  type="date"  use-absolute-date="false"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1block_element4" class="slds-col   slds-p-vertical_xxx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element1block_element4_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element1block_element4block_element0" class="slds-col  classe slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element0block_element1block_element4block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element1block_element4block_element0_child flexActionElement" 
+        data-action-element-class="state0element0block_element1block_element4block_element0_child" data-action-key="state0element0block_element1block_element4block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0block1block2clone0action0clone0"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":false,"isOpen":true,"key":"1648232047845-ew5io5iee","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"actionConditions":{"group":[{"field":"1","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"2"}],"id":"state-condition-object","isParent":true},"id":"flex-action-1648232072549","openUrlIn":"Current Window","targetType":"Web Page","type":"Custom"}}]'  display-as-button="false"  flyout-details='\{}'  icon-color="#DDDBDA"  icon-name="utility:date_input"  icon-only="true"  icon-size="x-small"  label="Tempo como Cliente Móvel"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element0block_element1block_element4block_element1" class="slds-col  slds-p-left_xx-small slds-p-top_xx-small  slds-size_11-of-12  " data-rindex={rindex} style="      
+         color:#3E3E3C;" ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element4block_element1_child"   record={record}  card={card}  field-name="CustomerDetails.AgingMobile"  format="DD/MM/YYYY"  label=""  placeholder="---"  type="date"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1block_element5" class="slds-col   slds-p-vertical_xxx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element1block_element5_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element1block_element5block_element0" class="slds-col  classe slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element0block_element1block_element5block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element1block_element5block_element0_child flexActionElement" 
+        data-action-element-class="state0element0block_element1block_element5block_element0_child" data-action-key="state0element0block_element1block_element5block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0block1block2clone0action0clone0"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":false,"isOpen":true,"key":"1648232047845-ew5io5iee","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"actionConditions":{"group":[{"field":"1","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"2"}],"id":"state-condition-object","isParent":true},"id":"flex-action-1648232072549","openUrlIn":"Current Window","targetType":"Web Page","type":"Custom"}}]'  display-as-button="false"  flyout-details='\{}'  icon-color="#DDDBDA"  icon-name="utility:date_input"  icon-only="true"  icon-size="x-small"  label="Tempo como Cliente Fixa"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element0block_element1block_element5block_element1" class="slds-col  slds-p-left_xx-small slds-p-top_xx-small  slds-size_11-of-12  " data-rindex={rindex} style="      
+         color:#3E3E3C;" ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element5block_element1_child"   record={record}  card={card}  field-name="CustomerDetails.TimeAsClient"  format="DD/MM/YYYY"  label=""  placeholder="---"  type="date"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1block_element6" class="slds-col   slds-p-vertical_xxx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element1block_element6_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element1block_element6block_element0" class="slds-col  classe slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element0block_element1block_element6block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element1block_element6block_element0_child flexActionElement" 
+        data-action-element-class="state0element0block_element1block_element6block_element0_child" data-action-key="state0element0block_element1block_element6block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0block1block5action0clone0"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":false,"isOpen":true,"key":"1648232047845-ew5io5iee","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"actionConditions":{"group":[{"field":"1","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"2"}],"id":"state-condition-object","isParent":true},"id":"flex-action-1648232072549","openUrlIn":"Current Window","targetType":"Web Page","type":"Custom"}}]'  display-as-button="false"  flyout-details='\{}'  icon-color="#DDDBDA"  icon-name="utility:call"  icon-only="true"  icon-size="x-small"  label="Telefone Principal"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element0block_element1block_element6block_element1" class="slds-col  slds-p-left_xx-small slds-p-top_xx-small  slds-size_11-of-12  " data-rindex={rindex} style="      
+         color:#3E3E3C;" ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element6block_element1_child"   record={record}  card={card}  field-name="CustomerDetails.ContactDetails.ContactPhone"  format="DD/MM/YYYY"  label=""  mask="#,##0.###"  placeholder="---"  styles='\{}'  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1block_element7" class="slds-col   slds-p-vertical_xxx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element1block_element7_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element1block_element7block_element0" class="slds-col  classe slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element0block_element1block_element7block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element1block_element7block_element0_child flexActionElement" 
+        data-action-element-class="state0element0block_element1block_element7block_element0_child" data-action-key="state0element0block_element1block_element7block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0block1block6action0clone0"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":false,"isOpen":true,"key":"1648232047845-ew5io5iee","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"actionConditions":{"group":[{"field":"1","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"2"}],"id":"state-condition-object","isParent":true},"id":"flex-action-1648232072549","openUrlIn":"Current Window","targetType":"Web Page","type":"Custom"}}]'  display-as-button="false"  flyout-details='\{}'  icon-color="#DDDBDA"  icon-name="utility:email"  icon-only="true"  icon-size="x-small"  label="E-mail Principal"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element0block_element1block_element7block_element1" class="slds-col  slds-p-left_xx-small slds-p-top_xx-small  slds-size_11-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element7block_element1_child"   record={record}  card={card}  field-name="CustomerDetails.ContactDetails.Email"  format="DD/MM/YYYY"  label=""  mask="#,##0.###"  placeholder="Não Cadastrado"  styles='\{"value":{"color":"#FF0000"}}'  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1block_element8" class="slds-col   slds-p-vertical_xxx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element1block_element8_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element1block_element8block_element0" class="slds-col  classe slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element0block_element1block_element8block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element1block_element8block_element0_child flexActionElement" 
+        data-action-element-class="state0element0block_element1block_element8block_element0_child" data-action-key="state0element0block_element1block_element8block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0block1block6action0clone0"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":false,"isOpen":true,"key":"1648232047845-ew5io5iee","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"actionConditions":{"group":[{"field":"1","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"2"}],"id":"state-condition-object","isParent":true},"id":"flex-action-1648232072549","openUrlIn":"Current Window","targetType":"Web Page","type":"Custom"}}]'  display-as-button="false"  flyout-details='\{}'  icon-color="#DDDBDA"  icon-name="utility:home"  icon-only="true"  icon-size="x-small"  label="Filiação"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element0block_element1block_element8block_element1" class="slds-col  slds-p-left_xx-small slds-p-top_xx-small  slds-size_11-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element8block_element1_child"   record={record}  card={card}  field-name="CustomerDetails.PersonalData.MothersName"  format="DD/MM/YYYY"  label=""  mask="#,##0.###"  placeholder="---"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1block_element9" class="slds-col   slds-p-vertical_xxx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element1block_element9_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element1block_element9block_element0" class="slds-col   slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element0block_element1block_element9block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element1block_element9block_element0_child flexActionElement" 
+        data-action-element-class="state0element0block_element1block_element9block_element0_child" data-action-key="state0element0block_element1block_element9block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0block1block8clone0action1"   state-obj={record}  record={record}  card={card}  action-list='\[{"stateAction":{"Web Page":{"targetName":"/apex"},"id":"test-action","openUrlIn":"Current Window","targetType":"Web Page","type":"Custom"}}]'  icon-color="#DDDBDA"  icon-name="utility:adduser"  icon-only="true"  icon-size="x-small"  label="Tipo de Cliente"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element0block_element1block_element9block_element1" class="slds-col  slds-p-left_xx-small slds-p-top_xx-small  slds-size_10-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element9block_element1_child"   record={record}  card={card}  field-name="\{CustomerDetails.CustomerType}"  format="DD/MM/YYYY"  label=""  mask="#,##0.###"  placeholder="---"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1block_element10" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+           width: 100%;
+  border-top: 1px solid #DDDBDA;" ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element10_child"   record={record}  card={card}  merge-field=""  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element2" class="slds-col  slds-text-align_center slds-m-top_small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         display: none;" ><vlocity_cmt-flex-action data-style-id="state0element0block_element2_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element2_child flexActionElement" 
+        data-action-element-class="state0element0block_element2_child" data-action-key="state0element0block_element2" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0action2"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"buttonVariant":"brand","card":"{card}","contextId":"\\{recordId}","displayAsButton":true,"draggable":false,"iconColor":"#ffffff","iconSize":"xx-small","isOpen":true,"key":"1648652259406-n0yfkbbnz","label":"Action","record":"{record}","stateAction":{"displayName":"Habilitar Linha","id":"flex-action-1642015185382","isLwcOS":true,"layoutType":"lightning","omniType":{"Id":"a30760000004Fn0AAE","Name":"val/salesJourney/Portuguese (Brazil)","isLwcOs":true},"openUrlIn":"Current Window","tabLabel":"Carrinho","type":"OmniScript","vForcewithNsPrefix":"vlocity_cmt__OmniScriptUniversalPage","vlocityIcon":"utility:cart"},"stateObj":"{record}"}]'  button-variant="brand"  context-id=""  display-as-button="true"  flyout-details='\{}'  hide-action-icon="false"  icon-color="#ffffff"  icon-name="utility:cart"  icon-size="xx-small"  label="Habilitar Linha"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1" class="slds-col   slds-p-around_x-small slds-size_12-of-12 condition-element" data-rindex={rindex} style=""  data-conditions='\{"group":[{"field":"permissionEnablePrepaid","hasMergeField":false,"id":"state-new-condition-4","operator":"==","type":"custom","value":"true"}],"id":"state-condition-object","isParent":true}' >
+    <vlocity_cmt-block data-style-id="state0element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  data-conditions='\{"group":[{"field":"permissionEnablePrepaid","hasMergeField":false,"id":"state-new-condition-4","operator":"==","type":"custom","value":"true"}],"id":"state-condition-object","isParent":true}'  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element0" class="slds-col  slds-text-align_center  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element1block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element1block_element0_child flexActionElement" 
+        data-action-element-class="state0element1block_element0_child" data-action-key="state0element1block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block1action0"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"contextId":"\\{recordId}","draggable":true,"isOpen":true,"key":"1661197259110-t6w3d0tmh","label":"Action","stateAction":{"id":"flex-action-1661197295170","isLwcOS":true,"layoutType":"lightning","omniType":{"Id":"a30760000004N8VAAU","Name":"val/salesJourney/Portuguese (Brazil)","isLwcOs":true},"openUrlIn":"Current Window","tabLabel":"Carrinho","type":"OmniScript"}}]'  button-variant="brand"  display-as-button="true"  flyout-details='\{}'  icon-color="#ffffff"  icon-name="utility:cart"  icon-size="x-small"  label="Habilitar Linha"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element2" class="slds-col   slds-p-around_x-small slds-size_12-of-12 " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element2_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state><vlocity_cmt-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="1" data-rindex={rindex} class="cf-vlocity-state-1 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-top_x-small slds-p-left_x-small slds-p-right_x-small " style="     border-top: #DDDBDA 1px solid;border-right: #DDDBDA 1px solid;border-bottom: #DDDBDA 1px solid;border-left: #DDDBDA 1px solid; 
+    border-radius:4px;     box-shadow: rgb(0 0 0 / 16%) 0px 1px 3px;">
+          <div data-style-id="state1element0" class="slds-col   slds-border_bottom  slds-size_12-of-12  " data-rindex={rindex} style="     border-bottom: #cccccc 1px solid; 
+         " >
+    <vlocity_cmt-block data-style-id="state1element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state1element0block_element0" class="slds-col  slds-p-top_x-small slds-p-left_x-small  slds-size_8-of-12  " data-rindex={rindex} style="      
+         max-width: 100%;
+overflow-x: visible;
+overflow-y:hidden;" ><vlocity_cmt-output-field data-style-id="state1element0block_element0_child"   record={record}  card={card}  merge-field="%3Cdiv%3E%3Cstrong%3E%3Cspan%20style=%22font-size:%2018pt;%22%3E%7BCustomerDetails.PersonalData.CustomerName%7D%3C/span%3E%3C/strong%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element0block_element1" class="slds-col   slds-p-around_x-small  slds-size_4-of-12  " data-rindex={rindex} style="      
+         max-width:100%;" >
+    <vlocity_cmt-block data-style-id="state1element0block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state1element0block_element1block_element0" class="slds-col  slds-p-top_xx-small slds-m-top_xx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         background: #9B5299;
+no-repeat padding-box;
+border-radius: 12px;
+text-align: center;
+color: #FFFFFF;
+height: 27px;
+letter-spacing: 0px;" ><vlocity_cmt-output-field data-style-id="state1element0block_element1block_element0_child"   record={record}  card={card}  field-name="CustomerDetails.CustomerSegment"  placeholder="Purpura"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state1element1" class="slds-col   slds-card slds-scrollable_x slds-size_12-of-12  " data-rindex={rindex} style="      
+         max-width: 100%;
+overflow-x: visible;
+overflow-y:hidden;" >
+    <vlocity_cmt-block data-style-id="state1element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state1element1block_element0" class="slds-col   slds-large-size_12-of-12 slds-medium-size_12-of-12 slds-small-size_12-of-12 slds-size_12-of-12  " data-rindex={rindex} style="      
+         max-width:100%;" ><c-cf-val-review-customer-body data-style-id="state1element1block_element0_child"  tracking-obj={_childCardTrackingObj}  is-inside-parent={insideParent} parent-uniquekey={uniqueKey}  card-node=""  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  is-child-card-tracking-enabled="false"  object-api-name={objectApiName}  theme="slds"   onupdateparent={updateParentData}></c-cf-val-review-customer-body>
+    </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                        </template>
+                      </template>
+                      <template if:false={hasRecords}>
+                            <vlocity_cmt-flex-card-state  record={record} data-statue="false"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-bottom_x-small " style="      
+         ">
+          <div data-style-id="state0element0" class="slds-col    slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0" class="slds-col   slds-p-bottom_xx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0block_element0" class="slds-col  slds-p-top_x-small slds-p-left_x-small  slds-size_9-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element0block_element0block_element0_child"   record={record}  card={card}  merge-field="%3Cdiv%3E%3Cstrong%3E%3Cspan%20style=%22font-size:%2018pt;%22%3E%7BCustomerDetails.PersonalData.CustomerName%7D%3C/span%3E%3C/strong%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element0block_element0block_element1" class="slds-col   slds-p-around_x-small slds-size_3-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element0block_element0block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0block_element1block_element0" class="slds-col  slds-p-top_xx-small slds-m-top_xx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         background: #9B5299;
+no-repeat padding-box;
+border-radius: 12px;
+text-align: center;
+color: #FFFFFF;
+height: 27px;
+letter-spacing: 0px;" ><vlocity_cmt-output-field data-style-id="state0element0block_element0block_element1block_element0_child"   record={record}  card={card}  field-name="CustomerDetails.CustomerSegment"  placeholder="Purpura"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1" class="slds-col   slds-p-around_x-small slds-size_12-of-12 " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element0block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element1block_element0" class="slds-col  slds-m-bottom_small  slds-size_12-of-12  " data-rindex={rindex} style="      
+           width: 100%;
+  border-bottom: 1px solid #DDDBDA;
+   height: 8px;" ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element0_child"   record={record}  card={card}  merge-field=""  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element0block_element1block_element1" class="slds-col    slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element1block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element1block_element1block_element0" class="slds-col  classe slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element0block_element1block_element1block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element1block_element1block_element0_child flexActionElement" 
+        data-action-element-class="state0element0block_element1block_element1block_element0_child" data-action-key="state0element0block_element1block_element1block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0block1block2action0"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":false,"isOpen":true,"key":"1648232047845-ew5io5iee","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"actionConditions":{"group":[{"field":"1","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"2"}],"id":"state-condition-object","isParent":true},"id":"flex-action-1648232072549","openUrlIn":"Current Window","targetType":"Web Page","type":"Custom"}}]'  display-as-button="false"  flyout-details='\{}'  icon-color="#DDDBDA"  icon-name="utility:identity"  icon-only="true"  icon-size="x-small"  label="\{CustomerDetails.Documents.DocumentType}"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element0block_element1block_element1block_element1" class="slds-col  slds-p-left_xx-small slds-p-top_xx-small  slds-size_7-of-12  " data-rindex={rindex} style="      
+         
+" ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element1block_element1_child"   record={record}  card={card}  field-level-help=""  field-name="\{CustomerDetails.Documents.DocumentNumber}"  label=""  placeholder=""  styles='\{"label":{"color":""},"value":{"color":"","textDecoration":"teste"}}'  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element0block_element1block_element1block_element2" class="slds-col  slds-text-align_right  slds-size_4-of-12  " data-rindex={rindex} style="      
+          font-size: 14px;" ><vlocity_cmt-flex-action data-style-id="state0element0block_element1block_element1block_element2_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element1block_element1block_element2_child flexActionElement" 
+        data-action-element-class="state0element0block_element1block_element1block_element2_child" data-action-key="state0element0block_element1block_element1block_element2" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0block1block2action2"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"card":"{card}","contextId":"\\{CustomerDetails.PersonalData.AccountId}","displayAsButton":false,"draggable":true,"hideActionIcon":true,"isOpen":true,"key":"1658262224820-71wsjdgcv","label":"Action","record":"{record}","stateAction":{"displayName":"Detalhes","id":"flex-action-1659123135196","isLwcOS":true,"layoutType":"lightning","omniType":{"Id":"a308D00000020qUQAQ","Name":"val/AccountDetailsPage/English","isLwcOs":true},"openUrlIn":"New Tab/Window","tabLabel":"{CustomerDetails.PersonalData.CustomerName}","type":"OmniScript","vlocityIcon":"standard-default"},"stateObj":"{record}","styles":{"label":{"color":"#1589EE"}}}]'  display-as-button="false"  flyout-details='\{}'  hide-action-icon="true"  icon-name="standard-default"  label="Detalhes"  styles='\{"label":{"color":"#1589EE"}}'  theme="slds"  ></vlocity_cmt-flex-action>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1block_element2" class="slds-col   slds-p-vertical_xxx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element1block_element2_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element1block_element2block_element0" class="slds-col  classe slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element0block_element1block_element2block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element1block_element2block_element0_child flexActionElement" 
+        data-action-element-class="state0element0block_element1block_element2block_element0_child" data-action-key="state0element0block_element1block_element2block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0block1block2action0clone0"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":false,"isOpen":true,"key":"1648232047845-ew5io5iee","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"actionConditions":{"group":[{"field":"1","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"2"}],"id":"state-condition-object","isParent":true},"id":"flex-action-1648232072549","openUrlIn":"Current Window","targetType":"Web Page","type":"Custom"}}]'  display-as-button="false"  flyout-details='\{}'  icon-color="#DDDBDA"  icon-name="utility:user"  icon-only="true"  icon-size="x-small"  label="Tipo de Pessoa"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element0block_element1block_element2block_element1" class="slds-col  slds-p-left_xx-small slds-p-top_xx-small  slds-size_11-of-12  " data-rindex={rindex} style="      
+         color:#3E3E3C;" ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element2block_element1_child"   record={record}  card={card}  field-name="\{CustomerDetails.PersonalData.PersonType}"  format="DD/MM/YYYY"  label=""  mask="#,##0.###"  placeholder="---"  type="date"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1block_element3" class="slds-col   slds-p-vertical_xxx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element1block_element3_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element1block_element3block_element0" class="slds-col  classe slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element0block_element1block_element3block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element1block_element3block_element0_child flexActionElement" 
+        data-action-element-class="state0element0block_element1block_element3block_element0_child" data-action-key="state0element0block_element1block_element3block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0block1block4action0clone0"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":false,"isOpen":true,"key":"1648232047845-ew5io5iee","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"actionConditions":{"group":[{"field":"1","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"2"}],"id":"state-condition-object","isParent":true},"id":"flex-action-1648232072549","openUrlIn":"Current Window","targetType":"Web Page","type":"Custom"}}]'  display-as-button="false"  flyout-details='\{}'  icon-color="#DDDBDA"  icon-name="utility:key_dates"  icon-only="true"  icon-size="x-small"  label="Data de Nascimento"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element0block_element1block_element3block_element1" class="slds-col  slds-p-left_xx-small slds-p-top_xx-small  slds-size_11-of-12  " data-rindex={rindex} style="      
+         color:#3E3E3C;" ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element3block_element1_child"   record={record}  card={card}  field-name="CustomerDetails.PersonalData.Birthdate"  format="DD/MM/YYYY"  label=""  mask="#,##0.###"  placeholder="---"  type="date"  use-absolute-date="false"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1block_element4" class="slds-col   slds-p-vertical_xxx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element1block_element4_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element1block_element4block_element0" class="slds-col  classe slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element0block_element1block_element4block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element1block_element4block_element0_child flexActionElement" 
+        data-action-element-class="state0element0block_element1block_element4block_element0_child" data-action-key="state0element0block_element1block_element4block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0block1block2clone0action0clone0"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":false,"isOpen":true,"key":"1648232047845-ew5io5iee","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"actionConditions":{"group":[{"field":"1","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"2"}],"id":"state-condition-object","isParent":true},"id":"flex-action-1648232072549","openUrlIn":"Current Window","targetType":"Web Page","type":"Custom"}}]'  display-as-button="false"  flyout-details='\{}'  icon-color="#DDDBDA"  icon-name="utility:date_input"  icon-only="true"  icon-size="x-small"  label="Tempo como Cliente Móvel"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element0block_element1block_element4block_element1" class="slds-col  slds-p-left_xx-small slds-p-top_xx-small  slds-size_11-of-12  " data-rindex={rindex} style="      
+         color:#3E3E3C;" ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element4block_element1_child"   record={record}  card={card}  field-name="CustomerDetails.AgingMobile"  format="DD/MM/YYYY"  label=""  placeholder="---"  type="date"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1block_element5" class="slds-col   slds-p-vertical_xxx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element1block_element5_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element1block_element5block_element0" class="slds-col  classe slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element0block_element1block_element5block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element1block_element5block_element0_child flexActionElement" 
+        data-action-element-class="state0element0block_element1block_element5block_element0_child" data-action-key="state0element0block_element1block_element5block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0block1block2clone0action0clone0"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":false,"isOpen":true,"key":"1648232047845-ew5io5iee","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"actionConditions":{"group":[{"field":"1","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"2"}],"id":"state-condition-object","isParent":true},"id":"flex-action-1648232072549","openUrlIn":"Current Window","targetType":"Web Page","type":"Custom"}}]'  display-as-button="false"  flyout-details='\{}'  icon-color="#DDDBDA"  icon-name="utility:date_input"  icon-only="true"  icon-size="x-small"  label="Tempo como Cliente Fixa"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element0block_element1block_element5block_element1" class="slds-col  slds-p-left_xx-small slds-p-top_xx-small  slds-size_11-of-12  " data-rindex={rindex} style="      
+         color:#3E3E3C;" ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element5block_element1_child"   record={record}  card={card}  field-name="CustomerDetails.TimeAsClient"  format="DD/MM/YYYY"  label=""  placeholder="---"  type="date"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1block_element6" class="slds-col   slds-p-vertical_xxx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element1block_element6_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element1block_element6block_element0" class="slds-col  classe slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element0block_element1block_element6block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element1block_element6block_element0_child flexActionElement" 
+        data-action-element-class="state0element0block_element1block_element6block_element0_child" data-action-key="state0element0block_element1block_element6block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0block1block5action0clone0"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":false,"isOpen":true,"key":"1648232047845-ew5io5iee","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"actionConditions":{"group":[{"field":"1","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"2"}],"id":"state-condition-object","isParent":true},"id":"flex-action-1648232072549","openUrlIn":"Current Window","targetType":"Web Page","type":"Custom"}}]'  display-as-button="false"  flyout-details='\{}'  icon-color="#DDDBDA"  icon-name="utility:call"  icon-only="true"  icon-size="x-small"  label="Telefone Principal"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element0block_element1block_element6block_element1" class="slds-col  slds-p-left_xx-small slds-p-top_xx-small  slds-size_11-of-12  " data-rindex={rindex} style="      
+         color:#3E3E3C;" ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element6block_element1_child"   record={record}  card={card}  field-name="CustomerDetails.ContactDetails.ContactPhone"  format="DD/MM/YYYY"  label=""  mask="#,##0.###"  placeholder="---"  styles='\{}'  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1block_element7" class="slds-col   slds-p-vertical_xxx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element1block_element7_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element1block_element7block_element0" class="slds-col  classe slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element0block_element1block_element7block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element1block_element7block_element0_child flexActionElement" 
+        data-action-element-class="state0element0block_element1block_element7block_element0_child" data-action-key="state0element0block_element1block_element7block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0block1block6action0clone0"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":false,"isOpen":true,"key":"1648232047845-ew5io5iee","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"actionConditions":{"group":[{"field":"1","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"2"}],"id":"state-condition-object","isParent":true},"id":"flex-action-1648232072549","openUrlIn":"Current Window","targetType":"Web Page","type":"Custom"}}]'  display-as-button="false"  flyout-details='\{}'  icon-color="#DDDBDA"  icon-name="utility:email"  icon-only="true"  icon-size="x-small"  label="E-mail Principal"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element0block_element1block_element7block_element1" class="slds-col  slds-p-left_xx-small slds-p-top_xx-small  slds-size_11-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element7block_element1_child"   record={record}  card={card}  field-name="CustomerDetails.ContactDetails.Email"  format="DD/MM/YYYY"  label=""  mask="#,##0.###"  placeholder="Não Cadastrado"  styles='\{"value":{"color":"#FF0000"}}'  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1block_element8" class="slds-col   slds-p-vertical_xxx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element1block_element8_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element1block_element8block_element0" class="slds-col  classe slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element0block_element1block_element8block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element1block_element8block_element0_child flexActionElement" 
+        data-action-element-class="state0element0block_element1block_element8block_element0_child" data-action-key="state0element0block_element1block_element8block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0block1block6action0clone0"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":false,"isOpen":true,"key":"1648232047845-ew5io5iee","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"actionConditions":{"group":[{"field":"1","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"2"}],"id":"state-condition-object","isParent":true},"id":"flex-action-1648232072549","openUrlIn":"Current Window","targetType":"Web Page","type":"Custom"}}]'  display-as-button="false"  flyout-details='\{}'  icon-color="#DDDBDA"  icon-name="utility:home"  icon-only="true"  icon-size="x-small"  label="Filiação"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element0block_element1block_element8block_element1" class="slds-col  slds-p-left_xx-small slds-p-top_xx-small  slds-size_11-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element8block_element1_child"   record={record}  card={card}  field-name="CustomerDetails.PersonalData.MothersName"  format="DD/MM/YYYY"  label=""  mask="#,##0.###"  placeholder="---"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1block_element9" class="slds-col   slds-p-vertical_xxx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element1block_element9_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element1block_element9block_element0" class="slds-col   slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element0block_element1block_element9block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element1block_element9block_element0_child flexActionElement" 
+        data-action-element-class="state0element0block_element1block_element9block_element0_child" data-action-key="state0element0block_element1block_element9block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0block1block8clone0action1"   state-obj={record}  record={record}  card={card}  action-list='\[{"stateAction":{"Web Page":{"targetName":"/apex"},"id":"test-action","openUrlIn":"Current Window","targetType":"Web Page","type":"Custom"}}]'  icon-color="#DDDBDA"  icon-name="utility:adduser"  icon-only="true"  icon-size="x-small"  label="Tipo de Cliente"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element0block_element1block_element9block_element1" class="slds-col  slds-p-left_xx-small slds-p-top_xx-small  slds-size_10-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element9block_element1_child"   record={record}  card={card}  field-name="\{CustomerDetails.CustomerType}"  format="DD/MM/YYYY"  label=""  mask="#,##0.###"  placeholder="---"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1block_element10" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+           width: 100%;
+  border-top: 1px solid #DDDBDA;" ><vlocity_cmt-output-field data-style-id="state0element0block_element1block_element10_child"   record={record}  card={card}  merge-field=""  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element2" class="slds-col  slds-text-align_center slds-m-top_small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         display: none;" ><vlocity_cmt-flex-action data-style-id="state0element0block_element2_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element2_child flexActionElement" 
+        data-action-element-class="state0element0block_element2_child" data-action-key="state0element0block_element2" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block0action2"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"buttonVariant":"brand","card":"{card}","contextId":"\\{recordId}","displayAsButton":true,"draggable":false,"iconColor":"#ffffff","iconSize":"xx-small","isOpen":true,"key":"1648652259406-n0yfkbbnz","label":"Action","record":"{record}","stateAction":{"displayName":"Habilitar Linha","id":"flex-action-1642015185382","isLwcOS":true,"layoutType":"lightning","omniType":{"Id":"a30760000004Fn0AAE","Name":"val/salesJourney/Portuguese (Brazil)","isLwcOs":true},"openUrlIn":"Current Window","tabLabel":"Carrinho","type":"OmniScript","vForcewithNsPrefix":"vlocity_cmt__OmniScriptUniversalPage","vlocityIcon":"utility:cart"},"stateObj":"{record}"}]'  button-variant="brand"  context-id=""  display-as-button="true"  flyout-details='\{}'  hide-action-icon="false"  icon-color="#ffffff"  icon-name="utility:cart"  icon-size="xx-small"  label="Habilitar Linha"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1" class="slds-col   slds-p-around_x-small slds-size_12-of-12 condition-element" data-rindex={rindex} style=""  data-conditions='\{"group":[{"field":"permissionEnablePrepaid","hasMergeField":false,"id":"state-new-condition-4","operator":"==","type":"custom","value":"true"}],"id":"state-condition-object","isParent":true}' >
+    <vlocity_cmt-block data-style-id="state0element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  data-conditions='\{"group":[{"field":"permissionEnablePrepaid","hasMergeField":false,"id":"state-new-condition-4","operator":"==","type":"custom","value":"true"}],"id":"state-condition-object","isParent":true}'  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element0" class="slds-col  slds-text-align_center  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element1block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element1block_element0_child flexActionElement" 
+        data-action-element-class="state0element1block_element0_child" data-action-key="state0element1block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block1action0"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"contextId":"\\{recordId}","draggable":true,"isOpen":true,"key":"1661197259110-t6w3d0tmh","label":"Action","stateAction":{"id":"flex-action-1661197295170","isLwcOS":true,"layoutType":"lightning","omniType":{"Id":"a30760000004N8VAAU","Name":"val/salesJourney/Portuguese (Brazil)","isLwcOs":true},"openUrlIn":"Current Window","tabLabel":"Carrinho","type":"OmniScript"}}]'  button-variant="brand"  display-as-button="true"  flyout-details='\{}'  icon-color="#ffffff"  icon-name="utility:cart"  icon-size="x-small"  label="Habilitar Linha"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element2" class="slds-col   slds-p-around_x-small slds-size_12-of-12 " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element2_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state><vlocity_cmt-flex-card-state  record={record} data-statue="false"  data-index="1" data-rindex={rindex} class="cf-vlocity-state-1 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-top_x-small slds-p-left_x-small slds-p-right_x-small " style="     border-top: #DDDBDA 1px solid;border-right: #DDDBDA 1px solid;border-bottom: #DDDBDA 1px solid;border-left: #DDDBDA 1px solid; 
+    border-radius:4px;     box-shadow: rgb(0 0 0 / 16%) 0px 1px 3px;">
+          <div data-style-id="state1element0" class="slds-col   slds-border_bottom  slds-size_12-of-12  " data-rindex={rindex} style="     border-bottom: #cccccc 1px solid; 
+         " >
+    <vlocity_cmt-block data-style-id="state1element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state1element0block_element0" class="slds-col  slds-p-top_x-small slds-p-left_x-small  slds-size_8-of-12  " data-rindex={rindex} style="      
+         max-width: 100%;
+overflow-x: visible;
+overflow-y:hidden;" ><vlocity_cmt-output-field data-style-id="state1element0block_element0_child"   record={record}  card={card}  merge-field="%3Cdiv%3E%3Cstrong%3E%3Cspan%20style=%22font-size:%2018pt;%22%3E%7BCustomerDetails.PersonalData.CustomerName%7D%3C/span%3E%3C/strong%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element0block_element1" class="slds-col   slds-p-around_x-small  slds-size_4-of-12  " data-rindex={rindex} style="      
+         max-width:100%;" >
+    <vlocity_cmt-block data-style-id="state1element0block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state1element0block_element1block_element0" class="slds-col  slds-p-top_xx-small slds-m-top_xx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         background: #9B5299;
+no-repeat padding-box;
+border-radius: 12px;
+text-align: center;
+color: #FFFFFF;
+height: 27px;
+letter-spacing: 0px;" ><vlocity_cmt-output-field data-style-id="state1element0block_element1block_element0_child"   record={record}  card={card}  field-name="CustomerDetails.CustomerSegment"  placeholder="Purpura"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state1element1" class="slds-col   slds-card slds-scrollable_x slds-size_12-of-12  " data-rindex={rindex} style="      
+         max-width: 100%;
+overflow-x: visible;
+overflow-y:hidden;" >
+    <vlocity_cmt-block data-style-id="state1element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state1element1block_element0" class="slds-col   slds-large-size_12-of-12 slds-medium-size_12-of-12 slds-small-size_12-of-12 slds-size_12-of-12  " data-rindex={rindex} style="      
+         max-width:100%;" ><c-cf-val-review-customer-body data-style-id="state1element1block_element0_child"  tracking-obj={_childCardTrackingObj}  is-inside-parent={insideParent} parent-uniquekey={uniqueKey}  card-node=""  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  is-child-card-tracking-enabled="false"  object-api-name={objectApiName}  theme="slds"   onupdateparent={updateParentData}></c-cf-val-review-customer-body>
+    </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                      </template>
+            </template>
+            <template if:true={hasError}>
+            {error}
+            </template>
+            
+      <vlocity_cmt-action action-wrapperclass="slds-hide" re-render-flyout class="action-trigger slds-col" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+      
+      </vlocity_cmt-action>
+  
+            <vlocity_cmt-action class="execute-action" re-render-flyout action-wrapperclass="slds-hide" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+            
+            </vlocity_cmt-action>
+            </div>
+          </template>
