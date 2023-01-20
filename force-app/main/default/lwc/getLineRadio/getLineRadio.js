@@ -7,15 +7,10 @@ export default class GetLineRadio extends OmniscriptBaseMixin( LightningElement)
 //your lwc code here for radio group as shown above
 
 
+
     @track options = [];
     @track selectedline = {};
     @track ResponseDataValICCID = {};
-    @track idPesquisa;
-    @track DDD;
-    @track capacityDemandAmount;    
-
-    @api hasLinesAvailable = false;
-    @api isLoaded = false;
 
     data = [];
 
@@ -35,26 +30,10 @@ export default class GetLineRadio extends OmniscriptBaseMixin( LightningElement)
 
     handleOmniAction(data)
     {
-        this.isLoaded = false;        
-        
-        this.options              = data.phones;
-        var obj                   = data.phones;
-        this.idPesquisa           = data.idPesquisa;
-        this.DDD                  = data.DDD;
-        this.capacityDemandAmount = data.capacityDemandAmount;
-        this.hasLinesAvailable    = (this.capacityDemandAmount > 0);
-        //this.SearchedDDD = data.SearchedDDD;        
-        /*
-        console.log('----------------------##-------------------------');
-        console.log('Entrada do LWC');
-        console.log("ID DE PESQUISA: "+ this.idPesquisa);
-        console.log("DDD: "+ this.DDD);
-        console.log("capacityDemandAmount: "+ this.capacityDemandAmount);
-        console.log("hasLinesAvailable:    "+ this.hasLinesAvailable);        
-        console.log("Data");
-        console.log(JSON.stringify(data));
-        console.log('----------------------!!-------------------------');
-        */
+        this.options = data.phones;
+
+        var obj = data.phones;
+
         var needle = this.getCheckedValue();
 
         for (var i = 0; i < obj.length; i++)
@@ -63,97 +42,31 @@ export default class GetLineRadio extends OmniscriptBaseMixin( LightningElement)
                this.options[i]['checked'] = "true";
             }
         }
-        this.isLoaded = true;
     }
 
     handleGetMSISDN(event)
     {
-        this.isLoaded = false;
-
-        this.omniJsonDataStr = {
-            "DDD": this.DDD.toString(),            
-            "@type": "phone number",
-             "resourceCapacityDemand": {
-                "capacityDemandAmount": 3,
-                "characteristic": [
-                    {
-                        "name": "LAST_SEARCH",
-                        "value": Number(this.idPesquisa)
-                    }
-                ],
-                "place": {
-                    "cnl": "11000"
-                },
-                "resourcePool": {
-                    "resource": {
-                        "value": this.DDD.toString(),
-                        "@referredType": "number",
-                        "relatedParty": [
-                            {
-                                "referredType": "APPLICATION",
-                                "id": "Salesforce",
-                                "role": "OWNER"
-                            }
-                        ],
-                        "characteristic": [
-                            {
-                                "name": "CATEGORY",
-                                "value": "Normal"
-                            },
-                            {
-                                "name": "DDI",
-                                "value": "55"
-                            },
-                            {
-                                "name": "TYPE_NETWORK",
-                                "value": "M"
-                            }
-                        ]
-                    }
-                }
-            },
-            "StepConfigureLine": {
-                "StepConfigureLine": {
-                    "selectedLine": {
-                        "statusICCID": "Valid",
-                        "idPesquisa": this.idPesquisa
-                    }
-                }
-            }
-        };
- 
-
-        //console.log('handleGetMSISDN: this.omniJsonDataStr');
-        //console.log(this.omniJsonDataStr);
-
-        const options = {};
-
+        this.omniJsonDataStr = {};
+        
         const params = {
             input: this.omniJsonDataStr,
             sClassName: `${this._ns}IntegrationProcedureService`,
             sMethodName: 'val_GetMSISDN',
-            options: JSON.stringify(options),
+            options: '{}',
         };
 
         this.omniRemoteCall(params, true).then(result => {
             this.lstReturn = result.result.IPResult.options;
             this.options = this.lstReturn;
-            //console.log('omniRemoteCall: result '+ JSON.stringify(result));
 
-            this.capacityDemandAmount = result.result.IPResult.capacityDemandAmount;
-            this.hasLinesAvailable = (this.capacityDemandAmount > 0);
             this.selectedline = { line : null };
-            this.ResponseDataValICCID = {options: result.result.IPResult.options, idPesquisa: result.result.IPResult.idPesquisa};
-            this.idPesquisa = result.result.IPResult.idPesquisa;
-            this.statusICCID = { statusICCID : 'Valid'};
+            this.ResponseDataValICCID = {options: result.result.IPResult.options};
 
             this.omniUpdateDataJson(this.ResponseDataValICCID);
             this.omniUpdateDataJson(this.selectedline);
-            this.omniUpdateDataJson(this.statusICCID);
+            
 
-            this.isLoaded = true;
         }).catch(error => {
-            this.isLoaded = true;                        
             console.log('error: ' + error);
         })
         .finally(()=>{
@@ -165,19 +78,14 @@ export default class GetLineRadio extends OmniscriptBaseMixin( LightningElement)
     pushItemToView(event)
     {
         const selectedOption = event.target.value;
-        console.log('selectedOption'+selectedOption);
-        console.log('this.idPesquisa'+this.idPesquisa);        
-
+        
         this.selectedline = { line : selectedOption };
-        this.statusICCID = { statusICCID : 'Valid'};
-        this.lastNumberSearch = {idPesquisa: this.idPesquisa.toString()};
-
-        this.omniUpdateDataJson(this.lastNumberSearch);
-        this.omniUpdateDataJson(this.selectedline);      
-        this.omniUpdateDataJson(this.statusICCID);
+        
+        this.omniUpdateDataJson(this.selectedline);        
     
     }    
 
+    
     
     getCheckedValue(){
         if(this.omniJsonData !== undefined){            
