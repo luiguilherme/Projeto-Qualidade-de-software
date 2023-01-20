@@ -1,67 +1,34 @@
 <template>
-    <template if:true={isLoaded}>
-        <template if:true={hasLinesAvailable}>
-            <lightning-card><br/>
-                <p class="label-slds-form-element__label-slds-show--inline" style="margin-left: 2%;">Opções de Números</p>
-                <br/>
-            <div style="margin-left:2%;">
-                    <template for:each={options} for:item="item">
-                        <fieldset key={item.value} style="display: block; float: left;margin-right: 5%;">
-                            <div class="slds-form-element__control">
-                                <span class="slds-radio">
-                                    <input name="radiogroup" id={item.value} type="radio" value={item.value} checked={item.checked} onchange={pushItemToView}/>
-                                    <label class="slds-radio__label" for={item.value}>
-                                        <span class="slds-radio_faux"></span>
-                                        <span class="slds-form-element__label">{item.label}</span>
-                                    </label>
-                                </span>
-                            </div>
-                        </fieldset>
-                    </template>
-                        <!--<lightning-radio-group style="display: inline-flex; float: left;margin-right: 5%;"
-                                            id="radioId"
-                                            name="radioGroup"
-                                            label=""
-                                            options={options}
-                                            value={checkedValue}
-                                            type="radio"
-                                            onchange={pushItemToView}
-                                            
-                                            
-                        ></lightning-radio-group>-->
-
-
-                    <lightning-button variant="brand" 
-                    label="Novos Números"
-                    onclick={handleGetMSISDN} style="color:#ac229d"></lightning-button>
-                    <br/><br/>
-
-                    <div if:true={selectedValue}>
-                        Selected Vlaue: <b>{selectedValue}</b>
+    <lightning-card><br/>
+        <p class="label-slds-form-element__label-slds-show--inline" style="margin-left: 2%;">Opções de Números</p>
+        <br/>
+       <div style="margin-left:2%;">
+            <template for:each={options} for:item="item">
+                <fieldset key={item.value} style="display: block; float: left;margin-right: 5%;">
+                    <div class="slds-form-element__control">
+                        <span class="slds-radio">
+                            <input name="radiogroup" id={item.value} type="radio" value={item.value} checked={item.checked} onchange={pushItemToView}/>
+                            <label class="slds-radio__label" for={item.value}>
+                                <span class="slds-radio_faux"></span>
+                                <span class="slds-form-element__label">{item.label}</span>
+                            </label>
+                        </span>
                     </div>
-                </div>
+                </fieldset>
+            </template>
 
-            </lightning-card>
-        </template>
-        <template if:false={hasLinesAvailable}>
-            <p class="label-slds-form-element__label-slds-show--inline" style="margin-left: 2%;">Relação de Números indisponível no momento.</p>
-            <br/>
             <lightning-button variant="brand" 
-            label="Tentar Novamente"
-            onclick={handleGetMSISDN} style="margin-left: 2%; color:#ac229d"></lightning-button>
+            label="Novos Números"
+            onclick={handleGetMSISDN} style="color:#ac229d"></lightning-button>
             <br/><br/>
-        </template>
-    </template>        
 
-    <div class="slds-m-around_large">
-        <div if:false={isLoaded} class="slds-is-relative">
-           <lightning-spinner
-               alternative-text="Lendo informações..." variant="brand">
-           </lightning-spinner>
-       </div>
-       <div if:false={isLoaded} class="slds-align_absolute-center slds-p-top_x-large"> 
-            <p style="color:#032D60;position: relative;">Lendo informações...</p>
-        </div>     
-   </div>
+            <div if:true={selectedValue}>
+                Selected Vlaue: <b>{selectedValue}</b>
+            </div>
+        </div>
+
+    </lightning-card>
+
+    
 
 </template>
