@@ -13,56 +13,50 @@
             "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/createAccount/Portuguese (Brazil)",
             "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
         },
-        "Name": "AddressData",
+        "Name": "StepInvalidChannelAndTopicAutoCheck",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/createAccount/Portuguese (Brazil)/AddressData",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/createAccount/Portuguese (Brazil)/StepInvalidChannelAndTopicAutoCheck",
         "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
     },
-    "%vlocity_namespace%__ParentElementName__c": "AddressData",
-    "%vlocity_namespace%__ParentElementType__c": "Block",
+    "%vlocity_namespace%__ParentElementName__c": "StepInvalidChannelAndTopicAutoCheck",
+    "%vlocity_namespace%__ParentElementType__c": "Step",
     "%vlocity_namespace%__PropertySet__c": {
         "HTMLTemplateId": "",
-        "accessibleInFutureSteps": false,
-        "conditionType": "Hide if False",
-        "controlWidth": 2,
-        "debounceValue": 0,
-        "defaultValue": "",
-        "disOnTplt": false,
-        "help": false,
-        "helpText": "",
-        "hide": false,
-        "inputWidth": 12,
-        "label": "CEP",
-        "lwcComponentOverride": "",
-        "mask": "99999-999",
-        "maxLength": 255,
-        "minLength": 0,
-        "pattern": "",
-        "placeholder": "",
-        "ptrnErrText": "",
-        "readOnly": false,
-        "repeat": false,
-        "repeatClone": false,
-        "repeatLimit": null,
-        "required": false,
+        "controlWidth": 6,
+        "hideLabel": true,
+        "label": "Messaging7",
+        "messages": [
+            {
+                "active": true,
+                "text": "%TopicAutoNameInvalid%",
+                "type": "Warning",
+                "value": true
+            },
+            {
+                "active": false,
+                "text": "",
+                "type": "Requirement",
+                "value": false
+            }
+        ],
         "show": {
             "group": {
                 "operator": "AND",
                 "rules": [
                     {
                         "condition": "=",
-                        "data": "CEP",
-                        "field": "MainSearchType"
+                        "data": "false",
+                        "field": "TopicNameCompleteAndUserData:hasTopicName"
                     }
                 ]
             }
         },
-        "showInputWidth": false
+        "validateExpression": null
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
-    "%vlocity_namespace%__Type__c": "Text",
-    "Name": "MainSearchCEP",
+    "%vlocity_namespace%__Type__c": "Validation",
+    "Name": "Messaging7",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/createAccount/Portuguese (Brazil)/MainSearchCEP"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/createAccount/Portuguese (Brazil)/Messaging7"
 }
