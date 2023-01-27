@@ -11,6 +11,10 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         switch on methodName {
             when 'validateEmailFormat' 
             {output.put('result', validateEmailFormat(arguments));}        
+            when 'validateOnlyTextFormat' 
+            {output.put('result', validateOnlyTextFormat(arguments));}                    
+            when 'GroupKeyValues' 
+            {output.put('result', GroupKeyValues(arguments));}
             when 'validateCPF' 
             {output.put('result', validateCPF(arguments));}
             when 'validateCNPJ' 
@@ -25,6 +29,8 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             {output.put('result', translatePickListValues(arguments));}
             when 'getPickListKeyValues' 
             {output.put('result', getPickListKeyValues(arguments));}
+            when 'getPickListLabelValues' 
+            {output.put('result', getPickListLabelValues(arguments));}
             when 'replaceString' 
             {output.put('result', replaceString(arguments));} 
             when 'replaceBackslashTopicName'
@@ -40,13 +46,24 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             when 'getPathTree'
             {output.put('result', getPathTree(arguments));}
 			when 'getPath'
-            {output.put('result', getPath(arguments));}             
+            {output.put('result', getPath(arguments));} 
 			when 'getUserRole'
-            {output.put('result', getUserRole(arguments));} 
-            /*when 'getTotalChannels'
-            {output.put('result', getTotalChannels(arguments));} */
+            {output.put('result', getUserRole(arguments));}
+            //when 'getTotalChannels'
+           //{output.put('result', getTotalChannels(arguments));} 
+            when 'validateCEP'
+            {output.put('result', validateCEP(arguments));} 
         }
         return true;
+    }
+    
+    Boolean validateCEP(List<Object> argument) {
+        String CEP = (String) argument[0];
+        Boolean result = false;
+        
+        if (CEP != null && CEP.length() == 8 && CEP.isNumeric()) result = true;
+        
+        return result;
     }
     
     Boolean validateEmailFormat(List<Object> argument)
@@ -55,7 +72,20 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         Matcher emailMatcher = emailPattern.matcher((String) argument[0]);
         return emailMatcher.matches();
     }
-    
+
+    /*
+    * Autor....: Guilherme Kaiser - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Validar se contém apenas Letras (exclui números e simbolos)
+    * Data.....: 30/12/2022
+    */	     
+    Boolean validateOnlyTextFormat(List<Object> argument)
+    {
+        Pattern textPattern = Pattern.compile('([A-Za-zÀ-ú ]{1,})');       
+        Matcher textMatcher = textPattern.matcher((String) argument[0]);
+        return textMatcher.matches();
+    }
+
     /*
     * Autor....: Guilherme Kaiser - Deloitte
     * Projeto..: Vivo - VALENTINA
@@ -196,6 +226,20 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         return mapKeysValues;
     }
     
+    /*
+    * Autor....: Guilherme Kaiser - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método criado fazer um distinct em uma lista
+    * Data.....: 02/01/2023
+    */    
+    List<Object> GroupKeyValues(List<Object> argument)
+    {   
+        Set<Object> tempSet = new Set<Object>();
+        tempSet.addAll(argument);
+ 
+        return new List<Object>(tempSet);
+    }   
+        
     String trimValues(List<Object> argument) {
         String value = (String) argument[0];  
         
@@ -289,7 +333,37 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         }
         
         return listValuesTranslated;
-    }    
+    }  
+    
+    public static List<Map<String, String>> getPickListLabelValues(List<Object> argument) {
+        
+        String objectApiName = (String) argument[0];
+        String objectFieldName = (String) argument[1];
+        
+        Map<String, Schema.SObjectType> gd = Schema.getGlobalDescribe();
+        
+        Schema.SObjectField sField;
+        Schema.SObjectType sObjType = gd.get(objectApiName);
+        Schema.DescribeSObjectResult objectResult = sobjType.getDescribe();
+        
+        Map<String,Schema.SObjectField> fieldsMap = objectResult.fields.getMap();
+        sField = fieldsMap.get(objectFieldName);		
+        
+        List<Schema.PicklistEntry> picklistValues = sField.getDescribe().getPicklistValues();
+        List<Map<String, String>> listValuesTranslated = new List<Map<String, String>>();
+        
+        Map<String, Object> finalMap = new Map<String, Object>();
+        
+        for (Schema.PicklistEntry pe: picklistValues) {
+            Map<String, String> mapTranslatedValues = new Map<String, String>();
+            mapTranslatedValues.put('value', pe.getLabel());
+            mapTranslatedValues.put('label', pe.getValue());
+            
+            listValuesTranslated.add(mapTranslatedValues);	
+        }
+        
+        return listValuesTranslated;
+    }  
 
     /*
 	* Autor....: Guilherme Kaiser - Deloitte
@@ -426,7 +500,6 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     
     /*
     * Autor....: Otávio Fonseca - Deloitte
-    * 
     * Projeto..: Vivo - VALENTINA
     * Descrição: Método criado para retornar o nome dos níveis a partir de um ID
     * Data.....: 24/10/2022
@@ -453,13 +526,24 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
 
         return finalPath;
     }   
-    
+    /*
+    * Autor....: Guilherme Kaiser - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método criado para retornar o Role do usuário (trata se é de comunidade)
+    * Data.....: 26/12/2022
+    */
     public static String getUserRole(List<Object> arguments) {
     
         Id roleId=userinfo.getUserRoleId();
-        String RoleName=[Select Id, Name, DeveloperName from UserRole where Id=:roleId].DeveloperName;
-
-        return RoleName;
+        Id userId=userinfo.getUserId();
+        //
+        String RoleName     = [Select Id, Name, DeveloperName from UserRole where Id=:roleId].DeveloperName;
+        String PartnerGroup = [Select Id, Name, PartnerGroup__c from User where Id=:userId].PartnerGroup__c;
+        //
+        //this role is used to define when user is from community
+        String userRole = PartnerGroup != null ? PartnerGroup : RoleName;
+		//
+        return userRole;
     }
     
    /* public Integer getTotalChannels(List<Object> arguments) {
