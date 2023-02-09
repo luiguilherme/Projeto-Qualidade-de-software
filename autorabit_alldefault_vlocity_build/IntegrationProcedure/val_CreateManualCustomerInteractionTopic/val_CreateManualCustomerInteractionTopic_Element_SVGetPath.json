@@ -12,13 +12,13 @@
         "disOnTplt": false,
         "elementValueMap": {
             "assetId": "=%AssetId%",
-            "origin": "=IF(%ProductType%=='Pre','VIVO/NET','Salesforce')",
+            "origin": "=IF(%ProductType%=='Pre','VIVO/NET',IF(%ProductType%=='Fixed','GPS','Salesforce'))",
             "otherProduct": "=%OtherProduct%",
             "outcome": "Completo",
             "process": "Palitagem Manual",
-            "reason": "=IF(%ProductType%=='Pre','Palitagem Manual','Palitagem Móvel')",
+            "reason": "=IF(%ProductType%=='Pre','Palitagem Pré',IF(%ProductType%=='Mobile','Palitagem Móvel','Palitagem Fixa'))",
             "serviceTree": "=%ServiceTree%",
-            "topicName": "=SUBSTRING(getPath(%topicId%),7,255)"
+            "topicName": "=SUBSTRING(getPath(%topicId%),9,255)"
         },
         "executionConditionalFormula": "",
         "failOnStepError": true,
