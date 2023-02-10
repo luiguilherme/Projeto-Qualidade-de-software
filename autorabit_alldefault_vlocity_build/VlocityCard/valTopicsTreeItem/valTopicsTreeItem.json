@@ -409,7 +409,7 @@
                                                     "isParent": true
                                                 },
                                                 "extraclass": "slds-icon_container slds-icon__svg--default ",
-                                                "iconName": "utility:page",
+                                                "iconName": "doctype:unknown",
                                                 "iconType": "Salesforce SVG",
                                                 "imgsrc": "",
                                                 "record": "{record}",
@@ -881,7 +881,7 @@
                                                         {
                                                             "actionIndex": 0,
                                                             "card": "{card}",
-                                                            "draggable": true,
+                                                            "draggable": false,
                                                             "isOpen": true,
                                                             "key": "1658259458337-wl1slw85y",
                                                             "label": "Action",
@@ -894,12 +894,12 @@
                                                                     "Id": "{Id}",
                                                                     "OtherProduct": "{OtherProduct}",
                                                                     "ProductType": "{ProductType}",
-                                                                    "ProfileName": "{ProfileName}",
                                                                     "SelectedFunction": "{Parent.SelectedFunction}",
-                                                                    "ServiceTree": "{ServiceTree}"
+                                                                    "ServiceTree": "{ServiceTree}",
+                                                                    "VisibleTo": "{VisibleTo}"
                                                                 },
                                                                 "hasExtraParams": true,
-                                                                "id": "flex-action-1672236511792",
+                                                                "id": "flex-action-1673627203552",
                                                                 "message": "update",
                                                                 "openUrlIn": "Current Window",
                                                                 "subType": "PubSub",
@@ -910,8 +910,8 @@
                                                         {
                                                             "actionIndex": 1,
                                                             "card": "{card}",
-                                                            "draggable": false,
-                                                            "isOpen": true,
+                                                            "draggable": true,
+                                                            "isOpen": false,
                                                             "key": "1667309895039-v4wdw5uqc",
                                                             "label": "Action",
                                                             "stateAction": {
@@ -1084,10 +1084,11 @@
                                                                     "OtherProduct": "{OtherProduct}",
                                                                     "ProductType": "{ProductType}",
                                                                     "SelectedFunction": "{Parent.SelectedFunction}",
-                                                                    "ServiceTree": "{ServiceTree}"
+                                                                    "ServiceTree": "{ServiceTree}",
+                                                                    "VisibleTo": "{VisibleTo}"
                                                                 },
                                                                 "hasExtraParams": true,
-                                                                "id": "flex-action-1672236603979",
+                                                                "id": "flex-action-1673549722695",
                                                                 "message": "update",
                                                                 "openUrlIn": "Current Window",
                                                                 "subType": "PubSub",
@@ -1703,8 +1704,8 @@
                                         {
                                             "actionIndex": 4,
                                             "card": "{card}",
-                                            "draggable": false,
-                                            "isOpen": true,
+                                            "draggable": true,
+                                            "isOpen": false,
                                             "key": "1667927065125-sy6r9rtr3",
                                             "label": "ActionSelectedCardManualProtocol",
                                             "stateAction": {
@@ -1719,15 +1720,6 @@
                                                             "value": "Palito"
                                                         },
                                                         {
-                                                            "field": "{Parent.SelectedFunction}",
-                                                            "hasMergeField": true,
-                                                            "id": "state-new-condition-71",
-                                                            "logicalOperator": "&&",
-                                                            "operator": "==",
-                                                            "type": "custom",
-                                                            "value": "RelationshipTopic"
-                                                        },
-                                                        {
                                                             "field": "Selected",
                                                             "hasMergeField": false,
                                                             "id": "state-new-condition-16",
@@ -1735,6 +1727,29 @@
                                                             "operator": "==",
                                                             "type": "custom",
                                                             "value": "true"
+                                                        },
+                                                        {
+                                                            "group": [
+                                                                {
+                                                                    "field": "{Parent.SelectedFunction}",
+                                                                    "hasMergeField": true,
+                                                                    "id": "state-new-condition-248",
+                                                                    "operator": "==",
+                                                                    "type": "custom",
+                                                                    "value": "RelationshipTopic"
+                                                                },
+                                                                {
+                                                                    "field": "{Parent.SelectedFunction}",
+                                                                    "hasMergeField": true,
+                                                                    "id": "state-new-condition-290",
+                                                                    "logicalOperator": "||",
+                                                                    "operator": "==",
+                                                                    "type": "custom",
+                                                                    "value": "RelationshipTopicFront"
+                                                                }
+                                                            ],
+                                                            "id": "state-new-group-249",
+                                                            "logicalOperator": "&&"
                                                         }
                                                     ],
                                                     "id": "state-condition-object",
@@ -1751,7 +1766,7 @@
                                                     "ServiceTree": "{ServiceTree}"
                                                 },
                                                 "hasExtraParams": true,
-                                                "id": "flex-action-1671827275665",
+                                                "id": "flex-action-1672867813612",
                                                 "message": "Selected",
                                                 "openUrlIn": "Current Window",
                                                 "subType": "PubSub",
@@ -1787,13 +1802,27 @@
                                                             "value": "Palito"
                                                         },
                                                         {
-                                                            "field": "{Parent.SelectedFunction}",
-                                                            "hasMergeField": true,
-                                                            "id": "state-new-condition-133",
-                                                            "logicalOperator": "&&",
-                                                            "operator": "==",
-                                                            "type": "custom",
-                                                            "value": "RelationshipTopic"
+                                                            "group": [
+                                                                {
+                                                                    "field": "{Parent.SelectedFunction}",
+                                                                    "hasMergeField": true,
+                                                                    "id": "state-new-condition-372",
+                                                                    "operator": "==",
+                                                                    "type": "custom",
+                                                                    "value": "RelationshipTopic"
+                                                                },
+                                                                {
+                                                                    "field": "{Parent.SelectedFunction}",
+                                                                    "hasMergeField": true,
+                                                                    "id": "state-new-condition-393",
+                                                                    "logicalOperator": "||",
+                                                                    "operator": "==",
+                                                                    "type": "custom",
+                                                                    "value": "RelationshipTopicFront"
+                                                                }
+                                                            ],
+                                                            "id": "state-new-group-373",
+                                                            "logicalOperator": "&&"
                                                         }
                                                     ],
                                                     "id": "state-condition-object",
@@ -1810,7 +1839,7 @@
                                                     "ServiceTree": ""
                                                 },
                                                 "hasExtraParams": true,
-                                                "id": "flex-action-1671827291791",
+                                                "id": "flex-action-1673035998152",
                                                 "message": "clearselection",
                                                 "openUrlIn": "Current Window",
                                                 "subType": "PubSub",

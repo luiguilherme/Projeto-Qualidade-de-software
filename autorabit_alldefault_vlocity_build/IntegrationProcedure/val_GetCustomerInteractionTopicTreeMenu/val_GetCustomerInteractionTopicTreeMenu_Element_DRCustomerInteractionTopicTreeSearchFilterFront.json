@@ -23,10 +23,12 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
+            "Instance": "%SVRelationshipTopic:Instance%",
             "OperatorSegment": "=%SVRelationshipTopic:OperatorSegment%",
             "ParentTopicName": "=%ParentTopicName%",
             "ProductType": "=IF((ISNOTBLANK(%SVRelationshipTopic:AssetType%),%SVRelationshipTopic:AssetType%, %ProductType%)",
-            "ServiceTree": "=%ServiceTree%"
+            "ServiceTree": "=%ServiceTree%",
+            "VisibleTo": "=%VisibleTo%"
         },
         "additionalOutput": {
         },
@@ -35,7 +37,7 @@
         "dataRaptor Input Parameters": [
         ],
         "disOnTplt": false,
-        "executionConditionalFormula": "%SelectedFunction% == 'RelationshipTopic' && ((ISNOTBLANK(%SVRelationshipTopic:AssetType%) && (%SVRelationshipTopic:AssetType% == 'Mobile' || %SVRelationshipTopic:AssetType% == 'Fixed' )) || (ISBLANK(%SVRelationshipTopic:AssetType%) && ( %ProductType% == 'Mobile' ||  %ProductType% == 'Fixed' )))\r\n",
+        "executionConditionalFormula": "(%SelectedFunction% == 'RelationshipTopic' || %SelectedFunction% == 'RelationshipTopicFront' ) && ((ISNOTBLANK(%SVRelationshipTopic:AssetType%) && (%SVRelationshipTopic:AssetType% == 'Mobile' || %SVRelationshipTopic:AssetType% == 'Fixed' )) || (ISBLANK(%SVRelationshipTopic:AssetType%) && ( %ProductType% == 'Mobile' ||  %ProductType% == 'Fixed' )))\r\n",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {
