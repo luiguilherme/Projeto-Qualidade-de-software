@@ -96,7 +96,7 @@ private class OAMRegistrationHandlerTest {
                                                              'profile_name' => 'AliadoExterno',
                                                              'CNPJ' => '112233445566',
                                                              'active' => '1',
-                                                             'role' => 'AliadosPAP',
+                                                             'role' => 'VendasAliado',
                                                              'adabas' => 'teste',
                                                              'sub' => 'teste@salesforce.com.br',
                                                              'permission_sets' => ''});
@@ -114,7 +114,7 @@ private class OAMRegistrationHandlerTest {
                                                'profile_name' => 'AliadoExterno',
                                                'CNPJ' => '112233445566',
                                                'active' => '1',
-                                               'role' => 'AliadosPAP',
+                                               'role' => 'VendasAliado',
                                                'sub' => 'teste@salesforce.com.br',
                                                'adabas' => 'teste',
                                                'permission_sets' => ''});
@@ -152,7 +152,7 @@ private class OAMRegistrationHandlerTest {
                                                              'profile_name' => 'AliadoExterno',
                                                              'CNPJ' => '112233445566',
                                                              'active' => '1',
-                                                             'role' => 'RetencaoFixa',
+                                                             'role' => 'MasterTelefonicaBrasil',
                                                              'adabas' => 'teste',
                                                              'sub' => '',
                                                              'permission_sets' => ''});
@@ -187,7 +187,7 @@ private class OAMRegistrationHandlerTest {
                 System.debug('e: ' + e);
                 System.assert(e.getMessage().contains('Papel informado não encontrado no SalesForce.'));
             }
-            sampleData.attributeMap.put('role','RetencaoFixaAliados');
+            sampleData.attributeMap.put('role','VendasAliadoPaPSupervisor');
             try{
                 User u = handler.createUser(null, sampleData);
             } 

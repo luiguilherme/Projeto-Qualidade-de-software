@@ -1558,19 +1558,36 @@
                                                                     "id": 0,
                                                                     "label": "messageWhenValueMissing",
                                                                     "value": "{Label.ParametrosPalitoMsgDescricaoDeveSerPreenchido}"
+                                                                },
+                                                                {
+                                                                    "id": 1,
+                                                                    "label": "pattern",
+                                                                    "value": "[A-Za-zÀ-ú ']{1,}"
+                                                                },
+                                                                {
+                                                                    "id": 2,
+                                                                    "label": "messageWhenPatternMismatch",
+                                                                    "value": "Descrição deve conter apenas letras."
+                                                                },
+                                                                {
+                                                                    "id": 3,
+                                                                    "label": "required",
+                                                                    "value": "true"
                                                                 }
                                                             ],
                                                             "fieldBinding": "{Name}",
+                                                            "imask": "",
                                                             "label": "{Label.ParametrosPalitoDescricao}",
                                                             "maxLength": 80,
                                                             "minLength": "",
-                                                            "required": true
+                                                            "required": true,
+                                                            "value": ""
                                                         },
                                                         "record": "{record}",
                                                         "type": "text"
                                                     },
                                                     "size": {
-                                                        "default": "4",
+                                                        "default": "5",
                                                         "isResponsive": false
                                                     },
                                                     "stateIndex": 2,
@@ -1589,10 +1606,10 @@
                                                             }
                                                         ],
                                                         "size": {
-                                                            "default": "4",
+                                                            "default": "5",
                                                             "isResponsive": false
                                                         },
-                                                        "sizeClass": "slds-size_4-of-12 "
+                                                        "sizeClass": "slds-size_5-of-12 "
                                                     },
                                                     "type": "element"
                                                 }
@@ -2249,9 +2266,9 @@
                                     "class": "slds-col ",
                                     "element": "outputField",
                                     "elementLabel": "Block-1-Text-0",
-                                    "key": "element_element_block_2_2_outputField_0_2",
+                                    "key": "element_element_block_1_2_outputField_0_2",
                                     "name": "Text",
-                                    "parentElementKey": "element_block_2_2",
+                                    "parentElementKey": "element_block_1_2",
                                     "property": {
                                         "card": "{card}",
                                         "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2014pt;%22%3E%3Cstrong%3E%7BLabel.ParametrosPalitoNotificacoes%7D%3C/strong%3E%3C/span%3E%3C/div%3E",
@@ -2362,11 +2379,25 @@
                                     "class": "slds-col ",
                                     "element": "flexRadioInput",
                                     "elementLabel": "Block-1-Radio-1",
-                                    "key": "element_element_block_2_2_flexRadioInput_1_2",
+                                    "key": "element_element_block_1_2_flexRadioInput_1_2",
                                     "name": "Radio",
-                                    "parentElementKey": "element_block_2_2",
+                                    "parentElementKey": "element_block_1_2",
                                     "property": {
                                         "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "ProductType__c",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-0",
+                                                    "operator": "!=",
+                                                    "type": "custom",
+                                                    "value": "Pre"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
                                         "propertyObj": {
                                             "controlHeight": "100",
                                             "controlWidth": "100",
@@ -2393,6 +2424,191 @@
                                             ],
                                             "radioDisplayValue": "radiogroup.horizontal",
                                             "required": false,
+                                            "value": ""
+                                        },
+                                        "record": "{record}",
+                                        "type": "radiogroup.horizontal"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 2,
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "slds-p-right_small slds-p-vertical_x-small slds-p-left_x-small slds-m-bottom_xx-small ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                            {
+                                                "label": "bottom:xx-small",
+                                                "size": "xx-small",
+                                                "type": "bottom"
+                                            }
+                                        ],
+                                        "padding": [
+                                            {
+                                                "label": "right:small",
+                                                "size": "small",
+                                                "type": "right"
+                                            },
+                                            {
+                                                "label": "vertical:x-small",
+                                                "size": "x-small",
+                                                "type": "vertical"
+                                            },
+                                            {
+                                                "label": "left:x-small",
+                                                "size": "x-small",
+                                                "type": "left"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    },
+                                    "styleObjects": [
+                                        {
+                                            "conditionString": "",
+                                            "conditions": "default",
+                                            "draggable": false,
+                                            "key": 0,
+                                            "label": "Default",
+                                            "name": "Default",
+                                            "styleObject": {
+                                                "background": {
+                                                    "color": "",
+                                                    "image": "",
+                                                    "position": "",
+                                                    "repeat": "",
+                                                    "size": ""
+                                                },
+                                                "border": {
+                                                    "color": "",
+                                                    "radius": "",
+                                                    "style": "",
+                                                    "type": "",
+                                                    "width": ""
+                                                },
+                                                "class": "slds-p-right_small slds-p-vertical_x-small slds-p-left_x-small slds-m-bottom_xx-small ",
+                                                "container": {
+                                                    "class": ""
+                                                },
+                                                "elementStyleProperties": {
+                                                },
+                                                "inlineStyle": "",
+                                                "margin": [
+                                                    {
+                                                        "label": "bottom:xx-small",
+                                                        "size": "xx-small",
+                                                        "type": "bottom"
+                                                    }
+                                                ],
+                                                "padding": [
+                                                    {
+                                                        "label": "right:small",
+                                                        "size": "small",
+                                                        "type": "right"
+                                                    },
+                                                    {
+                                                        "label": "vertical:x-small",
+                                                        "size": "x-small",
+                                                        "type": "vertical"
+                                                    },
+                                                    {
+                                                        "label": "left:x-small",
+                                                        "size": "x-small",
+                                                        "type": "left"
+                                                    }
+                                                ],
+                                                "size": {
+                                                    "default": "12",
+                                                    "isResponsive": false
+                                                },
+                                                "sizeClass": "slds-size_12-of-12 ",
+                                                "style": "      \n         ",
+                                                "text": {
+                                                    "align": "",
+                                                    "color": ""
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "flexRadioInput",
+                                    "elementLabel": "Block-2-Radio-1-clone-0",
+                                    "key": "element_element_block_1_2_flexRadioInput_2_2",
+                                    "name": "Radio",
+                                    "parentElementKey": "element_block_1_2",
+                                    "property": {
+                                        "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "ProductType__c",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-7",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "Pre"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "propertyObj": {
+                                            "controlHeight": "100",
+                                            "controlWidth": "100",
+                                            "enabledCaption": "true",
+                                            "fieldBinding": "{SendSMS__c}",
+                                            "imageCountInRow": "3",
+                                            "label": "{Label.ParametrosPalitoEnvioSMSEmail}",
+                                            "name": "Block-1-Radio-1",
+                                            "options": [
+                                                {
+                                                    "id": 0,
+                                                    "imgId": "",
+                                                    "label": "{Label.ParametrosPalitoSim}",
+                                                    "selected": false,
+                                                    "value": "true"
+                                                },
+                                                {
+                                                    "id": 1,
+                                                    "imgId": "",
+                                                    "label": "{Label.ParametrosPalitoNao}",
+                                                    "selected": false,
+                                                    "value": "false"
+                                                }
+                                            ],
+                                            "radioDisplayValue": "radiogroup.horizontal",
+                                            "required": true,
                                             "value": ""
                                         },
                                         "record": "{record}",
@@ -2682,9 +2898,9 @@
                                     "class": "slds-col ",
                                     "element": "outputField",
                                     "elementLabel": "Block-4-Text-0",
-                                    "key": "element_element_block_3_2_outputField_0_2",
+                                    "key": "element_element_block_2_2_outputField_0_2",
                                     "name": "Text",
-                                    "parentElementKey": "element_block_3_2",
+                                    "parentElementKey": "element_block_2_2",
                                     "property": {
                                         "card": "{card}",
                                         "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2014pt;%22%3E%3Cstrong%3E%7BLabel.ParametrosPalitoClassificacao%7D%3C/strong%3E%3C/span%3E%3C/div%3E",
@@ -2795,9 +3011,9 @@
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
                                     "elementLabel": "Block-4-Select-1",
-                                    "key": "element_element_block_3_2_baseInputElement_1_2",
+                                    "key": "element_element_block_2_2_baseInputElement_1_2",
                                     "name": "Select",
-                                    "parentElementKey": "element_block_3_2",
+                                    "parentElementKey": "element_block_2_2",
                                     "property": {
                                         "card": "{card}",
                                         "propertyObj": {
@@ -2848,7 +3064,7 @@
                                                     "value": "Sugestão"
                                                 }
                                             ],
-                                            "required": false,
+                                            "required": true,
                                             "type": "combobox",
                                             "value": ""
                                         },
@@ -2996,13 +3212,36 @@
                                             "value": "Palito"
                                         },
                                         {
-                                            "field": "SelectedFunction",
+                                            "field": "ProductType__c",
                                             "hasMergeField": false,
                                             "id": "state-new-condition-17",
                                             "logicalOperator": "&&",
                                             "operator": "==",
                                             "type": "custom",
-                                            "value": "TopicsTree"
+                                            "value": "Pre"
+                                        },
+                                        {
+                                            "group": [
+                                                {
+                                                    "field": "Type__c",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-0",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "Palito"
+                                                },
+                                                {
+                                                    "field": "SelectedFunction",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-32",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "TopicsTree"
+                                                }
+                                            ],
+                                            "id": "state-new-group-1",
+                                            "logicalOperator": "||"
                                         }
                                     ],
                                     "id": "state-condition-object",
