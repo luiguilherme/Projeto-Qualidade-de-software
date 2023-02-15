@@ -1,5 +1,12 @@
+/*
+* @author: Diego Costa @Deloitte
+* @description: Classe Handler para aprovisionamento de conta/contato/usuário.
+* @data: 10/06/2022
+*
+*/
 global class OAMRegistrationHandler implements Auth.RegistrationHandler {
     private static final String CONST_PARTNER_ACCOUNT_RECORD_TYPE_ID = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('PartnerAccount').getrecordTypeId();
+
     class RegHandlerException extends Exception {}
 
     global User createUser (Id portalId, Auth.UserData data) {        
@@ -167,7 +174,25 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
                 }
                 userRecord.PartnerGroup__c = userRole;
             }
-            
+            if(data.attributeMap.containsKey('canal_atendimento')) {
+        		userRecord.ChannelName__c = data.attributeMap.get('canal_atendimento');
+   	        }
+	        if(data.attributeMap.containsKey('site')) {
+        		userRecord.Site__c = data.attributeMap.get('site');
+    	    }    
+	        if(data.attributeMap.containsKey('escritorio_vendas')) {
+		        SalesOffices__mdt office =  getOffice(data.attributeMap.get('escritorio_vendas'));
+
+                if (office != null) {
+                    userRecord.Office__c = office.Office__c;
+                    userRecord.Center__c = office.Center__c;
+                    userRecord.Store__c = office.Store__c;
+                } else {
+                    userRecord.Office__c = data.attributeMap.get('escritorio_vendas');
+                    userRecord.Center__c = null;
+                    userRecord.Store__c = null;
+                }
+    	    }            
             userRecord.LanguageLocaleKey    = 'pt_BR';
             userRecord.LocaleSidKey         = 'pt_BR';
             userRecord.TimeZoneSidKey       = 'America/Sao_Paulo';
@@ -186,7 +211,7 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             
             updatePermissionSetFuture(JSON.serialize(userRecord), JSON.serialize(ltPermissionSetSF));
             return userRecord;
-        } catch (Exception e) {
+        } catch (Exception e) {            
             throw new RegHandlerException('Erro em criar/atualizar usuário: ' + e.getMessage());
         } 
     }
@@ -423,5 +448,22 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
         if(String.isNotEmpty(errorMsg)) {
             throw new RegHandlerException(errorMsg + 'Acesso incorreto, por favor, entrar em contato com o CSL para regularização');
         }
+    }
+
+    private SalesOffices__mdt getOffice(String office) {
+        SalesOffices__mdt center = null;
+        List<String> vetOffice = office.split('-');
+        
+        if (vetOffice.size() > 0) {
+            office = vetOffice[0];
+
+            List<SalesOffices__mdt> lstCenter = [SELECT Id, Office__c, Center__c, Store__c FROM SalesOffices__mdt WHERE Office__c = :office AND Active__c = true];
+        
+            if (lstCenter.size() > 0) {
+                center = lstCenter[0];
+            }            
+        }
+
+        return center;
     }
 }
