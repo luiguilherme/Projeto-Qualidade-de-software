@@ -7,10 +7,6 @@
     ---------------------------------------------------
 */
 public with sharing class SSMAttendanceOperationsService {
-    public static Map<String, Object> getGiveUpReasonsList() {
-        return (SSMAttendanceOperationsEngine.getGiveUpReasonsList());
-    }
-
     public static Map<String, Object> recallTicket(StoreServiceManagerTO.ServiceTicket serviceTicket) {
         return (SSMAttendanceOperationsEngine.recallTicket(serviceTicket));
     }

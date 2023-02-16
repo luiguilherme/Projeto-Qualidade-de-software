@@ -2,12 +2,14 @@
                 implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
                 access="global">
     <!-- Attributes -->
+    <aura:attribute name="showView" type="String" default="ATTENDANCE" />
     <aura:attribute name="serviceTicket" type="Object" default="{}" />
     <aura:attribute name="isOpenGiveUpDialog" type="Boolean" default="false" />
     <aura:attribute name="ltGiveUpReasons" type="List" default="[]" />
-    <aura:attribute name="showView" type="String" default="ATTENDANCE" />
 
     <!-- Handler -->
+    <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
+
     <aura:handler event="c:BroadcastNotification" action="{! c.BroadcastNotificationHandler}" access="global" />
 
     <!-- Event -->
@@ -79,6 +81,7 @@
     <aura:if isTrue="{! v.isOpenGiveUpDialog}">
         <c:SSMGiveUpDialog
             aura:id="giveUpDialog" 
+            serviceTicket="{! v.serviceTicket}"
             ltGiveUpReasons="{! v.ltGiveUpReasons}" />
     </aura:if>
 </aura:component>

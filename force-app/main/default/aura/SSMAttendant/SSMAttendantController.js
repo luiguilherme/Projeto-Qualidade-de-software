@@ -15,11 +15,11 @@
         helper.prePause(component);
     },
 
-    btnCancelPauseDialog : function(component, event, helper) {
+    btnCancelClick : function(component, event, helper) {
         helper.cancelPause(component);
     },
 
-    btnConfirmPauseDialog : function(component, event, helper) {
+    btnConfirmClick : function(component, event, helper) {
         helper.confirmPause(component);
     },
 

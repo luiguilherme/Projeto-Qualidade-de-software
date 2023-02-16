@@ -26,4 +26,12 @@ public with sharing class StoreServiceManagerService {
     public static StoreServiceManagerTO.ItemPicklistValue getAccountCustomerSegmentGSS(String accountCustomerSegment) {
         return (StoreServiceManagerEngine.getAccountCustomerSegmentGSS(accountCustomerSegment));
     }
+
+    public static Boolean isPartnerCommunityLicense() {
+        return (StoreServiceManagerEngine.isPartnerCommunityLicense());
+    }
+
+    public static Map<String, Object> getParams() {
+        return (StoreServiceManagerEngine.getParams());
+    }
 }

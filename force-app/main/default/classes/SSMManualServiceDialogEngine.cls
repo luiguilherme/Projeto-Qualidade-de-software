@@ -30,6 +30,11 @@ public with sharing class SSMManualServiceDialogEngine {
                 serviceTicket.type = MANUAL_ATTENDANCE;
                 serviceTicket.workPositionId = workPositionId;
                 serviceTicket.displayAlert = displayAlert;
+                
+                /* Context for future improvements
+                serviceTicket.giveUpReasonDialog = '';
+                */
+                
                 serviceTicket.ticketId = generatedTicket.id;
                 serviceTicket.customerSpecialNeeds = false;
                 serviceTicket.customerPriority = 2;
@@ -43,7 +48,7 @@ public with sharing class SSMManualServiceDialogEngine {
                 serviceTicket.activity = '';
                 serviceTicket.protocol = '';
                 serviceTicket.waitTime = calculateElapsedTime(scheduleTime);
-                serviceTicket.startTime = (DateTime.now()).format();
+                serviceTicket.startTime = (DateTime.now()).format('dd/MM/YYYY HH:mm:ss');
                 serviceTicket.finalTime = '';
                 serviceTicket.duration = '';
                 serviceTicket.service = '';

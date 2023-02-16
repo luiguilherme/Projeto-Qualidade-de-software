@@ -1,6 +1,8 @@
 ({
-    doInit : function(component, event, helper) {
-        helper.doInit(component, true);
+    doInit: function(component, event, helper) {
+        /* Context for future improvements
+        helper.doInit(component);
+        */
     },
 
     doEnable : function(component, event, helper) {

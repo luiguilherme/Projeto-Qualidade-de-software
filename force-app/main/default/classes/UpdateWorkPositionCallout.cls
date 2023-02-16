@@ -13,7 +13,7 @@ public with sharing class UpdateWorkPositionCallout {
         Map<String, Object> mapResult = new Map<String, Object>();
 
         WebService__c wsConfig = Webservice__c.getInstance(WEBSERVICE_NAME);
-		
+
         if (wsConfig == null || !wsConfig.switchedOn__c) {
             if (wsConfig == null) {
                 mapResult.put('error', ERROR_WEBSERVICE_NOTFOUND);

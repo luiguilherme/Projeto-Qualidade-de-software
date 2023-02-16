@@ -5,89 +5,44 @@
         Forced: "FORCED"
     },
 
-    doInit : function(component, event, helper) {
-        let attendant = component.get("v.attendant");
+	doInit : function(component) {
+        /* Context for future improvements
+        // Component auto-recovery after browser updates: manual service dialog
+        let lsSSMAttendantInfo = LightningUtil.getItemLocalStorage("SSMAttendantInfo", "ATTENDANT");
 
-        if (!attendant || !attendant.StoreSegment__c) {
-            return;
+        if (lsSSMAttendantInfo) {
+            let SSMAttendantInfo;
+
+            try {
+                SSMAttendantInfo = JSON.parse(lsSSMAttendantInfo);
+
+            } catch (error) {
+
+            }
+
+            if (SSMAttendantInfo && SSMAttendantInfo.openedManualServiceDialog) {
+                this.manualAttendance(component);
+            }
         }
-        
-        let workPositionId = component.get("v.workPositionId");
-        let timeAutomaticTicketCall = component.get("v.timeAutomaticTicketCall")
-
-        if (workPositionId && !timeAutomaticTicketCall) {
-            this.getTimeAutomaticTicketCall(component, false, false);
-        }
-    },
-
-    getTimeAutomaticTicketCall : function(component, doActivate, enable) {
-        var defaultTimeAutomaticTicketCall = 15;
-
-        this.beforeCallAction();
-
-		LightningUtil.callApex(
-			component,
-			"getTimeAutomaticTicketCallParam",
-			{},
-			(returnValue) => {
-                let timeAutomaticTicketCall = defaultTimeAutomaticTicketCall;
-				let errorMessage = "";
-
-				if (returnValue["success"]) {
-                    timeAutomaticTicketCall = returnValue["success"];
-
-                } else {
-                    errorMessage = returnValue["error"];
-				}
-
-                component.set("v.timeAutomaticTicketCall", timeAutomaticTicketCall);
-
-                this.notitySSMChronometer({type: "secondsToAction", value: timeAutomaticTicketCall});
-
-                if (doActivate) {
-                    this.activate(component, enable);
-                }
-
-			    this.afterCallAction(errorMessage);
-			},
-			(exceptions) => {
-				try {
-                    this.afterCallAction(exceptions[0].message);
-
-				} catch (ex) {
-                    this.afterCallAction(601);
-				}
-			}
-		);
-    },
-    
-    preActivate : function(component, enable) {
-        let timeAutomaticTicketCall = component.get("v.timeAutomaticTicketCall")
-
-        if (!timeAutomaticTicketCall) {
-            this.getTimeAutomaticTicketCall(component, true, enable);
-
-        } else {
-            this.activate(component, enable);
-        }
+        */
     },
 
     activate : function(component, enable) {
         let workPositionId = component.get("v.workPositionId");
         let pauseReasonId = component.get("v.pauseReasonId");
+        let isOpenManualServiceDialog = component.get("v.isOpenManualServiceDialog");
 
         let activatedOthers = (workPositionId && !pauseReasonId);
 
         component.set("v.activatedOthers", activatedOthers);
         component.set("v.activated", enable);
 
-        this.notitySSMChronometer((enable) ? {type: "play"} : {type: "stop"});
+        this.notitySSMChronometer((enable && !isOpenManualServiceDialog) ? {type: "play"} : {type: "stop"});
     },
 
     manualAttendance : function(component, event, helper) {
         this.notitySSMChronometer({type: "stop"});
-
-        component.set("v.isOpenManualServiceDialog", true);
+        this.updateOpenedManualServiceDialog(component, true);
     },
 
     preAttendance : function(component, type) {
@@ -143,8 +98,6 @@
     posAttendance : function(component) {
         let serviceTicket = component.get("v.serviceTicket");
 
-        this.notitySSMChronometer({type: "stop"});
-
         if (serviceTicket.type == this.AttendanceType.Manual) {
             serviceTicket.serviceName = $A.get("$Label.c.StoreServiceManagerManualService");
 
@@ -155,15 +108,34 @@
         }
 
         component.set("v.serviceTicket", serviceTicket);
-        component.set("v.isOpenManualServiceDialog", false);
-    
-        let eventSSM = $A.get('e.c:BroadcastNotification');
 
-        eventSSM.setParam("type", "StoreServiceManager");
-        eventSSM.setParam("sobject", null);
-        eventSSM.setParam("json", {type: "attendance", serviceTicket: serviceTicket});
+        this.notitySSMChronometer({type: "stop"});
+        this.updateOpenedManualServiceDialog(component, false);
+        this.notifyStoreServiceManager({type: "attendance", serviceTicket: serviceTicket});
+    },
 
-        eventSSM.fire();
+    updateOpenedManualServiceDialog : function(component, showDialog) {
+        /* Context for future improvements
+        let SSMAttendantInfo;
+        let lsSSMAttendantInfo = LightningUtil.getItemLocalStorage("SSMAttendantInfo", "ATTENDANT");
+
+        if (lsSSMAttendantInfo) {
+            try {
+                SSMAttendantInfo = JSON.parse(lsSSMAttendantInfo);
+
+            } catch (error) {
+
+            }
+
+            if (SSMAttendantInfo) {
+                SSMAttendantInfo.openedManualServiceDialog = ((showDialog) ? "?" : "");
+                
+                LightningUtil.setItemLocalStorage("SSMAttendantInfo", JSON.stringify(SSMAttendantInfo), "ATTENDANT");
+            }
+        }
+        */
+       
+        component.set("v.isOpenManualServiceDialog", showDialog);
     },
 
     BroadcastNotificationHandler : function(component, event) {       
@@ -173,7 +145,7 @@
             let jsonSSM = event.getParam("json");
 
             if (jsonSSM.type == "activate") {
-                this.preActivate(component, jsonSSM.value);
+                this.activate(component, jsonSSM.value);
 
             } else if (jsonSSM.type == "getServiceTicket") {
                 if (jsonSSM.serviceTicket) {
@@ -183,9 +155,9 @@
                 }
 
             } else if (jsonSSM.type == "closeManualServiceDialog") {
-                this.notifySSMTickets({type: "fetchServiceTickets", value: true});
+                this.updateOpenedManualServiceDialog(component, false);
 
-                component.set("v.isOpenManualServiceDialog", false);
+                this.notifySSMTickets({type: "fetchServiceTickets", value: true, notify: "SSMAttendant"});
 
             } else if (jsonSSM.type == "confirmManualAttendance") {
                 // Manual attendance confirmed

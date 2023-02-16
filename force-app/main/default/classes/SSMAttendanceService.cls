@@ -1,9 +1,9 @@
 public with sharing class SSMAttendanceService {
-    public static Map<String, Object> getAccount(String phoneNumber, String documentNumber) {
-        return (SSMAttendanceEngine.getAccount(phoneNumber, documentNumber));
+    public static Map<String, Object> fetchAttendanceOperationalInformations() {
+        return (SSMAttendanceEngine.fetchAttendanceOperationalInformations());
     }
 
-    public static Boolean isPartnerCommunityLicense() {
-        return (SSMAttendanceEngine.isPartnerCommunityLicense());
+    public static Map<String, Object> getAccount(String phoneNumber, String documentNumber) {
+        return (SSMAttendanceEngine.getAccount(phoneNumber, documentNumber));
     }
 }

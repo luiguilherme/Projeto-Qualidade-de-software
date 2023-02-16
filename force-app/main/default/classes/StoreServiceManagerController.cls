@@ -31,4 +31,14 @@ public with sharing class StoreServiceManagerController {
     public static StoreServiceManagerTO.ItemPicklistValue getAccountCustomerSegmentGSS(String accountCustomerSegment) {
         return (StoreServiceManagerService.getAccountCustomerSegmentGSS(accountCustomerSegment));
     }
+
+    @AuraEnabled
+    public static Boolean isPartnerCommunityLicense() {
+        return (StoreServiceManagerService.isPartnerCommunityLicense());
+    }
+
+    @AuraEnabled
+    public static Map<String, Object> getParams() {
+        return (StoreServiceManagerService.getParams());
+    }
 }

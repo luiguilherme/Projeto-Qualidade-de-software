@@ -1,11 +1,12 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
                 access="global">
     <!-- Attributes -->
+    <aura:attribute name="serviceTicket" type="Object" default="{}" />
     <aura:attribute name="ltGiveUpReasons" type="List" default="[]" />
     <aura:attribute name="giveUpReason" type="String" default="" />
     <aura:attribute name="disableConfirmButton" type="Boolean" default="true" />
     <aura:attribute name="errorMessage" type="String" default=""/>
-    
+
     <!-- Handler -->
     <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
 
@@ -44,7 +45,8 @@
                         
                         <div class="slds-form-element">
                             <div class="slds-form-element__control" style="margin-right: 0.5rem;">
-                                <lightning:tree items="{! v.ltGiveUpReasons}"
+                                <lightning:tree aura:id="treeGiveUpReasons"
+                                    items="{! v.ltGiveUpReasons}"
                                     onselect="{! c.onSelectGiveUpReason}"/>
                             </div>
                         </div>
@@ -66,4 +68,4 @@
     </section>
 
     <div class="slds-backdrop slds-backdrop_open"></div>
-</aura:component>
+</aura:component>	

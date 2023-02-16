@@ -1,46 +1,16 @@
 ({
-    loadSSMAttendanceCustomerData : function(component, event, helper) {
-        let ltCategories = component.get("v.ltCategories");
-        let ltDocumentTypes = component.get("v.ltDocumentTypes");       
-
-        if (ltCategories && ltCategories.length > 0 &&
-            ltDocumentTypes && ltDocumentTypes.length > 0
-        ) {
-            return;
+    doInit : function(component, event, helper) {
+        let serviceTicket = component.get("v.serviceTicket");
+    
+        if (serviceTicket.mainDocumentType) {
+            this.setDocumentNumberFormat(component, serviceTicket.mainDocumentType);
         }
+    },
 
-        this.beforeCallAction();
+    onCustomerNameChange : function(component, event, helper) {
+        let serviceTicket = component.get("v.serviceTicket");
 
-        LightningUtil.callApex(
-            component,
-            "loadSSMAttendanceCustomerData",
-            {},
-            (returnValue) => {
-                let errorMessage = "";
-
-                if (returnValue["categories"]) { 
-                    component.set("v.ltCategories", returnValue["categories"]);
-                }
-
-                if (returnValue["documentTypes"]) { 
-                    component.set("v.ltDocumentTypes", returnValue["documentTypes"]);
-                }
-
-                if (returnValue["error"]) {
-                    errorMessage = returnValue["error"];
-                }
-
-                this.afterCallAction(errorMessage);
-            },
-            (exceptions) => {
-                try {
-                    this.afterCallAction(exceptions[0].message);
-
-                } catch (ex) {
-                    this.afterCallAction(601);
-                }
-            }
-        );
+        LightningUtil.setItemLocalStorage("SSMTicketInfo", JSON.stringify(serviceTicket), "TICKET");
     },
 
     onCellPhoneChange : function(component, event, helper) {
@@ -62,6 +32,8 @@
         serviceTicket.customerCellPhone = cellPhone;
 
         component.set("v.serviceTicket", serviceTicket);
+
+        LightningUtil.setItemLocalStorage("SSMTicketInfo", JSON.stringify(serviceTicket), "TICKET");
     },
 
     onCategoryChange : function(component, event, helper) {
@@ -74,26 +46,23 @@
         });
 
         serviceTicket.categoryName = category[0].label;
+        serviceTicket.activities = "";
 
         component.set("v.serviceTicket", serviceTicket);
+
+        LightningUtil.setItemLocalStorage("SSMTicketInfo", JSON.stringify(serviceTicket), "TICKET");
     },
 
     onMainDocumentTypeChange : function(component, event, helper) {
         let serviceTicket = component.get("v.serviceTicket");
 
-        if (serviceTicket.mainDocumentType === "CPF") {
-            component.set("v.placeholderDocumentNumber", "000.000.000-00")
-
-        } else if (serviceTicket.mainDocumentType === "CNPJ") {
-            component.set("v.placeholderDocumentNumber", "00.000.000/0000-00")
-
-        } else {
-            component.set("v.placeholderDocumentNumber", "00000000000000000000")
-        }
+        this.setDocumentNumberFormat(component, serviceTicket.mainDocumentType);
 
         serviceTicket.documentNumber = "";
         
         component.set("v.serviceTicket", serviceTicket);
+
+        LightningUtil.setItemLocalStorage("SSMTicketInfo", JSON.stringify(serviceTicket), "TICKET");
 
         component.find("txtDocumentNumber").focus();
     },
@@ -148,6 +117,20 @@
         serviceTicket.documentNumber = documentNumber;
 
         component.set("v.serviceTicket", serviceTicket);
+
+        LightningUtil.setItemLocalStorage("SSMTicketInfo", JSON.stringify(serviceTicket), "TICKET");
+    },
+
+    setDocumentNumberFormat : function(component, documentType) {
+        if (documentType === "CPF") {
+            component.set("v.placeholderDocumentNumber", "000.000.000-00")
+
+        } else if (documentType === "CNPJ") {
+            component.set("v.placeholderDocumentNumber", "00.000.000/0000-00")
+
+        } else {
+            component.set("v.placeholderDocumentNumber", "00000000000000000000")
+        }
     },
 
     showErrorMessage: function(errorMessage) {

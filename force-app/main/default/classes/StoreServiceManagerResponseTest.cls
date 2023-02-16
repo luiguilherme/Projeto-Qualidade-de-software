@@ -116,7 +116,7 @@ public with sharing class StoreServiceManagerResponseTest {
         String jsonAttendance = (
                 '{\"ticket\":{\"id\":\"01\",\"customer\":{\"individualIdentification\":' + 
                 '{\"nationalIdentilyCardNr\":\"45678932103\",\"documentType\":\"CPF\"},' + 
-                '\"name\":\"Maria Augusta Silva\",\"segment\":{\"id\":\"string\",\"description\":' + 
+                '\"name\":\"Maria da Silva\",\"segment\":{\"id\":\"string\",\"description\":' + 
                 '\"string\",\"name\":\"string\",\"type\":\"string\"},\"specialNeeds\":false,' + 
                 '\"priority\":2},\"createBy\":\"A123410\",\"createAt\":\"14:16:22\",\"duration\":' + 
                 '{\"amount\":\"00:05:50\"},\"geographicArea\":{\"code\":\"11\"},\"network\":' + 
