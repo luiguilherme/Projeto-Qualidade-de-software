@@ -3,7 +3,13 @@
     <!-- Attributes -->
     <aura:attribute name="attendant" type="Object" default="{}" />
     <aura:attribute name="serviceTicket" type="Object" default="{}" />
+
+    <!-- Handler -->
+    <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
     
+    <!-- Event -->
+    <aura:registerEvent name="BroadcastNotificationEvent" type="c:BroadcastNotification"/>
+        
     <lightning:card class="slds-var-m-around_x-small">
         <aura:set attribute="title">
             {! $Label.c.Attendance}
@@ -73,4 +79,4 @@
             </lightning:layout>
         </aura:set>
     </lightning:card>
-</aura:component>
+</aura:component>	

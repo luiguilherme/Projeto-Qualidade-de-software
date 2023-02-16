@@ -94,8 +94,6 @@ public with sharing class SSMAttendanceOperationsControllerTest {
 
             accountTest.RecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Billing').getrecordTypeId();
             accountTest.Name = 'Account Test SSM';
-            accountTest.DocumentNumber__c = '11111111111111';
-            // accountTest.CustomerType__c = 'Móvel';
             accountTest.CustomerSegment__c = 'PLATINUM';
             accountTest.Active__c = true;
             accountTest.DocumentNumber__c = '55566677788';
@@ -129,8 +127,8 @@ public with sharing class SSMAttendanceOperationsControllerTest {
             serviceTicket.ticketId = 'A229';
             serviceTicket.customerPriority = 1;
             serviceTicket.customerId = ltAccountTest[0].Id;
-            serviceTicket.customerName = 'Maria Augusta Silva';
-            serviceTicket.customerAlias = 'Maria Augusta Silva';
+            serviceTicket.customerName = 'Maria da Silva';
+            serviceTicket.customerAlias = 'Maria da Silva';
             serviceTicket.customerCellPhone = '11988887777';
             serviceTicket.customerDocument = '45678932103';
             serviceTicket.category = 'FIXA';
@@ -169,8 +167,8 @@ public with sharing class SSMAttendanceOperationsControllerTest {
             serviceTicket.ticketId = 'A229';
             serviceTicket.customerPriority = 1;
             serviceTicket.customerId = ltAccountTest[0].Id;
-            serviceTicket.customerName = 'Maria Augusta Silva';
-            serviceTicket.customerAlias = 'Maria Augusta Silva';
+            serviceTicket.customerName = 'Maria da Silva';
+            serviceTicket.customerAlias = 'Maria da Silva';
             serviceTicket.customerCellPhone = '11988887777';
             serviceTicket.customerDocument = '45678932103';
             serviceTicket.category = 'FIXA';
@@ -211,8 +209,8 @@ public with sharing class SSMAttendanceOperationsControllerTest {
             serviceTicket.segmentationName = 'Cliente V';
             serviceTicket.customerPriority = 1;
             serviceTicket.customerId = ltAccountTest[0].Id;
-            serviceTicket.customerName = 'Maria Augusta Silva';
-            serviceTicket.customerAlias = 'Maria Augusta Silva';
+            serviceTicket.customerName = 'Maria da Silva';
+            serviceTicket.customerAlias = 'Maria da Silva';
             serviceTicket.customerCellPhone = '11988887777';
             serviceTicket.customerDocument = '45678932103';
             serviceTicket.category = 'FIXA';
@@ -252,8 +250,8 @@ public with sharing class SSMAttendanceOperationsControllerTest {
             serviceTicket.ticketId = 'A229';
             serviceTicket.customerPriority = 1;
             serviceTicket.customerId = ltAccountTest[0].Id;
-            serviceTicket.customerName = 'Maria Augusta Silva';
-            serviceTicket.customerAlias = 'Maria Augusta Silva';
+            serviceTicket.customerName = 'Maria da Silva';
+            serviceTicket.customerAlias = 'Maria da Silva';
             serviceTicket.customerCellPhone = '11988887777';
             serviceTicket.customerDocument = '45678932103';
             serviceTicket.category = 'FIXA';

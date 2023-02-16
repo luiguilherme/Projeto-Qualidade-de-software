@@ -8,6 +8,11 @@
 */
 public with sharing class SSMAttendanceController {
     @AuraEnabled
+    public static Map<String, Object> fetchAttendanceOperationalInformations() {
+        return (SSMAttendanceService.fetchAttendanceOperationalInformations());
+    }
+
+    @AuraEnabled
     public static Map<String, Object> getAccount(String phoneNumber, String documentNumber) {
         return (SSMAttendanceService.getAccount(phoneNumber, documentNumber));
     }
@@ -15,9 +20,5 @@ public with sharing class SSMAttendanceController {
     @AuraEnabled
     public static StoreServiceManagerTO.ItemPicklistValue getAccountCustomerSegmentGSS(String accountCustomerSegment) {
         return (StoreServiceManagerService.getAccountCustomerSegmentGSS(accountCustomerSegment));
-    }
-    
-    public static Boolean isPartnerCommunityLicense() {
-        return (SSMAttendanceService.isPartnerCommunityLicense());
     }
 }

@@ -40,7 +40,7 @@ public with sharing class PointOfServiceAttendanceCallout {
 
                 if (response.getStatusCode() == CODE_HTTP_SUCCESS) {
                     mapResult.put('success', response.getBody());
-                    mapResult.put('startTime', (DateTime.now()).format());
+                    mapResult.put('startTime', (DateTime.now()).format('dd/MM/YYYY HH:mm:ss'));
 
                 } else {
                     String jsonError = response.getBody();
@@ -86,7 +86,7 @@ public with sharing class PointOfServiceAttendanceCallout {
                 String response = '{"ticket": {"id": "T98"}, "status": "OPEN"}';
 
                 mapResult.put('success', response);
-                mapResult.put('startTime', (DateTime.now()).format());
+                mapResult.put('startTime', (DateTime.now()).format('dd/MM/YYYY HH:mm:ss'));
             }
         }
 
@@ -126,7 +126,7 @@ public with sharing class PointOfServiceAttendanceCallout {
                     mapResult.put('success', response.getStatusCode());
 
                     if (status.equals('Recall')) {
-                        mapResult.put('startTime', (DateTime.now()).format());
+                        mapResult.put('startTime', (DateTime.now()).format('dd/MM/YYYY HH:mm:ss'));
                     }
                     
                 } else {
@@ -173,7 +173,7 @@ public with sharing class PointOfServiceAttendanceCallout {
                 mapResult.put('success', CODE_HTTP_SUCCESS);
 
                 if (status.equals('Recall')) {
-                    mapResult.put('startTime', (DateTime.now()).format());
+                    mapResult.put('startTime', (DateTime.now()).format('dd/MM/YYYY HH:mm:ss'));
                 }
             }
         }

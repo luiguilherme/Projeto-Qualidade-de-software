@@ -18,7 +18,7 @@ public with sharing class StoreServiceManagerEngine {
     private static final String DOCUMENT_TYPES = 'DocumentTypes';
 
     private static final String CUSTOMER_SEGMENT = 'CustomerSegment';
-    private static final String SEGMENT_NORMAL_CUSTOMER_ID = '3';
+    private static final String SEGMENT_NOT_CUSTOMER_ID = '3';
 
     private static final Integer ERROR_LOADING_USER_INFORMATION = 602;
     private static final Integer ERROR_USER_NOT_RELATED_TO_STORE = 610;
@@ -61,7 +61,9 @@ public with sharing class StoreServiceManagerEngine {
                 }
 
                 if (mapResponse.get('error') == null) {
-                    mapResponse.put('success', attendant);
+                    mapResponse.put('attendant', attendant);
+                    mapResponse.put('partnerCommunityLicense', isPartnerCommunityLicense(attendant));
+                    mapResponse.put('params', getParams());
                 }
             }
 
@@ -309,7 +311,7 @@ public with sharing class StoreServiceManagerEngine {
     public static StoreServiceManagerTO.ItemPicklistValue getAccountCustomerSegmentGSS(String accountCustomerSegment) {
         StoreServiceManagerTO.ItemPicklistValue segment = new StoreServiceManagerTO.ItemPicklistValue();
 
-        segment.value = SEGMENT_NORMAL_CUSTOMER_ID;
+        segment.value = SEGMENT_NOT_CUSTOMER_ID;
         segment.label = '';
 
         if (!String.isBlank(accountCustomerSegment)) {
@@ -334,5 +336,51 @@ public with sharing class StoreServiceManagerEngine {
         }
 
         return (segment);
+    }
+
+    public static Boolean isPartnerCommunityLicense() {
+        User currentUser = UserDAO.getById(UserInfo.getUserId());
+        
+        return (isPartnerCommunityLicense(currentUser));
+    }
+
+    public static Boolean isPartnerCommunityLicense(User userToCheck) {
+        Boolean isPartnerCommunity = false;
+        
+        if (userToCheck != null) {
+            try {
+                isPartnerCommunity = (userToCheck.Profile.UserLicense.Name == 'Partner Community');
+
+            } catch (Exception e) {
+
+            }
+        }
+
+        return (isPartnerCommunity);
+    }
+
+    public static Map<String, Object> getParams() {
+        Map<String, Object> mapParams = new Map<String, Object>();
+
+        try {
+            List<GeneralParam__c> ltParam = GeneralParamDAO.getLoadParams();
+    
+            if (!ltParam.isEmpty()) {
+                mapParams.put('viewFieldService', ltParam[0].ViewFieldServiceStoreService__c);
+                mapParams.put('timeAutomaticTicketCall', ltParam[0].TimeAutomaticTicketCall__c);
+            }
+
+        } catch (Exception e) {
+
+        }
+
+        if (mapParams.get('viewFieldService') == null) {
+            mapParams.clear();
+
+            mapParams.put('viewFieldService', false);
+            mapParams.put('timeAutomaticTicketCall', 10);
+        }
+
+        return (mapParams);
     }
 }

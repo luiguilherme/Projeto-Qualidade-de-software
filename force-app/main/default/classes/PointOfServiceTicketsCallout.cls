@@ -91,7 +91,7 @@ public with sharing class PointOfServiceTicketsCallout {
 
             } else {
                 String response = (
-                    '[{"id":"A229","customer":{"name":"Maria Augusta Silva","segment":{"id":"01","name":"Cliente V"},' +
+                    '[{"id":"A229","customer":{"name":"Maria da Silva","segment":{"id":"01","name":"Cliente V"},' +
                     '"individualIdentification":{"nationalIdentilyCardNr":"12345678901","documentType":"CPF"}},' +
                     '"duration":{"amount":"2022-06-02 00:05:50"},"geographicArea":{"code":"11"},' +
                     '"network":{"networkNumber":"988887654"},"interaction":{"name":"Ajuste de Plano"}},' +

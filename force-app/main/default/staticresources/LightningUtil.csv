@@ -138,5 +138,136 @@ window.LightningUtil = ({
 		} else{
 			console.log('LightningUtil Exception: Utility API access not granted. Please initialize it.');
 		}
-	}
+	},
+
+	endecode : function(text, key, encode) {
+		// endecode: function to encode or decode a text using a key.
+		// Arguments: text to encode or decode; key to help with encryption or decryption; and, encode indicates that it should encode (true) or decode (false)
+		let result = "";
+		
+		try {
+			let charCode = 0;
+			let textIndex = 0;
+			let keyIndex = 0;
+			
+			for (textIndex = 0; textIndex < text.length; textIndex++) {
+				if (encode) {
+					charCode = (text.charCodeAt(textIndex) + key.charCodeAt(keyIndex));
+					charCode = ((charCode > 255) ? charCode - 256 : charCode);
+
+				} else {
+					charCode = (text.charCodeAt(textIndex) - key.charCodeAt(keyIndex));
+					charCode = ((charCode < 0) ? charCode + 256 : charCode);
+				}
+
+				keyIndex = ((keyIndex == (key.length - 1)) ? 0 : keyIndex + 1);
+
+				result += String.fromCharCode(charCode);
+			}
+
+		} catch (error) {
+
+		}
+		
+		return result;
+	},
+
+    storageTypes : {
+		session: "sessionStorage",
+		local: "localStorage",
+		types: ["sessionStorage", "localStorage"],
+
+		resolveType : function(type) {
+			let storageType = this.session;
+
+			if (type && this.types.includes(type)) {
+				storageType = type;
+			}
+
+			return storageType;
+		}
+	},
+
+	setItemSessionStorage : function(itemSession, text, encodeKey) {
+        this.setItemStorage(this.storageTypes.session, itemSession, text, encodeKey);
+	},
+
+	getItemSessionStorage : function(itemSession, decodeKey) {
+        return this.getItemStorage(this.storageTypes.session, itemSession, decodeKey);
+	},
+
+	removeItemSessionStorage : function(itemSession) {
+        this.removeItemStorage(this.storageTypes.session, itemSession);
+	},
+
+	setItemLocalStorage : function(itemLocal, text, encodeKey) {
+        this.setItemStorage(this.storageTypes.local, itemLocal, text, encodeKey);
+	},
+
+	getItemLocalStorage : function(itemLocal, decodeKey) {
+        return this.getItemStorage(this.storageTypes.local, itemLocal, decodeKey);
+	},
+
+	removeItemLocalStorage : function(itemLocal) {
+        this.removeItemStorage(this.storageTypes.local, itemLocal);
+	},
+
+	setItemStorage : function(storageType, itemStorage, text, encodeKey) {
+        storageType = this.storageTypes.resolveType(storageType);
+
+		if (itemStorage && text) {
+			let textStorage = text;
+
+			if (encodeKey) {
+				let dateStorage = (new Date().toLocaleDateString());
+
+				textStorage = this.endecode(text, (encodeKey + dateStorage), true);
+			}
+
+			window[storageType].setItem(itemStorage, textStorage);
+		}
+	},
+
+	getItemStorage : function(storageType, itemStorage, decodeKey) {
+		let text = "";
+
+        storageType = this.storageTypes.resolveType(storageType);
+
+		if (itemStorage) {
+			let textStorage = window[storageType].getItem(itemStorage);
+
+			if (textStorage) {
+				if (decodeKey) {
+					let dateStorage = (new Date().toLocaleDateString());
+
+					text = this.endecode(textStorage, (decodeKey + dateStorage), false);
+
+				} else {
+					text = textStorage;
+				}
+			}
+		}
+
+		return text;
+	},
+
+	removeItemStorage : function(storageType, itemStorage) {
+        storageType = this.storageTypes.resolveType(storageType);
+
+		if (itemStorage) {
+			if (itemStorage.includes(";")) {
+				let ltItemStorage = itemStorage.split(";");
+
+				for (let item in ltItemStorage) {
+					if (ltItemStorage[item]) {
+						window[storageType].removeItem(ltItemStorage[item]);
+					}
+				}
+
+			} else {
+				window[storageType].removeItem(itemStorage);
+			}
+		}
+	},
+
 })

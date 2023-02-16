@@ -3,10 +3,13 @@
                 access="global">
     <!-- Attributes -->
     <aura:attribute name="supportsPopOut" type="Boolean" default="false" />
+    <aura:attribute name="InService" type="Boolean" default="false" />
     <aura:attribute name="loadUtil" type="Boolean" default="false" />
     <aura:attribute name="isLoading" type="Boolean" default="false" />
-    <aura:attribute name="errorMessage" type="String"/>
+    <aura:attribute name="errorMessage" type="String" />
     <aura:attribute name="attendant" type="Object" default="{}" />
+    <aura:attribute name="partnerCommunityLicense" type="Boolean" default="false" />
+    <aura:attribute name="params" type="Object" default="{}" />
     <aura:attribute name="ltWorkPosition" type="List" default="[]" />
     <aura:attribute name="workPositionId" type="String" default="" />
     <aura:attribute name="ltPauseReason" type="List" default="[]" />
@@ -45,7 +48,7 @@
             overflow-x: hidden !important;
         }
     </aura:html>
-    
+
     <!-- Loading-->
     <aura:if isTrue="{! v.isLoading}">
         <div class="slds-spinner_container">
@@ -71,8 +74,10 @@
                 attendant="{! v.attendant}"
                 ltWorkPosition="{! v.ltWorkPosition}"
                 workPositionId="{! v.workPositionId}"
-                ltPauseReason="{! v.ltPauseReason}" />
-            </aura:if>
+                ltPauseReason="{! v.ltPauseReason}"
+                viewFieldService="{! v.params.viewFieldService}"
+                timeAutomaticTicketCall="{! ((v.params.timeAutomaticTicketCall) ? v.params.timeAutomaticTicketCall : 10)}" />
+        </aura:if>
 
         <!-- Attendance -->
         <aura:if isTrue="{! v.servicePage}">
@@ -83,7 +88,8 @@
                 ltCategories="{! v.ltCategories}" 
                 ltDocumentTypes="{! v.ltDocumentTypes}"
                 ltGiveUpReasons="{! v.ltGiveUpReasons}"
-                ltActivities="{! v.ltActivities}" />
+                ltActivities="{! v.ltActivities}" 
+                partnerCommunityLicense="{! v.partnerCommunityLicense}" />
         </aura:if>
     </aura:if>
 </aura:component>

@@ -7,10 +7,6 @@
     ---------------------------------------------------
 */
 public with sharing class SSMHomeOperationsService {
-    public static Map<String, Object> getTimeAutomaticTicketCallParam() {
-        return (SSMHomeOperationsEngine.getTimeAutomaticTicketCallParam());
-    }
-
     public static Map<String, Object> startAttendance(StoreServiceManagerTO.ServiceTicket serviceTicket) {
         return (SSMHomeOperationsEngine.startAttendance(serviceTicket));
     }

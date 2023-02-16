@@ -17,6 +17,7 @@
     <aura:attribute name="disableFnish" type="Boolean" default="true" />
     <aura:attribute name="isOpenPauseWithLogoutDialog" type="Boolean" default="false" />
     <aura:attribute name="doLogout" type="Boolean" default="false" />
+    <aura:attribute name="restart" type="Boolean" default="false" />
 
     <!-- Handler -->
     <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
@@ -25,7 +26,7 @@
 
     <!-- Event -->
     <aura:registerEvent name="BroadcastNotificationEvent" type="c:BroadcastNotification"/>
-        
+
     <lightning:card class="slds-var-m-around_x-small">
         <aura:set attribute="title">
             {! $Label.c.Attendant}
@@ -147,11 +148,11 @@
                 <footer class="slds-modal__footer">
                     <lightning:button variant="neutral"
                                     label="{! $Label.c.No}"
-                                    onclick="{! c.btnCancelPauseDialog}"/>
+                                    onclick="{! c.btnCancelClick}"/>
     
                     <lightning:button variant="brand"
                                     label="{! $Label.c.Yes}"
-                                    onclick="{! c.btnConfirmPauseDialog}"/>
+                                    onclick="{! c.btnConfirmClick}"/>
                 </footer>
             </div>
         </section>

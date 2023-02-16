@@ -8,11 +8,6 @@
 */
 public with sharing class SSMAttendanceOperationsController {
     @AuraEnabled
-    public static Map<String, Object> getGiveUpReasonsList() {
-        return (SSMAttendanceOperationsService.getGiveUpReasonsList());
-    }
-
-    @AuraEnabled
     public static Map<String, Object> recallTicket(StoreServiceManagerTO.ServiceTicket serviceTicket) {
         return (SSMAttendanceOperationsService.recallTicket(serviceTicket));
     }
