@@ -70,6 +70,7 @@ global class OAMOAuthProvider extends Auth.AuthProviderPluginClass {
         String refreshtoken = responseMap.get('refresh_token');  
         System.debug('##accesstoken = ' + accesstoken);  
         System.debug('##refreshToken = ' + refreshtoken);  
+        System.debug('##id_token = ' + id_token);
         return new Auth.AuthProviderTokenResponse('OAM Custom', accesstoken, refreshtoken, sfdcState);
 
     }
@@ -78,18 +79,21 @@ global class OAMOAuthProvider extends Auth.AuthProviderPluginClass {
         
         OAMIdToken oamIdToken = decodeidtoken(id_token);        
         Map<String, String> attributeMap = new Map<String,String>();
-        attributeMap.put('aud', 			oamIdToken.aud);
-        attributeMap.put('iat', 			oamIdToken.iat);
-        attributeMap.put('exp', 			oamIdToken.exp);
-        attributeMap.put('network_id', 		oamIdToken.network_id);
-		attributeMap.put('employee_number', oamIdToken.employee_number);
-        attributeMap.put('phone_number', 	oamIdToken.phone_number); 
-        attributeMap.put('profile_name', 	oamIdToken.profile_name);
-        attributeMap.put('CNPJ',            oamIdToken.CNPJ);
-        attributeMap.put('active', 			oamIdToken.active);
-        attributeMap.put('role', 			oamIdToken.role);
-        attributeMap.put('sub', 			oamIdToken.sub);
-        attributeMap.put('adabas', 			oamIdToken.adabas);
+        attributeMap.put('aud', 			    oamIdToken.aud);
+        attributeMap.put('iat', 			    oamIdToken.iat);
+        attributeMap.put('exp', 			    oamIdToken.exp);
+        attributeMap.put('network_id', 		    oamIdToken.network_id);
+		attributeMap.put('employee_number',     oamIdToken.employee_number);
+        attributeMap.put('phone_number', 	    oamIdToken.phone_number); 
+        attributeMap.put('profile_name', 	    oamIdToken.profile_name);
+        attributeMap.put('CNPJ',                oamIdToken.CNPJ);
+        attributeMap.put('active', 			    oamIdToken.active);
+        attributeMap.put('role', 			    oamIdToken.role);
+        attributeMap.put('sub', 			    oamIdToken.sub);
+        attributeMap.put('adabas', 			    oamIdToken.adabas);
+        attributeMap.put('escritorio_vendas',   oamIdToken.escritorio_vendas);
+        attributeMap.put('canal_atendimento',   oamIdToken.canal_atendimento);
+        attributeMap.put('site',                oamIdToken.site);        
 
         if (oamIdToken.permission_sets != null && !oamIdToken.permission_sets.isEmpty()){
        	attributeMap.put('permission_sets', 	JSON.serialize(oamIdToken.permission_sets));
@@ -152,6 +156,9 @@ global class OAMOAuthProvider extends Auth.AuthProviderPluginClass {
         public String CNPJ;			
         public String active;			
         public String role;
+        public String escritorio_vendas;			
+        public String canal_atendimento;			
+        public String site;        
         public List<String> permission_sets;
     }
     

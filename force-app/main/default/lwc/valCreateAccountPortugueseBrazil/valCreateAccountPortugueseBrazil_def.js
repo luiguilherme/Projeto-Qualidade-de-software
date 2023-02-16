@@ -11,5 +11,5 @@ def += chunk2;
 def += chunk3;
 
 
-                def = decodeURIComponent(atob(def));
+                def = decodeURIComponent(atob(def));    
                 export const OMNIDEF = JSON.parse(def);
