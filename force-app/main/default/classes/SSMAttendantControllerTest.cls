@@ -108,7 +108,7 @@ public with sharing class SSMAttendantControllerTest {
                 Map<String, Object> mapAttendantTest = StoreServiceManagerController.loadStoreServiceManager();
             Test.stopTest();
 
-            User attendant = (User) mapAttendantTest.get('success');
+            User attendant = (User) mapAttendantTest.get('attendant');
 
             Map<String, Object> mapWorkPositionTest = SSMAttendantController.getPositionPicklistValues();
 
@@ -187,7 +187,6 @@ public with sharing class SSMAttendantControllerTest {
                 Test.setMock(HttpCalloutMock.class, new UpdateWorkPositionCalloutMock());
 
                 Map<String, Object> mapStartServiceTest = SSMAttendantController.startService('01');
-            	System.debug('mapStartServiceTest: ' + mapStartServiceTest);
             Test.stopTest();
 
             System.assertEquals(200, mapStartServiceTest.get('success'));
@@ -202,7 +201,7 @@ public with sharing class SSMAttendantControllerTest {
             WHERE UserName = 'ssmgssvssf@ssmgssvssf.com' 
             LIMIT 1
         ];
-		
+
         System.runAs(userTest) {
             Test.startTest();
                 Test.setMock(HttpCalloutMock.class, new UpdateWorkPositionCalloutMock());

@@ -1,60 +1,6 @@
 ({
 	doInit : function(component) {
-        let attendant = component.get("v.attendant");
-
-        if (!attendant || !attendant.StoreSegment__c) {
-            return;
-        }
-
-        let workPositionId = component.get("v.workPositionId");
         let viewFieldService = component.get("v.viewFieldService");
-
-        if (workPositionId) {
-            if (!viewFieldService) {
-                this.getViewFieldService(component);
-            }
-
-        } else {
-            this.initDatatable(component, false, false);
-        }
-    },
-
-    getViewFieldService : function(component) {
-        this.beforeCallAction();
-
-        LightningUtil.callApex(
-            component,
-            "getViewFieldServiceParam",
-            {},
-            (returnValue) => {
-                let viewFieldService = false;
-                let errorMessage = "";
-
-                if (returnValue["success"]) {
-                    viewFieldService = returnValue["success"];
-
-                } else {
-                    errorMessage = returnValue["error"];
-                }
-
-                component.set("v.viewFieldService", 1);
-
-                this.initDatatable(component, viewFieldService, true);
-
-                this.afterCallAction(errorMessage);
-            },
-            (exceptions) => {
-                try {
-                    this.afterCallAction(exceptions[0].message);
-
-                } catch (ex) {
-                    this.afterCallAction(601);
-                }
-            }
-        );
-    },
-
-    initDatatable : function(component, viewFieldService, doFetch) {
 		let ltServiceTicketsColumns = [];
         
         if (viewFieldService) {
@@ -77,27 +23,18 @@
 
 		component.set("v.ltServiceTicketsColumns", ltServiceTicketsColumns);
 
-        if (doFetch) {
-            let workPositionId = component.get("v.workPositionId");
+        this.restart(component);
+    },
 
-            if (workPositionId) {
-                this.fetchPointOfServiceTitckets(component);
-            }
+    restart : function(component) {
+        let restart = component.get("v.restart");
+
+        if (restart) {
+            this.fetchPointOfServiceTitckets(component, "SSMAttendant");
         }
     },
 
-    preFetchPointOfServiceTitckets : function(component) {
-        let viewFieldService = component.get("v.viewFieldService");
-
-        if (!viewFieldService) {
-            this.getViewFieldService(component, true);
-
-        } else {
-            this.fetchPointOfServiceTitckets(component);
-        }
-    },
-
-    fetchPointOfServiceTitckets : function(component) {       
+    fetchPointOfServiceTitckets : function(component, notify) {       
         let tblWaitingCustomers = component.find("tblWaitingCustomers");
         
         tblWaitingCustomers.set("v.selectedRows", []);
@@ -121,7 +58,9 @@
 
                 component.set("v.ltServiceTickets", ltServiceTickets);
                 
-                this.notifySSMAttendant(ltServiceTickets.length > 0);
+                if (notify) {
+                    this.notifyAboutFetchServiceTickets(notify, ltServiceTickets.length > 0);
+                }
 
                 this.afterCallAction(errorMessage);
             },
@@ -143,11 +82,14 @@
             let jsonSSM = event.getParam("json");
 
 			if  (jsonSSM.type == "fetchServiceTickets") {
-                if (jsonSSM.value) {
-                    this.preFetchPointOfServiceTitckets(component);
+                let tblWaitingCustomers = component.find("tblWaitingCustomers");
+    
+                tblWaitingCustomers.set("v.selectedRows", []);
 
-                } else {
-                    component.set("v.ltServiceTickets", []);
+                component.set("v.ltServiceTickets", []);
+                    
+                if (jsonSSM.value) {
+                    this.fetchPointOfServiceTitckets(component, jsonSSM.notify);
                 }
 
             } else if (jsonSSM.type == "getServiceTicket") {
@@ -174,8 +116,8 @@
         this.notitySSM("StoreServiceManager", jsonSSM);
     },
 
-    notifySSMAttendant : function(thereAreTickets) {
-        this.notitySSM("SSMAttendant", {type: "fetchServiceTickets", thereAreTickets: thereAreTickets});
+    notifyAboutFetchServiceTickets : function(notify, thereAreTickets) {
+        this.notitySSM(notify, {type: "fetchServiceTickets", thereAreTickets: thereAreTickets});
     },
 
     notifyAboutGetServiceTicket : function(component, notify, attendanceType, index) {

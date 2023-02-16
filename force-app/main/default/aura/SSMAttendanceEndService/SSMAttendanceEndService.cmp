@@ -1,12 +1,11 @@
-<aura:component controller="SSMAttendanceEndServiceController"
-                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
                 access="global">
     <!-- Attributes -->
     <aura:attribute name="serviceTicket" type="Object" default="{}" />
     <aura:attribute name="ltCategories" type="List" default="[]" />
     <aura:attribute name="ltActivities" type="List" default="[]" />
     <aura:attribute name="ltFilteredActivities" type="List" default="[]" />
-    <aura:attribute name="ltSelecteds" type="List" default="[]" />
+    <aura:attribute name="ltSelectedsActivities" type="List" default="[]" />
 
     <!-- Handler -->
     <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
@@ -32,8 +31,8 @@
                         selectedLabel="{! '* ' + $Label.c.Selecteds}"
                         size="4"
                         options="{! v.ltFilteredActivities}"
-                        value="{! v.ltSelecteds}"
-                        onchange="{! c.onSelectActivity}"/>
+                        value="{! v.ltSelectedsActivities}"
+                        onchange="{! c.onSelectActivity}" />
                 </div>
             </div>
         </lightning:layoutItem>
@@ -51,7 +50,8 @@
                     <lightning:textarea aura:id="txtNotes" 
                         label="{! $Label.c.Notes}"
                         class="textarea-ssm"
-                        value="{! v.serviceTicket.notes}" />
+                        value="{! v.serviceTicket.notes}" 
+                        onchange="{! c.onNotesChange}" />
                 </div>
             </div>
 

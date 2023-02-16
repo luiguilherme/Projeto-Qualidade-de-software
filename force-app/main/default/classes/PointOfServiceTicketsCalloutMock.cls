@@ -3,7 +3,7 @@ global class PointOfServiceTicketsCalloutMock implements HttpCalloutMock {
     protected Map<String, String> responseHeader = new Map<String,String>{'Content-Type' => 'application/json'};
     protected Integer statusCode = 200;
     protected String body = (
-        '[{"id":"A229","customer":{"name":"Maria Augusta Silva","segment":{"id":"01","name":"Cliente V"},' +
+        '[{"id":"A229","customer":{"name":"Maria da Silva","segment":{"id":"01","name":"Cliente V"},' +
         '"individualIdentification":{"nationalIdentilyCardNr":"12345678901","documentType":"CPF"}},' +
         '"duration":{"amount":"2022-06-02 00:05:50"},"geographicArea":{"code":"11"},' +
         '"network":{"networkNumber":"988887654"},"interaction":{"name":"Ajuste de Plano"}},' +

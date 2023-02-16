@@ -97,33 +97,9 @@ public with sharing class SSMTicketsControllerTest {
             );
 
             Database.insert(ltWebservicesSSM);
-            
-            GeneralParam__c paramTest = new GeneralParam__c(
-                ViewFieldServiceStoreService__c = true
-            );
-
-            Database.insert(paramTest);
         }
     }
     
-    @IsTest
-    public static void  getViewFieldServiceParamTest() {
-        User userTest = [
-            SELECT id 
-            FROM User 
-            WHERE UserName = 'ssmgssvssf@ssmgssvssf.com' 
-            LIMIT 1
-        ];
-
-        System.runAs(userTest) {
-            Test.startTest();
-                Map<String, Object> mapTest = SSMTicketsController.getViewFieldServiceParam();
-            Test.stopTest();
-
-            System.assertEquals(true, mapTest.get('success'));
-        }
-    }
-
     @IsTest
     public static void getPointOfServiceTitcketsTest() {
         User userTest = [

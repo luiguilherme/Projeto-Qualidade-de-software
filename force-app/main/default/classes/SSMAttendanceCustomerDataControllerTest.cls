@@ -1,5 +1,15 @@
+// Discontinued. Technical debt: to be removed!
 @IsTest
 public with sharing class SSMAttendanceCustomerDataControllerTest {
+    // For testing purposes only
+    @IsTest
+    public static void  getTestingPurposesOnlyMessageTest() {
+        String message = SSMAttendanceCustomerDataController.getTestingPurposesOnlyMessage();
+
+        System.assertEquals('For testing purposes only', message);
+    }
+
+    /* 
     @TestSetup
     public static void setup() {
         GenericOptionsLists__c newBusinessLine = new GenericOptionsLists__c();
@@ -38,4 +48,5 @@ public with sharing class SSMAttendanceCustomerDataControllerTest {
         System.assertNotEquals(null, mapTest.get('categories'));
         System.assertNotEquals(null, mapTest.get('documentTypes'));
     }
+    */
 }

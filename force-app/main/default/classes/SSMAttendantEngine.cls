@@ -116,7 +116,7 @@ public with sharing class SSMAttendantEngine {
 
         try {
             mapResponse = UpdateWorkPositionCallout.execute(workPositionId, false);
-			
+
         } catch (Exception e) {
             mapResponse.put('error', GENERIC_ERROR_MESSAGE);
         }

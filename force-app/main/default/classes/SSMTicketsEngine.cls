@@ -9,28 +9,6 @@
 public with sharing class SSMTicketsEngine {
     private static final Integer GENERIC_ERROR_MESSAGE = 699;
 
-    public static Map<String, Object> getViewFieldServiceParam() {
-        Map<String, Object> mapResponse = new Map<String, Object>();
-
-        try {
-            List<GeneralParam__c> ltParam = GeneralParamDAO.getLoadParams();
-    
-            if (!ltParam.isEmpty()) {
-                mapResponse.put('success', ltParam[0].ViewFieldServiceStoreService__c);
-    
-            } else {
-                mapResponse.put('success', false);
-            }
-
-        } catch (Exception e) {
-            mapResponse.clear();
-    
-            mapResponse.put('error', GENERIC_ERROR_MESSAGE);
-        }
-    
-        return (mapResponse);
-    }
-
     public static Map<String, Object> getPointOfServiceTitckets() {
         Map<String, Object> mapResponse = new Map<String, Object>();
 
@@ -90,8 +68,14 @@ public with sharing class SSMTicketsEngine {
                         }
                         
                         serviceTicket.type = '';
+                        serviceTicket.view = '';
                         serviceTicket.workPositionId = '';
                         serviceTicket.displayAlert = false;
+
+                        /* Context for future improvements
+                        serviceTicket.giveUpReasonDialog = '';
+                        */
+                        
                         serviceTicket.ticketId = ticket.id;
                         serviceTicket.customerSpecialNeeds = customerSpecialNeeds;
                         serviceTicket.customerPriority = customerPriority;

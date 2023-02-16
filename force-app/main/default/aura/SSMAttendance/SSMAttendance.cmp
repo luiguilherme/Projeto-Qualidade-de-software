@@ -3,8 +3,9 @@
                 access="global">
     <!-- Attributes -->
     <aura:attribute name="attendant" type="Object" default="{}" />
+    <aura:attribute name="partnerCommunityLicense" type="Boolean" default="false" />
     <aura:attribute name="serviceTicket" type="Object" default="{}" />
-    <aura:attribute name="showView" type="String" default="ATTENDANCE" />
+    <aura:attribute name="showView" type="String" default="" />
     <aura:attribute name="ltCategories" type="List" default="[]" />
     <aura:attribute name="ltDocumentTypes" type="List" default="[]" />
     <aura:attribute name="ltGiveUpReasons" type="List" default="[]" />
@@ -40,11 +41,12 @@
             serviceTicket="{! v.serviceTicket}" 
             ltCategories="{! v.ltCategories}" 
             ltActivities="{! v.ltActivities}" />
-        </aura:if>
+    </aura:if>
 
     <!-- Operations -->
     <c:SSMAttendanceOperations
         aura:id="attendanceOperations" 
+        showView="{! v.showView}"
         serviceTicket="{! v.serviceTicket}"
         ltGiveUpReasons="{! v.ltGiveUpReasons}" />
 </aura:component>

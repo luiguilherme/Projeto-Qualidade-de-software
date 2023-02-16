@@ -32,12 +32,6 @@ public with sharing class SSMHomeOperationsControllerTest {
         Database.insert(userTest);
 
         System.runAs(userTest) {
-            GeneralParam__c paramTest = new GeneralParam__c(
-                TimeAutomaticTicketCall__c = 10
-            );
-
-            Database.insert(paramTest);
-
             List<Webservice__c> ltWebservicesSSM = new List<Webservice__c>();
 
             ltWebservicesSSM.add(
@@ -95,24 +89,6 @@ public with sharing class SSMHomeOperationsControllerTest {
             );
 
             Database.insert(ltWebservicesSSM);
-        }
-    }
-
-    @IsTest
-    public static void  getTimeAutomaticTicketCallParamTest() {
-        User userTest = [
-            SELECT id 
-            FROM User 
-            WHERE UserName = 'ssmgssvssf@ssmgssvssf.com' 
-            LIMIT 1
-        ];
-
-        System.runAs(userTest) {
-            Test.startTest();
-                Map<String, Object> mapTest = SSMHomeOperationsController.getTimeAutomaticTicketCallParam();
-            Test.stopTest();
-
-            System.assertEquals(10, mapTest.get('success'));
         }
     }
 

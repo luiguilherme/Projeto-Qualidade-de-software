@@ -26,11 +26,19 @@ public with sharing class StoreServiceManagerTO {
         public String type {get; set;}
 
         @AuraEnabled
+        public String view {get; set;}
+
+        @AuraEnabled
         public String workPositionId {get; set;}
 
         @AuraEnabled
         public Boolean displayAlert {get; set;}
 
+        /* Context for future improvements
+        @AuraEnabled
+        public String giveUpReasonDialog {get; set;}
+        */
+        
         @AuraEnabled
 		public String ticketId {get; set;}
 
@@ -39,6 +47,9 @@ public with sharing class StoreServiceManagerTO {
 
         @AuraEnabled
         public Integer customerPriority {get; set;}
+        
+        @AuraEnabled
+        public String customerInteractionId {get; set;}
 
 		@AuraEnabled
 		public String customerId {get; set;}
@@ -58,7 +69,7 @@ public with sharing class StoreServiceManagerTO {
         @AuraEnabled
         public String segmentation {get; set;}
 
-         @AuraEnabled
+        @AuraEnabled
         public String segmentationName {get; set;}
 
         @AuraEnabled
@@ -105,9 +116,5 @@ public with sharing class StoreServiceManagerTO {
 
         @AuraEnabled
         public String notes {get; set;}
-        
-        @AuraEnabled
-        public String customerInteractionId {get; set;}
-        
     }
 }

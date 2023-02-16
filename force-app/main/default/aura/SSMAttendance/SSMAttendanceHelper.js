@@ -1,6 +1,32 @@
 ({
     doInit : function(component) {
-        var serviceTicket = component.get("v.serviceTicket");
+        let ltCategories = component.get("v.ltCategories");
+        let ltDocumentTypes = component.get("v.ltDocumentTypes");       
+        let ltActivities = component.get("v.ltActivities");
+        let ltGiveUpReasons = component.get("v.ltGiveUpReasons");
+
+        if (ltCategories && ltCategories.length > 0 &&
+            ltDocumentTypes && ltDocumentTypes.length > 0 &&
+            ltActivities && ltActivities.length > 0 &&
+            ltGiveUpReasons && ltGiveUpReasons.length > 0
+        ) {
+            this.loadSSMAttendance(component);
+
+        } else {
+            this.fetchAttendanceOperationalInformations(component);
+        }
+    },
+
+    loadSSMAttendance : function(component) {
+        let serviceTicket = component.get("v.serviceTicket");
+
+        if (serviceTicket.view) {
+            component.set("v.showView", serviceTicket.view);
+
+            return;
+        }
+
+        this.setShowView(component, "ATTENDANCE");
 
         if (serviceTicket.customerInteractionId) {
             this.navigateToObjetcPage(component, serviceTicket.customerInteractionId);
@@ -8,9 +34,48 @@
             return;
         }
 
-        if (!serviceTicket.customerCellPhone && !serviceTicket.customerDocument) {
-            return;
+        if (serviceTicket.customerCellPhone || serviceTicket.customerDocument) {
+            this.fetchAccountInfo(component);
         }
+    },
+
+    fetchAttendanceOperationalInformations : function(component) {
+        this.beforeCallAction();
+
+        LightningUtil.callApex(
+            component,
+            "fetchAttendanceOperationalInformations",
+            {},
+            (returnValue) => {
+                let errorMessage = "";
+                
+                if (returnValue["error"]) {
+                    errorMessage = returnValue["error"];
+
+                } else {
+                    component.set("v.ltCategories", returnValue["categories"]);
+                    component.set("v.ltDocumentTypes", returnValue["documentTypes"]);
+                    component.set("v.ltActivities", returnValue["activities"]);
+                    component.set("v.ltGiveUpReasons", returnValue["quittingReasons"]);
+                    
+                    this.loadSSMAttendance(component);
+                }
+
+                this.afterCallAction(errorMessage);
+            },
+            (exceptions) => {
+                try {
+                    this.afterCallAction(exceptions[0].message);
+
+                } catch (ex) {
+                    this.afterCallAction(601);
+                }
+            }
+        );
+    },
+
+    fetchAccountInfo : function(component) {
+        var serviceTicket = component.get("v.serviceTicket");
 
         this.beforeCallAction();
 
@@ -37,7 +102,9 @@
                         serviceTicket.customerDocument = accountServicing.DocumentNumber__c;
                     }
 
-                    serviceTicket.customerInteractionId = returnValue["CustomerInteractionId"];
+                    if (returnValue["CustomerInteractionId"]) {
+                        serviceTicket.customerInteractionId = returnValue["CustomerInteractionId"];
+                    }
 
                     // Resolves customer segment
                     if (!serviceTicket.segmentation) {
@@ -51,11 +118,14 @@
 
                     component.set("v.serviceTicket", serviceTicket);
 
+                    LightningUtil.setItemLocalStorage("SSMTicketInfo", JSON.stringify(serviceTicket), "TICKET");
+
                     this.navigateToObjetcPage(component, serviceTicket.customerInteractionId);
-            
+                    
                 } else {
                     // Error: Not found or FATAL_ERROR | Internal Salesforce.com Error
-                    this.createLead(component);
+                    this.resolvesCustomerSegment(component);
+                    this.createLead();
                 }
 
                 this.afterCallAction();
@@ -71,6 +141,27 @@
         );
     },
 
+    /* Aqui somente para ver como vai ficar Comunidades... Depois de resolver, remover este trecho de código
+    navigateToAccountPage : function(component, accountId) {
+        let partnerCommunityLicense = component.get("v.partnerCommunityLicense");
+        
+        if (partnerCommunityLicense) {
+            let accountWindowOpenURL = ($A.get("$Label.c.StoreServiceManagerAccountWindowOpenURL")).replace("{accountId}", accountId);
+
+            window.open(accountWindowOpenURL, "_blank");
+
+        } else {
+            let navigateToAccountPageEvent = $A.get("e.force:navigateToSObject");
+
+            navigateToAccountPageEvent.setParams({
+                recordId: accountId
+            });
+
+            navigateToAccountPageEvent.fire();
+        }
+    },
+    */
+
     navigateToObjetcPage : function(component, objectId) {
         let navigateToObjectPageEvent = $A.get("e.force:navigateToSObject");
 
@@ -80,8 +171,8 @@
 
         navigateToObjectPageEvent.fire();
     },
-
-    createLead : function(component) {
+    
+    createLead : function() {
         let createLeadRecordEvent = $A.get("e.force:createRecord");
         
         createLeadRecordEvent.setParams({
@@ -89,8 +180,9 @@
         });
 
         createLeadRecordEvent.fire();
+    },
 
-        // Resolves customer segment
+    resolvesCustomerSegment : function(component) {
         var serviceTicket = component.get("v.serviceTicket");
 
         if (!serviceTicket.segmentation) {
@@ -106,6 +198,8 @@
                         serviceTicket.segmentationName = returnValue.label;
 
                         component.set("v.serviceTicket", serviceTicket);
+                        
+                        LightningUtil.setItemLocalStorage("SSMTicketInfo", JSON.stringify(serviceTicket), "TICKET");
                     }
 
                     this.afterCallAction();
@@ -129,9 +223,20 @@
             let jsonSSM = event.getParam("json");
 
             if (jsonSSM.type == "changeView") {
-                component.set("v.showView", jsonSSM.view);
+                this.setShowView(component, jsonSSM.view);
             }
         }
+    },
+
+    setShowView : function(component, showView) {
+        let serviceTicket = component.get("v.serviceTicket");
+
+        serviceTicket.view = showView;
+        
+        component.set("v.showView", showView);
+        component.set("v.serviceTicket", serviceTicket);
+
+        LightningUtil.setItemLocalStorage("SSMTicketInfo", JSON.stringify(serviceTicket), "TICKET");
     },
 
     showErrorMessage: function(errorMessage) {

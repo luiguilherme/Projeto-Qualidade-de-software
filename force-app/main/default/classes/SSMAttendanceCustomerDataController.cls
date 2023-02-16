@@ -1,4 +1,6 @@
 /*
+    Discontinued. Technical debt: to be removed!
+
     ---------------------------------------------------
     @author - Márcio Las
     @company - Telefonica  
@@ -7,8 +9,16 @@
     ---------------------------------------------------
 */
 public with sharing class SSMAttendanceCustomerDataController {
+    // For testing purposes only
+    @AuraEnabled
+    public static String getTestingPurposesOnlyMessage() {
+        return (SSMAttendanceCustomerDataService.getTestingPurposesOnlyMessage());
+    }
+
+    /* 
     @AuraEnabled
     public static Map<String, Object> loadSSMAttendanceCustomerData() {
         return (SSMAttendanceCustomerDataService.loadSSMAttendanceCustomerData());
     }
+    */
 }

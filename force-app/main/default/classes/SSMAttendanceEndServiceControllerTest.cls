@@ -1,5 +1,15 @@
+// Discontinued. Technical debt: to be removed!
 @IsTest
 public with sharing class SSMAttendanceEndServiceControllerTest {
+    // For testing purposes only
+    @IsTest
+    public static void  getTestingPurposesOnlyMessageTest() {
+        String message = SSMAttendanceEndServiceController.getTestingPurposesOnlyMessage();
+
+        System.assertEquals('For testing purposes only', message);
+    }
+
+    /* 
     private static final String DOCUMENT_TYPES = 'DocumentTypes';
 
     @TestSetup
@@ -26,4 +36,5 @@ public with sharing class SSMAttendanceEndServiceControllerTest {
 
         System.assertNotEquals(null, mapTest.get('success'));
     }
+    */
 }

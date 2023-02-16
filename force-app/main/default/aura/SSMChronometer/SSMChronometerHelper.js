@@ -79,6 +79,14 @@
         component.set("v.chronometer", chronometer);
 	},
 
+    setChronometerValue: function(component, value) {
+        let chronometer = component.get("v.chronometer");
+
+        chronometer.display = value;
+
+        component.set("v.chronometer", chronometer);
+    },
+
     setChronometerCallback: function(component) {
         let allowAction = false;
 
@@ -158,10 +166,7 @@
 
             let jsonSSM = event.getParam("json");
 
-            if (jsonSSM.type == "secondsToAction") {
-                component.set("v.secondsToAction", jsonSSM.value);
-
-            } else if (jsonSSM.type == "play") {
+            if (jsonSSM.type == "play") {
                 this.startChronometer(component);
 
             } else if (jsonSSM.type == "stop") {
@@ -172,6 +177,9 @@
 
             } else if (jsonSSM.type == "restart") {
                 this.restartChronometer(component);
+
+            } else if (jsonSSM.type == "setValue") {
+                this.setChronometerValue(component, jsonSSM.value);
             }
         }
     },

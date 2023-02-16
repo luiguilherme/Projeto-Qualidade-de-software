@@ -2,21 +2,20 @@
                 implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
                 access="global">
     <!-- Attributes -->
-    <aura:attribute name="attendant" type="User" />
     <aura:attribute name="workPositionId" type="String" default="" />
     <aura:attribute name="pauseReasonId" type="String" default="" />
     <aura:attribute name="activated" type="Boolean" default="false" />
     <aura:attribute name="activatedOthers" type="Boolean" default="false" />
-    <aura:attribute name="timeAutomaticTicketCall" type="Integer" />
+    <aura:attribute name="timeAutomaticTicketCall" type="Integer" default="0" />
     <aura:attribute name="chronometerActionNotificationId" type="String" default="SSMChronometerAutomaticCall" />
     <aura:attribute name="isOpenManualServiceDialog" type="Boolean" default="false" />
     <aura:attribute name="displayAlert" type="Boolean" default="true" />
     <aura:attribute name="serviceTicket" type="SObject" default="{}" />
     <aura:attribute name="attendanceType" type="String" default="" />
     
-    <!-- Handler -->
+    <!-- Handler -->   
     <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
-    
+
     <aura:handler event="c:BroadcastNotification" action="{! c.BroadcastNotificationHandler}" access="global" />
     
     <!-- Event -->
