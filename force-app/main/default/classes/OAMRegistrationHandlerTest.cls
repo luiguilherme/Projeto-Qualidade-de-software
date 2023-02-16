@@ -1,3 +1,8 @@
+/*
+* @author Diego Costa @Deloitte
+* @description: funcionalidade Classe de Teste para OAMRegistrationHandler
+* @data: 10/06/2022
+*/
 @isTest
 private class OAMRegistrationHandlerTest {
     
@@ -46,6 +51,9 @@ private class OAMRegistrationHandlerTest {
                                                          'role' => 'TelefonicaBrasil',
                                                          'sub' => 'teste@salesforce.com.br',
                                                          'adabas' => 'teste',
+                                                         'canal_atendimento' => 'teste',
+                                                         'site' => 'teste',
+                                                         'escritorio_vendas' => 'L111-MORUMBI',
                                                          'permission_sets' => ''});
         User u = handler.createUser(null, sampleData);
         User uid = u;
@@ -64,17 +72,21 @@ private class OAMRegistrationHandlerTest {
                                            'role' => 'TelefonicaBrasil',
                                            'sub' => 'teste@salesforce.com.br',
                                            'adabas' => 'teste',
+                                           'canal_atendimento' => 'teste',
+                                           'site' => 'teste',
+                                           'escritorio_vendas' => 'L111-MORUMBI',
                                            'permission_sets' => ''});
         
         handler.updateUser(uid.id, null, sampleData);
         Test.StopTest();
-        User updatedUser = [SELECT userName, email, firstName, lastName, alias FROM user WHERE id=:uid.id];
+        User updatedUser = [SELECT userName, email, firstName, lastName, alias, center__c, store__c FROM user WHERE id=:uid.id];
         System.assertEquals('teste@salesforce.com.br.test' + new OAMRegistrationHandler().getSandboxName(), updatedUser.userName);
         System.assertEquals('testuser@example.org', updatedUser.email);
         System.assertEquals('Sobrenome', updatedUser.lastName);
         System.assertEquals('Nome', updatedUser.firstName);
         System.assertEquals('teste@sa', updatedUser.alias);
-        
+        System.assertEquals('111L', updatedUser.center__c);
+        System.assertEquals('MORUMBI', updatedUser.store__c);
     } 
     
     // PARCEIRO
@@ -98,6 +110,9 @@ private class OAMRegistrationHandlerTest {
                                                              'active' => '1',
                                                              'role' => 'VendasAliado',
                                                              'adabas' => 'teste',
+                                                             'canal_atendimento' => 'teste',
+                                                             'site' => 'teste',
+                                                             'escritorio_vendas' => 'L111-MORUMBI',
                                                              'sub' => 'teste@salesforce.com.br',
                                                              'permission_sets' => ''});
             User u = handler.createUser(null, sampleData);
@@ -117,6 +132,9 @@ private class OAMRegistrationHandlerTest {
                                                'role' => 'VendasAliado',
                                                'sub' => 'teste@salesforce.com.br',
                                                'adabas' => 'teste',
+                                               'canal_atendimento' => 'teste',
+                                               'site' => 'teste',
+                                               'escritorio_vendas' => 'L111-MORUMBI',
                                                'permission_sets' => ''});
             handler.updateUser(uid.id, null, sampleData);
             Test.StopTest();
@@ -154,6 +172,9 @@ private class OAMRegistrationHandlerTest {
                                                              'active' => '1',
                                                              'role' => 'MasterTelefonicaBrasil',
                                                              'adabas' => 'teste',
+                                                             'canal_atendimento' => 'teste',
+                                                             'site' => 'teste',
+                                                             'escritorio_vendas' => 'L111-MORUMBI',
                                                              'sub' => '',
                                                              'permission_sets' => ''});
             try{
@@ -219,4 +240,55 @@ private class OAMRegistrationHandlerTest {
         }
         Test.StopTest();
     }
+	
+    static testMethod void testCreateAndUpdateOfficaToEmpty() {
+        Test.StartTest();
+        OAMRegistrationHandler handler = new OAMRegistrationHandler();
+        Auth.UserData sampleData = new Auth.UserData('testId', 'Nome', 'Sobrenome',
+                                                     'Nome Sobrenome', 'testuser@example.org', null, 'teste@salesforce.com.br.test', 'pt-BR', 'facebook',
+                                                     null, new Map<String, String>{'aud' => 'oamIdToken.aud',
+                                                         'iat' => 'oamIdToken.iat',
+                                                         'exp' => 'oamIdToken.exp',
+                                                         'network_id' => 'oamIdToken.network_id',
+                                                         'employee_number' => '1234444',
+                                                         'phone_number' => '345533443434', 
+                                                         'profile_name' => 'AdministracaoSistema',
+                                                         'CNPJ' => '',
+                                                         'active' => '1',
+                                                         'role' => 'TelefonicaBrasil',
+                                                         'sub' => 'teste@salesforce.com.br',
+                                                         'adabas' => 'teste',
+                                                         'canal_atendimento' => 'teste',
+                                                         'site' => 'teste',
+                                                         'escritorio_vendas' => 'L111-MORUMBI',
+                                                         'permission_sets' => ''});
+        User u = handler.createUser(null, sampleData);
+        User uid = u;
+        
+        sampleData = new Auth.UserData('testId', 'Nome', 'Sobrenome',
+                                       'Nome Sobrenome', 'testuser@example.org', null, 'teste@salesforce.com.br.test', 'pt-BR', 'facebook',
+                                       null, new Map<String, String>{'aud' => 'oamIdToken.aud',
+                                           'iat' => 'oamIdToken.iat',
+                                           'exp' => 'oamIdToken.exp',
+                                           'network_id' => 'oamIdToken.network_id',
+                                           'employee_number' => '12344444',
+                                           'phone_number' => '3455334543434', 
+                                           'profile_name' => 'AdministracaoSistema',
+                                           'CNPJ' => '',
+                                           'active' => '1',
+                                           'role' => 'TelefonicaBrasil',
+                                           'sub' => 'teste@salesforce.com.br',
+                                           'adabas' => 'teste',
+                                           'canal_atendimento' => 'teste',
+                                           'site' => 'teste',
+                                           'escritorio_vendas' => '0',
+                                           'permission_sets' => ''});
+        
+        handler.updateUser(uid.id, null, sampleData);
+        Test.StopTest();
+        User updatedUser = [SELECT userName, email, firstName, lastName, alias, center__c, store__c, office__c FROM user WHERE id=:uid.id];
+        System.assertEquals('0', updatedUser.office__c);
+        System.assertEquals(null, updatedUser.center__c);
+        System.assertEquals(null, updatedUser.store__c);
+    }	
 }
