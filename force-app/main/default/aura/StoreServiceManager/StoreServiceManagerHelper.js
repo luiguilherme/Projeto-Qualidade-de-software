@@ -1,5 +1,5 @@
 ({
-    doInit: function(component) {
+	doInit: function(component) {
 		this.beforeCallAction(component);
 
 		LightningUtil.callApex(
@@ -31,23 +31,6 @@
 	},
 
 	loadStoreServiceManager : function(component) {
-		// Prevents working position from browser updates
-		let ssmWorkPositionId = window.sessionStorage.getItem("ssmWorkPositionId");
-
-		if (ssmWorkPositionId) {
-			let ssmWorkPositionDate = window.sessionStorage.getItem("ssmWorkPositionDate");
-
-			if (ssmWorkPositionDate && ssmWorkPositionDate == (new Date().toLocaleDateString())) {
-				component.set("v.workPositionId", ssmWorkPositionId);
-
-			} else {
-				component.set("v.workPositionId", "");
-
-				window.sessionStorage.removeItem("ssmWorkPositionId");
-				window.sessionStorage.removeItem("ssmWorkPositionDate");
-			}
-		}
-
 		// Fetch attendant informations (store and work positions) 
 		this.beforeCallAction(component);
 
@@ -58,17 +41,52 @@
 			(returnValue) => {
 				var errorMessage = "";
 
-				if (returnValue["success"]) {
-					let attendant = returnValue["success"];
-
-					component.set("v.attendant", attendant);
+				if (returnValue["attendant"]) {
+					let attendant = returnValue["attendant"];
+					let partnerCommunityLicense = returnValue["partnerCommunityLicense"];
+					let params = returnValue["params"];
 					
-					if (!attendant.StoreSegment__c) {
-						errorMessage = 54;
+					component.set("v.attendant", attendant);
+					component.set("v.partnerCommunityLicense", partnerCommunityLicense);
+					component.set("v.params", params);
 
-					} else {
-						this.gotoHomePage(component);
+					component.set("v.workPositionId", "");
+
+					// Component auto-recovery after browser updates
+					let lsSSMAttendantInfo = LightningUtil.getItemLocalStorage("SSMAttendantInfo", "ATTENDANT");
+
+					if (lsSSMAttendantInfo) {
+						let SSMAttendantInfo;
+
+						try {
+							SSMAttendantInfo = JSON.parse(lsSSMAttendantInfo);
+
+						} catch (error) {
+
+						}
+
+						/* 
+							Removed. Strategy for not performing self-recovery when duplicating tabs or, in the Communities 
+							environment, when opening the tab for Account positioning. It works for sessionStorage, but it 
+							doesn't work for localStorage.
+
+							(window.name && SSMAttendantInfo.windowName === window.name) && 
+						*/
+
+						if (SSMAttendantInfo && 
+							(SSMAttendantInfo.attendantId === attendant.Login__c) && 
+							(SSMAttendantInfo.storeId === attendant.StoreCode__c) && 
+							SSMAttendantInfo.workPositionId && 
+							(SSMAttendantInfo.date && SSMAttendantInfo.date === (new Date().toLocaleDateString()))
+						) {
+							component.set("v.workPositionId", SSMAttendantInfo.workPositionId);
+
+						} else {
+							LightningUtil.removeItemLocalStorage("SSMTicketInfo;SSMPauseInfo;SSMAttendantInfo");
+						}
 					}
+
+					this.gotoPageOnInit(component);
 
 				} else {
 					errorMessage = returnValue["error"];
@@ -87,8 +105,36 @@
 			}
 		);
 	},
-	
+
+	gotoPageOnInit : function(component) {
+		let gotoPage = "homePage";
+		let SSMTicketInfo = {};
+		let lsSSMTicketInfo = LightningUtil.getItemLocalStorage("SSMTicketInfo", "TICKET");
+		
+		if (lsSSMTicketInfo) {
+			try {
+				SSMTicketInfo = JSON.parse(lsSSMTicketInfo);
+
+			} catch (error) {
+				
+			}
+
+			if (SSMTicketInfo) {
+				gotoPage = "servicePage";
+			}
+		}
+
+		if (gotoPage === "homePage") {
+			this.gotoHomePage(component);
+
+		} else {
+			this.gotoServicePage(component, SSMTicketInfo);
+		}
+	},
+
 	gotoHomePage : function(component) {
+		LightningUtil.removeItemLocalStorage("SSMTicketInfo");
+		
 		component.set("v.serviceTicket", {});
 
 		component.set("v.homePage", true);
@@ -102,8 +148,8 @@
 		component.set("v.servicePage", true);
 	},
 
-    getErrorMessage: function(status) {
-        /*
+	getErrorMessage: function(status) {
+		/*
 			When status message code less than or equal to 599 generic error messages are returned
 			When status message code greater than 599 specific error messages are returned
 		*/
@@ -217,7 +263,7 @@
 
 			case 625:
 				errorMessage = $A.get("$Label.c.StoreServiceManagerTicketsListIsEmpty");
-				break;	
+				break;
 
 			default:
 				errorMessage = $A.get("$Label.c.StoreServiceManagerGenericErrorMessage");
@@ -232,9 +278,9 @@
 		}
 		
 		component.set("v.errorMessage", errorMessage);
-    },
+	},
 
-    beforeCallAction : function(component) {
+	beforeCallAction : function(component) {
 		component.set("v.isLoading", true);
 
 		this.showErrorMessage(component, "");
@@ -243,12 +289,12 @@
 	afterCallAction: function(component, errorMessage) {
 		component.set("v.isLoading", false);
 
-        this.showErrorMessage(component, errorMessage);
+		this.showErrorMessage(component, errorMessage);
 	},
 
 	BroadcastNotificationHandler : function(component, event) {       
-        if (event.getParam("type") == "StoreServiceManager") {
-            event.stopPropagation();
+		if (event.getParam("type") == "StoreServiceManager") {
+			event.stopPropagation();
 			
 			let jsonSSM = event.getParam("json");
 
@@ -266,8 +312,11 @@
 
 			} else if (jsonSSM.type == "attendance") {
 				this.gotoServicePage(component, jsonSSM.serviceTicket);
+
+			} else if (jsonSSM.type == "InService") {
+				component.set("v.InService", jsonSSM.value);
 			}
 		}
-    },
+	},
 
 })

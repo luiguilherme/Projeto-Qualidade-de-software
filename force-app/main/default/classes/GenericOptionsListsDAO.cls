@@ -43,7 +43,11 @@ public with sharing class GenericOptionsListsDAO {
     }
 
     public static List<GenericOptionsLists__c> getByAPINameUsedInActive(String apiName, String usedIn) {
-        return (
+        return (getByAPINameUsedInActive(new Set<String>{apiName}, new Set<String>{usedIn}));
+    }
+
+    public static List<GenericOptionsLists__c> getByAPINameUsedInActive(Set<String> apiName, Set<String> usedIn) {
+            return (
             [
                 SELECT 
                     Id, 
@@ -58,8 +62,8 @@ public with sharing class GenericOptionsListsDAO {
                 FROM 
                     GenericOptionsLists__c
                 WHERE 
-                    APIName__c = :apiName AND 
-                    UsedIn__c = :usedIn AND
+                    APIName__c IN :apiName AND 
+                    UsedIn__c IN :usedIn AND
                     Active__c = true
             ]
         );

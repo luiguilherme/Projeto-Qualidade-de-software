@@ -1,8 +1,12 @@
 ({
     doInit : function(component, event, helper) {
-        helper.loadSSMAttendanceCustomerData(component, event, helper);
+        helper.doInit(component, event, helper);
     },
 
+    onCustomerNameChange : function(component, event, helper) {
+        helper.onCustomerNameChange(component, event, helper);
+    },
+    
     onCellPhoneChange : function(component, event, helper) {
         helper.onCellPhoneChange(component, event, helper);
     },

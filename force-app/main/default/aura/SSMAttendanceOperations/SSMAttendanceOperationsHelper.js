@@ -1,4 +1,14 @@
 ({
+	doInit : function(component) {
+        /* Context for future improvements
+        let serviceTicket = component.get("v.serviceTicket");
+
+        if (serviceTicket.giveUpReasonDialog) {
+            component.set("v.isOpenGiveUpDialog", true);
+        }
+        */
+    },
+
     recall : function(component, event, helper) {
         var serviceTicket = component.get("v.serviceTicket");
 
@@ -66,40 +76,7 @@
     },
 
     preGiveUp : function(component, event, helper) {
-        var ltGiveUpReasons = component.get("v.ltGiveUpReasons");
-        
-        if (ltGiveUpReasons && ltGiveUpReasons.length > 0) {
-            component.set("v.isOpenGiveUpDialog", true);
-
-        } else {
-            this.beforeCallAction();
-
-            LightningUtil.callApex(
-                component,
-                "getGiveUpReasonsList",
-                {},
-                (returnValue) => {
-                    if (returnValue["success"]) {
-                        component.set("v.ltGiveUpReasons", returnValue["success"]);
-
-                    } else {
-                        component.set("v.ltGiveUpReasons", []);
-                    }
-
-                    component.set("v.isOpenGiveUpDialog", true);
-
-                    this.afterCallAction("");
-                },
-                (exceptions) => {
-                    try {
-                        this.afterCallAction(exceptions[0].message);
-
-                    } catch (ex) {
-                        this.afterCallAction(601);
-                    }
-                }
-            );
-        }
+        component.set("v.isOpenGiveUpDialog", true);
     },
 
     giveUp : function(component, giveUpReasonName) {
@@ -171,17 +148,19 @@
             return
         }
 
-        this.notifySSMAttendance({type: "changeView", view: "ENDSERVICE"});
-
-        component.set("v.showView", "ENDSERVICE");
+        this.toggleAttendancePage(component, "ENDSERVICE");
 
         this.afterCallAction("");
     },
 
     returnToAttendance : function(component, event, helper) {
-        this.notifySSMAttendance({type: "changeView", view: "ATTENDANCE"});
+        this.toggleAttendancePage(component, "ATTENDANCE");
+    },
 
-        component.set("v.showView", "ATTENDANCE");
+    toggleAttendancePage : function(component, view) {
+        component.set("v.showView", view);
+
+        this.notifySSMAttendance({type: "changeView", view: view});
     },
 
     confirmService : function(component, event, helper) {

@@ -1,4 +1,6 @@
 /*
+    Discontinued. Technical debt: to be removed!
+    
     ---------------------------------------------------
     @author - Márcio Las
     @company - Telefonica  
@@ -7,6 +9,12 @@
     ---------------------------------------------------
 */
 public with sharing class SSMAttendanceEndServiceEngine {
+    // For testing purposes only
+    public static String getTestingPurposesOnlyMessage() {
+        return ('For testing purposes only');
+    }
+
+    /* 
     private static final String OPERATIONAL_INFORMATIONS = 'OperationalInformations';
     private static final String INTERACTIONS = 'Interactions';
 
@@ -43,4 +51,5 @@ public with sharing class SSMAttendanceEndServiceEngine {
 
         return (mapResponse);
     }
+    */
 }

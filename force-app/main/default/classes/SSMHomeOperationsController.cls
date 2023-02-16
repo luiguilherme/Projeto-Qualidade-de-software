@@ -8,11 +8,6 @@
 */
 public with sharing class SSMHomeOperationsController {
     @AuraEnabled
-    public static Map<String, Object> getTimeAutomaticTicketCallParam() {
-        return (SSMHomeOperationsService.getTimeAutomaticTicketCallParam());
-    }
-
-    @AuraEnabled
     public static Map<String, Object> startAttendance(StoreServiceManagerTO.ServiceTicket serviceTicket) {
         return (SSMHomeOperationsService.startAttendance(serviceTicket));
     }

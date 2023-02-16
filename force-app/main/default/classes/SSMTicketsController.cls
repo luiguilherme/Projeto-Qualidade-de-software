@@ -8,11 +8,6 @@
 */
 public with sharing class SSMTicketsController {
     @AuraEnabled
-    public static Map<String, Object> getViewFieldServiceParam() {
-        return (SSMTicketsService.getViewFieldServiceParam());
-    }
-    
-    @AuraEnabled
     public static Map<String, Object> getPointOfServiceTitckets() {
         return (SSMTicketsService.getPointOfServiceTitckets());
     }

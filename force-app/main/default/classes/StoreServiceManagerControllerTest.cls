@@ -32,8 +32,8 @@ public with sharing class StoreServiceManagerControllerTest {
 
         System.runAs(userTest) {
             GeneralParam__c generalParamTest = new GeneralParam__c(
-                TimeAutomaticTicketCall__c = 10,
-                ViewFieldServiceStoreService__c = true
+                ViewFieldServiceStoreService__c = true,
+                TimeAutomaticTicketCall__c = 15
             );
 
             Database.insert(generalParamTest);
@@ -183,13 +183,47 @@ public with sharing class StoreServiceManagerControllerTest {
             Test.startTest();
                 Test.setMock(HttpCalloutMock.class, new PointOfServiceCalloutMock());
 
-                Map<String, Object> mapAttendantTest = StoreServiceManagerController.loadStoreServiceManager();
+                Map<String, Object> mapTest = StoreServiceManagerController.loadStoreServiceManager();
             Test.stopTest();
 
-            User attendant = (User) mapAttendantTest.get('success');
+            User attendant = (User) mapTest.get('attendant');
 
             System.assertEquals('307', attendant.StoreCode__c);
+
+            Boolean isPartnerCommunityLicenseTest = (Boolean) mapTest.get('partnerCommunityLicense');
+
+            System.assertEquals(false, isPartnerCommunityLicenseTest);
+            
+            Map<String, Object> mapParamsTest = (Map<String, Object>) mapTest.get('params');
+
+            System.assertEquals(true, mapParamsTest.get('viewFieldService'));
+            System.assertEquals(15, mapParamsTest.get('timeAutomaticTicketCall'));
+
         }
+    }
+
+    @IsTest
+    public static void  getParamsTest() {
+        User userTest = [
+            SELECT id 
+            FROM User 
+            WHERE UserName = 'ssmgssvssf@ssmgssvssf.com' 
+            LIMIT 1
+        ];
+
+        System.runAs(userTest) {
+            Map<String, Object> mapParamsTest = StoreServiceManagerController.getParams();
+
+            System.assertEquals(true, mapParamsTest.get('viewFieldService'));
+            System.assertEquals(15, mapParamsTest.get('timeAutomaticTicketCall'));
+        }
+    }
+
+    @IsTest
+    public static void isPartnerCommunityLicenseTest() {
+        Boolean test = StoreServiceManagerController.isPartnerCommunityLicense();
+    
+        System.assertEquals(false, test);
     }
 
     @IsTest

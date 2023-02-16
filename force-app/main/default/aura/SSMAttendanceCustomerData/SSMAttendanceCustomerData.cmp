@@ -1,5 +1,4 @@
-<aura:component controller="SSMAttendanceCustomerDataController"
-                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
                 access="global">
     <!-- Attributes -->
     <aura:attribute name="serviceTicket" type="Object" default="{}" />
@@ -30,7 +29,8 @@
                             aura:id="txtCustomerName" 
                             label="{! '* '+ $Label.c.Customer}"
                             value="{! v.serviceTicket.customerName}"
-                            disabled="false" />
+                            disabled="false"
+                            onchange="{! c.onCustomerNameChange}" />
                     </div>
                 </div>
             </div>

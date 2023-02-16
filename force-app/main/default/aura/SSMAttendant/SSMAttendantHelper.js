@@ -25,12 +25,16 @@
         component.set("v.isOwnerStore", segmentStore === segmentLabel);
 
         let workPositionId = component.get("v.workPositionId");
-
+        
         if (workPositionId) {
-            // To be restarted after browser refresh
-            component.set("v.mode", this.Mode.Ready);
-        }
+            this.restart(component);
 
+        } else {
+            this.getPickListWorkPositions(component, true);
+        }
+    },
+
+    getPickListWorkPositions : function(component, doReady) {
         let ltWorkPosition = component.get("v.ltWorkPosition");
         
         if (ltWorkPosition.length == 0) {
@@ -46,7 +50,9 @@
                     if (returnValue["success"]) {
                         component.set("v.ltWorkPosition", returnValue["success"]);
 
-                        this.ready(component);
+                        if (doReady) {
+                            this.ready(component);
+                        }
 
                     } else {
                         errorMessage = returnValue["error"];
@@ -67,7 +73,7 @@
     },
 
 	ready : function(component) {
-        this.fetchOperationalInformations(component)
+        this.fetchOperationalInformations(component);
         
         this.updateControls(component, this.Mode.Ready);
     },
@@ -104,10 +110,42 @@
 
                 if (returnValue["success"]) {
                     if (method === "startService") {
-                        window.sessionStorage.setItem("ssmWorkPositionId", workPositionId);
-                        window.sessionStorage.setItem("ssmWorkPositionDate", (new Date().toLocaleDateString()))
+                        let attendant = component.get("v.attendant");
+                        let windowName = window.name;
+                        
+                        if (!windowName) {
+                            windowName = (
+                                $A.get("$Label.c.StoreServiceManagerTicketService") + " | " + 
+                                $A.get("$Label.c.Attendant") + ": " + attendant.Login__c + " - " +
+                                attendant.Name
+                            );
+
+                            window.name = windowName;
+                        }
+
+                        /* 
+                            Context for future improvements
+							Add openManualServiceDialog to the SSMAttendantInfo structure to use to open 
+                            the Manual Service dialog.
+
+							openedManualServiceDialog: ""
+						*/
+
+                        LightningUtil.setItemLocalStorage(
+                            "SSMAttendantInfo", 
+                            JSON.stringify({
+                                windowName: windowName, 
+                                attendantId: attendant.Login__c, 
+                                storeId: attendant.StoreCode__c, 
+                                workPositionId: workPositionId,
+                                date: (new Date().toLocaleDateString()),
+                                time: (new Date().toLocaleTimeString())
+                            }), 
+                            "ATTENDANT"
+                        );
                     }
 
+                    this.notifyStoreServiceManager({type: "InService", value: true});
                     this.notifySSMTickets(true);
 
                 } else {
@@ -129,10 +167,45 @@
 
     start : function(component, thereAreTickets) {
         component.set("v.pauseReasonId", "");
+
+        LightningUtil.removeItemLocalStorage("SSMPauseInfo");
         
         this.notifySSMHomeOperations(thereAreTickets);
 
         this.updateControls(component, this.Mode.Started);
+    },
+
+    restart : function(component) {
+        let workPositionId = component.get("v.workPositionId");
+        let isPaused = false;
+        
+        let lsSSMPauseInfo = LightningUtil.getItemLocalStorage("SSMPauseInfo", "PAUSE");
+
+        if (lsSSMPauseInfo) {
+            let SSMPauseInfo;
+
+            try {
+                SSMPauseInfo = JSON.parse(lsSSMPauseInfo);
+
+            } catch (error) {
+
+            }
+
+            if (SSMPauseInfo && (SSMPauseInfo.date && SSMPauseInfo.date === (new Date().toLocaleDateString()))) {
+                isPaused = true;
+
+                if (SSMPauseInfo.pauseReason && SSMPauseInfo.pauseReason.value) {
+                    component.set("v.pauseReasonId", SSMPauseInfo.pauseReason.value);
+                }
+            }
+        }
+
+        component.set("v.ltWorkPosition", [{label: workPositionId, value: workPositionId}]);
+
+        this.updateControls(component, ((isPaused) ? this.Mode.Paused : this.Mode.Started));
+        this.getPickListAttendantPauseOptions(component);
+
+        component.set("v.restart", !isPaused);
     },
 
     cancelPause : function(component) {
@@ -187,6 +260,8 @@
     },
 
     pause : function(component) {
+        var selectedPauseReason;
+
         let disablePauseReason = component.get("v.disablePauseReason");
         let pauseServiceParams = {"pauseReason": null};
 
@@ -198,7 +273,9 @@
                 return checkItemReasonPause.value === pauseReasonId;
             });
 
-            pauseServiceParams = {"pauseReason": pauseReason[0]};
+            selectedPauseReason = pauseReason[0];
+
+            pauseServiceParams = {"pauseReason": selectedPauseReason};
         }
 
         this.beforeCallAction();
@@ -220,6 +297,16 @@
                         this.updateControls(component, this.Mode.Paused);
                             
                         this.notifySSMTickets(false);
+
+                        LightningUtil.setItemLocalStorage(
+                            "SSMPauseInfo", 
+                            JSON.stringify({
+                                pauseReason: selectedPauseReason, 
+                                date: (new Date().toLocaleDateString()),
+                                time: (new Date().toLocaleTimeString())
+                            }),
+                            "PAUSE"
+                        );
                     }
 
                 } else {
@@ -290,25 +377,29 @@
     },
 
     finish : function(component) {
-        window.sessionStorage.removeItem("ssmWorkPositionId");
-        window.sessionStorage.removeItem("ssmWorkPositionDate");
+        LightningUtil.removeItemLocalStorage("SSMTicketInfo;SSMPauseInfo;SSMAttendantInfo");
         
+        component.set("v.ltWorkPosition", []);
         component.set("v.workPositionId", "");
         component.set("v.pauseReasonId", "");
         component.set("v.doLogout", false);
         
         this.notifySSMTickets(false);
         this.notifySSMHomeOperations(false);
+        this.notifyStoreServiceManager({type: "InService", value: false});
 
         this.updateControls(component, this.Mode.Ready);
+
+        this.getPickListWorkPositions(component, false);
     }, 
 
     updateControls : function(component, mode) {
         let isOwnerStore = component.get("v.isOwnerStore");
+        let workPositionId = component.get("v.workPositionId");
 
         component.set("v.mode", mode);
 
-        component.set("v.disablePosition", (mode != this.Mode.Ready));
+        component.set("v.disablePosition", (mode != this.Mode.Ready || workPositionId != ""));
         component.set("v.disablePauseReason", (!isOwnerStore || mode != this.Mode.Started));
         component.set("v.disablePause", (mode != this.Mode.Started));
         component.set("v.disableUpdate", (mode == this.Mode.Wait || mode == this.Mode.Ready || mode == this.Mode.Paused));
@@ -409,7 +500,7 @@
     },
 
     notifySSMTickets : function(fetch) {
-        this.notitySSM("SSMTickets", {type: "fetchServiceTickets", value: fetch});
+        this.notitySSM("SSMTickets", {type: "fetchServiceTickets", value: fetch, notify: "SSMAttendant"});
     },
 
     notifySSMHomeOperations : function(toggle) {
@@ -420,7 +511,7 @@
         this.notitySSM("SSMChronometer", jsonSSM);
     },
 
-    notitySSM : function(typeSSM, jsonSSM) {
+    notitySSM : function(typeSSM, jsonSSM) {      
         let eventSSM = $A.get('e.c:BroadcastNotification');
 
         eventSSM.setParam("type", typeSSM);

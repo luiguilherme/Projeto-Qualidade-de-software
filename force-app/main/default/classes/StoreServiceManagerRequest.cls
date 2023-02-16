@@ -258,11 +258,17 @@ public with sharing class StoreServiceManagerRequest {
         
         StoreServiceManagerResponse.GeographicArea geographicArea = new StoreServiceManagerResponse.GeographicArea();
        
-        geographicArea.code = customerCellPhone.substring(0, 2);
+        geographicArea.code = ((String.isBlank(customerCellPhone) || customerCellPhone.length() < 2) 
+            ? '' 
+            : customerCellPhone.substring(0, 2)
+        );
 
         StoreServiceManagerResponse.Network network = new StoreServiceManagerResponse.Network();
 
-        network.networkNumber = customerCellPhone.substring(2);
+        network.networkNumber = ((String.isBlank(customerCellPhone) || customerCellPhone.length() < 10)
+            ? ''
+            : customerCellPhone.substring(2)
+        );
 
         StoreServiceManagerResponse.RootEntity businessLine = new StoreServiceManagerResponse.RootEntity();
                 
@@ -279,22 +285,13 @@ public with sharing class StoreServiceManagerRequest {
         ticket.id = serviceTicket.ticketId;
         ticket.customer = customer;
         ticket.createBy = attendantId;
-        
-        String createAt = '00:00:00';
-        
-        try {
-            createAt = ((String.valueOf(DateTime.now())).split(' '))[1];
-
-        } catch (Exception e) {
-
-        }
-
-        ticket.createAt = createAt;
+        ticket.createAt = ((DateTime.now()).format('HH:mm:ss'));
 
         StoreServiceManagerResponse.Duration duration = new StoreServiceManagerResponse.Duration();
+        
+        serviceTicket.finalTime = (DateTime.now()).format('dd/MM/YYYY HH:mm:ss');
 
         try {
-            serviceTicket.finalTime = (DateTime.now()).format();
 
             duration.amount = getElapsedTime(serviceTicket.startTime, serviceTicket.finalTime);
 

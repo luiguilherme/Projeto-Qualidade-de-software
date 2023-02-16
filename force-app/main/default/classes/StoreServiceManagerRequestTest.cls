@@ -151,8 +151,8 @@ public with sharing class StoreServiceManagerRequestTest {
             serviceTicket.segmentation = '01';
             serviceTicket.segmentationName = 'Cliente V';
             serviceTicket.customerPriority = 1;
-            serviceTicket.customerName = 'Maria Augusta Silva';
-            serviceTicket.customerAlias = 'Maria Augusta Silva';
+            serviceTicket.customerName = 'Maria da Silva';
+            serviceTicket.customerAlias = 'Maria da Silva';
             serviceTicket.customerCellPhone = '11988887777';
             serviceTicket.customerDocument = '45678932103';
             serviceTicket.category = 'FIXA';

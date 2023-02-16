@@ -1,65 +1,16 @@
 ({
-    loadSSMAttendanceEndService : function(component, event, helper) {
+    doInit : function(component, event, helper) {
         let ltActivities = component.get("v.ltActivities");
 
         if (ltActivities && ltActivities.length > 0) {
             this.fetchSelectedAndFilteredActivities(component);
 
-            return;
-        }
-        
-        this.beforeCallAction();
-
-        LightningUtil.callApex(
-            component,
-            "loadSSMAttendanceEndService",
-            {},
-            (returnValue) => {
-                let errorMessage = "";
-
-                if (returnValue["success"]) { 
-                    component.set("v.ltActivities", returnValue["success"]);
-
-                    this.fetchSelectedAndFilteredActivities(component);
-
-                } else {
-                    component.set("v.ltActivities", []);
-                    component.set("v.ltFilteredActivities", []);
-
-                    errorMessage = returnValue["error"];
-                }
-
-                this.afterCallAction(errorMessage);
-            },
-            (exceptions) => {
-                try {
-                    this.afterCallAction(exceptions[0].message);
-
-                } catch (ex) {
-                    this.afterCallAction(601);
-                }
-            }
-        );
-    },
-
-    onSelectActivity : function(component, event, helper) {
-        let serviceTicket = component.get("v.serviceTicket");
-
-        let ltActivities = component.get("v.ltActivities");
-        let ltSelecteds = component.get("v.ltSelecteds");
-
-        let ltInteractions = ltActivities.filter(activity => ltSelecteds.indexOf(activity.value) > -1);
-
-        if (ltInteractions.length > 0) {
-            serviceTicket.activities = JSON.stringify(ltInteractions);
-
         } else {
-            serviceTicket.activities = "";
+            component.set("v.ltFilteredActivities", []);
+            component.set("v.ltSelectedsActivities", []);
         }
-
-        component.set("v.serviceTicket", serviceTicket);
     },
-
+    
     fetchSelectedAndFilteredActivities : function (component) {
         let serviceTicket = component.get("v.serviceTicket");
 
@@ -67,14 +18,7 @@
         let ltActivities = component.get("v.ltActivities");
         let ltFilteredActivities = [];
 
-        if (serviceTicket.activities) {
-            let ltSelecteds = JSON.parse(serviceTicket.activities);
-
-            if (ltSelecteds.length > 0) {
-                component.set("v.ltSelecteds", ltSelecteds);
-            }
-        }
-
+        // What activities should be displayed
         if (serviceTicket.category) {
             let category = ltCategories.filter(function(checkItemCategory) {
                 return checkItemCategory.value.toUpperCase() === serviceTicket.category.toUpperCase();
@@ -88,6 +32,54 @@
         }
 
         component.set("v.ltFilteredActivities", ltFilteredActivities);
+        
+        // Selecteds activities
+        if (serviceTicket.activities) {
+            let ltInteractions = [];
+            
+            try {
+                ltInteractions = JSON.parse(serviceTicket.activities);
+            
+            } catch (error) {
+
+            }
+
+            if (ltInteractions && ltInteractions.length > 0) {
+                let ltSelectedsActivities = [];
+
+                for (let activity in ltInteractions) {
+                    ltSelectedsActivities.push(ltInteractions[activity].value);
+                }
+
+                component.set("v.ltSelectedsActivities", ltSelectedsActivities);
+            }
+        }
+    },
+
+    onSelectActivity : function(component, event, helper) {
+        let serviceTicket = component.get("v.serviceTicket");
+
+        let ltFilteredActivities = component.get("v.ltFilteredActivities");
+        let ltSelectedsActivities = component.get("v.ltSelectedsActivities");
+
+        let ltInteractions = ltFilteredActivities.filter(activity => ltSelectedsActivities.indexOf(activity.value) > -1);
+
+        if (ltInteractions.length > 0) {
+            serviceTicket.activities = JSON.stringify(ltInteractions);
+
+        } else {
+            serviceTicket.activities = "";
+        }
+
+        component.set("v.serviceTicket", serviceTicket);
+
+        LightningUtil.setItemLocalStorage("SSMTicketInfo", JSON.stringify(serviceTicket), "TICKET");
+    },
+
+    onNotesChange : function(component, event, helper) {
+        let serviceTicket = component.get("v.serviceTicket");
+
+        LightningUtil.setItemLocalStorage("SSMTicketInfo", JSON.stringify(serviceTicket), "TICKET");
     },
 
     showErrorMessage: function(errorMessage) {
