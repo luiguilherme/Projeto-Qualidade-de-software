@@ -25,16 +25,16 @@
         component.set("v.isOwnerStore", segmentStore === segmentLabel);
 
         let workPositionId = component.get("v.workPositionId");
-        
+
         if (workPositionId) {
             this.restart(component);
 
         } else {
-            this.getPickListWorkPositions(component, true);
+            this.getPickListWorkPositions(component, true, "");
         }
     },
 
-    getPickListWorkPositions : function(component, doReady) {
+    getPickListWorkPositions : function(component, doReady, forceErrorMessage) {
         let ltWorkPosition = component.get("v.ltWorkPosition");
         
         if (ltWorkPosition.length == 0) {
@@ -47,8 +47,10 @@
                 (returnValue) => {
                     let errorMessage = "";
 
-                    if (returnValue["success"]) {
-                        component.set("v.ltWorkPosition", returnValue["success"]);
+                    if (returnValue["workPositionsList"]) {
+                        let ltWorkPosition = returnValue["workPositionsList"];
+
+                        component.set("v.ltWorkPosition", ltWorkPosition);
 
                         if (doReady) {
                             this.ready(component);
@@ -56,6 +58,10 @@
 
                     } else {
                         errorMessage = returnValue["error"];
+                    }
+
+                    if (!errorMessage && forceErrorMessage) {
+                        errorMessage = forceErrorMessage;
                     }
 
                     this.afterCallAction(errorMessage);
@@ -69,6 +75,9 @@
                     }
                 }
             );
+            
+        } else if (doReady) {
+            this.ready(component);
         }
     },
 
@@ -150,6 +159,13 @@
 
                 } else {
                     errorMessage = returnValue["error"];
+
+                    if (errorMessage === $A.get("$Label.c.StoreServiceManagerErrorGSSTableIsBusy")) {
+                        component.set("v.ltWorkPosition", []);
+                        component.set("v.workPositionId", "");                
+
+                        this.getPickListWorkPositions(component, false, errorMessage);
+                    }
                 }
 
                 this.afterCallAction(errorMessage);
