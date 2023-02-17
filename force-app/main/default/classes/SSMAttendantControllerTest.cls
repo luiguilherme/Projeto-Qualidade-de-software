@@ -105,17 +105,12 @@ public with sharing class SSMAttendantControllerTest {
             Test.startTest();
                 Test.setMock(HttpCalloutMock.class, new PointOfServiceCalloutMock());
 
-                Map<String, Object> mapAttendantTest = StoreServiceManagerController.loadStoreServiceManager();
+                Map<String, Object> mapWorkPositionTest = SSMAttendantController.getPositionPicklistValues();
             Test.stopTest();
 
-            User attendant = (User) mapAttendantTest.get('attendant');
-
-            Map<String, Object> mapWorkPositionTest = SSMAttendantController.getPositionPicklistValues();
-
             List<StoreServiceManagerTO.ItemPicklistValue> ltWorkPosition = 
-                (List<StoreServiceManagerTO.ItemPicklistValue>) mapWorkPositionTest.get('success');
+                (List<StoreServiceManagerTO.ItemPicklistValue>) mapWorkPositionTest.get('workPositionsList');
 
-            System.assertEquals('307', attendant.StoreCode__c);
             System.assertEquals('01', ltWorkPosition[0].value);
         }
     }

@@ -20,32 +20,21 @@ public with sharing class SSMAttendantEngine {
     public static Map<String, Object> getPositionPicklistValues() {
         Map<String, Object> mapResponse = new Map<String, Object>();
 
-        try {
-            List<StoreServiceManagerTO.ItemPicklistValue> ltWorkPositions;
+        try {        
+            Map<String, Object> mapResponseCallout = StoreServiceManagerService.fetchPointOfService();
+            if (mapResponseCallout.get('WorkPositionsListResponse') != null) {
+                List<StoreServiceManagerResponse.WorkPosition> ltWorkPositionsResponse = 
+                    (List<StoreServiceManagerResponse.WorkPosition>) mapResponseCallout.get('WorkPositionsListResponse');
+                
+                List<StoreServiceManagerTO.ItemPicklistValue> ltWorkPositions = 
+                    StoreServiceManagerService.transformWorkPositionsPickList(ltWorkPositionsResponse);
 
-            List<GenericOptionsLists__c> ltActiveWorkPositions = 
-                GenericOptionsListsDAO.getByAPINameUsedInActive(POINT_OF_SERVICE, WORK_POSITIONS);
+                if (!ltWorkPositions.isEmpty()) {
+                    mapResponse.put('workPositionsList', ltWorkPositions);
 
-            if (ltActiveWorkPositions != null && ltActiveWorkPositions.size() > 0) {
-                ltWorkPositions = new List<StoreServiceManagerTO.ItemPicklistValue>();
-
-                for (GenericOptionsLists__c activePosition : ltActiveWorkPositions) {
-                    StoreServiceManagerTO.ItemPicklistValue picklistValue = 
-                        new StoreServiceManagerTO.ItemPicklistValue();
-
-                    picklistValue.value = activePosition.Code__c;
-                    picklistValue.label = activePosition.Code__c;
-
-                    ltWorkPositions.add(picklistValue);
+                } else {
+                    mapResponse.put('error', ERROR_POSITIONS_LIST_IS_EMPTY);
                 }
-            }
-
-            if (ltWorkPositions != null && ltWorkPositions.size() > 0) {
-                mapResponse.put('success', ltWorkPositions);
-
-            } else {
-                // Position list is empty
-                mapResponse.put('error', ERROR_POSITIONS_LIST_IS_EMPTY);
             }
 
         } catch (Exception e) {
@@ -53,7 +42,7 @@ public with sharing class SSMAttendantEngine {
     
             mapResponse.put('error', GENERIC_ERROR_MESSAGE);
         }
-    
+ 
         return (mapResponse);
     }
 

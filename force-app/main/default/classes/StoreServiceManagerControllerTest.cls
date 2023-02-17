@@ -198,7 +198,6 @@ public with sharing class StoreServiceManagerControllerTest {
 
             System.assertEquals(true, mapParamsTest.get('viewFieldService'));
             System.assertEquals(15, mapParamsTest.get('timeAutomaticTicketCall'));
-
         }
     }
 

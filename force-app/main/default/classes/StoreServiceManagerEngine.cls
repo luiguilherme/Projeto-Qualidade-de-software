@@ -43,6 +43,9 @@ public with sharing class StoreServiceManagerEngine {
                 mapResponse.put('error', ERROR_LOADING_USER_INFORMATION);
 
             } else {
+                List<StoreServiceManagerTO.ItemPicklistValue> ltWorkPositions = 
+                    new List<StoreServiceManagerTO.ItemPicklistValue>();
+
                 if (String.isBlank(attendant.StoreCode__c) || 
                     String.isBlank(attendant.StoreSegment__c) || 
                     attendant.StoreConsultationDate__c == null || 
@@ -53,6 +56,14 @@ public with sharing class StoreServiceManagerEngine {
                     if (mapResponseCallout.get('success') != null) {
                         if (String.isBlank(attendant.StoreCode__c)) {
                             mapResponse.put('error', ERROR_USER_NOT_RELATED_TO_STORE);
+
+                        } else {
+                            if (mapResponseCallout.get('WorkPositionsListResponse') != null) {
+                                List<StoreServiceManagerResponse.WorkPosition> ltWorkPositionsResponse = 
+                                    (List<StoreServiceManagerResponse.WorkPosition>) mapResponseCallout.get('WorkPositionsListResponse');
+                                
+                                ltWorkPositions = transformWorkPositionsPickList(ltWorkPositionsResponse);
+                            }
                         }
                         
                     } else {
@@ -62,6 +73,7 @@ public with sharing class StoreServiceManagerEngine {
 
                 if (mapResponse.get('error') == null) {
                     mapResponse.put('attendant', attendant);
+                    mapResponse.put('workPositionsList', ltWorkPositions);
                     mapResponse.put('partnerCommunityLicense', isPartnerCommunityLicense(attendant));
                     mapResponse.put('params', getParams());
                 }
@@ -99,18 +111,18 @@ public with sharing class StoreServiceManagerEngine {
 
             StoreServiceManagerResponse.PointOfService pointOfService = (StoreServiceManagerResponse.PointOfService) 
                 JSON.deserialize(jsonPointOfService, StoreServiceManagerResponse.PointOfService.class);
+            
+            if (pointOfService != null && pointOfService.id != null) {
+                if (attendant != null) {
+                    updateUserStoreInfo(attendant, pointOfService);
+                }
 
-            List<StoreServiceManagerResponse.WorkPosition> ltWorkPositions;
-
-            if (pointOfService != null && pointOfService.workPosition != null) {
-                ltWorkPositions = pointOfService.workPosition;
+                if (pointOfService.workPosition != null) {
+                    List<StoreServiceManagerResponse.WorkPosition> ltWorkPositionsResponse = pointOfService.workPosition;
+                    
+                    mapResponseCallout.put('WorkPositionsListResponse', ltWorkPositionsResponse);
+                }
             }
-        
-            if (attendant != null && pointOfService != null && pointOfService.id != null) {
-                updateUserStoreInfo(attendant, pointOfService);
-            }
-
-            updateWorkPositions(ltWorkPositions);
         }
 
         return (mapResponseCallout);
@@ -125,34 +137,20 @@ public with sharing class StoreServiceManagerEngine {
         update attendant;
     }
 
-    private static void updateWorkPositions(List<StoreServiceManagerResponse.WorkPosition> ltAPIWorkPositions) {
-        List<GenericOptionsLists__c> ltWorkPositions = GenericOptionsListsDAO.getByAPINameUsedIn(POINT_OF_SERVICE, WORK_POSITIONS);
-        
-        Map<String, String> itemDefinition;
-        
-        if (!ltWorkPositions.isEmpty()) {
-            for (Integer i = 0; i < ltWorkPositions.size(); i++) {
-                ltWorkPositions[i].Active__c = false;
-                ltWorkPositions[i].APIDateTime__c = Date.today();
-            }
+    public static List<StoreServiceManagerTO.ItemPicklistValue> transformWorkPositionsPickList(List<StoreServiceManagerResponse.WorkPosition> ltWorkPositionsResponse) {
+        List<StoreServiceManagerTO.ItemPicklistValue> ltWorkPositions = new List<StoreServiceManagerTO.ItemPicklistValue>();
+
+        for (StoreServiceManagerResponse.WorkPosition workPosition : ltWorkPositionsResponse) {
+            StoreServiceManagerTO.ItemPicklistValue picklistValue = 
+                new StoreServiceManagerTO.ItemPicklistValue();
+
+            picklistValue.value = workPosition.id;
+            picklistValue.label = workPosition.id;
+
+            ltWorkPositions.add(picklistValue);
         }
 
-        for (StoreServiceManagerResponse.WorkPosition workPosition : ltAPIWorkPositions) {
-            itemDefinition = new Map<String, String>();
-            
-            itemDefinition.put('name', (WORK_POSITIONS + workPosition.id));
-            itemDefinition.put('code', workPosition.id);
-            itemDefinition.put('description', workPosition.id);
-            itemDefinition.put('description2', '');
-            itemDefinition.put('apiName', POINT_OF_SERVICE);
-            itemDefinition.put('usedIn', WORK_POSITIONS);
-    
-            addGenericOptionsListsItem(ltWorkPositions, itemDefinition);
-        }
-    
-        if (ltWorkPositions.size() > 0) {
-            upsert ltWorkPositions;
-        }
+        return (ltWorkPositions);
     }
 
     public static Map<String, Object> fetchOperationalInformations() {
