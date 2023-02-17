@@ -19,6 +19,10 @@ public with sharing class StoreServiceManagerService {
         return (StoreServiceManagerEngine.fetchPointOfService());
     }
 
+    public static List<StoreServiceManagerTO.ItemPicklistValue> transformWorkPositionsPickList(List<StoreServiceManagerResponse.WorkPosition> ltWorkPositionsResponse) {
+        return (StoreServiceManagerEngine.transformWorkPositionsPickList(ltWorkPositionsResponse));
+    }
+
     public static Map<String, Object> fetchOperationalInformations() {
         return (StoreServiceManagerEngine.fetchOperationalInformations());
     }

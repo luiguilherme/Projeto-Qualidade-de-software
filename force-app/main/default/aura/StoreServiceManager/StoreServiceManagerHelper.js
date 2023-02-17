@@ -43,10 +43,12 @@
 
 				if (returnValue["attendant"]) {
 					let attendant = returnValue["attendant"];
+                    let ltWorkPosition = returnValue["workPositionsList"];
 					let partnerCommunityLicense = returnValue["partnerCommunityLicense"];
 					let params = returnValue["params"];
 					
 					component.set("v.attendant", attendant);
+                    component.set("v.ltWorkPosition", ltWorkPosition);
 					component.set("v.partnerCommunityLicense", partnerCommunityLicense);
 					component.set("v.params", params);
 
