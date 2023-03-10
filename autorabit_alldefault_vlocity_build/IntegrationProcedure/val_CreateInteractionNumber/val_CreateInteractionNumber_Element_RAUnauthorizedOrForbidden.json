@@ -1,0 +1,40 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valCreateInteractionNumber",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CreateInteractionNumber/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "additionalOutput": {
+            "errorCode": "=%HTTPCalloutInteractionNumberInfo:statusCode%",
+            "errorMessage": "Protocolo não foi gerado no VivoNet. Erro: %HTTPCalloutInteractionNumberInfo:status%",
+            "request": "%SVResponse%",
+            "response": "=%HTTPCalloutInteractionNumber%"
+        },
+        "disOnTplt": false,
+        "executionConditionalFormula": "IF(%HTTPCalloutInteractionNumberInfo:statusCode% == 401 || %HTTPCalloutInteractionNumberInfo:statusCode% == 403, true, false) ",
+        "label": "ResponseAction4",
+        "responseDefaultData": {
+        },
+        "responseFormat": "JSON",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "returnFullDataJSON": false,
+        "returnOnlyAdditionalOutput": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "show": null,
+        "useFormulas": true,
+        "vlcResponseHeaders": {
+            "statusCode": 403
+        }
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Response Action",
+    "Name": "RAUnauthorizedOrForbidden",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CreateInteractionNumber/Procedure/RAUnauthorizedOrForbidden"
+}

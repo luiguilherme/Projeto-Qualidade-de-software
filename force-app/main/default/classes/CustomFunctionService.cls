@@ -12,9 +12,9 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             when 'validateEmailFormat' 
             {output.put('result', validateEmailFormat(arguments));}        
             when 'validateOnlyTextFormat' 
-            {output.put('result', validateOnlyTextFormat(arguments));}                    
+            {output.put('result', validateOnlyTextFormat(arguments));}
             when 'GroupKeyValues' 
-            {output.put('result', GroupKeyValues(arguments));}
+            {output.put('result', GroupKeyValues(arguments));}            
             when 'validateCPF' 
             {output.put('result', validateCPF(arguments));}
             when 'validateCNPJ' 
@@ -23,8 +23,10 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             {output.put('result', mapKeysValues(arguments));}  
             when 'trim' 
             {output.put('result', trimValues(arguments));}   
+            when 'length' 
+            {output.put('result', length(arguments));}               
             when 'formatDate' 
-            {output.put('result', formatDate(arguments));}
+            {output.put('result', formatDate(arguments));}          
             when 'translatePickListValues' 
             {output.put('result', translatePickListValues(arguments));}
             when 'getPickListKeyValues' 
@@ -49,12 +51,31 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             {output.put('result', getPath(arguments));} 
 			when 'getUserRole'
             {output.put('result', getUserRole(arguments));}
-            //when 'getTotalChannels'
-           //{output.put('result', getTotalChannels(arguments));} 
+            when 'getTotalChannels'
+            {output.put('result', getTotalChannels(arguments));} 
             when 'validateCEP'
             {output.put('result', validateCEP(arguments));} 
+            when 'getLabel'
+            {output.put('result', getLabel(arguments));}
         }
         return true;
+    }
+    
+    /*
+    * Autor....: carlosaraujo@deloitte - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método que retorna custom label
+    * Data.....: 01/02/2023
+    */	
+    String getLabel(List<Object> argument) {
+        String label = (String) argument[0];
+        switch on label {
+            when 'ScheduleFound' {
+                return System.Label.ScheduleFound;
+            }
+        }
+        
+        return null;
     }
     
     Boolean validateCEP(List<Object> argument) {
@@ -85,7 +106,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         Matcher textMatcher = textPattern.matcher((String) argument[0]);
         return textMatcher.matches();
     }
-
+    
     /*
     * Autor....: Guilherme Kaiser - Deloitte
     * Projeto..: Vivo - VALENTINA
@@ -225,7 +246,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         }
         return mapKeysValues;
     }
-    
+
     /*
     * Autor....: Guilherme Kaiser - Deloitte
     * Projeto..: Vivo - VALENTINA
@@ -239,11 +260,16 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
  
         return new List<Object>(tempSet);
     }   
-        
+    
     String trimValues(List<Object> argument) {
         String value = (String) argument[0];  
         
         return value.replace(' ', '');
+    }   
+
+    Integer length(List<Object> argument) {
+        String value = (String) argument[0];
+        return value.length();
     }   
     
     /*
@@ -508,7 +534,6 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     	String finalPath = '';
         
         String recordId = (String) arguments[0];
-        String delimiter = ' > ';
         
         CustomerInteractionTopicTree__c topic = [SELECT Id, Name FROM CustomerInteractionTopicTree__c WHERE Id = :recordId];
 
@@ -516,16 +541,23 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
 
         if (lstPath.size() > 0) {
             finalPath = lstPath.get(0);
-        } 
+        }
+        /* Inicio alteração - Guilherme Kaiser
+		Motivo: substituir o / por > no palito (FrontEnd) */
+        
+        String delimiter = ' > ';
         
         for (Integer i=1; i<lstPath.size(); i++) {
-                finalPath += delimiter + lstPath.get(i);                                    
+        	//finalPath += '/' + lstPath.get(i);    
+        	finalPath += delimiter + lstPath.get(i);
         }
-
-       	finalPath += delimiter + topic.Name;            
-
+        //finalPath += '/' + topic.Name;    
+        finalPath += delimiter + topic.Name;
+        /* final alteração - Guilherme Kaiser */
+        
         return finalPath;
     }   
+
     /*
     * Autor....: Guilherme Kaiser - Deloitte
     * Projeto..: Vivo - VALENTINA
@@ -546,18 +578,19 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         return userRole;
     }
     
-   /* public Integer getTotalChannels(List<Object> arguments) {
+    public Integer getTotalChannels(List<Object> arguments) {
         Map<String, String> mapChannel;
         List<Map<String, String>> lstChannels = new List<Map<String, String>>();
         
-        String strChannel = (String) arguments[0];      
-        Integer page = Integer.valueOf(arguments[1]);
+        String process = (String) arguments[0];      
+        String strChannel = (String) arguments[1];
+        Integer page = Integer.valueOf(arguments[2]);
         
         List<String> channels = strChannel.split(';');
         
-        List<TopicsAuto__c> lstTopicsAuto = [SELECT Id FROM TopicsAuto__c WHERE Channel__c IN :channels OFFSET :page];
+        List<TopicsAuto__c> lstTopicsAuto = [SELECT Id FROM TopicsAuto__c WHERE Process__c = : process AND Channel__c IN :channels AND Status__c = 'Ativo' ORDER BY LastModifiedDate DESC, Name DESC LIMIT 10 OFFSET :page];
         Integer total = lstTopicsAuto.size();
 
         return total;
-    }*/
+    }
 }
