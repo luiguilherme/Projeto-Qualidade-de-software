@@ -9,6 +9,8 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
+            "AccountId": "=IF(request:searchObjectName == \"%vlocity_namespace%__CustomerInteraction__c\", resultValueMap:%vlocity_namespace%__AccountId__c, IF(request:searchObjectName == \"Asset\",resultValueMap:AccountId, IF(request:searchObjectName == \"Contact\", resultValueMap:AccountId, IF(customerInteractionValues:request:searchObjectName == \"Account\",customerInteractionValues:resultValueMap:AccountId,recordId))))",
+            "launcherPhone": "=IF(%resultValueMap:%vlocity_namespace%__ServiceIdentifier__c% != \"\", %resultValueMap:%vlocity_namespace%__ServiceIdentifier__c%, \"\")"
         },
         "additionalOutput": {
         },
@@ -16,7 +18,7 @@
         "disOnTplt": false,
         "disableChainable": false,
         "executionConditionalFormula": "",
-        "failOnStepError": true,
+        "failOnStepError": false,
         "failureConditionalFormula": "",
         "failureResponse": {
         },
@@ -30,7 +32,7 @@
         "returnOnlyFailureResponse": false,
         "sendJSONNode": "",
         "sendJSONPath": "",
-        "sendOnlyAdditionalInput": false,
+        "sendOnlyAdditionalInput": true,
         "show": null,
         "useFormulas": true
     },
