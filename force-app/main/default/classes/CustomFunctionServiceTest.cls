@@ -19,17 +19,19 @@ public class CustomFunctionServiceTest {
         insert topicTree;
 
         // Palitagem automatica 
-       /* TopicsAuto__c topicAuto = new TopicsAuto__c();
+        TopicsAuto__c topicAuto = new TopicsAuto__c();
         topicAuto.TopicId__c = topicTree.Id;
         topicAuto.Process__c = 'Troca de Plano';
         topicAuto.Channel__c = 'Lojas Próprias';
+        topicAuto.Status__c = 'Ativo';
         insert topicAuto;
 
         topicAuto = new TopicsAuto__c();
         topicAuto.TopicId__c = topicTree.Id;
         topicAuto.Process__c = 'Troca de Plano';
         topicAuto.Channel__c = 'Revenda';
-        insert topicAuto;*/
+        topicAuto.Status__c = 'Ativo';
+        insert topicAuto;
     }
     
     @isTest
@@ -72,7 +74,7 @@ public class CustomFunctionServiceTest {
         CustomFunctionService c = new CustomFunctionService();
         c.invokeMethod('validateOnlyTextFormat', inputs, output, options);
         System.debug(output);
-    }    
+    }
     
     @isTest    
     public static void validateCPF(){
@@ -113,6 +115,7 @@ public class CustomFunctionServiceTest {
         c.invokeMethod('formatDate', inputs, output, options);
         System.debug(output);
     }    
+         
     @isTest    
     public static void mapKeysValues(){
         Map<String, Object> inputs = new Map<String, Object>();
@@ -218,7 +221,7 @@ public class CustomFunctionServiceTest {
         c.invokeMethod('replaceBackslashTopicName', inputs, output, options);
         System.assertEquals('Pasta1' + String.fromCharArray( new integer[] { 92 }) + 'Pasta2', output.get('result'));
     }    
-   
+
     @isTest
     public static void GetListRange(){
         
@@ -366,5 +369,41 @@ public class CustomFunctionServiceTest {
         CustomFunctionService c = new CustomFunctionService();
         c.invokeMethod('getPath', inputs, output, options);
         System.debug(output);
-    }        
+    }     
+
+    @isTest
+    public static void testGetChannelTotal(){
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('Troca de Plano');
+        objectList.add('Lojas Próprias;Revenda');
+        objectList.add(0);
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getTotalChannels', inputs, output, options);
+        System.debug(output);
+        System.assertEquals(2, Integer.valueOf(output.get('result')));
+    }   
+    
+    @isTest
+    static void testGetLabel() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('ScheduleFound');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
 }
