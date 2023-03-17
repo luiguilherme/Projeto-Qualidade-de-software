@@ -6,23 +6,27 @@ public with sharing class CanvasHybrisMigrationDAO {
                 Id,
                 OriginApiName__c,
                 UserLicense__c,
-            	UserSegment__c,
-            	HasAccessToHybrisMigration__c
+                UserSegment__c,
+                HasAccessToHybrisMigration__c
             FROM 
                 CanvasHybrisMigration__mdt
             WHERE
-            	OriginApiName__c = :userRole
+                OriginApiName__c = :userRole
         ];
     }
     public static CanvasHybrisMigration__mdt getAccessToCanvas(String userRole){ 
-        return[
+
+        CanvasHybrisMigration__mdt chmObject = [
             SELECT
-            	HasAccessToHybrisMigration__c
+                HasAccessToHybrisMigration__c
             FROM 
                 CanvasHybrisMigration__mdt
             WHERE
-            	OriginApiName__c = :userRole
-            LIMIT 1
+                OriginApiName__c = :userRole
+            LIMIT 1 
         ];
+
+    return chmObject !=null ? chmObject : null;
+
     }    
 }
