@@ -7,12 +7,12 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
 
         String profileId = [SELECT Id FROM Profile WHERE Name = 'Governanca'].Id;
         
-        UserRole roleWithoutAccess = new UserRole();
-        roleWithoutAccess.name = 'PapelSemAcesso';
-        roleWithoutAccess.DeveloperName = 'PapelSemAcesso';
-        insert roleWithoutAccess;
+        UserRole roleToInsert = new UserRole();
+        roleToInsert.name = 'PapelSemAcesso';
+        roleToInsert.DeveloperName = 'PapelSemAcesso';
+        insert roleToInsert;
         
-        User userPapelSemAcesso = DataFactory.createUser(profileId, roleWithoutAccess.Id);
+        User userPapelSemAcesso = DataFactory.createUser(profileId, roleToInsert.Id);
         insert userPapelSemAcesso;
 		
         CanvasHybrisMigration__mdt chmWithoutAccess = [SELECT id, OriginApiName__c, HasAccessToHybrisMigration__c, UserLicense__c FROM CanvasHybrisMigration__mdt WHERE HasAccessToHybrisMigration__c = false LIMIT  1];
@@ -24,7 +24,6 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
         insert roleWithAccess;
         
         CanvasHybrisMigration__mdt chmWithSalesforceAccess = [SELECT id, OriginApiName__c, HasAccessToHybrisMigration__c, UserLicense__c FROM CanvasHybrisMigration__mdt WHERE HasAccessToHybrisMigration__c = true and UserLicense__c = 'Salesforce' LIMIT  1];
-        UserRole role = [SELECT id FROM userRole WHERE DeveloperName   ='PapelComAcesso'];
 
         User userWithSalesforceAccess = DataFactory.createUser(profileId, roleWithAccess.Id);
         userWithSalesforceAccess.FirstName = 'WithSalesforceAccessUser';
@@ -56,7 +55,7 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
             insert userPartner;
         }
         
-        User userWithPermissionSet = DataFactory.createUser(profileId, roleWithoutAccess.Id);
+        User userWithPermissionSet = DataFactory.createUser(profileId, roleToInsert.Id);
         userWithPermissionSet.FirstName = 'userWithPermissionSet';
         lstInsert.add(userWithPermissionSet);
         insert lstInsert;
