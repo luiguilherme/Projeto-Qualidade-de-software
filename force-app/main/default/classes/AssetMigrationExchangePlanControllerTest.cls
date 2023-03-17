@@ -22,7 +22,7 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
         CanvasHybrisMigration__mdt chmHasWithAccessPartner = [SELECT id, OriginApiName__c, HasAccessToHybrisMigration__c, UserLicense__c FROM CanvasHybrisMigration__mdt WHERE HasAccessToHybrisMigration__c = true and UserLicense__c = 'Partner Community' LIMIT  1];
         Profile communityProfile = [SELECT id FROM Profile WHERE Name = 'AliadoExterno'];
         
-        String profileAdminId = [SELECT Id FROM Profile WHERE Name = 'Administrador do sistema'].Id;
+        String profileAdminId = [SELECT Id FROM Profile WHERE Name = 'Administrador do sistema' OR Name = 'System Administrator'].Id;
 		User userAdmin = DataFactory.createUser(profileAdminId, roleWithSalesforceAccess.Id);
             Contact newContactPartner = DataFactory.createContact();
             newContactPartner.AccountId = acc.id;
