@@ -27,13 +27,13 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
 
         User userWithSalesforceAccess = DataFactory.createUser(profileId, roleWithSalesforceAccess.Id);
         userWithSalesforceAccess.FirstName = 'WithSalesforceAccessUser';
-        lstInsert.add(userWithAccessSalesforce);
+        lstInsert.add(userWithSalesforceAccess);
         
         CanvasHybrisMigration__mdt chmWithPartnerAccess = [SELECT id, OriginApiName__c, HasAccessToHybrisMigration__c, UserLicense__c FROM CanvasHybrisMigration__mdt WHERE HasAccessToHybrisMigration__c = true and UserLicense__c = 'Partner Community' LIMIT  1];
         Profile communityProfile = [SELECT id FROM Profile WHERE Name = 'AliadoExterno'];
         
         String profileAdminId = [SELECT Id FROM Profile WHERE Name = 'Administrador do sistema'].Id;
-		User userAdmin = DataFactory.createUser(profileAdminId, roleWithAccessSalesforce.Id);
+		User userAdmin = DataFactory.createUser(profileAdminId, roleWithSalesforceAccess.Id);
         insert userAdmin;
         
         system.runAs(userAdmin){
