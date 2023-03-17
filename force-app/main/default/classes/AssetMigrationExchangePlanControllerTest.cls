@@ -12,21 +12,29 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
         user.FirstName = 'NoAccessUser';
         insert user;
         
-        CanvasHybrisMigration__mdt chmHasWithAccessSalesforce = [SELECT id, OriginApiName__c, HasAccessToHybrisMigration__c, UserLicense__c FROM CanvasHybrisMigration__mdt WHERE HasAccessToHybrisMigration__c = true and UserLicense__c = 'Salesforce' LIMIT  1];
-        UserRole roleWithAccessSalesforce = [SELECT id FROM userRole WHERE DeveloperName  ='TelefonicaBrasil'];
-                 
-        User userWithAccessSalesforce = DataFactory.createUser(profileId, roleWithAccessSalesforce.Id);
-        userWithAccessSalesforce.FirstName = 'WithAccessUserSalesforce';
-        insert userWithAccessSalesforce;
+        CanvasHybrisMigration__mdt chmWithSalesforceAccess = [SELECT id, OriginApiName__c, HasAccessToHybrisMigration__c, UserLicense__c FROM CanvasHybrisMigration__mdt WHERE HasAccessToHybrisMigration__c = true and UserLicense__c = 'Salesforce' LIMIT  1];
+        UserRole roleWithSalesforceAccess = [SELECT id FROM userRole WHERE DeveloperName  ='TelefonicaBrasil'];
+
+        User userWithSalesforceAccess = DataFactory.createUser(profileId, roleWithSalesforceAccess.Id);
+        userWithSalesforceAccess.FirstName = 'WithSalesforceAccessUser';
+        lstInsert.add(userWithSalesforceAccess);
         
         CanvasHybrisMigration__mdt chmHasWithAccessPartner = [SELECT id, OriginApiName__c, HasAccessToHybrisMigration__c, UserLicense__c FROM CanvasHybrisMigration__mdt WHERE HasAccessToHybrisMigration__c = true and UserLicense__c = 'Partner Community' LIMIT  1];
         Profile communityProfile = [SELECT id FROM Profile WHERE Name = 'AliadoExterno'];
         
-        Contact newContactPartner = DataFactory.createContact();
-        insert newContactPartner;
-        User userPartner = DataFactory.createCommunityUser(communityProfile.id, 'VendasAliado', newContactPartner.Id);
-        userPartner.FirstName = 'userPartner';
-        insert userPartner;
+        String profileAdminId = [SELECT Id FROM Profile WHERE Name = 'Administrador do sistema'].Id;
+		User userAdmin = DataFactory.createUser(profileAdminId, roleWithSalesforceAccess.Id);
+            Contact newContactPartner = DataFactory.createContact();
+            newContactPartner.AccountId = acc.id;
+            insert newContactPartner;
+            
+            
+            User userPartner = DataFactory.createCommunityUser(communityProfile.id, 'VendasAliado', newContactPartner.Id);
+            userPartner.FirstName = 'userPartner';
+            insert userPartner;
+        }
+        
+        insert lstInsert;
     }
 
     @isTest
@@ -35,7 +43,6 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
             Id userId = [SELECT Id FROM User WHERE FirstName = 'WithAccessUserSalesforce' LIMIT 1].Id;
             
             Boolean isCanvasHybrisCheck = AssetMigrationExchangePlanController.showOffer(userId);
-        Test.stopTest();
 
         System.assertNotEquals(true, isCanvasHybrisCheck, 'Ocorreu um erro.');
     }
