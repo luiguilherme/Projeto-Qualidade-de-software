@@ -482,33 +482,11 @@ public class DataFactory {
         return serviceHistory;
     }
     
-     public static OrderIssued__c createOrderIssued(String statusCode) {
-        OrderIssued__c orderIssued = new OrderIssued__c();
-
-        orderIssued.Status__c = 'CHECKED_VALID';
-        orderIssued.StatusCode__c = statusCode;
-        orderIssued.OrderStatus__c = 'CHECKED_VALID';
-        orderIssued.HybrisOrder__c = String.valueOf( Math.abs(Crypto.getRandomLong()) ).substring(0, 9);
-        
-        return orderIssued;
-    }
-    
     public static Contact createContact(){
         Contact newContact = new Contact();
         newContact.LastName = 'Contact Name';
        
         return newContact;
-    }
-
-    public static OrderIssued__c createOrderIssued(String statusCode, String orderStatus) {
-        OrderIssued__c orderIssued = new OrderIssued__c();
-
-        orderIssued.Status__c = 'CHECKED_VALID';
-        orderIssued.StatusCode__c = statusCode;
-        orderIssued.OrderStatus__c = orderStatus;
-        orderIssued.HybrisOrder__c = String.valueOf( Math.abs(Crypto.getRandomLong()) ).substring(0, 9);
-        
-        return orderIssued;
     }
 
     public static vlocity_cmt__CustomerInteractionTopic__c createCustomerInteractionTopic(String customerInteractionId, String accountId, String topicType) {
