@@ -8,25 +8,19 @@ public with sharing class AssetMigrationExchangePlanEngine {
 
         Boolean isShowOffer  = false;
         CanvasHybrisMigration__mdt userRole;
-                    
-        try{
-            if (user.Profile.UserLicense.Name != 'Partner Community') {
-           		userRole = CanvasHybrisMigrationDAO.getAccessToCanvas(user.UserRole.DeveloperName);
-            } else {
-                userRole = CanvasHybrisMigrationDAO.getAccessToCanvas(user.PartnerGroup__c);
-            }
-            
-            isShowOffer = userRole != null ? userRole.HasAccessToHybrisMigration__c : false;
-            
-            if(!isShowOffer){
-                isShowOffer = !PermissionSetAssigmentDAO.getCurrentsPSA(user.Id, System.Label.ListOfPermissionSetToAccessMigrationHybris.split(';')).isEmpty();    
-            }
-        } catch(Exception e){
-            if(!isShowOffer){
-                isShowOffer = !PermissionSetAssigmentDAO.getCurrentsPSA(user.Id, System.Label.ListOfPermissionSetToAccessMigrationHybris.split(';')).isEmpty();    
-            }
-        }   
+
+        if (user.Profile.UserLicense.Name != 'Partner Community') {
+            userRole = CanvasHybrisMigrationDAO.getAccessToCanvas(user.UserRole.DeveloperName);
+        } else {
+            userRole = CanvasHybrisMigrationDAO.getAccessToCanvas(user.PartnerGroup__c);
+        }
         
-        return isShowOffer;       
-    }   
+        isShowOffer = userRole == null ? false : userRole.HasAccessToHybrisMigration__c;
+
+        if (!isShowOffer) {
+            isShowOffer = !PermissionSetAssigmentDAO.getCurrentsPSA(user.Id, System.Label.ListOfPermissionSetToAccessMigrationHybris.split(';')).isEmpty();
+        }
+
+        return isShowOffer;
+    }
 }
