@@ -331,12 +331,12 @@ public without sharing class InvoiceHistoryController {
 
         for(Invoice__c invoiceObj :ltsearchInvoices){
             
-            if(invoiceObj.MobileRollup__c != null){
+            if(invoiceObj.MobileRollup__c != null && invoiceObj.MobileRollup__c > 0){
                 sunValuesMobile += invoiceObj.MobileRollup__c;
                 mobileMonths.add(invoiceObj.DueDate__c.month());
             }
 
-            if(invoiceObj.FixedAmount__c != null){
+            if(invoiceObj.FixedAmount__c != null && invoiceObj.FixedAmount__c > 0){
                 sunValuesFixed += invoiceObj.FixedAmount__c;
                 fixedMonths.add(invoiceObj.DueDate__c.month());
             }
