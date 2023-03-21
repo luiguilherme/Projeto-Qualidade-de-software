@@ -211,7 +211,7 @@ public without sharing class InvoiceHistoryController {
             }
         }
         
-        upsert billingAccounts LegacyAccountId__c;
+        upsert billingAccounts ExternalId__c;
 
         Map<String,Id> mapIdBillingAccountForName = new Map<String,Id>();
         
@@ -287,7 +287,7 @@ public without sharing class InvoiceHistoryController {
     
     private static Account createBillingAccount(String name, String billingAccountType, String parentId, String recordTypeName) {         
         Id recordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get(recordTypeName).getrecordTypeId();
-        return new Account(Name = name, BillingAccountType__c = billingAccountType, ParentId = parentId, recordTypeId = recordTypeId, LegacyAccountId__c = name);
+        return new Account(Name = name, BillingAccountType__c = billingAccountType, ParentId = parentId, recordTypeId = recordTypeId, ExternalId__c = name);
     }
     
     public static Date getFormatedDate(String stringDate){
@@ -331,12 +331,12 @@ public without sharing class InvoiceHistoryController {
 
         for(Invoice__c invoiceObj :ltsearchInvoices){
             
-            if(invoiceObj.MobileRollup__c != null && invoiceObj.MobileRollup__c > 0){
+            if(invoiceObj.MobileRollup__c != null){
                 sunValuesMobile += invoiceObj.MobileRollup__c;
                 mobileMonths.add(invoiceObj.DueDate__c.month());
             }
 
-            if(invoiceObj.FixedAmount__c != null && invoiceObj.FixedAmount__c > 0){
+            if(invoiceObj.FixedAmount__c != null){
                 sunValuesFixed += invoiceObj.FixedAmount__c;
                 fixedMonths.add(invoiceObj.DueDate__c.month());
             }
