@@ -1,61 +1,56 @@
-/*  
-* @description: Methods executed by PersonAccount Triggers  
-*/
-public without sharing class ServiceTransaction implements Queueable  {
-	private static ServiceTransaction instance = new ServiceTransaction();      
-	public ServiceTransaction__c serviceTransaction;	
+public without sharing class ServiceTransaction implements Queueable {
+	public ServiceTransaction__c serviceTransaction;
+	public List<ServiceTransaction__c> serviceTransactionList = new List<ServiceTransaction__c>();
+
+	private static ServiceTransaction instance = new ServiceTransaction();
+
 	private Boolean saveLogFile = false;
 	private String sRequest = '';
 	private String sResponse = '';
 
-	public List<ServiceTransaction__c> serviceTransactionList = new List<ServiceTransaction__c> ();
-
 	public static ServiceTransaction getInstance() {
-		return instance;
+		return (instance);
 	}
 
 	public String create(ServiceTransactionOperations operation) {
-		String messageId = '';//FourthPlatform.generateUUID();já
+		String messageId = '';
 
 		serviceTransaction = new ServiceTransaction__c(
-		                                               Name = messageId,
-		                                               Operation__c = operation.name(),
-		                                               OperationStatus__c = 'In Progress',
-		                                               StartDate__c = DateTime.now()
+			Name = messageId,
+			Operation__c = operation.name(),
+			OperationStatus__c = 'In Progress',
+			StartDate__c = DateTime.now()
 		);
-		return messageId;
+
+		return (messageId);
 	}
 
 	public void create(ServiceTransactionOperations operation, String status, String name, String message, Id recordTypeId) {
-
-        this.saveLogFile = true;
-        
-		 serviceTransaction = new ServiceTransaction__c(
-                 Name = name + DateTime.now().format('YYYY-MM-dd HH:mm:ss'),
-                 Operation__c = operation.name(),
-                 OperationStatus__c = status,
-                 StartDate__c = DateTime.now(),
-                 SFException__c = message, 
-                 EndDate__c = DateTime.now()
-             	 //RecordTypeId = recordTypeId             	 
-			);
-
-	}
-    
-    public void create(ServiceTransactionOperations operation, String endpoint, String name) {
+		this.saveLogFile = true;
 
 		serviceTransaction = new ServiceTransaction__c(
-		                                               Name = name,
-		                                               Operation__c = operation.name(),
-		                                               OperationStatus__c = 'In Progress',
-		                                               Endpoint__c = endpoint,
-		                                               StartDate__c = DateTime.now()
+			Name = (name + DateTime.now().format('YYYY-MM-dd HH:mm:ss')),
+			Operation__c = operation.name(),
+			OperationStatus__c = status,
+			StartDate__c = DateTime.now(),
+			SFException__c = message, 
+			EndDate__c = DateTime.now()
 		);
-
 	}
-      
+
+	public void create(ServiceTransactionOperations operation, String endpoint, String name) {
+		serviceTransaction = new ServiceTransaction__c(
+			Name = name,
+			Operation__c = operation.name(),
+			OperationStatus__c = 'In Progress',
+			Endpoint__c = endpoint,
+			StartDate__c = DateTime.now()
+		);
+	}
+
 	public void setRequest(Object request) {
 		serviceTransaction.Request__c = JSON.serializePretty(request);
+
 		if (serviceTransaction.Request__c.length() > 131072) {
 			saveLogFile = true;
 			sRequest = JSON.serializePretty(request);
@@ -65,6 +60,7 @@ public without sharing class ServiceTransaction implements Queueable  {
 
 	public void setResponse(Object response) {
 		serviceTransaction.Response__c = response.toString();
+
 		if (serviceTransaction.Response__c.length() > 131072) {
 			saveLogFile = true;
 			sResponse = JSON.serializePretty(response);
@@ -84,48 +80,54 @@ public without sharing class ServiceTransaction implements Queueable  {
 		serviceTransaction.EndDate__c = DateTime.now();
 		serviceTransaction.OperationStatus__c = 'Succeeded';
 	}
-    public void fail() {
+
+	public void fail() {
 		serviceTransaction.EndDate__c = DateTime.now();
 		serviceTransaction.OperationStatus__c = 'Failed';
 	}
-      
-    public void begin() {
+
+	public void begin() {
 		serviceTransaction.EndDate__c = DateTime.now();
-        serviceTransaction.AppKey__c = 'Key Crypt';
+		serviceTransaction.AppKey__c = 'Key Crypt';
 		serviceTransaction.OperationStatus__c = 'Succeeded';
 	}
-    public void finish() {
+
+	public void finish() {
 		serviceTransaction.EndDate__c = DateTime.now();
-        serviceTransaction.AppKey__c = 'Key Crypt';
+		serviceTransaction.AppKey__c = 'Key Crypt';
 		serviceTransaction.OperationStatus__c = 'Failed';
 	}
-    public void completeInstante() {
+
+	public void completeInstante() {
 		serviceTransaction.EndDate__c = DateTime.now();
-        serviceTransaction.AppKey__c = 'APP';
+		serviceTransaction.AppKey__c = 'APP';
 		serviceTransaction.OperationStatus__c = 'Succeeded';
 	}
-    public void failLogs() {
+
+	public void failLogs() {
 		serviceTransaction.EndDate__c = DateTime.now();
-        serviceTransaction.AppKey__c = 'logsFailed';
+		serviceTransaction.AppKey__c = 'logsFailed';
 		serviceTransaction.OperationStatus__c = 'Failed';
 	}
-      
-    public void beginProcess() {
+
+	public void beginProcess() {
 		serviceTransaction.EndDate__c = DateTime.now();
-        serviceTransaction.AppKey__c = 'Key Crypt';
+		serviceTransaction.AppKey__c = 'Key Crypt';
 		serviceTransaction.OperationStatus__c = 'Succeeded';
 	}
-    public void finishBatch() {
+
+	public void finishBatch() {
 		serviceTransaction.EndDate__c = DateTime.now();
-        serviceTransaction.AppKey__c = 'finalizatebatch';
+		serviceTransaction.AppKey__c = 'finalizatebatch';
 		serviceTransaction.OperationStatus__c = 'Failed';
 	}
-      
-    public void init() {
+
+	public void init() {
 		serviceTransaction.EndDate__c = DateTime.now();
 		serviceTransaction.OperationStatus__c = 'Succeeded';
 	}
-    public void finishs() {
+
+	public void finishs() {
 		serviceTransaction.EndDate__c = DateTime.now();
 		serviceTransaction.OperationStatus__c = 'Failed';
 	}
@@ -134,7 +136,8 @@ public without sharing class ServiceTransaction implements Queueable  {
 		serviceTransaction.EndDate__c = DateTime.now();
 		serviceTransaction.OperationStatus__c = 'Timeout';
 	}
-    public void partialLog() {
+
+	public void partialLog() {
 		serviceTransaction.EndDate__c = DateTime.now();
 		serviceTransaction.OperationStatus__c = 'Failed';
 	}
@@ -152,13 +155,15 @@ public without sharing class ServiceTransaction implements Queueable  {
 	public void delay() {
 		serviceTransaction.Delayed__c = true;
 	}
+
 	public Boolean isDelayed(Double timeout) {
 		if (serviceTransaction.StartDate__c == null) {
-			return false;
-		} else {
-			Double result = (DateTime.now().getTime() - serviceTransaction.StartDate__c.getTime());
-			return(result > timeout);
+			return (false);
 		}
+
+		Double result = (DateTime.now().getTime() - serviceTransaction.StartDate__c.getTime());
+			
+		return (result > timeout);
 	}
 
 	public Boolean isSuccessful() {
@@ -174,7 +179,7 @@ public without sharing class ServiceTransaction implements Queueable  {
 	}
 
 	public void commitAsync() {
-		system.enqueueJob(this);
+		System.enqueueJob(this);
 	}
 
 	public void execute(QueueableContext context) {
@@ -184,59 +189,22 @@ public without sharing class ServiceTransaction implements Queueable  {
 	public void addToList() {
 		serviceTransactionList.add(serviceTransaction);
 	}
-/*
-	public void setServiceTransactionList(List<ServiceTransaction__c> svcTransactions) {
 
-		if (svcTransactions != null && !svcTransactions.isEmpty()) {
-			serviceTransactionList.addAll(svcTransactions);
-		}
-	}
-*/
 	public void commitTransactionsList() {
-		//Schema.SObjectField f = ServiceTransaction__c.Name;
 		if (serviceTransactionList.size() == 0) {
-			system.debug('no serviceTransactionList');
+			System.debug('no serviceTransactionList');
 		}
+
 		List<Database.upsertResult> results = Database.upsert(serviceTransactionList, ServiceTransaction__c.Name, false);
 
-		for (Integer index = 0; index<results.size(); index++) {
+		for (Integer index = 0; index < results.size(); index++) {
 			if (!results[index].isSuccess()) {
-				system.debug('Error to create servicetransaction');
+				System.debug('Error to create servicetransaction');
 			}
 		}
 	}
 
 	public void commitTransactions() {
-
-		purgeLogTransaction();
-
-		Database.upsertResult result = Database.upsert(serviceTransaction, ServiceTransaction__c.Name, false);
-		if (saveLogFile && result.isSuccess()) {
-			//saveContentDocument(result.getId());
-		}
-
-	}
-	public void purgeLogTransaction() {
-
-		List<ServiceTransaction__c> listST = [SELECT Id FROM ServiceTransaction__c WHERE CreatedDate < LAST_N_DAYS : 30 LIMIT 5000];
-		List<String> lstLinkedEntityIds = new List<String> ();
-		List<ContentDocument> lstContentDocument = new List<ContentDocument> ();
-
-
-		for (ServiceTransaction__c st : listST) {
-			lstLinkedEntityIds.add(st.Id);
-		}
-
-		if (lstLinkedEntityIds.size()> 0) {
-			List<ContentDocumentLink> lstcdl = [SELECT Id, LinkedEntityId, ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId IN :lstLinkedEntityIds];
-
-			for (ContentDocumentLink cdl : lstcdl) {
-				lstContentDocument.add(new ContentDocument(Id = cdl.ContentDocumentId));
-			}
-			Database.delete(lstContentDocument);
-		}
-
-		Database.delete(listST);
-
+		Database.upsert(serviceTransaction, ServiceTransaction__c.Name, false);
 	}
 }
