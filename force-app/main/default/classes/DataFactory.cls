@@ -503,6 +503,19 @@ public class DataFactory {
         return topicObj;
     }
     
+    public static vlocity_cmt__CustomerInteraction__c createCustomerInteraction(Id accountId) { 
+        vlocity_cmt__CustomerInteraction__c customerInteraction = new vlocity_cmt__CustomerInteraction__c(); 
+        customerInteraction.vlocity_cmt__AccountId__c = accountId; 
+        customerInteraction.Name = 'Test Customer Interaction'; 
+        customerInteraction.vlocity_cmt__StartDateTime__c = System.today(); 
+        customerInteraction.InteractionNumber__c = '20220630123456'; 
+        customerInteraction.vlocity_cmt__StartDateTime__c = System.today(); 
+        customerInteraction.vlocity_cmt__Type__c = 'Presencial'; 
+        customerInteraction.vlocity_cmt__Verified__c = false; 
+        
+        return customerInteraction; }
+
+    }
     
     // public static List<ServiceQualification__c> createServiceQualificationLevels() {
     //     String recordTypeFirstLevelId = Schema.SObjectType.ServiceQualification__c.getRecordTypeInfosByDeveloperName().

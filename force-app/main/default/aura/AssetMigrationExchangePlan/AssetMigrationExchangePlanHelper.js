@@ -12,63 +12,32 @@
             if (state === 'SUCCESS') {
                 var storeResponse = response.getReturnValue();
                 component.set('v.isCanvasHybris', storeResponse);
-                console.log("LAS "+ storeResponse);
             }
         });
         $A.enqueueAction(action);
 	},  
 
-    callCreditAnalysis: function (component) {
-        component.set('v.isLoading', true);
-            const callbackError = (exceptions) => {
+    createCustomerInteractionTopic : function(component) {
+        var customerInteractionId = component.get('v.recordId');
+		var action = component.get('c.createCustomerInteractionTopic');
+        action.setParams({
+            "customerInteractionId" : customerInteractionId 
+        });
+        action.setCallback(this, function(response) {
             component.set('v.isLoading', false);
-            try {
-                this.showNotification(
-                    component,
-                    "Erro",
-                    exceptions[0].message,
-                    "error"
-                );
-
-            } catch (ex) {
-                this.showNotification(
-                    component,
-                    "Erro",
-                    "Erro ao realizar a operação. Tente novamente mais tarde.",
-                    "error"
-                );
+            var state = response.getState();
+            if (state === 'SUCCESS') {
+                console.log("registro do CustomerInteractionTopic criado");
             }
-        };
-
-        LightningUtil.callApex(
-            component,
-            "checkCreditAnalysis",
-            { accountId: component.get('v.recordId') },
-            (result) => {
-                component.set('v.isLoading', false);
-                if (result.success) {
-                    var evt = $A.get('e.c:BroadcastNotification');
-                    evt.setParam('type', 'updateCurrentAccountId' );
-                    evt.setParam('sobject', component.get('v.recordId'));
-            
-                    evt.fire();
-                    component.set('v.showCanvas', true);
-                } else {
-                    component.set('v.CreditAnalisysErrors', result.RequiredFields);
-                }
-                
-                console.log('AssetMigrationExchangePlanController.doInit - action.callback - resultValue ', result);
-            },
-            callbackError
-        );
+        });
+        $A.enqueueAction(action);
     },
 
-        showNotification: function (component, title, message, variant) {
-            component.find("notifLib").showToast({
-                variant,
-                title: `${title} \n`,
-                message,
-            });
-        },
-
+    showNotification: function (component, title, message, variant) {
+        component.find("notifLib").showToast({
+            variant,
+            title: `${title} \n`,
+            message,
+        });
+    }
 })
