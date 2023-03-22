@@ -28,5 +28,36 @@ public with sharing class AssetMigrationExchangePlanEngine {
         }   
         
         return isShowOffer;       
-    }   
+    }
+
+    
+    public static Map<String,Object> createCustomerInteractionTopic(String customerInteractionId) {
+        vlocity_cmt__CustomerInteraction__c customerInteractionAccountId = CustomerInteractionDAO.getCustomerInteractionById(customerInteractionId);
+        Map <String, Object> returnMap = new Map<String, Object>();
+        
+        if (customerInteractionAccountId == null) {
+            returnMap.put('error', customerInteractionAccountId);
+            return returnMap;
+        }
+
+        vlocity_cmt__CustomerInteractionTopic__c newCustomerInteractionTopic = new vlocity_cmt__CustomerInteractionTopic__c();
+        newCustomerInteractionTopic.vlocity_cmt__CustomerInteractionId__c = customerInteractionId;
+        newCustomerInteractionTopic.vlocity_cmt__AccountId__c = customerInteractionAccountId.vlocity_cmt__AccountId__c;
+        newCustomerInteractionTopic.vlocity_cmt__Reason__c = 'Palitagem Móvel';
+        newCustomerInteractionTopic.Origin__c = 'Hybris';
+        newCustomerInteractionTopic.ServiceTree__c = 'Service';
+        //newCustomerInteractionTopic.IdServiceVivoNet__c = 'Ver depois';
+        newCustomerInteractionTopic.TopicName__c = 'Solicitação > Comercial > Migrar / Alterar Plano > Fluxo em Andamento'; 
+        newCustomerInteractionTopic.remarkup__c = 'Aguardando escolha da oferta para migração/troca de plano';
+        
+        Database.SaveResult dataResult = Database.insert(newCustomerInteractionTopic);
+
+        if (dataResult.isSuccess()) {
+            returnMap.put('success', newCustomerInteractionTopic);
+            return returnMap;
+        } else { 
+            returnMap.put('error', customerInteractionAccountId);
+            return returnMap; 
+        } 
+    }
 }

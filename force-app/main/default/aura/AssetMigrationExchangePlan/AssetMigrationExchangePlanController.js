@@ -3,11 +3,10 @@
         helper.showOffer(component);
     },
     
-    showCanvas : function (component, event, helper) {
-        //helper.callCreditAnalysis(component);
+    startMigrationProcess : function (component, event, helper) {
         var isCanvasHybris = component.get('v.isCanvasHybris')
         if (isCanvasHybris) {
-            console.log("exibe canvas")
+            helper.createCustomerInteractionTopic(component);
         } else {
             LightningUtil.fireNotification(
                 'Atenção',
@@ -15,9 +14,6 @@
                 'error',
                 5000
             );
-
-            //component.set('v.showErrors ', true);
-            console.log("nao exibe canvas")
         }
     },
     
@@ -32,5 +28,4 @@
             
         }
     }
-
 })

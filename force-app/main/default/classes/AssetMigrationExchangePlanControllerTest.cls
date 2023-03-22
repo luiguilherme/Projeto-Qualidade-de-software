@@ -3,6 +3,10 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
 
     @TestSetup
     static void setup() {
+        // #region setupShowOffer
+        
+        List<User> lstInsert = new List<User>();
+
         String profileId = [SELECT Id FROM Profile WHERE Name = 'Governanca'].Id;
         
         UserRole roleToInsert = new UserRole();
@@ -54,6 +58,9 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
             User userPartner = DataFactory.createCommunityUser(communityProfile.id, 'VendasAliado', newContactPartner.Id);
             userPartner.FirstName = 'userPartner';
             insert userPartner;
+
+            vlocity_cmt__CustomerInteraction__c newCustomerInteraction = DataFactory.createCustomerInteraction (acc.id);
+            insert newCustomerInteraction;
         }
         
         User userWithPermissionSet = DataFactory.createUser(profileId, roleToInsert.Id);
@@ -66,6 +73,10 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
         assignUserToPermission.AssigneeId = userWithPermissionSet.Id;
         assignUserToPermission.PermissionSetId = canvasPermissionSet.Id;
         insert assignUserToPermission;
+
+    // #endregion
+    // #region createCustomerInteractionTopic
+    // #endregion
     }
 
     @isTest
@@ -103,10 +114,9 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
     @isTest
     public static void showOfferPartner() {
         Test.startTest();
-        User userId = [SELECT Id, profile.userlicense.name FROM User WHERE FirstName = 'userPartner' LIMIT 1];
-		
-        System.debug('Passei aqui ' + userId);
-        Boolean isCanvasHybrisCheck = AssetMigrationExchangePlanController.showOffer(userId.id);
+            User userId = [SELECT Id, profile.userlicense.name FROM User WHERE FirstName = 'userPartner' LIMIT 1];
+            
+            Boolean isCanvasHybrisCheck = AssetMigrationExchangePlanController.showOffer(userId.id);
         Test.stopTest();
 
         System.assertEquals(true, isCanvasHybrisCheck, 'Usuário Parceiro sem acesso a troca de ofertas.');
@@ -116,12 +126,34 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
     @isTest
     public static void showOfferToUserWithPermissionSet() {
         Test.startTest();
-        	User userId = [SELECT Id, profile.userlicense.name FROM User WHERE FirstName = 'userWithPermissionSet' LIMIT 1];
+            User userId = [SELECT Id, profile.userlicense.name FROM User WHERE FirstName = 'userWithPermissionSet' LIMIT 1];
 		
-        	Boolean isCanvasHybrisCheck = AssetMigrationExchangePlanController.showOffer(userId.id);
+            Boolean isCanvasHybrisCheck = AssetMigrationExchangePlanController.showOffer(userId.id);
         Test.stopTest();
 
         System.assertEquals(true, isCanvasHybrisCheck, 'Usuário sem acesso a troca de ofertas');
 
+    }
+
+    @isTest
+    public static void createCustomerInteractionTopicTeste() {
+        Test.startTest();
+            vlocity_cmt__CustomerInteraction__c newCustomerInteractionTeste = [SELECT id from vlocity_cmt__CustomerInteraction__c limit 1];
+            Map <String, Object> returnMap = AssetMigrationExchangePlanController.createCustomerInteractionTopic(newCustomerInteractionTeste.id);
+
+        Test.stopTest();
+
+        System.assert(returnMap.containsKey('success'), 'CustomerInteractionTopic não foi criada');
+    }
+
+    @isTest
+    public static void createCustomerInteractionTopicFalse() {
+        Test.startTest();
+            vlocity_cmt__CustomerInteraction__c newCustomerInteractionTeste = [SELECT id from vlocity_cmt__CustomerInteraction__c limit 1];
+            Map <String, Object> returnMap = AssetMigrationExchangePlanController.createCustomerInteractionTopic('xxxxxxxxxx');
+
+        Test.stopTest();
+
+        System.assert(returnMap.containsKey('error'), 'CustomerInteractionTopic não foi criada');
     }
 }
