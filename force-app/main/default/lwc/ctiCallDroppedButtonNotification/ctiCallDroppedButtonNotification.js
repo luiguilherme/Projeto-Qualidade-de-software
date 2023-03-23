@@ -1,7 +1,7 @@
 import { api, track, LightningElement, wire } from 'lwc';
 import {CurrentPageReference} from 'lightning/navigation';
 import pubsub from 'vlocity_cmt/pubsub';
-import { fireEvent } from 'c/pubsub';
+import { fireEvent , registerListener} from 'c/pubsub';
 import { OmniscriptBaseMixin } from 'vlocity_cmt/omniscriptBaseMixin';
 import { interpolateWithRegex } from "vlocity_cmt/flexCardUtility";
 
