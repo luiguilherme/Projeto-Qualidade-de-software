@@ -20,4 +20,8 @@ export default class CTICallDroppedButtonChild extends LightningElement {
         // Fire the custom event
         this.dispatchEvent(filterChangeEvent);
     }
+
+    handleIsCallActived(params) {
+        fireEvent(this.pageRef, 'iscallactivedreturn', this.isCallActive)
+    }
 }
