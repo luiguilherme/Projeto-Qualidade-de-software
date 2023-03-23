@@ -907,12 +907,14 @@ public with sharing class ServiceFlowGPSEngine {
                 qualificationCase.Description = payload.get('Description__c');
     
                 update qualificationCase;
+            }else{
+                return false;
             }
 
             return true;
 
         } catch (Exception e){
-            return true;
+            return false;
         }
     }
 

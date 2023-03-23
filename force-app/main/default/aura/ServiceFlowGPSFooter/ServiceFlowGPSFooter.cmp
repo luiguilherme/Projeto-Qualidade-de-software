@@ -1,0 +1,56 @@
+<aura:component controller="ServiceFlowGPSController"
+				implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+				access="global">
+
+	<aura:attribute name="accountId" 	type="String"/>
+	<aura:attribute name="isModalOpen" 	type="boolean"/>
+	<aura:attribute name="isAccountInfoOpen" 	type="boolean" default="false"/>
+    <aura:attribute name="account" type="Object"/>
+    <aura:attribute name="billingAccount" type="Object"/>
+    <aura:attribute name="address" type="String"/>
+    <aura:attribute name="selectedInstance" type="String"/>
+    <aura:attribute name="buttonIcon" type="String" default="utility:chevrondown"/>
+
+	<ltng:require scripts="{! $Resource.LightningUtil }" afterScriptsLoaded="{! c.onInit }" />
+
+	<aura:if isTrue="{!v.isModalOpen}">
+
+		<div class="slds-docked-form-footer slds-fade-in-open slds-slide-down-cancel footerCss !important" style="flex-direction: column; z-index: 999999;">
+			<div>
+				<div class="slds-align_absolute-center">
+					<b>  Informações do Cliente</b>
+				</div>
+				<lightning:buttonIcon	iconName="{!v.buttonIcon}"
+										onclick="{! c.closeModel }"
+										alternativeText="close"
+										class="slds-modal__close"/>
+				<br></br>
+			</div>
+
+			<aura:if isTrue="{!v.isAccountInfoOpen}">
+
+				<div id="modal-content-id-1" class="slds-box slds-grid slds-gutters">
+					<div class="slds-col slds-size_2-of-4">
+						<tr><b>Cliente: </b> {!v.account.Name}</tr>
+						<tr><b>Documento: </b> {!v.account.CNPJ__c} </tr>
+						<tr><b>Endereço da instância selecionada: </b> {!v.address} </tr>
+						<tr><b>Endereço de cobrança: </b> {!v.billingAccount.Address__r.FullAddress__c} </tr>
+					</div>
+					<div class="slds-col slds-size_1-of-4">
+							<tr><b>Data Nascimento: </b> <lightning:formattedDateTime value="{!v.account.PersonBirthdate}" year="numeric" month="numeric" day="numeric" timeZone="UTC"/></tr>
+							<tr><b>Número Principal: </b> {!v.account.PersonHomePhone}</tr>
+							<tr><b>Número Alternativo I: </b> {!v.account.PersonMobilePhone}</tr>
+							<tr><b>Número Alternativo II: </b> {!v.account.PersonOtherPhone}</tr>
+					</div>
+					<div class="slds-col slds-size_1-of-4">
+						<tr><b>Instância: </b> {!v.selectedInstance} </tr>
+						<tr><b>Nome da Mãe: </b> {!v.account.MothersName__c} </tr>
+						
+						<tr><b>Email: </b> {!v.account.PersonEmail}</tr>
+						<tr><b>Segmento Vivo Valoriza: </b> {!v.account.vlocity_cmt__CustomerValue__c}</tr>
+					</div>
+				</div>
+			</aura:if>
+		</div>
+	</aura:if>
+</aura:component>
