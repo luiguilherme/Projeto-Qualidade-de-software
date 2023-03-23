@@ -4,12 +4,10 @@ import { registerListener, fireEvent } from 'c/pubsub';
 
 export default class CTICallDroppedButtonChild extends LightningElement {
     @wire(CurrentPageReference) pageRef;
-    @api isCallActive;
 
     connectedCallback() {
         console.log('CTI CallDropped registrado no child');        
-        registerListener('aplicationevent', this.handleAplicationEvent, this);        
-        registerListener('iscallactived', this.handleIsCallActived, this);        
+        registerListener('aplicationevent', this.handleAplicationEvent, this);       
     }
 
     handleAplicationEvent(params) {
@@ -21,7 +19,4 @@ export default class CTICallDroppedButtonChild extends LightningElement {
         this.dispatchEvent(filterChangeEvent);
     }
 
-    handleIsCallActived(params) {
-        fireEvent(this.pageRef, 'iscallactivedreturn', this.isCallActive)
-    }
 }

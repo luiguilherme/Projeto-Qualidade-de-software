@@ -33,7 +33,7 @@
     handleEventToAura : function(component, event, helper) {
         var params = event.getParam('params');
         window.console.log('aura: ' + JSON.stringify(params));
-        component.set('v.caseId', params.CaseId)
+        component.set('v.caseId', params.CaseId);
         helper.setParameters(component, event, params);
     },
     handleCloseCanvasFlex : function(component, event, helper) {
