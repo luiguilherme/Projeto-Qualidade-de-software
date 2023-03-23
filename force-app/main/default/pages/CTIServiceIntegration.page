@@ -52,7 +52,7 @@
 
                             payload.service = 'WDE_AssistedTransfer';
 
-                            let wdeResponse = external.transferInit(payload.DestinyCell__c, payload.AccountId__c, payload.CaseId__c);
+                            let wdeResponse = external.transferInit(payload.DestinyCell__c, payload.CaseId__c, payload.CustomerInteractionId__c);
 
                             payload.wdeResponse = wdeResponse;
 
@@ -113,7 +113,7 @@
                             event.stopPropagation();
                             payload.service = "WDE_PerformConsult";
 
-                            let wdeResponse = external.consult(payload.DestinyCell__c, payload.AccountId__c);
+                            let wdeResponse = external.consult(payload.DestinyCell__c, payload.CaseId__c, payload.CustomerInteractionId__c);
 
                             payload.wdeResponse = wdeResponse;
 
@@ -197,7 +197,7 @@
 
                         if (caseSentToQueue) {
                             // Calls WDE function to direct transfer the call
-                            let wdeResponse = external.transferToCellDirect(payload.DestinyCell__c, payload.CaseId__c, payload.AccountId__c);
+                            let wdeResponse = external.transferToCellDirect(payload.DestinyCell__c, payload.CaseId__c, payload.CustomerInteractionId__c);
 
                             if (wdeResponse) {
                                 payload.wdeResponse = wdeResponse;
