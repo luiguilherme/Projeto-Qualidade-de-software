@@ -1,71 +1,52 @@
 import { LightningElement, track, wire, api } from 'lwc';
-import { loadScript } from 'lightning/platformResourceLoader';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
-import userId from '@salesforce/user/Id';
-import cometd from '@salesforce/resourceUrl/cometd';
 import closeCase from '@salesforce/apex/ServiceFlowGPSController.closeCase';
-import getSessionId from '@salesforce/apex/GpsCanvasIntegrationController.getSessionId';
+import { getRecord, getRecordNotifyChange  } from 'lightning/uiRecordApi';
+import PAYLOAD from "@salesforce/schema/Case.Payload__c";
+import timeForRefresh from '@salesforce/label/c.TimeForRefreshCaseRecord';
 
+const fields = [PAYLOAD];
 export default class GpsCanvasIntegration extends LightningElement {
     libInitialized = false;
     @track sessionId;
     @track error;
-    @api recordId;
+    @api caseId;
+    record;
 
-    @wire(getSessionId)
-    wiredSessionId({ error, data }) {
-        if (data) {
-            this.sessionId = data;
-            this.error = undefined;
-            loadScript(this, cometd).then(() => {
-                this.initializecometd();
-            });
-        } else if (error) {
-            this.error = error;
-            this.sessionId = undefined;
+    @wire(getRecord, { recordId: '$caseId', fields})
+    wiredRecordCase({data,error}) {
+        if(data) {
+            if(this.record) {
+                if(this.record.fields.Payload__c.value != data.fields.Payload__c.value){
+                    let objectParsed = JSON.parse(data.fields.Payload__c.value);
+                    this.handlePlatformEvent(objectParsed);
+                }
+            }
+            this.record = data;
         }
+        if(error) {
+            const evt = new ShowToastEvent({
+                title: 'Erro ao carregar o Caso',
+                message: 'Por favor abrir um incidente no Remedy. /n $error',
+                variant: 'error'
+            });
+            this.dispatchEvent(evt);
+        }
+
+        
+        this.timeHandler();
     }
 
-    initializecometd() {
-        if (this.libInitialized) {
-            return;
-        }
-        this.libInitialized = true;
-        var lwcThisContext = this;
-        var cometdlib = new window.org.cometd.CometD();
-        cometdlib.configure({
-            url:
-                window.location.protocol +
-                '//' +
-                window.location.hostname +
-                '/cometd/51.0/',
-            requestHeaders: { Authorization: 'OAuth ' + this.sessionId },
-            appendMessageTypeToURL: false,
-            logLevel: 'debug',
-        });
-        cometdlib.websocketEnabled = false;
-        cometdlib.handshake(function (status) {
-            if (status.successful) {
-                cometdlib.subscribe(
-                    '/event/GPSCanvasInterface__e',
-                    function (message) {
-                        debugger;
-                        if (
-                            lwcThisContext.recordId ==
-                                message.data.payload.CustomerInteractionId__c &&
-                            userId == message.data.payload.UserId__c
-                        ) {
-                            lwcThisContext.handlePlatformEvent(message.data.payload);
-                        }
-                    }
-                );
-            } else {
-                console.error(
-                    'Error in handshaking: ' + JSON.stringify(status)
-                );
-            }
-        });
+    timeHandler(){
+        clearTimeout(this.timeoutId); 
+        this.timeoutId = setTimeout(this.doExpensiveThing.bind(this), parseInt(timeForRefresh));
+        
+    }
+
+    doExpensiveThing() {
+        getRecordNotifyChange([{recordId: this.caseId}]);
+        this.timeHandler();
     }
 
     handlePlatformEvent(payload){
@@ -96,6 +77,7 @@ export default class GpsCanvasIntegration extends LightningElement {
     }
 
     executeFinish(payload){
+        delete payload.attributes;
         closeCase({
             payload :  payload
         })

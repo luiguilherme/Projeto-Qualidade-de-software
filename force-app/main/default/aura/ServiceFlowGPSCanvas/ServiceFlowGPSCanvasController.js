@@ -33,7 +33,11 @@
     handleEventToAura : function(component, event, helper) {
         var params = event.getParam('params');
         window.console.log('aura: ' + JSON.stringify(params));
-        component.set('v.caseId', params.CaseId);
+        let evt = $A.get('e.c:BroadcastNotification');
+        evt.setParam('type', 'GPSCanvasIntegration_IsCallActive');
+        evt.setParam('json', component.get('v.recordId'));
+        evt.fire();
+        component.set('v.caseId', params.CaseId)
         helper.setParameters(component, event, params);
     },
     handleCloseCanvasFlex : function(component, event, helper) {

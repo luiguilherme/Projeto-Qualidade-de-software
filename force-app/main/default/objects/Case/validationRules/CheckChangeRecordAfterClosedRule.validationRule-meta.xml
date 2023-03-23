@@ -4,7 +4,8 @@
     <active>true</active>
     <description>Não é possível editar o registro após status fechado.</description>
     <errorConditionFormula>AND(
-				 OR(
+	NOT( ISCHANGED( Payload__c ) ),
+		OR(
 									ISPICKVAL(PRIORVALUE(Status),&apos;Closed&apos;),
 									ISPICKVAL(PRIORVALUE(Status),&apos;CallDropped&apos;),
 									ISPICKVAL(PRIORVALUE(Status),&apos;InterruptedFlow&apos;),
