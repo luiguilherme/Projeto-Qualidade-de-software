@@ -80,11 +80,14 @@ export default class GpsCanvasIntegration extends LightningElement {
         delete payload.attributes;
         closeCase({
             payload :  payload
-        })
-            .catch((error) => {
-                console.log(error);
+        }).then((result) => {
+            if(!result){
                 this.showToastMessage('Erro', 'Erro ao encerrar o caso, entre em contato com o administrador.', 'error');
-            });
+            }
+        }).catch((error) => {
+            console.log('Erro ao atualizar o caso:', error);
+        });
+
     }
 
     showToastMessage(title, message, variant) {
