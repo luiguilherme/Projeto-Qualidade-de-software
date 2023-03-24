@@ -1,5 +1,5 @@
 public class ServiceFlowGPSRequest {
-    private static final String CANAL_ATENDIMENTO = 'SALES_FORCE_NOVA_ORG';
+    private static final String CANAL_ATENDIMENTO = 'SALES_FORCE';
 
     public class Parametros {
 		public List<Parametro> parametro;
