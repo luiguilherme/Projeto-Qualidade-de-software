@@ -1,0 +1,67 @@
+<aura:component controller="ServiceFlowGPSController" 
+            implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" 
+            access="global">
+    
+    <lightning:workspaceAPI aura:id="workspace" />
+    <aura:attribute name="recordId"                     type="String"   />
+    <aura:attribute name="loadUtil"                     type="Boolean"  default="false"/>
+    <aura:attribute name="ltFirstLevel"                 type="List"     default="[]"/> 
+    <aura:attribute name="selectedItemFirstLevel"       type="String"   /> 
+    <aura:attribute name="ltSecondLevel"                type="List"     default="[]"/> 
+    <aura:attribute name="ltSecondLevelFull"            type="List"     default="[]"/> 
+    <aura:attribute name="selectedItemSecondLevel"      type="String"   /> 
+    <aura:attribute name="ltThirdLevel"                 type="List"     default="[]"/> 
+    <aura:attribute name="ltThirdLevelFull"             type="List"     default="[]"/> 
+    <aura:attribute name="selectedItemThirdLevel"       type="String"   /> 
+    <aura:attribute name="ltFourthLevel"                type="List"     default="[]"/>
+    <aura:attribute name="ltFourthLevelFull"            type="List"     default="[]"/> 
+    <aura:attribute name="selectedItemFourthLevel"      type="String"   /> 
+    <aura:attribute name="ltAsset"						type="List" 	default="[]"/>
+    <aura:attribute name="mapAsset"						type="Map"      default="{}"/>
+    <aura:attribute name="selectedAsset"                type="String"   /> 
+    <aura:attribute name="selectedFlow"                type="String"   /> 
+    <aura:attribute name="breadcrumb"                   type="String"   /> 
+    <aura:attribute name="listBreadcrumb"               type="List"     default="[]"/>
+    <aura:attribute name="mapBreadcrumb"                type="Map"      default="{}"/>
+    <aura:attribute name="serviceQualificationMap"      type="Map"      default="{}"/>
+    <aura:attribute name="addressValue"                 type="String" />
+    <aura:attribute name="caseId"                       type="String" />
+    <aura:attribute name="caseNumber"                   type="String" />
+    <aura:attribute name="selectedInstance"                       type="String" />
+    <aura:attribute name="isLoading"                    type="Boolean"  default="false" />
+    <aura:attribute name="pageReference"                type="String"/>
+
+    <aura:handler name="init" value="{!this}"       action="{!c.doInit}"/>
+    <aura:handler event="c:BroadcastNotification"   action="{!c.handleComponentEvent}" access="global" />
+
+    <aura:registerEvent name="ServiceContainerEvent" type="c:ServiceContainerEvent"/>
+    
+    <aura:renderIf isTrue="{!v.loadUtil}">
+        <ltng:require scripts="{!$Resource.LightningUtil}"  afterScriptsLoaded="{!c.doInit}" /> 
+    </aura:renderIf>
+
+    <article class="slds-card">
+        <div class="slds-grid slds-gutters slds-m-around_xx-small slds-p-top_small" style="height: 250px;">
+
+            <!-- Nível 1 - Tipo -->
+            <div class="slds-col slds-box slds-size_1-of-1 slds-medium-size_1-of-4 overFlow" >
+                <lightning:tree items="{! v.ltFirstLevel }" header="Tipo:" onselect="{! c.handleSelectFirstLevel }"/>
+            </div>
+
+            <!-- Nível 2 - Motivo -->
+            <div class="slds-col slds-box slds-size_1-of-1 slds-medium-size_1-of-4 overFlow">
+                <lightning:tree items="{! v.ltSecondLevel }" header="Motivo:" onselect="{! c.handleSelectSecondLevel }"/>
+            </div>
+
+            <!-- Nível 3 - Sub-Motivo -->
+            <div class="slds-col slds-box slds-size_1-of-1 slds-medium-size_1-of-4 overFlow">
+                <lightning:tree items="{! v.ltThirdLevel }" header="Sub-Motivo:" onselect="{! c.handleSelectThirdLevel }"/>
+            </div>
+
+            <!-- Nível 4 - Detalhe -->
+            <div class="slds-col slds-box slds-size_1-of-1 slds-medium-size_1-of-4 overFlow">
+                <lightning:tree items="{! v.ltFourthLevel }" header="Detalhe:" onselect="{! c.handleSelectFourthLevel }"/>
+            </div>
+        </div>
+    </article>
+</aura:component>

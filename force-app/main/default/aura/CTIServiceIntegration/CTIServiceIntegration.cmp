@@ -1,0 +1,50 @@
+<aura:component controller="ServiceFlowGPSController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
+                access="global">
+
+    <!-- Attributes -->
+    <aura:attribute name="vfHost" type="String" default="" />
+    <aura:attribute name="caseId" type="String" default="" />
+    <aura:attribute name="caseRecord" type="Object" default="{}" />
+    <aura:attribute name="isModalOpenTransferSummary" type="Boolean" default="false" />
+    <aura:attribute name="summaryOpened" type="Boolean" default="false" />
+    <aura:attribute name="isCallActive" type="Boolean" default="false" />
+
+    <!-- Navigation Item and WorkSpace pointer -->
+    <lightning:navigationItemAPI aura:id="navigationItem"/>
+    <lightning:workspaceAPI aura:id="workspace"/>
+
+    <!-- Load LightningUtil Library -->
+    <ltng:require scripts="{! $Resource.LightningUtil }" />
+
+    <!-- Record Data Load -->
+    <force:recordData aura:id="recordLoader"
+      fields="Id,AccountId,Origin,Status,DestinyCell__c,OriginCell__c,Comment__c,LastModifiedDate,Product__c,ServiceQualificationMobile__c,ServiceReason__c,ComplainedAsset__c,ParentId,CreatedById,OwnerId,Closure__c,TransferObservation__c, CustomerInteractionTopicTree__c"
+      recordId="{!v.caseId}"
+      targetFields="{!v.caseRecord}" 
+      recordUpdated="{!c.handleRecordUpdated}"/>
+
+    <!-- Events -->
+    <aura:registerEvent name="broadcastNotification" type="c:BroadcastNotification"/>
+    
+    <!-- Handler -->
+    <aura:handler name="init" value="{! this }" action="{! c.doInit }" />
+    <aura:handler event="c:BroadcastNotification" action="{! c.handleAplicationEvent }" />
+    <aura:handler name="CTIServiceIntegration" event="c:CTIServiceIntegrationEvent" action="{! c.handleComponentEvent }" />
+    <aura:handler event="lightning:tabClosed" action="{! c.onTabClosed }"/>
+    
+    <c:cTIServiceIntegrationChild aura:id="ctichild" ></c:cTIServiceIntegrationChild>
+    
+    <aura:if isTrue="{! v.isModalOpenTransferSummary }">
+        <c:CTIServiceIntegrationTransferSummary 
+            transferCase="{! v.caseRecord }"/>
+    </aura:if>
+
+    <!-- Visualforce Page to Communicate with WDE -->
+    <iframe 
+        aura:id="vfFrame" 
+        src="{! v.vfHost + '/apex/CTIServiceIntegration'}" 
+        style="visibility: hidden;" 
+        width="0" 
+        height="0"/>
+</aura:component>

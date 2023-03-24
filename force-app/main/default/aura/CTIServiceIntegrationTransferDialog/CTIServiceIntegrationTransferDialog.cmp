@@ -1,0 +1,159 @@
+<aura:component controller="CTIServiceIntegrationController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem"
+                access="global">
+
+    <!-- Attributes -->
+    <aura:attribute name="recordId" type="String" default="" />
+    <aura:attribute name="caseId" type="String" default="" />
+    <aura:attribute name="isLoading" type="Boolean" default="false" />
+    <aura:attribute name="ltOrigin" type="List" default="[]" />
+    <aura:attribute name="origin" type="String" default="" />
+    <aura:attribute name="ltDestiny" type="List" default="[]" />
+    <aura:attribute name="destiny" type="String" default="" />
+    <aura:attribute name="note" type="String" default="" />
+    <aura:attribute name="directTransfer" type="Boolean" default="false" />
+    <aura:attribute name="assistedTransfer" type="Boolean" default="false" />
+    <aura:attribute name="inAssistedTransfer" type="Boolean" default="false" />
+    <aura:attribute name="backConsult" type="Boolean" default="false" />
+    <aura:attribute name="originCells" type="List" default="[]" />
+    <aura:attribute name="destinyCells" type="List" default="[]" />
+    <aura:attribute name="gpsID" type="String"/>
+    
+    <!-- Hander -->
+    <ltng:require scripts="{! $Resource.LightningUtil }" afterScriptsLoaded="{! c.onInit }" />
+
+    <aura:registerEvent name="CTIServiceIntegration" type="c:CTIServiceIntegrationEvent" />
+
+    <aura:registerEvent name="broadcastNotification" type="c:BroadcastNotification"/>
+
+    <!-- Loading -->
+    <aura:if isTrue="{! v.isLoading }">
+        <div class="slds-spinner_container">
+            <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+
+    <!-- Transfer Dialog -->
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+        aria-describedby="modal-content-id-1" class="slds-modal slds-modal_medium slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                    {! $Label.c.CallTransfer }
+                </h1>
+            </header>
+
+            <div class="slds-modal__content slds-p-around_small slds-text-title slds-text-align_left">
+                <lightning:layout>
+                    <lightning:layoutItem size="6">
+                        <lightning:card class="slds-var-m-around_x-small">
+                            <aura:set attribute="title">
+                                <lightning:icon iconName="standard:call" size="small" />
+                                <span class="slds-var-p-left_small" style="color:#EA001E;">*</span>
+                                <lightning:formattedText value="{! $Label.c.OriginService + ':' }" />
+                            </aura:set>
+
+                            <aura:set attribute="body">
+                                <div class="slds-form-element slds-scrollable_y" style="height: 6rem; padding: 0.5rem;">
+                                    <div class="slds-form-element__control" style="margin-right: 0.5rem;">
+                                        <lightning:radioGroup type="radio"
+                                            aura:id="rgOrigin"
+                                            options="{! v.ltOrigin }"
+                                            value="{! v.origin }"
+                                            disabled="{! v.inAssistedTransfer }" />
+                                    </div>
+                                </div>
+                            </aura:set>
+                        </lightning:card>
+                    </lightning:layoutItem>
+
+                    <lightning:layoutItem size="6">
+                        <lightning:card class="slds-var-m-around_x-small">
+                            <aura:set attribute="title">
+                                <lightning:icon iconName="standard:call_coaching" size="small" />
+                                <span class="slds-var-p-left_small" style="color:#ea001e;">*</span>
+                                <lightning:formattedText value="{! $Label.c.TransferTo + ':' }" />
+                            </aura:set>
+
+                            <aura:set attribute="body">
+                                <div class="slds-form-element slds-scrollable_y" style="height: 6rem; padding: 0.5rem;">
+                                    <div class="slds-form-element__control" style="margin-right: 0.5rem;">
+                                        <lightning:radioGroup type="radio"
+                                            aura:id="rgDestiny"
+                                            options="{! v.ltDestiny }"
+                                            value="{! v.destiny }"
+                                            onchange="{! c.onDestinyChange }"
+                                            disabled="{! v.inAssistedTransfer }" />
+                                    </div>
+                                </div>
+                            </aura:set>
+                        </lightning:card>
+                    </lightning:layoutItem>
+                </lightning:layout>
+
+                <div style="height: 1rem;" />
+
+                <div class="slds-form">
+                    <lightning:textarea aura:id="txtNote"
+                        class="bold-text"
+                        label="{! $Label.c.Note }"
+                        value="{! v.note }"
+                        maxlength="255"
+                        disabled="{! v.inAssistedTransfer }" />
+                </div>
+            </div>
+
+            <footer class="slds-modal__footer">
+                <aura:if isTrue="{! !v.inAssistedTransfer }">
+                    <lightning:button aura:id="btnDirectTransfer"
+                        variant="brand"
+                        class="slds-size_2-of-8"
+                        label="{! $Label.c.DirectTransfer }"
+                        title="{! $Label.c.DirectTransfer }"
+                        onclick="{! c.btnDirectTransferClick }"
+                        disabled="{! v.directTransfer }" />
+
+                    <lightning:button aura:id="btnAssistedTransfer"
+                        variant="brand"
+                        class="slds-size_2-of-8"
+                        label="{! $Label.c.TransferWithHold }"
+                        title="{! $Label.c.TransferWithHold }"
+                        onclick="{! c.btnAssistedTransferClick }"
+                        disabled="{! v.assistedTransfer }" />
+
+                    <aura:set attribute="else">
+                        <lightning:button aura:id="btnAssistedTransferConfirm"
+                            variant="brand"
+                            class="slds-size_3-of-12"
+                            label="{! $Label.c.FinalizeTransfer }"
+                            title="{! $Label.c.FinalizeTransfer }"
+                            onclick="{! c.btnAssistedTransferConfirmClick }"
+                            disabled="false" />
+
+                        <lightning:button aura:id="btnTalkToTheCustomer"
+                            variant="brand"
+                            class="slds-size_3-of-12"
+                            label="{! v.backConsult ? $Label.c.BackToTransfer : $Label.c.TalkToTheCustomer }"
+                            title="{! $Label.c.TalkToTheCustomer }"
+                            onclick="{! c.btnTalkToTheCustomerClick }"
+                            disabled="false" />
+
+                        <lightning:button aura:id="btnCancelar"
+                            variant="brand"
+                            class="slds-size_1-of-12"
+                            label="{! $Label.c.ScriptRuleCreateCancelButton }"
+                            title="{! $Label.c.ScriptRuleCreateCancelButton }"
+                            onclick="{! c.btnCancelClick }"
+                            disabled="false" />
+                    </aura:set>
+                </aura:if>
+            </footer>
+        </div>
+    </section>
+    
+    <!-- Add shaded backdrop to modal -->
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</aura:component>

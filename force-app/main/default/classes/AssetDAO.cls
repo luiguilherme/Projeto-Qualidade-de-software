@@ -21,7 +21,7 @@ public without sharing class AssetDAO {
             Asset 
         WHERE 
             AccountId =: accountId 
-        AND Type__c = 'Móvel'
+        AND Type__c = 'Movel'
         AND LastModifiedDate >: assetLoadDate];
     }
 
@@ -48,7 +48,7 @@ public without sharing class AssetDAO {
             Asset
         WHERE 
             AccountId =: accountId 
-        AND Type__c = 'Móvel'];
+        AND Type__c = 'Movel'];
     }
 
 
@@ -201,7 +201,8 @@ public without sharing class AssetDAO {
                 Account.vlocity_cmt__CustomerValue__c,
             	Account.vlocity_cmt__PrimaryContactId__c,
             	Account.phone,
-            	PhoneNumber__c            	
+            	PhoneNumber__c,
+            	Account.CustomerSegment__c
         FROM 
             Asset 
         WHERE 
@@ -248,5 +249,17 @@ public without sharing class AssetDAO {
             FROM
                 Asset
         ];
+    }
+    
+    public static List<Asset> getAssetIdByIdentifiers(String serviceIdentifier, String accountId) {
+        return [SELECT Id, vlocity_cmt__ServiceIdentifier__c FROM Asset WHERE vlocity_cmt__ServiceIdentifier__c =: serviceIdentifier 
+                                                   AND AccountId =: accountId 
+                                                   AND Type__c = 'Fixa' AND SourceSystem__c = 'SIEBEL'
+               									   LIMIT 1];
+    }
+    
+    public static List<Asset> getAssetIdWithoutIdentifiers(String accountId) {
+        return [SELECT Id, Type__c, SourceSystem__c, vlocity_cmt__ServiceIdentifier__c FROM Asset WHERE AccountId =: accountId AND Type__c = 'Fixa' AND SourceSystem__c = 'SIEBEL' LIMIT 1];
+         
     }
 }

@@ -578,15 +578,120 @@
             "key": "event-10",
             "recordIndex": "0",
             "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1676392185701-j5eklp0xm",
+                    "label": "ResumeCanvasAction",
+                    "stateAction": {
+                        "displayName": "Action",
+                        "eventName": "canvasGPS",
+                        "extraParams": {
+                            "AccountId": "{AccountId}",
+                            "Asset": "{Session.SelectedRelationshipAssetId}",
+                            "CaseId": "{CaseId}",
+                            "CustomerInteractionId": "{recordId}",
+                            "CustomerInteractionTopicId": "{Session.SelectedRelationshipTopicId}",
+                            "TopicTreeId": "{Session.SelectedRelationshipTopicId}"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1676402553310",
+                        "message": "opencanvas",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1679063392920-tp4988zfs",
+                    "label": "SetOpenedCanvasTrue",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.OpenedCanvas",
+                                "fieldValue": "true"
+                            }
+                        ],
+                        "id": "flex-action-1679063643238",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "canvasGPS",
+            "displayLabel": "canvasGPS:resumeCanvas",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "resumeCanvas",
+            "eventtype": "pubsub",
+            "key": "event-11",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1677947571089-cerjdxxcy",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.OpenedCanvas",
+                                "fieldValue": "true"
+                            }
+                        ],
+                        "id": "flex-action-1679063532880",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "canvasGPS",
+            "displayLabel": "canvasGPS:openedCanvas",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "openedCanvas",
+            "eventtype": "pubsub",
+            "key": "event-12",
+            "recordIndex": "0",
+            "showSpinner": "false"
         }
     ],
     "globalCSS": false,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValServiceFlow_13_usPalitagemCrossRegistrarPalito",
-        "Id": "0Rb78000000L5F7CAK",
+        "DeveloperName": "cfValServiceFlow_17_usPalitagemCrossRegistrarPalito",
+        "Id": "0Rb8D000000vgWRSAY",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValServiceFlow_13_usPalitagemCrossRegistrarPalito",
+        "MasterLabel": "cfValServiceFlow_17_usPalitagemCrossRegistrarPalito",
         "NamespacePrefix": "c"
     },
     "multilanguageSupport": true,
@@ -4100,7 +4205,7 @@
                                     ],
                                     "class": "slds-col ",
                                     "element": "block",
-                                    "elementLabel": "Block-0-Block-2",
+                                    "elementLabel": "Block-1-clone-0-Block-0",
                                     "key": "element_element_block_6_0_block_0_0",
                                     "name": "Block",
                                     "parentElementKey": "element_block_6_0",
@@ -4135,13 +4240,36 @@
                                 {
                                     "class": "slds-col ",
                                     "element": "customLwc",
-                                    "elementLabel": "Block-0-Custom LWC-4",
+                                    "elementLabel": "Block-1-clone-0-Custom LWC-1",
                                     "key": "element_element_block_6_0_customLwc_1_0",
                                     "name": "Custom LWC",
                                     "parentElementKey": "element_block_6_0",
                                     "property": {
                                         "customerinteractionid": "{recordId}",
-                                        "customlwcname": "ctiCallDroppedButtonNotification"
+                                        "customlwcname": "ctiCallDroppedButtonNotification",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "Session.ShowSpinner",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-2",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "false"
+                                                },
+                                                {
+                                                    "field": "Session.OpenedCanvas",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-9",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "false"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        }
                                     },
                                     "size": {
                                         "default": "2",
@@ -4156,11 +4284,211 @@
                                         "sizeClass": "slds-size_2-of-12 "
                                     },
                                     "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "outputField",
+                                    "elementLabel": "Block-1-clone-0-Field-2",
+                                    "key": "element_element_block_6_0_outputField_2_0",
+                                    "name": "Field",
+                                    "parentElementKey": "element_block_6_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "Session.ShowSpinner",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-0",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "false"
+                                                },
+                                                {
+                                                    "field": "Session.OpenedCanvas",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-7",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "false"
+                                                },
+                                                {
+                                                    "field": "isWDE",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-11",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "false"
+                                                },
+                                                {
+                                                    "field": "1",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-4",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "2"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "fieldName": "",
+                                        "label": "Ligação Caiu.",
+                                        "placeholder": "",
+                                        "record": "{record}",
+                                        "styles": {
+                                            "label": {
+                                                "color": "#FFFFFF",
+                                                "fontSize": "13px;",
+                                                "textAlign": ""
+                                            },
+                                            "value": {
+                                                "textAlign": ""
+                                            }
+                                        },
+                                        "type": "text"
+                                    },
+                                    "size": {
+                                        "default": "2",
+                                        "isResponsive": false,
+                                        "large": "2",
+                                        "medium": "2",
+                                        "small": "2"
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "#cdcdcd",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "#cccccc",
+                                            "radius": "5px;",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "slds-text-align_center slds-p-left_x-small moveButtonDisable1",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "customClass": "moveButtonDisable1",
+                                        "elementStyleProperties": {
+                                            "styles": {
+                                                "label": {
+                                                    "color": "#FFFFFF",
+                                                    "fontSize": "13px;",
+                                                    "textAlign": ""
+                                                },
+                                                "value": {
+                                                    "textAlign": ""
+                                                }
+                                            }
+                                        },
+                                        "height": "",
+                                        "inlineStyle": "width: 100px; height: 32px; padding-top: 6px;",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                            {
+                                                "label": "left:x-small",
+                                                "size": "x-small",
+                                                "type": "left"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "2",
+                                            "isResponsive": false,
+                                            "large": "2",
+                                            "medium": "2",
+                                            "small": "2"
+                                        },
+                                        "sizeClass": "slds-size_2-of-12 ",
+                                        "style": "background-color:#cdcdcd;      \n    border-radius:5px;;     width: 100px; height: 32px; padding-top: 6px;",
+                                        "text": {
+                                            "align": "center",
+                                            "color": ""
+                                        }
+                                    },
+                                    "styleObjects": [
+                                        {
+                                            "conditionString": "",
+                                            "conditions": "default",
+                                            "draggable": false,
+                                            "key": 0,
+                                            "label": "Default",
+                                            "name": "Default",
+                                            "styleObject": {
+                                                "background": {
+                                                    "color": "#cdcdcd",
+                                                    "image": "",
+                                                    "position": "",
+                                                    "repeat": "",
+                                                    "size": ""
+                                                },
+                                                "border": {
+                                                    "color": "#cccccc",
+                                                    "radius": "5px;",
+                                                    "style": "",
+                                                    "type": "",
+                                                    "width": ""
+                                                },
+                                                "class": "slds-text-align_center slds-p-left_x-small moveButtonDisable1",
+                                                "container": {
+                                                    "class": ""
+                                                },
+                                                "customClass": "moveButtonDisable1",
+                                                "elementStyleProperties": {
+                                                    "styles": {
+                                                        "label": {
+                                                            "color": "#FFFFFF",
+                                                            "fontSize": "13px;",
+                                                            "textAlign": ""
+                                                        },
+                                                        "value": {
+                                                            "textAlign": ""
+                                                        }
+                                                    }
+                                                },
+                                                "height": "",
+                                                "inlineStyle": "width: 100px; height: 32px; padding-top: 6px;",
+                                                "margin": [
+                                                ],
+                                                "padding": [
+                                                    {
+                                                        "label": "left:x-small",
+                                                        "size": "x-small",
+                                                        "type": "left"
+                                                    }
+                                                ],
+                                                "size": {
+                                                    "default": "2",
+                                                    "isResponsive": false,
+                                                    "large": "2",
+                                                    "medium": "2",
+                                                    "small": "2"
+                                                },
+                                                "sizeClass": "slds-size_2-of-12 ",
+                                                "style": "background-color:#cdcdcd;      \n    border-radius:5px;;     width: 100px; height: 32px; padding-top: 6px;",
+                                                "text": {
+                                                    "align": "center",
+                                                    "color": ""
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "type": "element"
                                 }
                             ],
                             "class": "slds-col ",
                             "element": "block",
-                            "elementLabel": "Block-1-clone-0",
+                            "elementLabel": "Block-6",
                             "name": "Block",
                             "property": {
                                 "card": "{card}",
@@ -4168,23 +4496,6 @@
                                 "collapsible": false,
                                 "data-conditions": {
                                     "group": [
-                                        {
-                                            "field": "Session.ShowSpinner",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-57",
-                                            "operator": "==",
-                                            "type": "custom",
-                                            "value": "false"
-                                        },
-                                        {
-                                            "field": "Session.OpenedCanvas",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-86",
-                                            "logicalOperator": "&&",
-                                            "operator": "==",
-                                            "type": "custom",
-                                            "value": "false"
-                                        }
                                     ],
                                     "id": "state-condition-object",
                                     "isParent": true
@@ -4198,16 +4509,119 @@
                             },
                             "stateIndex": 0,
                             "styleObject": {
-                                "class": "slds-p-around_x-small",
+                                "background": {
+                                    "color": "",
+                                    "image": "",
+                                    "position": "",
+                                    "repeat": "",
+                                    "size": ""
+                                },
+                                "border": {
+                                    "color": "",
+                                    "radius": "",
+                                    "style": "",
+                                    "type": "",
+                                    "width": ""
+                                },
+                                "class": "slds-text-align_right slds-p-around_x-small ",
+                                "container": {
+                                    "class": ""
+                                },
+                                "elementStyleProperties": {
+                                },
+                                "inlineStyle": "",
+                                "margin": [
+                                ],
                                 "padding": [
                                     {
+                                        "label": "around:x-small",
                                         "size": "x-small",
                                         "type": "around"
                                     }
                                 ],
+                                "size": {
+                                    "default": "12",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_12-of-12 ",
+                                "style": "      \n         ",
+                                "text": {
+                                    "align": "right",
+                                    "color": ""
+                                }
+                            },
+                            "styleObjects": [
+                                {
+                                    "conditionString": "",
+                                    "conditions": "default",
+                                    "draggable": false,
+                                    "key": 0,
+                                    "label": "Default",
+                                    "name": "Default",
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "slds-text-align_right slds-p-around_x-small ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                            {
+                                                "label": "around:x-small",
+                                                "size": "x-small",
+                                                "type": "around"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "right",
+                                            "color": ""
+                                        }
+                                    }
+                                }
+                            ],
+                            "type": "block"
+                        },
+                        {
+                            "class": "slds-col ",
+                            "element": "customLwc",
+                            "elementLabel": "CTINotification",
+                            "name": "Custom LWC",
+                            "property": {
+                                "customlwcname": "cTIServiceIntegrationNotification"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
                                 "sizeClass": "slds-size_12-of-12"
                             },
-                            "type": "block"
+                            "type": "element",
+                            "userUpdatedElementLabel": true
                         }
                     ]
                 }
@@ -4252,7 +4666,7 @@
                     ],
                     "width": "1"
                 },
-                "class": "slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-around_x-small slds-m-bottom_x-small ",
+                "class": "slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-around_x-small slds-m-around_x-small ",
                 "container": {
                     "class": "slds-card"
                 },
@@ -4262,9 +4676,9 @@
                 "inlineStyle": "",
                 "margin": [
                     {
-                        "label": "bottom:x-small",
+                        "label": "around:x-small",
                         "size": "x-small",
-                        "type": "bottom"
+                        "type": "around"
                     }
                 ],
                 "padding": [
