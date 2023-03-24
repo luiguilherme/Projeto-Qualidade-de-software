@@ -51,11 +51,11 @@
                             event.stopPropagation();
 
                             payload.service = 'WDE_AssistedTransfer';
-
+							console.log('Assisted Transfer Params:' + payload.DestinyCell__c+ '+  CaseID: '+ payload.CaseId__c +'  + CustomerInteractionID:'+ payload.CustomerInteractionId__c );
                             let wdeResponse = external.transferInit(payload.DestinyCell__c, payload.CaseId__c, payload.CustomerInteractionId__c);
-
+							console.log('WDE Response: '+wdeResponse);
                             payload.wdeResponse = wdeResponse;
-
+							debugger;
                             if (wdeResponse) {
                                 doUpdateWdeCase(payload);
                                 return;
