@@ -1,0 +1,49 @@
+<aura:component controller="GPSFlowIdController"
+                implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" 
+                access="global">
+    <aura:attribute name="listFlow" type="List"/>
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="flowId" type="String"/>
+    <aura:attribute name="loadUtil" type="Boolean" default="false"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:renderIf isTrue="{!v.loadUtil}">
+        <ltng:require scripts="{!$Resource.LightningUtil}"  afterScriptsLoaded="{!c.doInit}" /> 
+    </aura:renderIf>
+
+    <aura:html tag="style">
+        .cuf-content {
+			padding: 0 0rem !important;
+        }
+        .slds-p-around_medium {
+			padding: 1rem !important;
+        }       
+        .slds-modal__content{
+			overflow-y:hidden !important;
+			height:unset !important;
+			max-height:unset !important;
+        }
+        .slds-tree_container {
+            max-width: 90% !important;
+        }
+    </aura:html>
+    
+    <div class="slds-col modal-header slds-modal__header">
+        <h2 class="title slds-text-heading_medium">Fluxos do GPS</h2>
+    </div>
+    <aura:renderIf isTrue="{!v.listFlow}">
+        <div class="slds-col modal-body scrollable slds-p-around_medium" 
+        style="height: 200px; max-height: 200px; overflow-y: auto !important;">
+            <div>
+                <lightning:tree items="{!v.listFlow}" 
+                header="Selecione o fluxo:" 
+                onselect="{!c.onSelectedItemTree}"/>
+            </div>
+        </div>
+        <div class="slds-col modal-footer slds-modal__footer">        
+            <lightning:button variant="neutral" label="Cancelar" onclick="{!c.onCancelFlowId}" />      
+            <lightning:button variant="brand" label="Salvar" onclick="{!c.onConfirmFlowId}"/>
+        </div>
+    </aura:renderIf>
+</aura:component>

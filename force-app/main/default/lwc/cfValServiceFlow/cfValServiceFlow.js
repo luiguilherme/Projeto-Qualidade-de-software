@@ -36,8 +36,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
           return this._sessionApiVars["PageReference"] || "ORG VIVO - B2C";
         }
       
-              @track Label={cmpFieldRequired:"This field is required.",
-        cmpFieldValueMissing:"This field value is missing."
+              @track Label={cmpFieldRequired:"This field is required."
         };
               pubsubEvent = [];
               customEvent = [];
@@ -78,13 +77,16 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
 [interpolateWithRegex(`hidespinner`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[5],5),
 [interpolateWithRegex(`clearvalues`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[6],6),
 [interpolateWithRegex(`openedcanvas`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[7],7),
-[interpolateWithRegex(`open`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[8],8)
+[interpolateWithRegex(`open`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[8],8),
+[interpolateWithRegex(`recoveryids`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[10],10)
         };
         this.pubsubChannel0 = interpolateWithRegex(`valServiceFlow`,this._allMergeFields,this._regexPattern,"noparse");
         pubsub.register(this.pubsubChannel0,this.pubsubEvent[0]);
 
         this.pubsubEvent[1] = {
-          [interpolateWithRegex(`finishFlow`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[9],9)
+          [interpolateWithRegex(`finishFlow`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[9],9),
+[interpolateWithRegex(`resumeCanvas`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[11],11),
+[interpolateWithRegex(`openedCanvas`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[12],12)
         };
         this.pubsubChannel1 = interpolateWithRegex(`canvasGPS`,this._allMergeFields,this._regexPattern,"noparse");
         pubsub.register(this.pubsubChannel1,this.pubsubEvent[1]);
