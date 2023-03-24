@@ -1,0 +1,109 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem"
+                access="global"
+                controller="ServiceFlowGPSController">
+
+    <!-- Attributes -->
+    <!-- <aura:attribute name="caseId" type="String" required="true" default="" /> -->
+    <aura:attribute name="historyTotal" type="String" default="0" />
+    <aura:attribute name="transferCase" type="Object" required="true" default="{}"/>
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="isLoading" type="Boolean" default="true" />
+
+    <!-- Hander -->
+    <ltng:require scripts="{! $Resource.LightningUtil }" afterScriptsLoaded="{! c.doInit }" />
+
+    <aura:registerEvent name="CTIServiceIntegration" type="c:CTIServiceIntegrationEvent" />
+
+
+    <!-- Transfer Dialog -->
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+        aria-describedby="modal-content-id-1" class="slds-modal slds-modal_medium slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                    {! $Label.c.IncomingCall}
+                </h1>
+            </header>
+
+            <div class="slds-modal__content slds-p-around_small slds-text-title slds-text-align_left">
+                <lightning:card class="slds-var-m-around_x-small">
+                    <aura:set attribute="title">
+                        <lightning:formattedText value="{! $Label.c.CallData}" />
+                    </aura:set>
+
+                    <aura:set attribute="body">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control slds-var-p-top_small" style="height: 2rem;margin-right: 0.5rem;">
+                                <lightning:layout>
+                                    <lightning:layoutItem size="6">
+                                        <lightning:formattedText 
+                                            value="{! $Label.c.OriginService + ':' }" 
+                                            class="slds-var-p-left_small"
+                                            style="font-weight: bold"/>
+                                        <lightning:formattedText 
+                                            value="{! v.transferCase.OriginCell__c }" 
+                                            class="slds-var-p-left_xx-small"/>
+                                    </lightning:layoutItem>
+                                    <lightning:layoutItem size="6">
+                                        <lightning:formattedText 
+                                            value="{! $Label.c.TransferTo + ':' }" 
+                                            class="slds-var-p-left_small"
+                                            style="font-weight: bold"/>
+                                        <lightning:formattedText 
+                                            value="{! v.transferCase.DestinyCell__c }" 
+                                            class="slds-var-p-left_xx-small"/>
+                                    </lightning:layoutItem>
+                                </lightning:layout>
+                            </div>
+                        </div>
+                    </aura:set>
+                </lightning:card>
+
+                <div style="height: 1rem;" />
+
+                <lightning:card class="slds-var-m-around_x-small">
+                    <aura:set attribute="title">
+                        <lightning:formattedText 
+                        value="{! $Label.c.CTIServiceIntegrationTransferSummarySecondCardHeader}" />
+                    </aura:set>
+
+                    <aura:set attribute="body">
+                        <div class="slds-form-element" style="height: 9rem;">
+                            <div class="slds-form-element__control slds-scrollable_y slds-var-m-horizontal_x-small">
+                                <lightning:datatable
+                                keyField="id"
+                                data="{! v.data }"
+                                columns="{! v.columns }"
+                                hideCheckboxColumn="true"/>
+                            </div>
+                        </div>
+                    </aura:set>
+                </lightning:card>
+            </div>
+
+            <footer class="slds-modal__footer">
+                <lightning:button aura:id="btnFechar"
+                    variant="brand"
+                    class="slds-size_1-of-12 slds-align_absolute-center"
+                    label="{! $Label.c.Close }"
+                    title="{! $Label.c.Close }"
+                    onclick="{! c.btnExitClick }"
+                    disabled="false" />
+            </footer>
+        </div>
+
+        <!-- Loading -->
+        <aura:if isTrue="{! v.isLoading }">
+            <div class="slds-spinner_container">
+                <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+        </aura:if>
+    </section>
+    
+    <!-- Add shaded backdrop to modal -->
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</aura:component>

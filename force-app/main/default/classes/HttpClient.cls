@@ -157,7 +157,6 @@ public class HttpClient {
         st.serviceTransaction.Name = wsConfig.Name + ' - ' + st.serviceTransaction.Operation__c + ' - ' + datetime.now().formatGMT('yyyy-MM-dd HH:mm:ss');
         st.serviceTransaction.Http_Header__c = 'Authorization: ' + request.getHeader('Authorization') + ', Ocp-Apim-Subscription-Key: ' + request.getHeader('Ocp-Apim-Subscription-Key');
         st.setRequest(request.getBody());
-
         return st;
     }
 }

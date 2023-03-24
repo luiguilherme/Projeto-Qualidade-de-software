@@ -9,7 +9,7 @@ public without sharing class InvoiceDownloadController {
         Webservice__c wsConfig = Webservice__c.getInstance(WEBSERVICE_NAME);        
      
         Invoice__c invoice = InvoiceDAO.getById(invoiceId);
-        
+     
         if (invoice == null) {
             return;
         }

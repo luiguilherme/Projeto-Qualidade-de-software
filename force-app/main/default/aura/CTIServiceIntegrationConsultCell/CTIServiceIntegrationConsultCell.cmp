@@ -1,0 +1,135 @@
+<aura:component controller="CTIServiceIntegrationController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem"
+                access="global">
+
+    <!-- Attributes -->
+    <aura:attribute name="recordId" type="String" default="" />
+    <aura:attribute name="isLoading" type="Boolean" default="false" />
+    <aura:attribute name="InConsult" type="Boolean" default="false" />
+    <aura:attribute name="backConsult" type="Boolean" default="false" />
+    <aura:attribute name="ltOrigin" type="List" default="[]" />
+    <aura:attribute name="origin" type="String" default="" />
+    <aura:attribute name="ltDestiny" type="List" default="[]" />
+    <aura:attribute name="destiny" type="String" default="" />
+    <aura:attribute name="originCells" type="List" default="[]" />
+    <aura:attribute name="destinyCells" type="List" default="[]" />
+    <aura:attribute name="ConsultPerformed" type="Boolean" default="false" />
+    
+    <!-- Hander -->
+    <ltng:require scripts="{! $Resource.LightningUtil }" afterScriptsLoaded="{! c.onInit }" />
+
+    <aura:registerEvent name="CTIServiceIntegration" type="c:CTIServiceIntegrationEvent" />
+
+    <!-- Loading -->
+    <aura:if isTrue="{! v.isLoading }">
+        <div class="slds-spinner_container">
+            <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+
+    <!-- Consult Cell -->
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+        aria-describedby="modal-content-id-1" class="slds-modal slds-modal_medium slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                    {! $Label.c.PerformConsult }
+                </h1>
+            </header>
+
+            <div class="slds-modal__content slds-p-around_small slds-text-title slds-text-align_left">
+                <div class="centralDiv">
+                    <lightning:layout>
+                        <lightning:layoutItem size="6" class="slds-var-p-right_medium">
+                            <lightning:card class="slds-var-m-around_small">
+                                <aura:set attribute="title">
+                                    <lightning:icon iconName="standard:call" size="small" />
+                                    <span class="slds-var-p-left_small" style="color:#EA001E;">*</span>
+                                    <lightning:formattedText value="{! $Label.c.OriginService + ':' }" />
+                                </aura:set>
+
+                                <aura:set attribute="body">
+                                    <div class="slds-form-element slds-scrollable_y" style="height: 6rem; padding: 0.5rem;">
+                                        <div class="slds-form-element__control" style="margin-right: 0.5rem;">
+                                            <lightning:radioGroup type="radio"
+                                                aura:id="rgOrigin"
+                                                options="{! v.ltOrigin }"
+                                                value="{! v.origin }"
+                                                disabled="{! v.InConsult }" />
+                                        </div>
+                                    </div>
+                                </aura:set>
+                            </lightning:card>
+                        </lightning:layoutItem>
+
+                        <lightning:layoutItem size="6">
+                            <lightning:card class="slds-var-m-around_small">
+                                <aura:set attribute="title">
+                                    <lightning:icon iconName="standard:call_coaching" size="small" />
+                                    <span class="slds-var-p-left_small" style="color:#ea001e;">*</span>
+                                    <lightning:formattedText value="{! $Label.c.ConsultTo + ':' }" />
+                                </aura:set>
+
+                                <aura:set attribute="body">
+                                    <div class="slds-form-element slds-scrollable_y" style="height: 6rem; padding: 0.5rem;">
+                                        <div class="slds-form-element__control" style="margin-right: 0.5rem;">
+                                            <lightning:radioGroup type="radio"
+                                                aura:id="rgDestiny"
+                                                options="{! v.ltDestiny }"
+                                                value="{! v.destiny }"
+                                                disabled="{! v.InConsult }" />
+                                        </div>
+                                    </div>
+                                </aura:set>
+                            </lightning:card>
+                        </lightning:layoutItem>
+                    </lightning:layout>
+
+                    <div class="slds-var-p-vertical_medium slds-align_absolute-center">
+                        <aura:if isTrue="{! !v.InConsult}" >
+                            <lightning:button aura:id="btnPerformConsult"
+                                variant="brand"
+                                label="{! $Label.c.PerformConsult }"
+                                title="{! $Label.c.PerformConsult }"
+                                onclick="{! c.btnPerformConsult }"/>
+        
+                            <aura:set attribute="else">
+                                <lightning:button aura:id="btnTalkToTheCustomer"
+                                    variant="brand"
+                                    label="{! v.backConsult ? $Label.c.BackToConsult : $Label.c.TalkToTheCustomer }"
+                                    title="{! $Label.c.TalkToTheCustomer }"
+                                    onclick="{! c.btnTalkToTheCustomerClick }"/>
+
+                                <lightning:button aura:id="btnFinalizeConsult"
+                                    variant="brand"
+                                    label="{! $Label.c.FinalizeConsult}"
+                                    title="{! $Label.c.FinalizeConsult}"
+                                    onclick="{! c.btnFinalizeConsult }" />
+                            </aura:set>
+                        </aura:if>
+                    </div>
+                </div>
+                <div style="height: 5rem;" />
+            </div>
+
+            
+
+            <footer class="slds-modal__footer">
+                <lightning:button aura:id="btnContinueService"
+                        variant="brand"
+                        class="slds-align_absolute-center"
+                        iconName="utility:success"
+                        label="{! $Label.c.ContinueService}"
+                        title="{! $Label.c.ContinueService}"
+                        onclick="{! c.btnContinueService }"
+                        disabled="{! v.InConsult }" />
+            </footer>
+        </div>
+    </section>
+    
+    <!-- Add shaded backdrop to modal -->
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</aura:component>

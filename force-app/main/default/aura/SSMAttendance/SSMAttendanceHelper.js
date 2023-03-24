@@ -163,13 +163,22 @@
     */
 
     navigateToObjetcPage : function(component, objectId) {
-        let navigateToObjectPageEvent = $A.get("e.force:navigateToSObject");
+        let partnerCommunityLicense = component.get("v.partnerCommunityLicense");
+        
+        if (partnerCommunityLicense) {
+            let ciWindowOpenURL = ($A.get("$Label.c.StoreServiceManagerCustomInteractionWindowOpenURL")).replace("{customInteractionId}", objectId);
 
-        navigateToObjectPageEvent.setParams({
-            recordId: objectId
-        });
+            window.open(ciWindowOpenURL, "_blank");
 
-        navigateToObjectPageEvent.fire();
+        } else {
+            let navigateToObjectPageEvent = $A.get("e.force:navigateToSObject");
+
+            navigateToObjectPageEvent.setParams({
+                recordId: objectId
+            });
+
+            navigateToObjectPageEvent.fire();
+        }
     },
     
     createLead : function() {
