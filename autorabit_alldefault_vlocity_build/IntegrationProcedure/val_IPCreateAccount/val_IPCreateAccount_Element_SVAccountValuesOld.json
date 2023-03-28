@@ -1,5 +1,5 @@
 {
-    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__Active__c": false,
     "%vlocity_namespace%__OmniScriptId__c": {
         "Name": "Create Account",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
@@ -12,11 +12,7 @@
         "disOnTplt": false,
         "elementValueMap": {
             "CPF": "=IF(%StepRegistration:DocumentBlock:DocumentType% == 'CPF', %StepRegistration:DocumentBlock:DocumentNumber%,'')",
-            "Contact": {
-                "Id": "%contactId%"
-            },
             "DDI": "%StepRegistration:ContactData:DDI%",
-            "Id": "%accountId%",
             "acceptPromotion": "=IF(%StepRegistration:ContactPermissionBlock:IsCustomerDecision% == \"No\", \"No\",%StepRegistration:ContactPermissionBlock:AcceptCommunication%)",
             "birthDate": "%StepRegistration:AccountData:BirthDate%",
             "comercialPhone": "=IF(%StepRegistration:ContactData:ComercialPhone% <> NULL,\"(\"+ SUBSTRING(%StepRegistration:ContactData:ComercialPhone%,0,2) + \") \"+ SUBSTRING(%StepRegistration:ContactData:ComercialPhone%,2,7)+\"-\"+ SUBSTRING(%StepRegistration:ContactData:ComercialPhone%,7,11),\"\")",
@@ -35,7 +31,6 @@
             "mainAddrTypeComp2": "%StepRegistration:AddressData:MainAddress:MainAddrTypeComp2%",
             "mainAddrTypeComp3": "%StepRegistration:AddressData:MainAddress:MainAddrTypeComp3%",
             "mainAddrTypeComp4": "%StepRegistration:AddressData:MainAddress:MainAddrTypeComp4%",
-            "mainAddressIdSRE": "=%mainIdSRE%",
             "mainAddressLog": "%StepRegistration:AddressData:MainAddress:MainAddressLog%",
             "mainAddressType": "%StepRegistration:AddressData:MainAddress:MainAddressType%",
             "mainCEP": "%StepRegistration:AddressData:MainAddress:MainCEP%",
@@ -64,7 +59,6 @@
             "shippingAddrTypeComp2": "=IF(%SVRecordTypeName:isEqualMainAddress% == 'Sim', %StepRegistration:AddressData:MainAddress:MainAddrTypeComp2% , %StepRegistration:AddressData:ShippingAddress:ShippingAddrTypeComp2%)",
             "shippingAddrTypeComp3": "=IF(%SVRecordTypeName:isEqualMainAddress% == 'Sim', %StepRegistration:AddressData:MainAddress:MainAddrTypeComp3% , %StepRegistration:AddressData:ShippingAddress:ShippingAddrTypeComp3%)",
             "shippingAddrTypeComp4": "=IF(%SVRecordTypeName:isEqualMainAddress% == 'Sim', %StepRegistration:AddressData:MainAddress:MainAddrTypeComp4% , %StepRegistration:AddressData:ShippingAddress:ShippingAddrTypeComp4%)",
-            "shippingAddressIdSRE": "=IF(%SVRecordTypeName:isEqualMainAddress% == 'Sim', %mainIdSRE% , %shippingIdSRE%)",
             "shippingAddressLog": "=IF(%SVRecordTypeName:isEqualMainAddress% == 'Sim', %StepRegistration:AddressData:MainAddress:MainAddressLog% , %StepRegistration:AddressData:ShippingAddress:ShippingAddressLog%)",
             "shippingAddressType": "=IF(%SVRecordTypeName:isEqualMainAddress% == 'Sim', %StepRegistration:AddressData:MainAddress:MainAddressType%, %StepRegistration:AddressData:ShippingAddress:ShippingAddressType%)",
             "shippingCEP": "=IF(%SVRecordTypeName:isEqualMainAddress% == 'Sim',%StepRegistration:AddressData:MainAddress:MainCEP%,%StepRegistration:AddressData:ShippingAddress:ShippingCEP%)",
@@ -85,8 +79,8 @@
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
     "%vlocity_namespace%__Type__c": "Set Values",
-    "Name": "SVAccountValues",
+    "Name": "SVAccountValuesOld",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/IPCreateAccount/Procedure/SVAccountValues"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/IPCreateAccount/Procedure/SVAccountValuesOld"
 }
