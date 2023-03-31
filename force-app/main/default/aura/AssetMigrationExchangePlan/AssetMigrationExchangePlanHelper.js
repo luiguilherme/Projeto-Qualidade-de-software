@@ -27,7 +27,6 @@
             component.set('v.isLoading', false);
             var state = response.getState();
             if (state === 'SUCCESS') {
-                console.log("registro do CustomerInteractionTopic criado");
             }
         });
         $A.enqueueAction(action);

@@ -7,6 +7,7 @@
         var isCanvasHybris = component.get('v.isCanvasHybris')
         if (isCanvasHybris) {
             helper.createCustomerInteractionTopic(component);
+            component.set('v.showAssetMigrationSelection', true);
         } else {
             LightningUtil.fireNotification(
                 'Atenção',

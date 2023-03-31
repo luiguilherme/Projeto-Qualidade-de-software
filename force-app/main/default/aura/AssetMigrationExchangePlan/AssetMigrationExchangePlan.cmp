@@ -2,13 +2,13 @@
                 implements="flexipage:availableForAllPageTypes,lightning:backgroundUtilityItem,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:appHostable"
                 access="global">
 
-    <aura:attribute name="isOpen"               type="Boolean" default="false" />
-    <aura:attribute name="userInfo"             type="User"/>
-    <aura:attribute name="isCanvasHybris"       type="Boolean" default="false"/>
-    <aura:attribute name="isLoading"            type="Boolean"/>
-    <!--<aura:attribute name="CreditAnalisysErrors" type="Object[]"/>-->
-    <aura:attribute name="showCanvas"           type="Boolean"/>
-    <aura:attribute name="showErrors"           type="Boolean" default="false"/>
+    <aura:attribute name="isOpen"                               type="Boolean" default="false" />
+    <aura:attribute name="userInfo"                             type="User"/>
+    <aura:attribute name="isCanvasHybris"                       type="Boolean" default="false"/>
+    <aura:attribute name="isLoading"                            type="Boolean"/>
+    <aura:attribute name="showCanvas"                           type="Boolean"/>
+    <aura:attribute name="showErrors"                           type="Boolean" default="false"/>
+    <aura:attribute name="showAssetMigrationSelection"          type="Boolean" default="false"/>
 
     <aura:handler event="c:BroadcastNotification" action="{!c.handleComponentEvent}" access="global"  />
 
@@ -44,6 +44,11 @@
                     </table>
                 </div>
             </header>
+            <div class="slds-m-top_x-small">
+                <aura:if isTrue="{!v.showAssetMigrationSelection}">
+                    <c:assetMigrationSelection recordId="{!v.recordId}"/>
+                </aura:if>
+            </div>
         </article>
     </lightning:card>
 </aura:component>
