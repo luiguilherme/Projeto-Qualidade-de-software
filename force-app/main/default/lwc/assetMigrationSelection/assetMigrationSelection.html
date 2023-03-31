@@ -1,0 +1,34 @@
+<template>
+    <div>
+        <lightning-card >
+            <template if:true={ltAssets}>
+                <lightning-card title="Selecione o Telefone:">
+                    <br>
+                    <lightning-datatable
+                        key-field="Id"
+                        data={ltAssets}
+                        columns={columns}
+                        class="dataTableFont"
+                        onrowselection={getSelectedAsset}
+                        max-row-selection = 1>
+                        
+                    </lightning-datatable>  
+                </lightning-card>
+                <div class="newFont" >
+                    <br>
+                        <lightning-formatted-text value = 'Importante: não é possível realizar trocas de ofertas de linhas fixas, móveis com dependentes e clientes Oi. Por favor consulte o sistema legado para estas transações.'></lightning-formatted-text>
+                    </br>
+                    <br>            
+                </div>
+                <div class="slds-clearfix slds-p-right_small">
+                    <div  class=" slds-float_right">
+                        <lightning-button class="advanceButton" variant="brand" label="Avançar" title="Avançar" onclick={callCanvas}></lightning-button>
+                    </div>
+                </div>
+            </template>
+            <template if:false={ltAssets}>
+                <p class="newFont">{errorMsg}</p>
+            </template>
+        </lightning-card>
+    </div>
+</template>
