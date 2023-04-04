@@ -5,6 +5,7 @@
     
     startMigrationProcess : function (component, event, helper) {
         var isCanvasHybris = component.get('v.isCanvasHybris')
+       // var showAssetMigrationSelection = component.get('v.showAssetMigrationSelection')
         if (isCanvasHybris) {
             helper.createCustomerInteractionTopic(component);
             component.set('v.showAssetMigrationSelection', true);
