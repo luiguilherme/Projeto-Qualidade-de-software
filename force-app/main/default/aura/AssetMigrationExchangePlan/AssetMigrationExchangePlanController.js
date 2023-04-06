@@ -5,7 +5,6 @@
     
     startMigrationProcess : function (component, event, helper) {
         var isCanvasHybris = component.get('v.isCanvasHybris')
-       // var showAssetMigrationSelection = component.get('v.showAssetMigrationSelection')
         if (isCanvasHybris) {
             helper.createCustomerInteractionTopic(component);
             component.set('v.showAssetMigrationSelection', true);
@@ -29,5 +28,10 @@
             }
             
         }
+    },
+
+    handleClick : function (cmp, event, helper) {
+        cmp.set('v.assetMigrationNumber ', JSON.parse(event.getParam('data'))); //Para remover as Aspas duplas
+        cmp.set('v.showCanvas', true);
     }
 })
