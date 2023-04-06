@@ -281,4 +281,23 @@ public without sharing class AssetDAO {
         return [SELECT Id, Type__c, SourceSystem__c, vlocity_cmt__ServiceIdentifier__c FROM Asset WHERE AccountId =: accountId AND Type__c = 'Fixa' AND SourceSystem__c = 'SIEBEL' LIMIT 1];
          
     }
+
+    public static Asset getAssetDataByName (String Name) {
+        return   [
+            SELECT Id,
+                AccountId,
+                Account.Name,
+                Account.Id,
+                Account.DocumentNumber__c,
+                Account.vlocity_cmt__CustomerValue__c,
+            	Account.vlocity_cmt__PrimaryContactId__c,
+            	Account.phone,
+            	PhoneNumber__c            	
+        FROM 
+            Asset 
+        WHERE 
+            Name =: Name 
+        LIMIT 1
+        ];
+    }
 }
