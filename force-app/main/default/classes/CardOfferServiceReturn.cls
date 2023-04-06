@@ -131,6 +131,7 @@ public class CardOfferServiceReturn {
 		@AuraEnabled public String campaignCode;
 		@AuraEnabled public List<SubOffers> sub_offers;
 		@AuraEnabled public List<String> ltOptions;
+		@AuraEnabled public Boolean isBirthday = false;
 
 		public Card(JSONParser parser) {
 			while (parser.nextToken() != System.JSONToken.END_OBJECT) {

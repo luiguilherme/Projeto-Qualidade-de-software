@@ -49,11 +49,13 @@ public with sharing class CarouselCardOfferEngine {
         String responseBody;
         String parameters = account.UserId__c + '/modules?card_types=next-best-offer&container_ids=' + EncodingUtil.urlEncode(userChannel, 'UTF-8');
         String endpoint = wsConfig.Endpoint__c + parameters;
+        System.debug('Endpoint:'+ endpoint);
         HttpClient client = new HttpClient();
         HttpResponse response;
         try {
             response = client.get(wsConfig, endpoint);
             responseBody = response.getBody();
+            System.debug('ResponseBody:' + responseBody);
         } catch (Exception e) {
             cardOffers.msg = e.getMessage();
             return cardOffers;
@@ -190,6 +192,11 @@ public with sharing class CarouselCardOfferEngine {
                 if (itemCard.title != null) {
                     itemCard.ltOptions = getListOfOptionsNotAccepted(itemCard.title, nboActionsList);
                 }
+
+                if (itemCard.source == '9999'){
+                    itemCard.isBirthday = true;
+                }
+
 
                 cardList.add(itemCard);
             }

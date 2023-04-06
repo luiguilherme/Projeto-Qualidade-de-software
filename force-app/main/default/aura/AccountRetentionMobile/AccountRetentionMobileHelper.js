@@ -1,30 +1,44 @@
 ({
-    getAccount: function (component) {
-        var action = component.get("c.getAccountRetentionMobile");
+    getAccount : function(component) {
+        let action = component.get("c.getAccountRetentionMobile");
+
         action.setParams({
-            "recordId": component.get('v.recordId')
+            "recordId": component.get("v.recordId")
         });
-        action.setCallback(this, function (response) {
-            var state = response.getState();
+
+        action.setCallback(this, function(response) {
+            let state = response.getState();
+
             if (state === "SUCCESS") {
+                let returnMap = response.getReturnValue();
+                let ltBilling = returnMap["ltBillingAccount"];
+                let hasBilling = false;
 
-                var returnMap = response.getReturnValue();
-                var ltBilling = returnMap['ltBillingAccount'];
+                if (ltBilling != null && ltBilling != undefined && ltBilling.length > 0) {
+                    ltBilling.forEach(item=>{
+                        item.ltAssetMovel.forEach(asset=>{
+                            asset.checkboxSelected = false;
+                        })
+                    });
 
-                if (ltBilling != null && ltBilling != undefined) {
-                    component.set('v.ltBillingAccount', ltBilling);
-                    component.set('v.hasBilling', (ltBilling.length > 0));
+                    component.set("v.ltBillingAccount", ltBilling);
+
+                    hasBilling = (ltBilling.length > 0);
                 }
+
+                component.set("v.hasBilling", hasBilling);
             }
         });
+
         $A.enqueueAction(action);
     },
 
-    callCreditAnalysis: function (component) {
-        component.set('v.isLoading', true);
+    callCreditAnalysis : function(component) {
+        component.set("v.isLoading", true);
 
         const callbackError = (exceptions) => {
-            component.set('v.isLoading', false);
+            component.set("v.isLoading", false);
+            
             try {
                 this.showNotification(
                     component,
@@ -46,25 +60,30 @@
         LightningUtil.callApex(
             component,
             "checkCreditAnalysis",
-            { recordId: component.get('v.recordId') },
+            {recordId: component.get("v.recordId")},
             (result) => {
-                component.set('v.isLoading', false);
+                component.set("v.isLoading", false);
+
                 if (result.RequiredFields) {
-                    component.set('v.accountInconsistent', true)
-                    component.set('v.CreditAnalisysErrors', result.RequiredFields)
-                    return
-                }
-                if (result.ltOfferAlta) {
-                    component.set('v.ltOfferAlta', result.ltOfferAlta);
-                    component.set('v.hasOfferAlta', (result.ltOfferAlta.length));
+                    component.set("v.accountInconsistent", true);
+                    component.set("v.CreditAnalisysErrors", result.RequiredFields);
+
+                } else {
+                    if (result.ltOfferAlta) {
+                        component.set("v.ltOfferAlta", result.ltOfferAlta);
+                        component.set("v.hasOfferAlta", (result.ltOfferAlta.length));
+                    }
+
+                    if (result.ltOfferITVAlta) {
+                        component.set("v.ltOfferITVAlta", result.ltOfferITVAlta);
+                    }
                 }
             },
             callbackError
         );
     },
 
-
-    showNotification: function (component, title, message, variant) {
+    showNotification : function(component, title, message, variant) {
         component.find("notifLib").showToast({
             variant,
             title: `${title} \n`,
