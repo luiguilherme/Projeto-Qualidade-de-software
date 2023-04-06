@@ -163,4 +163,25 @@ public with sharing class AccountDAO {
             LIMIT 1
         ];
     }
+
+    public static List<Account> getAccountAndChildrenById(String accountId) {
+        return [
+            SELECT    
+                BillingAddress,
+                BillingStreet,
+                BillingPostalCode,
+                BillingNumber__c,
+                ShippingAddress,
+                ShippingStreet,
+                ShippingPostalCode,
+                ShippingNumber__c,
+                RecordTypeId,
+                BillingAccountType__c
+            FROM 
+                Account
+            WHERE 
+                Id = :accountId
+            OR ParentId = :accountId
+        ];
+    }
 }

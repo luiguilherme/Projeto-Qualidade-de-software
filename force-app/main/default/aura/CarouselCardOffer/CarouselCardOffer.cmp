@@ -112,35 +112,36 @@
                                                 <p><b>{!index.actionDescription}</b></p>
                                             </div>
                                         </div>
-                                        
-                                        <div class="priceBottom slds-p-left_xx-small">
-                                            Por <strong>R${!index.voucher_code} / mês </strong>
-                                        </div>
-
-                                        <div class="slds-grid">
-                                            <div class="detailBottom">
-                                                <a class="slds-p-left_xx-small" data-hash="{!index.id}" onclick="{!c.showDetail}">Mais Detalhes</a>
+                                        <aura:if isTrue="{!index.isBirthday != true}">
+                                            <div class="priceBottom slds-p-left_xx-small">
+                                                Por <strong>R${!index.voucher_code} / mês </strong>
                                             </div>
-                                            <div class="buttonBottom">
-                                                <div class="slds-button-group" role="group">
-                                                    <button data-indexAccepted ="{!index.id}" onclick="{!c.clickAccepted}" class="buttonAceitou slds-button_first slds-button slds-button_outline-brand" disabled="{!index.isDisabled}">Aceitou</button>
-                                                    <div class="{! v.openDropDown ? 'slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open' : 'slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click'}">
-                                                        <lightning:button label="Não Aceitou" class="slds-button_last buttonNaoAceitou" iconPosition="right"  iconName="utility:jump_to_bottom" onclick="{!c.showDropDown}" disabled="{!index.isDisabled}" />
-                                                        <div aura:id="dropDownList" class="slds-dropdown dropDown slds-dropdown_bottom slds-dropdown_length-5">
-                                                            <ul class="slds-dropdown__list" role="menu" aria-label="Show More">
-                                                                <aura:iteration items="{!index.ltOptions}" var="item" indexVar="indexVarButton">
-                                                                    <li class="slds-dropdown__item" role="presentation">
-                                                                        <a data-index="{!index.id}" data-item="{!item}" onclick="{!c.clickNotAccepted}" role="menuitem" >
-                                                                            <span data-index="{!index.id}" data-item="{!item}" class="slds-truncate showInline">{!item}</span>
-                                                                        </a>
-                                                                    </li>
-                                                                </aura:iteration>
-                                                            </ul>
+
+                                            <div class="slds-grid">
+                                                <div class="detailBottom">
+                                                    <a class="slds-p-left_xx-small" data-hash="{!index.id}" onclick="{!c.showDetail}">Mais Detalhes</a>
+                                                </div>
+                                                <div class="buttonBottom">
+                                                    <div class="slds-button-group" role="group">
+                                                        <button data-indexAccepted ="{!index.id}" onclick="{!c.clickAccepted}" class="buttonAceitou slds-button_first slds-button slds-button_outline-brand" disabled="{!index.isDisabled}">Aceitou</button>
+                                                        <div class="{! v.openDropDown ? 'slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open' : 'slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click'}">
+                                                            <lightning:button label="Não Aceitou" class="slds-button_last buttonNaoAceitou" iconPosition="right"  iconName="utility:jump_to_bottom" onclick="{!c.showDropDown}" disabled="{!index.isDisabled}" />
+                                                            <div aura:id="dropDownList" class="slds-dropdown dropDown slds-dropdown_bottom slds-dropdown_length-5">
+                                                                <ul class="slds-dropdown__list" role="menu" aria-label="Show More">
+                                                                    <aura:iteration items="{!index.ltOptions}" var="item" indexVar="indexVarButton">
+                                                                        <li class="slds-dropdown__item" role="presentation">
+                                                                            <a data-index="{!index.id}" data-item="{!item}" onclick="{!c.clickNotAccepted}" role="menuitem" >
+                                                                                <span data-index="{!index.id}" data-item="{!item}" class="slds-truncate showInline">{!item}</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </aura:iteration>
+                                                                </ul>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>                                        
+                                            </div> 
+                                        </aura:if>                                        
                                     </div>
                                 </lightning:card>
                             </div>

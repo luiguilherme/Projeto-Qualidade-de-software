@@ -15,6 +15,20 @@
         $A.enqueueAction(action);
     },
 
+    getAddressList : function(component){
+        var action = component.get("c.getAddressList");
+        action.setParams({
+            "accountId" : component.get('v.recordId')
+        });
+        action.setCallback(this, function(response){
+            var state = response.getState();
+            if(state === "SUCCESS"){
+                component.set('v.addressList', response.getReturnValue());
+            }
+        });
+        $A.enqueueAction(action);
+    },
+
     getAccountAddressJS : function(component) {
         component.set("v.errorMessage", '');
         var action = component.get("c.getGeographicAddress");

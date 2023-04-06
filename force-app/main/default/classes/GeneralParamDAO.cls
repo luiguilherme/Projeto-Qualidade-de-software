@@ -2,8 +2,7 @@
  * @description Controla a busca e criação do objeto Custom Settings
  */
 public with sharing class GeneralParamDAO {
-
-    public static List<GeneralParam__c> getLoadParams(){
+    public static List<GeneralParam__c> getLoadParams() {
         return [
             SELECT    
                 Id, 
