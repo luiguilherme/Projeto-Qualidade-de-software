@@ -23,6 +23,7 @@ export default class AssetMigrationSelection extends LightningElement {
     @api recordId;
     accountId;
     clickedButtonLabel;
+    assetMigrationNumber;
 
     @wire(getRecord, { recordId: '$recordId', fields: FIELDS })
     customerInteraction({ error, data }) {
@@ -51,7 +52,7 @@ export default class AssetMigrationSelection extends LightningElement {
         const selectedRows = event.detail.selectedRows;
         for (let i = 0; i < selectedRows.length; i++) {
             this.ltAssets[selectedRows[i].id] = selectedRows[i];
-            //alert('A linha selecionada agora foi: ' + selectedRows[i].PhoneNumber__c);
+            this.assetMigrationNumber = selectedRows[i].PhoneNumber__c;
         }
     }
 
@@ -70,4 +71,14 @@ export default class AssetMigrationSelection extends LightningElement {
             this.pageNumber * this.pageSize
         );
     }
+
+    callCanvas(event) {
+        let ev = new CustomEvent('callcanvashybris', {
+                                detail : {
+                                    data: JSON.stringify(this.assetMigrationNumber)
+                                }
+                            });
+            this.dispatchEvent(ev);
+    }
+
 }

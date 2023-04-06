@@ -9,6 +9,7 @@
     <aura:attribute name="showCanvas"                           type="Boolean"/>
     <aura:attribute name="showErrors"                           type="Boolean" default="false"/>
     <aura:attribute name="showAssetMigrationSelection"          type="Boolean" default="false"/>
+    <aura:attribute name="assetMigrationNumber"                 type="String"/>
 
     <aura:handler event="c:BroadcastNotification" action="{!c.handleComponentEvent}" access="global"  />
 
@@ -46,7 +47,10 @@
             </header>
             <div class="slds-m-top_x-small">
                 <aura:if isTrue="{!v.showAssetMigrationSelection}">
-                    <c:assetMigrationSelection recordId="{!v.recordId}"/>
+                    <c:assetMigrationSelection recordId="{!v.recordId}" oncallcanvashybris="{!c.handleClick}"/>
+                    <aura:if isTrue="{!v.showCanvas}">
+                        <c:CanvasCPQ assetName="{!v.assetMigrationNumber}" />
+                    </aura:if>
                 </aura:if>
             </div>
         </article>
