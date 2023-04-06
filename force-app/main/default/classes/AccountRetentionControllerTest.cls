@@ -10,14 +10,11 @@ do tipo Fixa e Móvel
 Changes
 2020-09-30 @Alvaro - B2C7551-402 - Status__c de Ofertas substituido por IsActive__c.
 ---------------------------------------------------
-
 */
 @isTest
 public class AccountRetentionControllerTest {
-    
-    
     @testSetup 
-    static void setup(){
+    static void setup() {
         UserRole userR = new UserRole();
         userR.Name = 'Omnichannel';
         Database.insert(userR);
@@ -29,16 +26,13 @@ public class AccountRetentionControllerTest {
                           TimeZoneSidKey='America/Sao_Paulo', UserName='stdteste@teste.com');
         Database.insert(u);
         
-        PermissionSet ps = [SELECT ID,Name,Label FROM PermissionSet WHERE Name = 'OfferMenu' LIMIT 1];
-        
+        PermissionSet ps = [SELECT Id, Name, Label FROM PermissionSet WHERE Name = 'OfferMenu' LIMIT 1];
         PermissionSetAssignment psa = new PermissionSetAssignment();
         psa.PermissionSetId = ps.Id;
         psa.AssigneeId = u.Id;
-        
         Database.insert(psa);
         
-        System.runAs(u){
-            
+        System.runAs(u) {
             Account lAccount = DataFactory.createConsumerAccount();
             insert lAccount;
             
@@ -47,7 +41,7 @@ public class AccountRetentionControllerTest {
             
             insert lBillingAccountFixed;
             insert lBillingAccountMobile;
-
+            
             Account lServiceAccountFixed = DataFactory.createServiceAccount(lAccount.Id, lBillingAccountFixed.Id, 'Fixa');
             Account lServiceAccountMobile = DataFactory.createServiceAccount(lAccount.Id, lBillingAccountMobile.Id, 'Móvel');
             
@@ -56,7 +50,7 @@ public class AccountRetentionControllerTest {
 
             vlocity_cmt__CustomerInteraction__c lCustomerInteraction = DataFactory.createCustomerInteraction(lAccount.Id);
             insert lCustomerInteraction;
-
+            
             List<Offer__c> lstOffer = new List<Offer__c>();
             Offer__c offer = DataFactory.createOfferFixed(lAccount.Id);
             Offer__c offerCabinet = DataFactory.createOfferFixed(lAccount.Id);
@@ -70,7 +64,6 @@ public class AccountRetentionControllerTest {
             
             List<Asset> lstAsset = new List<Asset>();
             Asset asset = DataFactory.createAsset(lAccount.Id, lBillingAccountFixed.Id, lServiceAccountFixed.Id, 'Fixa');
-            // asset.Address__c = address.Id;
             lstAsset.add(asset);
             lstAsset.add(DataFactory.createAsset(lAccount.Id, lBillingAccountMobile.Id, lServiceAccountMobile.Id, 'Movel'));
             insert lstAsset;
@@ -97,7 +90,7 @@ public class AccountRetentionControllerTest {
                 AddressJob__c = true,
                 InvoiceJob__c = true,
                 CustomerType__c = 'Totalizado;Fixa',
-                CustomerSegment__c = 'TOP;VIP'
+                CustomerSegment__c = 'PLATINUM;SILVER;GOLD;PURPURA;TOP;VIP'
             );
             
             OffersFilter__c offerFilters = new OffersFilter__c();
@@ -117,18 +110,19 @@ public class AccountRetentionControllerTest {
             initialOffer.VoicePlan__c = 'Vivo Fixo Ilimitado Brasil';
             initialOffer.Tecnology__c = 'FTTH';
             initialOffer.OfferGroup__c = 'Aquisição';
-            
             insert initialOffer;
             
             BlockPartialDisconnection__c blockPartialDesco = new BlockPartialDisconnection__c();
             blockPartialDesco.Name='Impedimento Desconexao Parcial';
             blockPartialDesco.Papel__c='OperadorGoldRetencaoFixa';
-                        
             insert blockPartialDesco;
             
+            MobileOffersSettings__c mobileSetts = new MobileOffersSettings__c();
+            mobileSetts.Name ='DDD_Ofertas';
+            mobileSetts.DDDOferta__c ='65;64';
+            insert mobileSetts;
             
             Offer__c offer1 = new Offer__c();
-            
             offer1.RecordTypeId = Schema.SObjectType.Offer__c.getRecordTypeInfosByDeveloperName().get('AcquisitionFixed').getrecordTypeId();
             offer1.IsActive__c = true;
             offer1.TotalPrice__c = 30;
@@ -145,102 +139,121 @@ public class AccountRetentionControllerTest {
             offer1.BroadbandDiscountDuration__c = 30;
             offer1.FixedLineDiscountDuration__c = 10;
             offer1.TVDiscountDuration__c = 20;
-            
             insert offer1;
+
+            Offer__c offer2 = new Offer__c();
+            offer2.RecordTypeId = Schema.SObjectType.Offer__c.getRecordTypeInfosByDeveloperName().get('ITV').getrecordTypeId();
+            offer2.IsActive__c = true;
+            offer2.TotalPrice__c = 30;
+            offer2.MobileDescription__c = 'Teste ITV';
+            offer2.Instructions__c = 'lorem';
+            offer2.FixedCampaignRTD__c = 'Campanha Teste ITV';
+            insert offer2;
+
+            Offer__c offer3 = new Offer__c();
+            offer3.RecordTypeId = Schema.SObjectType.Offer__c.getRecordTypeInfosByDeveloperName().get('ITVAltaMovel').getrecordTypeId();
+            offer3.IsActive__c = true;
+            offer3.TotalPrice__c = 50;
+            offer3.MobileDescription__c = 'Teste ITV Alta Movel';
+            offer3.Instructions__c = 'lorem';
+            offer3.FixedCampaignRTD__c = 'Campanha Teste ITV Alta Movel';
+            insert offer3;
         }
     }
     
     @isTest
-    public static void getAccountRetentionFixedTest(){
+    public static void getAccountRetentionFixedTest() {
         User u = [SELECT id FROM User WHERE UserName = 'stdteste@teste.com' LIMIT 1];
-        System.runAs(u){
-            
-            vlocity_cmt__CustomerInteraction__c lCustomerInteraction = [ SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
+        
+        System.runAs(u) {
+            vlocity_cmt__CustomerInteraction__c lCustomerInteraction = [SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
             
             Test.startTest();        
-            
-            List<AccountRetentionController.BillingAccount> lLstFixed = AccountRetentionController.getAccountRetentionFixed(lCustomerInteraction.Id);
-            if(lLstFixed.isEmpty()) return;
-            
-            lLstFixed[0].setCityCategories.add('A');
-            lLstFixed[0].setCabinet.add(true);
-            lLstFixed[0].setCabinet.add(false);
-            lLstFixed[0].setOfferLevel.add('Nivel_1');
-            lLstFixed[0].speedSelected = '200';
-            lLstFixed[0].tvPlanSelected = 'Sem TV';
-            lLstFixed[0].fixedLineSelected = 'Vivo Fixo Ilimitado';
-            lLstFixed[0].offerGroupSelected = 'Retenção';
-            lLstFixed[0].accTechnology = 'FTTH';
-            
-            List<AccountRetentionController.Offer> lstOffer = AccountRetentionController.getOfferFilterFixed(lLstFixed[0]);
-            
-            system.assert(!lstOffer.isEmpty());
-            
+                List<AccountRetentionController.BillingAccount> lLstFixed = AccountRetentionController.getAccountRetentionFixed(lCustomerInteraction.Id);
+                
+                if (lLstFixed.isEmpty()) {
+                    return;
+                }
+
+                lLstFixed[0].setCityCategories.add('A');
+                lLstFixed[0].setCabinet.add(true);
+                lLstFixed[0].setCabinet.add(false);
+                lLstFixed[0].setOfferLevel.add('Nivel_1');
+                lLstFixed[0].speedSelected = '200';
+                lLstFixed[0].tvPlanSelected = 'Sem TV';
+                lLstFixed[0].fixedLineSelected = 'Vivo Fixo Ilimitado';
+                lLstFixed[0].offerGroupSelected = 'Retenção';
+                lLstFixed[0].accTechnology = 'FTTH';
+                
+                List<AccountRetentionController.Offer> lstOffer = AccountRetentionController.getOfferFilterFixed(lLstFixed[0]);
             Test.stopTest();
+            
+            System.assert(!lstOffer.isEmpty());
         } 
     }
     
     @isTest
     public static void getAccountRetentionFixedWithoutBillingTest(){
         User u = [SELECT id FROM User WHERE UserName = 'stdteste@teste.com' LIMIT 1];
-        System.runAs(u){
+        
+        System.runAs(u) {
+            Account lAccount = [SELECT Id FROM Account LIMIT 1];
+            vlocity_cmt__CustomerInteraction__c lCustomerInteraction = [SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
             
-            Account lAccount = [ SELECT Id FROM Account LIMIT 1];
-            vlocity_cmt__CustomerInteraction__c lCustomerInteraction = [ SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
             Test.startTest();        
-            
-            AccountRetentionController.BillingAccount billingFixed = AccountRetentionController.getAccountRetentionFixedWithoutBilling(lCustomerInteraction.Id);
-            
-            if(billingFixed == null) return;
-            
-            billingFixed.setOfferLevel.add('Aquisição Home Assist');
-            
-            List<AccountRetentionController.Offer> lstOffer = AccountRetentionController.getOfferFilterFixed(billingFixed);
-            
-            system.assert(!lstOffer.isEmpty());        
-            
+                AccountRetentionController.BillingAccount billingFixed = AccountRetentionController.getAccountRetentionFixedWithoutBilling(lCustomerInteraction.Id);
+                
+                if (billingFixed == null) {
+                    return;
+                }
+                
+                billingFixed.setOfferLevel.add('Aquisição Home Assist');
+                
+                List<AccountRetentionController.Offer> lstOffer = AccountRetentionController.getOfferFilterFixed(billingFixed);
             Test.stopTest();
+            
+            System.assert(!lstOffer.isEmpty());        
         }
     }
     
     @isTest
     public static void getAccountRetentionMobileTest(){
         User u = [SELECT id FROM User WHERE UserName = 'stdteste@teste.com' LIMIT 1];
-        System.runAs(u){
-            Account lAccount = [ SELECT Id,Name FROM Account LIMIT 1];
-            vlocity_cmt__CustomerInteraction__c lCustomerInteraction = [ SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
-            Map<String,Object> accountMap = new Map<String,Object>();    
+        
+        System.runAs(u) {
+            Account lAccount = [SELECT Id,Name FROM Account LIMIT 1];
+            vlocity_cmt__CustomerInteraction__c lCustomerInteraction = [SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
+            Map<String, Object> accountMap = new Map<String, Object>();    
             
             Test.startTest();
-            
-            accountMap.put(lAccount.Name, lAccount);
-            
-            AccountRetentionController.getAccountRetentionMobile(lCustomerInteraction.Id);
-            
-            system.assert( !accountMap.isEmpty());
+                accountMap.put(lAccount.Name, lAccount);
+                
+                AccountRetentionController.getAccountRetentionMobile(lCustomerInteraction.Id);
             Test.stopTest();
+            
+            System.assert(!accountMap.isEmpty());
         }
     }
     
     @isTest
     public static void getAccountRetentionMobileWithProfileTest(){
         User u = [SELECT id FROM User WHERE UserName = 'stdteste@teste.com' LIMIT 1];
-        System.runAs(u){
-            Account lAccount = [ SELECT Id,Name FROM Account LIMIT 1];
-            vlocity_cmt__CustomerInteraction__c lCustomerInteraction = [ SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
-            Map<String,Object> accountMap = new Map<String,Object>();    
+        
+        System.runAs(u) {
+            Account lAccount = [SELECT Id,Name FROM Account LIMIT 1];
+            vlocity_cmt__CustomerInteraction__c lCustomerInteraction = [SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
+            Map<String, Object> accountMap = new Map<String, Object>();    
             
-            User userOperacao = [SELECT Id, UserRoleId FROM User WHERE Profile.Name='Representante' AND ISACTIVE = true Limit 1];
+            User userOperacao = [SELECT Id, UserRoleId FROM User WHERE Profile.Name = 'Representante' AND IsActive = true LIMIT 1];
             
-            System.runAs(userOperacao){
+            System.runAs(userOperacao) {
                 Test.startTest();
-                
-                accountMap.put(lAccount.Name, lAccount);
-                
-                AccountRetentionController.getAccountRetentionMobile(lCustomerInteraction.Id);
-                
-                system.assert( !accountMap.isEmpty());
+                    accountMap.put(lAccount.Name, lAccount);
+                    
+                    AccountRetentionController.getAccountRetentionMobile(lCustomerInteraction.Id);
                 Test.stopTest();
+                
+                System.assert(!accountMap.isEmpty());
             }
         } 
     }
@@ -248,15 +261,13 @@ public class AccountRetentionControllerTest {
     @IsTest
     public static void getAccountRetentionMobileAltaTest(){
         User u = [SELECT id FROM User WHERE UserName = 'stdteste@teste.com' LIMIT 1];
-        System.runAs(u){
-            Account lAccount = [ SELECT Id,Name, WhiteListCharacteristic__c FROM Account LIMIT 1];
+        
+        System.runAs(u) {
+            Account lAccount = [SELECT Id,Name, WhiteListCharacteristic__c FROM Account LIMIT 1];
             lAccount.WhiteListCharacteristic__c = 'Verde 2';
             Database.update(lAccount);
-            vlocity_cmt__CustomerInteraction__c lCustomerInteraction = [ SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
             
-            
-            //Address__c address = DataFactory.createAddress(lAccount.Id);
-            //insert address;
+            vlocity_cmt__CustomerInteraction__c lCustomerInteraction = [SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
             
             List<Asset> lstAssetMobileByAccount = new List<Asset>();
             lstAssetMobileByAccount = [SELECT Id, Name FROM Asset WHERE AccountId =: lAccount.Id and Type__c = 'Movel'];
@@ -265,76 +276,75 @@ public class AccountRetentionControllerTest {
             Asset assetFixed = [SELECT Id, vlocity_cmt__BillingAccountId__c, ProductType__c, Speed__c, Technology__c, vlocity_cmt__ServiceAccountId__c FROM Asset WHERE AccountId =: lAccount.Id AND Type__c = 'Fixa' AND Technology__c = 'FTTH' LIMIT 1];
             assetFixed.ProductType__c = 'BANDA LARGA';
             assetFixed.Speed__c = '50';
-            //assetFixed.Address__c = address.Id;
             Database.update(assetFixed);
             
-            Offer__c lOffer = [SELECT Id, IsActive__c, WhiteListCharacteristicOffer__c 
-                               FROM Offer__c WHERE RecordType.DeveloperName = 'AltaMovel' LIMIT 1];
+            Offer__c lOffer = [SELECT Id, IsActive__c, WhiteListCharacteristicOffer__c FROM Offer__c WHERE RecordType.DeveloperName = 'AltaMovel' LIMIT 1];
             lOffer.IsActive__c = true;
             lOffer.WhiteListCharacteristicOffer__c = lAccount.WhiteListCharacteristic__c;
             Database.update(lOffer);
             
-            Map<String,Object> accountMap = new Map<String,Object>();
-            
-            
-            
+            Map<String, Object> accountMap = new Map<String, Object>();
+
             Test.startTest();
-            
-            accountMap.put(lAccount.Name, lAccount);
-            
-            AccountRetentionController.getAccountRetentionMobile(lCustomerInteraction.Id);        
-            system.assert( !accountMap.isEmpty());
-            
+                accountMap.put(lAccount.Name, lAccount);
+                
+                AccountRetentionController.getAccountRetentionMobile(lCustomerInteraction.Id);        
             Test.stopTest();
+
+            System.assert(!accountMap.isEmpty());
         }
     }
     
     @isTest
-    public static void saveCartAccountTest(){
+    public static void saveCartAccountTest() {
         User u = [SELECT id FROM User WHERE UserName = 'stdteste@teste.com' LIMIT 1];
-        System.runAs(u){
-            Account lAccount = [ SELECT Id,OwnerId FROM Account WHERE RecordType.DeveloperName = 'Consumer' LIMIT 1];
-            Account billAcc = [ SELECT Id FROM Account WHERE RecordType.DeveloperName = 'Billing' LIMIT 1];
-            Offer__c loffer = [ SELECT Id FROM Offer__c LIMIT 1];   
+
+        System.runAs(u) {
+            Account lAccount = [SELECT Id,OwnerId FROM Account WHERE RecordType.DeveloperName = 'Consumer' LIMIT 1];
+            Account billAcc = [SELECT Id FROM Account WHERE RecordType.DeveloperName = 'Billing' LIMIT 1];
+            Offer__c loffer = [SELECT Id FROM Offer__c LIMIT 1];   
             
             Test.startTest();
-            
-            String parseJSON = '{"AccountId":"'+ lAccount.Id +'","SelectedAction":"","BillingAccountId":"'+billAcc.Id+'","OfferId":"'+loffer.Id+'", "OwnerId":"'+lAccount.OwnerId+'" }';
-            
-            CartAccount__c passJSON = AccountRetentionController.saveCartAccount(parseJSON);
-            
-            system.assertNotEquals(passJSON.ID, null);
-            
+                String parseJSON = '{"AccountId":"'+ lAccount.Id +'","SelectedAction":"","BillingAccountId":"'+billAcc.Id+'","OfferId":"'+loffer.Id+'", "OwnerId":"'+lAccount.OwnerId+'" }';
+                
+                CartAccount__c passJSON = AccountRetentionController.saveCartAccount(parseJSON);
             Test.stopTest();
+            
+            System.assertNotEquals(passJSON.ID, null);
         } 
     }
     
     @isTest
-    public static void checkCreditAnalysis(){
+    public static void checkCreditAnalysis() {
         User u = [SELECT id FROM User WHERE UserName = 'stdteste@teste.com' LIMIT 1];
-        System.runAs(u){
-            Map<String, object> mapResult; 
+
+        System.runAs(u) {
+            Map<String, Object> mapResult; 
             vlocity_cmt__CustomerInteraction__c lCustomerInteraction = [ SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
             
             Test.startTest();
-            mapResult = AccountRetentionController.checkCreditAnalysis(lCustomerInteraction.Id);         
+                mapResult = AccountRetentionController.checkCreditAnalysis(lCustomerInteraction.Id);         
             Test.stopTest();
-            System.assert(mapResult != null, 'A controller nao retornou o mapResponse de Analise de crédito preenchido');
-        } 
+
+            System.assert(mapResult != null, 'A controller não retornou o mapResponse de Análise de crédito preenchido');
+        }
     }
     
     @isTest
-    public static void getOffer(){
+    public static void getOffer() {
         User u = [SELECT id FROM User WHERE UserName = 'stdteste@teste.com' LIMIT 1];
-        System.runAs(u){
-            Map<String, object> mapResult; 
-            vlocity_cmt__CustomerInteraction__c lCustomerInteraction = [ SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
+
+        System.runAs(u) {
+            Map<String, Object> mapResult; 
+            vlocity_cmt__CustomerInteraction__c lCustomerInteraction = [SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
             
             Test.startTest();
-            String accId = AccountRetentionController.getAccountIdFromCustomerInteraction(lCustomerInteraction.Id);
-            mapResult = AccountRetentionController.getOffer(accId);         
+                String accId = AccountRetentionController.getAccountIdFromCustomerInteraction(lCustomerInteraction.Id);
+
+                mapResult = AccountRetentionController.getOffer(accId);         
             Test.stopTest();
-            System.assert(mapResult != null, 'A controller nao retornou o mapResponse de ofertas preenchido');
+
+            System.assert(mapResult != null, 'A controller não retornou o mapResponse de ofertas preenchido');
         } 
     }
 }

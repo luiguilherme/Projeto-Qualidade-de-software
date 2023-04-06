@@ -4,6 +4,58 @@ public class ServiceAvailabilityController {
     private static final String WEBSERVICE_SERVICECOVERAGEAVAILABILITY = 'ServiceCoverageAvailabilityCallout';
     
     @AuraEnabled
+    public static List<AddressItem> getAddressList(Id accountId){
+        Id serviceRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByName().get('Service').getRecordTypeId();
+        Id billingRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByName().get('Billing').getRecordTypeId();
+        List<Account> accountList = AccountDAO.getAccountAndChildrenById(accountId);
+        List<AddressItem> returnList = new List<AddressItem>();
+
+        for(Account acc : accountList){
+            if(acc.RecordTypeId == serviceRecordTypeId && (acc.ShippingAddress != null)){
+                returnList = addListAddressItem(returnList, acc , 'shipping');
+            }else if(acc.RecordTypeId == billingRecordTypeId){
+                if(acc.BillingAccountType__c == 'Fixa' && (acc.ShippingAddress != null)){
+                    returnList = addListAddressItem(returnList, acc , 'shipping');
+                }else if((acc.BillingAccountType__c == 'Movel' || acc.BillingAccountType__c == 'Móvel') && (acc.BillingAddress != null)){
+                    returnList = addListAddressItem(returnList, acc , 'billing');
+                }
+            }else if(accountId == acc.Id){
+                if(acc.ShippingAddress != null){
+                    returnList = addListAddressItem(returnList, acc , 'shipping');
+                }
+                
+                if(acc.BillingAddress != null){
+                    returnList = addListAddressItem(returnList, acc , 'billing');
+                }
+            }
+        }
+
+        return returnList;
+    }
+
+    private static List<AddressItem> addListAddressItem(List<AddressItem> addresslist,Account acc , String fieldType){
+        AddressItem item = new AddressItem();
+        if(fieldType == 'shipping' && acc.ShippingStreet != null && acc.ShippingNumber__c != null && acc.ShippingPostalCode != null){
+            item.StreetName = acc.ShippingStreet;
+            item.StreetNumber = acc.ShippingNumber__c;
+            item.PostalCode = acc.ShippingPostalCode;
+            item.IdNumber = addresslist.size();
+
+            addresslist.add(item);
+
+        }else if(fieldType == 'billing' && acc.BillingStreet != null && acc.BillingNumber__c != null && acc.BillingPostalCode != null){
+            item.StreetName = acc.BillingStreet;
+            item.StreetNumber = acc.BillingNumber__c;
+            item.PostalCode = acc.BillingPostalCode;
+            item.IdNumber = addresslist.size();
+
+            addresslist.add(item);
+        }
+
+        return addresslist;
+    }
+    
+    @AuraEnabled
     public static Account getAccountId(Id accountId){
         Account account = new Account();
         account = AccountDAO.getByIds(accountId);   
@@ -291,6 +343,13 @@ public class ServiceAvailabilityController {
     public class KeyValuePicklists { 
         @AuraEnabled public String Label {get; set;}
         @AuraEnabled public String Value {get; set;}
+    }
+
+    public class AddressItem {
+        @AuraEnabled public String StreetName {get; set;}
+        @AuraEnabled public String PostalCode {get; set;}
+        @AuraEnabled public String StreetNumber {get; set;}
+        @AuraEnabled public Decimal IdNumber {get; set;}
     }
 
     @AuraEnabled

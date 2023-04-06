@@ -4,7 +4,43 @@ public class ServiceAvailabilityControllerTest {
     @TestSetup
     static void setup(){
         Account lAccount = DataFactory.createAccount();
+        lAccount.RecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByName().get('Consumer').getRecordTypeId();
+        lAccount.ShippingStreet = 'Av. teste 2 ';
+        lAccount.ShippingPostalCode = '12342';
+        lAccount.ShippingNumber__c = '12342';
+        lAccount.BillingStreet = 'Av. teste 1';
+        lAccount.BillingPostalCode = '12341';
+        lAccount.BillingNumber__c = '12341';
         insert lAccount;
+        
+        Account lAccount1 = new Account();
+        lAccount1.Name = 'Teste1';
+        lAccount1.ParentId = lAccount.Id;
+        lAccount1.BillingAccountType__c = 'Móvel';
+        lAccount1.BillingStreet = 'Av. teste 1';
+        lAccount1.BillingPostalCode = '12341';
+        lAccount1.BillingNumber__c = '12341';
+        lAccount1.RecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByName().get('Billing').getRecordTypeId();
+        insert lAccount1;
+        
+        Account lAccount2 = new Account();
+        lAccount2.Name = 'Teste2';
+        lAccount2.ParentId = lAccount.Id;
+        lAccount2.RecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByName().get('Service').getRecordTypeId();
+        lAccount2.ShippingStreet = 'Av. teste 2 ';
+        lAccount2.ShippingPostalCode = '12342';
+        lAccount2.ShippingNumber__c = '12342';
+        insert lAccount2;
+        
+        Account lAccount3 = new Account();
+        lAccount3.Name = 'Teste3';
+        lAccount3.BillingAccountType__c = 'Fixa';
+        lAccount3.ShippingStreet = 'Av. teste 3';
+        lAccount3.ShippingPostalCode = '12343';
+        lAccount3.ShippingNumber__c = '12343';
+        lAccount3.ParentId = lAccount.Id;
+        lAccount3.RecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByName().get('Billing').getRecordTypeId();
+        insert lAccount3;
 
         GeneralParam__c generalParam = new GeneralParam__c();
         generalParam.CitySpecial__c = 'BRASILIA-DF;PALMAS-TO';
@@ -33,7 +69,18 @@ public class ServiceAvailabilityControllerTest {
     }
 
     @isTest
-    public static void getAccountId (){
+    public static void getAddressList (){
+        Account ltAccount = [SELECT Id FROM Account WHERE RecordType.Name = 'Consumer' LIMIT 1];
+        Test.startTest();
+        List<ServiceAvailabilityController.AddressItem> returnList = ServiceAvailabilityController.getAddressList(ltAccount.Id);
+        System.debug(returnList);
+        Test.stopTest();
+        
+        System.assert(returnList.size() > 0, 'Address List successfully get.');
+    }
+    
+    @isTest
+    public static void  getAccountId (){
         Account ltAccount = [SELECT Id FROM Account LIMIT 1];
         Account acctFound = ServiceAvailabilityController.getAccountId(ltAccount.Id);
         System.assertEquals(ltAccount.Id, acctFound.Id, 'Account Id successfully matched.');

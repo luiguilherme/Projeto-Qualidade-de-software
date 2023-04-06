@@ -3,6 +3,7 @@
         var checkRecordId = component.get("v.recordId");
         if( checkRecordId != null || checkRecordId != undefined){
           helper.getAccount(component);
+          helper.getAddressList(component); 
         }
     },
 
@@ -23,7 +24,7 @@
                 var lookUp = component.find("accountLookup");
                 lookUp.clear();
             } 
-            component.set("v.addressSelected", '');
+            component.set("v.addressSelected", false);
             component.set("v.zipCode", '');
             component.set("v.stNumber", ''); 
             component.set("v.addressId", '');
@@ -36,30 +37,22 @@
 
     onChangeAddress : function(component, event, helper){
         var addressId = component.get('v.addressId');
+        let addressLst = component.get('v.addressList');
         if(!addressId) {
-            component.set('v.addressSelected', null);
+            component.set('v.addressSelected', false);
             component.set('v.zipCode', '');
             component.set('v.stNumber', '');
             component.set('v.isZipCodeFieldDisabled', false);
             component.set('v.isNumberFieldDisabled', false);
             return
+        }else{
+            let selected = addressLst[addressId];
+
+            component.set('v.addressSelected', true);
+            component.set('v.zipCode', selected.PostalCode);
+            component.set('v.stNumber', selected.StreetNumber);
         }
-        
-        if(addressId === "shipping") {
 
-            let objAddress = {fullAddress: component.get('v.selectedLookUpRecord.ShippingAddress')};
-            component.set('v.addressSelected', objAddress);
-            component.set('v.zipCode', component.get('v.selectedLookUpRecord.ShippingPostalCode'));
-            component.set('v.stNumber', component.get('v.selectedLookUpRecord.ShippingNumber__c'));
-
-        } else if(addressId === "billing") {
-
-            let objAddress = {fullAddress: component.get('v.selectedLookUpRecord.BillingAddress')};
-            component.set('v.addressSelected', objAddress);
-            component.set('v.zipCode', component.get('v.selectedLookUpRecord.BillingPostalCode'));
-            component.set('v.stNumber', component.get('v.selectedLookUpRecord.BillingNumber__c'));
-
-        }
         component.set('v.isZipCodeFieldDisabled', true);
         component.set('v.isNumberFieldDisabled', true);
     },

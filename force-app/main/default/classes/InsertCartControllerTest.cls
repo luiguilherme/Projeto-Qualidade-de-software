@@ -12,7 +12,6 @@ Changes
 */ 
 @isTest
 public class InsertCartControllerTest {
-    
     @testSetup 
     static void setup(){
         UserRole userR = new UserRole();
@@ -35,7 +34,6 @@ public class InsertCartControllerTest {
         Database.insert(psa);
         
         System.runAs(u){
-            
             Account lAccount = DataFactory.createConsumerAccount();
             insert lAccount;
             
@@ -73,16 +71,15 @@ public class InsertCartControllerTest {
             
             List<Asset> lstAsset = new List<Asset>();
             Asset asset = DataFactory.createAsset(lAccount.Id, lBillingAccountFixed.Id, lServiceAccountFixed.Id, 'Fixa');
-            // asset.Address__c = address.Id;
             lstAsset.add(asset);
             lstAsset.add(DataFactory.createAsset(lAccount.Id, lBillingAccountMobile.Id, lServiceAccountMobile.Id, 'Movel'));
             insert lstAsset;
             
             List<OfferFilter__c> lstOfferFilter = new List<OfferFilter__c>();
-             lstOfferFilter.add(DataFactory.createOfferFilter('Cabinet'));
+            lstOfferFilter.add(DataFactory.createOfferFilter('Cabinet'));
             lstOfferFilter.add(DataFactory.createOfferFilterCabinet('CityCategoryAndCabinet'));
             
-             lstOfferFilter.add(DataFactory.createOfferFilter('CityCategory'));
+            lstOfferFilter.add(DataFactory.createOfferFilter('CityCategory'));
             lstOfferFilter.add(DataFactory.createOfferFilter('CityCategoryAndCabinet'));
             
             insert lstOfferFilter;
@@ -119,15 +116,17 @@ public class InsertCartControllerTest {
             initialOffer.VoicePlan__c = 'Vivo Fixo Ilimitado Brasil';
             initialOffer.Tecnology__c = 'FTTH';
             initialOffer.OfferGroup__c = 'Aquisição';
-            
             insert initialOffer;
                         
             BlockPartialDisconnection__c blockPartialDesco = new BlockPartialDisconnection__c();
             blockPartialDesco.Name='Impedimento Desconexao Parcial';
-            blockPartialDesco.Papel__c='OperadorGoldRetencaoFixa';
-                        
+            blockPartialDesco.Papel__c='OperadorGoldRetencaoFixa';     
             insert blockPartialDesco;
             
+            MobileOffersSettings__c mobileSetts = new MobileOffersSettings__c();
+            mobileSetts.Name ='DDD_Ofertas';
+            mobileSetts.DDDOferta__c ='65;64';
+            insert mobileSetts;
         }
     }
     

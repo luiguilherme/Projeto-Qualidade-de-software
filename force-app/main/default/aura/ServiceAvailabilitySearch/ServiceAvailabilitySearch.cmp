@@ -3,10 +3,10 @@
                 access="global">
 
     <aura:attribute name="recordId"                     type="String" />
-    <aura:attribute name="addressList"                  type="String" />
     <aura:attribute name="selectedLookUpRecord"         type="sObject"  default="{}" />
+    <aura:attribute name="addressList"                  type="sObject"  default="{}" />
     <aura:attribute name="ltAddressesToLightningSelect" type="String[]" description="Used on the populate the LightningSelect from Apex DAO class." />
-    <aura:attribute name="addressSelected"              type="Object"   description="Used to capture selection from the lightningSelect." />
+    <aura:attribute name="addressSelected"              type="Boolean"  default="false"   description="Used to capture selection from the lightningSelect." />
     <aura:attribute name="zipCode"                      type="String"   default="" description="Used to store value of the 'CEP' input field." />
     <aura:attribute name="stNumber"                     type="String"   default="" description="Used to store value of the 'Numero' input field." />
     <aura:attribute name="disableAccountField"          type="Boolean"  default="false" />
@@ -79,13 +79,10 @@
                                         label="Selecione um endereço: " 
                                         value="{!v.addressId}"
                                         onchange="{!c.onChangeAddress}">
-                                        <option value="">Nenhum</option>
-                                        <aura:if isTrue="{!not(empty(v.selectedLookUpRecord.ShippingStreet))}">
-                                            <option value="shipping">{!v.selectedLookUpRecord.ShippingStreet}</option>
-                                        </aura:if>
-                                        <aura:if isTrue="{!not(empty(v.selectedLookUpRecord.ShippingStreet))}">
-                                            <option value="billing">{!v.selectedLookUpRecord.ShippingStreet}</option>
-                                        </aura:if>
+                                        <option value="" selected="true">Nenhum</option>
+                                        <aura:iteration items="{!v.addressList}" var="option">
+                                            <option text="{!option.StreetName}" value="{!option.IdNumber}"/>
+                                        </aura:iteration>
                 </lightning:select>
         
                 <div class="slds-grid slds-grid_align-center slds-p-top_small">Ou então</div>
@@ -120,7 +117,7 @@
         </div>
         <div class="slds-grid slds-grid_align-center slds-p-around_small">
             <lightning:button   variant="brand"
-                                disabled="{!and(empty(v.addressSelected), not(and(v.zipCode != '', v.stNumber != '' )))}"
+                                disabled="{!and(v.addressSelected, not(and(v.zipCode != '', v.stNumber != '' )))}"
                                 onclick="{!c.getAddressCheck}"
                                 label="Avançar">
             </lightning:button>

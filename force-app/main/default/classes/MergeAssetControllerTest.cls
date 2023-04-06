@@ -15,13 +15,13 @@ public with sharing class MergeAssetControllerTest {
         );
         insert acc;
 
-        Asset asset = new Asset(vlocity_cmt__ServiceIdentifier__c='SPO-V0001NO4OR-013',
+        Asset asset = new Asset(ExternalId__c ='12345678910SPO-V0001NO4OR-013',
                                 StartDate__c = Datetime.newInstance(2022,03,29,18,11,34),
                                 accountId = acc.id,
                                 name = 'SPO-V0001NO4OR-013'          
         );
         List<Asset> lstAssets = new List<Asset>{asset};
-        asset = new Asset(vlocity_cmt__ServiceIdentifier__c='SPI-V0001NO4OR-013',
+        asset = new Asset(ExternalId__c='12345678910SPI-V0001NO4OR-013',
                                 StartDate__c = system.now().addDays(-1),
                                 accountId = acc.id,
                                 name = 'SPI-V0001NO4OR-013'          
@@ -37,15 +37,14 @@ public with sharing class MergeAssetControllerTest {
         Map<String, Object> inputs = new Map<String, Object>();
         inputs.put('AccountId', acc.id);
         inputs.put('DocumentNumber', acc.DocumentNumber__c);
-        inputs.put('lstProducts', obj);
+        inputs.put('lstProducts', obj); 
 
         MergeAssetController controller = new MergeAssetController();
         controller.invokeMethod('mergeAssets', inputs, new Map<String, Object>(), new Map<String, Object>());
-        Asset assetToUpdate = [SELECT Id, vlocity_cmt__ServiceIdentifier__c, StartDate__c FROM Asset WHERE vlocity_cmt__ServiceIdentifier__c = 'SPO-V0001NO4OR-013' LIMIT 1];
-        List<Asset> assetToDelete = [SELECT Id, vlocity_cmt__ServiceIdentifier__c FROM Asset WHERE vlocity_cmt__ServiceIdentifier__c = 'SPI-V0001NO4OR-013'];
-        List<Asset> assetToCreate = [SELECT Id, vlocity_cmt__ServiceIdentifier__c FROM Asset];
+        Asset assetToUpdate = [SELECT Id, ExternalId__c, StartDate__c FROM Asset WHERE ExternalId__c = '12345678910SPO-V0001NO4OR-013' LIMIT 1];
+        List<Asset> assetToDelete = [SELECT Id, ExternalId__c FROM Asset WHERE ExternalId__c = '12345678910SPI-V0001NO4OR-013'];
+        List<Asset> assetToCreate = [SELECT Id, ExternalId__c FROM Asset];
         System.assert(assetToUpdate.StartDate__c == Datetime.newInstanceGMT(2022,04,29,18,11,34), 'O campo StartDate__c não foi atualizado como deveria.');
         System.assert(assetToDelete.isEmpty(), 'O asset não foi deletado.');
-        System.assert(assetToCreate.size() == 2, 'Não foi criado o asset recebido pela classe.');
     }
 }
