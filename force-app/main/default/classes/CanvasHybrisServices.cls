@@ -1,6 +1,6 @@
 public abstract class CanvasHybrisServices implements CanvasServiceInterface {
     
-    private static final String TIPO_OFERTA = 'MIGRATION';
+    private static final String TIPO_OFERTA = 'migration';
     
     public String getConnectedAppName() {
         return 'HybrisCanvas';
@@ -26,7 +26,7 @@ public abstract class CanvasHybrisServices implements CanvasServiceInterface {
         parameters.put('dataNascimento',    context.vlocity_cmt__PrimaryContactId__r.Birthdate);
         parameters.put('cep',               filterZipCodeList(context)); 
         parameters.put('nomeConta',         context.Name);
-        parameters.put('Tipo da oferta',    TIPO_OFERTA);
+        parameters.put('tipoOferta',    TIPO_OFERTA);
         parameters.put('nomeOperador',      currentUser.Name);
         parameters.put('emailOperador',     currentUser.Email);
         parameters.put('loginRede',         currentUser.Login__c);
