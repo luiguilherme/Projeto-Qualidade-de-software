@@ -33,5 +33,6 @@
     handleClick : function (cmp, event, helper) {
         cmp.set('v.assetMigrationNumber ', JSON.parse(event.getParam('data'))); //Para remover as Aspas duplas
         cmp.set('v.showCanvas', true);
+        cmp.set('v.showAssetMigrationSelection', false);
     }
 })
