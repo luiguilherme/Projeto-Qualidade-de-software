@@ -1,8 +1,8 @@
 ({
     onInit : function(component, event, helper) {
-        var assetName = component.get('v.assetName');
-        if(assetName) {
-            helper.canvasLoad(component, event, assetName);
+        var phoneNumber = component.get('v.phoneNumber');
+        if(phoneNumber) {
+            helper.canvasLoad(component, event, phoneNumber);
         } else {
             helper.canvasLoad(component, event);
         }

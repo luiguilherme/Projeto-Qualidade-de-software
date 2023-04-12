@@ -44,8 +44,7 @@
 
     },
 
-    canvasLoad : function(component, event, assetName) {
-        var accountId; 
+    canvasLoad : function(component, event, phoneNumber) {
         component.set("v.isloading", true);
         const callbackError = (exceptions) => {
             component.set("v.isloading", false);
@@ -74,7 +73,7 @@
         LightningUtil.callApex(
             component,
             'getAssetData',
-            {'assetName': assetName },
+            {'phoneNumber': phoneNumber },
             (result) => {
                 LightningUtil.callApex(
                     component,

@@ -22,9 +22,9 @@ public with sharing class CanvasCPQController {
     }
 
     @AuraEnabled
-    public static Asset getAssetData(String assetName) {
+    public static Asset getAssetData(String phoneNumber) {
         try {
-            return AssetDAO.getAssetDataByName(assetName);
+            return AssetDAO.getAssetByPhoneNumber(phoneNumber);
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
