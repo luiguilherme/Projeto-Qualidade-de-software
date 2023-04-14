@@ -300,17 +300,4 @@ public without sharing class AssetDAO {
         LIMIT 1
         ];
     }
-
-    public static Asset getAssetByPhoneNumber(String phoneNumber) {
-        return   [
-        SELECT 
-            Id,
-            AccountId           	
-        FROM 
-            Asset 
-        WHERE 
-            PhoneNumber__c =: phoneNumber
-        LIMIT 1
-        ];
-    }
 }

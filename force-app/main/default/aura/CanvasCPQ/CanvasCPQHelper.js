@@ -72,24 +72,19 @@
 
         LightningUtil.callApex(
             component,
-            'getAssetData',
-            {'phoneNumber': phoneNumber },
+            'getCanvasData',
+            { 'recordId': phoneNumber.AccountId },
             (result) => {
-                LightningUtil.callApex(
-                    component,
-                    'getCanvasData',
-                    { 'recordId': result.AccountId },
-                    (result) => {
-                        component.set("v.isloading", false);
-                        console.log('CanvasCPQController.onInit - action.callback - returnValue', result);
-                           
-                        component.set("v.canOpenCanvas",    result.canOpenCanvas);
-                        component.set("v.message",          result.message);
-                        component.set("v.canvasAppName",    result.canvasAppName);
-                        component.set("v.canvasParameters", JSON.stringify(result.parameters));
-                    },
-                    callbackError
-                );
+                let assetObj = component.get('v.phoneNumber');
+                result.parameters.telefoneMigracao = assetObj.PhoneNumber__c;
+                result.parameters.tipoProduto = assetObj.ProductType__c;
+                component.set("v.isloading", false);
+                console.log('CanvasCPQController.onInit - action.callback - returnValue', result);
+                   
+                component.set("v.canOpenCanvas",    result.canOpenCanvas);
+                component.set("v.message",          result.message);
+                component.set("v.canvasAppName",    result.canvasAppName);
+                component.set("v.canvasParameters", JSON.stringify(result.parameters));
             },
             callbackError
         );

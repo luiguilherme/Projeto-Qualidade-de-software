@@ -21,15 +21,6 @@ public with sharing class CanvasCPQController {
         return result;
     }
 
-    @AuraEnabled
-    public static Asset getAssetData(String phoneNumber) {
-        try {
-            return AssetDAO.getAssetByPhoneNumber(phoneNumber);
-        } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
-        }
-    }
-
     public class CanvasResult {
         @AuraEnabled
         public Boolean canOpenCanvas;

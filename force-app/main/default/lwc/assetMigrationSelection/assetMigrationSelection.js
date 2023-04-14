@@ -52,7 +52,7 @@ export default class AssetMigrationSelection extends LightningElement {
         const selectedRows = event.detail.selectedRows;
         for (let i = 0; i < selectedRows.length; i++) {
             this.ltAssets[selectedRows[i].id] = selectedRows[i];
-            this.assetMigrationNumber = selectedRows[i].PhoneNumber__c;
+            this.assetMigrationNumber = selectedRows[i];
         }
     }
 
