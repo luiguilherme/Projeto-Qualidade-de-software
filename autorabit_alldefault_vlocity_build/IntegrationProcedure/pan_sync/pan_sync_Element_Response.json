@@ -1,20 +1,20 @@
 {
     "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "IPGetDateParam",
+        "Name": "IP_Sync",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/pan/GetDateParam/Procedure",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/pan/sync/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "UserPermission": "%Permission:UserPermission%",
-            "endDateBind": "=ADDDAY(%SetOutput:endDate%,1)",
-            "startDateBind": "=ADDDAY(%SetOutput:startDate%,1)"
+            "showButton": "=IF(PostSyncInfo:statusCode == 200 || PostSyncInfo:statusCode == 400, false, true)",
+            "status": "=PostSyncInfo:status",
+            "statusCode": "=PostSyncInfo:statusCode"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",
-        "label": "ResponseAction2",
+        "label": "ResponseAction1",
         "responseDefaultData": {
         },
         "responseFormat": "JSON",
@@ -23,7 +23,7 @@
         "returnFullDataJSON": false,
         "returnOnlyAdditionalOutput": false,
         "sendJSONNode": "",
-        "sendJSONPath": "SetOutput",
+        "sendJSONPath": "PostSync",
         "show": null,
         "useFormulas": true,
         "vlcResponseHeaders": {
@@ -34,5 +34,5 @@
     "Name": "Response",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/pan/GetDateParam/Procedure/Response"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/pan/sync/Procedure/Response"
 }
