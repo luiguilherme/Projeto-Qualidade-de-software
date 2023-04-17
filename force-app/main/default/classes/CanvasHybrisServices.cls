@@ -16,6 +16,8 @@ public abstract class CanvasHybrisServices implements CanvasServiceInterface {
 
         Map<String,Object> parameters = new Map<String,Object>();
         User currentUser = UserDAO.getById(System.UserInfo.getUserId());
+        String userRole = currentUser.Profile.UserLicense.Name != 'Partner Community' ? currentUser.UserRole.DeveloperName : currentUser.PartnerGroup__c;
+        CanvasHybrisMigration__mdt hybrisMetadata = CanvasHybrisMigrationDAO.getByUserRole(userRole);
         
         parameters.put('documento',         context.DocumentNumber__c != null ? context.DocumentNumber__c : '');
         parameters.put('nomeConta',         context.Name != null ? context.Name : '');
@@ -28,7 +30,10 @@ public abstract class CanvasHybrisServices implements CanvasServiceInterface {
         parameters.put('nomeOperador',      currentUser.Name);
         parameters.put('emailOperador',     currentUser.Email);
         parameters.put('loginRede',         currentUser.Login__c);
-        parameters.put('canalOperador',     getDestinyAPIName(currentUser));
+        parameters.put('canalOperador',     hybrisMetadata.UserChannel__c != null ? hybrisMetadata.UserChannel__c : '');
+        parameters.put('segmento',          getUserSegments(hybrisMetadata.UserSegment__c));
+        parameters.put('posToPre',          hybrisMetadata.PosToPre__c);
+        parameters.put('controleToPre',     hybrisMetadata.ControleToPre__c);
         parameters.put('adabas',            currentUser.Adabas__c != null ? currentUser.Adabas__c : '');
         
         return parameters;
@@ -42,21 +47,6 @@ public abstract class CanvasHybrisServices implements CanvasServiceInterface {
         return enderecoReturn;
     }
 
-    private String getDestinyAPIName (User currentUser){ 
-        String userType = currentUser.Profile.UserLicense.Name != 'Partner Community' ? currentUser.UserRole.DeveloperName : currentUser.PartnerGroup__c;
-        List<FromToMapping__mdt> ltRole = FromToMappingDAO.getServiceTreeIdentifier(userType);
-        String destinyApiName = '';
-        
-        try {
-            destinyApiName = ltRole[0].DestinyApiName__c;
-
-        } catch (Exception e) {
-
-        }
-
-        return destinyApiName; 
-    }
-
     private String formatBirthDate (Account context) {
         if (context.vlocity_cmt__PrimaryContactId__r.Birthdate != null) {
             String dateString = context.vlocity_cmt__PrimaryContactId__r.Birthdate.day() + '/' + context.vlocity_cmt__PrimaryContactId__r.Birthdate.month() + '/' + context.vlocity_cmt__PrimaryContactId__r.Birthdate.year();
@@ -66,10 +56,19 @@ public abstract class CanvasHybrisServices implements CanvasServiceInterface {
         }
     }
 
+    private List<String> getUserSegments(String userSegment) {
+        List<String> lstSegment = userSegment.split(',');
+        for (String segment : lstSegment) {
+            segment = segment.trim();
+        }
+        return lstSegment;
+    }
+
     private class Endereco {
         @AuraEnabled public string cep {get; set;}
         @AuraEnabled public string numero {get; set;}
         @AuraEnabled public string complemento {get; set;}
     }
+    
     protected abstract Account query(Id recordId);
 }

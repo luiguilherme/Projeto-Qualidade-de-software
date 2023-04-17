@@ -28,5 +28,24 @@ public with sharing class CanvasHybrisMigrationDAO {
 
     return chmObject !=null ? chmObject : null;
 
-    }    
+    }   
+
+    public static CanvasHybrisMigration__mdt getByUserRole(String userRole){
+        return[
+            SELECT 
+                Id,
+                OriginApiName__c,
+                UserChannel__c,
+                UserLicense__c,
+                UserSegment__c,
+                HasAccessToHybrisMigration__c,
+                PosToPre__c,
+                ControleToPre__c
+            FROM 
+                CanvasHybrisMigration__mdt
+            WHERE
+                OriginApiName__c = :userRole
+            LIMIT 1
+        ];
+    }
 }
