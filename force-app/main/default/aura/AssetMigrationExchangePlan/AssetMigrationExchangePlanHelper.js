@@ -27,6 +27,10 @@
             component.set('v.isLoading', false);
             var state = response.getState();
             if (state === 'SUCCESS') {
+                let assetObj = component.get('v.assetMigrationNumber'); 
+                assetObj.topicId = response.getReturnValue().success.Id;
+                component.set('v.assetMigrationNumber', assetObj);
+                component.set('v.showCanvas', true);
             }
         });
         $A.enqueueAction(action);

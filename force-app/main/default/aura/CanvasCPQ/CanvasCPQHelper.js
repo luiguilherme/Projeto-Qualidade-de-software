@@ -78,6 +78,7 @@
                 let assetObj = component.get('v.phoneNumber');
                 result.parameters.telefoneMigracao = assetObj.PhoneNumber__c;
                 result.parameters.tipoProduto = assetObj.ProductType__c;
+                result.parameters.idInteracao = assetObj.topicId;
                 component.set("v.isloading", false);
                 console.log('CanvasCPQController.onInit - action.callback - returnValue', result);
                    
