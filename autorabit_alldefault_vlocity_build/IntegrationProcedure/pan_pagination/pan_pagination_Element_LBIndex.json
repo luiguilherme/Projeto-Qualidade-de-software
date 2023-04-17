@@ -16,7 +16,7 @@
             "networkType": "=SUBSTRING(TOSTRING(LAsetValues:object:3gppPattern:userLocation),0,2)",
             "object": "=LAsetValues:object",
             "timeHH": "=IF(LAsetValues:object:summaryConsumption:aggregatedBalance/3600>0,ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/3600,0,DOWN),0)",
-            "timeMM": "=IF(LAsetValues:object:summaryConsumption:aggregatedBalance/60>0,SUM(ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/60,0,DOWN),IF(LAsetValues:object:summaryConsumption:aggregatedBalance/3600>0,ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/3600,0,DOWN)*-60,0),0)",
+            "timeMM": "=IF(LAsetValues:object:summaryConsumption:aggregatedBalance/60>0,SUM(ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/60,0,DOWN),IF(LAsetValues:object:summaryConsumption:aggregatedBalance/3600>0,ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/3600,0,DOWN)*-60,0),0),0)",
             "timeSS": "=IF(ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/3600,0,DOWN)>0&&ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/60,0,DOWN)>0,SUM(LAsetValues:object:summaryConsumption:aggregatedBalance,ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/60,0,DOWN)*-60),IF(ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/60,0,DOWN)>0,SUM(LAsetValues:object:summaryConsumption:aggregatedBalance,ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/60,0,DOWN)*-60),LAsetValues:object:summaryConsumption:aggregatedBalance),0)"
         },
         "show": null
