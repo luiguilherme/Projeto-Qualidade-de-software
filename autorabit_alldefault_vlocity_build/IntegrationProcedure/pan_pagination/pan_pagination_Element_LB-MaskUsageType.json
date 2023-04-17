@@ -1,0 +1,28 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "IP_panPagination",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/pan/pagination/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "disOnTplt": false,
+        "executionConditionalFormula": "%HttpActionEventos-API-GatewayStatus%==true",
+        "label": "LoopBlock5",
+        "loopList": "HttpActionEventos-API-Gateway:Consumptions",
+        "loopOutput": {
+            "eventDateTime": "=%HttpActionEventos-API-Gateway:Consumptions|1:eventDateTime%",
+            "eventResultCode": "=%HttpActionEventos-API-Gateway:Consumptions|1:eventResultCode%",
+            "recordId": "=%HttpActionEventos-API-Gateway:Consumptions|1:recordId%",
+            "usageType": "=IF(%HttpActionEventos-API-Gateway:Consumptions|1:usageType% ==\"GY ONLINE\",\"Dados\",IF(%HttpActionEventos-API-Gateway:Consumptions|1:usageType% == \"SMS ONLINE\",\"SMS\",IF(%HttpActionEventos-API-Gateway:Consumptions|1:usageType% == \"VOICE ONLINE\",\"Voz\",\"-\")))"
+        },
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Loop Block",
+    "Name": "LB-MaskUsageType",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/pan/pagination/Procedure/LB-MaskUsageType"
+}
