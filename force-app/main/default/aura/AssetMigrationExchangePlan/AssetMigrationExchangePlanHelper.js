@@ -20,8 +20,10 @@
     createCustomerInteractionTopic : function(component) {
         var customerInteractionId = component.get('v.recordId');
 		var action = component.get('c.createCustomerInteractionTopic');
+        var assetObject = component.get('v.assetMigrationNumber');
         action.setParams({
-            "customerInteractionId" : customerInteractionId 
+            "customerInteractionId" : customerInteractionId, 
+            "assetId" : assetObject.Id
         });
         action.setCallback(this, function(response) {
             component.set('v.isLoading', false);
