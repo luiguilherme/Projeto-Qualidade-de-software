@@ -4,7 +4,7 @@ public with sharing class AssetMigrationExchangePlanService {
         return AssetMigrationExchangePlanEngine.showOffer(userId); 
     }
 
-    public static Map<String,Object> createCustomerInteractionTopic(String customerInteractionId) {
-        return AssetMigrationExchangePlanEngine.createCustomerInteractionTopic(customerInteractionId);
+    public static Map<String,Object> createCustomerInteractionTopic(String customerInteractionId, String assetId) {
+        return AssetMigrationExchangePlanEngine.createCustomerInteractionTopic(customerInteractionId, assetId);
     }
 }

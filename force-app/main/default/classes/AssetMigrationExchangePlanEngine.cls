@@ -31,7 +31,7 @@ public with sharing class AssetMigrationExchangePlanEngine {
     }
 
     
-    public static Map<String,Object> createCustomerInteractionTopic(String customerInteractionId) {
+    public static Map<String,Object> createCustomerInteractionTopic(String customerInteractionId, String assetId) {
         vlocity_cmt__CustomerInteraction__c customerInteractionAccountId = CustomerInteractionDAO.getCustomerInteractionById(customerInteractionId);
         Map <String, Object> returnMap = new Map<String, Object>();
         
@@ -49,6 +49,7 @@ public with sharing class AssetMigrationExchangePlanEngine {
         //newCustomerInteractionTopic.IdServiceVivoNet__c = 'Ver depois';
         newCustomerInteractionTopic.TopicName__c = 'Solicitação > Comercial > Migrar / Alterar Plano > Fluxo em Andamento'; 
         newCustomerInteractionTopic.remarkup__c = 'Aguardando escolha da oferta para migração/troca de plano';
+        newCustomerInteractionTopic.vlocity_cmt__AssetId__c = assetId;
         
         Database.SaveResult dataResult = Database.insert(newCustomerInteractionTopic);
 

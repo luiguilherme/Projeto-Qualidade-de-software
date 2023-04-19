@@ -6,7 +6,6 @@
     startMigrationProcess : function (component, event, helper) {
         var isCanvasHybris = component.get('v.isCanvasHybris')
         if (isCanvasHybris) {
-            //helper.createCustomerInteractionTopic(component);
             component.set('v.showAssetMigrationSelection', true);
         } else {
             LightningUtil.fireNotification(
@@ -26,13 +25,11 @@
             if (accountId != component.get('v.recordId')) {
                 component.set('v.showCanvas ', false);    
             }
-            
         }
     },
 
     handleClick : function (cmp, event, helper) {
         cmp.set('v.assetMigrationNumber ', JSON.parse(event.getParam('data'))); //Para remover as Aspas duplas
-      
         cmp.set('v.showAssetMigrationSelection', false);
         helper.createCustomerInteractionTopic(cmp);
     }
