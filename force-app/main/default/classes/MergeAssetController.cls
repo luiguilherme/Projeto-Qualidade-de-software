@@ -8,20 +8,18 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
         }
         return true; 
     }
-
+    
     String mergeAssets(Map<String, Object> arguments)
-    {
+    {        
         String accountId = (String) arguments.get('AccountId');
         String documentNumber =  String.valueOf(arguments.get('DocumentNumber'));
         List<WrapperAPI> lstProductsAPI;
         
         try{
             lstProductsAPI = (List<WrapperAPI>) JSON.deserialize(JSON.serialize(arguments.get('lstProducts')), List<WrapperAPI>.class);
-        }catch(Exception e){
+        }catch(Exception e){            
             return 'API não retornou dados. ' + e.getMessage();
         }
-
-        System.debug('$$ lstProductsAPI = ' + JSON.serializePretty(lstProductsAPI));
         
         List<Asset> lstAsset = [SELECT Id, ExternalId__c, vlocity_cmt__ServiceIdentifier__c, StartDate__c FROM Asset WHERE AccountId = :accountId ORDER BY StartDate__c DESC];
         List<Asset> lstAssetToUpdate = new List<Asset>();
@@ -32,9 +30,9 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
         Map<String, List<String>> mapLegacy = new Map<String, List<String>>();
         Map<String, WrapperAPI> apiIds = new Map<String, WrapperAPI>();
         Map<String, List<String>> mapSVAProducts = new Map<String, List<String>>();
-                
+        
         processProductsAndSubproducts(lstProductsAPI, apiIds, mapLegacy, mapSVAProducts, documentNumber);
-                
+        
         for(Asset identifier : lstAsset)
         {
             sfIds.put(identifier.ExternalId__c, identifier.StartDate__c);
@@ -45,7 +43,7 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
         {
             for(WrapperAPI wrapperAPI : lstProductsAPI)
             {                  
-            	assetsToCreateUpdate.add(wrapperAPI);
+                assetsToCreateUpdate.add(wrapperAPI);
             }                        
         } else {
             for(String id : sfIds.keySet())
@@ -79,24 +77,24 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
             return 'Erro na execução: ' + e.getMessage();
         }
     }
-
+    
     public static void deleteAsset(List<String> lstAssetsToDelete)
     {
         List<Asset> lstAssets = [SELECT Id FROM Asset WHERE Id IN: lstAssetsToDelete];
         List<Asset> lstAssetsToDel = new List<Asset>();
-
+        
         for(Asset asset : lstAssets)
         {
             lstAssetsToDel.add(asset);
         }
-
+        
         try{
-			delete lstAssetsToDel;
+            delete lstAssetsToDel;
         }catch(Exception e){
             System.debug('Erro no Delete de Asset: ' + e.getMessage());
         }
     }
-
+    
     public static void createUpdateAsset(List<WrapperAPI> lstAssetsToCreate, String accountId, String documentNumber, 
                                          Map<String, List<String>> mapSVAProducts,Map<String, List<String>> mapLegacy)
     {
@@ -105,17 +103,17 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
         Map<String, String> mapFromTo = createFromToMapping();
         String type;
         String product_type;
-        Set<String> setExternalId = new Set<String>();
         List<WrapperAPI> lstSubproducts = new List<WrapperAPI>();
-         
+        Set<String> setProducts = new Set<String>();
+        
         if(!lstAssetsToCreate.isEmpty())
         {
             for(WrapperAPI assetToCreate : lstAssetsToCreate)
             {
-                String varCheckExternalId = assetToCreate.identifiers[0].startsWith('+55') ? documentNumber + assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : documentNumber + assetToCreate.identifiers[0];
-                if(!setExternalId.contains(varCheckExternalId))
+                String strIdentifier = assetToCreate.identifiers[0].startsWith('+55') ? documentNumber + assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : documentNumber + assetToCreate.identifiers[0];                
+                if(!setProducts.contains(strIdentifier) && !assetToCreate.product_type.contains('bundle'))
                 {
-                    setExternalId.add(assetToCreate.identifiers[0].startsWith('+55') ? documentNumber + assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : documentNumber + assetToCreate.identifiers[0]);
+                    setProducts.add(strIdentifier);                     
                     type = mapFromTo.get(assetToCreate.product_type + 'Type__c');
                     
                     asset = new Asset();            
@@ -134,28 +132,28 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
                     asset.PhoneNumber__c = assetToCreate.identifiers[0].startsWith('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : '';
                     asset.SourceSystem__c = getLegacySystem(mapLegacy.get(assetToCreate.identifiers[0]), mapFromTo);
                     asset.DigitalServices__c = mapSVAProducts.get(assetToCreate.identifiers[0]) != null ? String.join(mapSVAProducts.get(assetToCreate.identifiers[0]),';') : null;
+                                                         
+                    if(!lstAssetToCreateUpdate.contains(asset))
+                    {
+                        lstAssetToCreateUpdate.add(asset);
+                    }
+                    
+                } else {
                     
                     if(assetToCreate.sub_products <> null)
                     {
                         lstSubproducts.addAll(assetToCreate.sub_products);
-                    }                    
-                    
-                    if(!lstAssetToCreateUpdate.contains(asset))
-                    {
-                     	lstAssetToCreateUpdate.add(asset);
-                    }   
-                }                            
+                    }                     
+                }                                                              
             }
-        } 
-        
-        System.debug('$$ lstAssetsToCreate = ' + JSON.serializePretty(lstAssetsToCreate));
+        }                
         
         for(WrapperAPI assetToCreate : lstSubproducts)
-        {
-            String varCheckExternalId = assetToCreate.identifiers[0].startsWith('+55') ? documentNumber + assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : documentNumber + assetToCreate.identifiers[0];
-            if(!setExternalId.contains(varCheckExternalId))
+        {            
+            String strIdentifier = assetToCreate.identifiers[0].startsWith('+55') ? documentNumber + assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : documentNumber + assetToCreate.identifiers[0];                
+            if(!setProducts.contains(strIdentifier))
             {
-                setExternalId.add(assetToCreate.identifiers[0].startsWith('+55') ? documentNumber + assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : documentNumber + assetToCreate.identifiers[0]);
+                setProducts.add(strIdentifier);                
                 type = mapFromTo.get(assetToCreate.product_type + 'Type__c');
                 
                 asset = new Asset();            
@@ -178,32 +176,32 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
                 if(!lstAssetToCreateUpdate.contains(asset))
                 {
                     lstAssetToCreateUpdate.add(asset);
-                }   
-            }            
+                }                 
+            }
         }
         
         try{
-			upsert lstAssetToCreateUpdate ExternalId__c;
+            upsert lstAssetToCreateUpdate ExternalId__c;
         }catch(Exception e){
             System.debug('Erro no Upsert de Asset: ' + e.getMessage());
         }                
     }
-
+    
     public static Map<String,String> createFromToMapping()
     {    
         Map<String, String> mapFromTo = new Map<String, String>();
         List<FromToMapping__mdt> ltFromToMapping = [SELECT Id, RecordType__c, DestinyName__c, OriginName__c, DestinyApiName__c 
                                                     FROM FromToMapping__mdt 
                                                     WHERE Object__c = 'SubscribedProducts' AND DestinyApiName__c IN ('Type__c', 'ProductType__c', 'LegacySystem__c')];
-       
+        
         for(FromToMapping__mdt record : ltFromToMapping)
         {
             mapFromTo.put(record.OriginName__c + record.DestinyApiName__c, record.DestinyName__c);
         }
-
+        
         return mapFromTo;
     }
-
+    
     private static String getLegacyAssetId(String identifier, String documentNumber)
     {
         if(identifier.contains('+55'))
@@ -213,12 +211,12 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
             return documentNumber + identifier;
         }
     }
-
+    
     private static String getLegacySystem(List<String> tags, Map<String, String> mapFromTo)
     {
         String legacySystem;
         List<String> lstLegacySystem;
-
+        
         for(String tag : tags)
         {
             if(tag.contains('so:'))
@@ -228,15 +226,15 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
                 break;
             }
         }
-
+        
         return mapFromTo.get(legacySystem+'LegacySystem__c') != null ? mapFromTo.get(legacySystem+'LegacySystem__c') : legacySystem;
     }
-
+    
     private static String getProductType(String productType, Map<String, String> mapFromTo)
     {
         return mapFromTo.get(productType+'ProductType__c');
     }
-
+    
     private static void processProductsAndSubproducts(List<WrapperAPI> lstProductsAPI, Map<String, WrapperAPI> apiIds, 
                                                       Map<String, List<String>> mapLegacy, Map<String, List<String>> mapSVAProducts, String documentNumber)
     {
@@ -263,11 +261,11 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
             }
         }
     }
-
+    
     private static String getStringValue(List<String> ltTags, String searchedString)
     {
         String returnString;
-
+        
         for(String stringValue :ltTags)
         {           
             if(stringValue.contains(searchedString))
@@ -277,7 +275,7 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
                 break;
             }
         }
-
+        
         return returnString;
     }
     
@@ -294,7 +292,7 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
             }
         }
     }
-
+    
     public static Map<Id, String> getAssetName(Set<Id> setAssetsToUpdate)
     {
         Map<Id, String> returnAssetName = new Map<Id, String>();
@@ -302,7 +300,7 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
         
         for(Asset varAsset : lstAsset)
         {
-        	returnAssetName.put(varAsset.Id, varAsset.Name);
+            returnAssetName.put(varAsset.Id, varAsset.Name);
         }
         
         return returnAssetName;
@@ -321,14 +319,14 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
         private List<String> tags {get; set;}
         private List<Descriptions> descriptions {get;set;}
     }
-
+    
     private class Connection
     {
         private String downlink_mbps {get; set;}
         private String uplink_mbps {get; set;}
         private String type {get; set;}
     }
-
+    
     private class Descriptions
     {
         private String text {get;set;}
