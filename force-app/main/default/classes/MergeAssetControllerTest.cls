@@ -16,35 +16,58 @@ public with sharing class MergeAssetControllerTest {
         insert acc;
 
         List<Asset> lstAssets = new List<Asset>();
-        Asset asset = new Asset(ExternalId__c ='123456789104130517247',
+        Asset asset = new Asset(ExternalId__c ='12345678910TV-SPO-81HLO8DAN-050',
                                 StartDate__c = Datetime.now().addDays(-3),
                                 accountId = acc.id,
-                                name = '4130517247'          
+                                name = 'TV-SPO-81HLO8DAN-050'          
         );
         lstAssets.add(asset);
         
-        asset = new Asset(ExternalId__c='12345678910CTA-81HLRD2L5-013',
+        asset = new Asset(ExternalId__c='12345678910SPO-81HLO8VKZ-013',
                                 StartDate__c = Datetime.now().addDays(-3),
                                 accountId = acc.id,
-                                name = 'CTA-81HLRD2L5-013'          
+                                name = 'SPO-81HLO8VKZ-013'          
         );
         lstAssets.add(asset);
         
-        asset = new Asset(ExternalId__c='12345678910TV-CTA-81HLRDN9B-05000',
+        asset = new Asset(ExternalId__c='123456789101148696484',
                                 StartDate__c = Datetime.now().addDays(-3),
                                 accountId = acc.id,
-                                name = 'TV-CTA-81HLRDN9B-05000'          
+                                name = '1148696484'          
+        );
+        lstAssets.add(asset);
+
+        asset = new Asset(ExternalId__c='1234567891041992718689',
+                                StartDate__c = Datetime.now().addDays(-3),
+                                accountId = acc.id,
+                                name = '41992718689'          
         );
         lstAssets.add(asset);        
+
+        asset = new Asset(ExternalId__c='1234567891011964075581',
+                                StartDate__c = Datetime.now().addDays(-3),
+                                accountId = acc.id,
+                                name = '11964075581'          
+        );
+        lstAssets.add(asset);        
+                
+        asset = new Asset(ExternalId__c='12345678910TV-CTA-81HLRDN9B-050',
+                                StartDate__c = Datetime.now().addDays(-3),
+                                accountId = acc.id,
+                                name = 'TV-CTA-81HLRDN9B-050'          
+        );
+        lstAssets.add(asset);
+        
                 
         insert lstAssets;        
     }
     
     @isTest
     public static void createAssetTest(){
-        Account acc = [SELECT id, DocumentNumber__c FROM Account WHERE Name = 'Account' limit 1];
-        //List<Object> obj = (List<Object>) JSON.deserializeUntyped('[{"connection":{"downlink_mbps":200,"uplink_mbps":100,"type":"fiber"},"address":"RUAOSWALDOCASIMIROMULLER,242","tags":["so:amdocs","produto-avulso"],"start_date":"2022-04-29T18:11:34.000Z","identifiers":["SPO-V0001NO4OR-013"],"descriptions":[{"text":"200MbpsEspecial"}],"product_type":"internet","display_name":"200MbpsEspecial","status":"active","id":"AMDOCS:SPO-V0001NO4OR-013"},{"linhaGroupIdAccountId":"1128520090","linhaSubscriptionIdAccountId":"400427792","accountId":"310081987","subscription_type":"postpaid","tags":["so:amdocs","produto-avulso"],"start_date":"2022-04-29T13:07:47.000Z","identifiers":["+5511998939397"],"descriptions":[{"text":"TITULARVIVOFAMILIA100GB"}],"product_type":"mobile","display_name":"TITULARVIVOFAMILIA100GB","status":"active","id":"AMDOCS:11998939397"},{"id":"ilimitado:cabify:11998939397","identifiers":["+5511998939397"],"status":"active","descriptions":[{"text":"Cabify"}],"tags":["cabify","ilimitado"],"start_date":"2022-04-29T13:07:47.000Z","product_type":"value_added_service","display_name":"Cabify"},{"id":"ilimitado:easytaxi:11998939397","identifiers":["+5511998939397"],"status":"active","descriptions":[{"text":"EasyTaxi"}],"tags":["easytaxi","ilimitado"],"start_date":"2022-04-29T13:07:47.000Z","product_type":"value_added_service","display_name":"EasyTaxi"}]');
-        List<Object> obj = (List<Object>) JSON.deserializeUntyped('[ { "tags": [ "so:siebel" ], "subscription_type": null, "sub_products": [ { "tags": [ "so:siebel" ], "subscription_type": null, "sub_products": null, "status": "active", "start_date": "2022-04-01T20:00:00.000Z", "product_type": "landline", "identifiers": [ "+554130517247" ], "display_name": "Fixo Voz", "descriptions": [ { "text": "Vivo Fixo Ilimitado Brasil" } ], "connection": null }, { "tags": [ "so:siebel" ], "subscription_type": null, "sub_products": null, "status": "active", "start_date": "2022-04-01T20:00:00.000Z", "product_type": "internet", "identifiers": [ "CTA-81HLRD2L5-013" ], "display_name": "Vivo Internet", "descriptions": [ { "text": "50 Mbps" } ], "connection": { "uplink_mbps": "25", "type": "fiber", "downlink_mbps": "50" } }, { "tags": [ "so:siebel" ], "subscription_type": null, "sub_products": null, "status": "active", "start_date": "2022-04-01T20:00:00.000Z", "product_type": "iptv", "identifiers": [ "TV-CTA-81HLRDN9B-050" ], "display_name": "TV", "descriptions": [ { "text": "Vivo Play Ultra" } ], "connection": null } ], "status": "active", "start_date": "2022-04-01T20:00:00.000Z", "product_type": "bundle", "identifiers": [ "+554130517247", "CTA-81HLRD2L5-013", "TV-CTA-81HLRDN9B-050" ], "display_name": "Vivo Casa Conectada", "descriptions": [ { "text": "Fixo Voz + Vivo Internet + TV" } ], "connection": null } ]');
+        Account acc = [SELECT id, DocumentNumber__c FROM Account WHERE Name = 'Account' limit 1];        
+        
+        List<Object> obj = (List<Object>) JSON.deserializeUntyped('[{"tags" : [ "so:amdocs", "produto-avulso" ],"subscription_type" : "postpaid","sub_products" : null,"status" : "active","start_date" : "2022-08-10T18:49:29.000Z","product_type" : "mobile","identifiers" : [ "+5511964075581" ],"display_name" : "VIVO FAMILIA 55GB+","descriptions" : [ {  "text" : "3 linhas adicionais grátis"}, {  "text" : "-"}, {  "text" : "4 segundos"}, {  "text" : "Promocionalmente isento"}, {  "text" : "Velocidade de transmissão de dados em internet móvel pode variar, entre outros motivos, por fenômenos naturais, deslocamento, distância da Estação Rádio Base e picos de tráfego. Consulte mais informações, cobertura e condições para navegar na velocidade 5G em vivo.com.br/pos"} ],"connection" : null }, {"tags" : [ "whatsapp", "ilimitado" ],"subscription_type" : null,"sub_products" : null,"status" : "active","start_date" : "2022-08-10T18:49:29.000Z","product_type" : "value_added_service","identifiers" : [ "+5511964075581" ],"display_name" : "WhatsApp","descriptions" : [ {  "text" : "WhatsApp"} ],"connection" : null }, {"tags" : [ "waze", "ilimitado" ],"subscription_type" : null,"sub_products" : null,"status" : "active","start_date" : "2022-08-10T18:49:29.000Z","product_type" : "value_added_service","identifiers" : [ "+5511964075581" ],"display_name" : "Waze","descriptions" : [ {  "text" : "Waze"} ],"connection" : null }, {"tags" : [ "moovit", "ilimitado" ],"subscription_type" : null,"sub_products" : null,"status" : "active","start_date" : "2022-08-10T18:49:29.000Z","product_type" : "value_added_service","identifiers" : [ "+5511964075581" ],"display_name" : "Moovit","descriptions" : [ {  "text" : "Moovit"} ],"connection" : null }, {"tags" : [ "so:amdocs", "produto-avulso" ],"subscription_type" : "postpaid","sub_products" : null,"status" : "active","start_date" : "2022-08-25T17:55:11.000Z","product_type" : "mobile","identifiers" : [ "+5541992718689" ],"display_name" : "INTERNET_MOVEL_100GB","descriptions" : [ {  "text" : "-"}, {  "text" : "Aplicativos disponíveis:NBA Básico; Skeelo Premium; Go Read"}, {  "text" : "-"}, {  "text" : "Promocionalmente isento"}, {  "text" : "Velocidade de transmissão de dados em internet móvel pode variar, entre outros motivos, por fenômenos naturais, deslocamento, distância da Estação Rádio Base e picos de tráfego. Consulte mais informações, cobertura e condições para navegar na velocidade 5G em vivo.com.br/pos"} ],"connection" : null }, {"tags" : [ "goread", "incluso" ],"subscription_type" : null,"sub_products" : null,"status" : "active","start_date" : "2022-08-25T17:55:11.000Z","product_type" : "value_added_service","identifiers" : [ "+5541992718689" ],"display_name" : "Go Read","descriptions" : [ {  "text" : "Seu plano inclui aplicativos com conteúdos exclusivos, é só baixar na Vivo App Store"} ],"connection" : null }, {"tags" : [ "nba", "incluso" ],"subscription_type" : null,"sub_products" : null,"status" : "active","start_date" : "2022-08-25T17:55:11.000Z","product_type" : "value_added_service","identifiers" : [ "+5541992718689" ],"display_name" : "NBA","descriptions" : [ {  "text" : "Seu plano inclui aplicativos com conteúdos exclusivos, é só baixar na Vivo App Store"} ],"connection" : null }, {"tags" : [ "skeelo", "incluso" ],"subscription_type" : null,"sub_products" : null,"status" : "active","start_date" : "2022-08-25T17:55:11.000Z","product_type" : "value_added_service","identifiers" : [ "+5541992718689" ],"display_name" : "Skeelo","descriptions" : [ {  "text" : "Seu plano inclui aplicativos com conteúdos exclusivos, é só baixar na Vivo App Store"} ],"connection" : null }, {"tags" : [ "so:siebel" ],"subscription_type" : null,"sub_products" : [ {  "tags" : [ "so:siebel" ],  "subscription_type" : null,  "sub_products" : null,  "status" : "active",  "start_date" : "2022-04-16T09:00:00.000Z",  "product_type" : "landline",  "identifiers" : [ "+551148696484" ],  "display_name" : "Fixo Voz",  "descriptions" : [ { "text" : "Vivo Fixo Ilimitado Brasil"  } ],  "connection" : null}, {  "tags" : [ "so:siebel" ],  "subscription_type" : null,  "sub_products" : null,  "status" : "active",  "start_date" : "2022-04-16T09:00:00.000Z",  "product_type" : "internet",  "identifiers" : [ "SPO-81HLO8VKZ-013" ],  "display_name" : "Vivo Internet",  "descriptions" : [ { "text" : "50 Mbps"  } ],  "connection" : { "uplink_mbps" : "25", "type" : "fiber", "downlink_mbps" : "50"  }}, {  "tags" : [ "so:siebel" ],  "subscription_type" : null,  "sub_products" : null,  "status" : "active",  "start_date" : "2022-04-16T09:00:00.000Z",  "product_type" : "iptv",  "identifiers" : [ "TV-SPO-81HLO8DAN-050" ],  "display_name" : "TV",  "descriptions" : [ { "text" : "Vivo Play Ultra"  } ],  "connection" : null} ],"status" : "active","start_date" : "2022-04-16T09:00:00.000Z","product_type" : "bundle","identifiers" : [ "+551148696484", "SPO-81HLO8VKZ-013", "TV-SPO-81HLO8DAN-050" ],"display_name" : "Vivo Casa Conectada","descriptions" : [ {  "text" : "Fixo Voz + Vivo Internet + TV"} ],"connection" : null }, {"tags" : [ "nba", "incluso" ],"subscription_type" : null,"sub_products" : null,"status" : "active","start_date" : "2022-08-25T17:55:11.000Z","product_type" : "value_added_service","identifiers" : [ "+5541992718689" ],"display_name" : "NBA","descriptions" : [ {  "text" : "Seu plano inclui aplicativos com conteúdos exclusivos, é só baixar na Vivo App Store"} ],"connection" : null }, {"tags" : [ "whatsapp", "ilimitado" ],"subscription_type" : null,"sub_products" : null,"status" : "active","start_date" : "2022-08-10T18:49:29.000Z","product_type" : "value_added_service","identifiers" : [ "+5511964075581" ],"display_name" : "WhatsApp","descriptions" : [ {  "text" : "WhatsApp"} ],"connection" : null }, {"tags" : [ "goread", "incluso" ],"subscription_type" : null,"sub_products" : null,"status" : "active","start_date" : "2022-08-25T17:55:11.000Z","product_type" : "value_added_service","identifiers" : [ "+5541992718689" ],"display_name" : "Go Read","descriptions" : [ {  "text" : "Seu plano inclui aplicativos com conteúdos exclusivos, é só baixar na Vivo App Store"} ],"connection" : null }, {"tags" : [ "skeelo", "incluso" ],"subscription_type" : null,"sub_products" : null,"status" : "active","start_date" : "2022-08-25T17:55:11.000Z","product_type" : "value_added_service","identifiers" : [ "+5541992718689" ],"display_name" : "Skeelo","descriptions" : [ {  "text" : "Seu plano inclui aplicativos com conteúdos exclusivos, é só baixar na Vivo App Store"} ],"connection" : null }, {"tags" : [ "waze", "ilimitado" ],"subscription_type" : null,"sub_products" : null,"status" : "active","start_date" : "2022-08-10T18:49:29.000Z","product_type" : "value_added_service","identifiers" : [ "+5511964075581" ],"display_name" : "Waze","descriptions" : [ {  "text" : "Waze"} ],"connection" : null }, {"tags" : [ "moovit", "ilimitado" ],"subscription_type" : null,"sub_products" : null,"status" : "active","start_date" : "2022-08-10T18:49:29.000Z","product_type" : "value_added_service","identifiers" : [ "+5511964075581" ],"display_name" : "Moovit","descriptions" : [ {  "text" : "Moovit"} ],"connection" : null } ]');
+        
         Map<String, Object> inputs = new Map<String, Object>();
         inputs.put('AccountId', acc.id);
         inputs.put('DocumentNumber', acc.DocumentNumber__c);
@@ -52,10 +75,10 @@ public with sharing class MergeAssetControllerTest {
 
         MergeAssetController controller = new MergeAssetController();
         controller.invokeMethod('mergeAssets', inputs, new Map<String, Object>(), new Map<String, Object>());
-        Asset assetToUpdate = [SELECT Id, ExternalId__c, StartDate__c FROM Asset WHERE ExternalId__c = '12345678910CTA-81HLRD2L5-013' LIMIT 1];
+        Asset assetToUpdate = [SELECT Id, ExternalId__c, StartDate__c FROM Asset WHERE ExternalId__c = '12345678910TV-SPO-81HLO8DAN-050' LIMIT 1];
         List<Asset> assetToDelete = [SELECT Id, ExternalId__c FROM Asset WHERE ExternalId__c = '12345678910TV-CTA-81HLRDN9B-050'];
-        List<Asset> assetToCreate = [SELECT Id, ExternalId__c FROM Asset];
-        System.assert(assetToUpdate.StartDate__c == Datetime.newInstanceGMT(2022,04,01,20,00,00), 'O campo StartDate__c não foi atualizado como deveria.');
-        System.assert(!assetToDelete.isEmpty(), 'O asset foi deletado.');
+        List<Asset> assetToCreate = [SELECT Id, ExternalId__c FROM Asset];        
+        System.assert(assetToUpdate.StartDate__c == Datetime.newInstanceGMT(2022,04,16,09,00,00), 'O campo StartDate__c não foi atualizado como deveria.');        
+        System.assert(assetToDelete.isEmpty(), 'O asset foi deletado.');
     }
 }
