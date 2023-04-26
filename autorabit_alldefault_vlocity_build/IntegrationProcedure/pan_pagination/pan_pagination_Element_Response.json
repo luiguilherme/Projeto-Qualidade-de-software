@@ -8,14 +8,17 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
+            "apiSize": "=LISTSIZE(%HttpActionShortcutButton:Consumptions%)",
             "contextNumber": "=contextNumber",
             "currentPage": "=SVgetCurrentPage:currentPage",
             "endDateTime": "=IF(%SVgetShotcutButtonStatus%,ADDDAY(TODAY(),1),ADDDAY(%SVgetDateBind:endDateTime%,1))",
+            "eventError": "%eventError%",
             "inputEdnDate": "=IF(%SVgetShotcutButtonStatus%,%SVgetShotcutButton:endDateTime%,%endDateBind%)",
             "inputStartDate": "=IF(%SVgetShotcutButtonStatus%,%SVgetShotcutButton:startDateTime%,%startDateBind%)",
             "lastRecordIndex": "=\"REC\"+SUM(LISTSIZE(LBIndex),-1)",
             "numberOfDays": "=numberOfDays",
             "pageLimit": "=SVgetCurrentPage:pageLimit",
+            "pageSize": "=SVgetCurrentPage:pageSize",
             "startDateTime": "=IF(%SVgetShotcutButtonStatus%,ADDDAY(TODAY(),SUM(%numberOfDays%,-1)*-1),ADDDAY(%SVgetDateBind:startDateTime%,1))",
             "statusCode": "=IF(%eventError%,%HttpActionEventos-API-GatewayInfo:statusCode%,%HttpActionShortcutButtonInfo:statusCode%)",
             "summarized": "=SVsummarizeAmount:summarized",
