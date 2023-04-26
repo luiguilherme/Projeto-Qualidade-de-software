@@ -1,0 +1,46 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "IP_DetailedExtract",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/pan/DetailedExtract/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "disOnTplt": false,
+        "executionConditionalFormula": "",
+        "label": "LoopBlock1",
+        "loopList": "Resp:DATA_CALLS_DETAIL1:actions",
+        "loopOutput": {
+            "adjustType": "=IF(ISNOTBLANK(%Resp:DATA_CALLS_DETAIL1:actions:adjustType%),%Resp:DATA_CALLS_DETAIL1:actions:adjustType%,\"-\")",
+            "amount": "=IF(ISNOTBLANK(%Resp:DATA_CALLS_DETAIL1:actions:amount%),%Resp:DATA_CALLS_DETAIL1:actions:amount%,\"-\")",
+            "balanceType": "=IF(ISNOTBLANK(%Resp:DATA_CALLS_DETAIL1:actions:plafondType%),%Resp:DATA_CALLS_DETAIL1:actions:plafondType%,\"-\")",
+            "bonusType": "=IF(ISNOTBLANK(%Resp:DATA_CALLS_DETAIL1:actions:bonusType%),%Resp:DATA_CALLS_DETAIL1:actions:bonusType%,\"-\")",
+            "callType": "=IF(ISNOTBLANK(%Resp:DATA_CALLS_DETAIL1:actions:tax%),%Resp:DATA_CALLS_DETAIL1:actions:tax%,\"-\")",
+            "chargeDuration": "=IF(ISNOTBLANK(%Resp:DATA_CALLS_DETAIL1:actions:chargeDuration%),%Resp:DATA_CALLS_DETAIL1:actions:chargeDuration%,\"-\")",
+            "credit": "=IF(ISNOTBLANK(%Resp:DATA_CALLS_DETAIL1:actions:credit%),%Resp:DATA_CALLS_DETAIL1:actions:credit%,\"-\")",
+            "csp": "=IF(ISNOTBLANK(%Resp:DATA_CALLS_DETAIL1:actions:csp%),%Resp:DATA_CALLS_DETAIL1:actions:csp%,\"-\")",
+            "dataHora": "=IF(ISNOTBLANK(%Resp:DATA_CALLS_DETAIL1:actions:actionDateTime%),FORMATDATETIMEGMT(TOSTRING(%Resp:DATA_CALLS_DETAIL1:actions:actionDateTime%), \"America_SaoPaulo\", \"dd/MM/yyyy HH:mm\"),\"-\")",
+            "debit": "=IF(ISNOTBLANK(%Resp:DATA_CALLS_DETAIL1:actions:debit%),%Resp:DATA_CALLS_DETAIL1:actions:debit%,\"-\")",
+            "description": "=IF(ISNOTBLANK(%Resp:DATA_CALLS_DETAIL1:actions:description%),%Resp:DATA_CALLS_DETAIL1:actions:description%,\"-\")",
+            "destinationAreaCode": "=IF(ISNOTBLANK(%Resp:DATA_CALLS_DETAIL1:actions:destination:geographicAreaCode%),%Resp:DATA_CALLS_DETAIL1:actions:destination:geographicAreaCode%,\"-\")",
+            "destinationNumber": "=IF(ISNOTBLANK(%Resp:DATA_CALLS_DETAIL1:actions:destination:networkNumber%),CONCAT(%Resp:DATA_CALLS_DETAIL1:actions:destination:geographicAreaCode%,%Resp:DATA_CALLS_DETAIL1:actions:destination:networkNumber%),\"-\")",
+            "destinationType": "=IF(ISNOTBLANK(%Resp:DATA_CALLS_DETAIL1:actions:destination:type%),%Resp:DATA_CALLS_DETAIL1:actions:destination:type%,\"-\")",
+            "expirationDate": "=IF(ISNOTBLANK(%Resp:DATA_CALLS_DETAIL1:actions:expirationDate%),FORMATDATETIME(TOSTRING(%Resp:DATA_CALLS_DETAIL1:actions:expirationDate%),\"dd/MM/yyyy hh:mm\"),\"-\")",
+            "name": "=IF(ISNOTBLANK(%Resp:DATA_CALLS_DETAIL1:actions:name%),%Resp:DATA_CALLS_DETAIL1:actions:name%,\"-\")",
+            "period": "=IF(ISNOTBLANK(%Resp:DATA_CALLS_DETAIL1:actions:period%),%Resp:DATA_CALLS_DETAIL1:actions:period%,\"-\")",
+            "serviceIdentifier": "=IF(ISNOTBLANK(%Resp:DATA_CALLS_DETAIL1:actions:serviceIdentifier%),%Resp:DATA_CALLS_DETAIL1:actions:serviceIdentifier%,\"-\")",
+            "sourceType": "=IF(ISNOTBLANK(%Resp:DATA_CALLS_DETAIL1:actions:source:sourceType%),%Resp:DATA_CALLS_DETAIL1:actions:source:sourceType%,\"-\")",
+            "trafficKbyte": "-",
+            "type": "=IF(ISNOTBLANK(%HTTP-ExtractDetailed:Report:detail:events:type%),%HTTP-ExtractDetailed:Report:detail:events:type%,\"-\")",
+            "value": "=IF(ISNOTBLANK(%Resp:DATA_CALLS_DETAIL1:actions:value%),%Resp:DATA_CALLS_DETAIL1:actions:value%,\"-\")"
+        },
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Loop Block",
+    "Name": "LBDataCalls1",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/pan/DetailedExtract/Procedure/LBDataCalls1"
+}

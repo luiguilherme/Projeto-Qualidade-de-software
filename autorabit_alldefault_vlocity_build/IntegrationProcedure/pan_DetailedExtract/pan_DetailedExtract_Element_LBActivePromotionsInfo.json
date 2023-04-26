@@ -1,0 +1,30 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "IP_DetailedExtract",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/pan/DetailedExtract/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "disOnTplt": false,
+        "executionConditionalFormula": "",
+        "label": "LoopBlock8",
+        "loopList": "RespSim:ACTIVE_PROMOTIONS_INFO:detail",
+        "loopOutput": {
+            "amount": "=IF(ISNOTBLANK(%RespSim:ACTIVE_PROMOTIONS_INFO:detail:amount%),%RespSim:ACTIVE_PROMOTIONS_INFO:detail:amount%,\"-\")",
+            "data": "=IF(ISNOTBLANK(%RespSim:ACTIVE_PROMOTIONS_INFO:detail:eventDate%),FORMATDATETIME(TOSTRING(%RespSim:ACTIVE_PROMOTIONS_INFO:detail:eventDate%),\"dd/MM/yyyy\"),\"-\")",
+            "identifier": "=IF(ISNOTBLANK(%RespSim:ACTIVE_PROMOTIONS_INFO:header:identifier%),%RespSim:ACTIVE_PROMOTIONS_INFO:header:identifier%,\"-\")",
+            "name": "=IF(ISNOTBLANK(%RespSim:ACTIVE_PROMOTIONS_INFO:detail:name%),%RespSim:ACTIVE_PROMOTIONS_INFO:detail:name%,\"-\")",
+            "type": "=IF(ISNOTBLANK(%RespSim:ACTIVE_PROMOTIONS_INFO:header:type%),%RespSim:ACTIVE_PROMOTIONS_INFO:header:type%,\"-\")",
+            "value": "=IF(ISNOTBLANK(%RespSim:ACTIVE_PROMOTIONS_INFO:detail:value%),%RespSim:ACTIVE_PROMOTIONS_INFO:detail:value%,\"-\")"
+        },
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Loop Block",
+    "Name": "LBActivePromotionsInfo",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/pan/DetailedExtract/Procedure/LBActivePromotionsInfo"
+}

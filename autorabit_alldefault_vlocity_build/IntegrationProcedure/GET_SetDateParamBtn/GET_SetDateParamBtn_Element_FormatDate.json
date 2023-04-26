@@ -1,0 +1,31 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "IPSetDateParamBtn",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/GET/SetDateParamBtn/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "maxDate": "=IF(%SetStartEndDate:startDate%==\"\"AND%SetStartEndDate:endDate%==\"\",TODAY(),IF(%SetStartEndDate:startDate%!=\"\"AND %SetStartEndDate:endDate%==\"\",IF(ADDDAY(%SetStartEndDate:startDate%,90)>TODAY(),TODAY(),ADDDAY(%SetStartEndDate:startDate%,90)),IF(%SetStartEndDate:endDate%>TODAY(),TODAY(),%SetStartEndDate:endDate%)))",
+            "minDate": "=IF(%SetStartEndDate:startDate%==\"\"AND %SetStartEndDate:endDate%==\"\",ADDYEAR(TODAY(),-5),IF(%SetStartEndDate:startDate%!=\"\"AND %SetStartEndDate:endDate%==\"\",%SetStartEndDate:startDate%,ADDDAY(%SetStartEndDate:endDate%,-90)))"
+        },
+        "executionConditionalFormula": "",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues1",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "FormatDate",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/GET/SetDateParamBtn/Procedure/FormatDate"
+}

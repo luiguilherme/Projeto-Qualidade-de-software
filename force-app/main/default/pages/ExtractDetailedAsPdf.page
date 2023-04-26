@@ -1,0 +1,500 @@
+<apex:page renderAs="pdf" showHeader="false"
+           applyHtmlTag="false" 
+           standardStylesheets="false"
+           controller="ExtractDetailedAsPdfController"
+           action="{!executeStatement}">
+    <html>
+        <head>
+            <style> 
+                p {
+                	text-align: center;
+                }
+                .tittle_block{
+                 text-align: left;
+                 font-weight: bold;
+                }
+                .container_body {
+                  font-family: Arial, sans-serif;
+                  font-size: 10px;
+                  width: 99%;
+                  display: block;
+                  outline: dashed 1px black;
+                }
+                .container_350_200 {
+                  font-family: Arial Unicode MS;
+                  margin: 25px;
+                  width: 350px;
+                  height: 200px;
+                  outline: dashed 1px black;
+                }
+                .container_width_100_height_100 {
+                  font-family: Arial Unicode MS;
+                  margin: 10px;
+                  width: 100px;
+                  height: 100px;
+                }
+                .wrapper {
+                  display: grid;
+                  grid-template-columns: 20% 20% 20%;
+                  grid-gap: 10px;
+                  color: #444;
+                }
+                .col1 {
+                	width: 1% !important;
+                }
+                .col3 {
+                	width: 45% !important;
+                }
+                .col4 {
+                	text-align: right;
+                }
+                .col_second_session_1 {
+                }
+                .col_second_session_3 {
+                	width: 46.8% !important;
+                }
+                .col_second_session_4 {
+                	text-align: right;
+                }
+                .coluna {
+                    margin-right: 20px;
+                    flex-grow: 1;
+                }
+                .container {
+                    display: flex;
+                }
+                tr.colHeader {
+                    border: 3px solid #731d21;
+                    border-radius: 10px;
+                }
+            
+                td.colHeader {
+                    background-color: #0070c0;
+                    color: white;
+                    padding: 10px;
+            }
+            </style>
+        </head>
+        <body class="container_body">
+            <div>
+                <p>DETALHAMENTO DE CONSUMO PARA SIMPLES CONFERÊNCIA - VIVO PRÉ-PAGO</p>
+            </div>
+            <apex:panelGrid columns="4" columnClasses="col1, col2, col3, col4" cellpadding="" width="100%">
+                    <apex:panelGroup >
+                        <apex:outputLabel ></apex:outputLabel>
+                    </apex:panelGroup>
+                    <apex:panelGroup >
+                        <img src="{!$Resource.LogoVivo}" alt="Girl in a jacket" width="130" height="50"/>
+                    </apex:panelGroup>
+                    <apex:panelGroup >
+                        <apex:outputLabel ></apex:outputLabel>
+                    </apex:panelGroup>
+                    <apex:panelGroup >
+                        <apex:outputLabel > Telefonica Brasil S.A</apex:outputLabel><BR/>
+                        <apex:outputLabel > Av. Engenheiro Luiz Carlos Berrini, 1376</apex:outputLabel><BR/>
+                        <apex:outputLabel > 0457198 São Paulo SP</apex:outputLabel><BR/>
+                        <apex:outputLabel > www.vivo.com.br</apex:outputLabel><BR/>
+                        <apex:outputLabel > 108383949112 - 0255815700162</apex:outputLabel>
+                    </apex:panelGroup>
+            </apex:panelGrid>
+            
+            <apex:panelGrid columns="4" columnClasses="col_second_session_1, col_second_session_2, col_second_session_3,col_second_session_4" cellpadding="" width="100%">
+                    <apex:panelGroup >
+                        <apex:outputLabel >MASSA CONTROLE</apex:outputLabel><BR/>
+                        <apex:outputLabel >BENTO, 100 CENTRO</apex:outputLabel><BR/>
+                        <apex:outputLabel >01010-000 SÃO PAULO SP</apex:outputLabel>
+                    </apex:panelGroup>
+                    <apex:panelGroup >
+                    </apex:panelGroup>
+                    <apex:panelGroup >
+                        <apex:outputLabel ></apex:outputLabel>
+                    </apex:panelGroup>
+                    <apex:panelGroup >
+                        <apex:outputLabel style="float: left;"> CELULAR:</apex:outputLabel> <apex:outputLabel value="{!lineNumber}"></apex:outputLabel><BR/>
+                        <apex:outputLabel style="float: left;"> CONTA:</apex:outputLabel> <apex:outputLabel value="{!conta}"></apex:outputLabel><BR/>
+                        <apex:outputLabel style="float: left;"> PLANO TARIFÁRIO:</apex:outputLabel> <apex:outputLabel value="{!plano}"></apex:outputLabel><BR/>
+                        <apex:outputLabel style="float: left;"> EMISSÃO:</apex:outputLabel> <apex:outputLabel value="{!emissao}"></apex:outputLabel><BR/>
+                        <apex:outputLabel style="float: left;"> PERÍODO:</apex:outputLabel> <apex:outputLabel value="{!periodo}"></apex:outputLabel><BR/>
+                    </apex:panelGroup>
+            </apex:panelGrid>
+
+            <!--Todas as funções abaixo distribuem as  infromações que vem pela controller, exibindoas no pdf
+                grande parte esta dividida por titulos <h3> segidos de <div> com o conjunto de informações referente ao titulo
+                US: PTI1094-272
+                Created by: Felipe Silveira
+                Modified by: Dalvino Santos 
+            -->
+            <div class="block_font">
+                <apex:outputText ><b>Plano Ativo Atual:</b></apex:outputText><apex:outputText value=" {!plano}" ></apex:outputText><BR/>   
+            </div><br/>
+
+            <div class="summary_info">
+                <div class="block_font" style="{!IF(ipOutput['ACTIVE_PROMOTIONS_INFO'] != '-', 'display:block', 'display:none')}">
+                    <apex:pageBlock rendered="{!ipOutput['ACTIVE_PROMOTIONS_INFO'] != '-'}">
+                        <apex:pageBlockTable value="{!ipOutput['ACTIVE_PROMOTIONS_INFO']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Promocões ativas atual" value="{!f['name']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data ativação" value="{!f['data']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div><br/>
+                <div class="block_font" style="{!IF(ipOutput['RECHARGE_PLAFOND_INFO'] != '-', 'display:block', 'display:none')}">
+                    <apex:pageBlock rendered="{!ipOutput['RECHARGE_PLAFOND_INFO'] !='-'}" >
+                        <apex:pageBlockTable value="{!ipOutput['RECHARGE_PLAFOND_INFO']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Resumo de movimento nos saldos" value="{!f['name']}" styleClass="coluna"/>
+                            <apex:column headerValue="Valor" value="{!f['value']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data" value="{!f['data']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div>
+
+                <h3 class="tittle_block" style="{!IF((ipOutput['BONUS_PROMOTION_MOVIMENT'] != '-' || ipOutput['SMS_VOICE_PACKETS_DETAIL'] != '-' || ipOutput['INTERNET_PACKETS_DETAIL'] != '-' || ipOutput['OTHERS_CREDITS'] != '-' || ipOutput['ADJUSTS_DETAIL'] != '-' || ipOutput['CONTESTATIONS_DETAIL'] != '-' || ipOutput['REVERSE_DETAIL'] != '-'), 'display:block', 'display:none')}" >Créditos Recebidos</h3>
+                <apex:outputPanel rendered="{!ipOutput['BONUS_PROMOTION_MOVIMENT'] !='-'}">
+                <div class="block_font" style="{!IF(ipOutput['BONUS_PROMOTION_MOVIMENT'] != '-', 'display:block', 'display:none')}">
+                        <apex:pageBlock rendered="{!ipOutput['BONUS_PROMOTION_MOVIMENT'] !='-'}" >
+                            <apex:pageBlockTable value="{!ipOutput['BONUS_PROMOTION_MOVIMENT']}" var="f" width="100%" styleClass="container">
+                                <apex:column headerValue="Bônus" value="{!f['name']}" styleClass="coluna"/>
+                                <apex:column headerValue="Total recebido" value="{!f['value']}" styleClass="coluna"/>
+                                <apex:column headerValue="Data do crédito" value="{!f['data']}" styleClass="coluna"/>
+                            </apex:pageBlockTable>
+                        </apex:pageBlock>
+                </div>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!ipOutput['SMS_VOICE_PACKETS_DETAIL'] !='-'}">
+                <div class="block_font" style="{!IF(ipOutput['SMS_VOICE_PACKETS_DETAIL'] != '-', 'display:block', 'display:none')}"><BR/>
+                    <apex:pageBlock rendered="{!ipOutput['SMS_VOICE_PACKETS_DETAIL'] != '-'}">
+                        <apex:pageBlockTable rendered="{!ipOutput['SMS_VOICE_PACKETS_DETAIL']!='-'}" value="{!ipOutput['SMS_VOICE_PACKETS_DETAIL']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Pacotes SMS e Voz" value="{!f['name']}" styleClass="coluna"/>
+                            <apex:column headerValue="Total recebido" value="{!f['value']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data do crédito" value="{!f['data']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!ipOutput['INTERNET_PACKETS_DETAIL'] !='-'}">
+                <div class="block_font" style="{!IF(ipOutput['INTERNET_PACKETS_DETAIL'] != '-', 'display:block', 'display:none')}">
+                    <apex:pageBlock rendered="{!ipOutput['INTERNET_PACKETS_DETAIL'] !='-'}" >
+                        <apex:pageBlockTable value="{!ipOutput['INTERNET_PACKETS_DETAIL']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Internet" value="{!f['name']}" styleClass="coluna"/>
+                            <apex:column headerValue="Total Recebido" value="{!f['value']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data do Crédito" value="{!f['data']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!ipOutput['OTHERS_CREDITS'] !='-'}">
+                <div class="block_font" style="{!IF(ipOutput['OTHERS_CREDITS'] != '-', 'display:block', 'display:none')}">
+                    <apex:pageBlock rendered="{!ipOutput['OTHERS_CREDITS'] !='-'}" >
+                        <apex:pageBlockTable value="{!ipOutput['OTHERS_CREDITS']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Ajustes" value="{!f['name']}" styleClass="coluna"/>
+                            <apex:column headerValue="Total Recebido" value="{!f['value']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data do Crédito" value="{!f['data']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!ipOutput['ADJUSTS_DETAIL'] !='-'}">
+                <div class="block_font" style="{!IF(ipOutput['ADJUSTS_DETAIL'] != '-', 'display:block', 'display:none')}">
+                    <apex:pageBlock rendered="{!ipOutput['ADJUSTS_DETAIL'] !='-'}" >
+                        <apex:pageBlockTable value="{!ipOutput['ADJUSTS_DETAIL']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Ajustes" value="{!f['name']}" styleClass="coluna"/>
+                            <apex:column headerValue="Total Recebido" value="{!f['value']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data do Crédito" value="{!f['data']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!ipOutput['CONTESTATIONS_DETAIL'] !='-'}">
+                <div class="block_font" style="{!IF(ipOutput['CONTESTATIONS_DETAIL'] != '-', 'display:block', 'display:none')}">
+                    <apex:pageBlock rendered="{!ipOutput['CONTESTATIONS_DETAIL'] !='-'}" >
+                        <apex:pageBlockTable value="{!ipOutput['CONTESTATIONS_DETAIL']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Contestações" value="{!f['name']}" styleClass="coluna"/>
+                            <apex:column headerValue="Total Recebido" value="{!f['value']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data do Crédito" value="{!f['data']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!ipOutput['REVERSE_DETAIL'] !='-'}">
+                <div class="block_font" style="{!IF(ipOutput['REVERSE_DETAIL'] != '-', 'display:block', 'display:none')}">
+                    <apex:pageBlock rendered="{!ipOutput['REVERSE_DETAIL'] !='-'}" >
+                        <apex:pageBlockTable value="{!ipOutput['REVERSE_DETAIL']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Estornos" value="{!f['name']}" styleClass="coluna"/>
+                            <apex:column headerValue="Total Recebido" value="{!f['value']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data do Crédito" value="{!f['data']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div>
+                </apex:outputPanel>
+                <h3 class="tittle_block" style="{!IF((ipOutput['RECHARGE_DETAIL'] != '-' || ipOutput['DETACHED_DEBITS_RD'] != '-' || ipOutput['OTHERS_DEBITS_RD'] !='-'), 'display:block', 'display:none')}">Recargas</h3>
+                <div class="block_font" style="{!IF(ipOutput['RECHARGE_DETAIL'] != '-', 'display:block', 'display:none')}">
+                    <apex:pageBlock rendered="{!ipOutput['RECHARGE_DETAIL'] !='-'}" >
+                        <apex:pageBlockTable value="{!ipOutput['RECHARGE_DETAIL']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Periodo" value="{!f['data']}" styleClass="coluna"/>
+                            <apex:column headerValue="Valor" value="{!f['value']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div>
+                <h3 class="tittle_block" style="{!IF((ipOutput['DETACHED_DEBITS_RD'] != '-' || ipOutput['CONTRACTED_SERVICES_RD'] !='-' || ipOutput['OTHERS_DEBITS_RD'] !='-'), 'display:block', 'display:none')}">Movimentações no Saldo de Recarga</h3>
+                <apex:outputPanel rendered="{!ipOutput['DETACHED_DEBITS_RD'] !='-'}">
+                <div class="block_font" style="{!IF(ipOutput['DETACHED_DEBITS_RD'] != '-', 'display:block', 'display:none')}">
+                     <apex:pageBlock rendered="{!ipOutput['DETACHED_DEBITS_RD'] !='-'}" >
+                         <apex:pageBlockTable value="{!ipOutput['DETACHED_DEBITS_RD']}" var="f" width="100%" styleClass="container">
+                             <apex:column headerValue="Movimentação Avulsa" value="{!f['name']}" styleClass="coluna"/>
+                             <apex:column headerValue="Valor Descontado" value="{!f['value']}" styleClass="coluna"/>
+                             <apex:column headerValue="Total Utilizado" value="{!f['amount']}" styleClass="coluna"/>
+                         </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!ipOutput['OTHERS_DEBITS_RD'] !='-'}">
+                <div class="block_font" style="{!IF(ipOutput['OTHERS_DEBITS_RD'] != '-', 'display:block', 'display:none')}">
+                    <apex:pageBlock rendered="{!ipOutput['OTHERS_DEBITS_RD'] !='-'}" >
+                        <apex:pageBlockTable value="{!ipOutput['OTHERS_DEBITS_RD']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Serviços Contratados" value="{!f['name']}" styleClass="coluna"/>
+                            <apex:column headerValue="Valor Descontado" value="{!f['value']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data da Cobrança/Renovação" value="{!f['data']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div><br/>
+                </apex:outputPanel>
+                <h3 class="tittle_block" style="{!IF((ipOutput['DETACHED_DEBITS_FC'] != '-' || ipOutput['CONTRACTED_SERVICES_FC'] != '-' || ipOutput['OTHERS_DEBITS_FC'] != '-'), 'display:block', 'display:none')}">Movimentações no Saldo de Crédito Livre (Franquia)</h3>
+                <apex:outputPanel rendered="{!ipOutput['DETACHED_DEBITS_FC'] !='-'}">
+                <div class="block_font" style="{!IF(ipOutput['DETACHED_DEBITS_FC'] != '-', 'display:block', 'display:none')}">
+                    <apex:pageBlock rendered="{!ipOutput['DETACHED_DEBITS_FC'] !='-'}" >
+                        <apex:pageBlockTable value="{!ipOutput['DETACHED_DEBITS_FC']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Movimentação Avulsa" value="{!f['name']}" styleClass="coluna"/>
+                            <apex:column headerValue="Valor Descontado" value="{!f['value']}" styleClass="coluna"/>
+                            <apex:column headerValue="Total Utilizado" value="{!f['amount']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!ipOutput['CONTRACTED_SERVICES_FC'] !='-'}">
+                <div class="block_font" style="{!IF(ipOutput['CONTRACTED_SERVICES_FC'] != '-', 'display:block', 'display:none')}">
+                    <apex:pageBlock rendered="{!ipOutput['CONTRACTED_SERVICES_FC'] !='-'}" >
+                        <apex:pageBlockTable value="{!ipOutput['CONTRACTED_SERVICES_FC']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Serviços Contratados" value="{!f['name']}" styleClass="coluna"/>
+                            <apex:column headerValue="Valor Descontado" value="{!f['value']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data da Cobrança/Renovação" value="{!f['data']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!ipOutput['OTHERS_DEBITS_FC'] !='-'}">
+                <div class="block_font" style="{!IF(ipOutput['OTHERS_DEBITS_FC'] != '-', 'display:block', 'display:none')}">
+                    <apex:pageBlock rendered="{!ipOutput['OTHERS_DEBITS_FC'] !='-'}" >
+                        <apex:pageBlockTable value="{!ipOutput['OTHERS_DEBITS_FC']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Serviços Contratados" value="{!f['name']}" styleClass="coluna"/>
+                            <apex:column headerValue="Valor Descontado" value="{!f['value']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data da Cobrança/Renovação" value="{!f['data']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div>
+                </apex:outputPanel>
+                <div class="detailed_info">
+                    <apex:outputPanel rendered="{!ipOutput['CALLS_DETAIL'] !='-'}">
+                        <h3 class="tittle_block">Detelhes de chamadas</h3>
+                    <div class="block_font" style="{!IF(ipOutput['CALLS_DETAIL'] != '-', 'display:block', 'display:none')}">
+                        <apex:pageBlock rendered="{!ipOutput['CALLS_DETAIL'] !='-'}" >
+                            <apex:pageBlockTable value="{!ipOutput['CALLS_DETAIL']}" var="f" width="100%" styleClass="container">
+                                <apex:column headerValue="Item" value="{!f['LoopBlockIterationIndex']}" styleClass="coluna"/>
+                                <apex:column headerValue="Data e Hora" value="{!f['dataHora']}" styleClass="coluna"/>
+                                <apex:column headerValue="Origem" value="{!f['sourceType']}" styleClass="coluna"/>
+                                <!-- <apex:column headerValue="Destino" value="{!f['destinationType']}" styleClass="coluna"/> -->
+                                <apex:column headerValue="CSP" value="{!f['csp']}" styleClass="coluna"/>
+                                <apex:column headerValue="NºDestino" value="{!f['destinationNumber']}" styleClass="coluna"/>
+                                <apex:column headerValue="Tipo de saldo" value="{!f['balanceType']}" styleClass="coluna"/>
+                                <apex:column headerValue="Tipo de chamada" value="{!f['callType']}" styleClass="coluna"/>
+                                <apex:column headerValue="Período" value="{!f['period']}" styleClass="coluna"/>
+                                <apex:column headerValue="Duração cobrada" value="{!f['chargeDuration']}" styleClass="coluna"/>
+                                <apex:column headerValue="Valor total" value="{!f['amount']}" styleClass="coluna"/>
+                            </apex:pageBlockTable>
+                        </apex:pageBlock>
+                    </div>
+                    </apex:outputPanel>
+
+                    <div class="block_font" style="{!IF(ipOutput['DATA_CALLS_DETAIL'] != '-', 'display:block', 'display:none')}">
+                        <h3 class="tittle_block"> Detalhes de Chamadas de Dados</h3>
+                        <apex:pageBlock rendered="{!ipOutput['DATA_CALLS_DETAIL'] !='-'}" >      
+                            <apex:pageBlockTable value="{!ipOutput['DATA_CALLS_DETAIL']}" var="f" width="100%" styleClass="container">
+                                <apex:column headerValue="Item" value="{!f['LoopBlockIterationIndex']}" styleClass="coluna"/>
+                                <apex:column headerValue="Data e Hora" value="{!f['dataHora']}" styleClass="coluna"/>
+                                <apex:column headerValue="Origem" value="{!f['sourceType']}" styleClass="coluna"/>
+                                <!-- <apex:column headerValue="Destino" value="{!f['destinationType']}" styleClass="coluna"/> -->
+                                <apex:column headerValue="CSP" value="{!f['csp']}" styleClass="coluna"/>
+                                <apex:column headerValue="NºDestino" value="{!f['destinationNumber']}" styleClass="coluna"/>
+                                <apex:column headerValue="Tipo de saldo" value="{!f['balanceType']}" styleClass="coluna"/>
+                                <apex:column headerValue="Tipo Chamada/Servços" value="{!f['callType']}" styleClass="coluna"/>
+                                <apex:column headerValue="Período" value="{!f['period']}" styleClass="coluna"/>
+                                <apex:column headerValue="Duração Cobrada/Trafégo em KB" value="{!f['chargeDuration']}" styleClass="coluna"/>
+                                <apex:column headerValue="Valor total" value="{!f['amount']}" styleClass="coluna"/>
+                            </apex:pageBlockTable>
+                        </apex:pageBlock>
+                    </div>
+
+                </div>
+                <div class="block_font" style="{!IF(ipOutput['SMS_MMS_DETAIL'] != '-', 'display:block', 'display:none')}">
+                    <h3 class="tittle_block">Detalhes de SMS e MMS</h3>
+                    <apex:pageBlock rendered="{!ipOutput['SMS_MMS_DETAIL'] !='-'}" >
+                        <apex:pageBlockTable value="{!ipOutput['SMS_MMS_DETAIL']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Item" value="{!f['LoopBlockIterationIndex']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data e Hora" value="{!f['dataHora']}" styleClass="coluna"/>
+                            <apex:column headerValue="Origem" value="{!f['sourceType']}" styleClass="coluna"/>
+                            <!-- <apex:column headerValue="Destino" value="{!f['destinationType']}" styleClass="coluna"/> -->
+                            <apex:column headerValue="NºDestino" value="{!f['destinationNumber']}" styleClass="coluna"/>
+                            <apex:column headerValue="Tipo de Serviço" value="{!f['serviceIdentifier']}" styleClass="coluna"/>
+                            <apex:column headerValue="Tipo Saldo" value="{!f['balanceType']}" styleClass="coluna"/>
+                            <apex:column headerValue="Valor Total/Unidades" value="{!f['amount']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div>
+                <div class="block_font" style="{!IF(ipOutput['RECHARGE_DETAIL1'] != '-', 'display:block', 'display:none')}">
+                    <h3 class="tittle_block">Detalhes de Recargas</h3>
+                    <apex:pageBlock rendered="{!ipOutput['RECHARGE_DETAIL1'] !='-'}" >
+                        <apex:pageBlockTable value="{!ipOutput['RECHARGE_DETAIL1']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Item" value="{!f['LoopBlockIterationIndex']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data e Hora" value="{!f['dataHora']}" styleClass="coluna"/>
+                            <apex:column headerValue="Descrição" value="{!f['description']}" styleClass="coluna"/>
+                            <apex:column headerValue="Valor" value="{!f['value']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data Expiração" value="{!f['expirationDate']}" styleClass="coluna"/>
+                            <apex:column headerValue="Tipo Saldo" value="{!f['balanceType']}" styleClass="coluna"/>
+                            <apex:column headerValue="Valor da Recarga" value="{!f['amountDesc']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div>
+                <div class="block_font" style="{!IF(ipOutput['BONUS_DETAIL'] != '-', 'display:block', 'display:none')}">
+                    <h3 class="tittle_block">Detalhes de Bônus</h3>
+                    <apex:pageBlock rendered="{!ipOutput['BONUS_DETAIL'] !='-'}" >
+                        <apex:pageBlockTable value="{!ipOutput['BONUS_DETAIL']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Item" value="{!f['LoopBlockIterationIndex']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data e Hora" value="{!f['dataHora']}" styleClass="coluna"/>
+                            <apex:column headerValue="Descrição" value="{!f['description']}" styleClass="coluna"/>
+                            <apex:column headerValue="Tipo Bônus" value="{!f['bonusType']}" styleClass="coluna"/>
+                            <apex:column headerValue="Valor" value="{!f['value']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data Expiração" value="{!f['expirationDate']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div>
+                <div class="block_font" style="{!IF(ipOutput['OTHERS_DETAIL'] != '-', 'display:block', 'display:none')}">
+                    <h3 class="tittle_block">Outros Lançamentos</h3>
+                    <apex:pageBlock rendered="{!ipOutput['OTHERS_DETAIL'] !='-'}" >
+                        <apex:pageBlockTable value="{!ipOutput['OTHERS_DETAIL']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Item" value="{!f['LoopBlockIterationIndex']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data e Hora" value="{!f['dataHora']}" styleClass="coluna"/>
+                            <apex:column headerValue="Descrição" value="{!f['description']}" styleClass="coluna"/>
+                            <apex:column headerValue="Tipo Saldo" value="{!f['balanceType']}" styleClass="coluna"/>
+                            <apex:column headerValue="Valor" value="{!f['value']}" styleClass="coluna"/>
+                            <apex:column headerValue="Tipo de Ajuste" value="{!f['adjustType']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div>
+                <div class="block_font" style="{!IF(ipOutput['DATA_CALLS_DETAIL1'] != '-', 'display:block', 'display:none')}">
+                    <h3 class="tittle_block">Serviços Telefônica Data S.A. - Detalhes de Chamadas/Chamadas Dados/SMS e MMS</h3>
+                    <apex:pageBlock rendered="{!ipOutput['DATA_CALLS_DETAIL1'] !='-'}" >      
+                        <apex:pageBlockTable value="{!ipOutput['DATA_CALLS_DETAIL1']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Item" value="{!f['LoopBlockIterationIndex']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data e Hora" value="{!f['dataHora']}" styleClass="coluna"/>
+                            <apex:column headerValue="Origem" value="{!f['sourceType']}" styleClass="coluna"/>
+                            <!-- <apex:column headerValue="Destino" value="{!f['destinationType']}" styleClass="coluna"/> -->
+                            <apex:column headerValue="CSP" value="{!f['csp']}" styleClass="coluna"/>
+                            <apex:column headerValue="NºDestino" value="{!f['destinationNumber']}" styleClass="coluna"/>
+                            <apex:column headerValue="Tipo de saldo" value="{!f['balanceType']}" styleClass="coluna"/>
+                            <apex:column headerValue="Tipo Chamada/Servços" value="{!f['callType']}" styleClass="coluna"/>
+                            <apex:column headerValue="Período" value="{!f['period']}" styleClass="coluna"/>
+                            <apex:column headerValue="Duração Cobrada/Trafégo em KB" value="{!f['chargeDuration']}" styleClass="coluna"/>
+                            <apex:column headerValue="Valor total" value="{!f['amount']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div>
+                <div class="block_font" style="{!IF(ipOutput['DATA_OTHERS_DETAIL1'] != '-', 'display:block', 'display:none')}">
+                    <h3 class="tittle_block">Serviços Telefônica Data S.A. - Detalhes de Assinaturas/Outros Lançamentos</h3>
+                    <apex:pageBlock rendered="{!ipOutput['DATA_OTHERS_DETAIL1'] !='-'}" >
+                        <apex:pageBlockTable value="{!ipOutput['DATA_OTHERS_DETAIL1']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Item" value="{!f['LoopBlockIterationIndex']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data e Hora" value="{!f['dataHora']}" styleClass="coluna"/>
+                            <apex:column headerValue="Descrição" value="{!f['description']}" styleClass="coluna"/>
+                            <apex:column headerValue="Tipo Saldo" value="{!f['balanceType']}" styleClass="coluna"/>
+                            <apex:column headerValue="Valor" value="{!f['value']}" styleClass="coluna"/>
+                            <apex:column headerValue="Tipo de Ajuste/Periodo" value="{!f['adjustType']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div>
+                <div class="block_font" style="{!IF(ipOutput['DATA_CALLS_DETAIL2'] != '-', 'display:block', 'display:none')}">
+                    <h3 class="tittle_block">Serviços TERRA NETWORKS BRASIL S.A -Detalhes de Chamadas/Chamadas Dados/SMS e MMS</h3>
+                    <apex:pageBlock rendered="{!ipOutput['DATA_CALLS_DETAIL2'] !='-'}" >
+                        <apex:pageBlockTable value="{!ipOutput['DATA_CALLS_DETAIL2']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Item" value="{!f['LoopBlockIterationIndex']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data e Hora" value="{!f['dataHora']}" styleClass="coluna"/>
+                            <apex:column headerValue="Origem" value="{!f['sourceType']}" styleClass="coluna"/>
+                            <!-- <apex:column headerValue="Destino" value="{!f['destinationType']}" styleClass="coluna"/> -->
+                            <apex:column headerValue="CSP" value="{!f['csp']}" styleClass="coluna"/>
+                            <apex:column headerValue="NºDestino" value="{!f['destinationNumber']}" styleClass="coluna"/>
+                            <apex:column headerValue="Tipo de saldo" value="{!f['balanceType']}" styleClass="coluna"/>
+                            <apex:column headerValue="Tipo Chamada/Servços" value="{!f['callType']}" styleClass="coluna"/>
+                            <apex:column headerValue="Período" value="{!f['period']}" styleClass="coluna"/>
+                            <apex:column headerValue="Duração Cobrada/Trafégo em KB" value="{!f['chargeDuration']}" styleClass="coluna"/>
+                            <apex:column headerValue="Valor total" value="{!f['amount']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div>
+                <div class="block_font" style="{!IF(ipOutput['DATA_OTHERS_DETAIL2'] != '-', 'display:block', 'display:none')}">
+                    <h3 class="tittle_block">Serviços TERRA NETWORKS BRASIL S.A. - Detalhes de Assinaturas/Outros Lançamentos</h3>
+                    <apex:pageBlock rendered="{!ipOutput['DATA_OTHERS_DETAIL2'] !='-'}" >
+                        <apex:pageBlockTable value="{!ipOutput['DATA_OTHERS_DETAIL2']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Item" value="{!f['LoopBlockIterationIndex']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data e Hora" value="{!f['dataHora']}" styleClass="coluna"/>
+                            <apex:column headerValue="Descrição" value="{!f['description']}" styleClass="coluna"/>
+                            <apex:column headerValue="Tipo Saldo" value="{!f['balanceType']}" styleClass="coluna"/>
+                            <apex:column headerValue="Valor" value="{!f['value']}" styleClass="coluna"/>
+                            <apex:column headerValue="Tipo de Ajuste/Periodo" value="{!f['adjustType']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div>
+                <div class="block_font" style="{!IF(ipOutput['DATA_CALLS_DETAIL3'] != '-', 'display:block', 'display:none')}">
+                    <h3 class="tittle_block">TELEFÔNICA BRASIL 02.558.157/0135-74 - Detalhes de chamadas de Dados/ SMS e MMS</h3>
+                    <apex:pageBlock rendered="{!ipOutput['DATA_CALLS_DETAIL3'] !='-'}" >
+                        <apex:pageBlockTable value="{!ipOutput['DATA_CALLS_DETAIL3']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Item" value="{!f['LoopBlockIterationIndex']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data e Hora" value="{!f['dataHora']}" styleClass="coluna"/>
+                            <apex:column headerValue="Origem" value="{!f['sourceType']}" styleClass="coluna"/>
+                            <!-- <apex:column headerValue="Destino" value="{!f['destinationType']}" styleClass="coluna"/> -->
+                            <apex:column headerValue="CSP" value="{!f['csp']}" styleClass="coluna"/>
+                            <apex:column headerValue="NºDestino" value="{!f['destinationNumber']}" styleClass="coluna"/>
+                            <apex:column headerValue="Tipo de saldo" value="{!f['balanceType']}" styleClass="coluna"/>
+                            <apex:column headerValue="Tipo Chamada/Servços" value="{!f['callType']}" styleClass="coluna"/>
+                            <apex:column headerValue="Período" value="{!f['period']}" styleClass="coluna"/>
+                            <apex:column headerValue="Duração Cobrada/Trafégo em KB" value="{!f['chargeDuration']}" styleClass="coluna"/>
+                            <apex:column headerValue="Valor total" value="{!f['amount']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div>
+                <div class="block_font" style="{!IF(ipOutput['DATA_OTHERS_DETAIL3'] != '-', 'display:block', 'display:none')}">
+                    <h3 class="tittle_block">TELEFÔNICA BRASIL 02.558.157/0135-74 - Detalhes de Assinaturas / Outros lançamentos Vivo Go Read</h3>
+                    <apex:pageBlock rendered="{!ipOutput['DATA_OTHERS_DETAIL3'] !='-'}" >
+                        <apex:pageBlockTable value="{!ipOutput['DATA_OTHERS_DETAIL3']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Item" value="{!f['LoopBlockIterationIndex']}" styleClass="coluna"/>
+                            <apex:column headerValue="Data e Hora" value="{!f['dataHora']}" styleClass="coluna"/>
+                            <apex:column headerValue="Descrição" value="{!f['description']}" styleClass="coluna"/>
+                            <apex:column headerValue="Tipo Saldo" value="{!f['balanceType']}" styleClass="coluna"/>
+                            <apex:column headerValue="Valor" value="{!f['value']}" styleClass="coluna"/>
+                            <apex:column headerValue="Tipo de Ajuste/Periodo" value="{!f['adjustType']}" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div>                
+                <div class="block_font" style="{!IF(ipOutput['PLAFOND_SUMMARY'] != '-', 'display:block', 'display:none')}">
+                    <apex:pageBlock rendered="{!ipOutput['PLAFOND_SUMMARY'] !='-'}">
+                        <h3 class="tittle_block">Detalhes de Resumo</h3>
+                        <apex:pageblockTable value="{!ipOutput['PLAFOND_SUMMARY']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Item" value="{!f['LoopBlockIterationIndex']}" styleClass="coluna"/>
+                            <apex:column headerValue="Tipo de saldo" value="{!f['balanceType']}" styleClass="coluna"/>
+                            <apex:column headerValue="Débitos" value="{!f['debit']}" styleClass="coluna"/>
+                            <apex:column headerValue="Créditos" value="{!f['credit']}" styleClass="coluna"/>
+                        </apex:pageblockTable>
+                    </apex:pageBlock>
+                </div>
+            </div>
+                <p>Incidem sobre a prestação de serviços do pré-pago os seguintes impostos e contribuições: ICMS, PIS e COFINS.</p>
+                <h3 class="tittle_block">Mensagens Adicionais</h3>
+        </body>
+    </html>
+</apex:page>
