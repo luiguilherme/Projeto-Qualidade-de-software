@@ -25,7 +25,7 @@ public abstract class CanvasHybrisServices implements CanvasServiceInterface {
         parameters.put('nomeMae',           context.vlocity_cmt__PrimaryContactId__r.MotherName__c  != null ? context.vlocity_cmt__PrimaryContactId__r.MotherName__c : '');
         parameters.put('email',             context.vlocity_cmt__PrimaryContactId__r.Email   != null ? context.vlocity_cmt__PrimaryContactId__r.Email : '');
         parameters.put('telefoneContato',   context.vlocity_cmt__PrimaryContactId__r.MobilePhone   != null ? context.vlocity_cmt__PrimaryContactId__r.MobilePhone : '');
-        parameters.put('dataNascimento',    formatBirthDate(context));
+        parameters.put('dataNascimento',    formatBirthDate2(context));
         parameters.put('tipoOferta',        TIPO_OFERTA);
         parameters.put('nomeOperador',      currentUser.Name);
         parameters.put('emailOperador',     currentUser.Email);
@@ -47,14 +47,24 @@ public abstract class CanvasHybrisServices implements CanvasServiceInterface {
         return enderecoReturn;
     }
 
-    private String formatBirthDate (Account context) {
+    // private String formatBirthDate (Account context) {
+    //     if (context.vlocity_cmt__PrimaryContactId__r.Birthdate != null) {
+    //         String dateString = context.vlocity_cmt__PrimaryContactId__r.Birthdate.day() + '/' + context.vlocity_cmt__PrimaryContactId__r.Birthdate.month() + '/' + context.vlocity_cmt__PrimaryContactId__r.Birthdate.year();
+    //         return dateString;
+    //     } else {
+    //         return '';
+    //     }
+    // }
+		//Teste Data AAAA/MM/DD
+    private String formatBirthDate2 (Account context) {
         if (context.vlocity_cmt__PrimaryContactId__r.Birthdate != null) {
-            String dateString = context.vlocity_cmt__PrimaryContactId__r.Birthdate.day() + '/' + context.vlocity_cmt__PrimaryContactId__r.Birthdate.month() + '/' + context.vlocity_cmt__PrimaryContactId__r.Birthdate.year();
+            String dateString = context.vlocity_cmt__PrimaryContactId__r.Birthdate.year() + '-' + context.vlocity_cmt__PrimaryContactId__r.Birthdate.month() + '-' + context.vlocity_cmt__PrimaryContactId__r.Birthdate.day();
             return dateString;
         } else {
             return '';
         }
     }
+
 
     private List<String> getUserSegments(String userSegment) {
         List<String> lstSegment = userSegment.split(',');
