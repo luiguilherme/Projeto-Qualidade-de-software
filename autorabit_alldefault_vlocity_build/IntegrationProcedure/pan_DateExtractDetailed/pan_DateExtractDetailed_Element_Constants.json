@@ -1,0 +1,39 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "IP_DateExtractDetailed",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/pan/DateExtractDetailed/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "180DaysLessFromEndDate": "=ADDDAY(%InputParameters:endDate%,-180)",
+            "180DaysPlusFromStartDate": "=ADDDAY(%InputParameters:startDate%,180)",
+            "differenceBetweenDates": "=DATEDIFF(%InputParameters:startDate%,%InputParameters:endDate%)",
+            "emptyDates": "=IF(%InputParameters:startDate%==\"\"&&%InputParameters:endDate%==\"\",true,false)",
+            "emptyDatesOR": "=IF(%InputParameters:startDate%==\"\"||%InputParameters:endDate%==\"\",true,false)",
+            "emptyEndDateFilledStartDate": "=IF(%InputParameters:endDate%==\"\"&&%InputParameters:startDate%!=\"\",true,false)",
+            "emptyStartDateFilledEndDate": "=IF(%InputParameters:startDate%==\"\"&&%InputParameters:endDate%!=\"\",true,false)",
+            "filledDates": "=IF(%InputParameters:startDate%!=\"\"&&%InputParameters:endDate%!=\"\",true,false)",
+            "fiveYearsLessFromEndDate": "=ADDYEAR(%InputParameters:endDate%,-5)",
+            "fiveYearsLessFromToday": "=ADDYEAR(TODAY(),-5)"
+        },
+        "executionConditionalFormula": "",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues2",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "Constants",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/pan/DateExtractDetailed/Procedure/Constants"
+}

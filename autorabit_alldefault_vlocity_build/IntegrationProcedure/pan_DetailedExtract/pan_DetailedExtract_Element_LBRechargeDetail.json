@@ -1,0 +1,47 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "IP_DetailedExtract",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/pan/DetailedExtract/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "disOnTplt": false,
+        "executionConditionalFormula": "",
+        "label": "LoopBlock1",
+        "loopList": "Resp:RECHARGE_DETAIL_DETAILED:actions",
+        "loopOutput": {
+            "adjustType": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:adjustType%),%Resp:RECHARGE_DETAIL_DETAILED:actions:adjustType%,\"-\")",
+            "amount": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:amount%),%Resp:RECHARGE_DETAIL_DETAILED:actions:amount%,\"-\")",
+            "amountDesc": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:recharge:amountDesc%),%Resp:RECHARGE_DETAIL_DETAILED:actions:recharge:amountDesc%,\"-\")",
+            "balanceType": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:plafondType%),%Resp:RECHARGE_DETAIL_DETAILED:actions:plafondType%,\"-\")",
+            "bonusType": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:bonusType%),%Resp:RECHARGE_DETAIL_DETAILED:actions:bonusType%,\"-\")",
+            "callType": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:tax%),%Resp:RECHARGE_DETAIL_DETAILED:actions:tax%,\"-\")",
+            "chargeDuration": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:chargeDuration%),%Resp:RECHARGE_DETAIL_DETAILED:actions:chargeDuration%,\"-\")",
+            "credit": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:credit%),%Resp:RECHARGE_DETAIL_DETAILED:actions:credit%,\"-\")",
+            "csp": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:csp%),%Resp:RECHARGE_DETAIL_DETAILED:actions:csp%,\"-\")",
+            "dataHora": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:actionDateTime%),FORMATDATETIMEGMT(%Resp:RECHARGE_DETAIL_DETAILED:actions:actionDateTime%, \"dd/MM/yyyy HH:mm\", \"America_SaoPaulo\"),\"-\")",
+            "debit": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:debit%),%Resp:RECHARGE_DETAIL_DETAILED:actions:debit%,\"-\")",
+            "description": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:description%),%Resp:RECHARGE_DETAIL_DETAILED:actions:description%,\"-\")",
+            "destinationAreaCode": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:destination:geographicAreaCode%),%Resp:RECHARGE_DETAIL_DETAILED:actions:destination:geographicAreaCode%,\"-\")",
+            "destinationNumber": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:destination:networkNumber%),CONCAT(%Resp:RECHARGE_DETAIL_DETAILED:actions:destination:geographicAreaCode%,%Resp:RECHARGE_DETAIL_DETAILED:actions:destination:networkNumber%),\"-\")",
+            "destinationType": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:destination:type%),%Resp:RECHARGE_DETAIL_DETAILED:actions:destination:type%,\"-\")",
+            "expirationDate": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:expirationDate%),FORMATDATETIMEGMT(%Resp:RECHARGE_DETAIL_DETAILED:actions:expirationDate%, \"dd/MM/yyyy HH:mm\", \"America_SaoPaulo\"),\"-\")",
+            "name": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:name%),%Resp:RECHARGE_DETAIL_DETAILED:actions:name%,\"-\")",
+            "period": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:period%),%Resp:RECHARGE_DETAIL_DETAILED:actions:period%,\"-\")",
+            "serviceIdentifier": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:serviceIdentifier%),%Resp:RECHARGE_DETAIL_DETAILED:actions:serviceIdentifier%,\"-\")",
+            "sourceType": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:source:sourceType%),%Resp:RECHARGE_DETAIL_DETAILED:actions:source:sourceType%,\"-\")",
+            "trafficKbyte": "-",
+            "type": "=IF(ISNOTBLANK(%HTTP-ExtractDetailed:Report:detail:events:type%),%HTTP-ExtractDetailed:Report:detail:events:type%,\"-\")",
+            "value": "=IF(ISNOTBLANK(%Resp:RECHARGE_DETAIL_DETAILED:actions:value%),%Resp:RECHARGE_DETAIL_DETAILED:actions:value%,\"-\")"
+        },
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Loop Block",
+    "Name": "LBRechargeDetail",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/pan/DetailedExtract/Procedure/LBRechargeDetail"
+}
