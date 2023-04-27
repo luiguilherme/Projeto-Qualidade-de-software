@@ -11,8 +11,8 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "endDateTime": "=TODAY()",
-            "startDateTime": "=ADDDAY(TODAY(),%daysValue%*-1)"
+            "endDateTime": "=CONCAT(FORMATDATETIMEGMT(TOSTRING(TODAY()),\"America/Sao_Paulo\",\"yyyy-MM-dd\"),'T23:59:59'))",
+            "startDateTime": "=CONCAT(FORMATDATETIMEGMT(TOSTRING(ADDDAY(TODAY(),%daysValue%*-1)),\"America/Sao_Paulo\",\"yyyy-MM-dd\"),'T00:00:00')"
         },
         "executionConditionalFormula": "%daysValue% > 0",
         "failOnStepError": true,
