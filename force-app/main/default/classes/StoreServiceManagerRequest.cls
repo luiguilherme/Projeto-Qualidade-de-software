@@ -344,7 +344,7 @@ public with sharing class StoreServiceManagerRequest {
                 Integer hours = Integer.valueOf(Math.floor(minutes / 60));
                 
                 seconds = Math.mod(seconds, 60);
-                minutes = Math.mod(((seconds >= 30) ? minutes + 1 : minutes), 60);
+                minutes = Math.mod(minutes, 60);
                 hours = Math.mod(hours, 24);
                 
                 elapsedTime = (

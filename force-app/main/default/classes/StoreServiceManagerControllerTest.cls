@@ -190,6 +190,37 @@ public with sharing class StoreServiceManagerControllerTest {
     }
 
     @IsTest
+    public static void  loadStoreServiceManagerTest() {
+        User userTest = [
+            SELECT id 
+            FROM User 
+            WHERE UserName = 'ssmgssvssf@ssmgssvssf.com' 
+            LIMIT 1
+        ];
+
+        System.runAs(userTest) {
+            Test.startTest();
+                Test.setMock(HttpCalloutMock.class, new PointOfServiceCalloutMock());
+
+                Map<String, Object> mapTest = StoreServiceManagerController.loadStoreServiceManager();
+            Test.stopTest();
+
+            User attendant = (User) mapTest.get('attendant');
+
+            System.assertEquals('307', attendant.StoreCode__c);
+
+            Boolean isPartnerCommunityLicenseTest = (Boolean) mapTest.get('partnerCommunityLicense');
+
+            System.assertEquals(false, isPartnerCommunityLicenseTest);
+            
+            Map<String, Object> mapParamsTest = (Map<String, Object>) mapTest.get('params');
+
+            System.assertEquals(true, mapParamsTest.get('viewFieldService'));
+            System.assertEquals(15, mapParamsTest.get('timeAutomaticTicketCall'));
+        }
+    }
+
+    @IsTest
     public static void fetchPointOfServiceTest() {
         User userTest = [
             SELECT id 
@@ -258,13 +289,11 @@ public with sharing class StoreServiceManagerControllerTest {
                 Map<String, Object> mapInformationStatusTest = StoreServiceManagerController.fetchInformationStatus();
             Test.stopTest();
 
-            String jsonInformationStatus = (String) mapInformationStatusTest.get('success');
+            StoreServiceManagerTO.PositionInformationStatus informationStatus = (StoreServiceManagerTO.PositionInformationStatus) 
+                mapInformationStatusTest.get('success');
 
-            List<StoreServiceManagerResponse.InformationStatus> ltInformationStatus = (List<StoreServiceManagerResponse.InformationStatus>) 
-                JSON.deserialize(jsonInformationStatus, List<StoreServiceManagerResponse.InformationStatus>.class);
-
-            System.assertEquals('02', ltInformationStatus[0].O_ST_POSICAO_ATENDIMENTO);
-            System.assertEquals('D', ltInformationStatus[0].O_ST_STATUS);
+            System.assertEquals('02', informationStatus.workPositionId);
+            System.assertEquals('D', informationStatus.statusPosition);
         }
     }
 
@@ -284,13 +313,11 @@ public with sharing class StoreServiceManagerControllerTest {
                 Map<String, Object> mapInformationAttendanceTest = StoreServiceManagerController.fetchInformationAttendance();
             Test.stopTest();
 
-            String jsonInformationAttendance = (String) mapInformationAttendanceTest.get('success');
+            StoreServiceManagerTO.AttendanceInformationStatus informationAttendance = (StoreServiceManagerTO.AttendanceInformationStatus) 
+                mapInformationAttendanceTest.get('success');
 
-            List<StoreServiceManagerResponse.InformationAttendance> ltInformationAttendance = (List<StoreServiceManagerResponse.InformationAttendance>) 
-                JSON.deserialize(jsonInformationAttendance, List<StoreServiceManagerResponse.InformationAttendance>.class);
-
-            System.assertEquals('SSM17', ltInformationAttendance[0].O_ST_SENHA);
-            System.assertEquals('2', ltInformationAttendance[0].O_TP_STATUS);
+            System.assertEquals('SSM17', informationAttendance.ticketId);
+            System.assertEquals('2', informationAttendance.statusAttendance);
         }
     }
 

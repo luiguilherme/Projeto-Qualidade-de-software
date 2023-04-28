@@ -35,7 +35,7 @@
                     let hours = Math.floor(minutes / 60);
 
                     seconds = (seconds % 60);
-                    minutes = (((seconds >= 30) ? minutes + 1 : minutes) % 60);
+                    minutes = (minutes % 60);
                     hours = (hours % 24);
 
                     elapsedTime = (

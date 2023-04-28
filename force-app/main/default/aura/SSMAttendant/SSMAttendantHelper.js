@@ -165,12 +165,12 @@
     restart : function(component, forceService) {
         let ltWorkPosition = component.get("v.ltWorkPosition");
         let workPositionId = component.get("v.workPositionId");
-        let serviceInformation = component.get("v.serviceInformation");
+        let attendanceInformationStatus = component.get("v.attendanceInformationStatus");
         let pauseReasonId = "";
         let isPaused = false;
         
-        if (serviceInformation && serviceInformation.pauseReasonId) {
-            pauseReasonId = serviceInformation.pauseReasonId;
+        if (attendanceInformationStatus && attendanceInformationStatus.pauseReasonId) {
+            pauseReasonId = attendanceInformationStatus.pauseReasonId;
             isPaused = true;
 
             if (pauseReasonId === "9999") {

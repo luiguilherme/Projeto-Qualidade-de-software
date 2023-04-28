@@ -113,13 +113,15 @@ public with sharing class StoreServiceManagerTO {
         public String notes {get; set;}
     }
 
-    public class ServiceInformation {
+    public class PositionInformationStatus {
         @AuraEnabled
         public String workPositionId {get; set;}
 
         @AuraEnabled
         public String statusPosition {get; set;}
-
+	}
+    
+    public class AttendanceInformationStatus {
         @AuraEnabled
         public String pauseReasonId {get; set;}
 

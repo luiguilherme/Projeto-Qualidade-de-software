@@ -7,12 +7,13 @@
 			"hasPermissionSetToAccess",
 			{},
 			(returnValue) => {
-				var errorMessage = "";
+				let errorMessage = "";
 
 				if (returnValue) {
 					this.loadStoreServiceManager(component);
 
 				} else {
+					// Not Permission Set
 					errorMessage = 624;
 				}
 
@@ -39,36 +40,117 @@
 			"loadStoreServiceManager",
 			{},
 			(returnValue) => {
-				var errorMessage = "";
+				let errorMessage = "";
 
 				if (returnValue["attendant"]) {
 					let attendant = returnValue["attendant"];
                     let ltWorkPosition = returnValue["workPositionsList"];
 					let partnerCommunityLicense = returnValue["partnerCommunityLicense"];
 					let params = returnValue["params"];
-					let serviceInformation = returnValue["serviceInformation"];
-
-					let workPositionId = "";
 
 					component.set("v.attendant", attendant);
                     component.set("v.ltWorkPosition", ltWorkPosition);
 					component.set("v.partnerCommunityLicense", partnerCommunityLicense);
 					component.set("v.params", params);
-					component.set("v.serviceInformation", serviceInformation);
 
-					if (serviceInformation &&
-						(serviceInformation.statusPosition === "A" && serviceInformation.workPositionId)
-					) {
-						workPositionId = serviceInformation.workPositionId;
-					}
+					this.getInformationStatus(component);
 
-					component.set("v.workPositionId", workPositionId);
-
-					this.gotoPageOnInit(component);
-
-				} else if (returnValue["error"]) {
+				} else {
 					errorMessage = returnValue["error"];
+
+					this.gotoPageOnInit(component)
 				}
+
+				this.afterCallAction(component, errorMessage);
+			},
+			(exceptions) => {
+				try {
+					this.afterCallAction(component, exceptions[0].message);
+
+				} catch (ex) {
+					// Error loading component
+					this.afterCallAction(component, 601);
+				}
+			}
+		);
+	},
+
+	getInformationStatus : function(component) {
+		this.beforeCallAction(component);
+
+		LightningUtil.callApex(
+			component,
+			"fetchInformationStatus",
+			{},
+			(returnValue) => {
+				let errorMessage = "";
+				let gotoPageInit = true;
+
+				if (returnValue["success"]) {
+					let positionInformationStatus = returnValue["success"];
+
+					if (positionInformationStatus) {
+						if (positionInformationStatus.statusPosition === "A") {
+							let workPositionId = "";
+
+
+							if (positionInformationStatus.workPositionId) {
+								workPositionId = positionInformationStatus.workPositionId;
+							}
+
+							component.set("v.workPositionId", workPositionId);
+
+							if (workPositionId) {
+								gotoPageInit = false;
+								
+								this.getInformationAttendance(component);
+							}
+
+						} else if (positionInformationStatus.statusPosition === "I") {
+							errorMessage = $A.get("$Label.c.StoreServiceManagerErrorInactiveUserGSS");
+							gotoPageInit = false;
+
+							component.set("v.attendant", {});
+							component.set("v.ltWorkPosition", []);
+						}
+					}
+				}
+				
+				if (gotoPageInit) {
+					this.gotoPageOnInit(component);
+				}
+
+				this.afterCallAction(component, errorMessage);
+			},
+			(exceptions) => {
+				try {
+					this.afterCallAction(component, exceptions[0].message);
+
+				} catch (ex) {
+					// Error loading component
+					this.afterCallAction(component, 601);
+				}
+			}
+		);
+	},
+
+	getInformationAttendance : function(component) {
+		this.beforeCallAction(component);
+
+		LightningUtil.callApex(
+			component,
+			"fetchInformationAttendance",
+			{},
+			(returnValue) => {
+				let attendanceInformationStatus = {};
+
+				if (returnValue["success"]) {
+					attendanceInformationStatus = returnValue["success"];
+				}
+				
+				component.set("v.attendanceInformationStatus", attendanceInformationStatus);
+
+				this.gotoPageOnInit(component);
 
 				this.afterCallAction(component, errorMessage);
 			},
@@ -89,9 +171,9 @@
 		let gotoPage = "homePage";
 		let serviceTicket = {};
 
-		let serviceInformation = component.get("v.serviceInformation");
+		let attendanceInformationStatus = component.get("v.attendanceInformationStatus");
 
-		if (workPositionId && serviceInformation && serviceInformation.ticketId) {
+		if (workPositionId && attendanceInformationStatus && attendanceInformationStatus.ticketId) {
 			let lsSSMTicketInfo = LightningUtil.getItemLocalStorage("SSMTicketInfo", "TICKET");
 
 			gotoPage = "servicePage";
@@ -106,25 +188,25 @@
 					
 				}
 
-				if (SSMTicketInfo && SSMTicketInfo.ticketId && SSMTicketInfo.ticketId === serviceInformation.ticketId) {
+				if (SSMTicketInfo && SSMTicketInfo.ticketId && SSMTicketInfo.ticketId === attendanceInformationStatus.ticketId) {
 					serviceTicket = SSMTicketInfo;
 				}
 			}
 
 			if (Object.keys(serviceTicket).length === 0) {
 				serviceTicket = {
-					workPositionId: serviceInformation.workPositionId, 
-					ticketId: serviceInformation.ticketId, 
-					customerName: serviceInformation.customerName, 
-					customerAlias: serviceInformation.customerName, 
-					customerCellPhone: serviceInformation.customerCellPhone, 
-					customerDocument: serviceInformation.customerDocument, 
-					segmentation: serviceInformation.segmentationId, 
-					segmentationName: serviceInformation.segmentationName, 
-					waitTime: serviceInformation.waitTime, 
-					startTime: serviceInformation.startTime, 
-					duration: serviceInformation.duration, 
-					serviceName: serviceInformation.serviceName 
+					workPositionId: attendanceInformationStatus.workPositionId, 
+					ticketId: attendanceInformationStatus.ticketId, 
+					customerName: attendanceInformationStatus.customerName, 
+					customerAlias: attendanceInformationStatus.customerName, 
+					customerCellPhone: attendanceInformationStatus.customerCellPhone, 
+					customerDocument: attendanceInformationStatus.customerDocument, 
+					segmentation: attendanceInformationStatus.segmentationId, 
+					segmentationName: attendanceInformationStatus.segmentationName, 
+					waitTime: attendanceInformationStatus.waitTime, 
+					startTime: attendanceInformationStatus.startTime, 
+					duration: attendanceInformationStatus.duration, 
+					serviceName: attendanceInformationStatus.serviceName 
 
 				};
 			}
@@ -141,6 +223,7 @@
 	gotoHomePage : function(component) {
 		LightningUtil.removeItemLocalStorage("SSMTicketInfo");
 		
+		component.set("v.attendanceInformationStatus", {});
 		component.set("v.serviceTicket", {});
 
 		component.set("v.homePage", true);
@@ -269,10 +352,6 @@
 
 			case 625:
 				errorMessage = $A.get("$Label.c.StoreServiceManagerTicketsListIsEmpty");
-				break;
-
-			case 626:
-				errorMessage = $A.get("$Label.c.StoreServiceManagerErrorInactiveUserGSS");
 				break;
 
 			default:
