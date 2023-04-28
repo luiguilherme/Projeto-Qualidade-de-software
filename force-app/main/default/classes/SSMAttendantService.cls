@@ -23,6 +23,10 @@ public with sharing class SSMAttendantService {
         return (SSMAttendantEngine.endService(workPositionId));
     }
 
+    public static Map<String, Object> forceRestartService(String workPositionId) {
+        return (SSMAttendantEngine.forceRestartService(workPositionId));
+    }
+    
     public static Map<String, Object> pauseService(StoreServiceManagerTO.ItemPicklistValue pauseReason) {
         return (SSMAttendantEngine.pauseService(pauseReason));
     }

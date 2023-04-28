@@ -1,29 +1,49 @@
-public with sharing class OperationalInformationsCallout {
+public with sharing class QueueInformationAttendanceCallout {
     private static final Boolean API_INTEGRATION = true;
 
-    private static final String WEBSERVICE_NAME = 'OperationalInformationsCallout';
+    private static final String WEBSERVICE_NAME = 'QueueInformationAttendanceCallout';
     private static final Integer CODE_HTTP_SUCCESS = 200;
-
+    
     private static final String ERROR_DOMAIN_GSS = 'GSS';
-    private static final String[] ERROR_CODES_GSS = new String[] {'1','15','52','53','54','98','99'};    
-    private static final Integer ERROR_WEBSERVICE_NOTFOUND = 600;    
+    private static final String[] ERROR_CODES_GSS = new String[] {'1','15','52','53','54','98','99'};
+    private static final Integer ERROR_WEBSERVICE_NOTFOUND = 600;
     private static final Integer ERROR_INVALID_WEBSERVICE_CONFIGURATION = 604;
+
+    private static final Integer ERROR_NEED_LOGIN_OAM = 603;
 
     public static Map<String, Object> execute() {
         Map<String, Object> mapResult = new Map<String, Object>();
 
         WebService__c wsConfig = Webservice__c.getInstance(WEBSERVICE_NAME);
 
-        Map<String, Object> mapCheck = checkCallout(wsConfig);
+        if (wsConfig == null || !wsConfig.switchedOn__c) {
+            if (wsConfig == null) {
+                mapResult.put('error', ERROR_WEBSERVICE_NOTFOUND);
 
-        if (mapCheck.get('success') != null) {
+            } else {
+                mapResult.put('error', ERROR_INVALID_WEBSERVICE_CONFIGURATION);
+            }
+            
+        } else {
             User attendant = UserDAO.getById(UserInfo.getUserId());
 
+            wsConfig.Endpoint__c = wsConfig.Endpoint__c
+                .replace('{attendantId}', attendant.Login__c);
+                
             wsConfig.Headers__c = ('sub:' + attendant.Login__c);
 
             if (API_INTEGRATION) {
                 HttpClient client = new HttpClient();
-                HttpResponse response = client.get(wsConfig);
+                HttpResponse response;
+
+                try {
+                    response = client.get(wsConfig);   
+
+                } catch (Exception e) {
+                    mapResult.put('error', ERROR_NEED_LOGIN_OAM);  
+                    
+                    return (mapResult);
+                }
 
                 if (response.getStatusCode() == CODE_HTTP_SUCCESS) {
                     mapResult.put('success', response.getBody());
@@ -45,7 +65,7 @@ public with sharing class OperationalInformationsCallout {
                                             
                                         } else {
                                             errorMessage = integrationError.errors[0].message.toLowerCase().capitalize();
-                                        }     
+                                        }
                                     }
                                 }
                             }
@@ -67,61 +87,21 @@ public with sharing class OperationalInformationsCallout {
                         mapResult.put('error', response.getStatusCode());
                     }
                 }
-        
+            
             } else {
                 String response = (
-                    '{\"attendantPauseOptions\": [{\"id\": \"2\", \"name\": \"Banheiro\"},{\"id\": \"19\", \"name\": \"Almoco\"},{\"id\": \"99\", \"name\": \"Encerrar\", \"description\": \"1\"}],' +
-                    '\"businessLines\": [{\"id\": \"1\", \"description\": \"Móvel\", \"name\": \"MOVEL\"}, {\"id\": \"2\", \"description\": \"Fixa\", \"name\": \"FIXA\"}],' +
-                    '\"quittingReasons\": [{\"id\": \"QR1\", \"description\": \"Retornará em outro horário / dia\"}, {\"id\": \"QR2\", \"description\": \"Cliente desistiu da compra\"}],'+
-                    '\"interactions\": [{\"id\": \"705\", \"name\": \"Alteração Cadastral - TV\", \"businessLine\": {\"name\": \"TV\"}},'+
-                    '{\"id\": \"728\", \"name\": \"Cancelamento - Fixa\", \"businessLine\": {\"name\": \"FIXA\"}}]}'
-                    );
+                    '[{\"O_TP_STATUS\":\"2\",\"O_ST_STATUS\":\"EM ATENDIMENTO\",\"O_ST_SENHA\":\"SSM17\",' +
+                    '\"O_CD_SEGMENTACAO_CLIENTE\":\"4\",\"O_ST_SEGMENTACAO_CLIENTE\":\"N Cliente\",' +
+                    '\"O_DT_TEMPO_ESPERA\":\"13/04/2023 00:04:25\",\"O_DT_TEMPO_ATENDIMENTO\":\"13/04/2023 00:03:33\",' + 
+                    '\"O_ST_DDD\":\"81\",\"O_ST_TELEFONE\":\"982925763\",\"O_ST_DESCRICAO\":\"Recargas\",' + 
+                    '\"O_TP_TIPO\":null,\"O_DT_HORA_AGENDAMENTO\":\"14:05:00\",\"O_CD_AGENDAMENTO\":\"1234\",' + 
+                    '\"O_ST_NOME\":\"Cliente Teste\",\"O_ST_CPF\":\"12345678998\"}]'        
+                );
 
                 mapResult.put('success', response);
             }
-
-            if (mapResult.get('success') != null) {
-                Decimal expirationHours = (
-                    (wsConfig.Validate__c == null || wsConfig.Validate__c == 0) 
-                    ? 24 
-                    : wsConfig.Validate__c
-                );
-
-                wsConfig.Headers__c = '';
-                wsConfig.ExpireIn__c = Date.today().addDays(Integer.valueOf(expirationHours / 24));
-
-                update wsConfig;
-            }
-
-        } else {
-            for (String key : mapCheck.keySet()) {
-                mapResult.put(key, mapCheck.get(key));
-            }
         }
-
+        
         return (mapResult);
-    }
-
-    private static Map<String, Object> checkCallout(WebService__c wsConfig) {
-        Map<String, Object> mapCheck = new Map<String, Object>();
-
-        if (wsConfig == null || !wsConfig.switchedOn__c) {
-            if (wsConfig == null) {
-                mapCheck.put('error', ERROR_WEBSERVICE_NOTFOUND);
-
-            } else {
-                mapCheck.put('error', ERROR_INVALID_WEBSERVICE_CONFIGURATION);
-            }
-
-        } else {
-            if (wsConfig.ExpireIn__c == null || wsConfig.ExpireIn__c < Date.today()) {
-                mapCheck.put('success', CODE_HTTP_SUCCESS);
-
-            } else {
-                mapCheck.put('uptodate', CODE_HTTP_SUCCESS);
-            }
-        }
-
-        return (mapCheck);
     }
 }

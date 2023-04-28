@@ -1,12 +1,6 @@
 ({
 	doInit : function(component) {
-        /* Context for future improvements
-        let serviceTicket = component.get("v.serviceTicket");
 
-        if (serviceTicket.giveUpReasonDialog) {
-            component.set("v.isOpenGiveUpDialog", true);
-        }
-        */
     },
 
     recall : function(component, event, helper) {
@@ -126,7 +120,7 @@
     finish : function(component) {
         let serviceTicket = component.get("v.serviceTicket");
 
-        this.showErrorMessage("");
+        this.beforeCallAction();
 
         if (!serviceTicket.customerName ||
             !serviceTicket.customerCellPhone ||
@@ -166,10 +160,10 @@
     confirmService : function(component, event, helper) {
         var serviceTicket = component.get("v.serviceTicket");
 
-        this.showErrorMessage("");
+        this.beforeCallAction();
 
         if (!serviceTicket.activities) {
-            this.showErrorMessage($A.get("$Label.c.RequiredField"));
+            this.afterCallAction($A.get("$Label.c.RequiredField"));
 
             return;
         }
@@ -178,7 +172,7 @@
             let regex = /^[A-Za-z0-9 .,]+$/;
 
             if (!regex.test(serviceTicket.notes)) {
-                this.showErrorMessage($A.get("$Label.c.StoreServiceManagerSpecialCharacterNotAllowedNotes"));
+                this.afterCallAction($A.get("$Label.c.StoreServiceManagerSpecialCharacterNotAllowedNotes"));
 
                 return;
             }
@@ -187,8 +181,6 @@
         serviceTicket.giveUpReason = "";
 
         component.set("v.serviceTicket", serviceTicket);
-
-        this.beforeCallAction();
 
         LightningUtil.callApex(
             component,

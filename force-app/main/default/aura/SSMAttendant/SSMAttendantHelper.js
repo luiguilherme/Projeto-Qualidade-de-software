@@ -22,12 +22,19 @@
         let segmentLabel = $A.get("$Label.c.StoreServiceManagerOwnStore").toUpperCase().replace("Ó", "O");
         let segmentStore = attendant.StoreSegment__c.toUpperCase().replace("Ó", "O");
 
-        component.set("v.isOwnerStore", segmentStore === segmentLabel);
+        component.set("v.isOwnerStore", (segmentStore === segmentLabel));
 
         let workPositionId = component.get("v.workPositionId");
 
         if (workPositionId) {
-            this.restart(component);
+            let forceRestart = component.get("v.forceRestart");
+
+            if (forceRestart) {
+                this.forceRestartService(component);
+                
+            } else {
+                this.restart(component, false);
+            }
 
         } else {
             this.getPickListWorkPositions(component, true, "");
@@ -118,42 +125,6 @@
                 let errorMessage = "";
 
                 if (returnValue["success"]) {
-                    if (method === "startService") {
-                        let attendant = component.get("v.attendant");
-                        let windowName = window.name;
-                        
-                        if (!windowName) {
-                            windowName = (
-                                $A.get("$Label.c.StoreServiceManagerTicketService") + " | " + 
-                                $A.get("$Label.c.Attendant") + ": " + attendant.Login__c + " - " +
-                                attendant.Name
-                            );
-
-                            window.name = windowName;
-                        }
-
-                        /* 
-                            Context for future improvements
-							Add openManualServiceDialog to the SSMAttendantInfo structure to use to open 
-                            the Manual Service dialog.
-
-							openedManualServiceDialog: ""
-						*/
-
-                        LightningUtil.setItemLocalStorage(
-                            "SSMAttendantInfo", 
-                            JSON.stringify({
-                                windowName: windowName, 
-                                attendantId: attendant.Login__c, 
-                                storeId: attendant.StoreCode__c, 
-                                workPositionId: workPositionId,
-                                date: (new Date().toLocaleDateString()),
-                                time: (new Date().toLocaleTimeString())
-                            }), 
-                            "ATTENDANT"
-                        );
-                    }
-
                     this.notifyStoreServiceManager({type: "InService", value: true});
                     this.notifySSMTickets(true);
 
@@ -183,7 +154,7 @@
 
     start : function(component, thereAreTickets) {
         component.set("v.pauseReasonId", "");
-
+        
         LightningUtil.removeItemLocalStorage("SSMPauseInfo");
         
         this.notifySSMHomeOperations(thereAreTickets);
@@ -191,37 +162,96 @@
         this.updateControls(component, this.Mode.Started);
     },
 
-    restart : function(component) {
+    restart : function(component, forceService) {
+        let ltWorkPosition = component.get("v.ltWorkPosition");
         let workPositionId = component.get("v.workPositionId");
+        let serviceInformation = component.get("v.serviceInformation");
+        let pauseReasonId = "";
         let isPaused = false;
         
-        let lsSSMPauseInfo = LightningUtil.getItemLocalStorage("SSMPauseInfo", "PAUSE");
+        if (serviceInformation && serviceInformation.pauseReasonId) {
+            pauseReasonId = serviceInformation.pauseReasonId;
+            isPaused = true;
 
-        if (lsSSMPauseInfo) {
-            let SSMPauseInfo;
+            if (pauseReasonId === "9999") {
+                let lsSSMPauseInfo = LightningUtil.getItemLocalStorage("SSMPauseInfo", "PAUSE");
 
-            try {
-                SSMPauseInfo = JSON.parse(lsSSMPauseInfo);
+                if (lsSSMPauseInfo) {
+                    let attendant = component.get("v.attendant");
+                    let SSMPauseInfo;
+        
+                    try {
+                        SSMPauseInfo = JSON.parse(lsSSMPauseInfo);
+        
+                    } catch (error) {
+                        
+                    }
 
-            } catch (error) {
-
-            }
-
-            if (SSMPauseInfo && (SSMPauseInfo.date && SSMPauseInfo.date === (new Date().toLocaleDateString()))) {
-                isPaused = true;
-
-                if (SSMPauseInfo.pauseReason && SSMPauseInfo.pauseReason.value) {
-                    component.set("v.pauseReasonId", SSMPauseInfo.pauseReason.value);
+                    if (SSMPauseInfo && 
+                        SSMPauseInfo.attendantId === attendant.StoreCode__c && 
+                        SSMPauseInfo.workPositionId === workPositionId && 
+                        (SSMPauseInfo.date && SSMPauseInfo.date === (new Date().toLocaleDateString())) && 
+                        (SSMPauseInfo.pauseReason && SSMPauseInfo.pauseReason.value)
+                    ) {  
+                        pauseReasonId = SSMPauseInfo.pauseReason.value;
+                    }
                 }
             }
         }
 
-        component.set("v.ltWorkPosition", [{label: workPositionId, value: workPositionId}]);
+        component.set("v.pauseReasonId", pauseReasonId);
 
+        if (!ltWorkPosition || ltWorkPosition.length == 0) {
+            ltWorkPosition = [{label: workPositionId, value: workPositionId}];
+
+            component.set("v.ltWorkPosition", ltWorkPosition);
+        }
+        
         this.updateControls(component, ((isPaused) ? this.Mode.Paused : this.Mode.Started));
         this.getPickListAttendantPauseOptions(component);
 
         component.set("v.restart", !isPaused);
+
+        // Force updates
+        if (forceService && !isPaused) {
+            this.update(component);
+        }
+    },
+
+    forceRestartService : function(component) {
+        var workPositionId = component.get("v.workPositionId");
+
+        component.set("v.forceRestart", false);
+
+        this.beforeCallAction();
+
+        LightningUtil.callApex(
+            component,
+            "forceRestartService",
+            {workPositionId: workPositionId},
+            (returnValue) => {
+                let errorMessage = "";
+
+                if (returnValue["success"]) {
+                    this.restart(component, true);
+
+                } else {
+                    errorMessage = returnValue["error"];
+
+                    this.ready(component);
+                }
+
+                this.afterCallAction(errorMessage);
+            },
+            (exceptions) => {
+                try {
+                    this.afterCallAction(exceptions[0].message);
+
+                } catch (ex) {
+                    this.afterCallAction(601);
+                }
+            }
+        );
     },
 
     cancelPause : function(component) {
@@ -314,11 +344,16 @@
                             
                         this.notifySSMTickets(false);
 
+                        let attendant = component.get("v.attendant");
+                        let workPositionId = component.get("v.workPositionId");
+
                         LightningUtil.setItemLocalStorage(
                             "SSMPauseInfo", 
                             JSON.stringify({
+                                attendantId: attendant.StoreCode__c, 
+                                workPositionId: workPositionId, 
                                 pauseReason: selectedPauseReason, 
-                                date: (new Date().toLocaleDateString()),
+                                date: (new Date().toLocaleDateString()), 
                                 time: (new Date().toLocaleTimeString())
                             }),
                             "PAUSE"
@@ -392,8 +427,8 @@
         }
     },
 
-    finish : function(component) {
-        LightningUtil.removeItemLocalStorage("SSMTicketInfo;SSMPauseInfo;SSMAttendantInfo");
+    finish : function(component) {       
+        LightningUtil.removeItemLocalStorage("SSMTicketInfo;SSMPauseInfo");
         
         component.set("v.ltWorkPosition", []);
         component.set("v.workPositionId", "");

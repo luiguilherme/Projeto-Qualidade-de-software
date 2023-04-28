@@ -46,51 +46,27 @@
                     let ltWorkPosition = returnValue["workPositionsList"];
 					let partnerCommunityLicense = returnValue["partnerCommunityLicense"];
 					let params = returnValue["params"];
-					
+					let serviceInformation = returnValue["serviceInformation"];
+
+					let workPositionId = "";
+
 					component.set("v.attendant", attendant);
                     component.set("v.ltWorkPosition", ltWorkPosition);
 					component.set("v.partnerCommunityLicense", partnerCommunityLicense);
 					component.set("v.params", params);
+					component.set("v.serviceInformation", serviceInformation);
 
-					component.set("v.workPositionId", "");
-
-					// Component auto-recovery after browser updates
-					let lsSSMAttendantInfo = LightningUtil.getItemLocalStorage("SSMAttendantInfo", "ATTENDANT");
-
-					if (lsSSMAttendantInfo) {
-						let SSMAttendantInfo;
-
-						try {
-							SSMAttendantInfo = JSON.parse(lsSSMAttendantInfo);
-
-						} catch (error) {
-
-						}
-
-						/* 
-							Removed. Strategy for not performing self-recovery when duplicating tabs or, in the Communities 
-							environment, when opening the tab for Account positioning. It works for sessionStorage, but it 
-							doesn't work for localStorage.
-
-							(window.name && SSMAttendantInfo.windowName === window.name) && 
-						*/
-
-						if (SSMAttendantInfo && 
-							(SSMAttendantInfo.attendantId === attendant.Login__c) && 
-							(SSMAttendantInfo.storeId === attendant.StoreCode__c) && 
-							SSMAttendantInfo.workPositionId && 
-							(SSMAttendantInfo.date && SSMAttendantInfo.date === (new Date().toLocaleDateString()))
-						) {
-							component.set("v.workPositionId", SSMAttendantInfo.workPositionId);
-
-						} else {
-							LightningUtil.removeItemLocalStorage("SSMTicketInfo;SSMPauseInfo;SSMAttendantInfo");
-						}
+					if (serviceInformation &&
+						(serviceInformation.statusPosition === "A" && serviceInformation.workPositionId)
+					) {
+						workPositionId = serviceInformation.workPositionId;
 					}
+
+					component.set("v.workPositionId", workPositionId);
 
 					this.gotoPageOnInit(component);
 
-				} else {
+				} else if (returnValue["error"]) {
 					errorMessage = returnValue["error"];
 				}
 
@@ -109,20 +85,48 @@
 	},
 
 	gotoPageOnInit : function(component) {
+		let workPositionId = component.get("v.workPositionId");
 		let gotoPage = "homePage";
-		let SSMTicketInfo = {};
-		let lsSSMTicketInfo = LightningUtil.getItemLocalStorage("SSMTicketInfo", "TICKET");
-		
-		if (lsSSMTicketInfo) {
-			try {
-				SSMTicketInfo = JSON.parse(lsSSMTicketInfo);
+		let serviceTicket = {};
 
-			} catch (error) {
-				
+		let serviceInformation = component.get("v.serviceInformation");
+
+		if (workPositionId && serviceInformation && serviceInformation.ticketId) {
+			let lsSSMTicketInfo = LightningUtil.getItemLocalStorage("SSMTicketInfo", "TICKET");
+
+			gotoPage = "servicePage";
+			
+			if (lsSSMTicketInfo) {
+				let SSMTicketInfo = {};
+
+				try {
+					SSMTicketInfo = JSON.parse(lsSSMTicketInfo);
+
+				} catch (error) {
+					
+				}
+
+				if (SSMTicketInfo && SSMTicketInfo.ticketId && SSMTicketInfo.ticketId === serviceInformation.ticketId) {
+					serviceTicket = SSMTicketInfo;
+				}
 			}
 
-			if (SSMTicketInfo) {
-				gotoPage = "servicePage";
+			if (Object.keys(serviceTicket).length === 0) {
+				serviceTicket = {
+					workPositionId: serviceInformation.workPositionId, 
+					ticketId: serviceInformation.ticketId, 
+					customerName: serviceInformation.customerName, 
+					customerAlias: serviceInformation.customerName, 
+					customerCellPhone: serviceInformation.customerCellPhone, 
+					customerDocument: serviceInformation.customerDocument, 
+					segmentation: serviceInformation.segmentationId, 
+					segmentationName: serviceInformation.segmentationName, 
+					waitTime: serviceInformation.waitTime, 
+					startTime: serviceInformation.startTime, 
+					duration: serviceInformation.duration, 
+					serviceName: serviceInformation.serviceName 
+
+				};
 			}
 		}
 
@@ -130,7 +134,7 @@
 			this.gotoHomePage(component);
 
 		} else {
-			this.gotoServicePage(component, SSMTicketInfo);
+			this.gotoServicePage(component, serviceTicket);
 		}
 	},
 
@@ -267,6 +271,10 @@
 				errorMessage = $A.get("$Label.c.StoreServiceManagerTicketsListIsEmpty");
 				break;
 
+			case 626:
+				errorMessage = $A.get("$Label.c.StoreServiceManagerErrorInactiveUserGSS");
+				break;
+
 			default:
 				errorMessage = $A.get("$Label.c.StoreServiceManagerGenericErrorMessage");
 		}
@@ -274,24 +282,41 @@
 		return errorMessage;
 	},
 
-	showErrorMessage : function(component, errorMessage) {
-		if (typeof errorMessage == "number") {
-			errorMessage = this.getErrorMessage(errorMessage);
+	showErrorMessage : function(component, errorMessage, forceClearErrorMessage) {
+		let errorTryAgainDialog = false;
+
+		if (!errorMessage) {
+			errorMessage = "";
+
+			if (!forceClearErrorMessage) {
+				LightningUtil.removeItemLocalStorage("SSMErrorMessage");
+			}
+
+		} else {
+			if (typeof errorMessage == "number") {		
+				errorTryAgainDialog = (errorMessage === 99 || (errorMessage >= 500 && errorMessage <= 599));
+				errorMessage = this.getErrorMessage(errorMessage);
+			}
 		}
 		
-		component.set("v.errorMessage", errorMessage);
+		if (errorTryAgainDialog && errorMessage) {
+			component.set("v.errorMessageTryAgainDialog", errorMessage);
+
+		} else {
+			component.set("v.errorMessage", errorMessage);
+		}
 	},
 
 	beforeCallAction : function(component) {
 		component.set("v.isLoading", true);
 
-		this.showErrorMessage(component, "");
+		this.showErrorMessage(component, "", true);
 	},
 
 	afterCallAction: function(component, errorMessage) {
 		component.set("v.isLoading", false);
 
-		this.showErrorMessage(component, errorMessage);
+		this.showErrorMessage(component, errorMessage, false);
 	},
 
 	BroadcastNotificationHandler : function(component, event) {       
@@ -301,7 +326,7 @@
 			let jsonSSM = event.getParam("json");
 
 			if  (jsonSSM.type == "showErrorMessage") {
-				this.showErrorMessage(component, jsonSSM.errorMessage);
+				this.showErrorMessage(component, jsonSSM.errorMessage, false);
 
 			} else if  (jsonSSM.type == "beforeCallAction") {
 				this.beforeCallAction(component);
@@ -317,6 +342,20 @@
 
 			} else if (jsonSSM.type == "InService") {
 				component.set("v.InService", jsonSSM.value);
+
+			} else if (jsonSSM.type == "closeTryAgainDialog") {
+				component.set("v.errorMessageTryAgainDialog", "");
+
+			} else if (jsonSSM.type == "forceRestart") {
+				LightningUtil.removeItemLocalStorage("SSMErrorMessage");
+				
+				component.set("v.errorMessageTryAgainDialog", "");
+				component.set("v.forceRestart", true);
+
+				component.set("v.homePage", false);
+				component.set("v.servicePage", false);
+
+				this.gotoHomePage(component);
 			}
 		}
 	},

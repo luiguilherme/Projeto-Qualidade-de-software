@@ -31,7 +31,12 @@ public with sharing class SSMAttendantController {
     public static Map<String, Object> endService(String workPositionId) {
         return (SSMAttendantService.endService(workPositionId));
     }
-   
+
+    @AuraEnabled
+    public static Map<String, Object> forceRestartService(String workPositionId) {
+        return (SSMAttendantService.forceRestartService(workPositionId));
+    }
+
     @AuraEnabled
     public static Map<String, Object> pauseService(StoreServiceManagerTO.ItemPicklistValue pauseReason) {
         return (SSMAttendantService.pauseService(pauseReason));

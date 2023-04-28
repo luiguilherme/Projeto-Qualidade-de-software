@@ -20,27 +20,14 @@ public with sharing class SSMAttendantEngine {
     public static Map<String, Object> getPositionPicklistValues() {
         Map<String, Object> mapResponse = new Map<String, Object>();
 
-        try {        
-            Map<String, Object> mapResponseCallout = StoreServiceManagerService.fetchPointOfService();
-            if (mapResponseCallout.get('WorkPositionsListResponse') != null) {
-                List<StoreServiceManagerResponse.WorkPosition> ltWorkPositionsResponse = 
-                    (List<StoreServiceManagerResponse.WorkPosition>) mapResponseCallout.get('WorkPositionsListResponse');
-                
-                List<StoreServiceManagerTO.ItemPicklistValue> ltWorkPositions = 
-                    StoreServiceManagerService.transformWorkPositionsPickList(ltWorkPositionsResponse);
+        List<StoreServiceManagerTO.ItemPicklistValue> ltWorkPositions = 
+            StoreServiceManagerService.getWorkPositionsPickList();
 
-                if (!ltWorkPositions.isEmpty()) {
-                    mapResponse.put('workPositionsList', ltWorkPositions);
+        if (!ltWorkPositions.isEmpty()) {
+            mapResponse.put('workPositionsList', ltWorkPositions);
 
-                } else {
-                    mapResponse.put('error', ERROR_POSITIONS_LIST_IS_EMPTY);
-                }
-            }
-
-        } catch (Exception e) {
-            mapResponse.clear();
-    
-            mapResponse.put('error', GENERIC_ERROR_MESSAGE);
+        } else {
+            mapResponse.put('error', ERROR_POSITIONS_LIST_IS_EMPTY);
         }
  
         return (mapResponse);
@@ -110,6 +97,16 @@ public with sharing class SSMAttendantEngine {
             mapResponse.put('error', GENERIC_ERROR_MESSAGE);
         }
     
+        return (mapResponse);
+    }
+
+    public static Map<String, Object> forceRestartService(String workPositionId) {
+        Map<String, Object> mapResponse = endService(workPositionId);
+
+        if (mapResponse.get('success') != null) {
+            mapResponse = startService(workPositionId);
+        }
+
         return (mapResponse);
     }
 

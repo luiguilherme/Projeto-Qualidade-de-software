@@ -19,12 +19,24 @@ public with sharing class StoreServiceManagerService {
         return (StoreServiceManagerEngine.fetchPointOfService());
     }
 
-    public static List<StoreServiceManagerTO.ItemPicklistValue> transformWorkPositionsPickList(List<StoreServiceManagerResponse.WorkPosition> ltWorkPositionsResponse) {
-        return (StoreServiceManagerEngine.transformWorkPositionsPickList(ltWorkPositionsResponse));
-    }
-
     public static Map<String, Object> fetchOperationalInformations() {
         return (StoreServiceManagerEngine.fetchOperationalInformations());
+    }
+
+    public static Map<String, Object> fetchInformationStatus() {
+        return (StoreServiceManagerEngine.fetchInformationStatus());
+    }
+    
+    public static Map<String, Object> fetchInformationAttendance() {
+        return (StoreServiceManagerEngine.fetchInformationAttendance());
+    }
+
+    public static List<StoreServiceManagerTO.ItemPicklistValue> getWorkPositionsPickList() {
+        return (StoreServiceManagerEngine.getWorkPositionsPickList(null));
+    }
+
+    public static List<StoreServiceManagerTO.ItemPicklistValue> getWorkPositionsPickList(List<StoreServiceManagerResponse.WorkPosition> ltWorkPositionsResponse) {
+        return (StoreServiceManagerEngine.getWorkPositionsPickList(ltWorkPositionsResponse));
     }
 
     public static StoreServiceManagerTO.ItemPicklistValue getAccountCustomerSegmentGSS(String accountCustomerSegment) {

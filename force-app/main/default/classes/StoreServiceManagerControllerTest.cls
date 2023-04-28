@@ -25,7 +25,8 @@ public with sharing class StoreServiceManagerControllerTest {
             UserRoleId = userRoleTest.Id,
             TimeZoneSidKey = 'America/Sao_Paulo', 
             UserName = 'ssmgssvssf@ssmgssvssf.com',
-            Login__c = 'A024895'
+            Login__c = 'A024895',
+            StoreCode__c = '307'
         );
         
         Database.insert(userTest);
@@ -150,6 +151,24 @@ public with sharing class StoreServiceManagerControllerTest {
                 )
             );
 
+            ltWebservicesSSM.add(
+                new Webservice__c(
+                    Name = 'QueueInformationStatusCallout',
+                    switchedOn__c = true,
+                    Endpoint__c = 'https://api-hml.telefonica.com.br/pointServiceQueueManagement/v1/queueInformation/status/{attendantId}/{pointOfServiceId}',
+                    SubscriptionKey__c = '36cfd2713668489bb3f7d23d042be3a3'
+                )
+            );
+
+            ltWebservicesSSM.add(
+                new Webservice__c(
+                    Name = 'QueueInformationAttendanceCallout',
+                    switchedOn__c = true,
+                    Endpoint__c = 'https://api-hml.telefonica.com.br/pointServiceQueueManagement/v1/queueInformation/attendanceInformation/{attendantId}',
+                    SubscriptionKey__c = '36cfd2713668489bb3f7d23d042be3a3'
+                )
+            );
+
             Database.insert(ltWebservicesSSM);
         }
     }
@@ -168,61 +187,6 @@ public with sharing class StoreServiceManagerControllerTest {
 
             System.assertEquals(false, hasPermissionSetTest);
         }
-    }
- 
-    @IsTest
-    public static void  loadStoreServiceManagerTest() {
-        User userTest = [
-            SELECT id 
-            FROM User 
-            WHERE UserName = 'ssmgssvssf@ssmgssvssf.com' 
-            LIMIT 1
-        ];
-
-        System.runAs(userTest) {
-            Test.startTest();
-                Test.setMock(HttpCalloutMock.class, new PointOfServiceCalloutMock());
-
-                Map<String, Object> mapTest = StoreServiceManagerController.loadStoreServiceManager();
-            Test.stopTest();
-
-            User attendant = (User) mapTest.get('attendant');
-
-            System.assertEquals('307', attendant.StoreCode__c);
-
-            Boolean isPartnerCommunityLicenseTest = (Boolean) mapTest.get('partnerCommunityLicense');
-
-            System.assertEquals(false, isPartnerCommunityLicenseTest);
-            
-            Map<String, Object> mapParamsTest = (Map<String, Object>) mapTest.get('params');
-
-            System.assertEquals(true, mapParamsTest.get('viewFieldService'));
-            System.assertEquals(15, mapParamsTest.get('timeAutomaticTicketCall'));
-        }
-    }
-
-    @IsTest
-    public static void  getParamsTest() {
-        User userTest = [
-            SELECT id 
-            FROM User 
-            WHERE UserName = 'ssmgssvssf@ssmgssvssf.com' 
-            LIMIT 1
-        ];
-
-        System.runAs(userTest) {
-            Map<String, Object> mapParamsTest = StoreServiceManagerController.getParams();
-
-            System.assertEquals(true, mapParamsTest.get('viewFieldService'));
-            System.assertEquals(15, mapParamsTest.get('timeAutomaticTicketCall'));
-        }
-    }
-
-    @IsTest
-    public static void isPartnerCommunityLicenseTest() {
-        Boolean test = StoreServiceManagerController.isPartnerCommunityLicense();
-    
-        System.assertEquals(false, test);
     }
 
     @IsTest
@@ -279,6 +243,58 @@ public with sharing class StoreServiceManagerControllerTest {
     }
 
     @IsTest
+    public static void fetchInformationStatusTest() {
+        User userTest = [
+            SELECT id 
+            FROM User 
+            WHERE UserName = 'ssmgssvssf@ssmgssvssf.com' 
+            LIMIT 1
+        ];
+
+        System.runAs(userTest) {
+            Test.startTest();
+                Test.setMock(HttpCalloutMock.class, new QueueInformationStatusCalloutMock());
+
+                Map<String, Object> mapInformationStatusTest = StoreServiceManagerController.fetchInformationStatus();
+            Test.stopTest();
+
+            String jsonInformationStatus = (String) mapInformationStatusTest.get('success');
+
+            List<StoreServiceManagerResponse.InformationStatus> ltInformationStatus = (List<StoreServiceManagerResponse.InformationStatus>) 
+                JSON.deserialize(jsonInformationStatus, List<StoreServiceManagerResponse.InformationStatus>.class);
+
+            System.assertEquals('02', ltInformationStatus[0].O_ST_POSICAO_ATENDIMENTO);
+            System.assertEquals('D', ltInformationStatus[0].O_ST_STATUS);
+        }
+    }
+
+    @IsTest
+    public static void fetchInformationAttendanceTest() {
+        User userTest = [
+            SELECT id 
+            FROM User 
+            WHERE UserName = 'ssmgssvssf@ssmgssvssf.com' 
+            LIMIT 1
+        ];
+
+        System.runAs(userTest) {
+            Test.startTest();
+                Test.setMock(HttpCalloutMock.class, new QueueInformationAttendanceCalloutMock());
+
+                Map<String, Object> mapInformationAttendanceTest = StoreServiceManagerController.fetchInformationAttendance();
+            Test.stopTest();
+
+            String jsonInformationAttendance = (String) mapInformationAttendanceTest.get('success');
+
+            List<StoreServiceManagerResponse.InformationAttendance> ltInformationAttendance = (List<StoreServiceManagerResponse.InformationAttendance>) 
+                JSON.deserialize(jsonInformationAttendance, List<StoreServiceManagerResponse.InformationAttendance>.class);
+
+            System.assertEquals('SSM17', ltInformationAttendance[0].O_ST_SENHA);
+            System.assertEquals('2', ltInformationAttendance[0].O_TP_STATUS);
+        }
+    }
+
+    @IsTest
     public static void getAccountCustomerSegmentGSSTest() {
         String CUSTOMER_SEGMENT_PLATINUM_IN = 'PLATINUM';
         String CUSTOMER_SEGMENT_PLATINUM_OUT = '1';
@@ -295,5 +311,29 @@ public with sharing class StoreServiceManagerControllerTest {
         
         System.assertEquals(CUSTOMER_SEGMENT_PLATINUM_OUT, segmentPLATINUM.value);
         System.assertEquals(CUSTOMER_SEGMENT_NONE_OUT, segmentNONE.value);
+    }
+
+    @IsTest
+    public static void  getParamsTest() {
+        User userTest = [
+            SELECT id 
+            FROM User 
+            WHERE UserName = 'ssmgssvssf@ssmgssvssf.com' 
+            LIMIT 1
+        ];
+
+        System.runAs(userTest) {
+            Map<String, Object> mapParamsTest = StoreServiceManagerController.getParams();
+
+            System.assertEquals(true, mapParamsTest.get('viewFieldService'));
+            System.assertEquals(15, mapParamsTest.get('timeAutomaticTicketCall'));
+        }
+    }
+
+    @IsTest
+    public static void isPartnerCommunityLicenseTest() {
+        Boolean test = StoreServiceManagerController.isPartnerCommunityLicense();
+    
+        System.assertEquals(false, test);
     }
 }

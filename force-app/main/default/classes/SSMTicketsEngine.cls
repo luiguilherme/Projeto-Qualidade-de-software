@@ -71,11 +71,6 @@ public with sharing class SSMTicketsEngine {
                         serviceTicket.view = '';
                         serviceTicket.workPositionId = '';
                         serviceTicket.displayAlert = false;
-
-                        /* Context for future improvements
-                        serviceTicket.giveUpReasonDialog = '';
-                        */
-                        
                         serviceTicket.ticketId = ticket.id;
                         serviceTicket.customerSpecialNeeds = customerSpecialNeeds;
                         serviceTicket.customerPriority = customerPriority;

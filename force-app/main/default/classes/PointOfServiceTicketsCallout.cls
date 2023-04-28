@@ -13,7 +13,7 @@ public with sharing class PointOfServiceTicketsCallout {
     private static final Integer ERROR_INVALID_WEBSERVICE_CONFIGURATION = 604;
     private static final Integer ERROR_TICKETS_LIST_EMPTY = 625;
 
-    public static Map<String,Object> execute() {
+    public static Map<String, Object> execute() {
         Map<String, Object> mapResult = new Map<String, Object>();
         
         WebService__c wsConfig = Webservice__c.getInstance(WEBSERVICE_NAME);
@@ -108,7 +108,7 @@ public with sharing class PointOfServiceTicketsCallout {
         return (mapResult);
     }
 
-    public static Map<String,Object> execute(String scheduleTime, String cellPhone) {
+    public static Map<String, Object> execute(String scheduleTime, String cellPhone) {
         Map<String, Object> mapResult = new Map<String, Object>();
         
         WebService__c wsConfig = Webservice__c.getInstance(WEBSERVICE_NAME);

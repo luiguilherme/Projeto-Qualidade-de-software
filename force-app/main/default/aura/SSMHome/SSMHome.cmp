@@ -9,6 +9,8 @@
     <aura:attribute name="viewFieldService" type="Boolean" default="false" />
     <aura:attribute name="timeAutomaticTicketCall" type="Integer" default="0" />
     <aura:attribute name="restart" type="Boolean" default="false" />
+    <aura:attribute name="forceRestart" type="Boolean" default="false" />
+    <aura:attribute name="serviceInformation" type="Object" default="{}" />
 
     <!-- Handler -->
     <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
@@ -21,7 +23,9 @@
         workPositionId="{! v.workPositionId}"
         ltPauseReason="{! v.ltPauseReason}" 
         pauseReasonId="{! v.pauseReasonId}"
-        restart="{! v.restart}" />
+        restart="{! v.restart}" 
+        forceRestart="{! v.forceRestart}" 
+        serviceInformation="{! v.serviceInformation}" />
 
     <!-- Waiting Customers -->
     <c:SSMTickets
