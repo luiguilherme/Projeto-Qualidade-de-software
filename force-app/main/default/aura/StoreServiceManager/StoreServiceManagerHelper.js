@@ -93,7 +93,6 @@
 						if (positionInformationStatus.statusPosition === "A") {
 							let workPositionId = "";
 
-
 							if (positionInformationStatus.workPositionId) {
 								workPositionId = positionInformationStatus.workPositionId;
 							}
@@ -207,7 +206,6 @@
 					startTime: attendanceInformationStatus.startTime, 
 					duration: attendanceInformationStatus.duration, 
 					serviceName: attendanceInformationStatus.serviceName 
-
 				};
 			}
 		}

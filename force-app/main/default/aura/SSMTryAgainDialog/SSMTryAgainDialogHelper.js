@@ -15,6 +15,77 @@
     },
 
     tryAgain : function(component, event, helper) {
+        this.beforeCallAction();
+
+		LightningUtil.callApex(
+			component,
+			"fetchInformationStatus",
+			{},
+			(returnValue) => {
+                let positionInformationStatus = returnValue["success"];
+                let workPositionId = component.get("v.workPositionId"); 
+
+                if (!positionInformationStatus || 
+                    positionInformationStatus.statusPosition != "A" || 
+                    positionInformationStatus.workPositionId != workPositionId
+                ) {
+                    component.set("v.disableButtonTryAgain", true);
+
+                } else {
+                    let pageOperation = component.get("v.pageOperation");
+
+                    if (pageOperation == "home") {
+                        this.closeTryAgainDialog(component);
+
+                    } else {
+                        this.getInformationAttendance(component);
+                    }
+                }
+
+				this.afterCallAction();
+			},
+			(exceptions) => {
+                component.set("v.disableButtonTryAgain", true);
+            }
+		);
+    },
+
+    backHome : function(component, event, helper) {
+        LightningUtil.removeItemLocalStorage("SSMErrorMessage");
+
+        this.notifyStoreServiceManager({type: "forceRestart"});
+    },
+
+	getInformationAttendance : function(component) {
+		this.beforeCallAction();
+
+		LightningUtil.callApex(
+			component,
+			"fetchInformationAttendance",
+			{},
+			(returnValue) => {
+                let attendanceInformationStatus = returnValue["success"];
+                let serviceTicket = component.get("v.serviceTicket"); 
+
+                if (!attendanceInformationStatus ||
+                    attendanceInformationStatus.statusAttendance != "2" || 
+                    attendanceInformationStatus.ticketId != serviceTicket.ticketId
+                ) {
+                    component.set("v.disableButtonTryAgain", true);
+
+				} else {
+                    this.closeTryAgainDialog(component);
+                }
+				
+				this.afterCallAction();
+			},
+			(exceptions) => {
+                component.set("v.disableButtonTryAgain", true);
+			}
+		);
+	},
+
+    closeTryAgainDialog : function(component) {
         let errorMessage = component.get("v.errorMessage");
         let pageOperation = component.get("v.pageOperation");
 
@@ -26,12 +97,14 @@
 
         this.notifyStoreServiceManager({type: "closeTryAgainDialog"});
     },
+    
+    beforeCallAction : function() {
+		this.notifyStoreServiceManager({type: "beforeCallAction"});
+	},
 
-    backHome : function(component, event, helper) {
-        LightningUtil.removeItemLocalStorage("SSMErrorMessage");
-
-        this.notifyStoreServiceManager({type: "forceRestart"});
-    },
+	afterCallAction: function() {
+		this.notifyStoreServiceManager({type: "afterCallAction", errorMessage: ""});
+	},
 
     notifyStoreServiceManager : function(jsonSSM) {
         this.notitySSM("StoreServiceManager", jsonSSM);
