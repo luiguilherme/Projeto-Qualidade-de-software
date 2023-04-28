@@ -202,13 +202,21 @@ public with sharing class StoreServiceManagerEngine {
 
                         informationAttendance.waitTime = (
                             (ltInformationAttendance[0].O_DT_TEMPO_ESPERA != null) 
-                            ? ltInformationAttendance[0].O_DT_TEMPO_ESPERA.substring(11) 
+                            ? (
+                                (ltInformationAttendance[0].O_DT_TEMPO_ESPERA.contains(' '))
+                                ? ltInformationAttendance[0].O_DT_TEMPO_ESPERA.split(' ')[1]
+                                : ltInformationAttendance[0].O_DT_TEMPO_ESPERA          
+                              )
                             : ''
                         );
 
                         informationAttendance.duration = (
                             (ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO != null) 
-                            ? ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO.substring(11) 
+                            ? (
+                                (ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO.contains(' '))
+                                ? ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO.split(' ')[1]
+                                : ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO          
+                              )
                             : ''
                         );
                         

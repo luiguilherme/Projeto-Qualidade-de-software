@@ -50,7 +50,14 @@ public with sharing class SSMTicketsEngine {
                         customerPriority = ((ticket.customer != null && ticket.customer.priority != null) ? ticket.customer.priority : 2);
                         segmentation = ((ticket.customer != null && ticket.customer.segment.id != null) ? ticket.customer.segment.id : '');
                         segmentationName = ((ticket.customer != null && ticket.customer.segment != null && ticket.customer.segment.name != null) ? ticket.customer.segment.name : '');
-                        waitTime = ((ticket.duration != null && ticket.duration.amount != null) ? ticket.duration.amount.substring(11) : '');
+                        
+                        try {
+                            waitTime = ((ticket.duration != null && ticket.duration.amount != null) ? ticket.duration.amount.substring(11) : '');
+                        
+                        } catch (Exception e) {
+                            waitTime = '';
+                        }                        
+                        
                         service = ((ticket.interaction != null && ticket.interaction.id != null) ? ticket.interaction.id : '');
                         serviceName = ((ticket.interaction != null && ticket.interaction.name != null) ? ticket.interaction.name : '');
                        
