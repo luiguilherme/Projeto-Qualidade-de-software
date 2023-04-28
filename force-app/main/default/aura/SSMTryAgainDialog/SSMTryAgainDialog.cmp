@@ -4,9 +4,13 @@
     <!-- Attributes -->
     <aura:attribute name="pageOperation" type="String" default="" />
     <aura:attribute name="workPositionId" type="String" default="" />
+    <aura:attribute name="newWorkPositionId" type="String" default="" />
     <aura:attribute name="serviceTicket" type="Object" default="{}" />
     <aura:attribute name="errorMessage" type="String" default="" />
     <aura:attribute name="disableButtonTryAgain" type="Boolean" default="false" />
+    <aura:attribute name="disableButtonBackHome" type="Boolean" default="false" />
+    <aura:attribute name="forceInitialPageService" type="Boolean" default="false" />
+    <aura:attribute name="attendanceInformationStatus" type="Object" default="{}" />
 
     <!-- Handler -->
     <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
@@ -48,6 +52,7 @@
                 <lightning:button 
                         variant="brand"
                         label="{! $Label.c.StoreServiceManagerBackHome}"
+                        disabled="{! v.disableButtonBackHome}"
                         onclick="{! c.btnBackHomeClick}" />
             </footer>
         </div>

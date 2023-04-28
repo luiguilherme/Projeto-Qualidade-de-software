@@ -194,18 +194,35 @@
 
 			if (Object.keys(serviceTicket).length === 0) {
 				serviceTicket = {
-					workPositionId: attendanceInformationStatus.workPositionId, 
-					ticketId: attendanceInformationStatus.ticketId, 
-					customerName: attendanceInformationStatus.customerName, 
-					customerAlias: attendanceInformationStatus.customerName, 
-					customerCellPhone: attendanceInformationStatus.customerCellPhone, 
-					customerDocument: attendanceInformationStatus.customerDocument, 
-					segmentation: attendanceInformationStatus.segmentationId, 
-					segmentationName: attendanceInformationStatus.segmentationName, 
-					waitTime: attendanceInformationStatus.waitTime, 
-					startTime: attendanceInformationStatus.startTime, 
-					duration: attendanceInformationStatus.duration, 
-					serviceName: attendanceInformationStatus.serviceName 
+                    type: '',
+                    view: '',
+                    workPositionId: attendanceInformationStatus.workPositionId,
+                    displayAlert: true,
+                    ticketId: attendanceInformationStatus.ticketId,
+                    customerSpecialNeeds: false,
+                    customerPriority: 2,
+                    customerId: '',
+                    customerName: attendanceInformationStatus.customerName,
+                    customerAlias: attendanceInformationStatus.customerName,
+                    customerDocument: attendanceInformationStatus.customerDocument,
+                    customerCellPhone: attendanceInformationStatus.customerCellPhone,
+                    segmentation: attendanceInformationStatus.segmentationId,
+                    segmentationName: attendanceInformationStatus.segmentationName,
+                    activity: '',
+                    protocol: '',
+                    waitTime: attendanceInformationStatus.waitTime,
+                    startTime: attendanceInformationStatus.startTime,
+                    finalTime: '',
+                    duration: attendanceInformationStatus.duration,
+                    service: '',
+                    serviceName: attendanceInformationStatus.serviceName,
+                    category: '',
+                    categoryName: '',
+                    mainDocumentType: '',
+                    documentNumber: '',
+                    giveUpReason: '',
+                    activities: '',
+                    notes: ''
 				};
 			}
 		}
