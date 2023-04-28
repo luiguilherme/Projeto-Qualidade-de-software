@@ -30,7 +30,7 @@
             let forceRestart = component.get("v.forceRestart");
 
             if (forceRestart) {
-                this.forceRestartService(component);
+                this.forceEndService(component);
                 
             } else {
                 this.restart(component, false);
@@ -218,8 +218,8 @@
         }
     },
 
-    forceRestartService : function(component) {
-        var workPositionId = component.get("v.workPositionId");
+    forceEndService : function(component) {
+        let workPositionId = component.get("v.workPositionId");
 
         component.set("v.forceRestart", false);
 
@@ -227,7 +227,43 @@
 
         LightningUtil.callApex(
             component,
-            "forceRestartService",
+            "endService",
+            {"workPositionId": workPositionId},
+            (returnValue) => {
+                let errorMessage = "";
+
+                if (returnValue["success"] ) {
+                    this.forceRestartService(component);
+
+                } else {
+                    component.set("v.workPositionId", "");
+
+                    this.ready(component);
+
+                    errorMessage = returnValue["error"];
+                }
+
+                this.afterCallAction(errorMessage);
+            },
+            (exceptions) => {
+                try {
+                    this.afterCallAction(exceptions[0].message);
+
+                } catch (ex) {
+                    this.afterCallAction(601);
+                }
+            }
+        );
+    },
+
+    forceRestartService : function(component) {
+        var workPositionId = component.get("v.workPositionId");
+
+        this.beforeCallAction();
+
+        LightningUtil.callApex(
+            component,
+            "startService",
             {workPositionId: workPositionId},
             (returnValue) => {
                 let errorMessage = "";
@@ -236,9 +272,11 @@
                     this.restart(component, true);
 
                 } else {
-                    errorMessage = returnValue["error"];
+                    component.set("v.workPositionId", "");
 
                     this.ready(component);
+
+                    errorMessage = returnValue["error"];
                 }
 
                 this.afterCallAction(errorMessage);

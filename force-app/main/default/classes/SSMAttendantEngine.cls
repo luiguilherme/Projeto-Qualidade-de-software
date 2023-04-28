@@ -100,16 +100,6 @@ public with sharing class SSMAttendantEngine {
         return (mapResponse);
     }
 
-    public static Map<String, Object> forceRestartService(String workPositionId) {
-        Map<String, Object> mapResponse = endService(workPositionId);
-
-        if (mapResponse.get('success') != null) {
-            mapResponse = startService(workPositionId);
-        }
-
-        return (mapResponse);
-    }
-
     public static Map<String, Object> pauseService(StoreServiceManagerTO.ItemPicklistValue pauseReason) {
         Map<String, Object> mapResponse = new Map<String, Object>();
 

@@ -12,6 +12,10 @@
             component.set("v.errorMessage", $A.get("$Label.c.StoreServiceManagerErrorEndService"));
         }
 
+        this.getInformationStatus(component);
+    },
+
+	getInformationStatus : function(component) {
         this.beforeCallAction();
 
         LightningUtil.callApex(
