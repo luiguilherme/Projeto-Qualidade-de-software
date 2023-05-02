@@ -23,7 +23,7 @@
         action.setCallback(this, function(response){
             var state = response.getState();
             if(state === "SUCCESS"){
-                component.set('v.addressList', response.getReturnValue());
+                component.set('v.addressList', JSON.parse( JSON.stringify(response.getReturnValue())));
             }
         });
         $A.enqueueAction(action);
