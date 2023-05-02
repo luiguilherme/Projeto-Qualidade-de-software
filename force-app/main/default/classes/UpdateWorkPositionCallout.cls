@@ -9,7 +9,7 @@ public with sharing class UpdateWorkPositionCallout {
     private static final Integer ERROR_WEBSERVICE_NOTFOUND = 600;
     private static final Integer ERROR_INVALID_WEBSERVICE_CONFIGURATION = 604;
 
-    public static Map<String,Object> execute(String workPositionId, Boolean startService) {
+    public static Map<String, Object> execute(String workPositionId, Boolean startService) {
         Map<String, Object> mapResult = new Map<String, Object>();
 
         WebService__c wsConfig = Webservice__c.getInstance(WEBSERVICE_NAME);

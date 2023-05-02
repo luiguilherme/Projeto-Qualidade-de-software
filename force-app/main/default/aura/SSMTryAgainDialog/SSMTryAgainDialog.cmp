@@ -1,0 +1,63 @@
+<aura:component controller="StoreServiceManagerController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" 
+                access="global">
+    <!-- Attributes -->
+    <aura:attribute name="pageOperation" type="String" default="" />
+    <aura:attribute name="workPositionId" type="String" default="" />
+    <aura:attribute name="newWorkPositionId" type="String" default="" />
+    <aura:attribute name="serviceTicket" type="Object" default="{}" />
+    <aura:attribute name="errorMessage" type="String" default="" />
+    <aura:attribute name="displayErrorMessage" type="String" default="" />
+    <aura:attribute name="disableButtonTryAgain" type="Boolean" default="false" />
+    <aura:attribute name="disableButtonBackHome" type="Boolean" default="false" />
+    <aura:attribute name="forceInitialPageService" type="Boolean" default="false" />
+    <aura:attribute name="attendanceInformationStatus" type="Object" default="{}" />
+
+    <!-- Handler -->
+    <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
+
+    <!-- Event -->
+    <aura:registerEvent name="BroadcastNotificationEvent" type="c:BroadcastNotification"/>
+ 
+    <!-- Dialog -->
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                    {! $Label.c.StoreServiceManagerErrorFailedGSS}
+                </h1>
+            </header>
+
+            <div class="slds-modal__content slds-p-around_small slds-text-title slds-text-align_left">
+                <lightning:layout verticalAlign="center">
+                    <lightning:layoutItem flexibility="auto">
+                        <div style="padding-top: 1rem; padding-bottom: 1rem; color: red;">
+                            <!-- span style="padding-right: 0.5rem;">
+                                <lightning:icon iconName="utility:error" alternativeText="Error" title="Error" />
+                            </span -->
+                            
+                            {! v.displayErrorMessage}
+                        </div>
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </div>
+
+            <footer class="slds-modal__footer">
+                <lightning:button 
+                        variant="neutral"
+                        label="{! $Label.c.TryAgain}"
+                        disabled="{! v.disableButtonTryAgain}"
+                        onclick="{! c.btnTryAgainClick}" />
+
+                <lightning:button 
+                        variant="brand"
+                        label="{! $Label.c.StoreServiceManagerBackHome}"
+                        disabled="{! v.disableButtonBackHome}"
+                        onclick="{! c.btnBackHomeClick}" />
+            </footer>
+        </div>
+    </section>
+
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</aura:component>

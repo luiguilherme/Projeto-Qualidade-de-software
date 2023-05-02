@@ -173,4 +173,11 @@ public with sharing class StoreServiceManagerRequestTest {
             System.assertEquals('Closed', request.status);
         }
     }
+
+    @IsTest
+    public static void calculateElapsedTimeTest() {
+        String test = StoreServiceManagerRequest.calculateElapsedTime('16:00:00', '16:30:00');
+    
+        System.assertEquals('00:30:00', test);
+    }
 }

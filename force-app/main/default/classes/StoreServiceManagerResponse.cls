@@ -108,4 +108,27 @@ public with sharing class StoreServiceManagerResponse {
         public String message {get; set;}
         public List<RootError> errors {get; set;}
     }
+
+    public class InformationStatus {
+        public String O_ST_POSICAO_ATENDIMENTO {get; set;}
+        public String O_ST_STATUS {get; set;}
+    }
+    
+    public class InformationAttendance {
+        public String O_TP_STATUS {get; set;}
+        public String O_ST_STATUS {get; set;}
+        public String O_ST_SENHA {get; set;}
+        public String O_CD_SEGMENTACAO_CLIENTE {get; set;}
+        public String O_ST_SEGMENTACAO_CLIENTE {get; set;}
+        public String O_DT_TEMPO_ESPERA {get; set;}
+        public String O_DT_TEMPO_ATENDIMENTO {get; set;}
+        public String O_ST_DDD {get; set;}
+        public String O_ST_TELEFONE {get; set;}
+        public String O_ST_DESCRICAO {get; set;}
+        public String O_TP_TIPO {get; set;}
+        public String O_DT_HORA_AGENDAMENTO {get; set;}
+        public String O_CD_AGENDAMENTO {get; set;}
+        public String O_ST_NOME {get; set;}
+        public String O_ST_CPF {get; set;}
+    }
 }

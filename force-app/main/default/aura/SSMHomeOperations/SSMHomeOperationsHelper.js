@@ -6,25 +6,7 @@
     },
 
 	doInit : function(component) {
-        /* Context for future improvements
-        // Component auto-recovery after browser updates: manual service dialog
-        let lsSSMAttendantInfo = LightningUtil.getItemLocalStorage("SSMAttendantInfo", "ATTENDANT");
-
-        if (lsSSMAttendantInfo) {
-            let SSMAttendantInfo;
-
-            try {
-                SSMAttendantInfo = JSON.parse(lsSSMAttendantInfo);
-
-            } catch (error) {
-
-            }
-
-            if (SSMAttendantInfo && SSMAttendantInfo.openedManualServiceDialog) {
-                this.manualAttendance(component);
-            }
-        }
-        */
+        
     },
 
     activate : function(component, enable) {
@@ -115,26 +97,6 @@
     },
 
     updateOpenedManualServiceDialog : function(component, showDialog) {
-        /* Context for future improvements
-        let SSMAttendantInfo;
-        let lsSSMAttendantInfo = LightningUtil.getItemLocalStorage("SSMAttendantInfo", "ATTENDANT");
-
-        if (lsSSMAttendantInfo) {
-            try {
-                SSMAttendantInfo = JSON.parse(lsSSMAttendantInfo);
-
-            } catch (error) {
-
-            }
-
-            if (SSMAttendantInfo) {
-                SSMAttendantInfo.openedManualServiceDialog = ((showDialog) ? "?" : "");
-                
-                LightningUtil.setItemLocalStorage("SSMAttendantInfo", JSON.stringify(SSMAttendantInfo), "ATTENDANT");
-            }
-        }
-        */
-       
         component.set("v.isOpenManualServiceDialog", showDialog);
     },
 

@@ -11,7 +11,7 @@ public with sharing class PointOfServiceCallout {
 
     private static final Integer ERROR_NEED_LOGIN_OAM = 603;
 
-    public static Map<String,Object> execute() {
+    public static Map<String, Object> execute() {
         Map<String, Object> mapResult = new Map<String, Object>();
 
         WebService__c wsConfig = Webservice__c.getInstance(WEBSERVICE_NAME);

@@ -28,6 +28,21 @@ public with sharing class StoreServiceManagerController {
     }
 
     @AuraEnabled
+    public static Map<String, Object> fetchInformationStatus() {
+        return (StoreServiceManagerService.fetchInformationStatus());
+    }
+    
+    @AuraEnabled
+    public static Map<String, Object> fetchInformationAttendance() {
+        return (StoreServiceManagerService.fetchInformationAttendance());
+    }
+    
+    @AuraEnabled
+    public static List<StoreServiceManagerTO.ItemPicklistValue> getWorkPositionsPickList() {
+        return (StoreServiceManagerEngine.getWorkPositionsPickList(null));
+    }
+    
+    @AuraEnabled
     public static StoreServiceManagerTO.ItemPicklistValue getAccountCustomerSegmentGSS(String accountCustomerSegment) {
         return (StoreServiceManagerService.getAccountCustomerSegmentGSS(accountCustomerSegment));
     }

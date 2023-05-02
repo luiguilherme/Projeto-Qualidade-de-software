@@ -7,12 +7,13 @@
 			"hasPermissionSetToAccess",
 			{},
 			(returnValue) => {
-				var errorMessage = "";
+				let errorMessage = "";
 
 				if (returnValue) {
 					this.loadStoreServiceManager(component);
 
 				} else {
+					// Not Permission Set
 					errorMessage = 624;
 				}
 
@@ -39,59 +40,25 @@
 			"loadStoreServiceManager",
 			{},
 			(returnValue) => {
-				var errorMessage = "";
+				let errorMessage = "";
 
 				if (returnValue["attendant"]) {
 					let attendant = returnValue["attendant"];
                     let ltWorkPosition = returnValue["workPositionsList"];
 					let partnerCommunityLicense = returnValue["partnerCommunityLicense"];
 					let params = returnValue["params"];
-					
+
 					component.set("v.attendant", attendant);
                     component.set("v.ltWorkPosition", ltWorkPosition);
 					component.set("v.partnerCommunityLicense", partnerCommunityLicense);
 					component.set("v.params", params);
 
-					component.set("v.workPositionId", "");
-
-					// Component auto-recovery after browser updates
-					let lsSSMAttendantInfo = LightningUtil.getItemLocalStorage("SSMAttendantInfo", "ATTENDANT");
-
-					if (lsSSMAttendantInfo) {
-						let SSMAttendantInfo;
-
-						try {
-							SSMAttendantInfo = JSON.parse(lsSSMAttendantInfo);
-
-						} catch (error) {
-
-						}
-
-						/* 
-							Removed. Strategy for not performing self-recovery when duplicating tabs or, in the Communities 
-							environment, when opening the tab for Account positioning. It works for sessionStorage, but it 
-							doesn't work for localStorage.
-
-							(window.name && SSMAttendantInfo.windowName === window.name) && 
-						*/
-
-						if (SSMAttendantInfo && 
-							(SSMAttendantInfo.attendantId === attendant.Login__c) && 
-							(SSMAttendantInfo.storeId === attendant.StoreCode__c) && 
-							SSMAttendantInfo.workPositionId && 
-							(SSMAttendantInfo.date && SSMAttendantInfo.date === (new Date().toLocaleDateString()))
-						) {
-							component.set("v.workPositionId", SSMAttendantInfo.workPositionId);
-
-						} else {
-							LightningUtil.removeItemLocalStorage("SSMTicketInfo;SSMPauseInfo;SSMAttendantInfo");
-						}
-					}
-
-					this.gotoPageOnInit(component);
+					this.getInformationStatus(component);
 
 				} else {
 					errorMessage = returnValue["error"];
+
+					this.gotoPageOnInit(component)
 				}
 
 				this.afterCallAction(component, errorMessage);
@@ -108,21 +75,155 @@
 		);
 	},
 
-	gotoPageOnInit : function(component) {
-		let gotoPage = "homePage";
-		let SSMTicketInfo = {};
-		let lsSSMTicketInfo = LightningUtil.getItemLocalStorage("SSMTicketInfo", "TICKET");
-		
-		if (lsSSMTicketInfo) {
-			try {
-				SSMTicketInfo = JSON.parse(lsSSMTicketInfo);
+	getInformationStatus : function(component) {
+		this.beforeCallAction(component);
 
-			} catch (error) {
+		LightningUtil.callApex(
+			component,
+			"fetchInformationStatus",
+			{},
+			(returnValue) => {
+				let errorMessage = "";
+				let gotoPageInit = true;
+
+				if (returnValue["success"]) {
+					let positionInformationStatus = returnValue["success"];
+
+					if (positionInformationStatus) {
+						if (positionInformationStatus.statusPosition === "A") {
+							let workPositionId = "";
+
+							if (positionInformationStatus.workPositionId) {
+								workPositionId = positionInformationStatus.workPositionId;
+							}
+
+							component.set("v.workPositionId", workPositionId);
+
+							if (workPositionId) {
+								gotoPageInit = false;
+								
+								this.getInformationAttendance(component);
+							}
+
+						} else if (positionInformationStatus.statusPosition === "I") {
+							errorMessage = $A.get("$Label.c.StoreServiceManagerErrorInactiveUserGSS");
+							gotoPageInit = false;
+
+							component.set("v.attendant", {});
+							component.set("v.ltWorkPosition", []);
+						}
+					}
+				}
 				
+				if (gotoPageInit) {
+					this.gotoPageOnInit(component);
+				}
+
+				this.afterCallAction(component, errorMessage);
+			},
+			(exceptions) => {
+				try {
+					this.afterCallAction(component, exceptions[0].message);
+
+				} catch (ex) {
+					// Error loading component
+					this.afterCallAction(component, 601);
+				}
+			}
+		);
+	},
+
+	getInformationAttendance : function(component) {
+		this.beforeCallAction(component);
+
+		LightningUtil.callApex(
+			component,
+			"fetchInformationAttendance",
+			{},
+			(returnValue) => {
+				let attendanceInformationStatus = {};
+
+				if (returnValue["success"]) {
+					attendanceInformationStatus = returnValue["success"];
+				}
+				
+				component.set("v.attendanceInformationStatus", attendanceInformationStatus);
+
+				this.gotoPageOnInit(component);
+
+				this.afterCallAction(component, errorMessage);
+			},
+			(exceptions) => {
+				try {
+					this.afterCallAction(component, exceptions[0].message);
+
+				} catch (ex) {
+					// Error loading component
+					this.afterCallAction(component, 601);
+				}
+			}
+		);
+	},
+
+	gotoPageOnInit : function(component) {
+		let workPositionId = component.get("v.workPositionId");
+		let gotoPage = "homePage";
+		let serviceTicket = {};
+
+		let attendanceInformationStatus = component.get("v.attendanceInformationStatus");
+
+		if (workPositionId && attendanceInformationStatus && attendanceInformationStatus.ticketId) {
+			let lsSSMTicketInfo = LightningUtil.getItemLocalStorage("SSMTicketInfo", "TICKET");
+
+			gotoPage = "servicePage";
+			
+			if (lsSSMTicketInfo) {
+				let SSMTicketInfo = {};
+
+				try {
+					SSMTicketInfo = JSON.parse(lsSSMTicketInfo);
+
+				} catch (error) {
+					
+				}
+
+				if (SSMTicketInfo && SSMTicketInfo.ticketId && SSMTicketInfo.ticketId === attendanceInformationStatus.ticketId) {
+					serviceTicket = SSMTicketInfo;
+				}
 			}
 
-			if (SSMTicketInfo) {
-				gotoPage = "servicePage";
+			if (Object.keys(serviceTicket).length === 0) {
+				serviceTicket = {
+                    type: '',
+                    view: '',
+                    workPositionId: attendanceInformationStatus.workPositionId,
+                    displayAlert: true,
+                    ticketId: attendanceInformationStatus.ticketId,
+                    customerSpecialNeeds: false,
+                    customerPriority: 2,
+                    customerId: '',
+                    customerName: attendanceInformationStatus.customerName,
+                    customerAlias: attendanceInformationStatus.customerName,
+                    customerDocument: attendanceInformationStatus.customerDocument,
+                    customerCellPhone: attendanceInformationStatus.customerCellPhone,
+                    segmentation: attendanceInformationStatus.segmentationId,
+                    segmentationName: attendanceInformationStatus.segmentationName,
+                    activity: '',
+                    protocol: '',
+                    waitTime: attendanceInformationStatus.waitTime,
+                    startTime: attendanceInformationStatus.startTime,
+                    finalTime: '',
+                    duration: attendanceInformationStatus.duration,
+                    service: '',
+                    serviceName: attendanceInformationStatus.serviceName,
+                    category: '',
+                    categoryName: '',
+                    mainDocumentType: '',
+                    documentNumber: '',
+                    giveUpReason: '',
+                    activities: '',
+                    notes: ''
+				};
 			}
 		}
 
@@ -130,13 +231,14 @@
 			this.gotoHomePage(component);
 
 		} else {
-			this.gotoServicePage(component, SSMTicketInfo);
+			this.gotoServicePage(component, serviceTicket);
 		}
 	},
 
 	gotoHomePage : function(component) {
 		LightningUtil.removeItemLocalStorage("SSMTicketInfo");
 		
+		component.set("v.attendanceInformationStatus", {});
 		component.set("v.serviceTicket", {});
 
 		component.set("v.homePage", true);
@@ -274,24 +376,41 @@
 		return errorMessage;
 	},
 
-	showErrorMessage : function(component, errorMessage) {
-		if (typeof errorMessage == "number") {
-			errorMessage = this.getErrorMessage(errorMessage);
+	showErrorMessage : function(component, errorMessage, forceClearErrorMessage) {
+		let errorTryAgainDialog = false;
+
+		if (!errorMessage) {
+			errorMessage = "";
+
+			if (!forceClearErrorMessage) {
+				LightningUtil.removeItemLocalStorage("SSMErrorMessage");
+			}
+
+		} else {
+			if (typeof errorMessage == "number") {		
+				errorTryAgainDialog = (errorMessage === 99 || (errorMessage >= 500 && errorMessage <= 599));
+				errorMessage = this.getErrorMessage(errorMessage);
+			}
 		}
 		
-		component.set("v.errorMessage", errorMessage);
+		if (errorTryAgainDialog && errorMessage) {
+			component.set("v.errorMessageTryAgainDialog", errorMessage);
+
+		} else {
+			component.set("v.errorMessage", errorMessage);
+		}
 	},
 
 	beforeCallAction : function(component) {
 		component.set("v.isLoading", true);
 
-		this.showErrorMessage(component, "");
+		this.showErrorMessage(component, "", true);
 	},
 
 	afterCallAction: function(component, errorMessage) {
 		component.set("v.isLoading", false);
 
-		this.showErrorMessage(component, errorMessage);
+		this.showErrorMessage(component, errorMessage, false);
 	},
 
 	BroadcastNotificationHandler : function(component, event) {       
@@ -301,7 +420,7 @@
 			let jsonSSM = event.getParam("json");
 
 			if  (jsonSSM.type == "showErrorMessage") {
-				this.showErrorMessage(component, jsonSSM.errorMessage);
+				this.showErrorMessage(component, jsonSSM.errorMessage, false);
 
 			} else if  (jsonSSM.type == "beforeCallAction") {
 				this.beforeCallAction(component);
@@ -317,6 +436,20 @@
 
 			} else if (jsonSSM.type == "InService") {
 				component.set("v.InService", jsonSSM.value);
+
+			} else if (jsonSSM.type == "closeTryAgainDialog") {
+				component.set("v.errorMessageTryAgainDialog", "");
+
+			} else if (jsonSSM.type == "forceRestart") {
+				LightningUtil.removeItemLocalStorage("SSMErrorMessage");
+				
+				component.set("v.errorMessageTryAgainDialog", "");
+				component.set("v.forceRestart", true);
+
+				component.set("v.homePage", false);
+				component.set("v.servicePage", false);
+
+				this.gotoHomePage(component);
 			}
 		}
 	},

@@ -33,11 +33,6 @@ public with sharing class StoreServiceManagerTO {
 
         @AuraEnabled
         public Boolean displayAlert {get; set;}
-
-        /* Context for future improvements
-        @AuraEnabled
-        public String giveUpReasonDialog {get; set;}
-        */
         
         @AuraEnabled
 		public String ticketId {get; set;}
@@ -116,5 +111,54 @@ public with sharing class StoreServiceManagerTO {
 
         @AuraEnabled
         public String notes {get; set;}
+    }
+
+    public class PositionInformationStatus {
+        @AuraEnabled
+        public String workPositionId {get; set;}
+
+        @AuraEnabled
+        public String statusPosition {get; set;}
+	}
+    
+    public class AttendanceInformationStatus {
+        @AuraEnabled
+        public String pauseReasonId {get; set;}
+
+        @AuraEnabled
+        public String statusAttendance {get; set;}
+
+        @AuraEnabled
+        public String ticketId {get; set;}
+        
+        @AuraEnabled
+        public String segmentationId {get; set;}
+
+        @AuraEnabled
+        public String segmentationName {get; set;}
+    
+        @AuraEnabled
+        public String waitTime {get; set;}
+
+        @AuraEnabled
+        public String duration {get; set;}
+        
+        @AuraEnabled
+        public String customerCellPhone {get; set;}
+        
+        @AuraEnabled
+        public String serviceName {get; set;}
+
+        @AuraEnabled
+        public String type {get; set;}
+        
+        @AuraEnabled
+        public String startTime {get; set;}
+
+        @AuraEnabled
+        public String customerName {get; set;}
+
+        @AuraEnabled
+        public String customerDocument {get; set;}
     }
 }

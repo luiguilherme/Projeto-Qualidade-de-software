@@ -22,6 +22,7 @@ public with sharing class StoreServiceManagerEngine {
 
     private static final Integer ERROR_LOADING_USER_INFORMATION = 602;
     private static final Integer ERROR_USER_NOT_RELATED_TO_STORE = 610;
+    private static final Integer ERROR_POSITIONS_LIST_IS_EMPTY = 611;
     private static final Integer GENERIC_ERROR_MESSAGE = 699;
 
     public static Boolean hasPermissionSetToAccess() {
@@ -39,43 +40,41 @@ public with sharing class StoreServiceManagerEngine {
         try {
             User attendant = UserDAO.getById(UserInfo.getUserId());
 
-            if (attendant == null) {
+            if (attendant == null || String.isBlank(attendant.Login__c)) {
                 mapResponse.put('error', ERROR_LOADING_USER_INFORMATION);
 
             } else {
-                List<StoreServiceManagerTO.ItemPicklistValue> ltWorkPositions = 
-                    new List<StoreServiceManagerTO.ItemPicklistValue>();
+                Map<String, Object> mapResponseCallout = fetchPointOfService();
 
-                if (String.isBlank(attendant.StoreCode__c) || 
-                    String.isBlank(attendant.StoreSegment__c) || 
-                    attendant.StoreConsultationDate__c == null || 
-                    Date.today() > attendant.StoreConsultationDate__c
-                ) {
-                    Map<String, Object> mapResponseCallout = fetchPointOfService(attendant);
+                if (mapResponseCallout.get('success') != null) {
+                    String jsonPointOfService = (String) mapResponseCallout.get('success');
 
-                    if (mapResponseCallout.get('success') != null) {
-                        if (String.isBlank(attendant.StoreCode__c)) {
-                            mapResponse.put('error', ERROR_USER_NOT_RELATED_TO_STORE);
+                    StoreServiceManagerResponse.PointOfService pointOfService = (StoreServiceManagerResponse.PointOfService) 
+                        JSON.deserialize(jsonPointOfService, StoreServiceManagerResponse.PointOfService.class);
 
-                        } else {
-                            if (mapResponseCallout.get('WorkPositionsListResponse') != null) {
-                                List<StoreServiceManagerResponse.WorkPosition> ltWorkPositionsResponse = 
-                                    (List<StoreServiceManagerResponse.WorkPosition>) mapResponseCallout.get('WorkPositionsListResponse');
-                                
-                                ltWorkPositions = transformWorkPositionsPickList(ltWorkPositionsResponse);
-                            }
-                        }
+                    if (pointOfService != null && pointOfService.id != null) {
+                        List<StoreServiceManagerTO.ItemPicklistValue> ltWorkPositions = 
+                            new List<StoreServiceManagerTO.ItemPicklistValue>();
                         
-                    } else {
-                        mapResponse.put('error', mapResponseCallout.get('error'));
-                    }
-                }
+                        updateUserStoreInfo(attendant, pointOfService);
 
-                if (mapResponse.get('error') == null) {
-                    mapResponse.put('attendant', attendant);
-                    mapResponse.put('workPositionsList', ltWorkPositions);
-                    mapResponse.put('partnerCommunityLicense', isPartnerCommunityLicense(attendant));
-                    mapResponse.put('params', getParams());
+                        if (pointOfService.workPosition != null) {
+                            ltWorkPositions = getWorkPositionsPickList(pointOfService.workPosition);
+                        }
+
+                        mapResponse.put('attendant', attendant);
+                        mapResponse.put('workPositionsList', ltWorkPositions);
+                        mapResponse.put('partnerCommunityLicense', isPartnerCommunityLicense(attendant));
+                        mapResponse.put('params', getParams());              
+
+                    } else {
+                        updateUserStoreInfo(attendant, null);
+
+                        mapResponse.put('error', ERROR_USER_NOT_RELATED_TO_STORE);
+                    }
+                    
+                } else {
+                    mapResponse.put('error', mapResponseCallout.get('error'));
                 }
             }
 
@@ -89,78 +88,28 @@ public with sharing class StoreServiceManagerEngine {
     }
 
     public static Map<String, Object> fetchPointOfService() {
-        Map<String, Object> mapResponse = new Map<String, Object>();
+        Map<String, Object> mapResponseCallout = new Map<String, Object>();
 
         try {
-            mapResponse = fetchPointOfService(null);
+            mapResponseCallout = PointOfServiceCallout.execute();
 
         } catch (Exception e) {
-            mapResponse.clear();
+            mapResponseCallout.clear();
     
-            mapResponse.put('error', GENERIC_ERROR_MESSAGE);
+            mapResponseCallout.put('error', GENERIC_ERROR_MESSAGE);
         }
     
-        return (mapResponse);
-    }
-
-    public static Map<String, Object> fetchPointOfService(User attendant) {
-        Map<String, Object> mapResponseCallout = PointOfServiceCallout.execute();
-
-        if (mapResponseCallout.get('success') != null) {
-            String jsonPointOfService = (String) mapResponseCallout.get('success');
-
-            StoreServiceManagerResponse.PointOfService pointOfService = (StoreServiceManagerResponse.PointOfService) 
-                JSON.deserialize(jsonPointOfService, StoreServiceManagerResponse.PointOfService.class);
-            
-            if (pointOfService != null && pointOfService.id != null) {
-                if (attendant != null) {
-                    updateUserStoreInfo(attendant, pointOfService);
-                }
-
-                if (pointOfService.workPosition != null) {
-                    List<StoreServiceManagerResponse.WorkPosition> ltWorkPositionsResponse = pointOfService.workPosition;
-                    
-                    mapResponseCallout.put('WorkPositionsListResponse', ltWorkPositionsResponse);
-                }
-            }
-        }
-
         return (mapResponseCallout);
-    }
-
-    private static void updateUserStoreInfo(User attendant, StoreServiceManagerResponse.PointOfService pointOfService) {
-        attendant.StoreCode__c = String.valueOf(pointOfService.id);
-        attendant.StoreName__c = pointOfService.name;
-        attendant.StoreSegment__c = pointOfService.segment.name;
-        attendant.StoreConsultationDate__c = Date.today();
-
-        update attendant;
-    }
-
-    public static List<StoreServiceManagerTO.ItemPicklistValue> transformWorkPositionsPickList(List<StoreServiceManagerResponse.WorkPosition> ltWorkPositionsResponse) {
-        List<StoreServiceManagerTO.ItemPicklistValue> ltWorkPositions = new List<StoreServiceManagerTO.ItemPicklistValue>();
-
-        for (StoreServiceManagerResponse.WorkPosition workPosition : ltWorkPositionsResponse) {
-            StoreServiceManagerTO.ItemPicklistValue picklistValue = 
-                new StoreServiceManagerTO.ItemPicklistValue();
-
-            picklistValue.value = workPosition.id;
-            picklistValue.label = workPosition.id;
-
-            ltWorkPositions.add(picklistValue);
-        }
-
-        return (ltWorkPositions);
-    }
-
+    }  
+    
     public static Map<String, Object> fetchOperationalInformations() {
-        Map<String, Object> mapResponse = new Map<String, Object>();
+        Map<String, Object> mapResponseCallout = new Map<String, Object>();
         
         try {
-            mapResponse = OperationalInformationsCallout.execute();
+            mapResponseCallout = OperationalInformationsCallout.execute();
 
-            if (mapResponse.get('success') != null) {
-                String jsonOperationalInformations = (String) mapResponse.get('success');
+            if (mapResponseCallout.get('success') != null) {
+                String jsonOperationalInformations = (String) mapResponseCallout.get('success');
 
                 StoreServiceManagerResponse.OperationalInformations operationalInformations = (StoreServiceManagerResponse.OperationalInformations) 
                     JSON.deserialize(jsonOperationalInformations, StoreServiceManagerResponse.OperationalInformations.class);
@@ -171,12 +120,198 @@ public with sharing class StoreServiceManagerEngine {
             }
 
         } catch (Exception e) {
-            mapResponse.clear();
+            mapResponseCallout.clear();
     
+            mapResponseCallout.put('error', GENERIC_ERROR_MESSAGE);
+        }
+
+        return (mapResponseCallout);
+    }
+
+    public static Map<String, Object> fetchInformationStatus() {
+		Map<String, Object> mapResponse = new Map<String, Object>();
+		
+		try {
+			Map<String, Object> mapResponseCallout = QueueInformationStatusCallout.execute();
+
+            if (mapResponseCallout.get('success') != null) {
+                String jsonInformationStatus = (String) mapResponseCallout.get('success');
+        
+                List<StoreServiceManagerResponse.InformationStatus> ltInformationStatus = (List<StoreServiceManagerResponse.InformationStatus>) 
+                    JSON.deserialize(jsonInformationStatus, List<StoreServiceManagerResponse.InformationStatus>.class);
+        
+                StoreServiceManagerTO.PositionInformationStatus informationStatus = new StoreServiceManagerTO.PositionInformationStatus();
+
+                if (ltInformationStatus != null && !ltInformationStatus.isEmpty() && 
+                    ltInformationStatus[0].O_ST_POSICAO_ATENDIMENTO != null
+                ) {
+                    informationStatus.workPositionId = ltInformationStatus[0].O_ST_POSICAO_ATENDIMENTO;
+                    informationStatus.statusPosition = ltInformationStatus[0].O_ST_STATUS;
+                }
+
+                mapResponse.put('success', informationStatus);
+
+            } else {
+                mapResponse.put('error', mapResponseCallout.get('error'));
+            }
+
+        } catch (Exception e) {  
+            mapResponse.put('error', GENERIC_ERROR_MESSAGE);
+        }
+		
+        return (mapResponse);
+    }
+
+    public static Map<String, Object> fetchInformationAttendance() {
+		Map<String, Object> mapResponse = new Map<String, Object>();
+
+        try {
+			Map<String, Object> mapResponseCallout = QueueInformationAttendanceCallout.execute();
+			
+            if (mapResponseCallout.get('success') != null) {
+                String jsonInformationAttendance = (String) mapResponseCallout.get('success');
+    
+                List<StoreServiceManagerResponse.InformationAttendance> ltInformationAttendance = (List<StoreServiceManagerResponse.InformationAttendance>) 
+                    JSON.deserialize(jsonInformationAttendance, List<StoreServiceManagerResponse.InformationAttendance>.class);
+    
+                StoreServiceManagerTO.AttendanceInformationStatus informationAttendance = new StoreServiceManagerTO.AttendanceInformationStatus();
+
+                if (ltInformationAttendance != null && !ltInformationAttendance.isEmpty() &&
+                    ltInformationAttendance[0].O_TP_STATUS != null
+                ) {
+                    informationAttendance.statusAttendance = ltInformationAttendance[0].O_TP_STATUS;
+
+                    if (ltInformationAttendance[0].O_TP_STATUS == '2' && ltInformationAttendance[0].O_ST_SENHA != null) {
+                        informationAttendance.ticketId = (
+                            (ltInformationAttendance[0].O_ST_SENHA != null) 
+                            ? ltInformationAttendance[0].O_ST_SENHA 
+                            : ''
+                        );
+                        
+                        informationAttendance.segmentationId = (
+                            (ltInformationAttendance[0].O_CD_SEGMENTACAO_CLIENTE != null) 
+                            ? ltInformationAttendance[0].O_CD_SEGMENTACAO_CLIENTE 
+                            : ''
+                        );
+                        
+                        informationAttendance.segmentationName = (
+                            (ltInformationAttendance[0].O_ST_SEGMENTACAO_CLIENTE != null) 
+                            ? ltInformationAttendance[0].O_ST_SEGMENTACAO_CLIENTE 
+                            : ''
+                        );
+
+                        informationAttendance.waitTime = (
+                            (ltInformationAttendance[0].O_DT_TEMPO_ESPERA != null) 
+                            ? (
+                                (ltInformationAttendance[0].O_DT_TEMPO_ESPERA.contains(' '))
+                                ? ltInformationAttendance[0].O_DT_TEMPO_ESPERA.split(' ')[1]
+                                : ltInformationAttendance[0].O_DT_TEMPO_ESPERA          
+                              )
+                            : ''
+                        );
+
+                        informationAttendance.duration = (
+                            (ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO != null) 
+                            ? (
+                                (ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO.contains(' '))
+                                ? ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO.split(' ')[1]
+                                : ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO          
+                              )
+                            : ''
+                        );
+                        
+                        informationAttendance.customerCellPhone = (
+                            ((ltInformationAttendance[0].O_ST_DDD != null) 
+                                ? ltInformationAttendance[0].O_ST_DDD 
+                                : ''
+                            ) + 
+                            ((ltInformationAttendance[0].O_ST_TELEFONE != null) 
+                                ? '-' + ltInformationAttendance[0].O_ST_TELEFONE 
+                                : ''
+                            )
+                        );
+                        
+                        informationAttendance.serviceName = (
+                            (ltInformationAttendance[0].O_ST_DESCRICAO != null) 
+                            ? ltInformationAttendance[0].O_ST_DESCRICAO 
+                            : ''
+                        );
+                        
+                        informationAttendance.type = (
+                            (ltInformationAttendance[0].O_TP_TIPO != null) 
+                            ? ltInformationAttendance[0].O_TP_TIPO 
+                            : ''
+                        );
+                        
+                        informationAttendance.startTime = calculateStartTime(informationAttendance.duration);
+
+                        informationAttendance.customerName = (
+                            (ltInformationAttendance[0].O_ST_NOME != null) 
+                            ? ltInformationAttendance[0].O_ST_NOME 
+                            : ''
+                        );
+
+                        informationAttendance.customerDocument = (
+                            (ltInformationAttendance[0].O_ST_CPF != null) 
+                            ? ltInformationAttendance[0].O_ST_CPF 
+                            : ''
+                        );
+
+                    } else if (ltInformationAttendance[0].O_TP_STATUS == '4') {
+                        informationAttendance.pauseReasonId = '9999';
+                    }
+                }
+
+                mapResponse.put('success', informationAttendance);
+            }
+
+        } catch (Exception e) {   
             mapResponse.put('error', GENERIC_ERROR_MESSAGE);
         }
 
         return (mapResponse);
+    }
+
+    public static List<StoreServiceManagerTO.ItemPicklistValue> getWorkPositionsPickList(List<StoreServiceManagerResponse.WorkPosition> ltPointOfServiceWorkPosition) {
+            List<StoreServiceManagerTO.ItemPicklistValue> ltWorkPositions = new List<StoreServiceManagerTO.ItemPicklistValue>();
+
+        if (ltPointOfServiceWorkPosition == null) {
+            Map<String, Object> mapResponseCallout = fetchPointOfService();
+
+            if (mapResponseCallout.get('success') != null) {                  
+                String jsonPointOfService = (String) mapResponseCallout.get('success');
+
+                StoreServiceManagerResponse.PointOfService pointOfService = (StoreServiceManagerResponse.PointOfService) 
+                    JSON.deserialize(jsonPointOfService, StoreServiceManagerResponse.PointOfService.class);
+
+                if (pointOfService != null && pointOfService.workPosition != null) {
+                    ltPointOfServiceWorkPosition = pointOfService.workPosition;
+                }
+            }
+        }
+
+        if (ltPointOfServiceWorkPosition != null) {
+            for (StoreServiceManagerResponse.WorkPosition workPosition : ltPointOfServiceWorkPosition) {
+                StoreServiceManagerTO.ItemPicklistValue picklistValue = 
+                    new StoreServiceManagerTO.ItemPicklistValue();
+
+                picklistValue.value = workPosition.id;
+                picklistValue.label = workPosition.id;
+
+                ltWorkPositions.add(picklistValue);
+            }
+        }
+
+        return (ltWorkPositions);
+    }
+
+    private static void updateUserStoreInfo(User attendant, StoreServiceManagerResponse.PointOfService pointOfService) {
+        attendant.StoreCode__c = ((pointOfService != null) ? String.valueOf(pointOfService.id) : '');
+        attendant.StoreName__c = ((pointOfService != null) ? pointOfService.name : '');
+        attendant.StoreSegment__c = ((pointOfService != null) ? pointOfService.segment.name : '');
+        attendant.StoreConsultationDate__c = Date.today();
+
+        update attendant;
     }
 
     private static void updateOperationalInformations(StoreServiceManagerResponse.OperationalInformations apiOperationalInformations) {
@@ -380,5 +515,35 @@ public with sharing class StoreServiceManagerEngine {
         }
 
         return (mapParams);
+    }
+
+    public static String calculateStartTime(String elapsedTime) {
+        DateTime dtCurrent = DateTime.now();
+        DateTime dtStart;
+
+        if (!String.isBlank(elapsedTime)) {
+            try {
+                String[] ltElapsedTime = (
+                    (elapsedTime.contains(' '))
+                    ? elapsedTime.split(' ')[1].split(':')
+                    : elapsedTime.split(':')
+                );
+
+                dtStart = (dtCurrent
+                    .addHours(-1 * Integer.valueOf(ltElapsedTime[0]))
+                    .addMinutes(-1 * Integer.valueOf(ltElapsedTime[1]))
+                    .addSeconds(-1 * Integer.valueOf(ltElapsedTime[2]))
+                );
+                
+            } catch (Exception e) {
+
+            }
+        }
+
+        if (dtStart == null) {
+            dtStart = dtCurrent;
+        }
+
+        return (dtStart.format('dd/MM/YYYY HH:mm:ss'));
     }
 }
