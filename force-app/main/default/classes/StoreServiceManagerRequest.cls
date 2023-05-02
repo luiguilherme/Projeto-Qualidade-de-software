@@ -290,14 +290,8 @@ public with sharing class StoreServiceManagerRequest {
         StoreServiceManagerResponse.Duration duration = new StoreServiceManagerResponse.Duration();
         
         serviceTicket.finalTime = (DateTime.now()).format('dd/MM/YYYY HH:mm:ss');
-
-        try {
-
-            duration.amount = getElapsedTime(serviceTicket.startTime, serviceTicket.finalTime);
-
-        } catch (Exception e) {
-            duration.amount = serviceTicket.waitTime;
-        }
+        
+        duration.amount = calculateElapsedTime(serviceTicket.startTime, serviceTicket.finalTime);
 
         ticket.duration = duration;
         ticket.geographicArea = geographicArea;
@@ -307,24 +301,61 @@ public with sharing class StoreServiceManagerRequest {
         return (ticket);
     }
 
-    private static String getElapsedTime(String startTime, String finalTime) {
+    public static String calculateElapsedTime(String startTime, String finalTime) {
         String elapsedTime = '00:00:00';
-        
-        if (!String.isBlank(startTime) && !String.isBlank(finalTime) && !startTime.equals(finalTime)) {
-            DateTime dtStartTime = DateTime.parse(startTime);
-            DateTime dtFinalTime = DateTime.parse(finalTime);
+ 
+        try {
+            if (!String.isBlank(startTime) && !String.isBlank(finalTime) && !startTime.equals(finalTime)) {
+                // Start date/time
+                String[] ltStartTime = ((startTime.contains(' '))
+                                        ? startTime.split(' ')[1].split(':')
+                                        : startTime.split(':')
+                                    );
+                
+                DateTime dtStartTime = Datetime.newInstanceGmt(
+                    Datetime.now().year(), 
+                    Datetime.now().month(), 
+                    Datetime.now().day(), 
+                    Integer.valueOf(ltStartTime[0]), 
+                    Integer.valueOf(ltStartTime[1]), 
+                    Integer.valueOf(ltStartTime[2])
+                );
+                
+                // Final date/time
+                String[] ltFinalTime = ((finalTime.contains(' '))
+                                        ? finalTime.split(' ')[1].split(':')
+                                        : finalTime.split(':')
+                                    );
+                
+                DateTime dtFinalTime = Datetime.newInstanceGmt(
+                    Datetime.now().year(), 
+                    Datetime.now().month(), 
+                    Datetime.now().day(), 
+                    Integer.valueOf(ltFinalTime[0]), 
+                    Integer.valueOf(ltFinalTime[1]), 
+                    Integer.valueOf(ltFinalTime[2])
+                );
+                
+                // Calculate elapsed time
+                Double milliseconds = Math.abs(dtFinalTime.getTime() - dtStartTime.getTime());
+                
+                Integer seconds = Integer.valueOf(Math.floor(milliseconds / 1000));
+                Integer minutes = Integer.valueOf(Math.floor(seconds / 60));
+                Integer hours = Integer.valueOf(Math.floor(minutes / 60));
+                
+                seconds = Math.mod(seconds, 60);
+                minutes = Math.mod(minutes, 60);
+                hours = Math.mod(hours, 24);
+                
+                elapsedTime = (
+                    String.valueOf(hours).leftPad(2, '0') + ':' +
+                    String.valueOf(minutes).leftPad(2, '0') + ':' +
+                    String.valueOf(seconds).leftPad(2, '0').substring(0, 2)
+                );
+            }
 
-            Long milliseconds = (dtFinalTime.getTime() - dtStartTime.getTime());
+        } catch (Exception e) {
 
-            Long seconds = (milliseconds / 1000);
-            Long minutes = (seconds / 60);
-            Long hours = (minutes / 60);
-                    
-            elapsedTime = (
-                String.valueOf(hours).leftPad(2, '0') + ':' +
-                String.valueOf(minutes).leftPad(2, '0') + ':' +
-                String.valueOf(seconds).leftPad(2, '0').substring(0, 2)
-            );
         }
 
         return (elapsedTime);

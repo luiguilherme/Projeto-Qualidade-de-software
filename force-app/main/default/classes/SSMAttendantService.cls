@@ -22,7 +22,7 @@ public with sharing class SSMAttendantService {
     public static Map<String, Object> endService(String workPositionId) {
         return (SSMAttendantEngine.endService(workPositionId));
     }
-
+    
     public static Map<String, Object> pauseService(StoreServiceManagerTO.ItemPicklistValue pauseReason) {
         return (SSMAttendantEngine.pauseService(pauseReason));
     }

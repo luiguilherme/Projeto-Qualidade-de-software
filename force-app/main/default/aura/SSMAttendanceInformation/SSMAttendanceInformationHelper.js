@@ -1,43 +1,58 @@
 ({
     doInit : function(component, event, helper) {
-        let lsSSMTicketInfo = LightningUtil.getItemLocalStorage("SSMTicketInfo", "TICKET");
-        
-        if (lsSSMTicketInfo) {
-            try {
-                let SSMTicketInfo = JSON.parse(lsSSMTicketInfo);
-                            
-                // Calculate started date/time
-                let startTime = SSMTicketInfo.startTime.split(" ")[1].split(":");
-                let startDateTime = new Date();
-        
-                startDateTime.setHours(startTime[0]);
-                startDateTime.setMinutes(startTime[1]);
-                startDateTime.setSeconds(startTime[2]);
+        let serviceTicket = component.get("v.serviceTicket");
+        let elapsedTime = "";
 
-                // Get date/time now
-                let finishDateTime = new Date();
+        if (serviceTicket.duration) {
+            elapsedTime = serviceTicket.duration;
 
-                // Calculate elapsed time
-                let milliseconds = Math.abs(finishDateTime - startDateTime)
-                let seconds = Math.floor(milliseconds / 1000);
-                let minutes = Math.floor(seconds / 60);
-                let hours = Math.floor(minutes / 60);
+        } else {
+            let lsSSMTicketInfo = LightningUtil.getItemLocalStorage("SSMTicketInfo", "TICKET");
+            
+            if (lsSSMTicketInfo) {
+                try {
+                    let SSMTicketInfo = JSON.parse(lsSSMTicketInfo);
+                                
+                    // Calculate started date/time
+                    let startTime = ((startTime.includes(" ")) 
+                        ? SSMTicketInfo.startTime.split(" ")[1].split(":")
+                        : SSMTicketInfo.startTime.split(":")
+                    );
+                    
+                    let startDateTime = new Date();
 
-                seconds = (seconds % 60);
-                minutes = (((seconds >= 30) ? minutes + 1 : minutes) % 60);
-                hours = (hours % 24);
+                    startDateTime.setHours(startTime[0]);
+                    startDateTime.setMinutes(startTime[1]);
+                    startDateTime.setSeconds(startTime[2]);
 
-                let elapsedTime = (
-                    hours.toString().padStart(2, "0") + ":" + 
-                    minutes.toString().padStart(2, "0") + ":" + 
-                    seconds.toString().padStart(2, "0")
-                );
+                    // Get date/time now
+                    let finishDateTime = new Date();
 
-                this.notitySSMChronometer(elapsedTime);
+                    // Calculate elapsed time
+                    let milliseconds = Math.abs(finishDateTime - startDateTime)
+                    let seconds = Math.floor(milliseconds / 1000);
+                    let minutes = Math.floor(seconds / 60);
+                    let hours = Math.floor(minutes / 60);
 
-            } catch (error) {
+                    seconds = (seconds % 60);
+                    minutes = (minutes % 60);
+                    hours = (hours % 24);
 
+                    elapsedTime = (
+                        hours.toString().padStart(2, "0") + ":" + 
+                        minutes.toString().padStart(2, "0") + ":" + 
+                        seconds.toString().padStart(2, "0")
+                    );
+
+
+                } catch (error) {
+
+                }
             }
+        }
+
+        if (elapsedTime) {
+            this.notitySSMChronometer(elapsedTime);
         }
     },
 

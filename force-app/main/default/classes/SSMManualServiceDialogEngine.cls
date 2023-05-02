@@ -30,11 +30,6 @@ public with sharing class SSMManualServiceDialogEngine {
                 serviceTicket.type = MANUAL_ATTENDANCE;
                 serviceTicket.workPositionId = workPositionId;
                 serviceTicket.displayAlert = displayAlert;
-                
-                /* Context for future improvements
-                serviceTicket.giveUpReasonDialog = '';
-                */
-                
                 serviceTicket.ticketId = generatedTicket.id;
                 serviceTicket.customerSpecialNeeds = false;
                 serviceTicket.customerPriority = 2;
@@ -47,7 +42,7 @@ public with sharing class SSMManualServiceDialogEngine {
                 serviceTicket.segmentationName = '';
                 serviceTicket.activity = '';
                 serviceTicket.protocol = '';
-                serviceTicket.waitTime = calculateElapsedTime(scheduleTime);
+                serviceTicket.waitTime = '';
                 serviceTicket.startTime = (DateTime.now()).format('dd/MM/YYYY HH:mm:ss');
                 serviceTicket.finalTime = '';
                 serviceTicket.duration = '';
@@ -74,31 +69,5 @@ public with sharing class SSMManualServiceDialogEngine {
         }
 
         return (mapResponse);
-    }
-
-    private static String calculateElapsedTime(String scheduleTime) {
-        String[] arrScheduleTime = scheduleTime.split(':');
-            
-        DateTime currentTime = DateTime.now();
-
-        DateTime informedTime = DateTime.newInstance(
-            currentTime.year(), 
-            currentTime.month(), 
-            currentTime.day(), 
-            Integer.valueOf(arrScheduleTime[0]), 
-            Integer.valueOf(arrScheduleTime[1]), 
-            0
-        );
-
-        Long milliseconds = (currentTime.getTime() - informedTime.getTime());
-        Long seconds = (milliseconds / 1000);
-        Long minutes = (seconds / 60);
-        Long hours = (minutes / 60);
-
-        return (
-            String.valueOf(hours).leftPad(2, '0') + ':' +
-            String.valueOf(minutes).leftPad(2, '0') + ':' +
-            String.valueOf(0).leftPad(2, '0')
-        );
     }
 }

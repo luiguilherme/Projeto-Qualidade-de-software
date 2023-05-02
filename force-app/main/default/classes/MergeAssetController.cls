@@ -109,7 +109,12 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
         if(!lstAssetsToCreate.isEmpty())
         {
             for(WrapperAPI assetToCreate : lstAssetsToCreate)
-            {
+            {   
+
+                if(assetToCreate.product_type.contains('value_added_service')){
+                    continue;
+                }
+
                 String strIdentifier = assetToCreate.identifiers[0].startsWith('+55') ? documentNumber + assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : documentNumber + assetToCreate.identifiers[0];                
                 if(!setProducts.contains(strIdentifier) && !assetToCreate.product_type.contains('bundle'))
                 {
@@ -140,30 +145,46 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
                     
                 } else {
                     
-                    if(assetToCreate.sub_products <> null)
+                    if(assetToCreate.sub_products != null)
                     {
-                        lstSubproducts.addAll(assetToCreate.sub_products);
+                        updateListAssetsToUpdate(assetToCreate.sub_products, setProducts, lstAssetToCreateUpdate, mapFromTo, accountId, documentNumber, mapSVAProducts, mapLegacy);
                     }                     
                 }                                                              
             }
         }                
         
-        for(WrapperAPI assetToCreate : lstSubproducts)
-        {            
+        
+        try{
+            upsert lstAssetToCreateUpdate ExternalId__c;
+        }catch(Exception e){
+            System.debug('Erro no Upsert de Asset: ' + e.getMessage());
+        }                
+    }
+
+    private static void updateListAssetsToUpdate(List<WrapperAPI> listProduct, Set<String> setProducts, List<Asset> lstAssetToCreateUpdate, Map<String, String> mapFromTo, String accountId, String documentNumber, Map<String, List<String>> mapSVAProducts,Map<String, List<String>> mapLegacy){
+        Asset asset;
+        for(WrapperAPI assetToCreate : listProduct){ 
+
+            if(assetToCreate.product_type.contains('value_added_service')){
+                continue;
+            }
+
             String strIdentifier = assetToCreate.identifiers[0].startsWith('+55') ? documentNumber + assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : documentNumber + assetToCreate.identifiers[0];                
-            if(!setProducts.contains(strIdentifier))
+            if(!setProducts.contains(strIdentifier) && assetToCreate.product_type != 'bundle')
             {
-                setProducts.add(strIdentifier);                
-                type = mapFromTo.get(assetToCreate.product_type + 'Type__c');
+                setProducts.add(strIdentifier);
+                
+                String type = mapFromTo.get(assetToCreate.product_type + 'Type__c');
                 
                 asset = new Asset();            
+        
                 asset.vlocity_cmt__ServiceIdentifier__c = assetToCreate.identifiers[0].startsWith('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : assetToCreate.identifiers[0];                               
                 asset.StartDate__c = assetToCreate.start_date;
                 asset.ProductType__c = type == 'Movel' ? getProductType(assetToCreate.subscription_type, mapFromTo) : getProductType(assetToCreate.product_type, mapFromTo);
                 asset.Name = assetToCreate.identifiers[0].startsWith('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : assetToCreate.identifiers[0];
                 asset.Status = assetToCreate.status;
                 asset.IsHolder__c = assetToCreate.tags != null ? getStringValue(assetToCreate.tags, 'multivivo:') : 'TIT';
-                asset.MainProductDescription__c = assetToCreate.descriptions != null ? assetToCreate.descriptions[0].text : assetToCreate.display_name != null ? assetToCreate.display_name : null; 
+                asset.MainProductDescription__c = assetToCreate.display_name != null ? assetToCreate.display_name : assetToCreate.descriptions != null ? assetToCreate.descriptions[0].text : null; 
                 asset.AccountId = accountId;
                 asset.Type__c = type;
                 if(type == 'Movel'){ asset.Technology__c = type; }
@@ -171,20 +192,17 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
                 asset.ExternalId__c = assetToCreate.identifiers[0].startsWith('+55') ? documentNumber + assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : documentNumber + assetToCreate.identifiers[0];
                 asset.PhoneNumber__c = assetToCreate.identifiers[0].startsWith('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : '';
                 asset.SourceSystem__c = getLegacySystem(mapLegacy.get(assetToCreate.identifiers[0]), mapFromTo);
-                asset.DigitalServices__c = mapSVAProducts.get(assetToCreate.identifiers[0]) != null ? String.join(mapSVAProducts.get(assetToCreate.identifiers[0]),';') : null;                                   
+                asset.DigitalServices__c = mapSVAProducts.get(assetToCreate.identifiers[0]) != null ? String.join(mapSVAProducts.get(assetToCreate.identifiers[0]),';') : null;
                 
-                if(!lstAssetToCreateUpdate.contains(asset))
-                {
+
+                if(!lstAssetToCreateUpdate.contains(asset)){
                     lstAssetToCreateUpdate.add(asset);
                 }                 
+            }else if(assetToCreate.sub_products != null){
+                updateListAssetsToUpdate(assetToCreate.sub_products, setProducts, lstAssetToCreateUpdate, mapFromTo, accountId, documentNumber, mapSVAProducts, mapLegacy);
             }
         }
         
-        try{
-            upsert lstAssetToCreateUpdate ExternalId__c;
-        }catch(Exception e){
-            System.debug('Erro no Upsert de Asset: ' + e.getMessage());
-        }                
     }
     
     public static Map<String,String> createFromToMapping()

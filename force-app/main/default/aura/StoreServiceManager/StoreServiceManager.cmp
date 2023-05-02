@@ -6,7 +6,7 @@
     <aura:attribute name="InService" type="Boolean" default="false" />
     <aura:attribute name="loadUtil" type="Boolean" default="false" />
     <aura:attribute name="isLoading" type="Boolean" default="false" />
-    <aura:attribute name="errorMessage" type="String" />
+    <aura:attribute name="errorMessage" type="String" default="" />
     <aura:attribute name="attendant" type="Object" default="{}" />
     <aura:attribute name="partnerCommunityLicense" type="Boolean" default="false" />
     <aura:attribute name="params" type="Object" default="{}" />
@@ -20,11 +20,14 @@
     <aura:attribute name="ltDocumentTypes" type="List" default="[]" />
     <aura:attribute name="ltGiveUpReasons" type="List" default="[]" />
     <aura:attribute name="ltActivities" type="List" default="[]" />
+    <aura:attribute name="errorMessageTryAgainDialog" type="String" default="" />
+    <aura:attribute name="forceRestart" type="Boolean" default="false" />
+    <aura:attribute name="attendanceInformationStatus" type="Object" default="{}" />
 
     <!-- LightningUtil -->
     <ltng:require scripts="{! $Resource.LightningUtil}" afterScriptsLoaded="{! c.doInit}" />
 
-    <!--Handlers-->
+    <!-- Handlers -->
     <aura:handler event="c:BroadcastNotification" action="{! c.BroadcastNotificationHandler}" access="global" />
 
     <!-- Custom styles -->
@@ -76,7 +79,9 @@
                 workPositionId="{! v.workPositionId}"
                 ltPauseReason="{! v.ltPauseReason}"
                 viewFieldService="{! v.params.viewFieldService}"
-                timeAutomaticTicketCall="{! ((v.params.timeAutomaticTicketCall) ? v.params.timeAutomaticTicketCall : 10)}" />
+                timeAutomaticTicketCall="{! ((v.params.timeAutomaticTicketCall) ? v.params.timeAutomaticTicketCall : 10)}"
+                forceRestart="{! v.forceRestart}" 
+                attendanceInformationStatus="{! v.attendanceInformationStatus}" />
         </aura:if>
 
         <!-- Attendance -->
@@ -90,6 +95,15 @@
                 ltGiveUpReasons="{! v.ltGiveUpReasons}"
                 ltActivities="{! v.ltActivities}" 
                 partnerCommunityLicense="{! v.partnerCommunityLicense}" />
+        </aura:if>
+
+        <aura:if isTrue="{! v.errorMessageTryAgainDialog}">
+            <c:SSMTryAgainDialog
+                aura:id="tryAgainDialog" 
+                pageOperation="{! v.homePage ? 'home' : 'service'}" 
+                workPositionId="{! v.workPositionId}" 
+                serviceTicket="{! v.serviceTicket}" 
+                errorMessage="{! v.errorMessageTryAgainDialog}" />
         </aura:if>
     </aura:if>
 </aura:component>

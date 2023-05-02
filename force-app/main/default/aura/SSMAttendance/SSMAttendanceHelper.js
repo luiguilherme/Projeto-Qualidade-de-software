@@ -141,27 +141,6 @@
         );
     },
 
-    /* Aqui somente para ver como vai ficar Comunidades... Depois de resolver, remover este trecho de código
-    navigateToAccountPage : function(component, accountId) {
-        let partnerCommunityLicense = component.get("v.partnerCommunityLicense");
-        
-        if (partnerCommunityLicense) {
-            let accountWindowOpenURL = ($A.get("$Label.c.StoreServiceManagerAccountWindowOpenURL")).replace("{accountId}", accountId);
-
-            window.open(accountWindowOpenURL, "_blank");
-
-        } else {
-            let navigateToAccountPageEvent = $A.get("e.force:navigateToSObject");
-
-            navigateToAccountPageEvent.setParams({
-                recordId: accountId
-            });
-
-            navigateToAccountPageEvent.fire();
-        }
-    },
-    */
-
     navigateToObjetcPage : function(component, objectId) {
         let partnerCommunityLicense = component.get("v.partnerCommunityLicense");
         

@@ -9,7 +9,7 @@ public with sharing class OperationalInformationsCallout {
     private static final Integer ERROR_WEBSERVICE_NOTFOUND = 600;    
     private static final Integer ERROR_INVALID_WEBSERVICE_CONFIGURATION = 604;
 
-    public static Map<String,Object> execute() {
+    public static Map<String, Object> execute() {
         Map<String, Object> mapResult = new Map<String, Object>();
 
         WebService__c wsConfig = Webservice__c.getInstance(WEBSERVICE_NAME);
