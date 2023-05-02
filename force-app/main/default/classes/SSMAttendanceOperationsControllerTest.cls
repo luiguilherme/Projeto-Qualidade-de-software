@@ -95,7 +95,7 @@ public with sharing class SSMAttendanceOperationsControllerTest {
             accountTest.RecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Billing').getrecordTypeId();
             accountTest.Name = 'Account Test SSM';
             accountTest.CustomerSegment__c = 'PLATINUM';
-            accountTest.Active__c = true;
+            accountTest.vlocity_cmt__Active__c = 'Yes';
             accountTest.DocumentNumber__c = '55566677788';
             accountTest.Phone = '81010101212';
 
