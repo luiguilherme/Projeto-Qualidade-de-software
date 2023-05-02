@@ -2,15 +2,12 @@
     doInit : function(component, event, helper) {
         let pageOperation = component.get("v.pageOperation");
         let errorMessage = component.get("v.errorMessage");
-        let lastErrorMessage = LightningUtil.getItemLocalStorage("SSMErrorMessage", "ERROR");
 
         if (pageOperation === "home") {
             this.notifySSMHomeOperations(false);
         }
 
-        if (lastErrorMessage && lastErrorMessage === errorMessage) {
-            component.set("v.errorMessage", $A.get("$Label.c.StoreServiceManagerErrorEndService"));
-        }
+        component.set("v.displayErrorMessage", errorMessage);
 
         this.getInformationStatus(component);
     },
@@ -28,6 +25,7 @@
                 let newWorkPositionId = "";
                 let disableButtonTryAgain = false;
                 let disableButtonBackHome = false;
+                let calledInformationAttendance = false;
 
                 if (positionInformationStatus && 
                     positionInformationStatus.statusPosition === "A"
@@ -39,6 +37,8 @@
                             disableButtonBackHome = true;
 
                         } else {
+                            calledInformationAttendance = true;
+
                             this.getInformationAttendance(component);
                         }
 
@@ -51,22 +51,29 @@
                     disableButtonTryAgain = true;
                 }
 
-                component.set("v.newWorkPositionId", newWorkPositionId);
-                component.set("v.disableButtonTryAgain", disableButtonTryAgain);
-                component.set("v.disableButtonBackHome", disableButtonBackHome);
+                if (!calledInformationAttendance) {
+                    component.set("v.newWorkPositionId", newWorkPositionId);
+                    component.set("v.disableButtonTryAgain", disableButtonTryAgain);
+                    component.set("v.disableButtonBackHome", disableButtonBackHome);
+
+                    if (disableButtonTryAgain && !disableButtonBackHome) {
+                        component.set("v.displayErrorMessage", $A.get("$Label.c.StoreServiceManagerErrorEndService"));
+                    }
+                }
 
                 this.afterCallAction();
             },
             (exceptions) => {
                 component.set("v.disableButtonTryAgain", true);
+                component.set("v.displayErrorMessage", $A.get("$Label.c.StoreServiceManagerErrorEndService"));
             }
         );
     },
 
 	getInformationAttendance : function(component) {
-		this.beforeCallAction();
+        this.beforeCallAction();
 
-		LightningUtil.callApex(
+        LightningUtil.callApex(
 			component,
 			"fetchInformationAttendance",
 			{},
@@ -93,14 +100,19 @@
                 component.set("v.disableButtonBackHome", disableButtonBackHome);
                 component.set("v.forceInitialPageService", forceInitialPageService);
 				
+                if (disableButtonTryAgain && !disableButtonBackHome) {
+                    component.set("v.displayErrorMessage", $A.get("$Label.c.StoreServiceManagerErrorEndService"));
+                }
+                
 				this.afterCallAction();
 			},
 			(exceptions) => {
                 component.set("v.disableButtonTryAgain", true);
+                component.set("v.displayErrorMessage", $A.get("$Label.c.StoreServiceManagerErrorEndService"));
 			}
 		);
 	},
-    
+
     tryAgain : function(component, event, helper) {
         let errorMessage = component.get("v.errorMessage");
         let pageOperation = component.get("v.pageOperation");
