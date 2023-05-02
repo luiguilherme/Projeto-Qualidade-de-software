@@ -4,7 +4,7 @@
 
     <aura:attribute name="recordId"                     type="String" />
     <aura:attribute name="selectedLookUpRecord"         type="sObject"  default="{}" />
-    <aura:attribute name="addressList"                  type="sObject"  default="{}" />
+    <aura:attribute name="addressList"                  type="List"/>
     <aura:attribute name="ltAddressesToLightningSelect" type="String[]" description="Used on the populate the LightningSelect from Apex DAO class." />
     <aura:attribute name="addressSelected"              type="Boolean"  default="false"   description="Used to capture selection from the lightningSelect." />
     <aura:attribute name="zipCode"                      type="String"   default="" description="Used to store value of the 'CEP' input field." />
@@ -73,7 +73,8 @@
                                         resultlabel="Name"   
                                         disabled="{!v.disableAccountField}" 
                                         useEventOutput="{!v.useEventOutput}"
-                                        EventName="{!v.EventName}" />
+                                        EventName="{!v.EventName}"
+                                        tipoRegistro="Consumer"/>
                 
                 <lightning:select       name="addressListSelect" 
                                         label="Selecione um endereço: " 
