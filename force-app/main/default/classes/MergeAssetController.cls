@@ -1,5 +1,7 @@
 global without sharing class MergeAssetController implements vlocity_cmt.VlocityOpenInterface2 
 {
+    private static final List<String> LST_PRODUCT_TYPE_TO_GET_DESC = new List<String>{'iptv', 'internet', 'landline'};
+
     global boolean invokeMethod(String methodName, Map<String, Object> inputs, Map<String, Object> output, Map<String, Object> options)
     {    
         switch on methodName {
@@ -128,10 +130,10 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
                     asset.Name = assetToCreate.identifiers[0].startsWith('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : assetToCreate.identifiers[0];
                     asset.Status = assetToCreate.status;
                     asset.IsHolder__c = assetToCreate.tags != null ? getStringValue(assetToCreate.tags, 'multivivo:') : 'TIT';
-                    asset.MainProductDescription__c = assetToCreate.descriptions != null ? assetToCreate.descriptions[0].text : assetToCreate.display_name != null ? assetToCreate.display_name : null; 
+                    asset.MainProductDescription__c = getMainProductDescription(assetToCreate);
                     asset.AccountId = accountId;
                     asset.Type__c = type;
-                    if(type == 'Movel'){ asset.Technology__c = type; }
+                    asset.Technology__c = type == 'Movel' ? type : ''; 
                     asset.Speed__c = assetToCreate.connection != null ? assetToCreate.connection.downlink_mbps : null;
                     asset.ExternalId__c = assetToCreate.identifiers[0].startsWith('+55') ? documentNumber + assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : documentNumber + assetToCreate.identifiers[0];
                     asset.PhoneNumber__c = assetToCreate.identifiers[0].startsWith('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : '';
@@ -184,10 +186,10 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
                 asset.Name = assetToCreate.identifiers[0].startsWith('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : assetToCreate.identifiers[0];
                 asset.Status = assetToCreate.status;
                 asset.IsHolder__c = assetToCreate.tags != null ? getStringValue(assetToCreate.tags, 'multivivo:') : 'TIT';
-                asset.MainProductDescription__c = assetToCreate.display_name != null ? assetToCreate.display_name : assetToCreate.descriptions != null ? assetToCreate.descriptions[0].text : null; 
+                asset.MainProductDescription__c = getMainProductDescription(assetToCreate);
                 asset.AccountId = accountId;
                 asset.Type__c = type;
-                if(type == 'Movel'){ asset.Technology__c = type; }
+                asset.Technology__c = type == 'Movel' ? type : ''; 
                 asset.Speed__c = assetToCreate.connection != null ? assetToCreate.connection.downlink_mbps : null;
                 asset.ExternalId__c = assetToCreate.identifiers[0].startsWith('+55') ? documentNumber + assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : documentNumber + assetToCreate.identifiers[0];
                 asset.PhoneNumber__c = assetToCreate.identifiers[0].startsWith('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : '';
@@ -205,6 +207,25 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
         
     }
     
+    public static String getMainProductDescription(WrapperAPI assetToCreate){
+        String description = assetToCreate.descriptions.isEmpty() ? '' : assetToCreate.descriptions[0].text;
+        String displayName = assetToCreate.display_name;
+        
+        if(LST_PRODUCT_TYPE_TO_GET_DESC.contains(assetToCreate.product_type)){
+            return assetToCreate.descriptions.size() == 1 ? description : displayName;
+        }
+        
+        if(displayName != null){
+            return displayName;
+        }  
+        
+        if(description != ''){
+            return description;
+        } 
+            
+        return '';
+    }
+
     public static Map<String,String> createFromToMapping()
     {    
         Map<String, String> mapFromTo = new Map<String, String>();
