@@ -502,6 +502,29 @@ public class DataFactory {
         }
         return topicObj;
     }
+
+    public static OrderIssued__c createOrderIssued(String statusCode) {
+        OrderIssued__c orderIssued = new OrderIssued__c();
+
+        orderIssued.Status__c = 'CHECKED_VALID';
+        orderIssued.StatusCode__c = statusCode;
+        orderIssued.OrderStatus__c = 'CHECKED_VALID';
+        orderIssued.HybrisOrder__c = String.valueOf( Math.abs(Crypto.getRandomLong()) ).substring(0, 9);
+        
+        return orderIssued;
+    }
+
+    public static OrderIssued__c createOrderIssued(String statusCode, String orderStatus) {
+        OrderIssued__c orderIssued = new OrderIssued__c();
+
+        orderIssued.Status__c = 'CHECKED_VALID';
+        orderIssued.StatusCode__c = statusCode;
+        orderIssued.OrderStatus__c = orderStatus;
+        orderIssued.HybrisOrder__c = String.valueOf( Math.abs(Crypto.getRandomLong()) ).substring(0, 9);
+        
+        return orderIssued;
+    }
+    
     // public static List<ServiceQualification__c> createServiceQualificationLevels() {
     //     String recordTypeFirstLevelId = Schema.SObjectType.ServiceQualification__c.getRecordTypeInfosByDeveloperName().
     //         get('FirstLevel').getrecordTypeId();
