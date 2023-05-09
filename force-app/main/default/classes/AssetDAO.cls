@@ -57,7 +57,7 @@ public without sharing class AssetDAO {
                 AccountId,
                 Status,
                 PhoneNumber__c, 
-                vlocity_cmt__BillingAccountId__c,
+                BillingAccountFormulaName__c,
                 Type__c,
                 ProductType__c, 
                 MainProductDescription__c,

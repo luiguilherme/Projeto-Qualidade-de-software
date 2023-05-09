@@ -6,7 +6,7 @@ const FIELDS = ['vlocity_cmt__CustomerInteraction__c.vlocity_cmt__AccountId__c']
 
 const COLUMNS = [
     { label: 'Telefone', fieldName: 'PhoneNumber__c' },
-    { label: 'Conta Faturamento', fieldName: 'vlocity_cmt__BillingAccountId__c' },
+    { label: 'Conta Faturamento', fieldName: 'BillingAccountFormulaName__c' },
     { label: 'Tipo do Produto', fieldName: 'ProductType__c' },
     { label: 'Plano ', fieldName: 'MainProductDescription__c' },
     { label: 'Sistema de Origem ', fieldName: 'SourceSystem__c' }
