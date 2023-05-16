@@ -1,0 +1,523 @@
+<template>
+            <div class="slds-grid slds-wrap slds-is-relative ">
+            <div style="position: fixed;z-index: 999999;top: 0;right: 0;">
+  <vlocity_cmt-toast class="flexcard-toast-element" theme="slds" title="" message="" styletype=""> </vlocity_cmt-toast>
+</div>
+            <div if:true={showLoader} class="slds-is-absolute vloc-loader_override" style="height: 100%; width: 100%; min-height:50px; background: transparent; z-index: 99;">
+  <div>
+   <vlocity_cmt-spinner
+      variant="brand"
+      alternative-text="Loading content..."
+      size="medium"
+      theme="slds"
+      ></vlocity_cmt-spinner>
+  </div>
+</div>
+            <template if:false={hasPermission}>
+              You don't have required permissions to view this card.
+            </template>
+            <template if:true={hasPermission}>
+              <template if:true={hasRecords}>
+                        <template for:each={_records} for:item="record" for:index="rindex">
+                            <vlocity_cmt-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-large-size_12-of-12 slds-medium-size_12-of-12 slds-small-size_12-of-12 slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-around_none " style="      
+         ">
+          <div data-style-id="state0element0" class="slds-col  slds-border_bottom  slds-size_12-of-12  " data-rindex={rindex} style="     border-bottom: #cccccc 1px solid; 
+         " ><vlocity_cmt-output-field data-style-id="state0element0_child"   record={record}  card={card}  merge-field="%3Cdiv%20class=%22slds-text-heading_large%20slds-text-color_default%20slds-text-align_center%22%3E%3Cstrong%3E%3Cspan%20class=%22%22%20style=%22font-size:%2018pt;%22%3EDetalhes%20do%20SMS/MMS%20Efetuado%3C/span%3E%3C/strong%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1" class="slds-col   slds-border_bottom slds-p-around_x-small  slds-size_12-of-12  " data-rindex={rindex} style="     border-bottom: #cccccc 1px solid; 
+         " >
+    <vlocity_cmt-block data-style-id="state0element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element0" class="slds-col   slds-p-around_x-small slds-size_3-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element1block_element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element0block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element0block_element0_child"   record={record}  card={card}  field-name="contextNumber"  label="Linha Origem:"  placeholder=""  styles='\{"label":{"fontSize":"6","textAlign":"left"},"value":{"textAlign":"left"}}'  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element0block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element0block_element1_child"   record={record}  card={card}  field-name="object.destination.networkNumber"  label="Linha Destino:"  placeholder=""  styles='\{"label":{"fontSize":"6","textAlign":"left"},"value":{"textAlign":"left"}}'  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element0block_element2" class="slds-col   slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"object.bucket[0].usageUnit","operator":"==","value":"BRL","type":"custom","hasMergeField":false}]}' ><vlocity_cmt-output-field data-style-id="state0element1block_element0block_element2_child"   record={record}  card={card}  field-name="object.bucket[0].amount"  label="Valor Chamada:"  mask="#,##0.###"  placeholder="0,00"  styles='\{"label":{"fontSize":"6","textAlign":"left"},"value":{"textAlign":"left"}}'  type="number"  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"object.bucket[0].usageUnit","operator":"==","value":"BRL","type":"custom","hasMergeField":false}]}'  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element0block_element3" class="slds-col   slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"object.bucket[0].usageUnit","operator":"!=","value":"BRL","type":"custom","hasMergeField":false}]}' ><vlocity_cmt-output-field data-style-id="state0element1block_element0block_element3_child"   record={record}  card={card}  field-name=""  label="Valor Chamada:"  mask="#,##0.###"  placeholder="0,00"  styles='\{"label":{"fontSize":"6","textAlign":"left"},"value":{"textAlign":"left"}}'  type="number"  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"object.bucket[0].usageUnit","operator":"!=","value":"BRL","type":"custom","hasMergeField":false}]}'  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element0block_element4" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element0block_element4_child"   record={record}  card={card}  field-name=""  label="Valor Adicional:"  placeholder="0,00"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1block_element1" class="slds-col   slds-p-around_x-small  slds-size_3-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element1block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element1block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element1block_element0_child"   record={record}  card={card}  field-name="object.resource.mobileOperatorCode"  label="CSP:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element1block_element1" class="slds-col   slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"group":[{"field":"object.usageType","hasMergeField":false,"id":"state-new-condition-3","operator":"==","type":"custom","value":"SMS ONLINE"}],"id":"state-condition-object","isParent":true}' ><vlocity_cmt-output-field data-style-id="state0element1block_element1block_element1_child"   record={record}  card={card}  data-conditions='\{"group":[{"field":"object.usageType","hasMergeField":false,"id":"state-new-condition-3","operator":"==","type":"custom","value":"SMS ONLINE"}],"id":"state-condition-object","isParent":true}'  field-name=""  label="Tipo Tarifa:"  placeholder="SMS"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element1block_element2" class="slds-col   slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"group":[{"field":"object.usageType","hasMergeField":false,"id":"state-new-condition-3","operator":"==","type":"custom","value":"MMS ONLINE"}],"id":"state-condition-object","isParent":true}' ><vlocity_cmt-output-field data-style-id="state0element1block_element1block_element2_child"   record={record}  card={card}  data-conditions='\{"group":[{"field":"object.usageType","hasMergeField":false,"id":"state-new-condition-3","operator":"==","type":"custom","value":"MMS ONLINE"}],"id":"state-condition-object","isParent":true}'  field-name=""  label="Tipo Tarifa:"  placeholder="MMS"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element1block_element3" class="slds-col   slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"group":[{"field":"object.usageType","hasMergeField":false,"id":"state-new-condition-3","operator":"==","type":"custom","value":"SMS ONLINE"}],"id":"state-condition-object","isParent":true}' ><vlocity_cmt-output-field data-style-id="state0element1block_element1block_element3_child"   record={record}  card={card}  data-conditions='\{"group":[{"field":"object.usageType","hasMergeField":false,"id":"state-new-condition-3","operator":"==","type":"custom","value":"SMS ONLINE"}],"id":"state-condition-object","isParent":true}'  field-name=""  label="Tipo Chamada:"  placeholder="SMS-V"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element1block_element4" class="slds-col   slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"group":[{"field":"object.usageType","hasMergeField":false,"id":"state-new-condition-3","operator":"==","type":"custom","value":"MMS ONLINE"}],"id":"state-condition-object","isParent":true}' ><vlocity_cmt-output-field data-style-id="state0element1block_element1block_element4_child"   record={record}  card={card}  data-conditions='\{"group":[{"field":"object.usageType","hasMergeField":false,"id":"state-new-condition-3","operator":"==","type":"custom","value":"MMS ONLINE"}],"id":"state-condition-object","isParent":true}'  field-name=""  label="Tipo Chamada:"  placeholder="MMS-V"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1block_element2" class="slds-col   slds-p-around_x-small  slds-size_3-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element1block_element2_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element2block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element2block_element0_child"   record={record}  card={card}  field-name="object.destination.connectionType"  label="Tipo de Conexão:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element2block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element2block_element1_child"   record={record}  card={card}  field-name="object.consumptionPeriod.startDateTime"  format="DD/MM/YYYY HH:mm:ss"  label="Início do Eevento:"  mask="#,##0.###"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element2block_element2" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element2block_element2_child"   record={record}  card={card}  field-name="object.consumptionPeriod.endDateTime"  format="DD/MM/YYYY HH:mm:ss"  label="Fim do Evento:"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element2block_element3" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element2block_element3_child"   record={record}  card={card}  field-name="object.consumptionPeriod.processingDateTime"  format="DD/MM/YYYY HH:mm:ss"  label="Data Processamento:"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1block_element3" class="slds-col   slds-p-around_x-small slds-size_3-of-12 " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element1block_element3_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element3block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element3block_element0_child"   record={record}  card={card}  field-name=""  label="Usuario Impugnação:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element3block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element3block_element1_child"   record={record}  card={card}  field-name=""  label="Comentario Impugnação:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element3block_element2" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element3block_element2_child"   record={record}  card={card}  field-name=""  label="Estado Impugnação:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element3block_element3" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element3block_element3_child"   record={record}  card={card}  field-name=""  label="Detalhe do Conteudo:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element3block_element4" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element3block_element4_child"   record={record}  card={card}  field-name=""  label="Motivo:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state><vlocity_cmt-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="1" data-rindex={rindex} class="cf-vlocity-state-1 cf-vlocity-state slds-large-size_12-of-12 slds-medium-size_12-of-12 slds-small-size_12-of-12 slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-around_none " style="      
+         ">
+          <div data-style-id="state1element0" class="slds-col  slds-border_bottom  slds-size_12-of-12  " data-rindex={rindex} style="     border-bottom: #cccccc 1px solid; 
+         " ><vlocity_cmt-output-field data-style-id="state1element0_child"   record={record}  card={card}  merge-field="%3Cdiv%20class=%22slds-text-heading_large%20slds-text-color_default%20slds-text-align_center%22%3E%3Cstrong%3E%3Cspan%20class=%22%22%20style=%22font-size:%2018pt;%22%3EDetalhes%20de%20Chamada%20Efetuada%3C/span%3E%3C/strong%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1" class="slds-col   slds-border_bottom slds-p-around_x-small  slds-size_12-of-12  " data-rindex={rindex} style="     border-bottom: #cccccc 1px solid; 
+         " >
+    <vlocity_cmt-block data-style-id="state1element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state1element1block_element0" class="slds-col   slds-p-around_x-small slds-size_3-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state1element1block_element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state1element1block_element0block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element0block_element0_child"   record={record}  card={card}  field-name="contextNumber"  label="Linha Origem:"  placeholder=""  styles='\{"label":{"fontSize":"6","textAlign":"left"},"value":{"textAlign":"left"}}'  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element0block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element0block_element1_child"   record={record}  card={card}  field-name="object.destination.networkNumber"  label="Linha Destino:"  placeholder=""  styles='\{"label":{"fontSize":"6","textAlign":"left"},"value":{"textAlign":"left"}}'  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element0block_element2" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element0block_element2_child"   record={record}  card={card}  field-name="object.consumptionPeriod.duration"  label="Duração Real (segundos):"  placeholder=""  styles='\{"label":{"fontSize":"6","textAlign":"left"},"value":{"textAlign":"left"}}'  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element0block_element3" class="slds-col   slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"object.bucket[0].usageUnit","operator":"==","value":"BRL","type":"custom","hasMergeField":false}]}' ><vlocity_cmt-output-field data-style-id="state1element1block_element0block_element3_child"   record={record}  card={card}  field-name="object.bucket[0].amount"  label="Valor Chamada:"  mask="#,##0.###"  placeholder="0,00"  styles='\{"label":{"fontSize":"6","textAlign":"left"},"value":{"textAlign":"left"}}'  type="number"  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"object.bucket[0].usageUnit","operator":"==","value":"BRL","type":"custom","hasMergeField":false}]}'  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element0block_element4" class="slds-col   slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"object.bucket[0].usageUnit","operator":"!=","value":"BRL","type":"custom","hasMergeField":false}]}' ><vlocity_cmt-output-field data-style-id="state1element1block_element0block_element4_child"   record={record}  card={card}  field-name=""  label="Valor Chamada:"  mask="#,##0.###"  placeholder="0,00"  styles='\{"label":{"fontSize":"6","textAlign":"left"},"value":{"textAlign":"left"}}'  type="number"  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"object.bucket[0].usageUnit","operator":"!=","value":"BRL","type":"custom","hasMergeField":false}]}'  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element0block_element5" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element0block_element5_child"   record={record}  card={card}  field-name=""  label="Valor Adicional:"  placeholder="0,00"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element0block_element6" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element0block_element6_child"   record={record}  card={card}  field-name="timeHHMMSS"  format="DD/MM/YYYY HH:mm"  label="Tempo total (hh:mm:ss):"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state1element1block_element1" class="slds-col   slds-p-around_x-small  slds-size_3-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state1element1block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state1element1block_element1block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element1block_element0_child"   record={record}  card={card}  field-name="object.resource.mobileOperatorCode"  label="CSP:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element1block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element1block_element1_child"   record={record}  card={card}  field-name="connectionConsumptionType"  label="Tipo Chamada:"  placeholder="Mobile Originating Call"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element1block_element2" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element1block_element2_child"   record={record}  card={card}  field-name="object.bucket[0].productName"  label="Tarifado de:"  placeholder=""  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state1element1block_element2" class="slds-col   slds-p-around_x-small  slds-size_3-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state1element1block_element2_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state1element1block_element2block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element2block_element0_child"   record={record}  card={card}  field-name="object.destination.connectionType"  label="Tipo de Conexão:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element2block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element2block_element1_child"   record={record}  card={card}  field-name="object.consumptionPeriod.startDateTime"  format="DD/MM/YYYY HH:mm:ss"  label="Início da Chamada:"  mask="#,##0.###"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element2block_element2" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element2block_element2_child"   record={record}  card={card}  field-name="object.consumptionPeriod.endDateTime"  format="DD/MM/YYYY HH:mm:ss"  label="Fim da Chamada:"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element2block_element3" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element2block_element3_child"   record={record}  card={card}  field-name="object.consumptionPeriod.processingDateTime"  format="DD/MM/YYYY HH:mm:ss"  label="Data Processamento:"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element2block_element4" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element2block_element4_child"   record={record}  card={card}  field-name="object.summaryConsumption[0].aggregatedBalance"  format="DD/MM/YYYY HH:mm"  label="Tempo Tarifado (segundos):"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element2block_element5" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element2block_element5_child"   record={record}  card={card}  field-name="timeHHMMSS"  format="DD/MM/YYYY HH:mm"  label="Tempo Tarifado (hh:mm:ss):"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state1element1block_element3" class="slds-col   slds-p-around_x-small slds-size_3-of-12 " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state1element1block_element3_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state1element1block_element3block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element3block_element0_child"   record={record}  card={card}  field-name=""  label="Usuario Impugnação:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element3block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element3block_element1_child"   record={record}  card={card}  field-name=""  label="Comentario Impugnação:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element3block_element2" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element3block_element2_child"   record={record}  card={card}  field-name=""  label="Estado Impugnação:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element3block_element3" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element3block_element3_child"   record={record}  card={card}  field-name=""  label="Detalhe do Conteudo:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state><vlocity_cmt-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="2" data-rindex={rindex} class="cf-vlocity-state-2 cf-vlocity-state slds-large-size_12-of-12 slds-medium-size_12-of-12 slds-small-size_12-of-12 slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-around_none " style="      
+         ">
+          <div data-style-id="state2element0" class="slds-col  slds-border_bottom  slds-size_12-of-12  " data-rindex={rindex} style="     border-bottom: #cccccc 1px solid; 
+         " ><vlocity_cmt-output-field data-style-id="state2element0_child"   record={record}  card={card}  merge-field="%3Cdiv%20class=%22slds-text-heading_large%20slds-text-color_default%20slds-text-align_center%22%3E%3Cstrong%3E%3Cspan%20class=%22%22%20style=%22font-size:%2018pt;%22%3EDetalhes%20dos%20Dados%20Efetuados%3C/span%3E%3C/strong%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1" class="slds-col   slds-border_bottom slds-p-around_x-small  slds-size_12-of-12  " data-rindex={rindex} style="     border-bottom: #cccccc 1px solid; 
+         " >
+    <vlocity_cmt-block data-style-id="state2element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state2element1block_element0" class="slds-col   slds-p-around_x-small slds-size_3-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state2element1block_element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state2element1block_element0block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element0block_element0_child"   record={record}  card={card}  field-name="contextNumber"  label="Linha:"  placeholder=""  styles='\{"label":{"fontSize":"6","textAlign":"left"},"value":{"textAlign":"left"}}'  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element0block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element0block_element1_child"   record={record}  card={card}  field-name="object.resource.serviceIdentifier"  label="Identificador Serviço:"  placeholder=""  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element0block_element2" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element0block_element2_child"   record={record}  card={card}  field-name="object.resource.networkTechnology"  label="Tecnologia:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element0block_element3" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element0block_element3_child"   record={record}  card={card}  field-name=""  label="Rede:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state2element1block_element1" class="slds-col   slds-p-around_x-small  slds-size_3-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state2element1block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state2element1block_element1block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element1block_element0_child"   record={record}  card={card}  field-name="object.resource.mobileOperatorCode"  label="CSP:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element1block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element1block_element1_child"   record={record}  card={card}  field-name="object.connectionConsumptionType"  label="Tipo Chamada:"  placeholder="Mobile Originating Call"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element1block_element2" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element1block_element2_child"   record={record}  card={card}  field-name="object.bucket[0].productName"  label="Tarifado de:"  placeholder=""  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element1block_element3" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element1block_element3_child"   record={record}  card={card}  field-name=""  label="Custo sessão de dados:"  mask="#,##0.###"  placeholder="0,00"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element1block_element4" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element1block_element4_child"   record={record}  card={card}  field-name="balanceKB"  label="Volume Consumido (Kbytes):"  placeholder=""  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element1block_element5" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element1block_element5_child"   record={record}  card={card}  field-name="object.bucket[0].amount"  label="Volume Tarifado (Mbytes):"  placeholder=""  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element1block_element6" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element1block_element6_child"   record={record}  card={card}  field-name="balanceKB"  label="Volume Tarifa (Kbytes):"  placeholder=""  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state2element1block_element2" class="slds-col   slds-p-around_x-small  slds-size_3-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state2element1block_element2_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state2element1block_element2block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element2block_element0_child"   record={record}  card={card}  field-name="object.destination.connectionType"  label="Tipo de Conexão:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element2block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element2block_element1_child"   record={record}  card={card}  field-name="object.consumptionPeriod.startDateTime"  format="DD/MM/YYYY HH:mm:ss"  label="Início da Chamada:"  mask="#,##0.###"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element2block_element2" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element2block_element2_child"   record={record}  card={card}  field-name="object.consumptionPeriod.endDateTime"  format="DD/MM/YYYY HH:mm:ss"  label="Fim da Chamada:"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element2block_element3" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element2block_element3_child"   record={record}  card={card}  field-name="object.consumptionPeriod.processingDateTime"  format="DD/MM/YYYY HH:mm:ss"  label="Data Processamento:"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element2block_element4" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element2block_element4_child"   record={record}  card={card}  field-name="object.resource.ipAddress"  label="IP sessão dados:"  placeholder=""  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state2element1block_element3" class="slds-col   slds-p-around_x-small slds-size_3-of-12 " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state2element1block_element3_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state2element1block_element3block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element3block_element0_child"   record={record}  card={card}  field-name=""  label="Usuario Impugnação:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element3block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element3block_element1_child"   record={record}  card={card}  field-name=""  label="Comentario Impugnação:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element3block_element2" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element3block_element2_child"   record={record}  card={card}  field-name=""  label="Estado Impugnação:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element3block_element3" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element3block_element3_child"   record={record}  card={card}  field-name=""  label="Detalhe do Conteudo:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element3block_element4" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element3block_element4_child"   record={record}  card={card}  field-name=""  label="Motivo:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state><vlocity_cmt-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="3" data-rindex={rindex} class="cf-vlocity-state-3 cf-vlocity-state slds-size_12-of-12"  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-bottom_x-small" style="">
+          <div data-style-id="state3element0" class="slds-col  slds-border_bottom  slds-size_12-of-12  " data-rindex={rindex} style="     border-bottom: #cccccc 1px solid; 
+         " ><vlocity_cmt-output-field data-style-id="state3element0_child"   record={record}  card={card}  merge-field="%3Cdiv%20class=%22slds-text-heading_large%20slds-text-color_default%20slds-text-align_center%22%3E%3Cstrong%3E%3Cspan%20class=%22%22%20style=%22font-size:%2018pt;%22%3EDetalhes%20do%20Ajuste%20de%20Saldo%3C/span%3E%3C/strong%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state3element1" class="slds-col   slds-p-around_x-small slds-size_12-of-12 " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state3element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state3element1block_element0" class="slds-col   slds-p-around_x-small slds-size_3-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state3element1block_element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state3element1block_element0block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state3element1block_element0block_element0_child"   record={record}  card={card}  field-name="object.eventDateTime"  format="DD/MM/YYYY HH:mm:ss"  label="Data Processamento:"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state3element1block_element1" class="slds-col   slds-p-around_x-small slds-size_3-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state3element1block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state3element1block_element1block_element0" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><vlocity_cmt-output-field data-style-id="state3element1block_element1block_element0_child"   record={record}  card={card}  field-name="object.recharge.transferType"  label="Tipo de Transferência"  placeholder=""  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state3element1block_element2" class="slds-col   slds-p-around_x-small slds-size_3-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state3element1block_element2_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state3element1block_element2block_element0" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><vlocity_cmt-output-field data-style-id="state3element1block_element2block_element0_child"   record={record}  card={card}  field-name="object.recharge.reason"  label="Motivo"  placeholder=""  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state3element1block_element3" class="slds-col   slds-p-around_x-small slds-size_3-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state3element1block_element3_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state3element1block_element3block_element0" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><vlocity_cmt-output-field data-style-id="state3element1block_element3block_element0_child"   record={record}  card={card}  field-name="object.recharge.amountDesc"  label="Valor"  placeholder=""  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                        </template>
+                      </template>
+                      <template if:false={hasRecords}>
+                            <vlocity_cmt-flex-card-state  record={record} data-statue="false"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-large-size_12-of-12 slds-medium-size_12-of-12 slds-small-size_12-of-12 slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-around_none " style="      
+         ">
+          <div data-style-id="state0element0" class="slds-col  slds-border_bottom  slds-size_12-of-12  " data-rindex={rindex} style="     border-bottom: #cccccc 1px solid; 
+         " ><vlocity_cmt-output-field data-style-id="state0element0_child"   record={record}  card={card}  merge-field="%3Cdiv%20class=%22slds-text-heading_large%20slds-text-color_default%20slds-text-align_center%22%3E%3Cstrong%3E%3Cspan%20class=%22%22%20style=%22font-size:%2018pt;%22%3EDetalhes%20do%20SMS/MMS%20Efetuado%3C/span%3E%3C/strong%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1" class="slds-col   slds-border_bottom slds-p-around_x-small  slds-size_12-of-12  " data-rindex={rindex} style="     border-bottom: #cccccc 1px solid; 
+         " >
+    <vlocity_cmt-block data-style-id="state0element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element0" class="slds-col   slds-p-around_x-small slds-size_3-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element1block_element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element0block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element0block_element0_child"   record={record}  card={card}  field-name="contextNumber"  label="Linha Origem:"  placeholder=""  styles='\{"label":{"fontSize":"6","textAlign":"left"},"value":{"textAlign":"left"}}'  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element0block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element0block_element1_child"   record={record}  card={card}  field-name="object.destination.networkNumber"  label="Linha Destino:"  placeholder=""  styles='\{"label":{"fontSize":"6","textAlign":"left"},"value":{"textAlign":"left"}}'  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element0block_element2" class="slds-col   slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"object.bucket[0].usageUnit","operator":"==","value":"BRL","type":"custom","hasMergeField":false}]}' ><vlocity_cmt-output-field data-style-id="state0element1block_element0block_element2_child"   record={record}  card={card}  field-name="object.bucket[0].amount"  label="Valor Chamada:"  mask="#,##0.###"  placeholder="0,00"  styles='\{"label":{"fontSize":"6","textAlign":"left"},"value":{"textAlign":"left"}}'  type="number"  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"object.bucket[0].usageUnit","operator":"==","value":"BRL","type":"custom","hasMergeField":false}]}'  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element0block_element3" class="slds-col   slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"object.bucket[0].usageUnit","operator":"!=","value":"BRL","type":"custom","hasMergeField":false}]}' ><vlocity_cmt-output-field data-style-id="state0element1block_element0block_element3_child"   record={record}  card={card}  field-name=""  label="Valor Chamada:"  mask="#,##0.###"  placeholder="0,00"  styles='\{"label":{"fontSize":"6","textAlign":"left"},"value":{"textAlign":"left"}}'  type="number"  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"object.bucket[0].usageUnit","operator":"!=","value":"BRL","type":"custom","hasMergeField":false}]}'  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element0block_element4" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element0block_element4_child"   record={record}  card={card}  field-name=""  label="Valor Adicional:"  placeholder="0,00"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1block_element1" class="slds-col   slds-p-around_x-small  slds-size_3-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element1block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element1block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element1block_element0_child"   record={record}  card={card}  field-name="object.resource.mobileOperatorCode"  label="CSP:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element1block_element1" class="slds-col   slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"group":[{"field":"object.usageType","hasMergeField":false,"id":"state-new-condition-3","operator":"==","type":"custom","value":"SMS ONLINE"}],"id":"state-condition-object","isParent":true}' ><vlocity_cmt-output-field data-style-id="state0element1block_element1block_element1_child"   record={record}  card={card}  data-conditions='\{"group":[{"field":"object.usageType","hasMergeField":false,"id":"state-new-condition-3","operator":"==","type":"custom","value":"SMS ONLINE"}],"id":"state-condition-object","isParent":true}'  field-name=""  label="Tipo Tarifa:"  placeholder="SMS"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element1block_element2" class="slds-col   slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"group":[{"field":"object.usageType","hasMergeField":false,"id":"state-new-condition-3","operator":"==","type":"custom","value":"MMS ONLINE"}],"id":"state-condition-object","isParent":true}' ><vlocity_cmt-output-field data-style-id="state0element1block_element1block_element2_child"   record={record}  card={card}  data-conditions='\{"group":[{"field":"object.usageType","hasMergeField":false,"id":"state-new-condition-3","operator":"==","type":"custom","value":"MMS ONLINE"}],"id":"state-condition-object","isParent":true}'  field-name=""  label="Tipo Tarifa:"  placeholder="MMS"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element1block_element3" class="slds-col   slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"group":[{"field":"object.usageType","hasMergeField":false,"id":"state-new-condition-3","operator":"==","type":"custom","value":"SMS ONLINE"}],"id":"state-condition-object","isParent":true}' ><vlocity_cmt-output-field data-style-id="state0element1block_element1block_element3_child"   record={record}  card={card}  data-conditions='\{"group":[{"field":"object.usageType","hasMergeField":false,"id":"state-new-condition-3","operator":"==","type":"custom","value":"SMS ONLINE"}],"id":"state-condition-object","isParent":true}'  field-name=""  label="Tipo Chamada:"  placeholder="SMS-V"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element1block_element4" class="slds-col   slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"group":[{"field":"object.usageType","hasMergeField":false,"id":"state-new-condition-3","operator":"==","type":"custom","value":"MMS ONLINE"}],"id":"state-condition-object","isParent":true}' ><vlocity_cmt-output-field data-style-id="state0element1block_element1block_element4_child"   record={record}  card={card}  data-conditions='\{"group":[{"field":"object.usageType","hasMergeField":false,"id":"state-new-condition-3","operator":"==","type":"custom","value":"MMS ONLINE"}],"id":"state-condition-object","isParent":true}'  field-name=""  label="Tipo Chamada:"  placeholder="MMS-V"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1block_element2" class="slds-col   slds-p-around_x-small  slds-size_3-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element1block_element2_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element2block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element2block_element0_child"   record={record}  card={card}  field-name="object.destination.connectionType"  label="Tipo de Conexão:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element2block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element2block_element1_child"   record={record}  card={card}  field-name="object.consumptionPeriod.startDateTime"  format="DD/MM/YYYY HH:mm:ss"  label="Início do Eevento:"  mask="#,##0.###"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element2block_element2" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element2block_element2_child"   record={record}  card={card}  field-name="object.consumptionPeriod.endDateTime"  format="DD/MM/YYYY HH:mm:ss"  label="Fim do Evento:"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element2block_element3" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element2block_element3_child"   record={record}  card={card}  field-name="object.consumptionPeriod.processingDateTime"  format="DD/MM/YYYY HH:mm:ss"  label="Data Processamento:"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1block_element3" class="slds-col   slds-p-around_x-small slds-size_3-of-12 " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element1block_element3_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element3block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element3block_element0_child"   record={record}  card={card}  field-name=""  label="Usuario Impugnação:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element3block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element3block_element1_child"   record={record}  card={card}  field-name=""  label="Comentario Impugnação:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element3block_element2" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element3block_element2_child"   record={record}  card={card}  field-name=""  label="Estado Impugnação:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element3block_element3" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element3block_element3_child"   record={record}  card={card}  field-name=""  label="Detalhe do Conteudo:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element3block_element4" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1block_element3block_element4_child"   record={record}  card={card}  field-name=""  label="Motivo:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state><vlocity_cmt-flex-card-state  record={record} data-statue="false"  data-index="1" data-rindex={rindex} class="cf-vlocity-state-1 cf-vlocity-state slds-large-size_12-of-12 slds-medium-size_12-of-12 slds-small-size_12-of-12 slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-around_none " style="      
+         ">
+          <div data-style-id="state1element0" class="slds-col  slds-border_bottom  slds-size_12-of-12  " data-rindex={rindex} style="     border-bottom: #cccccc 1px solid; 
+         " ><vlocity_cmt-output-field data-style-id="state1element0_child"   record={record}  card={card}  merge-field="%3Cdiv%20class=%22slds-text-heading_large%20slds-text-color_default%20slds-text-align_center%22%3E%3Cstrong%3E%3Cspan%20class=%22%22%20style=%22font-size:%2018pt;%22%3EDetalhes%20de%20Chamada%20Efetuada%3C/span%3E%3C/strong%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1" class="slds-col   slds-border_bottom slds-p-around_x-small  slds-size_12-of-12  " data-rindex={rindex} style="     border-bottom: #cccccc 1px solid; 
+         " >
+    <vlocity_cmt-block data-style-id="state1element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state1element1block_element0" class="slds-col   slds-p-around_x-small slds-size_3-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state1element1block_element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state1element1block_element0block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element0block_element0_child"   record={record}  card={card}  field-name="contextNumber"  label="Linha Origem:"  placeholder=""  styles='\{"label":{"fontSize":"6","textAlign":"left"},"value":{"textAlign":"left"}}'  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element0block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element0block_element1_child"   record={record}  card={card}  field-name="object.destination.networkNumber"  label="Linha Destino:"  placeholder=""  styles='\{"label":{"fontSize":"6","textAlign":"left"},"value":{"textAlign":"left"}}'  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element0block_element2" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element0block_element2_child"   record={record}  card={card}  field-name="object.consumptionPeriod.duration"  label="Duração Real (segundos):"  placeholder=""  styles='\{"label":{"fontSize":"6","textAlign":"left"},"value":{"textAlign":"left"}}'  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element0block_element3" class="slds-col   slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"object.bucket[0].usageUnit","operator":"==","value":"BRL","type":"custom","hasMergeField":false}]}' ><vlocity_cmt-output-field data-style-id="state1element1block_element0block_element3_child"   record={record}  card={card}  field-name="object.bucket[0].amount"  label="Valor Chamada:"  mask="#,##0.###"  placeholder="0,00"  styles='\{"label":{"fontSize":"6","textAlign":"left"},"value":{"textAlign":"left"}}'  type="number"  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"object.bucket[0].usageUnit","operator":"==","value":"BRL","type":"custom","hasMergeField":false}]}'  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element0block_element4" class="slds-col   slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"object.bucket[0].usageUnit","operator":"!=","value":"BRL","type":"custom","hasMergeField":false}]}' ><vlocity_cmt-output-field data-style-id="state1element1block_element0block_element4_child"   record={record}  card={card}  field-name=""  label="Valor Chamada:"  mask="#,##0.###"  placeholder="0,00"  styles='\{"label":{"fontSize":"6","textAlign":"left"},"value":{"textAlign":"left"}}'  type="number"  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"object.bucket[0].usageUnit","operator":"!=","value":"BRL","type":"custom","hasMergeField":false}]}'  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element0block_element5" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element0block_element5_child"   record={record}  card={card}  field-name=""  label="Valor Adicional:"  placeholder="0,00"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element0block_element6" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element0block_element6_child"   record={record}  card={card}  field-name="timeHHMMSS"  format="DD/MM/YYYY HH:mm"  label="Tempo total (hh:mm:ss):"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state1element1block_element1" class="slds-col   slds-p-around_x-small  slds-size_3-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state1element1block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state1element1block_element1block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element1block_element0_child"   record={record}  card={card}  field-name="object.resource.mobileOperatorCode"  label="CSP:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element1block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element1block_element1_child"   record={record}  card={card}  field-name="connectionConsumptionType"  label="Tipo Chamada:"  placeholder="Mobile Originating Call"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element1block_element2" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element1block_element2_child"   record={record}  card={card}  field-name="object.bucket[0].productName"  label="Tarifado de:"  placeholder=""  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state1element1block_element2" class="slds-col   slds-p-around_x-small  slds-size_3-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state1element1block_element2_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state1element1block_element2block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element2block_element0_child"   record={record}  card={card}  field-name="object.destination.connectionType"  label="Tipo de Conexão:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element2block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element2block_element1_child"   record={record}  card={card}  field-name="object.consumptionPeriod.startDateTime"  format="DD/MM/YYYY HH:mm:ss"  label="Início da Chamada:"  mask="#,##0.###"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element2block_element2" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element2block_element2_child"   record={record}  card={card}  field-name="object.consumptionPeriod.endDateTime"  format="DD/MM/YYYY HH:mm:ss"  label="Fim da Chamada:"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element2block_element3" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element2block_element3_child"   record={record}  card={card}  field-name="object.consumptionPeriod.processingDateTime"  format="DD/MM/YYYY HH:mm:ss"  label="Data Processamento:"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element2block_element4" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element2block_element4_child"   record={record}  card={card}  field-name="object.summaryConsumption[0].aggregatedBalance"  format="DD/MM/YYYY HH:mm"  label="Tempo Tarifado (segundos):"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element2block_element5" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element2block_element5_child"   record={record}  card={card}  field-name="timeHHMMSS"  format="DD/MM/YYYY HH:mm"  label="Tempo Tarifado (hh:mm:ss):"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state1element1block_element3" class="slds-col   slds-p-around_x-small slds-size_3-of-12 " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state1element1block_element3_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state1element1block_element3block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element3block_element0_child"   record={record}  card={card}  field-name=""  label="Usuario Impugnação:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element3block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element3block_element1_child"   record={record}  card={card}  field-name=""  label="Comentario Impugnação:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element3block_element2" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element3block_element2_child"   record={record}  card={card}  field-name=""  label="Estado Impugnação:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state1element1block_element3block_element3" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state1element1block_element3block_element3_child"   record={record}  card={card}  field-name=""  label="Detalhe do Conteudo:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state><vlocity_cmt-flex-card-state  record={record} data-statue="false"  data-index="2" data-rindex={rindex} class="cf-vlocity-state-2 cf-vlocity-state slds-large-size_12-of-12 slds-medium-size_12-of-12 slds-small-size_12-of-12 slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-around_none " style="      
+         ">
+          <div data-style-id="state2element0" class="slds-col  slds-border_bottom  slds-size_12-of-12  " data-rindex={rindex} style="     border-bottom: #cccccc 1px solid; 
+         " ><vlocity_cmt-output-field data-style-id="state2element0_child"   record={record}  card={card}  merge-field="%3Cdiv%20class=%22slds-text-heading_large%20slds-text-color_default%20slds-text-align_center%22%3E%3Cstrong%3E%3Cspan%20class=%22%22%20style=%22font-size:%2018pt;%22%3EDetalhes%20dos%20Dados%20Efetuados%3C/span%3E%3C/strong%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1" class="slds-col   slds-border_bottom slds-p-around_x-small  slds-size_12-of-12  " data-rindex={rindex} style="     border-bottom: #cccccc 1px solid; 
+         " >
+    <vlocity_cmt-block data-style-id="state2element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state2element1block_element0" class="slds-col   slds-p-around_x-small slds-size_3-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state2element1block_element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state2element1block_element0block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element0block_element0_child"   record={record}  card={card}  field-name="contextNumber"  label="Linha:"  placeholder=""  styles='\{"label":{"fontSize":"6","textAlign":"left"},"value":{"textAlign":"left"}}'  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element0block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element0block_element1_child"   record={record}  card={card}  field-name="object.resource.serviceIdentifier"  label="Identificador Serviço:"  placeholder=""  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element0block_element2" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element0block_element2_child"   record={record}  card={card}  field-name="object.resource.networkTechnology"  label="Tecnologia:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element0block_element3" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element0block_element3_child"   record={record}  card={card}  field-name=""  label="Rede:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state2element1block_element1" class="slds-col   slds-p-around_x-small  slds-size_3-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state2element1block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state2element1block_element1block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element1block_element0_child"   record={record}  card={card}  field-name="object.resource.mobileOperatorCode"  label="CSP:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element1block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element1block_element1_child"   record={record}  card={card}  field-name="object.connectionConsumptionType"  label="Tipo Chamada:"  placeholder="Mobile Originating Call"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element1block_element2" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element1block_element2_child"   record={record}  card={card}  field-name="object.bucket[0].productName"  label="Tarifado de:"  placeholder=""  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element1block_element3" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element1block_element3_child"   record={record}  card={card}  field-name=""  label="Custo sessão de dados:"  mask="#,##0.###"  placeholder="0,00"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element1block_element4" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element1block_element4_child"   record={record}  card={card}  field-name="balanceKB"  label="Volume Consumido (Kbytes):"  placeholder=""  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element1block_element5" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element1block_element5_child"   record={record}  card={card}  field-name="object.bucket[0].amount"  label="Volume Tarifado (Mbytes):"  placeholder=""  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element1block_element6" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element1block_element6_child"   record={record}  card={card}  field-name="balanceKB"  label="Volume Tarifa (Kbytes):"  placeholder=""  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state2element1block_element2" class="slds-col   slds-p-around_x-small  slds-size_3-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state2element1block_element2_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state2element1block_element2block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element2block_element0_child"   record={record}  card={card}  field-name="object.destination.connectionType"  label="Tipo de Conexão:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element2block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element2block_element1_child"   record={record}  card={card}  field-name="object.consumptionPeriod.startDateTime"  format="DD/MM/YYYY HH:mm:ss"  label="Início da Chamada:"  mask="#,##0.###"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element2block_element2" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element2block_element2_child"   record={record}  card={card}  field-name="object.consumptionPeriod.endDateTime"  format="DD/MM/YYYY HH:mm:ss"  label="Fim da Chamada:"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element2block_element3" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element2block_element3_child"   record={record}  card={card}  field-name="object.consumptionPeriod.processingDateTime"  format="DD/MM/YYYY HH:mm:ss"  label="Data Processamento:"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element2block_element4" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element2block_element4_child"   record={record}  card={card}  field-name="object.resource.ipAddress"  label="IP sessão dados:"  placeholder=""  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state2element1block_element3" class="slds-col   slds-p-around_x-small slds-size_3-of-12 " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state2element1block_element3_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state2element1block_element3block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element3block_element0_child"   record={record}  card={card}  field-name=""  label="Usuario Impugnação:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element3block_element1" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element3block_element1_child"   record={record}  card={card}  field-name=""  label="Comentario Impugnação:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element3block_element2" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element3block_element2_child"   record={record}  card={card}  field-name=""  label="Estado Impugnação:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element3block_element3" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element3block_element3_child"   record={record}  card={card}  field-name=""  label="Detalhe do Conteudo:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state2element1block_element3block_element4" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state2element1block_element3block_element4_child"   record={record}  card={card}  field-name=""  label="Motivo:"  placeholder="-"  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state><vlocity_cmt-flex-card-state  record={record} data-statue="false"  data-index="3" data-rindex={rindex} class="cf-vlocity-state-3 cf-vlocity-state slds-size_12-of-12"  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-bottom_x-small" style="">
+          <div data-style-id="state3element0" class="slds-col  slds-border_bottom  slds-size_12-of-12  " data-rindex={rindex} style="     border-bottom: #cccccc 1px solid; 
+         " ><vlocity_cmt-output-field data-style-id="state3element0_child"   record={record}  card={card}  merge-field="%3Cdiv%20class=%22slds-text-heading_large%20slds-text-color_default%20slds-text-align_center%22%3E%3Cstrong%3E%3Cspan%20class=%22%22%20style=%22font-size:%2018pt;%22%3EDetalhes%20do%20Ajuste%20de%20Saldo%3C/span%3E%3C/strong%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state3element1" class="slds-col   slds-p-around_x-small slds-size_12-of-12 " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state3element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state3element1block_element0" class="slds-col   slds-p-around_x-small slds-size_3-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state3element1block_element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state3element1block_element0block_element0" class="slds-col   slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state3element1block_element0block_element0_child"   record={record}  card={card}  field-name="object.eventDateTime"  format="DD/MM/YYYY HH:mm:ss"  label="Data Processamento:"  placeholder=""  type="datetime"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state3element1block_element1" class="slds-col   slds-p-around_x-small slds-size_3-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state3element1block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state3element1block_element1block_element0" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><vlocity_cmt-output-field data-style-id="state3element1block_element1block_element0_child"   record={record}  card={card}  field-name="object.recharge.transferType"  label="Tipo de Transferência"  placeholder=""  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state3element1block_element2" class="slds-col   slds-p-around_x-small slds-size_3-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state3element1block_element2_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state3element1block_element2block_element0" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><vlocity_cmt-output-field data-style-id="state3element1block_element2block_element0_child"   record={record}  card={card}  field-name="object.recharge.reason"  label="Motivo"  placeholder=""  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state3element1block_element3" class="slds-col   slds-p-around_x-small slds-size_3-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state3element1block_element3_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state3element1block_element3block_element0" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><vlocity_cmt-output-field data-style-id="state3element1block_element3block_element0_child"   record={record}  card={card}  field-name="object.recharge.amountDesc"  label="Valor"  placeholder=""  type="text"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                      </template>
+            </template>
+            <template if:true={hasError}>
+            {error}
+            </template>
+            
+      <vlocity_cmt-action action-wrapperclass="slds-hide" re-render-flyout class="action-trigger slds-col" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+      
+      </vlocity_cmt-action>
+  
+            <vlocity_cmt-action class="execute-action" re-render-flyout action-wrapperclass="slds-hide" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+            
+            </vlocity_cmt-action>
+            </div>
+          </template>
