@@ -51,6 +51,10 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
             newContactPartner.AccountId = acc.id;
             insert newContactPartner;
             
+            Asset newAsset = DataFactory.createAsset(acc.id, 'Movel');
+            newAsset.Status = 'Active';
+            newAsset.MainProductDescription__c  = 'Pós-Controle';
+            insert newAsset;
             
             User userPartner = DataFactory.createCommunityUser(communityProfile.id, 'VendasAliado', newContactPartner.Id);
             userPartner.FirstName = 'userPartner';
@@ -136,8 +140,9 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
     @isTest
     public static void createCustomerInteractionTopicTeste() {
         Test.startTest();
-            vlocity_cmt__CustomerInteraction__c newCustomerInteractionTeste = [SELECT id from vlocity_cmt__CustomerInteraction__c limit 1];
-            Map <String, Object> returnMap = AssetMigrationExchangePlanController.createCustomerInteractionTopic(newCustomerInteractionTeste.id);
+            vlocity_cmt__CustomerInteraction__c newCustomerInteractionTeste = [SELECT id, vlocity_cmt__AccountId__c from vlocity_cmt__CustomerInteraction__c limit 1];
+            Asset selectedAsset = AssetDAO.getAssetMobileMigration(newCustomerInteractionTeste.vlocity_cmt__AccountId__c)[0];
+            Map <String, Object> returnMap = AssetMigrationExchangePlanController.createCustomerInteractionTopic(newCustomerInteractionTeste.id, selectedAsset.id);
 
         Test.stopTest();
 
@@ -148,7 +153,7 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
     public static void createCustomerInteractionTopicFalse() {
         Test.startTest();
             vlocity_cmt__CustomerInteraction__c newCustomerInteractionTeste = [SELECT id from vlocity_cmt__CustomerInteraction__c limit 1];
-            Map <String, Object> returnMap = AssetMigrationExchangePlanController.createCustomerInteractionTopic('xxxxxxxxxx');
+            Map <String, Object> returnMap = AssetMigrationExchangePlanController.createCustomerInteractionTopic('xxxxxxxxxx', 'xxxxxxxxxx');
 
         Test.stopTest();
 
