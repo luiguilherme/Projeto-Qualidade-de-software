@@ -24,7 +24,7 @@
         }
     },
     "dynamicCanvasWidth": {
-        "type": "mobile"
+        "type": "desktop"
     },
     "enableLwc": true,
     "events": [
@@ -160,14 +160,48 @@
             "key": "event-3",
             "recordIndex": "0",
             "showSpinner": "true"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1685046270467-x1y3m11v4",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "id": "flex-action-1685112915729",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"resultVar\":\"[\\\"Products\\\"]\",\"ipMethod\":\"val_GetCustomerProducts\",\"vlocityAsync\":false,\"inputMap\":{\"CurrentPage\":\"1\",\"RecordId\":\"{recordId}\",\"Initial\":\"YES\"}},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"id\":1,\"name\":\"recordId\",\"val\":\"a1c8D000000F032QAC\"}]}",
+                        "openUrlIn": "Current Window",
+                        "responseNode": "Products",
+                        "targetType": "Web Page",
+                        "type": "DataAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "updatedata",
+            "displayLabel": "updatedata:refreshdata",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "refreshdata",
+            "eventtype": "pubsub",
+            "key": "event-4",
+            "recordIndex": "0",
+            "showSpinner": "false"
         }
     ],
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValProductTableView_2_Telefonica",
-        "Id": "0Rb8D000000KxuzSAC",
+        "DeveloperName": "cfValProductTableView_3_Telefonica",
+        "Id": "0Rb8D000001Et8RSAS",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValProductTableView_2_Telefonica",
+        "MasterLabel": "cfValProductTableView_3_Telefonica",
         "NamespacePrefix": "c"
     },
     "selectableMode": "Multi",
@@ -186,8 +220,26 @@
                     "children": [
                         {
                             "class": "slds-col ",
+                            "element": "customLwc",
+                            "elementLabel": "Custom LWC-0",
+                            "name": "Custom LWC",
+                            "property": {
+                                "customlwcname": "subscribedProductsUpdate"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "element"
+                        },
+                        {
+                            "class": "slds-col ",
                             "element": "childCardPreview",
-                            "elementLabel": "FlexCard-0",
+                            "elementLabel": "FlexCard-1",
                             "name": "FlexCard",
                             "property": {
                                 "cardName": "valProductSummaryTitle",
@@ -195,7 +247,7 @@
                                 "data-conditions": {
                                     "group": [
                                         {
-                                            "field": "Products.ErrorType",
+                                            "field": "Products[1].ErrorType",
                                             "hasMergeField": false,
                                             "id": "state-new-condition-10",
                                             "operator": "==",
