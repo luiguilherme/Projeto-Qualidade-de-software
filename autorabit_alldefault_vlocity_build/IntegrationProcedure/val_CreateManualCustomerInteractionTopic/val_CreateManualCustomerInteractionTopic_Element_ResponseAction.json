@@ -8,7 +8,11 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "CaseId": "=IF(%IPACreateCaseFromTopicFixed:CaseId% != null,%IPACreateCaseFromTopicFixed:CaseId%,'')"
+            "AccountId": "=%SVGetPath:accountId%",
+            "CaseId": "=IF(%IPACreateCaseFromTopicFixed:CaseId% != null,%IPACreateCaseFromTopicFixed:CaseId%,'')",
+            "ContactId": "=%DRGetCustomerInteractionTopicData:contactId%",
+            "interactionId": "=%interactionId%",
+            "interactionTopicId": "=%DRUpsertInteractionTopic:InteractionTopicId%"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",
@@ -21,7 +25,7 @@
         "returnFullDataJSON": false,
         "returnOnlyAdditionalOutput": false,
         "sendJSONNode": "",
-        "sendJSONPath": "IPACreateCustomerInteractionTopic",
+        "sendJSONPath": "",
         "show": null,
         "useFormulas": true,
         "vlcResponseHeaders": {
