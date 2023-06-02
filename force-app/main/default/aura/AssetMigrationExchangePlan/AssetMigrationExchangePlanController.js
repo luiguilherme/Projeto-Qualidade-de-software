@@ -36,7 +36,7 @@
     },
 
     resetCanvasHybris : function(component, event, helper) {
-        helper.closeCustomerInteractionTopic(cmp);
+        //helper.closeCustomerInteractionTopic(cmp);
         component.set('v.showCanvas', false);
         component.set('v.showAssetMigrationSelection', true);
         component.set('v.showResetButton', false);
