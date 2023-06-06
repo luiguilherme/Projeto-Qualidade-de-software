@@ -6,6 +6,9 @@ public class UserProfileControllerTest {
 
         Account lAccount = DataFactory.createAccount();
         insert lAccount;
+
+        vlocity_cmt__CustomerInteraction__c customer = DataFactory.createCustomerInteraction(lAccount.Id);
+        insert customer;
         
         insert new GeneralParam__c(
             AccountLoadDate__c  = Datetime.now().addDays(-1),
@@ -34,13 +37,13 @@ public class UserProfileControllerTest {
 
     @isTest
     public static void getUserIdTest(){
-        Account lAccount = [ SELECT Id, UserId__c FROM Account LIMIT 1];
+        vlocity_cmt__CustomerInteraction__c customer = [ SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
 
         Test.startTest();
         Test.setMock(HttpCalloutMock.class, new UserProfileCalloutMock());
 
         UserProfileController userProfile = new UserProfileController();
-        String userId = UserProfileController.getUserId(lAccount.Id);
+        String userId = UserProfileController.getUserId(customer.Id);
         Test.stopTest();
         
         system.debug('USERID ' + userId);
@@ -55,11 +58,13 @@ public class UserProfileControllerTest {
         lAccount.UserId__c = 'userid';
         update lAccount;
 
+        vlocity_cmt__CustomerInteraction__c customer = [ SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
+
         Test.startTest();
         Test.setMock(HttpCalloutMock.class, new UserProfileCalloutMock());
 
         UserProfileController userProfile = new UserProfileController();
-        Id userId = UserProfileController.getUserId(lAccount.Id);
+        Id userId = UserProfileController.getUserId(customer.Id);
         Test.stopTest();
 
         System.assertEquals(null, userId);

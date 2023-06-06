@@ -2,9 +2,9 @@ public without sharing class UserProfileController {
     private static final String WEBSERVICE_NAME = 'FourthPlataformUserProfileCallout';
     
         @AuraEnabled
-        public static String getUserId(Id accountId){
+        public static String getUserId(Id recordId){
             List<Account> lstAccount = new List<Account>();
-            lstAccount = AccountDAO.getAccountUserIdById(accountId);
+            lstAccount = AccountDAO.getAccountUserIdById(CustomerInteractionDAO.getAccountIdById(recordId));
             
             if(lstAccount.isEmpty() || lstAccount[0].UserId__c != null){
                 return null;
