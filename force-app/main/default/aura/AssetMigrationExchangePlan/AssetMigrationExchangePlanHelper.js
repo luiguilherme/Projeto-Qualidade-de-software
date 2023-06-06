@@ -31,6 +31,7 @@
             if (state === 'SUCCESS') {
                 let assetObj = component.get('v.assetMigrationNumber'); 
                 assetObj.topicId = response.getReturnValue().success.Id;
+                component.set('v.topicId', response.getReturnValue().success.Id);
                 component.set('v.assetMigrationNumber', assetObj);
                 component.set('v.showCanvas', true);
             }
@@ -44,5 +45,9 @@
             title: `${title} \n`,
             message,
         });
+    },
+    
+    closeCustomerInteractionTopic: function (component) {
+       //apex para trocar o motivo QUANDO FOR "Solicitação > Comercial > Migrar / Alterar Plano > Fluxo em Andamento" do customerInte
     }
 })
