@@ -7,6 +7,8 @@
     <aura:attribute name="isCanvasHybris"                       type="Boolean" default="false"/>
     <aura:attribute name="isLoading"                            type="Boolean"/>
     <aura:attribute name="showCanvas"                           type="Boolean"/>
+    <aura:attribute name="showResetButton"                      type="Boolean"/>
+    <aura:attribute name="topicId"			                    type="String"/>
     <aura:attribute name="showErrors"                           type="Boolean" default="false"/>
     <aura:attribute name="showAssetMigrationSelection"          type="Boolean" default="false"/>
     <aura:attribute name="assetMigrationNumber"                 type="Object"/>
@@ -35,6 +37,20 @@
                                                 title="Acesso à Troca de Ofertas (Hybris)"
                                                 label="Troca de Ofertas"/>
                                         </h2>
+                                    </td>
+                                    <td width="100px">
+                                        <div class="slds-card__header-title slds-m-left_small">
+                                            
+                                            <aura:if isTrue="{!v.showResetButton}">
+                                                <lightning:icon aura:id="resetButton"
+                                                    onclick="{!c.resetCanvasHybris}"
+                                                    iconName='utility:refresh' 
+                                                    alternativeText='Reiniciar Fluxo'
+                                                    size='small' 
+                                                    title='Reiniciar Fluxo'
+                                                    label="Reiniciar Fluxo"/>
+                                            </aura:if>
+                                        </div>
                                     </td>
                                     <td><aura:renderIf isTrue="{!v.showErrors}"> 
                                         <lightning:formattedText class="slds-var-p-left_small" style="color: red; font-style: italic; font-weight: bold; font-size: smaller;" 

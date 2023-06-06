@@ -32,5 +32,19 @@
         cmp.set('v.assetMigrationNumber ', JSON.parse(event.getParam('data'))); //Para remover as Aspas duplas
         cmp.set('v.showAssetMigrationSelection', false);
         helper.createCustomerInteractionTopic(cmp);
+        cmp.set('v.showResetButton', true);
+    },
+
+    resetCanvasHybris : function(component, event, helper) {
+        helper.closeCustomerInteractionTopic(cmp);
+        component.set('v.showCanvas', false);
+        component.set('v.showAssetMigrationSelection', true);
+        component.set('v.showResetButton', false);
+
+        var compEvent = component.getEvent("c:BroadcastNotification");
+        compEvent.setParams({
+            type: "closeCanvasHybris"
+        });
+        compEvent.fire();
     }
 })
