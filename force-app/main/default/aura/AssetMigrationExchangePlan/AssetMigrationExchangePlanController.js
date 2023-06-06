@@ -19,11 +19,12 @@
     
     handleComponentEvent : function (component,event, helper) {
         var selectedTypeFromEvent = event.getParam("type");
-        var accountId = event.getParam("sobject");
+        var interactionId = event.getParam("sobject");
 
         if (selectedTypeFromEvent == 'closeCanvasHybris') {
-            if (accountId != component.get('v.recordId')) {
-                component.set('v.showCanvas ', false);    
+            if (interactionId != component.get('v.recordId')) {
+                component.set('v.showCanvas ', false);   
+                component.set('v.showResetButton', false);
             }
         }
     },
