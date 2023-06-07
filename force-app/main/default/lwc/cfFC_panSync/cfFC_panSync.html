@@ -1,0 +1,155 @@
+<template>
+            <div class="slds-grid slds-wrap slds-is-relative containersize">
+            <div style="position: fixed;z-index: 999999;top: 0;right: 0;">
+  <vlocity_cmt-toast class="flexcard-toast-element" theme="slds" title="" message="" styletype=""> </vlocity_cmt-toast>
+</div>
+            <div if:true={showLoader} class="slds-is-absolute vloc-loader_override" style="height: 100%; width: 100%; min-height:50px; background: transparent; z-index: 99;">
+  <div>
+   <vlocity_cmt-spinner
+      variant="brand"
+      alternative-text="Loading content..."
+      size="medium"
+      theme="slds"
+      ></vlocity_cmt-spinner>
+  </div>
+</div>
+            <template if:false={hasPermission}>
+              You don't have required permissions to view this card.
+            </template>
+            <template if:true={hasPermission}>
+              <template if:true={hasRecords}>
+                        <template for:each={_records} for:item="record" for:index="rindex">
+                            <vlocity_cmt-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-around_none " style="      
+         ">
+          <div data-style-id="state0element0" class="slds-col   slds-border_bottom slds-p-around_x-small  slds-size_12-of-12  " data-rindex={rindex} style="     border-bottom: #cccccc 1px solid; 
+         " >
+    <vlocity_cmt-block data-style-id="state0element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Header"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0" class="slds-col    slds-size_12-of-12  " data-rindex={rindex} style="      
+        color:#1589ee; color: #1589ee; font-size: 21px; border-color: #1589ee;" ><vlocity_cmt-output-field data-style-id="state0element0block_element0_child"   record={record}  card={card}  merge-field="%3Cdiv%20class=%22slds-text-align_center%22%3E%3Cspan%20style=%22color:%20#000000;%22%3E%3Cstrong%3E%3Cspan%20style=%22font-size:%2014pt;%22%3ESincronismo%3C/span%3E%3C/strong%3E%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1" class="slds-col   slds-p-around_x-small slds-size_2-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element2" class="slds-col   slds-p-around_x-small slds-size_4-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element2_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element2block_element0" class="slds-col  slds-p-right_x-small slds-size_12-of-12  " data-rindex={rindex} style="" ><vlocity_cmt-base-input-element data-style-id="state0element2block_element0_child"   record={record}  card={card}  action='\{"actionList":[{"actionIndex":0,"card":"{card}","draggable":false,"isOpen":true,"key":"1656011363151-v89345df3","label":"Action","stateAction":{"displayName":"Action","eventName":"setValues","fieldValues":[{"fieldName":"Session.motivo","fieldValue":"{element.value}"}],"id":"flex-action-1656419364251","message":"{\"type\":null,\"value\":{},\"orderBy\":{},\"contextVariables\":[{\"name\":\"motivo\",\"val\":\"{element.value}\",\"id\":3},{\"name\":\"networkNumber\",\"val\":\"962196764\",\"id\":4},{\"name\":\"observacao\",\"val\":\"{observacao}\",\"id\":5}]}","openUrlIn":"Current Window","type":"cardAction","vlocityIcon":"standard-default"}}],"eventType":"onchange","iconName":"standard-default","label":"Action","showSpinner":"false"}'  property-obj='\{"action":{"actionList":[{"actionIndex":0,"card":"{card}","draggable":false,"isOpen":true,"key":"1656011363151-v89345df3","label":"Action","stateAction":{"displayName":"Action","eventName":"setValues","fieldValues":[{"fieldName":"Session.motivo","fieldValue":"{element.value}"}],"id":"flex-action-1656419364251","message":"{\"type\":null,\"value\":{},\"orderBy\":{},\"contextVariables\":[{\"name\":\"motivo\",\"val\":\"{element.value}\",\"id\":3},{\"name\":\"networkNumber\",\"val\":\"962196764\",\"id\":4},{\"name\":\"observacao\",\"val\":\"{observacao}\",\"id\":5}]}","openUrlIn":"Current Window","type":"cardAction","vlocityIcon":"standard-default"}}],"eventType":"onchange","iconName":"standard-default","label":"Action","showSpinner":"false"},"customProperties":[],"fieldBinding":"","label":"Motivo","options":[{"group":"","id":0,"label":"A pedido do Cliente","value":"cliente"},{"group":"","id":1,"label":"Procedimento Interno","value":"interno"}],"required":false,"type":"combobox","value":"cliente"}'  type="combobox"  extraclass=" slds-text-link_reset"  theme="slds" onchange={executeAction} data-element-label="select2" ></vlocity_cmt-base-input-element>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element3" class="slds-col   slds-p-around_x-small slds-size_5-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element3_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element4" class="slds-col   slds-p-around_x-small slds-size_2-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element4_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element5" class="slds-col   slds-p-around_x-small slds-size_8-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element5_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element5block_element0" class="slds-col  slds-p-right_x-small slds-size_12-of-12  " data-rindex={rindex} style="" ><vlocity_cmt-base-input-element data-style-id="state0element5block_element0_child"   record={record}  card={card}  action='\{"actionList":[{"actionIndex":0,"card":"{card}","draggable":false,"isOpen":true,"key":"1656014474854-t34b0x3zs","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"displayName":"Action","eventName":"setValues","fieldValues":[{"fieldName":"Session.observacao","fieldValue":"{element.value}"}],"id":"flex-action-1656419371639","message":"{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"pan_Sync\",\"vlocityAsync\":false,\"inputMap\":{\"Session.observacao\":\"{element.value}\",\"Session.motivo\":\"{motivo}\",\"Session.networkNumber\":\"{networkNumber}\"}},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"element.value\",\"val\":\"\",\"id\":3},{\"name\":\"motivo\",\"val\":\"\",\"id\":4},{\"name\":\"networkNumber\",\"val\":\"\",\"id\":5}]}","openUrlIn":"Current Window","targetType":"Web Page","type":"cardAction","vlocityIcon":"standard-default"}}],"eventType":"onchange","iconName":"standard-default","label":"Action","showSpinner":"false"}'  property-obj='\{"action":{"actionList":[{"actionIndex":0,"card":"{card}","draggable":false,"isOpen":true,"key":"1656014474854-t34b0x3zs","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"displayName":"Action","eventName":"setValues","fieldValues":[{"fieldName":"Session.observacao","fieldValue":"{element.value}"}],"id":"flex-action-1656419371639","message":"{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"pan_Sync\",\"vlocityAsync\":false,\"inputMap\":{\"Session.observacao\":\"{element.value}\",\"Session.motivo\":\"{motivo}\",\"Session.networkNumber\":\"{networkNumber}\"}},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"element.value\",\"val\":\"\",\"id\":3},{\"name\":\"motivo\",\"val\":\"\",\"id\":4},{\"name\":\"networkNumber\",\"val\":\"\",\"id\":5}]}","openUrlIn":"Current Window","targetType":"Web Page","type":"cardAction","vlocityIcon":"standard-default"}}],"eventType":"onchange","iconName":"standard-default","label":"Action","showSpinner":"false"},"customProperties":[],"fieldBinding":"","label":"Observação","styles":"{\n        \"label\": {\n            \"width\":\"auto\"\n        }\n      }"}'  type="textarea"  extraclass=" slds-text-link_reset"  theme="slds" onchange={executeAction} data-element-label="block2textarea0" ></vlocity_cmt-base-input-element>
+      </div><div data-style-id="state0element5block_element1" class="slds-col   slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"group":[{"id":"state-new-condition-19","field":"showMessage","operator":"==","value":"true","type":"custom","hasMergeField":false}],"id":"state-condition-object","isParent":true}' ><c-cf-f-c_pan-sync-result data-style-id="state0element5block_element1_child"  tracking-obj={_childCardTrackingObj}  is-inside-parent={insideParent} parent-uniquekey={uniqueKey}  card-node=""  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  data-conditions='\{"group":[{"id":"state-new-condition-19","field":"showMessage","operator":"==","value":"true","type":"custom","hasMergeField":false}],"id":"state-condition-object","isParent":true}'  is-child-card-tracking-enabled="false"  object-api-name={objectApiName}  theme="slds"   onupdateparent={updateParentData}></c-cf-f-c_pan-sync-result>
+    </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element6" class="slds-col   slds-p-around_x-small slds-size_1-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element6_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element7" class="slds-col   slds-p-around_x-small slds-size_1-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element7_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element8" class="slds-col   slds-p-around_x-small slds-size_12-of-12  condition-element" data-rindex={rindex} style=""  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[]}' >
+    <vlocity_cmt-block data-style-id="state0element8_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[]}'  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element8block_element0" class="slds-col   slds-size_12-of-12 condition-element" data-rindex={rindex} style=""  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"Session.showButton","operator":"==","value":"true","type":"custom","hasMergeField":false}]}' ><vlocity_cmt-flex-action data-style-id="state0element8block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element8block_element0_child flexActionElement" 
+        data-action-element-class="state0element8block_element0_child" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block7action0"   state-obj={record}  card={card}  record={record}  label="Sincronizar"  icon-name="standard-default"  action-list='\[{"stateAction":{"id":"flex-action-1665773968790","type":"Event","openUrlIn":"Current Window","subType":"PubSub","eventName":"FC_panSync","message":"postsync","hasExtraParams":true,"extraParams":{"motivo":"{Session.motivo}","networkNumber":"{Parent.networkNumber}","observacao":"{Session.observacao}"}},"key":"1664835911423-4fde6jnhs","label":"pubSubSync","draggable":true,"isOpen":true,"actionIndex":0},{"key":"1664836011561-r2a231msk","label":"setValues","draggable":true,"isOpen":false,"card":"{card}","stateAction":{"id":"flex-action-1664892167907","type":"cardAction","displayName":"Action","vlocityIcon":"standard-default","openUrlIn":"Current Window","eventName":"setValues","fieldValues":[{"fieldName":"showMessage","fieldValue":"true"}]},"actionIndex":1}]'  flyout-details='\{}'  hide-action-icon="true"  display-as-button="true"  button-variant="brand"  styles='\{"label":{"textAlign":"center"}}'  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"Session.showButton","operator":"==","value":"true","type":"custom","hasMergeField":false}]}'  theme="slds"  ></vlocity_cmt-flex-action>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state><vlocity_cmt-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="1" data-rindex={rindex} class="cf-vlocity-state-1 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-around_none " style="      
+         ">
+          <div data-style-id="state1element0" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><c-cf-val-message-alert data-style-id="state1element0_child"  tracking-obj={_childCardTrackingObj}  is-inside-parent={insideParent} parent-uniquekey={uniqueKey}  card-node=""  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  is-child-card-tracking-enabled="false"  parent-attribute='\{"ErrorMessage":"Perfil do Usuário sem permissão"}'  object-api-name={objectApiName}  theme="slds"   onupdateparent={updateParentData}></c-cf-val-message-alert>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                        </template>
+                      </template>
+                      <template if:false={hasRecords}>
+                            <vlocity_cmt-flex-card-state  record={record} data-statue="false"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-around_none " style="      
+         ">
+          <div data-style-id="state0element0" class="slds-col   slds-border_bottom slds-p-around_x-small  slds-size_12-of-12  " data-rindex={rindex} style="     border-bottom: #cccccc 1px solid; 
+         " >
+    <vlocity_cmt-block data-style-id="state0element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Header"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0" class="slds-col    slds-size_12-of-12  " data-rindex={rindex} style="      
+        color:#1589ee; color: #1589ee; font-size: 21px; border-color: #1589ee;" ><vlocity_cmt-output-field data-style-id="state0element0block_element0_child"   record={record}  card={card}  merge-field="%3Cdiv%20class=%22slds-text-align_center%22%3E%3Cspan%20style=%22color:%20#000000;%22%3E%3Cstrong%3E%3Cspan%20style=%22font-size:%2014pt;%22%3ESincronismo%3C/span%3E%3C/strong%3E%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1" class="slds-col   slds-p-around_x-small slds-size_2-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element2" class="slds-col   slds-p-around_x-small slds-size_4-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element2_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element2block_element0" class="slds-col  slds-p-right_x-small slds-size_12-of-12  " data-rindex={rindex} style="" ><vlocity_cmt-base-input-element data-style-id="state0element2block_element0_child"   record={record}  card={card}  action='\{"actionList":[{"actionIndex":0,"card":"{card}","draggable":false,"isOpen":true,"key":"1656011363151-v89345df3","label":"Action","stateAction":{"displayName":"Action","eventName":"setValues","fieldValues":[{"fieldName":"Session.motivo","fieldValue":"{element.value}"}],"id":"flex-action-1656419364251","message":"{\"type\":null,\"value\":{},\"orderBy\":{},\"contextVariables\":[{\"name\":\"motivo\",\"val\":\"{element.value}\",\"id\":3},{\"name\":\"networkNumber\",\"val\":\"962196764\",\"id\":4},{\"name\":\"observacao\",\"val\":\"{observacao}\",\"id\":5}]}","openUrlIn":"Current Window","type":"cardAction","vlocityIcon":"standard-default"}}],"eventType":"onchange","iconName":"standard-default","label":"Action","showSpinner":"false"}'  property-obj='\{"action":{"actionList":[{"actionIndex":0,"card":"{card}","draggable":false,"isOpen":true,"key":"1656011363151-v89345df3","label":"Action","stateAction":{"displayName":"Action","eventName":"setValues","fieldValues":[{"fieldName":"Session.motivo","fieldValue":"{element.value}"}],"id":"flex-action-1656419364251","message":"{\"type\":null,\"value\":{},\"orderBy\":{},\"contextVariables\":[{\"name\":\"motivo\",\"val\":\"{element.value}\",\"id\":3},{\"name\":\"networkNumber\",\"val\":\"962196764\",\"id\":4},{\"name\":\"observacao\",\"val\":\"{observacao}\",\"id\":5}]}","openUrlIn":"Current Window","type":"cardAction","vlocityIcon":"standard-default"}}],"eventType":"onchange","iconName":"standard-default","label":"Action","showSpinner":"false"},"customProperties":[],"fieldBinding":"","label":"Motivo","options":[{"group":"","id":0,"label":"A pedido do Cliente","value":"cliente"},{"group":"","id":1,"label":"Procedimento Interno","value":"interno"}],"required":false,"type":"combobox","value":"cliente"}'  type="combobox"  extraclass=" slds-text-link_reset"  theme="slds" onchange={executeAction} data-element-label="select2" ></vlocity_cmt-base-input-element>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element3" class="slds-col   slds-p-around_x-small slds-size_5-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element3_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element4" class="slds-col   slds-p-around_x-small slds-size_2-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element4_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element5" class="slds-col   slds-p-around_x-small slds-size_8-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element5_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element5block_element0" class="slds-col  slds-p-right_x-small slds-size_12-of-12  " data-rindex={rindex} style="" ><vlocity_cmt-base-input-element data-style-id="state0element5block_element0_child"   record={record}  card={card}  action='\{"actionList":[{"actionIndex":0,"card":"{card}","draggable":false,"isOpen":true,"key":"1656014474854-t34b0x3zs","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"displayName":"Action","eventName":"setValues","fieldValues":[{"fieldName":"Session.observacao","fieldValue":"{element.value}"}],"id":"flex-action-1656419371639","message":"{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"pan_Sync\",\"vlocityAsync\":false,\"inputMap\":{\"Session.observacao\":\"{element.value}\",\"Session.motivo\":\"{motivo}\",\"Session.networkNumber\":\"{networkNumber}\"}},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"element.value\",\"val\":\"\",\"id\":3},{\"name\":\"motivo\",\"val\":\"\",\"id\":4},{\"name\":\"networkNumber\",\"val\":\"\",\"id\":5}]}","openUrlIn":"Current Window","targetType":"Web Page","type":"cardAction","vlocityIcon":"standard-default"}}],"eventType":"onchange","iconName":"standard-default","label":"Action","showSpinner":"false"}'  property-obj='\{"action":{"actionList":[{"actionIndex":0,"card":"{card}","draggable":false,"isOpen":true,"key":"1656014474854-t34b0x3zs","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"displayName":"Action","eventName":"setValues","fieldValues":[{"fieldName":"Session.observacao","fieldValue":"{element.value}"}],"id":"flex-action-1656419371639","message":"{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"pan_Sync\",\"vlocityAsync\":false,\"inputMap\":{\"Session.observacao\":\"{element.value}\",\"Session.motivo\":\"{motivo}\",\"Session.networkNumber\":\"{networkNumber}\"}},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"element.value\",\"val\":\"\",\"id\":3},{\"name\":\"motivo\",\"val\":\"\",\"id\":4},{\"name\":\"networkNumber\",\"val\":\"\",\"id\":5}]}","openUrlIn":"Current Window","targetType":"Web Page","type":"cardAction","vlocityIcon":"standard-default"}}],"eventType":"onchange","iconName":"standard-default","label":"Action","showSpinner":"false"},"customProperties":[],"fieldBinding":"","label":"Observação","styles":"{\n        \"label\": {\n            \"width\":\"auto\"\n        }\n      }"}'  type="textarea"  extraclass=" slds-text-link_reset"  theme="slds" onchange={executeAction} data-element-label="block2textarea0" ></vlocity_cmt-base-input-element>
+      </div><div data-style-id="state0element5block_element1" class="slds-col   slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"group":[{"id":"state-new-condition-19","field":"showMessage","operator":"==","value":"true","type":"custom","hasMergeField":false}],"id":"state-condition-object","isParent":true}' ><c-cf-f-c_pan-sync-result data-style-id="state0element5block_element1_child"  tracking-obj={_childCardTrackingObj}  is-inside-parent={insideParent} parent-uniquekey={uniqueKey}  card-node=""  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  data-conditions='\{"group":[{"id":"state-new-condition-19","field":"showMessage","operator":"==","value":"true","type":"custom","hasMergeField":false}],"id":"state-condition-object","isParent":true}'  is-child-card-tracking-enabled="false"  object-api-name={objectApiName}  theme="slds"   onupdateparent={updateParentData}></c-cf-f-c_pan-sync-result>
+    </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element6" class="slds-col   slds-p-around_x-small slds-size_1-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element6_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element7" class="slds-col   slds-p-around_x-small slds-size_1-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element7_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element8" class="slds-col   slds-p-around_x-small slds-size_12-of-12  condition-element" data-rindex={rindex} style=""  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[]}' >
+    <vlocity_cmt-block data-style-id="state0element8_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[]}'  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element8block_element0" class="slds-col   slds-size_12-of-12 condition-element" data-rindex={rindex} style=""  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"Session.showButton","operator":"==","value":"true","type":"custom","hasMergeField":false}]}' ><vlocity_cmt-flex-action data-style-id="state0element8block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element8block_element0_child flexActionElement" 
+        data-action-element-class="state0element8block_element0_child" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block7action0"   state-obj={record}  card={card}  record={record}  label="Sincronizar"  icon-name="standard-default"  action-list='\[{"stateAction":{"id":"flex-action-1665773968790","type":"Event","openUrlIn":"Current Window","subType":"PubSub","eventName":"FC_panSync","message":"postsync","hasExtraParams":true,"extraParams":{"motivo":"{Session.motivo}","networkNumber":"{Parent.networkNumber}","observacao":"{Session.observacao}"}},"key":"1664835911423-4fde6jnhs","label":"pubSubSync","draggable":true,"isOpen":true,"actionIndex":0},{"key":"1664836011561-r2a231msk","label":"setValues","draggable":true,"isOpen":false,"card":"{card}","stateAction":{"id":"flex-action-1664892167907","type":"cardAction","displayName":"Action","vlocityIcon":"standard-default","openUrlIn":"Current Window","eventName":"setValues","fieldValues":[{"fieldName":"showMessage","fieldValue":"true"}]},"actionIndex":1}]'  flyout-details='\{}'  hide-action-icon="true"  display-as-button="true"  button-variant="brand"  styles='\{"label":{"textAlign":"center"}}'  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"Session.showButton","operator":"==","value":"true","type":"custom","hasMergeField":false}]}'  theme="slds"  ></vlocity_cmt-flex-action>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state><vlocity_cmt-flex-card-state  record={record} data-statue="false"  data-index="1" data-rindex={rindex} class="cf-vlocity-state-1 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-around_none " style="      
+         ">
+          <div data-style-id="state1element0" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><c-cf-val-message-alert data-style-id="state1element0_child"  tracking-obj={_childCardTrackingObj}  is-inside-parent={insideParent} parent-uniquekey={uniqueKey}  card-node=""  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  is-child-card-tracking-enabled="false"  parent-attribute='\{"ErrorMessage":"Perfil do Usuário sem permissão"}'  object-api-name={objectApiName}  theme="slds"   onupdateparent={updateParentData}></c-cf-val-message-alert>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                      </template>
+            </template>
+            <template if:true={hasError}>
+            {error}
+            </template>
+            
+      <vlocity_cmt-action action-wrapperclass="slds-hide" re-render-flyout class="action-trigger slds-col" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+      
+      </vlocity_cmt-action>
+  
+            <vlocity_cmt-action class="execute-action" re-render-flyout action-wrapperclass="slds-hide" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+            
+            </vlocity_cmt-action>
+            </div>
+          </template>
