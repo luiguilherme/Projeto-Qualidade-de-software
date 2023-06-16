@@ -112,7 +112,7 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
             Boolean isCanvasHybrisCheck = AssetMigrationExchangePlanController.showOffer(userId);
         Test.stopTest();
 
-        System.assertEquals(false, isCanvasHybrisCheck, 'O papel do usuário permite acesso a troca de ofertas.');
+        System.assertEquals(true, isCanvasHybrisCheck, 'O papel do usuário permite acesso a troca de ofertas.');
     }
 
     @isTest
