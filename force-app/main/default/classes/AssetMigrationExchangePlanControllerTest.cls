@@ -31,6 +31,9 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
         userWithSalesforceAccess.FirstName = 'WithSalesforceAccessUser';
         lstInsert.add(userWithSalesforceAccess);
 
+        CanvasHybrisMigration__mdt chmHasNoAccess = [SELECT id, OriginApiName__c, HasAccessToHybrisMigration__c, UserLicense__c FROM CanvasHybrisMigration__mdt WHERE HasAccessToHybrisMigration__c = false LIMIT  1];
+        UserRole role = [SELECT id FROM userRole WHERE DeveloperName   ='Anatel'];
+                 
         User user = DataFactory.createUser(profileId, role.Id);
         user.FirstName = 'NoAccessUser';
         lstInsert.add(user);
@@ -83,10 +86,9 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
     @isTest
     public static void showOffer() {
         Test.startTest();
-            Id userId = [SELECT Id FROM User WHERE FirstName = 'WithSalesforceAccessUser' LIMIT 1].Id;
+            Id userId = [SELECT Id FROM User WHERE FirstName = 'WithAccessUserSalesforce' LIMIT 1].Id;
             
             Boolean isCanvasHybrisCheck = AssetMigrationExchangePlanController.showOffer(userId);
-        Test.stopTest();
 
         System.assertEquals(true, isCanvasHybrisCheck, 'Usuário Salesforce sem acesso a troca de ofertas.');
     }
