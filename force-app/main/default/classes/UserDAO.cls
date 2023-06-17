@@ -9,24 +9,23 @@ public with sharing class UserDAO {
     public static List<User> getById(Set<Id> setUserId){
         return[
             SELECT 
-                Id, 
-                Name, 
-                UserRoleId, 
+                Id,
+                Name,
+                UserRoleId,
                 UserRole.Name, 
                 UserRole.DeveloperName, 
                 PartnerGroup__c, 
-                IsPortalEnabled, 
-                Profile.Name, 
-                Alias, 
+                IsPortalEnabled,
+                Profile.Name,
+                Alias,
                 Profile.UserLicense.name, 
-                Login__c, 
-                Email, 
+                Login__c,
+                Email,      
                 StoreCode__c, 
                 StoreName__c, 
-                StoreSegment__c, 
-                StoreConsultationDate__c,
-                Adabas__c
-            FROM 
+                StoreSegment__c,
+                StoreConsultationDate__c 
+        FROM 
                 User 
             WHERE 
                 Id IN :setUserId
@@ -45,13 +44,13 @@ public with sharing class UserDAO {
         return [SELECT 
                 Id, 
                 name, 
-                UseRrole.name, 
+                UseRrole.name,
                 Profile.UserLicense.name, 
                 UserRole.DeveloperName, 
                 ProfileId, 
-                PartnerGroup__c, 
-                Login__c, 
-                IsPortalEnabled 
+                PartnerGroup__c,
+                Login__c,
+                IsPortalEnabled
             FROM 
                 User 
             WHERE Id =:params]; 
@@ -59,11 +58,11 @@ public with sharing class UserDAO {
 
     public static List<User> getUserByRole(Set<String> roles){
         return [SELECT
-                Id, 
-                Name 
+                Id,
+                Name
             FROM 
-                User 
-            WHERE 
+                User
+            WHERE
                 IsActive = true
             AND
                 (UserRole.DeveloperName IN :roles
