@@ -286,7 +286,7 @@ public class DataFactory {
         user.UserRoleId = roleId;
         user.FirstName = 'FirstNameTest';
         user.LastName = 'LastNameTest';
-        user.Username = 'userTest0A999' + intRandomNumber + timestamp + intSecRandomNumber + '@sample.com';
+        user.Username = 'userTest0A999' + timestamp + '@sample.com';
         user.CommunityNickname = 'userTest0A999' + timestamp + '@sample.com';
         user.Email='userTest0A999' + timestamp + '@sample.com';
         user.Alias = 'ut' + timestampString.substring(timestampString.length() - 6);
