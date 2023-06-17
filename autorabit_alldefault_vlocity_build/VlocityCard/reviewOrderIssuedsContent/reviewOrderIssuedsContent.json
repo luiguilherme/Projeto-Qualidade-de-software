@@ -4,7 +4,7 @@
             {
                 "id": 1,
                 "name": "Parent.VaAccountId",
-                "val": "0018G00000R9qnDQAR"
+                "val": "0017600000EcJFqAAN"
             }
         ],
         "orderBy": {
@@ -15,7 +15,7 @@
         "value": {
             "dsDelay": "",
             "jsonMap": "{\"Parent.VaAccountId\":\"{Parent.VaAccountId}\"}",
-            "query": "select  Id, OrderStatus__c, AmdocsOrder__c, Name  from OrderIssued__c  where AccountId__c =  '{Parent.VaAccountId}' order by CreatedDate desc  limit 2",
+            "query": "select  Id, tolabel(Status__c),HybrisOrder__c, Name  from OrderIssued__c  where AccountId__c =  '{Parent.VaAccountId}' order by CreatedDate desc  limit 3",
             "resultVar": ""
         }
     },
@@ -23,14 +23,86 @@
     "isFlex": true,
     "isRepeatable": false,
     "lwc": {
-        "DeveloperName": "cfReviewOrderIssuedsContent_3_FEU",
-        "Id": "0Rb8G000001KjjsSAC",
+        "DeveloperName": "cfReviewOrderIssuedsContent_1_FEU",
+        "Id": "0Rb8D000000VaMJSA0",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfReviewOrderIssuedsContent_3_FEU",
+        "MasterLabel": "cfReviewOrderIssuedsContent_1_FEU",
         "NamespacePrefix": "c"
     },
     "selectableMode": "Multi",
     "states": [
+        {
+            "actions": [
+            ],
+            "blankCardState": true,
+            "childCards": [
+            ],
+            "components": {
+                "layer-0": {
+                    "children": [
+                        {
+                            "class": "slds-col ",
+                            "element": "outputField",
+                            "elementLabel": "Text-1",
+                            "name": "Text",
+                            "property": {
+                                "card": "{card}",
+                                "mergeField": "%3Cdiv%3E%3Cstrong%3E%3Cspan%20style=%22font-size:%2014pt;%22%3EPedidos%20Emitidos%20(0)%3C/span%3E%3C/strong%3E%3C/div%3E",
+                                "record": "{record}"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "text"
+                        }
+                    ]
+                }
+            },
+            "conditions": {
+                "group": [
+                ],
+                "id": "state-condition-object",
+                "isParent": true
+            },
+            "documents": [
+            ],
+            "fields": [
+            ],
+            "isSmartAction": false,
+            "name": "NoRecords",
+            "omniscripts": [
+            ],
+            "smartAction": {
+            },
+            "styleObject": {
+                "class": "slds-card slds-p-around_x-small slds-m-bottom_x-small",
+                "container": {
+                    "class": "slds-card"
+                },
+                "margin": [
+                    {
+                        "size": "x-small",
+                        "type": "bottom"
+                    }
+                ],
+                "padding": [
+                    {
+                        "size": "x-small",
+                        "type": "around"
+                    }
+                ],
+                "size": {
+                    "default": "12",
+                    "isResponsive": false
+                },
+                "sizeClass": "slds-size_12-of-12"
+            }
+        },
         {
             "actions": [
             ],
@@ -54,7 +126,7 @@
                                 "default": "12",
                                 "isResponsive": false
                             },
-                            "stateIndex": 0,
+                            "stateIndex": 1,
                             "styleObject": {
                                 "background": {
                                     "color": "",
@@ -167,7 +239,7 @@
                                 "default": "12",
                                 "isResponsive": false
                             },
-                            "stateIndex": 0,
+                            "stateIndex": 1,
                             "styleObject": {
                                 "sizeClass": "slds-size_12-of-12"
                             },
@@ -193,7 +265,7 @@
                                                 "targetName": "Account",
                                                 "targetRelationship": "PedidosEmitidos__r"
                                             },
-                                            "id": "flex-action-1681999156925",
+                                            "id": "flex-action-1661541595541",
                                             "openUrlIn": "New Tab/Window",
                                             "targetType": "Record Relationship",
                                             "type": "Custom"
@@ -221,7 +293,7 @@
                                 "default": "12",
                                 "isResponsive": false
                             },
-                            "stateIndex": 0,
+                            "stateIndex": 1,
                             "styleObject": {
                                 "background": {
                                     "color": "",
@@ -415,78 +487,6 @@
                     "color": ""
                 }
             }
-        },
-        {
-            "actions": [
-            ],
-            "blankCardState": true,
-            "childCards": [
-            ],
-            "components": {
-                "layer-0": {
-                    "children": [
-                        {
-                            "class": "slds-col ",
-                            "element": "outputField",
-                            "elementLabel": "Text-1",
-                            "name": "Text",
-                            "property": {
-                                "card": "{card}",
-                                "mergeField": "%3Cdiv%3E%3Cstrong%3E%3Cspan%20style=%22font-size:%2014pt;%22%3EPedidos%20Emitidos%20(0)%3C/span%3E%3C/strong%3E%3C/div%3E",
-                                "record": "{record}"
-                            },
-                            "size": {
-                                "default": "12",
-                                "isResponsive": false
-                            },
-                            "stateIndex": 0,
-                            "styleObject": {
-                                "sizeClass": "slds-size_12-of-12"
-                            },
-                            "type": "text"
-                        }
-                    ]
-                }
-            },
-            "conditions": {
-                "group": [
-                ],
-                "id": "state-condition-object",
-                "isParent": true
-            },
-            "documents": [
-            ],
-            "fields": [
-            ],
-            "isSmartAction": false,
-            "name": "NoRecords",
-            "omniscripts": [
-            ],
-            "smartAction": {
-            },
-            "styleObject": {
-                "class": "slds-card slds-p-around_x-small slds-m-bottom_x-small",
-                "container": {
-                    "class": "slds-card"
-                },
-                "margin": [
-                    {
-                        "size": "x-small",
-                        "type": "bottom"
-                    }
-                ],
-                "padding": [
-                    {
-                        "size": "x-small",
-                        "type": "around"
-                    }
-                ],
-                "size": {
-                    "default": "12",
-                    "isResponsive": false
-                },
-                "sizeClass": "slds-size_12-of-12"
-            }
         }
     ],
     "theme": "slds",
@@ -494,8 +494,7 @@
     "xmlJson": [
         {
             "@attributes": {
-                "targets": "lightning__AppPage",
-                "xmlns": "http://soap.sforce.com/2006/04/metadata"
+                "targets": "lightning__AppPage"
             },
             "property": [
                 {
@@ -514,8 +513,7 @@
         },
         {
             "@attributes": {
-                "targets": "lightning__RecordPage",
-                "xmlns": "http://soap.sforce.com/2006/04/metadata"
+                "targets": "lightning__RecordPage"
             },
             "property": [
                 {
@@ -525,35 +523,16 @@
                     }
                 }
             ]
-        },
-        {
-            "@attributes": {
-                "targets": "lightningCommunity__Default"
-            },
-            "property": [
-                {
-                    "@attributes": {
-                        "name": "recordId",
-                        "type": "String"
-                    }
-                }
-            ]
         }
     ],
     "xmlObject": {
-        "apiVersion": 51,
-        "isExplicitImport": false,
-        "isExposed": true,
         "masterLabel": "reviewOrderIssuedsContent",
-        "runtimeNamespace": "%vlocity_namespace%",
-        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgogICAgICA8cHJvcGVydHkgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iLz4KICAgICAgPHByb3BlcnR5IG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciLz4KICAgIDwvdGFyZ2V0Q29uZmlnPgogICAgPHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPgogICAgICA8cHJvcGVydHkgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iLz4KICAgIDwvdGFyZ2V0Q29uZmlnPgogICAgPHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdDb21tdW5pdHlfX0RlZmF1bHQiPgogICAgICA8cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPgogICAgPC90YXJnZXRDb25maWc+",
+        "targetConfigs": "PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgogICAgICAgICAgICAgICAgICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgICAgICAgICAgICAgICAgICA8cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPgogICAgICAgICAgICAgICAgICA8L3RhcmdldENvbmZpZz4KICAgICAgICAgICAgICAgICAgPHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPgogICAgICAgICAgICAgICAgICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgICAgICAgICAgICAgIDwvdGFyZ2V0Q29uZmlnPg==",
         "targets": {
             "target": [
                 "lightning__RecordPage",
                 "lightning__AppPage",
-                "lightning__HomePage",
-                "lightningCommunity__Page",
-                "lightningCommunity__Default"
+                "lightning__HomePage"
             ]
         }
     }

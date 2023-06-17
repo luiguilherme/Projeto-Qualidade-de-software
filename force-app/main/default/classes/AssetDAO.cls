@@ -50,26 +50,7 @@ public without sharing class AssetDAO {
             AccountId =: accountId 
         AND Type__c = 'Movel'];
     }
-    @AuraEnabled
-    public static List<Asset> getAssetMobileMigration(String accountId) {
-        return   [
-            SELECT Id,                          	
-                AccountId,
-                Status,
-                PhoneNumber__c, 
-                BillingAccountFormulaName__c,
-                Type__c,
-                ProductType__c, 
-                MainProductDescription__c,
-                SourceSystem__c
-        FROM 
-            Asset
-        WHERE 
-            AccountId =: accountId
-        AND Status = 'Active'
-        AND Type__c = 'Movel'
-        AND (NOT MainProductDescription__c  LIKE '%Fam%')];
-    }
+
 
     public static List<Asset> getAssetFixed(String accountId) {
         return  [

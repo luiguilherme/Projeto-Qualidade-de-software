@@ -279,10 +279,9 @@ public class DataFactory {
         User user = new User();
         
         // Timestamp UTC-3 para garantir a exclusividade de dados únicos.
-        Integer intRandomNumber = Integer.valueof((Math.random() * 1000));
-        Long timestamp = DateTime.now().addHours(-intRandomNumber).getTime();
+        Long timestamp = DateTime.now().addHours(-3).getTime();
         String timestampString = String.valueOf(timestamp);
-		
+            
         user.ProfileId = profileId;
         user.UserRoleId = roleId;
         user.FirstName = 'FirstNameTest';
@@ -299,29 +298,6 @@ public class DataFactory {
         return user;
     }
     
-    public static User createCommunityUser(String profileId, String partnerGroup, Id contactId) {
-        User user = new User();
-        
-        // Timestamp UTC-3 para garantir a exclusividade de dados únicos.
-        Long timestamp = DateTime.now().addHours(-3).getTime();
-        String timestampString = String.valueOf(timestamp);
-            
-        user.ProfileId = profileId;
-        user.FirstName = 'FirstNameTest';
-        user.LastName = 'LastNameTest';
-        user.Username = 'userTest0A999' + timestamp + '@sample.com';
-        user.CommunityNickname = 'userTest0A999' + timestamp + '@sample.com';
-        user.Email='userTest0A999' + timestamp + '@sample.com';
-        user.Alias = 'ut' + timestampString.substring(timestampString.length() - 6);
-        user.TimeZoneSidKey = 'America/Sao_Paulo';
-        user.LocaleSidKey = 'en_US';
-        user.LanguageLocaleKey = 'en_US';
-        user.EmailEncodingKey = 'ISO-8859-1';
-        user.PartnerGroup__c = partnerGroup;
-        user.ContactId = contactId;
-            
-        return user;
-    }
         public static Offer__c createOffer() {
         Offer__c offer = new Offer__c();
         
@@ -481,50 +457,7 @@ public class DataFactory {
         serviceHistory.LegacyCaseNumber__c = '1910';
 
         return serviceHistory;
-    }
-    
-    public static Contact createContact(){
-        Contact newContact = new Contact();
-        newContact.LastName = 'Contact Name';
-       
-        return newContact;
-    }
-
-    public static vlocity_cmt__CustomerInteractionTopic__c createCustomerInteractionTopic(String customerInteractionId, String accountId, String topicType) {
-        vlocity_cmt__CustomerInteractionTopic__c topicObj = new vlocity_cmt__CustomerInteractionTopic__c();
-
-        if(topicType == 'CanvasHybris'){
-            topicObj.vlocity_cmt__CustomerInteractionId__c = customerInteractionId;
-            topicObj.vlocity_cmt__AccountId__c = accountId;
-            topicObj.vlocity_cmt__Reason__c = 'Palitagem Móvel';
-            topicObj.Origin__c = 'Hybris';
-            topicObj.ServiceTree__c = 'Service';
-            topicObj.remarkup__c = 'Aguardando escolha da oferta para migração/troca de plano';
-        }
-        return topicObj;
-    }
-
-    public static OrderIssued__c createOrderIssued(String statusCode) {
-        OrderIssued__c orderIssued = new OrderIssued__c();
-
-        orderIssued.Status__c = 'CHECKED_VALID';
-        orderIssued.StatusCode__c = statusCode;
-        orderIssued.OrderStatus__c = 'CHECKED_VALID';
-        orderIssued.HybrisOrder__c = String.valueOf( Math.abs(Crypto.getRandomLong()) ).substring(0, 9);
-        
-        return orderIssued;
-    }
-
-    public static OrderIssued__c createOrderIssued(String statusCode, String orderStatus) {
-        OrderIssued__c orderIssued = new OrderIssued__c();
-
-        orderIssued.Status__c = 'CHECKED_VALID';
-        orderIssued.StatusCode__c = statusCode;
-        orderIssued.OrderStatus__c = orderStatus;
-        orderIssued.HybrisOrder__c = String.valueOf( Math.abs(Crypto.getRandomLong()) ).substring(0, 9);
-        
-        return orderIssued;
-    }
+    } 
     
     // public static List<ServiceQualification__c> createServiceQualificationLevels() {
     //     String recordTypeFirstLevelId = Schema.SObjectType.ServiceQualification__c.getRecordTypeInfosByDeveloperName().
