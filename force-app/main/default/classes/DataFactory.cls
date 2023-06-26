@@ -279,16 +279,15 @@ public class DataFactory {
         User user = new User();
         
         // Timestamp UTC-3 para garantir a exclusividade de dados únicos.
-        Long timestamp = DateTime.now().addHours(-3).getTime();
-        String timestampString = String.valueOf(timestamp);
         Integer intRandomNumber = Integer.valueof((Math.random() * 1000));
-        Integer intSecRandomNumber = Integer.valueof((Math.random() * 1000));
-
+        Long timestamp = DateTime.now().addHours(-intRandomNumber).getTime();
+        String timestampString = String.valueOf(timestamp);
+		
         user.ProfileId = profileId;
         user.UserRoleId = roleId;
         user.FirstName = 'FirstNameTest';
         user.LastName = 'LastNameTest';
-        user.Username = 'userTest0A999' + intRandomNumber + timestamp + intSecRandomNumber + '@sample.com';
+        user.Username = 'userTest0A999' + timestamp + '@sample.com';
         user.CommunityNickname = 'userTest0A999' + timestamp + '@sample.com';
         user.Email='userTest0A999' + timestamp + '@sample.com';
         user.Alias = 'ut' + timestampString.substring(timestampString.length() - 6);
