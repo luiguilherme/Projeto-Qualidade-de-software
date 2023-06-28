@@ -74,7 +74,9 @@
                 }
                 
                 if (selfUpdate) {
-                    if (ltServiceTickets.length !== ltServiceTicketsOld.length) {
+                    if ((ltServiceTickets.length === 0 && ltServiceTicketsOld.length !== 0) ||
+                        (ltServiceTickets.length !== 0 && ltServiceTicketsOld.length === 0)
+                    ) {
                         this.notifySSMHomeOperations(ltServiceTickets.length > 0);
                     }
 
