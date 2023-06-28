@@ -3,7 +3,7 @@
 
         var action = component.get('c.getUserId');
         action.setParams({
-            "accountId": component.get('v.recordId') 
+            "recordId": component.get('v.recordId') 
         });
         
         action.setCallback(component,
@@ -12,13 +12,10 @@
                 var userId = response.getReturnValue();
 
                 if (state === 'SUCCESS' && userId == 'true'){
-                    /*helper.sendEventApplication('UserProfileEvent', {
-                        type: 'unlockedUserId'
-                    });*/
                     var appEvent = $A.get("e.c:UserProfileEvent");
                     appEvent.setParams({ "type" : "unlockedUserId" });
                     appEvent.fire();
-                    console.log('Evennto enviado.');
+                    console.log('Evento enviado.');
                 } 
             }
         );
