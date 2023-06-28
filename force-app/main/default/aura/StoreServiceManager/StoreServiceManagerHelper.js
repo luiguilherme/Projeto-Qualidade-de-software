@@ -101,6 +101,16 @@
 							component.set("v.attendanceInformationStatus", {});
 
 							if (workPositionId) {
+								let ltWorkPosition = component.get("v.ltWorkPosition");
+								
+								let workPosition = ltWorkPosition.filter(function(checkWorkPosition) {
+									return checkWorkPosition.value === workPositionId;
+								});
+
+								if (!workPosition || workPosition.length === 0) {
+									ltWorkPosition.push({"label": workPositionId, "value": workPositionId});
+								}
+
 								gotoPageInit = false;
 								
 								this.getInformationAttendance(component);
@@ -250,7 +260,6 @@
 	gotoHomePage : function(component) {
 		LightningUtil.removeItemLocalStorage("SSMTicketInfo");
 		
-		component.set("v.attendanceInformationStatus", {});
 		component.set("v.serviceTicket", {});
 
 		component.set("v.homePage", true);

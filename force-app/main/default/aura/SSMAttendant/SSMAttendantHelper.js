@@ -200,6 +200,7 @@
         }
 
         component.set("v.pauseReasonId", pauseReasonId);
+        component.set("v.attendanceInformationStatus", {});
 
         if (!ltWorkPosition || ltWorkPosition.length == 0) {
             ltWorkPosition = [{label: workPositionId, value: workPositionId}];
