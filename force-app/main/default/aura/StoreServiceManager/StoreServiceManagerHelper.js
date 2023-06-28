@@ -98,8 +98,19 @@
 							}
 
 							component.set("v.workPositionId", workPositionId);
+							component.set("v.attendanceInformationStatus", {});
 
 							if (workPositionId) {
+								let ltWorkPosition = component.get("v.ltWorkPosition");
+								
+								let workPosition = ltWorkPosition.filter(function(checkWorkPosition) {
+									return checkWorkPosition.value === workPositionId;
+								});
+
+								if (!workPosition || workPosition.length === 0) {
+									ltWorkPosition.push({"label": workPositionId, "value": workPositionId});
+								}
+
 								gotoPageInit = false;
 								
 								this.getInformationAttendance(component);
@@ -113,6 +124,9 @@
 							component.set("v.ltWorkPosition", []);
 						}
 					}
+
+				/*} else if (returnValue["error"]) {
+					errorMessage = returnValue["error"];*/
 				}
 				
 				if (gotoPageInit) {
@@ -142,9 +156,13 @@
 			{},
 			(returnValue) => {
 				let attendanceInformationStatus = {};
+				let errorMessage = "";
 
 				if (returnValue["success"]) {
 					attendanceInformationStatus = returnValue["success"];
+
+				/*} else if (returnValue["error"]) {
+					errorMessage = returnValue["error"];*/
 				}
 				
 				component.set("v.attendanceInformationStatus", attendanceInformationStatus);
@@ -189,6 +207,17 @@
 
 				if (SSMTicketInfo && SSMTicketInfo.ticketId && SSMTicketInfo.ticketId === attendanceInformationStatus.ticketId) {
 					serviceTicket = SSMTicketInfo;
+
+					serviceTicket.customerName = attendanceInformationStatus.customerName;
+					serviceTicket.customerAlias = attendanceInformationStatus.customerName;
+					serviceTicket.customerDocument = attendanceInformationStatus.customerDocument;
+					serviceTicket.customerCellPhone = attendanceInformationStatus.customerCellPhone;
+					serviceTicket.segmentation = attendanceInformationStatus.segmentationId;
+					serviceTicket.segmentationName = attendanceInformationStatus.segmentationName;
+					serviceTicket.waitTime = attendanceInformationStatus.waitTime;
+					serviceTicket.startTime = attendanceInformationStatus.startTime;
+					serviceTicket.duration = attendanceInformationStatus.duration;
+					serviceTicket.serviceName = attendanceInformationStatus.serviceName;
 				}
 			}
 
@@ -238,7 +267,6 @@
 	gotoHomePage : function(component) {
 		LightningUtil.removeItemLocalStorage("SSMTicketInfo");
 		
-		component.set("v.attendanceInformationStatus", {});
 		component.set("v.serviceTicket", {});
 
 		component.set("v.homePage", true);

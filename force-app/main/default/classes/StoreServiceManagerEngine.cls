@@ -501,6 +501,7 @@ public with sharing class StoreServiceManagerEngine {
             if (!ltParam.isEmpty()) {
                 mapParams.put('viewFieldService', ltParam[0].ViewFieldServiceStoreService__c);
                 mapParams.put('timeAutomaticTicketCall', ltParam[0].TimeAutomaticTicketCall__c);
+                mapParams.put('timeAutomaticUpdateTickets', ltParam[0].TimeAutomaticUpdateTickets__c);
             }
 
         } catch (Exception e) {
@@ -512,6 +513,7 @@ public with sharing class StoreServiceManagerEngine {
 
             mapParams.put('viewFieldService', false);
             mapParams.put('timeAutomaticTicketCall', 10);
+            mapParams.put('timeAutomaticUpdateTickets', 0);
         }
 
         return (mapParams);

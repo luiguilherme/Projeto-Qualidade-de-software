@@ -114,7 +114,7 @@ public with sharing class OperationalInformationsCallout {
             }
 
         } else {
-            if (wsConfig.ExpireIn__c == null || wsConfig.ExpireIn__c < Date.today()) {
+            if (wsConfig.ExpireIn__c == null || wsConfig.ExpireIn__c <= Date.today()) {
                 mapCheck.put('success', CODE_HTTP_SUCCESS);
 
             } else {

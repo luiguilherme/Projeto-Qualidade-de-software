@@ -35,16 +35,7 @@ public with sharing class QueueInformationStatusCallout {
 
             if (API_INTEGRATION) {
                 HttpClient client = new HttpClient();
-                HttpResponse response;
-
-                try {
-                    response = client.get(wsConfig);
-
-                } catch (Exception e) {
-                    mapResult.put('error', ERROR_NEED_LOGIN_OAM);
-                    
-                    return (mapResult);
-                }
+                HttpResponse response = client.get(wsConfig);
 
                 if (response.getStatusCode() == CODE_HTTP_SUCCESS) {
                     mapResult.put('success', response.getBody());

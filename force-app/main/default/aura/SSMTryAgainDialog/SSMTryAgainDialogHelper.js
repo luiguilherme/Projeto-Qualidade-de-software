@@ -4,6 +4,7 @@
         let errorMessage = component.get("v.errorMessage");
 
         if (pageOperation === "home") {
+            this.notifySSMTickets(false);
             this.notifySSMHomeOperations(false);
         }
 
@@ -58,6 +59,9 @@
 
                     if (disableButtonTryAgain && !disableButtonBackHome) {
                         component.set("v.displayErrorMessage", $A.get("$Label.c.StoreServiceManagerErrorEndService"));
+
+                    } else if (!disableButtonTryAgain && disableButtonBackHome) {
+                        component.set("v.displayErrorMessage", $A.get("$Label.c.StoreServiceManagerErrorTryAgainService"));
                     }
                 }
 
@@ -102,6 +106,9 @@
 				
                 if (disableButtonTryAgain && !disableButtonBackHome) {
                     component.set("v.displayErrorMessage", $A.get("$Label.c.StoreServiceManagerErrorEndService"));
+
+                } else if (!disableButtonTryAgain && disableButtonBackHome) {
+                    component.set("v.displayErrorMessage", $A.get("$Label.c.StoreServiceManagerErrorTryAgainService"));
                 }
                 
 				this.afterCallAction();
@@ -120,7 +127,7 @@
         LightningUtil.setItemLocalStorage("SSMErrorMessage", errorMessage, "ERROR");
 
         if (pageOperation === "home") {
-            this.notifySSMHomeOperations(true);
+            this.notifySSMTickets(true);
 
         } else {
             let forceInitialPageService = component.get("v.forceInitialPageService");
@@ -200,6 +207,10 @@
 
     notifySSMAttendance : function() {
         this.notitySSM("SSMAttendance", {type: "changeView", view: "ATTENDANCE"});
+    },
+
+    notifySSMTickets : function(fetch) {
+		this.notitySSM("SSMTickets", {type: "fetchServiceTickets", value: fetch, notify: ((fetch) ? 'SSMHomeOperations' : '')});
     },
 
     notitySSM : function(typeSSM, jsonSSM) {      

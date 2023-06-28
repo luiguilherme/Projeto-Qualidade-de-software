@@ -23,7 +23,9 @@
     },
 
     manualAttendance : function(component, event, helper) {
+        this.notifySSMTickets({type: "fetchServiceTickets", value: false});
         this.notitySSMChronometer({type: "stop"});
+        
         this.updateOpenedManualServiceDialog(component, true);
     },
 
@@ -93,6 +95,7 @@
 
         this.notitySSMChronometer({type: "stop"});
         this.updateOpenedManualServiceDialog(component, false);
+        this.notifySSMTickets({type: "fetchServiceTickets", value: false});
         this.notifyStoreServiceManager({type: "attendance", serviceTicket: serviceTicket});
     },
 
@@ -109,6 +112,9 @@
             if (jsonSSM.type == "activate") {
                 this.activate(component, jsonSSM.value);
 
+            } else if (jsonSSM.type == 'fetchServiceTickets') {
+                this.activate(component, jsonSSM.thereAreTickets);
+    
             } else if (jsonSSM.type == "getServiceTicket") {
                 if (jsonSSM.serviceTicket) {
                     component.set("v.serviceTicket", jsonSSM.serviceTicket);
