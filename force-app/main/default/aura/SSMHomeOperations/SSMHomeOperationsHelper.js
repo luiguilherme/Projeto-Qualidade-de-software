@@ -112,6 +112,9 @@
             if (jsonSSM.type == "activate") {
                 this.activate(component, jsonSSM.value);
 
+            } else if (jsonSSM.type == 'fetchServiceTickets') {
+                this.activate(component, jsonSSM.thereAreTickets);
+    
             } else if (jsonSSM.type == "getServiceTicket") {
                 if (jsonSSM.serviceTicket) {
                     component.set("v.serviceTicket", jsonSSM.serviceTicket);

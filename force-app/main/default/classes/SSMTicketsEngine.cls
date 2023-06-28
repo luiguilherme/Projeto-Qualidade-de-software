@@ -93,7 +93,7 @@ public with sharing class SSMTicketsEngine {
                         serviceTicket.waitTime = waitTime;
                         serviceTicket.startTime = '';
                         serviceTicket.finalTime = '';
-                        serviceTicket.duration = '';
+                        serviceTicket.duration = waitTime;
                         serviceTicket.service = service;
                         serviceTicket.serviceName = serviceName;
                         serviceTicket.category = '';

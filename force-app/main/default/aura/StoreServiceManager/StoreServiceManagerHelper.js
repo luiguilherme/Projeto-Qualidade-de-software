@@ -124,6 +124,9 @@
 							component.set("v.ltWorkPosition", []);
 						}
 					}
+
+				/*} else if (returnValue["error"]) {
+					errorMessage = returnValue["error"];*/
 				}
 				
 				if (gotoPageInit) {
@@ -153,9 +156,13 @@
 			{},
 			(returnValue) => {
 				let attendanceInformationStatus = {};
+				let errorMessage = "";
 
 				if (returnValue["success"]) {
 					attendanceInformationStatus = returnValue["success"];
+
+				/*} else if (returnValue["error"]) {
+					errorMessage = returnValue["error"];*/
 				}
 				
 				component.set("v.attendanceInformationStatus", attendanceInformationStatus);

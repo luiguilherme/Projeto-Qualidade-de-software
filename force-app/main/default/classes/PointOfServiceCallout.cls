@@ -40,7 +40,16 @@ public with sharing class PointOfServiceCallout {
                     response = client.get(wsConfig);   
 
                 } catch (Exception e) {
-                    mapResult.put('error', ERROR_NEED_LOGIN_OAM);  
+                    /*if (e.getMessage().contains('OAM') || 
+                        e.getMessage().contains('Script-thrown exception') ||
+                        e.getMessage().contains('Argument 2 cannot be null')
+                    ) {*/
+                        // Errors for login OAM. See OAuthEndUserRequestConfigurator class.
+                        mapResult.put('error', ERROR_NEED_LOGIN_OAM);  
+                        
+                    /*} else {
+                        mapResult.put('error', e.getMessage());
+                    }*/
                     
                     return (mapResult);
                 }

@@ -105,7 +105,7 @@
         if (this.AutomaticUpdate.secondsToUpdate > 0) {      
             if (activate) {
                 if (this.AutomaticUpdate.runUpdate) {
-                    this.fetchPointOfServiceTitckets(component, "SSMAttendant", true);
+                    this.fetchPointOfServiceTitckets(component, "", true);
                 }
 
                 this.AutomaticUpdate.setTimeoutCallBack = setTimeout(
