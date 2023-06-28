@@ -23,7 +23,9 @@
     },
 
     manualAttendance : function(component, event, helper) {
+        this.notifySSMTickets({type: "fetchServiceTickets", value: false});
         this.notitySSMChronometer({type: "stop"});
+        
         this.updateOpenedManualServiceDialog(component, true);
     },
 
@@ -93,6 +95,7 @@
 
         this.notitySSMChronometer({type: "stop"});
         this.updateOpenedManualServiceDialog(component, false);
+        this.notifySSMTickets({type: "fetchServiceTickets", value: false});
         this.notifyStoreServiceManager({type: "attendance", serviceTicket: serviceTicket});
     },
 

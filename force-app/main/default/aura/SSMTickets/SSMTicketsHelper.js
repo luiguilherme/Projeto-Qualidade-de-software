@@ -1,5 +1,11 @@
 ({
-	doInit : function(component) {
+    AutomaticUpdate : {
+        secondsToUpdate: 0, 
+        setTimeoutCallBack: null, 
+        runUpdate: false
+    },
+
+    doInit : function(component) {
         let viewFieldService = component.get("v.viewFieldService");
 		let ltServiceTicketsColumns = [];
         
@@ -23,6 +29,9 @@
 
 		component.set("v.ltServiceTicketsColumns", ltServiceTicketsColumns);
 
+        this.AutomaticUpdate.secondsToUpdate = component.get("v.timeAutomaticUpdate");
+
+        this.setAutomaticUpdateTimeout(component, false);
         this.restart(component);
     },
 
@@ -30,11 +39,11 @@
         let restart = component.get("v.restart");
 
         if (restart) {
-            this.fetchPointOfServiceTitckets(component, "SSMAttendant");
+            this.fetchPointOfServiceTitckets(component, "SSMAttendant", false);
         }
     },
 
-    fetchPointOfServiceTitckets : function(component, notify) {       
+    fetchPointOfServiceTitckets : function(component, notify, selfUpdate) {       
         let tblWaitingCustomers = component.find("tblWaitingCustomers");
         
         tblWaitingCustomers.set("v.selectedRows", []);
@@ -46,6 +55,8 @@
             "getPointOfServiceTitckets",
             {},
             (returnValue) => {
+                const ltServiceTicketsOld = component.get("v.ltServiceTickets");
+
                 let ltServiceTickets = [];
                 let errorMessage = "";
 
@@ -57,8 +68,17 @@
                 }
 
                 component.set("v.ltServiceTickets", ltServiceTickets);
+
+                if (this.AutomaticUpdate.secondsToUpdate > 0 && !this.AutomaticUpdate.runUpdate) {
+                    this.setAutomaticUpdateTimeout(component, true);
+                }
                 
-                if (notify) {
+                if (selfUpdate) {
+                    if (ltServiceTickets.length !== ltServiceTicketsOld.length) {
+                        this.notifySSMHomeOperations(ltServiceTickets.length > 0);
+                    }
+
+                } else if (notify) {
                     this.notifyAboutFetchServiceTickets(notify, ltServiceTickets.length > 0);
                 }
 
@@ -75,7 +95,32 @@
         );
     },
 
-	BroadcastNotificationHandler : function(component, event) {           
+    setAutomaticUpdateTimeout : function(component, activate) {
+        if (this.AutomaticUpdate.setTimeoutCallBack != null) {
+            window.clearTimeout(this.AutomaticUpdate.setTimeoutCallBack);
+        }
+        
+        if (this.AutomaticUpdate.secondsToUpdate > 0) {      
+            if (activate) {
+                if (this.AutomaticUpdate.runUpdate) {
+                    this.fetchPointOfServiceTitckets(component, "SSMAttendant", true);
+                }
+
+                this.AutomaticUpdate.setTimeoutCallBack = setTimeout(
+                    $A.getCallback(() => this.setAutomaticUpdateTimeout(component, true)), 
+                    (this.AutomaticUpdate.secondsToUpdate * 1000)
+                );
+
+                this.AutomaticUpdate.runUpdate = true;
+
+            } else {
+                this.AutomaticUpdate.setTimeoutCallBack = null;
+                this.AutomaticUpdate.runUpdate = false;
+            }
+        }
+    },
+
+	BroadcastNotificationHandler : function(component, event) { 
         if (event.getParam("type") == "SSMTickets") {
             event.stopPropagation();
 
@@ -89,7 +134,10 @@
                 component.set("v.ltServiceTickets", []);
                     
                 if (jsonSSM.value) {
-                    this.fetchPointOfServiceTitckets(component, jsonSSM.notify);
+                    this.fetchPointOfServiceTitckets(component, jsonSSM.notify, false);
+                    
+                } else {
+                    this.setAutomaticUpdateTimeout(component, false);
                 }
 
             } else if (jsonSSM.type == "getServiceTicket") {
@@ -150,6 +198,10 @@
         }
 
         this.notitySSM(notify, {type: "getServiceTicket", serviceTicket: serviceTicket});
+    },
+
+    notifySSMHomeOperations : function(toggle) {
+        this.notitySSM("SSMHomeOperations", {type: "activate", value: toggle});
     },
 
     notitySSM : function(typeSSM, jsonSSM) {

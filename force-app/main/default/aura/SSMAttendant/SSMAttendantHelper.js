@@ -297,6 +297,7 @@
         component.set("v.doLogout", false);
         component.set("v.isOpenPauseWithLogoutDialog", false);
         
+        this.notifySSMTickets(true);
         this.notifySSMHomeOperations(true);
     },
 
@@ -318,6 +319,7 @@
             if (disablePauseReason || pauseReasonId) {
                 let showLogoutDialog = false;
 
+                this.notifySSMTickets(false);
                 this.notifySSMHomeOperations(false);
 
                 if (!disablePauseReason) {
@@ -379,9 +381,7 @@
 
                     } else {
                         this.updateControls(component, this.Mode.Paused);
-                            
-                        this.notifySSMTickets(false);
-
+                        
                         let attendant = component.get("v.attendant");
                         let workPositionId = component.get("v.workPositionId");
 
@@ -399,6 +399,7 @@
                     }
 
                 } else {
+                    this.notifySSMTickets(true);
                     this.notifySSMHomeOperations(true);
 
                     errorMessage = returnValue["error"];
@@ -431,6 +432,7 @@
         if (mode == this.Mode.Started || mode == this.Mode.Paused) {
             let workPositionId = component.get("v.workPositionId");
 
+            this.notifySSMTickets(false);
             this.notifySSMHomeOperations(false);
 
             this.beforeCallAction();
@@ -446,6 +448,7 @@
                         this.finish(component);
     
                     } else {
+                        this.notifySSMTickets(true);
                         this.notifySSMHomeOperations(true);
 
                         errorMessage = returnValue["error"];

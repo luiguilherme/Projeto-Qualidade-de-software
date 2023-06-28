@@ -25,7 +25,8 @@ public with sharing class GeneralParamDAO {
                 ScriptDetailHistoryExpiration__c,
                 AccessesMinute__c,
                 TimeAutomaticTicketCall__c,
-                ViewFieldServiceStoreService__c
+                ViewFieldServiceStoreService__c,
+                TimeAutomaticUpdateTickets__c
             FROM 
                 GeneralParam__c    
         ];
