@@ -98,6 +98,7 @@
 							}
 
 							component.set("v.workPositionId", workPositionId);
+							component.set("v.attendanceInformationStatus", {});
 
 							if (workPositionId) {
 								gotoPageInit = false;
@@ -189,6 +190,17 @@
 
 				if (SSMTicketInfo && SSMTicketInfo.ticketId && SSMTicketInfo.ticketId === attendanceInformationStatus.ticketId) {
 					serviceTicket = SSMTicketInfo;
+
+					serviceTicket.customerName = attendanceInformationStatus.customerName;
+					serviceTicket.customerAlias = attendanceInformationStatus.customerName;
+					serviceTicket.customerDocument = attendanceInformationStatus.customerDocument;
+					serviceTicket.customerCellPhone = attendanceInformationStatus.customerCellPhone;
+					serviceTicket.segmentation = attendanceInformationStatus.segmentationId;
+					serviceTicket.segmentationName = attendanceInformationStatus.segmentationName;
+					serviceTicket.waitTime = attendanceInformationStatus.waitTime;
+					serviceTicket.startTime = attendanceInformationStatus.startTime;
+					serviceTicket.duration = attendanceInformationStatus.duration;
+					serviceTicket.serviceName = attendanceInformationStatus.serviceName;
 				}
 			}
 
