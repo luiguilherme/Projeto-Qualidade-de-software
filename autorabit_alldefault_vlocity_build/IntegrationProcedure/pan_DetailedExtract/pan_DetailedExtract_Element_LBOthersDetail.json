@@ -20,7 +20,7 @@
             "chargeDuration": "=IF(ISNOTBLANK(%Resp:OTHERS_DETAIL:actions:chargeDuration%),%Resp:OTHERS_DETAIL:actions:chargeDuration%,\"-\")",
             "credit": "=IF(ISNOTBLANK(%Resp:OTHERS_DETAIL:actions:credit%),%Resp:OTHERS_DETAIL:actions:credit%,\"-\")",
             "csp": "=IF(ISNOTBLANK(%Resp:OTHERS_DETAIL:actions:csp%),%Resp:OTHERS_DETAIL:actions:csp%,\"-\")",
-            "dataHora": "=IF(ISNOTBLANK(%Resp:OTHERS_DETAIL:actions:actionDateTime%),FORMATDATETIMEGMT(TOSTRING(%Resp:OTHERS_DETAIL:actions:actionDateTime%), \"America_SaoPaulo\", \"dd/MM/yyyy HH:mm\"),\"-\")",
+            "dataHora": "=IF(ISNOTBLANK(%Resp:OTHERS_DETAIL:actions:actionDateTime%),TOSTRING(%Resp:OTHERS_DETAIL:actions:actionDateTime%),\"-\")",
             "debit": "=IF(ISNOTBLANK(%Resp:OTHERS_DETAIL:actions:debit%),%Resp:OTHERS_DETAIL:actions:debit%,\"-\")",
             "description": "=IF(ISNOTBLANK(%Resp:OTHERS_DETAIL:actions:description%),%Resp:OTHERS_DETAIL:actions:description%,\"-\")",
             "destinationAreaCode": "=IF(ISNOTBLANK(%Resp:OTHERS_DETAIL:actions:destination:geographicAreaCode%),%Resp:OTHERS_DETAIL:actions:destination:geographicAreaCode%,\"-\")",
@@ -31,7 +31,7 @@
             "period": "=IF(ISNOTBLANK(%Resp:OTHERS_DETAIL:actions:period%),%Resp:OTHERS_DETAIL:actions:period%,\"-\")",
             "serviceIdentifier": "=IF(ISNOTBLANK(%Resp:OTHERS_DETAIL:actions:serviceIdentifier%),%Resp:OTHERS_DETAIL:actions:serviceIdentifier%,\"-\")",
             "sourceType": "=IF(ISNOTBLANK(%Resp:OTHERS_DETAIL:actions:source:sourceType%),%Resp:OTHERS_DETAIL:actions:source:sourceType%,\"-\")",
-            "trafficKbyte": "-",
+            "trafficKbyte": "=IF(ISNOTBLANK(%Resp:OTHERS_DETAIL:actions:traffic%),%Resp:OTHERS_DETAIL:actions:traffic%,\"-\")",
             "type": "=IF(ISNOTBLANK(%HTTP-ExtractDetailed:Report:detail:events:type%),%HTTP-ExtractDetailed:Report:detail:events:type%,\"-\")",
             "value": "=IF(ISNOTBLANK(%Resp:OTHERS_DETAIL:actions:value%),%Resp:OTHERS_DETAIL:actions:value%,\"-\")"
         },
