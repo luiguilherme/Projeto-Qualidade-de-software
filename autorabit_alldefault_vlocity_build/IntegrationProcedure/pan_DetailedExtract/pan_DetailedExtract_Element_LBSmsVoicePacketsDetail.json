@@ -13,7 +13,7 @@
         "loopList": "RespSim:SMS_VOICE_PACKETS_DETAIL:detail",
         "loopOutput": {
             "amount": "=IF(ISNOTBLANK(%RespSim:SMS_VOICE_PACKETS_DETAIL:detail:amount%),%RespSim:SMS_VOICE_PACKETS_DETAIL:detail:amount%,\"-\")",
-            "data": "=IF(ISNOTBLANK(%RespSim:SMS_VOICE_PACKETS_DETAIL:detail:eventDate%),FORMATDATETIMEGMT(TOSTRING(%RespSim:SMS_VOICE_PACKETS_DETAIL:detail:eventDate%), \"America_SaoPaulo\", \"dd/MM/yyyy\"),\"-\")",
+            "data": "=IF(ISNOTBLANK(FORMATDATETIMEGMT(TOSTRING(%RespSim:SMS_VOICE_PACKETS_DETAIL:detail:eventDate%), \"America_SaoPaulo\", \"dd/MM/yyyy\")),FORMATDATETIMEGMT(TOSTRING(%RespSim:SMS_VOICE_PACKETS_DETAIL:detail:eventDate%), \"America_SaoPaulo\", \"dd/MM/yyyy\"),\"-\")",
             "identifier": "=IF(ISNOTBLANK(%RespSim:SMS_VOICE_PACKETS_DETAIL:header:identifier%),%RespSim:SMS_VOICE_PACKETS_DETAIL:header:identifier%,\"-\")",
             "name": "=IF(ISNOTBLANK(%RespSim:SMS_VOICE_PACKETS_DETAIL:detail:name%),%RespSim:SMS_VOICE_PACKETS_DETAIL:detail:name%,\"-\")",
             "type": "=IF(ISNOTBLANK(%RespSim:SMS_VOICE_PACKETS_DETAIL:header:type%),%RespSim:SMS_VOICE_PACKETS_DETAIL:header:type%,\"-\")",

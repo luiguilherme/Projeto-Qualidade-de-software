@@ -7,7 +7,7 @@
         <head>
             <style> 
                 p {
-                	text-align: center;
+                    text-align: center;
                 }
                 .tittle_block{
                  text-align: left;
@@ -40,21 +40,21 @@
                   color: #444;
                 }
                 .col1 {
-                	width: 1% !important;
+                    width: 1% !important;
                 }
                 .col3 {
-                	width: 45% !important;
+                    width: 45% !important;
                 }
                 .col4 {
-                	text-align: right;
+                    text-align: right;
                 }
                 .col_second_session_1 {
                 }
                 .col_second_session_3 {
-                	width: 46.8% !important;
+                    width: 35% !important;
                 }
                 .col_second_session_4 {
-                	text-align: right;
+                    text-align: right;
                 }
                 .coluna {
                     margin-right: 20px;
@@ -63,16 +63,6 @@
                 .container {
                     display: flex;
                 }
-                tr.colHeader {
-                    border: 3px solid #731d21;
-                    border-radius: 10px;
-                }
-            
-                td.colHeader {
-                    background-color: #0070c0;
-                    color: white;
-                    padding: 10px;
-            }
             </style>
         </head>
         <body class="container_body">
@@ -100,9 +90,9 @@
             
             <apex:panelGrid columns="4" columnClasses="col_second_session_1, col_second_session_2, col_second_session_3,col_second_session_4" cellpadding="" width="100%">
                     <apex:panelGroup >
-                        <apex:outputLabel >MASSA CONTROLE</apex:outputLabel><BR/>
-                        <apex:outputLabel >BENTO, 100 CENTRO</apex:outputLabel><BR/>
-                        <apex:outputLabel >01010-000 SÃO PAULO SP</apex:outputLabel>
+                        <apex:outputLabel >{!ipOutput['Header']['name']}</apex:outputLabel><BR/>
+                        <apex:outputLabel >{!ipOutput['Header']['streetName']}, {!ipOutput['Header']['streetNr']} {!ipOutput['Header']['streetSuffix']} {!ipOutput['Header']['municipalityname']}</apex:outputLabel><BR/>
+                        <apex:outputLabel >{!ipOutput['Header']['postcode']} {!ipOutput['Header']['nameCity']} {!ipOutput['Header']['nameState']}</apex:outputLabel>
                     </apex:panelGroup>
                     <apex:panelGroup >
                     </apex:panelGroup>
@@ -110,11 +100,11 @@
                         <apex:outputLabel ></apex:outputLabel>
                     </apex:panelGroup>
                     <apex:panelGroup >
-                        <apex:outputLabel style="float: left;"> CELULAR:</apex:outputLabel> <apex:outputLabel value="{!lineNumber}"></apex:outputLabel><BR/>
-                        <apex:outputLabel style="float: left;"> CONTA:</apex:outputLabel> <apex:outputLabel value="{!conta}"></apex:outputLabel><BR/>
-                        <apex:outputLabel style="float: left;"> PLANO TARIFÁRIO:</apex:outputLabel> <apex:outputLabel value="{!plano}"></apex:outputLabel><BR/>
-                        <apex:outputLabel style="float: left;"> EMISSÃO:</apex:outputLabel> <apex:outputLabel value="{!emissao}"></apex:outputLabel><BR/>
-                        <apex:outputLabel style="float: left;"> PERÍODO:</apex:outputLabel> <apex:outputLabel value="{!periodo}"></apex:outputLabel><BR/>
+                        <apex:outputLabel style="float: left;"> CELULAR:</apex:outputLabel> <apex:outputLabel value="{!ipOutput['Header']['client']['networkNumber']}"></apex:outputLabel><BR/>
+                        <apex:outputLabel style="float: left;"> CONTA:</apex:outputLabel> <apex:outputLabel value="{!ipOutput['Header']['client']['accountId']}"></apex:outputLabel><BR/>
+                        <apex:outputLabel style="float: left;"> PLANO TARIFÁRIO:</apex:outputLabel> <apex:outputLabel value="{!ipOutput['Header']['client']['profile']}"></apex:outputLabel><BR/>
+                        <apex:outputLabel style="float: left;"> EMISSÃO:</apex:outputLabel> <apex:outputLabel value="{!ipOutput['Header']['emissionDate']}"></apex:outputLabel><BR/>
+                        <apex:outputLabel style="float: left;"> PERÍODO:</apex:outputLabel> <apex:outputLabel value="{!ipOutput['Header']['startDateTime']} a {!ipOutput['Header']['endDateTime']}"></apex:outputLabel><BR/>
                     </apex:panelGroup>
             </apex:panelGrid>
 
@@ -125,24 +115,24 @@
                 Modified by: Dalvino Santos 
             -->
             <div class="block_font">
-                <apex:outputText ><b>Plano Ativo Atual:</b></apex:outputText><apex:outputText value=" {!plano}" ></apex:outputText><BR/>   
+                <apex:outputText ><b>Plano Ativo Atual:</b></apex:outputText><apex:outputText value=" {!ipOutput['Header']['client']['profile']}" ></apex:outputText><BR/>   
             </div><br/>
 
             <div class="summary_info">
                 <div class="block_font" style="{!IF(ipOutput['ACTIVE_PROMOTIONS_INFO'] != '-', 'display:block', 'display:none')}">
                     <apex:pageBlock rendered="{!ipOutput['ACTIVE_PROMOTIONS_INFO'] != '-'}">
                         <apex:pageBlockTable value="{!ipOutput['ACTIVE_PROMOTIONS_INFO']}" var="f" width="100%" styleClass="container">
-                            <apex:column headerValue="Promocões ativas atual" value="{!f['name']}" styleClass="coluna"/>
-                            <apex:column headerValue="Data ativação" value="{!f['data']}" styleClass="coluna"/>
+                            <apex:column headerValue="Promocões ativas atual" value="{!f['name']}" width="50%" styleClass="coluna"/>
+                            <apex:column headerValue="Data ativação" value="{!f['data']}" width="50%" styleClass="coluna"/>
                         </apex:pageBlockTable>
                     </apex:pageBlock>
                 </div><br/>
                 <div class="block_font" style="{!IF(ipOutput['RECHARGE_PLAFOND_INFO'] != '-', 'display:block', 'display:none')}">
                     <apex:pageBlock rendered="{!ipOutput['RECHARGE_PLAFOND_INFO'] !='-'}" >
                         <apex:pageBlockTable value="{!ipOutput['RECHARGE_PLAFOND_INFO']}" var="f" width="100%" styleClass="container">
-                            <apex:column headerValue="Resumo de movimento nos saldos" value="{!f['name']}" styleClass="coluna"/>
-                            <apex:column headerValue="Valor" value="{!f['value']}" styleClass="coluna"/>
-                            <apex:column headerValue="Data" value="{!f['data']}" styleClass="coluna"/>
+                            <apex:column headerValue="Resumo de movimento nos saldos" width="50%" value="{!f['name']}" styleClass="coluna"/>
+                            <apex:column headerValue="Valor" value="{!f['value']}" width="25%" styleClass="coluna"/>
+                            <apex:column headerValue="Data" value="{!f['data']}" width="25%" styleClass="coluna"/>
                         </apex:pageBlockTable>
                     </apex:pageBlock>
                 </div>
@@ -152,9 +142,9 @@
                 <div class="block_font" style="{!IF(ipOutput['BONUS_PROMOTION_MOVIMENT'] != '-', 'display:block', 'display:none')}">
                         <apex:pageBlock rendered="{!ipOutput['BONUS_PROMOTION_MOVIMENT'] !='-'}" >
                             <apex:pageBlockTable value="{!ipOutput['BONUS_PROMOTION_MOVIMENT']}" var="f" width="100%" styleClass="container">
-                                <apex:column headerValue="Bônus" value="{!f['name']}" styleClass="coluna"/>
-                                <apex:column headerValue="Total recebido" value="{!f['value']}" styleClass="coluna"/>
-                                <apex:column headerValue="Data do crédito" value="{!f['data']}" styleClass="coluna"/>
+                                <apex:column headerValue="Bônus" value="{!f['name']}" width="50%" styleClass="coluna"/>
+                                <apex:column headerValue="Total recebido" value="{!f['value']}" width="25%" styleClass="coluna"/>
+                                <apex:column headerValue="Data do crédito" value="{!f['data']}" width="25%" styleClass="coluna"/>
                             </apex:pageBlockTable>
                         </apex:pageBlock>
                 </div>
@@ -163,9 +153,9 @@
                 <div class="block_font" style="{!IF(ipOutput['SMS_VOICE_PACKETS_DETAIL'] != '-', 'display:block', 'display:none')}"><BR/>
                     <apex:pageBlock rendered="{!ipOutput['SMS_VOICE_PACKETS_DETAIL'] != '-'}">
                         <apex:pageBlockTable rendered="{!ipOutput['SMS_VOICE_PACKETS_DETAIL']!='-'}" value="{!ipOutput['SMS_VOICE_PACKETS_DETAIL']}" var="f" width="100%" styleClass="container">
-                            <apex:column headerValue="Pacotes SMS e Voz" value="{!f['name']}" styleClass="coluna"/>
-                            <apex:column headerValue="Total recebido" value="{!f['value']}" styleClass="coluna"/>
-                            <apex:column headerValue="Data do crédito" value="{!f['data']}" styleClass="coluna"/>
+                            <apex:column headerValue="Pacotes SMS e Voz" value="{!f['name']}" width="50%" styleClass="coluna"/>
+                            <apex:column headerValue="Total recebido" value="{!f['value']}" width="25%" styleClass="coluna"/>
+                            <apex:column headerValue="Data do crédito" value="{!f['data']}" width="25%" styleClass="coluna"/>
                         </apex:pageBlockTable>
                     </apex:pageBlock>
                 </div><br/>
@@ -174,9 +164,9 @@
                 <div class="block_font" style="{!IF(ipOutput['INTERNET_PACKETS_DETAIL'] != '-', 'display:block', 'display:none')}">
                     <apex:pageBlock rendered="{!ipOutput['INTERNET_PACKETS_DETAIL'] !='-'}" >
                         <apex:pageBlockTable value="{!ipOutput['INTERNET_PACKETS_DETAIL']}" var="f" width="100%" styleClass="container">
-                            <apex:column headerValue="Internet" value="{!f['name']}" styleClass="coluna"/>
-                            <apex:column headerValue="Total Recebido" value="{!f['value']}" styleClass="coluna"/>
-                            <apex:column headerValue="Data do Crédito" value="{!f['data']}" styleClass="coluna"/>
+                            <apex:column headerValue="Internet" value="{!f['name']}" width="50%" styleClass="coluna"/>
+                            <apex:column headerValue="Total Recebido" value="{!f['value']}" width="25%" styleClass="coluna"/>
+                            <apex:column headerValue="Data do Crédito" value="{!f['data']}" width="25%" styleClass="coluna"/>
                         </apex:pageBlockTable>
                     </apex:pageBlock>
                 </div><br/>
@@ -185,9 +175,9 @@
                 <div class="block_font" style="{!IF(ipOutput['OTHERS_CREDITS'] != '-', 'display:block', 'display:none')}">
                     <apex:pageBlock rendered="{!ipOutput['OTHERS_CREDITS'] !='-'}" >
                         <apex:pageBlockTable value="{!ipOutput['OTHERS_CREDITS']}" var="f" width="100%" styleClass="container">
-                            <apex:column headerValue="Ajustes" value="{!f['name']}" styleClass="coluna"/>
-                            <apex:column headerValue="Total Recebido" value="{!f['value']}" styleClass="coluna"/>
-                            <apex:column headerValue="Data do Crédito" value="{!f['data']}" styleClass="coluna"/>
+                            <apex:column headerValue="Ajustes" value="{!f['name']}" width="50%" styleClass="coluna"/>
+                            <apex:column headerValue="Total Recebido" value="{!f['value']}" width="25%" styleClass="coluna"/>
+                            <apex:column headerValue="Data do Crédito" value="{!f['data']}" width="25%" styleClass="coluna"/>
                         </apex:pageBlockTable>
                     </apex:pageBlock>
                 </div><br/>
@@ -196,9 +186,9 @@
                 <div class="block_font" style="{!IF(ipOutput['ADJUSTS_DETAIL'] != '-', 'display:block', 'display:none')}">
                     <apex:pageBlock rendered="{!ipOutput['ADJUSTS_DETAIL'] !='-'}" >
                         <apex:pageBlockTable value="{!ipOutput['ADJUSTS_DETAIL']}" var="f" width="100%" styleClass="container">
-                            <apex:column headerValue="Ajustes" value="{!f['name']}" styleClass="coluna"/>
-                            <apex:column headerValue="Total Recebido" value="{!f['value']}" styleClass="coluna"/>
-                            <apex:column headerValue="Data do Crédito" value="{!f['data']}" styleClass="coluna"/>
+                            <apex:column headerValue="Ajustes" value="{!f['name']}" width="50%" styleClass="coluna"/>
+                            <apex:column headerValue="Total Recebido" value="{!f['value']}" width="25%" styleClass="coluna"/>
+                            <apex:column headerValue="Data do Crédito" value="{!f['data']}" width="25%" styleClass="coluna"/>
                         </apex:pageBlockTable>
                     </apex:pageBlock>
                 </div><br/>
@@ -207,9 +197,9 @@
                 <div class="block_font" style="{!IF(ipOutput['CONTESTATIONS_DETAIL'] != '-', 'display:block', 'display:none')}">
                     <apex:pageBlock rendered="{!ipOutput['CONTESTATIONS_DETAIL'] !='-'}" >
                         <apex:pageBlockTable value="{!ipOutput['CONTESTATIONS_DETAIL']}" var="f" width="100%" styleClass="container">
-                            <apex:column headerValue="Contestações" value="{!f['name']}" styleClass="coluna"/>
-                            <apex:column headerValue="Total Recebido" value="{!f['value']}" styleClass="coluna"/>
-                            <apex:column headerValue="Data do Crédito" value="{!f['data']}" styleClass="coluna"/>
+                            <apex:column headerValue="Contestações" value="{!f['name']}" width="50%" styleClass="coluna"/>
+                            <apex:column headerValue="Total Recebido" value="{!f['value']}" width="25%" styleClass="coluna"/>
+                            <apex:column headerValue="Data do Crédito" value="{!f['data']}" width="25%" styleClass="coluna"/>
                         </apex:pageBlockTable>
                     </apex:pageBlock>
                 </div><br/>
@@ -218,9 +208,9 @@
                 <div class="block_font" style="{!IF(ipOutput['REVERSE_DETAIL'] != '-', 'display:block', 'display:none')}">
                     <apex:pageBlock rendered="{!ipOutput['REVERSE_DETAIL'] !='-'}" >
                         <apex:pageBlockTable value="{!ipOutput['REVERSE_DETAIL']}" var="f" width="100%" styleClass="container">
-                            <apex:column headerValue="Estornos" value="{!f['name']}" styleClass="coluna"/>
-                            <apex:column headerValue="Total Recebido" value="{!f['value']}" styleClass="coluna"/>
-                            <apex:column headerValue="Data do Crédito" value="{!f['data']}" styleClass="coluna"/>
+                            <apex:column headerValue="Estornos" value="{!f['name']}" width="50%" styleClass="coluna"/>
+                            <apex:column headerValue="Total Recebido" value="{!f['value']}" width="25%" styleClass="coluna"/>
+                            <apex:column headerValue="Data do Crédito" value="{!f['data']}" width="25%" styleClass="coluna"/>
                         </apex:pageBlockTable>
                     </apex:pageBlock>
                 </div>
@@ -229,8 +219,8 @@
                 <div class="block_font" style="{!IF(ipOutput['RECHARGE_DETAIL'] != '-', 'display:block', 'display:none')}">
                     <apex:pageBlock rendered="{!ipOutput['RECHARGE_DETAIL'] !='-'}" >
                         <apex:pageBlockTable value="{!ipOutput['RECHARGE_DETAIL']}" var="f" width="100%" styleClass="container">
-                            <apex:column headerValue="Periodo" value="{!f['data']}" styleClass="coluna"/>
-                            <apex:column headerValue="Valor" value="{!f['value']}" styleClass="coluna"/>
+                            <apex:column headerValue="Periodo" value="{!f['data']}" width="50%" styleClass="coluna"/>
+                            <apex:column headerValue="Valor" value="{!f['value']}" width="50%" styleClass="coluna"/>
                         </apex:pageBlockTable>
                     </apex:pageBlock>
                 </div>
@@ -239,9 +229,9 @@
                 <div class="block_font" style="{!IF(ipOutput['DETACHED_DEBITS_RD'] != '-', 'display:block', 'display:none')}">
                      <apex:pageBlock rendered="{!ipOutput['DETACHED_DEBITS_RD'] !='-'}" >
                          <apex:pageBlockTable value="{!ipOutput['DETACHED_DEBITS_RD']}" var="f" width="100%" styleClass="container">
-                             <apex:column headerValue="Movimentação Avulsa" value="{!f['name']}" styleClass="coluna"/>
-                             <apex:column headerValue="Valor Descontado" value="{!f['value']}" styleClass="coluna"/>
-                             <apex:column headerValue="Total Utilizado" value="{!f['amount']}" styleClass="coluna"/>
+                             <apex:column headerValue="Movimentação Avulsa" value="{!f['name']}" width="50%" styleClass="coluna"/>
+                             <apex:column headerValue="Valor Descontado" value="{!f['value']}" width="25%" styleClass="coluna"/>
+                             <apex:column headerValue="Total Utilizado" value="{!f['amount']}" width="25%" styleClass="coluna"/>
                          </apex:pageBlockTable>
                     </apex:pageBlock>
                 </div><br/>
@@ -250,9 +240,9 @@
                 <div class="block_font" style="{!IF(ipOutput['CONTRACTED_SERVICES_RD'] != '-', 'display:block', 'display:none')}">
                     <apex:pageBlock rendered="{!ipOutput['CONTRACTED_SERVICES_RD'] !='-'}" >
                         <apex:pageBlockTable value="{!ipOutput['CONTRACTED_SERVICES_RD']}" var="f" width="100%" styleClass="container">
-                            <apex:column headerValue="Serviços Contratados" value="{!f['name']}" styleClass="coluna"/>
-                            <apex:column headerValue="Valor Descontado" value="{!f['value']}" styleClass="coluna"/>
-                            <apex:column headerValue="Data da Cobrança/Renovação" value="{!f['data']}" styleClass="coluna"/>
+                            <apex:column headerValue="Serviços Contratados" value="{!f['name']}" width="50%" styleClass="coluna"/>
+                            <apex:column headerValue="Valor Descontado" value="{!f['value']}" width="25%" styleClass="coluna"/>
+                            <apex:column headerValue="Data da Cobrança/Renovação" value="{!f['data']}" width="25%" styleClass="coluna"/>
                         </apex:pageBlockTable>
                     </apex:pageBlock>
                 </div><br/>
@@ -261,9 +251,9 @@
                 <div class="block_font" style="{!IF(ipOutput['OTHERS_DEBITS_RD'] != '-', 'display:block', 'display:none')}">
                     <apex:pageBlock rendered="{!ipOutput['OTHERS_DEBITS_RD'] !='-'}" >
                         <apex:pageBlockTable value="{!ipOutput['OTHERS_DEBITS_RD']}" var="f" width="100%" styleClass="container">
-                            <apex:column headerValue="Outros Débitos" value="{!f['name']}" styleClass="coluna"/>
-                            <apex:column headerValue="Total Recebido" value="{!f['amount']}" styleClass="coluna"/>
-                            <apex:column headerValue="Data da Cobrança" value="{!f['data']}" styleClass="coluna"/>
+                            <apex:column headerValue="Outros Débitos" value="{!f['name']}" width="50%" styleClass="coluna"/>
+                            <apex:column headerValue="Total Recebido" value="{!f['amount']}" width="25%" styleClass="coluna"/>
+                            <apex:column headerValue="Data da Cobrança" value="{!f['data']}" width="25%" styleClass="coluna"/>
                         </apex:pageBlockTable>
                     </apex:pageBlock>
                 </div><br/>
@@ -273,9 +263,9 @@
                 <div class="block_font" style="{!IF(ipOutput['DETACHED_DEBITS_FC'] != '-', 'display:block', 'display:none')}">
                     <apex:pageBlock rendered="{!ipOutput['DETACHED_DEBITS_FC'] !='-'}" >
                         <apex:pageBlockTable value="{!ipOutput['DETACHED_DEBITS_FC']}" var="f" width="100%" styleClass="container">
-                            <apex:column headerValue="Movimentação Avulsa" value="{!f['name']}" styleClass="coluna"/>
-                            <apex:column headerValue="Valor Descontado" value="{!f['value']}" styleClass="coluna"/>
-                            <apex:column headerValue="Total Utilizado" value="{!f['amount']}" styleClass="coluna"/>
+                            <apex:column headerValue="Movimentação Avulsa" value="{!f['name']}" width="50%" styleClass="coluna"/>
+                            <apex:column headerValue="Valor Descontado" value="{!f['value']}" width="25%" styleClass="coluna"/>
+                            <apex:column headerValue="Total Utilizado" value="{!f['amount']}" width="25%" styleClass="coluna"/>
                         </apex:pageBlockTable>
                     </apex:pageBlock>
                 </div><br/>
@@ -284,9 +274,9 @@
                 <div class="block_font" style="{!IF(ipOutput['CONTRACTED_SERVICES_FC'] != '-', 'display:block', 'display:none')}">
                     <apex:pageBlock rendered="{!ipOutput['CONTRACTED_SERVICES_FC'] !='-'}" >
                         <apex:pageBlockTable value="{!ipOutput['CONTRACTED_SERVICES_FC']}" var="f" width="100%" styleClass="container">
-                            <apex:column headerValue="Serviços Contratados" value="{!f['name']}" styleClass="coluna"/>
-                            <apex:column headerValue="Valor Descontado" value="{!f['value']}" styleClass="coluna"/>
-                            <apex:column headerValue="Data da Cobrança/Renovação" value="{!f['data']}" styleClass="coluna"/>
+                            <apex:column headerValue="Serviços Contratados" value="{!f['name']}" width="50%" styleClass="coluna"/>
+                            <apex:column headerValue="Valor Descontado" value="{!f['value']}" width="25%" styleClass="coluna"/>
+                            <apex:column headerValue="Data da Cobrança/Renovação" value="{!f['data']}" width="25%" styleClass="coluna"/>
                         </apex:pageBlockTable>
                     </apex:pageBlock>
                 </div><br/>
@@ -295,16 +285,16 @@
                 <div class="block_font" style="{!IF(ipOutput['OTHERS_DEBITS_FC'] != '-', 'display:block', 'display:none')}">
                     <apex:pageBlock rendered="{!ipOutput['OTHERS_DEBITS_FC'] !='-'}" >
                         <apex:pageBlockTable value="{!ipOutput['OTHERS_DEBITS_FC']}" var="f" width="100%" styleClass="container">
-                            <apex:column headerValue="Outros Débitos" value="{!f['name']}" styleClass="coluna"/>
-                            <apex:column headerValue="Total Recebido" value="{!f['amount']}" styleClass="coluna"/>
-                            <apex:column headerValue="Data da Cobrança" value="{!f['data']}" styleClass="coluna"/>
+                            <apex:column headerValue="Outros Débitos" value="{!f['name']}" width="50%" styleClass="coluna"/>
+                            <apex:column headerValue="Total Recebido" value="{!f['amount']}" width="25%" styleClass="coluna"/>
+                            <apex:column headerValue="Data da Cobrança" value="{!f['data']}" width="25%" styleClass="coluna"/>
                         </apex:pageBlockTable>
                     </apex:pageBlock>
                 </div>
                 </apex:outputPanel>
                 <div class="detailed_info">
                     <apex:outputPanel rendered="{!ipOutput['CALLS_DETAIL'] !='-'}">
-                        <h3 class="tittle_block">Detelhes de chamadas</h3>
+                        <h3 class="tittle_block">Detalhes de chamadas</h3>
                     <div class="block_font" style="{!IF(ipOutput['CALLS_DETAIL'] != '-', 'display:block', 'display:none')}">
                         <apex:pageBlock rendered="{!ipOutput['CALLS_DETAIL'] !='-'}" >
                             <apex:pageBlockTable value="{!ipOutput['CALLS_DETAIL']}" var="f" width="100%" styleClass="container">

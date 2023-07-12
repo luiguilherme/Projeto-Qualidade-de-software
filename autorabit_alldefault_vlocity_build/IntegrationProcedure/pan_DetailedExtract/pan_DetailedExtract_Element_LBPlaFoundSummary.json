@@ -20,7 +20,7 @@
             "chargeDuration": "=IF(ISNOTBLANK(%Resp:PLAFOND_SUMMARY:actions:chargeDuration%),%Resp:PLAFOND_SUMMARY:actions:chargeDuration%,\"-\")",
             "credit": "=IF(ISNOTBLANK(%Resp:PLAFOND_SUMMARY:actions:credit%),%Resp:PLAFOND_SUMMARY:actions:credit%,\"-\")",
             "csp": "=IF(ISNOTBLANK(%Resp:PLAFOND_SUMMARY:actions:csp%),%Resp:PLAFOND_SUMMARY:actions:csp%,\"-\")",
-            "dataHora": "=IF(ISNOTBLANK(%Resp:PLAFOND_SUMMARY:actions:actionDateTime%),FORMATDATETIMEGMT(TOSTRING(%Resp:PLAFOND_SUMMARY:actions:actionDateTime%), \"America_SaoPaulo\", \"dd/MM/yyyy HH:mm\"),\"-\")",
+            "dataHora": "=IF(ISNOTBLANK(%Resp:PLAFOND_SUMMARY:actions:actionDateTime%),TOSTRING(%Resp:PLAFOND_SUMMARY:actions:actionDateTime%),\"-\")",
             "debit": "=IF(ISNOTBLANK(%Resp:PLAFOND_SUMMARY:actions:debit%),%Resp:PLAFOND_SUMMARY:actions:debit%,\"-\")",
             "description": "=IF(ISNOTBLANK(%Resp:PLAFOND_SUMMARY:actions:description%),%Resp:PLAFOND_SUMMARY:actions:description%,\"-\")",
             "destinationAreaCode": "=IF(ISNOTBLANK(%Resp:PLAFOND_SUMMARY:actions:destination:geographicAreaCode%),%Resp:PLAFOND_SUMMARY:actions:destination:geographicAreaCode%,\"-\")",
@@ -31,7 +31,7 @@
             "period": "=IF(ISNOTBLANK(%Resp:PLAFOND_SUMMARY:actions:period%),%Resp:PLAFOND_SUMMARY:actions:period%,\"-\")",
             "serviceIdentifier": "=IF(ISNOTBLANK(%Resp:PLAFOND_SUMMARY:actions:serviceIdentifier%),%Resp:PLAFOND_SUMMARY:actions:serviceIdentifier%,\"-\")",
             "sourceType": "=IF(ISNOTBLANK(%Resp:PLAFOND_SUMMARY:actions:source:sourceType%),%Resp:PLAFOND_SUMMARY:actions:source:sourceType%,\"-\")",
-            "trafficKbyte": "-",
+            "trafficKbyte": "=IF(ISNOTBLANK(%Resp:PLAFOND_SUMMARY:actions:traffic%),%Resp:PLAFOND_SUMMARY:actions:traffic%,\"-\")",
             "type": "=IF(ISNOTBLANK(%HTTP-ExtractDetailed:Report:detail:events:type%),%HTTP-ExtractDetailed:Report:detail:events:type%,\"-\")",
             "value": "=IF(ISNOTBLANK(%Resp:PLAFOND_SUMMARY:actions:value%),%Resp:PLAFOND_SUMMARY:actions:value%,\"-\")"
         },

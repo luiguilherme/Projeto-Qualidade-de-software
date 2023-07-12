@@ -30,12 +30,14 @@
         "hasPrimary": false,
         "label": "ListAction1",
         "mergeFields": [
+            "Id"
         ],
         "mergeListsOrder": [
-            "CompleteReturn:Report:header"
+            "CompleteReturn:Report:header",
+            "DREGetBillingAddress"
         ],
         "primaryListKey": "",
-        "responseJSONNode": "Response:Header",
+        "responseJSONNode": "",
         "responseJSONPath": "",
         "returnOnlyAdditionalOutput": false,
         "returnOnlyFailureResponse": false,
@@ -47,8 +49,16 @@
         ],
         "sortInDescendingOrder": false,
         "updateFieldValue": {
+            "emissionDate": "=SUBSTRING(emissionDate,8, 10)+\"/\"+SUBSTRING(emissionDate,5, 7)+\"/\"+SUBSTRING(emissionDate,0, 4)",
             "endDateTime": "=SUBSTRING(reportDate:endDateTime,8, 10)+\"/\"+SUBSTRING(reportDate:endDateTime,5, 7)+\"/\"+SUBSTRING(reportDate:endDateTime,0, 4)",
-            "startDateTime": "=SUBSTRING(reportDate:startDateTime,8, 10)+\"/\"+SUBSTRING(reportDate:startDateTime,5, 7)+\"/\"+SUBSTRING(reportDate:startDateTime,0, 4)"
+            "municipalityname": "=IF(ISNOTBLANK(municipalityname), municipalityname, \" \")",
+            "nameCity": "=IF(ISNOTBLANK(nameCity), nameCity, \" \")",
+            "nameState": "=IF(ISNOTBLANK(nameState), nameState, \" \")",
+            "postcode": "=IF(ISNOTBLANK(postcode), postcode, \" \")",
+            "startDateTime": "=SUBSTRING(reportDate:startDateTime,8, 10)+\"/\"+SUBSTRING(reportDate:startDateTime,5, 7)+\"/\"+SUBSTRING(reportDate:startDateTime,0, 4)",
+            "streetName": "=IF(ISNOTBLANK(streetName), streetName, \" \")",
+            "streetNr": "=IF(ISNOTBLANK(streetNr), streetNr, \" \")",
+            "streetSuffix": "=IF(ISNOTBLANK(streetSuffix), streetSuffix, \" \")"
         },
         "useFormulas": true
     },
