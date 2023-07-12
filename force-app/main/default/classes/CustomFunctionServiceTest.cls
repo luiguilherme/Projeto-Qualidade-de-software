@@ -406,4 +406,23 @@ public class CustomFunctionServiceTest {
         System.debug(output);
         System.assert(output.get('result') != null);
     }
+	
+	@isTest
+    static void testproperCase() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+		List<object> objectList = new List<object>();
+        objectList.add('CAMILLA');
+
+		inputs.put('arguments', objectList);
+
+		CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('properCase', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+
+	
 }

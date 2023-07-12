@@ -13,14 +13,13 @@
         "elementValueMap": {
             "MSISDNUE": "=IF(LISTSIZE(SPLIT(%customerInformation:msisdn%, \"\")) != 11, true, false)",
             "areaCodeUE": "=NOTEXIST(%SVCustomer:validDDDList%, %customerInformation:areaCode%)",
-            "contactAgreementUE": "=IF(%customerInformation:contactAgreement% <> true && %customerInformation:contactAgreement% <> false, true, false)",
+            "contactAgreementUE": "==IF(%customerInformation:channel% != \"URA\" && %customerInformation:channel% != \"SATPUSH\" && %customerInformation:contactAgreement% <> true && %customerInformation:contactAgreement% <> false, true, false)",
             "documentTypeUE": "=IF(%customerInformation:documentType% <> \"CPF\" && %customerInformation:documentType% <> \"CNPJ\" && %customerInformation:documentType% <> \"Passaporte\" && %customerInformation:documentType% <> \"Documento Estrangeiro\", true, false)",
-            "mothersNameUE": "=IF(LISTSIZE(SPLIT(%customerInformation:mothersName%, \" \")) < 2, true, false)",
             "nameUE": "=IF(LISTSIZE(SPLIT(%customerInformation:name%, \" \")) < 2, true, false)",
             "postCodeUE": "=IF(LISTSIZE(SPLIT(%customerInformation:postCode%, \"\")) != 8, true, false)"
         },
         "executionConditionalFormula": "",
-        "failOnStepError": false,
+        "failOnStepError": true,
         "failureConditionalFormula": "",
         "label": "SetValues2",
         "responseJSONNode": "",

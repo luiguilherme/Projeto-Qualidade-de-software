@@ -22,6 +22,10 @@
     "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
+            "AccountInfo": "=IF(ISNOTBLANK(%DRGetConsumerInfoFromAsset:AccountInfo%) && %DRGetConsumerInfoFromAsset:AccountInfo:RecordTypeGeneric% != true,%DRGetConsumerInfoFromAsset:AccountInfo%, %DRGetConsumerInfoBySubscription:AccountInfo% )",
+            "AccountListSize": "=IF(ISNOTBLANK(%DRGetConsumerInfoFromAsset:AccountInfo%),LISTSIZE(LIST(%DRGetConsumerInfoFromAsset:AccountInfo%)), LISTSIZE(LIST(%DRGetConsumerInfoBySubscription%)))",
+            "ServiceIdentifier": "=IF(ISNOTBLANK(%DRGetConsumerInfoFromAsset:AccountInfo%), %DRGetConsumerInfoFromAsset:AccountInfo:ServiceIdentifier%, \"\")",
+            "errorMessage": "=IF(ISBLANK(%DRGetConsumerInfoFromAsset:AccountInfo:AssetId%) && ISNOTBLANK(%DRGetConsumerInfoBySubscription:AccountInfo:SubscriptionId%) && ISBLANK(%DRGetConsumerInfoBySubscription:AccountInfo:Id%), \"Linha não possui Cadastro\", IF(ISBLANK(%DRGetConsumerInfoFromAsset:AccountInfo:AssetId%) && ISBLANK(%DRGetConsumerInfoBySubscription:AccountInfo:SubscriptionId%), \"Linha não encontrada\", \"Linha encontrada\"))"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",
@@ -34,10 +38,11 @@
         "returnFullDataJSON": false,
         "returnOnlyAdditionalOutput": false,
         "sendJSONNode": "",
-        "sendJSONPath": "DRTDRLineResponse",
+        "sendJSONPath": "",
         "show": null,
         "useFormulas": true,
         "vlcResponseHeaders": {
+            "statusCode": 200
         }
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,

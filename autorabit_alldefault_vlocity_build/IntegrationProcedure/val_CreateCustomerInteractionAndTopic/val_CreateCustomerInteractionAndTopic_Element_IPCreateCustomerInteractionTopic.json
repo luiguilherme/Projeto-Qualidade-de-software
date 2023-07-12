@@ -9,9 +9,9 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "interactionId": "%DRTransformNewInteraction:NewInteraction:Id%",
+            "interactionId": "=IF(ISBLANK(%InteractionId%), %DRTransformNewInteraction:NewInteraction:Id%, %InteractionId%)",
             "outcome": "Completo",
-            "process": "=IF(%customerInteractionValues:resultValueMap:topicName% != null && %customerInteractionValues:resultValueMap:topicName% != '', %customerInteractionValues:resultValueMap:topicName%, 'Pesquisa de Cliente')",
+            "process": "=IF(ISNOTBLANK(%customerInteractionValues:resultValueMap:topicName%), %customerInteractionValues:resultValueMap:topicName%, 'Pesquisa de Cliente')",
             "topicName": "%topicName%"
         },
         "additionalOutput": {

@@ -1,0 +1,136 @@
+{
+    "%vlocity_namespace%__Author__c": "Telefonica",
+    "%vlocity_namespace%__CardType__c": "flex",
+    "%vlocity_namespace%__Datasource__c": {
+        "dataSource": {
+            "contextVariables": [
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "Custom",
+            "value": {
+                "body": "{\n   \"SpinnerAssociate\": \"\" \n}",
+                "dsDelay": "",
+                "resultVar": ""
+            }
+        },
+        "state0element4_0": {
+            "contextVariables": [
+                {
+                    "id": 1,
+                    "name": "Session.LineNumber",
+                    "val": ""
+                },
+                {
+                    "id": 7,
+                    "name": "Session.InteractionNumber",
+                    "val": ""
+                },
+                {
+                    "id": 6,
+                    "name": "recordId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "LineNumber": "{Session.LineNumber}",
+                    "ProtocolNumber": "{Session.InteractionNumber}",
+                    "accountId": "{recordId}"
+                },
+                "ipMethod": "val_StartCreateRemoteCustomer",
+                "jsonMap": "{\"Session.LineNumber\":\"{Session.LineNumber}\",\"Session.InteractionNumber\":\"{Session.InteractionNumber}\",\"recordId\":\"{recordId}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        },
+        "state0element4_1": {
+            "contextVariables": [
+                {
+                    "id": 4,
+                    "name": "Session.InteractionId",
+                    "val": ""
+                },
+                {
+                    "id": 12,
+                    "name": "Session.TopicName",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "interactionId": "{Session.InteractionId}",
+                    "outcome": "Completo",
+                    "process": "Cadastro Linha Sem Cadastro",
+                    "topicName": "{Session.TopicName}"
+                },
+                "ipMethod": "val_CreateCustomerInteractionTopic",
+                "jsonMap": "{\"Session.InteractionId\":\"{Session.InteractionId}\",\"Session.TopicName\":\"{Session.TopicName}\"}",
+                "vlocityAsync": false
+            }
+        },
+        "state0element4_2": {
+            "contextVariables": [
+                {
+                    "id": 6,
+                    "name": "Session.InteractionId",
+                    "val": ""
+                },
+                {
+                    "id": 7,
+                    "name": "interactionTopicId",
+                    "val": ""
+                },
+                {
+                    "id": 6,
+                    "name": "Session.TopicName",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "interactionId": "{Session.InteractionId}",
+                    "interactionTopicId": "{interactionTopicId}",
+                    "topicName": "{Session.TopicName}"
+                },
+                "ipMethod": "val_CallOutProtocolItemVivoNet",
+                "jsonMap": "{\"Session.InteractionId\":\"{Session.InteractionId}\",\"interactionTopicId\":\"{interactionTopicId}\",\"Session.TopicName\":\"{Session.TopicName}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        }
+    },
+    "%vlocity_namespace%__Definition__c": "valReviewCustomerContainer.json",
+    "%vlocity_namespace%__Description__c": "[INC3-Copy v1][ US-400/394-BL1] Fix Bureau Behaviour Message/CPF  Unique Validation/Create Topic [Guilherme Kaiser]",
+    "%vlocity_namespace%__GlobalKey__c": "valReviewCustomerContainer/Telefonica/2/1688566374797",
+    "%vlocity_namespace%__IsChildCard__c": false,
+    "%vlocity_namespace%__ParentID__c": "",
+    "%vlocity_namespace%__SampleData__c": "{\"SpinnerAssociate\":\"\"}",
+    "%vlocity_namespace%__Styles__c": "{\"customStyles\":\".button:hover{\\r\\n    background-color: #572973;\\r\\n}\\r\\n\\r\\n.button{\\r\\n\\r\\n    background-color:  #660099;\\r\\n\\r\\n}\\r\\n\\r\\n.filter{\\r\\n    filter: invert(12%) sepia(13%) saturate(85%) hue-rotate(77deg) brightness(110%) contrast(85%);\\r\\n\\r\\n}\"}",
+    "%vlocity_namespace%__Type__c": "",
+    "%vlocity_namespace%__Version__c": 2,
+    "Name": "valReviewCustomerContainer",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityCard__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__VlocityCard__c/valReviewCustomerContainer"
+}

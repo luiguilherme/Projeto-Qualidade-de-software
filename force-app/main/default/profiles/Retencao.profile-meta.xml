@@ -31,6 +31,11 @@
         <visible>true</visible>
     </applicationVisibilities>
     <applicationVisibilities>
+        <application>Sustentacao</application>
+        <default>false</default>
+        <visible>false</visible>
+    </applicationVisibilities>    
+    <applicationVisibilities>
         <application>VlocityInstallationAssistant</application>
         <default>false</default>
         <visible>false</visible>
@@ -142,6 +147,22 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CustomFunctionService</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CustomFunctionServiceTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CustomVIPImplementationInvocable</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CustomVIPImplementationInvocableFuture</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>    
+    <classAccesses>
         <apexClass>InvoiceHistoryController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -149,6 +170,30 @@
         <apexClass>MassiveBillingAccountCaseController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>SuspendOrderBatch</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SuspendOrderBatchTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SuspendOrderPIDSchedule</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SuspendOrderPIDScheduleTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SuspendOrderSchedule</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SuspendOrderScheduleTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>    
     <classAccesses>
         <apexClass>sfLma__LicenseRefreshExtension</apexClass>
         <enabled>true</enabled>
@@ -177,6 +222,14 @@
         <apexClass>sfLma__statusPicklistExtension</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>ValentinaCustomVIPImplementation</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ValentinaCustomVIPImplementationTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>    
     <classAccesses>
         <apexClass>valUnitConvert</apexClass>
         <enabled>false</enabled>
@@ -9264,6 +9317,10 @@
     <custom>true</custom>
     <customMetadataTypeAccesses>
         <enabled>true</enabled>
+        <name>ApproversFuncionality__mdt</name>
+    </customMetadataTypeAccesses>    
+    <customMetadataTypeAccesses>
+        <enabled>true</enabled>
         <name>vlocity_cmt__CpqMemberType__mdt</name>
     </customMetadataTypeAccesses>
     <customMetadataTypeAccesses>
@@ -9304,12 +9361,24 @@
     </customMetadataTypeAccesses>
     <customPermissions>
         <enabled>true</enabled>
+        <name>AssociacaoCadastroDummyCriar</name>
+    </customPermissions>  
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>CadastroCliente</name>
+    </customPermissions>     
+    <customPermissions>
+        <enabled>true</enabled>
         <name>Cancelamentodelinha</name>
     </customPermissions>
     <customPermissions>
         <enabled>true</enabled>
         <name>ConsultaEnviodeSaldos</name>
     </customPermissions>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>ConsultarOrdens</name>
+    </customPermissions>    
     <customPermissions>
         <enabled>true</enabled>
         <name>CustomPermissionTestPermission</name>
@@ -9320,23 +9389,23 @@
     </customPermissions>
     <customPermissions>
         <enabled>true</enabled>
-        <name>whatslly__access_whatslly</name>
-    </customPermissions>
-    <customPermissions>
-        <enabled>true</enabled>
-        <name>whatslly__whatslly_delete_synced_messages</name>
-    </customPermissions>
-    <customPermissions>
-        <enabled>true</enabled>
         <name>EnablePrepaid</name>
     </customPermissions>
     <customPermissions>
         <enabled>true</enabled>
         <name>HabilitacaoAvulsaSemAquisicao</name>
+    </customPermissions>    
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>TabOrdersPrepaid</name>
+    </customPermissions>     
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>whatslly__access_whatslly</name>
     </customPermissions>
     <customPermissions>
         <enabled>true</enabled>
-        <name>CadastroCliente</name>
+        <name>whatslly__whatslly_delete_synced_messages</name>
     </customPermissions>
     <customSettingAccesses>
         <enabled>true</enabled>
@@ -9480,6 +9549,11 @@
     </customSettingAccesses>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.AcceptLGPD__c</field>
+        <readable>true</readable>
+    </fieldPermissions>    
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Account.AcceptPromotion__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9491,11 +9565,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.AccountSource</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Account.Active__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -9533,6 +9602,66 @@
         <field>Account.AnnualRevenue</field>
         <readable>false</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.ApproverProcessName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.ApproverRequestAction__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.ApproverRequestCustomerCPF__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.ApproverRequestCustomerName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.ApproverRequestDateTime__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.ApproverRequestRemarks__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.ApproverRequestUserChannel__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.ApproverRequestUserLogin__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.ApproverRequestUsername__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.ApproverUserId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.ApproverUserName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.ApproverUser__c</field>
+        <readable>true</readable>
+    </fieldPermissions>    
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.BillingAccountType__c</field>
@@ -9699,6 +9828,16 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.DigitalAgreementDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.DigitalAgreementIP__c</field>
+        <readable>true</readable>
+    </fieldPermissions>    
+    <fieldPermissions>
         <editable>false</editable>
         <field>Account.DigitalProfileBase__c</field>
         <readable>false</readable>
@@ -9819,6 +9958,16 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.LGPDPhrase__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.LastBureauValidation__c</field>
+        <readable>true</readable>
+    </fieldPermissions>    
+    <fieldPermissions>
         <editable>false</editable>
         <field>Account.NCC__c</field>
         <readable>false</readable>
@@ -9880,6 +10029,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.Remarks__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.RequestedFirstName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.RequestedLastName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>     
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Account.ShippingAddress</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9888,6 +10052,11 @@
         <field>Account.ShippingAddressType__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.ShippingCNL__c</field>
+        <readable>true</readable>
+    </fieldPermissions>   
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.ShippingComplement1__c</field>
@@ -9958,6 +10127,11 @@
         <field>Account.Site</field>
         <readable>false</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.SubmitterComments__c</field>
+        <readable>true</readable>
+    </fieldPermissions>    
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.SupportClassification__c</field>
@@ -10383,6 +10557,11 @@
         <field>AccountContactRelation.StartDate</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ApproversFuncionality__mdt.Approvers__c</field>
+        <readable>false</readable>
+    </fieldPermissions>    
     <fieldPermissions>
         <editable>true</editable>
         <field>Asset.AccountId</field>
@@ -12644,9 +12823,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Contact.MailingAddress</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -12710,6 +12889,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Contact.MainContact__c</field>
+        <readable>true</readable>
+    </fieldPermissions>    
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Contact.MaritalStatus__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -12734,9 +12918,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Contact.OtherAddress</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -13604,6 +13788,31 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>CriticalErrors__mdt.Ativo__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>CriticalErrors__mdt.Callbackcode__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>CriticalErrors__mdt.ErrorCode__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>CriticalErrors__mdt.OriginSystem__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>CriticalErrors__mdt.Priority__c</field>
+        <readable>false</readable>
+    </fieldPermissions>    
+    <fieldPermissions>
         <editable>true</editable>
         <field>Customer.CustomerStatusType</field>
         <readable>true</readable>
@@ -13614,9 +13823,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>CustomerInteractionTopicTree__c.Active__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -13634,14 +13843,14 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>CustomerInteractionTopicTree__c.GPSFlow__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>CustomerInteractionTopicTree__c.GPSId__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -13649,9 +13858,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>CustomerInteractionTopicTree__c.Instance__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -13661,7 +13870,7 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>CustomerInteractionTopicTree__c.IsActive__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -13669,9 +13878,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>CustomerInteractionTopicTree__c.OperatorSegment__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -13684,9 +13893,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>CustomerInteractionTopicTree__c.ProductType__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -13709,9 +13918,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>CustomerInteractionTopicTree__c.ServiceTree__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -13719,9 +13928,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>CustomerInteractionTopicTree__c.VisibleTo__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -15875,6 +16084,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Order.Acquisition__c</field>
+        <readable>false</readable>
+    </fieldPermissions>    
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Order.ActivatedById</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -15890,6 +16104,31 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Order.ActivitySector__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Order.Adabas__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Order.ApproverProcessName__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Order.ApproverUserId__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Order.ApproverUserName__c</field>
+        <readable>false</readable>
+    </fieldPermissions>    
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Order.BillToContactId</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -15898,6 +16137,21 @@
         <field>Order.BillingAddress</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Order.ChannelName__c</field>
+        <readable>false</readable>
+    </fieldPermissions>    
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Order.Channel__c</field>
+        <readable>true</readable>
+    </fieldPermissions> 
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Order.ClientName__c</field>
+        <readable>false</readable>
+    </fieldPermissions>      
     <fieldPermissions>
         <editable>true</editable>
         <field>Order.CompanyAuthorizedById</field>
@@ -15939,6 +16193,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Order.CustomerInteractionId__c</field>
+        <readable>false</readable>
+    </fieldPermissions>    
+    <fieldPermissions>
         <editable>true</editable>
         <field>Order.DDD__c</field>
         <readable>true</readable>
@@ -15955,6 +16214,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Order.InvoiceDate__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Order.InvoiceKey__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Order.InvoiceNumber__c</field>
+        <readable>false</readable>
+    </fieldPermissions>    
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Order.Name</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -15968,6 +16242,16 @@
         <field>Order.OpportunityId</field>
         <readable>false</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Order.OrderAccountDocumentNumber__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Order.OrderAction__c</field>
+        <readable>false</readable>
+    </fieldPermissions>    
     <fieldPermissions>
         <editable>false</editable>
         <field>Order.OrderReferenceNumber</field>
@@ -15990,9 +16274,59 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Order.ProfileLogged__c</field>
+        <readable>false</readable>
+    </fieldPermissions> 
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Order.ReasonForRequestingAuthorization__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Order.Remarks__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Order.RequestDateAndTime__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Order.RequesterUserLogin__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Order.RequesterUser__c</field>
+        <readable>false</readable>
+    </fieldPermissions>       
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Order.QuoteId</field>
         <readable>false</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Order.SalesChannel__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Order.SalesOrderId__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Order.SellerLogin__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Order.SellerLogin__c</field>
+        <readable>true</readable>
+    </fieldPermissions>    
     <fieldPermissions>
         <editable>false</editable>
         <field>Order.ShipToContactId</field>
@@ -16005,14 +16339,39 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Order.ServiceStatus__c</field>
+        <readable>false</readable>
+    </fieldPermissions>    
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Order.StatusPID__c</field>
+        <readable>true</readable>
+    </fieldPermissions> 
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Order.StoreUser__c</field>
+        <readable>false</readable>
+    </fieldPermissions>       
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Order.TotalAmount</field>
         <readable>false</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Order.TreasuryStatus__c</field>
+        <readable>false</readable>
+    </fieldPermissions>    
     <fieldPermissions>
         <editable>true</editable>
         <field>Order.Type</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Order.channelId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>    
     <fieldPermissions>
         <editable>true</editable>
         <field>Order.installmentsPayment__c</field>
@@ -19925,6 +20284,26 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>TimerParametros__mdt.Code__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>TimerParametros__mdt.IntegrationProcName__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>TimerParametros__mdt.Process__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>TimerParametros__mdt.Value__c</field>
+        <readable>false</readable>
+    </fieldPermissions>    
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ToFromHDE__mdt.OperatorSegment__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -19943,6 +20322,41 @@
         <field>ToFromHDE__mdt.TargetPicklistValue__c</field>
         <readable>false</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>TopicsAuto__c.Channel__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>TopicsAuto__c.EndDate__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>TopicsAuto__c.Process__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>TopicsAuto__c.StartDate__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>TopicsAuto__c.Status__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>TopicsAuto__c.TopicId__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>TopicsAuto__c.Topic__c</field>
+        <readable>false</readable>
+    </fieldPermissions>      
     <fieldPermissions>
         <editable>false</editable>
         <field>UpgradePlan__c.Description__c</field>
@@ -30550,9 +30964,24 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>vlocity_cmt__OrchestrationItem__c.StatusCode__c</field>
+        <field>vlocity_cmt__OrchestrationItem__c.OrderNumber__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>vlocity_cmt__OrchestrationItem__c.OrderType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>vlocity_cmt__OrchestrationItem__c.StatusCode__c</field>
+        <readable>true</readable>
+    </fieldPermissions>    
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>vlocity_cmt__OrchestrationItem__c.StoreNameManualQueue__c</field>
+        <readable>false</readable>
+    </fieldPermissions>  
     <fieldPermissions>
         <editable>true</editable>
         <field>vlocity_cmt__OrchestrationItem__c.vlocity_cmt__Account__c</field>
@@ -30928,6 +31357,21 @@
         <field>vlocity_cmt__OrchestrationPlanDefinition__c.vlocity_cmt__ShowOrder__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>vlocity_cmt__OrchestrationPlan__c.ErrorMessage__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>vlocity_cmt__OrchestrationPlan__c.OriginSystem__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>vlocity_cmt__OrchestrationPlan__c.TransactionId__c</field>
+        <readable>false</readable>
+    </fieldPermissions>    
     <fieldPermissions>
         <editable>true</editable>
         <field>vlocity_cmt__OrchestrationPlan__c.vlocity_cmt__AccountId__c</field>
@@ -36354,6 +36798,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>vlocity_cmt__SystemInterface__c.LegacySystem__c</field>
+        <readable>false</readable>
+    </fieldPermissions>    
+    <fieldPermissions>
         <editable>true</editable>
         <field>vlocity_cmt__SystemInterface__c.vlocity_cmt__GlobalKey__c</field>
         <readable>true</readable>
@@ -39201,6 +39650,9 @@
         <layout>PricebookEntry-Price Book Entry Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>TimerParametros__mdt-Timer Parâmetros Layout</layout>
+    </layoutAssignments>    
+    <layoutAssignments>
         <layout>User-User Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -39735,6 +40187,15 @@
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Timer__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>    
+    <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
@@ -39771,6 +40232,24 @@
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>vlocity_cmt__FulfilmentRequestLine__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>vlocity_cmt__FulfilmentRequest__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>    
+    <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
@@ -39806,6 +40285,33 @@
         <object>vlocity_cmt__ObjectSection__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>vlocity_cmt__OrchestrationDependency__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>vlocity_cmt__OrchestrationItem__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>vlocity_cmt__OrchestrationPlan__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>    
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
@@ -39928,6 +40434,10 @@
         <apexPage>MyProfilePage</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
+    <pageAccesses>
+        <apexPage>ReassignApprovalRequest</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>    
     <pageAccesses>
         <apexPage>SiteLogin</apexPage>
         <enabled>false</enabled>

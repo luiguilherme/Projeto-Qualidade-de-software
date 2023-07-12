@@ -12,14 +12,14 @@
         "disOnTplt": false,
         "elementValueMap": {
             "DDD": "=%DDD%",
-            "statusICCID": "=IF(%ResponseDataValICCID:resourceStatus%=='DH', 'Valid' , 'Invalid')",
-            "validationMessage": "=IF(%ResponseDataValICCID:resourceStatus%=='DH', '' , IF(%ResponseDataValICCID:messages|1:statusCode% = 'RIGSIM-28','Chip em uso','Chip Inválido'))"
+            "statusICCID": "=IF(ISNOTBLANK(%SetFlatResponse:ResponseFlat:idCombo%), getLabel(\"valICCIDErrorCombo\"), IF(%DataValICCID:Response:resourceStatus% == 'DH', 'Valid' , 'Invalid'))",
+            "validationMessage": "=IF(ISNOTBLANK(%SetFlatResponse:ResponseFlat:idCombo%), getLabel(\"valICCIDErrorCombo\"), IF(%DataValICCID:Response:resourceStatus%=='DH', '' , IF(%DataValICCID:Response:code% = 'RIGSIM-28','Chip em uso','Chip Inválido')))"
         },
         "executionConditionalFormula": "IF(%StepConfigureLine:ICCIDBlock:validateLenghtICCID%=='true',true, false)",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "label": "SetValues1",
-        "responseJSONNode": "ResponseDataValICCID",
+        "responseJSONNode": "DataValICCID:ICCIDDetails",
         "responseJSONPath": "",
         "show": null
     },

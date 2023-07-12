@@ -10,6 +10,7 @@ export default class ValBreadcrumbs extends LightningElement {
     parmActive="";
     assetId="";
     otherProduct="";
+    visibleTo="";
 
     @api get menusbyname(){
         return this.menus;
@@ -74,16 +75,23 @@ export default class ValBreadcrumbs extends LightningElement {
     }
     set otherproduct(value){
         this.otherProduct = value;
-    }        
+    }
+
+    @api get visibleto(){        
+        return this.visibleTo;
+    }
+    set visibleto(value){
+        this.visibleTo = value;
+    }    
 
     menuClick(event){
-        //pubsub.fire("type","baseinputvaluechange",{"value":event.target.name});
-        pubsub.fire("type","baseinputvaluechange",{"value":event.target.name,"producttype":this.productType,"servicetree":this.serviceTree,"parmactive":this.parmActive,"assetid":this.assetId,"otherproduct":this.otherProduct});
+        pubsub.fire("topicSearch","baseinputvaluechange",{"value":event.target.name,"producttype":this.productType,"servicetree":this.serviceTree,"parmactive":this.parmActive,"assetid":this.assetId,"otherproduct":this.otherProduct,"visibleto":this.visibleTo});
         console.log(this.productType);
         console.log(this.serviceTree);
         console.log(this.parmActive);
         console.log(this.assetId);
         console.log(this.otherProduct);
+        console.log(this.visibleTo);        
     }
 
     renderedCallback(){

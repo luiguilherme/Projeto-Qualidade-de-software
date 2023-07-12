@@ -12,7 +12,7 @@
             "errorMessage": "=CONCAT(\"Valor do parâmetro \", IF(%SVUnprocessableEntity:statusUE%==true,\"'status'\",\"'operationId'\") ,\" inválido.\")"
         },
         "disOnTplt": false,
-        "executionConditionalFormula": "IF(%SVUnprocessableEntity:statusUE%==true || %SVUnprocessableEntity:operationIdUE%==true, true, false)",
+        "executionConditionalFormula": "IF(%SVUnprocessableEntity:operationIdUE%==true, true, false)",
         "label": "ResponseAction4",
         "responseDefaultData": {
         },
@@ -26,6 +26,7 @@
         "show": null,
         "useFormulas": true,
         "vlcResponseHeaders": {
+            "Content-Type": "application/json",
             "statusCode": 422
         }
     },

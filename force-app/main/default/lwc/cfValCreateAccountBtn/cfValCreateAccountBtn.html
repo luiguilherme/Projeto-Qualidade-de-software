@@ -1,0 +1,83 @@
+<template>
+            <div class="slds-grid slds-wrap slds-is-relative containersize">
+            <div style="position: fixed;z-index: 999999;top: 0;right: 0;">
+  <vlocity_cmt-toast class="flexcard-toast-element" theme="slds" title="" message="" styletype=""> </vlocity_cmt-toast>
+</div>
+            <div if:true={showLoader} class="slds-is-absolute vloc-loader_override" style="height: 100%; width: 100%; min-height:50px; background: transparent; z-index: 99;">
+  <div>
+   <vlocity_cmt-spinner
+      variant="brand"
+      alternative-text="Loading content..."
+      size="medium"
+      theme="slds"
+      ></vlocity_cmt-spinner>
+  </div>
+</div>
+            <template if:false={hasPermission}>
+              You don't have required permissions to view this card.
+            </template>
+            <template if:true={hasPermission}>
+              <template if:true={hasRecords}>
+                        <template for:each={_records} for:item="record" for:index="rindex">
+                            <vlocity_cmt-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-m-bottom_medium " style="      
+         width: 99%;
+height: 100% !important;
+">
+          <div data-style-id="state0element0" class="slds-col  slds-border_bottom slds-p-top_medium slds-p-left_medium slds-p-bottom_medium  slds-size_8-of-12  " data-rindex={rindex} style="background-color:#f5f6fa;     border-bottom: #cccccc 2px solid; 
+        color:#236fa1; font-size: 12px; height: 50px; letter-spacing: 0.1rem;" ><vlocity_cmt-output-field data-style-id="state0element0_child"   record={record}  card={card}  merge-field="%3Cdiv%3EA&Ccedil;&Otilde;ES%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1" class="slds-col   slds-border_bottom slds-p-top_medium slds-p-bottom_medium  slds-size_4-of-12  " data-rindex={rindex} style="background-color:#f5f6fa;     border-bottom: #cccccc 2px solid; 
+         height: 50px; justify-content: center;" >
+    <vlocity_cmt-block data-style-id="state0element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element0" class="slds-col  slds-text-align_center slds-border_top slds-border_right slds-border_bottom slds-border_left a slds-size_1-of-12  " data-rindex={rindex} style="     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; 
+    border-radius:4px;     height:25px;
+width:25px;" ><vlocity_cmt-flex-action data-style-id="state0element1block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element1block_element0_child flexActionElement" 
+        data-action-element-class="state0element1block_element0_child" data-action-key="state0element1block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block2action1"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"contextId":"","draggable":true,"isOpen":true,"key":"1679430722342-egcpbp1xw","label":"Redirect","stateAction":{"id":"flex-action-1680176114104","isLwcOS":true,"layoutType":"lightning","omniType":{"Id":"a30760000009zv8AAA","Name":"val/createAccount/Portuguese (Brazil)","isLwcOs":true},"openUrlIn":"Current Window","tabLabel":"Cadastrar Cliente","type":"OmniScript"}},{"actionIndex":1,"card":"{card}","draggable":true,"isOpen":false,"key":"1679430758537-ryjfznxaj","label":"Minimize","stateAction":{"displayName":"Action","eventName":"showAccountResult","id":"flex-action-1679430765139","message":"minimizeutilitybar","openUrlIn":"Current Window","subType":"PubSub","type":"Event","vlocityIcon":"standard-default"}}]'  flyout-details='\{}'  icon-color="#909090"  icon-name="utility:add"  icon-only="true"  icon-size="x-small"  label="Cadastrar Cliente"  styles='\{"label":{"color":"#A0A0A0"}}'  theme="slds"  ></vlocity_cmt-flex-action>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element2" class="slds-col  slds-theme_info slds-text-align_left slds-p-left_medium slds-p-top_xx-small slds-p-bottom_xx-small slds-p-right_medium  slds-size_12-of-12  " data-rindex={rindex} style="background-color:#767676;  background-repeat:round;    
+        color:#FFFFFF; font-size: 11px; height: 50px; justify-content: center;" ><vlocity_cmt-output-field data-style-id="state0element2_child"   record={record}  card={card}  merge-field="%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3ENenhum%20registro%20encontrado.%20Por%20favor,%20tente%20novamente.%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                        </template>
+                      </template>
+                      <template if:false={hasRecords}>
+                            <vlocity_cmt-flex-card-state  record={record} data-statue="false"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-m-bottom_medium " style="      
+         width: 99%;
+height: 100% !important;
+">
+          <div data-style-id="state0element0" class="slds-col  slds-border_bottom slds-p-top_medium slds-p-left_medium slds-p-bottom_medium  slds-size_8-of-12  " data-rindex={rindex} style="background-color:#f5f6fa;     border-bottom: #cccccc 2px solid; 
+        color:#236fa1; font-size: 12px; height: 50px; letter-spacing: 0.1rem;" ><vlocity_cmt-output-field data-style-id="state0element0_child"   record={record}  card={card}  merge-field="%3Cdiv%3EA&Ccedil;&Otilde;ES%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1" class="slds-col   slds-border_bottom slds-p-top_medium slds-p-bottom_medium  slds-size_4-of-12  " data-rindex={rindex} style="background-color:#f5f6fa;     border-bottom: #cccccc 2px solid; 
+         height: 50px; justify-content: center;" >
+    <vlocity_cmt-block data-style-id="state0element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element0" class="slds-col  slds-text-align_center slds-border_top slds-border_right slds-border_bottom slds-border_left a slds-size_1-of-12  " data-rindex={rindex} style="     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; 
+    border-radius:4px;     height:25px;
+width:25px;" ><vlocity_cmt-flex-action data-style-id="state0element1block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element1block_element0_child flexActionElement" 
+        data-action-element-class="state0element1block_element0_child" data-action-key="state0element1block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="block2action1"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"contextId":"","draggable":true,"isOpen":true,"key":"1679430722342-egcpbp1xw","label":"Redirect","stateAction":{"id":"flex-action-1680176114104","isLwcOS":true,"layoutType":"lightning","omniType":{"Id":"a30760000009zv8AAA","Name":"val/createAccount/Portuguese (Brazil)","isLwcOs":true},"openUrlIn":"Current Window","tabLabel":"Cadastrar Cliente","type":"OmniScript"}},{"actionIndex":1,"card":"{card}","draggable":true,"isOpen":false,"key":"1679430758537-ryjfznxaj","label":"Minimize","stateAction":{"displayName":"Action","eventName":"showAccountResult","id":"flex-action-1679430765139","message":"minimizeutilitybar","openUrlIn":"Current Window","subType":"PubSub","type":"Event","vlocityIcon":"standard-default"}}]'  flyout-details='\{}'  icon-color="#909090"  icon-name="utility:add"  icon-only="true"  icon-size="x-small"  label="Cadastrar Cliente"  styles='\{"label":{"color":"#A0A0A0"}}'  theme="slds"  ></vlocity_cmt-flex-action>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element2" class="slds-col  slds-theme_info slds-text-align_left slds-p-left_medium slds-p-top_xx-small slds-p-bottom_xx-small slds-p-right_medium  slds-size_12-of-12  " data-rindex={rindex} style="background-color:#767676;  background-repeat:round;    
+        color:#FFFFFF; font-size: 11px; height: 50px; justify-content: center;" ><vlocity_cmt-output-field data-style-id="state0element2_child"   record={record}  card={card}  merge-field="%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3ENenhum%20registro%20encontrado.%20Por%20favor,%20tente%20novamente.%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                      </template>
+            </template>
+            <template if:true={hasError}>
+            {error}
+            </template>
+            
+      <vlocity_cmt-action action-wrapperclass="slds-hide" re-render-flyout class="action-trigger slds-col" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+      
+      </vlocity_cmt-action>
+  
+            <vlocity_cmt-action class="execute-action" re-render-flyout action-wrapperclass="slds-hide" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+            
+            </vlocity_cmt-action>
+            </div>
+          </template>

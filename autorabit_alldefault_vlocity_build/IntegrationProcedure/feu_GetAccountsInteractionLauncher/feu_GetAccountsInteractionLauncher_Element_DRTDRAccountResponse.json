@@ -13,17 +13,17 @@
             "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/feu/GetAccountsInteractionLauncher/Procedure",
             "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
         },
-        "Name": "CBOnlyDocument",
+        "Name": "CBHasDocument",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/feu/GetAccountsInteractionLauncher/Procedure/CBOnlyDocument",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/feu/GetAccountsInteractionLauncher/Procedure/CBHasDocument",
         "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
     },
-    "%vlocity_namespace%__ParentElementName__c": "CBOnlyDocument",
+    "%vlocity_namespace%__ParentElementName__c": "CBHasDocument",
     "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "AccountInfo": "=%DRThasDocument:AccountInfo%"
+            "AccountInfo": "=IF(ISNOTBLANK(%StepSearch:DocumentType%), %DRTHasDocument:AccountInfo%, %DRTHasOnlyDocument:AccountInfo%)"
         },
         "additionalOutput": {
         },
@@ -35,7 +35,7 @@
         "failureConditionalFormula": "",
         "failureResponse": {
         },
-        "ignoreCache": false,
+        "ignoreCache": true,
         "label": "DataRaptorTransformAction2",
         "responseJSONNode": "",
         "responseJSONPath": "",
@@ -43,7 +43,7 @@
         "returnOnlyFailureResponse": false,
         "sendJSONNode": "",
         "sendJSONPath": "",
-        "sendOnlyAdditionalInput": false,
+        "sendOnlyAdditionalInput": true,
         "show": null,
         "useFormulas": true
     },

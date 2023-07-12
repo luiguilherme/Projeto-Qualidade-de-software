@@ -11,14 +11,15 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "AssetType": "=IF(%DRGetAssetDetails:Product:Type%=='Fixa','Fixed',IF(%DRGetAssetDetails:Product:Type%=='Pre','Pre','Mobile'))",
+            "AssetType": "=IF(%DRGetAssetDetails:Product:Type%==NULL,%ProductType%,IF(%DRGetAssetDetails:Product:Type%=='Fixa','Fixed',IF(%DRGetAssetDetails:Product:Type%=='Pre','Pre','Mobile')))",
             "Channel": "=IF(TOUPPERCASE(%DRGetUserData:ChannelName%)='LOJAS PROPRIAS','LOJAS PRÓPRIAS'TOUPPERCASE(%DRGetUserData:ChannelName%))",
             "CustomerType": "=IF(%DRGetCustomerInteractionDetails:CustomerType%='Customer','CLIENTE',TOUPPERCASE(%DRGetCustomerInteractionDetails:CustomerType%))",
             "Instance": "=TOUPPERCASE(%DRGetAssetDetails:Product:ProductType%)",
-            "LineType": "=%DRGetCustomerInteractionDetails:Asset%",
+            "LineType": "=IF(ISNOTBLANK(%DRGetCustomerInteractionDetails:Asset%),%DRGetCustomerInteractionDetails:Asset%,LIST(SVPlataformNotAnswared))",
             "OperatorSegment": "=TOUPPERCASE(%DRGetServiceTree:OperatorSegment%)",
-            "Segmentation": "=TOUPPERCASE(%DRGetCustomerInteractionDetails:CustomerSegment%)",
-            "ServiceTree": "=%DRGetServiceTree:ServiceTree%"
+            "Plataform": "NÃO PREENCHIDO",
+            "Segmentation": "=IF(ISNOTBLANK(%DRGetCustomerInteractionDetails:CustomerSegment%),TOUPPERCASE(%DRGetCustomerInteractionDetails:CustomerSegment%),%SVPlataformNotAnswared:Plataform%)",
+            "ServiceTree": "=IF(ISBLANK(%DRGetServiceTree:ServiceTree%),%ServiceTree%,%DRGetServiceTree:ServiceTree%)"
         },
         "executionConditionalFormula": "%SelectedFunction% == 'RelationshipTopic' || %SelectedFunction% == 'RelationshipTopicFront' ",
         "failOnStepError": true,
