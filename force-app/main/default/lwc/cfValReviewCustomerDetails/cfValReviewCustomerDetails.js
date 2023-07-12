@@ -27,7 +27,23 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
                     this._omniSupportKey = this._omniSupportKey  + '_' + parentRecordKey;
                   }
               @track record;
-              
+              @track _sessionApiVars = {};
+        @api set cfInteractionNumber(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["InteractionNumber"] = val;
+          }
+        } get cfInteractionNumber() {
+          return this._sessionApiVars["InteractionNumber"] || "";
+        }
+      
+        @api set cfInteractionId(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["InteractionId"] = val;
+          }
+        } get cfInteractionId() {
+          return this._sessionApiVars["InteractionId"] || "";
+        }
+      
               
               pubsubEvent = [];
               customEvent = [];
@@ -56,10 +72,17 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
 
               registerEvents() {
                 
+        this.pubsubEvent[0] = {
+          [interpolateWithRegex(`refresh`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[0],0)
+        };
+        this.pubsubChannel0 = interpolateWithRegex(`valReviewCustomerDetails`,this._allMergeFields,this._regexPattern,"noparse");
+        pubsub.register(this.pubsubChannel0,this.pubsubEvent[0]);
+
               }
 
               unregisterEvents(){
-                
+                pubsub.unregister(this.pubsubChannel0,this.pubsubEvent[0]);
+
               }
             
               renderedCallback() {

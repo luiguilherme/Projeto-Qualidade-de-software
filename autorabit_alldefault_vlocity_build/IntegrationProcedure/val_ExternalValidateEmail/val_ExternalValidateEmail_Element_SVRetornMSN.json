@@ -1,0 +1,45 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valExternalValidateEmail",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ExternalValidateEmail/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__ParentElementId__c": {
+        "%vlocity_namespace%__OmniScriptId__c": {
+            "Name": "valExternalValidateEmail",
+            "VlocityDataPackType": "VlocityMatchingKeyObject",
+            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ExternalValidateEmail/Procedure",
+            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+        },
+        "Name": "ConditionalBlock2",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ExternalValidateEmail/Procedure/ConditionalBlock2",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
+    },
+    "%vlocity_namespace%__ParentElementName__c": "ConditionalBlock2",
+    "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "MSN": "=IF(%HTTPValidateEmail:statusDescription% = \"E-mail presente na BlackList. Não pode ser usado\",\"E-mail Inválido, solicite ao cliente que confirme o e-mail.\",IF(%HTTPValidateEmail:statusDescription% = \"E-mail encontrado na Whitelist\",\"E-mail validado com sucesso.\",IF(%HTTPValidateEmail:statusDescription% = \"Caixa de e-mail existe, é acessível, e não conhecida como ilegítima ou descartável.\",\"E-mail validado com sucesso.\",IF(%HTTPValidateEmail:statusDescription% = \"A caixa de e-mail do usuário foi desativada.\",\"E-mail inexistente, solicite ao cliente que confirme o e- mail.\",IF(%HTTPValidateEmail:statusDescription% = \"A caixa de e-mail do usuário não existe nesse domínio.\",\"E-mail inexistente, solicite ao cliente que confirme o e- mail.\",IF(%HTTPValidateEmail:statusDescription% = \"A caixa de e-mail do usuário está cheia.\",\"E-mail validado com sucesso. Porém, informe ao cliente que sua caixa de e-mail está cheia.\",IF(%HTTPValidateEmail:statusDescription% = \"A sintaxe do endereço de e-mail é incorreta.\",\"E-mail inexistente, solicite ao cliente que confirme o e- mail.\",IF(%HTTPValidateEmail:statusDescription% = \"O domínio não está respondendo as chamadas de validação ou não tem nenhum servidor de e-mail ativo.\",\"Provedor de e-mail não reconhecido, solicite ao cliente que confirme o e- mail\",IF(%HTTPValidateEmail:statusDescription% = \"O domínio não pode ser resolvido.\",\"Provedor de e-mail não reconhecido, solicite ao cliente que confirme o e- mail.\",IF(%HTTPValidateEmail:statusDescription% = \"Seed, spamtrap, black hole, role accounts técnicas ou domínio inativo.\",\"E-mail inexistente, solicite ao cliente que confirme o e- mail.\",IF(%HTTPValidateEmail:statusDescription% = \"Role accounts são e- mails de grupos como suporte@,vendas@, info@, etc.\",\"E-mail inexistente, solicite ao cliente que confirme o e-mail.\",IF(%HTTPValidateEmail:statusDescription% = \"O domínio estava perto de um domínio comum, mas mesmo existindo, é altamente provável que esteja incorreto.\",\"E-mail inexistente, solicite ao cliente que confirme o e-mail.\",IF(%HTTPValidateEmail:statusDescription% = \"Pequena porção conhecida que pode indicar uma spam trap.\",\"E-mail inexistente, solicite ao cliente que confirme o e-mail.\",IF(%HTTPValidateEmail:statusDescription% = \"E-mails com palavrões e xingamentos em inglês.\",\"E-mail inexistente, solicite ao cliente que confirme o e-mail.\",IF(%HTTPValidateEmail:statusDescription% = \"O domínio é administrado por um fornecedor de e- mail descartável(ex. Mailinator).s\",\"E-mail inexistente, solicite ao cliente que confirme o e-mail.\",IF(%HTTPValidateEmail:statusDescription% = \"Fomos incapazes de verificar conclusivamente ou invalidar este endereço.\",\"E-mail validado com sucesso.\",IF(%HTTPValidateEmail:statusDescription% = \"O tempo da solicitação esgotou devido ao domínio não responder em tempo.\",\"Sistema temporariamente indisponível, e-mail considerado correto.\",IF(%HTTPValidateEmail:statusDescription% = \"É um domínio accept all, então não importa a validação, ele sempre será retornado como válido. Como diferencial do E-mail Validation da Serasa Experian, nós conseguimos diferenciar esses casos e marca-los como unknown.\",\"E-mail validado com sucesso.\",IF(%HTTPValidateEmail:statusDescription% = \"O resultado foi validado no mail exchanger incorreto.\",\"E-mail inexistente, solicite ao cliente que confirme o e- mail.\",IF(%HTTPValidateEmail:statusDescription% = \"Status de retorno de servidores que impedem a completude da chamada quando são realizadas múltiplas requisições de validação, em velocidade superior à permitida pelos provedores de e-mail\",\"Sistema temporariamente indisponível, e-mail considerado correto.\",IF(%HTTPValidateEmail:statusDescription% = \"Sistema temporariamente indisponível, e-mail considerado correto\",\"Não foi possível validar devido (API Indisponível), e- mail considerado correto.\",IF(%HTTPValidateEmail:statusDescription% = \"Sistema temporariamente indisponível, e-mail considerado correto\",\"Não foi possível validar devido (Timeout API), e-mail considerado correto.\",\" \"))))))))))))))))))))))",
+            "statusCode": "%HTTPValidateEmail:statusCode%"
+        },
+        "executionConditionalFormula": "",
+        "failOnStepError": false,
+        "failureConditionalFormula": "",
+        "label": "SetValues2",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVRetornMSN",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ExternalValidateEmail/Procedure/SVRetornMSN"
+}

@@ -1,0 +1,85 @@
+<template>
+            <div class="slds-grid slds-wrap slds-is-relative ">
+            <div style="position: fixed;z-index: 999999;top: 0;right: 0;">
+  <vlocity_cmt-toast class="flexcard-toast-element" theme="slds" title="" message="" styletype=""> </vlocity_cmt-toast>
+</div>
+            <div if:true={showLoader} class="slds-is-absolute vloc-loader_override" style="height: 100%; width: 100%; min-height:50px; background: transparent; z-index: 99;">
+  <div>
+   <vlocity_cmt-spinner
+      variant="brand"
+      alternative-text="Loading content..."
+      size="medium"
+      theme="slds"
+      ></vlocity_cmt-spinner>
+  </div>
+</div>
+            <template if:false={hasPermission}>
+              You don't have required permissions to view this card.
+            </template>
+            <template if:true={hasPermission}>
+              <template if:true={hasRecords}>
+                        <template for:each={_records} for:item="record" for:index="rindex">
+                            <vlocity_cmt-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-around_small slds-m-bottom_x-small slds-m-left_xx-small slds-card" style="     border-top: #cccccc 0px solid;border-right: #cccccc 0px solid;border-bottom: #cccccc 0px solid;border-left: #cccccc 0px solid; 
+    border-radius:10px;     width: 330px;">
+          <div data-style-id="state0element0" class="slds-col  slds-text-align_left  slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-icon data-style-id="state0element0_child"   record={record}  card={card}  extraclass="slds-icon_container slds-icon-standard-person-account "  icon-name="standard:person_account"  icon-type="Salesforce SVG"  imgsrc=""  size="small"  variant="inverse"  theme="slds"  ></vlocity_cmt-flex-icon>
+      </div><div data-style-id="state0element1" class="slds-col  slds-p-left_small  slds-size_9-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1_child"   record={record}  card={card}  merge-field="%3Cdiv%20class=%22slds-text-heading_small%20slds-text-color_default%20slds-text-align_left%22%3E&lt;p%20style=%22padding=20px;%22&gt;&lt;span%20style=%22color:%20#34495e;%20font-size:%2014px;%20letter-spacing:%200.02rem;%22&gt;%7BName%7D&lt;/span&gt;&lt;/p&gt;%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element2" class="slds-col  slds-text-align_center slds-card  slds-size_2-of-12  " data-rindex={rindex} style="      
+         font-weight:bold;" ><vlocity_cmt-flex-action data-style-id="state0element2_child"  tracking-obj={_childCardTrackingObj}  class= "state0element2_child flexActionElement" 
+        data-action-element-class="state0element2_child" data-action-key="state0element2" onexecuteaction={performAction} data-show-spinner="true"
+        data-element-label="action5"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"card":"{card}","draggable":false,"isOpen":true,"key":"1662059985205-8vs1vjozu","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"displayName":"Action","id":"flex-action-1662061018390","message":"{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"feu_createInteractionOmniScript\",\"vlocityAsync\":false,\"inputMap\":{\"DocumentNumber\":\"{DocumentNumberFormated__c}\",\"DocumentType\":\"{DocumentType__c}\",\"Id\":\"{Id}\",\"Name\":\"{Name}\",\"PrimaryContactName\":\"{PrimaryContactName}\",\"PrimaryContactId\":\"{PrimaryContactId}\"}},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"DocumentNumberFormated__c\",\"val\":\"&#39;07716983059&#39;\",\"id\":1},{\"name\":\"DocumentType__c\",\"val\":\"&#39;CPF&#39;\",\"id\":3},{\"name\":\"Id\",\"val\":\"&#39;00176000002eKAoAAM&#39;\",\"id\":5},{\"name\":\"Name\",\"val\":\"&#39;Otávio Fonseca&#39;\",\"id\":7},{\"name\":\"PrimaryContactName\",\"val\":\"&#39;Otávio Fonseca&#39;\",\"id\":9},{\"name\":\"PrimaryContactId\",\"val\":\"&#39;00376000001hRGeAAM&#39;\",\"id\":11}]}","openUrlIn":"Current Window","targetType":"Web Page","type":"DataAction","vlocityIcon":"standard-default"}},{"actionIndex":1,"card":"{card}","draggable":false,"isOpen":true,"key":"1662060255382-yjufpc3vk","label":"Action","stateAction":{"Record":{"targetAction":"view","targetId":"{InteractionId}","targetName":"vlocity_cmt__CustomerInteraction__c"},"displayName":"Action","id":"flex-action-1680004902542","openUrlIn":"New Tab/Window","targetType":"Record","type":"Custom","vlocityIcon":"standard-default"}},{"actionIndex":2,"card":"{card}","draggable":false,"isOpen":true,"key":"1675881550512-tqlqs1ymt","label":"Action","stateAction":{"bubbles":true,"composed":true,"displayName":"Action","eventName":"showAccountResult","id":"flex-action-1676044484505","message":"minimizeutilitybar","openUrlIn":"Current Window","subType":"PubSub","type":"Event","vlocityIcon":"standard-default"}}]'  flyout-details='\{}'  hide-action-icon="true"  icon-name="standard-default"  label="Abrir"  styles='\{"label":{"color":"#2761D0"}}'  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element3" class="slds-col   slds-border_bottom slds-p-top_xx-small  slds-size_12-of-12  " data-rindex={rindex} style="     border-bottom: #cccccc 1px solid; 
+         " >
+    <vlocity_cmt-block data-style-id="state0element3_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element4" class="slds-col  slds-p-top_x-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element4_child"   record={record}  card={card}  merge-field="%3Cdiv%3E&lt;p%20&gt;&lt;span%20style=%22color:%20#34495e;%20font-size:%2012px;%22&gt;Tipo%20de%20Documento%3Cstrong%3E:%3C/strong%3E&nbsp;%20&nbsp;%7BDocumentType__c%7D&lt;/span&gt;&lt;/p&gt;%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element5" class="slds-col   slds-size_9-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element5_child"   record={record}  card={card}  merge-field="%3Cdiv%3E&lt;p%20&gt;&lt;span%20style=%22color:%20#34495e;%20font-size:%2012px;%22&gt;Documento%3Cstrong%3E:&nbsp;%20%3C/strong%3E%7BDocumentNumberFormated__c%7D&lt;/span&gt;&lt;/p&gt;%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                        </template>
+                      </template>
+                      <template if:false={hasRecords}>
+                            <vlocity_cmt-flex-card-state  record={record} data-statue="false"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-around_small slds-m-bottom_x-small slds-m-left_xx-small slds-card" style="     border-top: #cccccc 0px solid;border-right: #cccccc 0px solid;border-bottom: #cccccc 0px solid;border-left: #cccccc 0px solid; 
+    border-radius:10px;     width: 330px;">
+          <div data-style-id="state0element0" class="slds-col  slds-text-align_left  slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-icon data-style-id="state0element0_child"   record={record}  card={card}  extraclass="slds-icon_container slds-icon-standard-person-account "  icon-name="standard:person_account"  icon-type="Salesforce SVG"  imgsrc=""  size="small"  variant="inverse"  theme="slds"  ></vlocity_cmt-flex-icon>
+      </div><div data-style-id="state0element1" class="slds-col  slds-p-left_small  slds-size_9-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1_child"   record={record}  card={card}  merge-field="%3Cdiv%20class=%22slds-text-heading_small%20slds-text-color_default%20slds-text-align_left%22%3E&lt;p%20style=%22padding=20px;%22&gt;&lt;span%20style=%22color:%20#34495e;%20font-size:%2014px;%20letter-spacing:%200.02rem;%22&gt;%7BName%7D&lt;/span&gt;&lt;/p&gt;%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element2" class="slds-col  slds-text-align_center slds-card  slds-size_2-of-12  " data-rindex={rindex} style="      
+         font-weight:bold;" ><vlocity_cmt-flex-action data-style-id="state0element2_child"  tracking-obj={_childCardTrackingObj}  class= "state0element2_child flexActionElement" 
+        data-action-element-class="state0element2_child" data-action-key="state0element2" onexecuteaction={performAction} data-show-spinner="true"
+        data-element-label="action5"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"card":"{card}","draggable":false,"isOpen":true,"key":"1662059985205-8vs1vjozu","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"displayName":"Action","id":"flex-action-1662061018390","message":"{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"feu_createInteractionOmniScript\",\"vlocityAsync\":false,\"inputMap\":{\"DocumentNumber\":\"{DocumentNumberFormated__c}\",\"DocumentType\":\"{DocumentType__c}\",\"Id\":\"{Id}\",\"Name\":\"{Name}\",\"PrimaryContactName\":\"{PrimaryContactName}\",\"PrimaryContactId\":\"{PrimaryContactId}\"}},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"DocumentNumberFormated__c\",\"val\":\"&#39;07716983059&#39;\",\"id\":1},{\"name\":\"DocumentType__c\",\"val\":\"&#39;CPF&#39;\",\"id\":3},{\"name\":\"Id\",\"val\":\"&#39;00176000002eKAoAAM&#39;\",\"id\":5},{\"name\":\"Name\",\"val\":\"&#39;Otávio Fonseca&#39;\",\"id\":7},{\"name\":\"PrimaryContactName\",\"val\":\"&#39;Otávio Fonseca&#39;\",\"id\":9},{\"name\":\"PrimaryContactId\",\"val\":\"&#39;00376000001hRGeAAM&#39;\",\"id\":11}]}","openUrlIn":"Current Window","targetType":"Web Page","type":"DataAction","vlocityIcon":"standard-default"}},{"actionIndex":1,"card":"{card}","draggable":false,"isOpen":true,"key":"1662060255382-yjufpc3vk","label":"Action","stateAction":{"Record":{"targetAction":"view","targetId":"{InteractionId}","targetName":"vlocity_cmt__CustomerInteraction__c"},"displayName":"Action","id":"flex-action-1680004902542","openUrlIn":"New Tab/Window","targetType":"Record","type":"Custom","vlocityIcon":"standard-default"}},{"actionIndex":2,"card":"{card}","draggable":false,"isOpen":true,"key":"1675881550512-tqlqs1ymt","label":"Action","stateAction":{"bubbles":true,"composed":true,"displayName":"Action","eventName":"showAccountResult","id":"flex-action-1676044484505","message":"minimizeutilitybar","openUrlIn":"Current Window","subType":"PubSub","type":"Event","vlocityIcon":"standard-default"}}]'  flyout-details='\{}'  hide-action-icon="true"  icon-name="standard-default"  label="Abrir"  styles='\{"label":{"color":"#2761D0"}}'  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element3" class="slds-col   slds-border_bottom slds-p-top_xx-small  slds-size_12-of-12  " data-rindex={rindex} style="     border-bottom: #cccccc 1px solid; 
+         " >
+    <vlocity_cmt-block data-style-id="state0element3_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element4" class="slds-col  slds-p-top_x-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element4_child"   record={record}  card={card}  merge-field="%3Cdiv%3E&lt;p%20&gt;&lt;span%20style=%22color:%20#34495e;%20font-size:%2012px;%22&gt;Tipo%20de%20Documento%3Cstrong%3E:%3C/strong%3E&nbsp;%20&nbsp;%7BDocumentType__c%7D&lt;/span&gt;&lt;/p&gt;%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element5" class="slds-col   slds-size_9-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element5_child"   record={record}  card={card}  merge-field="%3Cdiv%3E&lt;p%20&gt;&lt;span%20style=%22color:%20#34495e;%20font-size:%2012px;%22&gt;Documento%3Cstrong%3E:&nbsp;%20%3C/strong%3E%7BDocumentNumberFormated__c%7D&lt;/span&gt;&lt;/p&gt;%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                      </template>
+            </template>
+            <template if:true={hasError}>
+            {error}
+            </template>
+            
+      <vlocity_cmt-action action-wrapperclass="slds-hide" re-render-flyout class="action-trigger slds-col" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+      
+      </vlocity_cmt-action>
+  
+            <vlocity_cmt-action class="execute-action" re-render-flyout action-wrapperclass="slds-hide" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+            
+            </vlocity_cmt-action>
+            </div>
+          </template>

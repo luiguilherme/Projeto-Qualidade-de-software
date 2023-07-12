@@ -11,12 +11,12 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "AssetType": "=IF(%DRGetAssetDetails:Product:Type%=='Fixa','Fixed',IF(%DRGetAssetDetails:Product:Type%=='Pre','Pre','Mobile'))",
+            "AssetType": "=IF(%DRGetAssetDetails:Product:Type%==NULL,%ProductType%,IF(%DRGetAssetDetails:Product:Type%=='Fixa','Fixed',IF(%DRGetAssetDetails:Product:Type%=='Pre','Pre','Mobile')))",
             "ChannelName": "=IF(TOUPPERCASE(%DRGetUserData:ChannelName%)='LOJAS PROPRIAS','LOJAS PRÓPRIAS'TOUPPERCASE(%DRGetUserData:ChannelName%))",
-            "CustomerSegment": "=TOUPPERCASE(%DRGetCustomerInteractionDetails:CustomerSegment%)",
+            "CustomerSegment": "=IF(ISNOTBLANK(%DRGetCustomerInteractionDetails:CustomerSegment%),TOUPPERCASE(%DRGetCustomerInteractionDetails:CustomerSegment%),%SVPlataformNotAnswared:Plataform%)",
             "CustomerType": "=IF(%DRGetCustomerInteractionDetails:CustomerType%='Customer','CLIENTE',TOUPPERCASE(%DRGetCustomerInteractionDetails:CustomerType%))",
             "Instance": "=TOUPPERCASE(%DRGetAssetDetails:Product:ProductType%)",
-            "LineType": "=LIST(%DRGetCustomerInteractionDetails:Asset:Plataform%)",
+            "LineType": "=IF(ISNOTBLANK(%DRGetCustomerInteractionDetails:Asset:Plataform%),LIST(%DRGetCustomerInteractionDetails:Asset:Plataform%),LIST(%SVPlataformNotAnswared:Plataform%))",
             "OperatorSegment": "=TOUPPERCASE(%DRGetServiceTree:OperatorSegment%)",
             "RoleName": "=getUserRole()",
             "isActive": "=IF(%SelectedFunction%=='RelationshipTopic','true',IF(%Active%=='Active','true','false'))"

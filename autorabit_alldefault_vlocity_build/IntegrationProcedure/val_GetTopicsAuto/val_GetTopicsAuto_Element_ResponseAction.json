@@ -9,11 +9,13 @@
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
             "Spinner": false,
-            "channelOptions": "%RAGetChannel:options%",
+            "blocked": false,
+            "channelOptions": "=IF(%ServiceTree% == 'Store',LIST(%SVChannel:channelStore%),IF(%ServiceTree% == 'Service',LIST(%SVChannel:channelService%),LIST(%RAGetChannel:options%)))",
             "lastModifiedBy": "%SVDetails:lastModifiedBy%",
             "lastModifiedById": "%SVDetails:lastModifiedById%",
             "lastModifiedDate": "%SVDetails:lastModifiedDate%",
             "processOptions": "%RAGetProcessOptions:options%",
+            "serviceTree": "=IF(ISBLANK(%ServiceTree%),'Service',%ServiceTree%)",
             "totalInPage": "%SVDetails:totalInPage%"
         },
         "disOnTplt": false,

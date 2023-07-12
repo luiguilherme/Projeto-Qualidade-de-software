@@ -26,11 +26,11 @@
         "disOnTplt": false,
         "elementValueMap": {
             "StatusService": "=HTTPValidateICCIDStatus",
-            "error": "=IF(HTTPValidateICCIDInfo:statusCode> 200, IF(%ResponseDataValICCID:messages|1:statusCode% = 'RIGSIM-28'||%ResponseDataValICCID:messages|1:statusCode% = 'RIGSIM-18'||%ResponseDataValICCID:messages|1:statusCode% = 'RIGSIM-33'||%ResponseDataValICCID:messages|1:statusCode% = 'RIGSIM-25','',HTTPValidateICCIDInfo:status),IF(%ResponseDataValICCID:messages|1:statusCode% = 'RIGSIM-21','Token expirado', HTTPValidateICCIDInfo:status),HTTPSResponse:error)",
-            "mensagem": "=%ResponseDataValICCID:messages|1:description%",
+            "error": "=IF(HTTPValidateICCIDInfo:statusCode > 299, IF(%ResponseDataValICCID:code% = 'RIGSIM-28'||%ResponseDataValICCID:code% = 'RIGSIM-18'||%ResponseDataValICCID:code% = 'RIGSIM-33'||%ResponseDataValICCID:code% = 'RIGSIM-25','',%ResponseDataValICCID:code% + ': ' + %ResponseDataValICCID:message%),IF(%ResponseDataValICCID:code% = 'RIGSIM-21','Token expirado', HTTPValidateICCIDInfo:status),%ResponseDataValICCID:message%)",
+            "mensagem": "=IF(%ResponseDataValICCID:message% != null && %ResponseDataValICCID:message% != '', %ResponseDataValICCID:code% + ': '+%ResponseDataValICCID:message%, '')",
             "msgHasICCIDtxt": "='Token expirado'",
-            "returnCodeGSIN": "=%ResponseDataValICCID:messages|1:statusCode%",
-            "statusCode": "=IF(HTTPValidateICCIDInfo:statusCode > 200,  IF(%ResponseDataValICCID:messages|1:statusCode% = 'RIGSIM-28'||%ResponseDataValICCID:messages|1:statusCode% = 'RIGSIM-18'||%ResponseDataValICCID:messages|1:statusCode% = 'RIGSIM-33'||%ResponseDataValICCID:messages|1:statusCode% = 'RIGSIM-25', 200,HTTPValidateICCIDInfo:status), HTTPValidateICCIDInfo:statusCode)"
+            "returnCodeGSIN": "=%ResponseDataValICCID:code%",
+            "statusCode": "=IF(HTTPValidateICCIDInfo:statusCode > 299,  IF(%ResponseDataValICCID:code% = 'RIGSIM-28'||%ResponseDataValICCID:code% = 'RIGSIM-18'||%ResponseDataValICCID:code% = 'RIGSIM-33'||%ResponseDataValICCID:code% = 'RIGSIM-25', 200, HTTPValidateICCIDInfo:statusCode), HTTPValidateICCIDInfo:statusCode)"
         },
         "executionConditionalFormula": "",
         "failOnStepError": true,

@@ -1,0 +1,33 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valValidateContact",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ValidateContact/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "ContactHaveNoNumber": "=IF(%BooleanNumberValidate:BooleanNumberValidateMobile% == false &&  %BooleanNumberValidate:BooleanNumberValidateHome% == false && %BooleanNumberValidate:BooleanNumberValidateOther% == false &&  %BooleanNumberValidate:BooleanNumberValidateEmail% == false,true,false)",
+            "HomePhoneValidation": "=IF(%StepRegistration:ContactData:PhoneSelect:ContactData:HomePhone% == null || %StepRegistration:ContactData:PhoneSelect:ContactData:HomePhone% == \"null\" ||\r\n%StepRegistration:ContactData:PhoneSelect:ContactData:HomePhone% == \"\" ,false,IF(length(TOSTRING(%StepRegistration:ContactData:PhoneSelect:ContactData:HomePhone%)) != 10 AND %StepRegistration:ContactData:PhoneSelect:ContactData:HomePhone% != \"\",true,false))",
+            "MobilePhoneValidation": "=IF(%StepRegistration:ContactData:PhoneSelect:ContactData:MobilePhone% == null || %StepRegistration:ContactData:PhoneSelect:ContactData:MobilePhone% == \"null\" ||\r\n%StepRegistration:ContactData:PhoneSelect:ContactData:MobilePhone% == \"\" ,false,IF(length(TOSTRING(%StepRegistration:ContactData:PhoneSelect:ContactData:MobilePhone%)) != 11 AND %StepRegistration:ContactData:PhoneSelect:ContactData:MobilePhone% != \"\",true,false))",
+            "OtherPhoneValidation": "=IF(%StepRegistration:ContactData:PhoneSelect:ContactData:OtherPhone%  == null ||  %StepRegistration:ContactData:PhoneSelect:ContactData:OtherPhone% == \"null\" || %StepRegistration:ContactData:PhoneSelect:ContactData:OtherPhone% == \"\", false, IF(length(TOSTRING(%StepRegistration:ContactData:PhoneSelect:ContactData:OtherPhone%)) != 11 AND %StepRegistration:ContactData:PhoneSelect:ContactData:OtherPhone%  != \"\", true, false))"
+        },
+        "executionConditionalFormula": "",
+        "failOnStepError": false,
+        "failureConditionalFormula": "",
+        "label": "SetValues1",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVValidateContact",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ValidateContact/Procedure/SVValidateContact"
+}

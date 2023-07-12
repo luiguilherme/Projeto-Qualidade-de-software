@@ -57,6 +57,11 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             {output.put('result', validateCEP(arguments));} 
             when 'getLabel'
             {output.put('result', getLabel(arguments));}
+            when 'reorderComplements'
+            {output.put('result', reorderComplements(arguments));}
+            when 'properCase'
+            {output.put('result', properCase(arguments));}
+          
         }
         return true;
     }
@@ -66,13 +71,33 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     * Projeto..: Vivo - VALENTINA
     * Descrição: Método que retorna custom label
     * Data.....: 01/02/2023
+    * ----------------------------------------------
     */	
     String getLabel(List<Object> argument) {
         String label = (String) argument[0];
         switch on label {
-            when 'ScheduleFound' {
-                return System.Label.ScheduleFound;
-            }
+            when 'ScheduleFound' {return System.Label.ScheduleFound;}
+            when 'InvalidCPF' {return System.Label.InvalidCPF;}
+            when 'ValidCPF' {return System.Label.ValidCPF;}
+            when 'CPFTryAgain' {return System.Label.CPFTryAgain;}
+            when 'CPFIrregular' {return System.Label.CPFIrregular;}
+            when 'CPFPEPThirdParty' {return System.Label.CPFPEPThirdParty;}
+            when 'CPFUnderageThirdParty' {return System.Label.CPFUnderageThirdParty;}
+            when 'CPFPEPFirstParty' {return System.Label.CPFPEPFirstParty;}
+            when 'CPFUnderageFirstParty' {return System.Label.CPFUnderageFirstParty;}
+            when 'InvalidFirstLastName' {return System.Label.InvalidFirstLastName;}
+            when 'valApprovalProcessMessageHeader' {return System.Label.valApprovalProcessMessageHeader;}
+            when 'valApprovalProcessMessageFooter' {return System.Label.valApprovalProcessMessageFooter;}
+            when 'valApprovalProcessApprovalClientWithRestriction' {return System.Label.valApprovalProcessApprovalClientWithRestriction;}
+            when 'valApprovalProcessMinorAge' {return System.Label.valApprovalProcessMinorAge;}
+            when 'valApprovalProcessNameWithDifference' {return System.Label.valApprovalProcessNameWithDifference;}
+            when 'valApprovalProcessLimitQtyMonth' {return System.Label.valApprovalProcessLimitQtyMonth;}
+            when 'valApprovalProcessTotalLimit' {return System.Label.valApprovalProcessTotalLimit;}
+            when 'valApprovalProcessApprovalRequested' {return System.Label.valApprovalProcessApprovalRequested;}
+            when 'valApprovalProcessApprovalMessage' {return System.Label.valApprovalProcessApprovalMessage;}
+            when 'valApprovalProcessSelectOneApprover' {return System.Label.valApprovalProcessSelectOneApprover;}            
+            when 'valApprovalProcessApprovalLabel' {return System.Label.valApprovalProcessApprovalLabel;}                       
+            when 'valICCIDErrorCombo' {return System.Label.valICCIDErrorCombo;}
         }
         
         return null;
@@ -376,19 +401,22 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         sField = fieldsMap.get(objectFieldName);		
         
         List<Schema.PicklistEntry> picklistValues = sField.getDescribe().getPicklistValues();
-        List<Map<String, String>> listValuesTranslated = new List<Map<String, String>>();
+        List<Map<String, String>> listLabelValues = new List<Map<String, String>>();
+        Map<String, String> mapItens = new Map<String, String>();
         
-        Map<String, Object> finalMap = new Map<String, Object>();
+        // Primeiro item vázio
+        mapItens.put('value', '');
+        mapItens.put('label', '');
+        listLabelValues.add(mapItens);	
         
         for (Schema.PicklistEntry pe: picklistValues) {
-            Map<String, String> mapTranslatedValues = new Map<String, String>();
-            mapTranslatedValues.put('value', pe.getLabel());
-            mapTranslatedValues.put('label', pe.getValue());
-            
-            listValuesTranslated.add(mapTranslatedValues);	
+            mapItens = new Map<String, String>();
+            mapItens.put('value', pe.getLabel());
+            mapItens.put('label', pe.getValue());
+            listLabelValues.add(mapItens);	
         }
         
-        return listValuesTranslated;
+        return listLabelValues;
     }  
 
     /*
@@ -593,4 +621,47 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
 
         return total;
     }
+    
+    public static List<String> reorderComplements(List<Object> arguments) {
+        String vlocityString = String.valueOf(arguments[0]);
+        String vlocityStringFormated = vlocityString.subString(23, vlocityString.length()-2);
+        
+        List<String> items = vlocityStringFormated.split(', ');
+        
+        Integer size = items.size();
+        List<String> result = new List<String>();
+        
+        for (Integer i = 0; i < size; i+=2) {
+            if (items[i] != '' || items[i+1] != '') {
+                result.add(items[i]);
+                result.add(items[i+1]);
+            }
+        }
+        
+        while (result.size() < 8) result.add('');
+        
+        return result;
+    }
+
+    /*
+    * Autor....: Henrique Berdu - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método criado para retornar o nome do cliente formatado.
+    * Data.....: 27/04/2023
+    */
+    public static String properCase(List<Object> arguments) {
+        String name = (String) arguments[0];
+    
+        if (name == null) {
+            return name;
+        }
+    
+        String[] words = name.split(' ');
+        for (Integer i = 0; i < words.size(); i++) {
+            words[i] = words[i].substring(0, 1).toUpperCase() + words[i].substring(1).toLowerCase();
+        }
+    
+        return String.join(words, ' ');
+    }
+
 }

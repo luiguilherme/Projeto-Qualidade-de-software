@@ -83,7 +83,7 @@ public class ValentinaCustomVIPImplementationTest {
         Map <String, Object> oInputs = new Map <String, Object> ();
         Map <String, Object> oOutputs = new Map <String, Object> ();
 
-        vlocity_cmt__OrchestrationItem__c item = [SELECT Id, Name FROM vlocity_cmt__OrchestrationItem__c WHERE Name = 'OK' LIMIT 1];
+        vlocity_cmt__OrchestrationItem__c item = [SELECT Id, Name, vlocity_cmt__FulfilmentRequestLineId__c, vlocity_cmt__SystemInterfaceId__c FROM vlocity_cmt__OrchestrationItem__c WHERE Name = 'OK' LIMIT 1];
 
         oInputs.put('orchestration_item_id', item.Id);
 
@@ -98,7 +98,7 @@ public class ValentinaCustomVIPImplementationTest {
         Map <String, Object> oInputs = new Map <String, Object> ();
         Map <String, Object> oOutputs = new Map <String, Object> ();
 
-        vlocity_cmt__OrchestrationItem__c item = [SELECT Id, Name FROM vlocity_cmt__OrchestrationItem__c WHERE Name = 'NOK' LIMIT 1];
+        vlocity_cmt__OrchestrationItem__c item = [SELECT Id, Name, vlocity_cmt__FulfilmentRequestLineId__c, vlocity_cmt__SystemInterfaceId__c FROM vlocity_cmt__OrchestrationItem__c WHERE Name = 'NOK' LIMIT 1];
 
         oInputs.put('orchestration_item_id', item.Id);
 

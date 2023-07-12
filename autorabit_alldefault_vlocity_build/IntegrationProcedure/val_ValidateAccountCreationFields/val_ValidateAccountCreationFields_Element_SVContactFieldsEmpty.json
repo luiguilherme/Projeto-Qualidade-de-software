@@ -11,9 +11,11 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "isContactFieldsEmpty": "=IF(%StepRegistration:ContactData:ResidentialPhone% == NULL && %StepRegistration:ContactData:MobilePhone% == NULL && %StepRegistration:ContactData:ComercialPhone% == NULL && %StepRegistration:ContactData:Email-Block:Email% == NULL,true,false)",
+            "isContactFieldsEmpty": "=IF(%StepRegistration:ContactData:PhoneSelect:ContactData:ResidentialPhone% == NULL && %StepRegistration:ContactData:PhoneSelect:ContactData:MobilePhone% == NULL && %StepRegistration:ContactData:PhoneSelect:ContactData:ComercialPhone% == NULL && %StepRegistration:ContactData:PhoneSelect:ContactData:Email% == NULL,true,IF(%SVContactFieldsEmpty:mainContact%==false,true, false),false)",
+            "isEmailEmpty": "=IF(%StepRegistration:ContactData:PhoneSelect:ContactData:Email% == NULL ||%StepRegistration:ContactData:PhoneSelect:ContactData:Email% == \"null\" ||%StepRegistration:ContactData:PhoneSelect:ContactData:Email% == \"\",true,false)",
             "isMainAddressFieldsEmpty": "=IF(%StepRegistration:AddressData:MainAddress% == NULL,true,false)",
-            "isShippingAddressFieldsEmpty": "=IF(%StepRegistration:AddressData:MainAddress:IsEqualMainAddress% <> \"Sim\" && %StepRegistration:AddressData:ShippingAddress% == NULL,true,false)"
+            "isShippingAddressFieldsEmpty": "=IF(%StepRegistration:AddressData:MainAddress:IsEqualMainAddress% <> \"Sim\" && %StepRegistration:AddressData:ShippingAddress% == NULL,true,false)",
+            "mainContact": "=IF(ISBLANK(%StepRegistration:ContactData:PhoneSelect%),false,IF(%StepRegistration:ContactData:PhoneSelect:ContactData:ResidentialPhone% != \"null\" || %StepRegistration:ContactData:PhoneSelect:ContactData:MobilePhone% != \"null\" || %StepRegistration:ContactData:PhoneSelect:ContactData:ComercialPhone% != \"null\", IF((%StepRegistration:ContactData:PhoneSelect:ContactData:MobilePhonePrincipal% == \"false\" || %StepRegistration:ContactData:PhoneSelect:ContactData:MobilePhonePrincipal% == \"\" ) && (%StepRegistration:ContactData:PhoneSelect:ContactData:ResidentialPhonePrincipal% == \"false\" || %StepRegistration:ContactData:PhoneSelect:ContactData:ResidentialPhonePrincipal% == \"\" ) && (%StepRegistration:ContactData:PhoneSelect:ContactData:ComercialPhonePrincipal% == \"false\" || %StepRegistration:ContactData:PhoneSelect:ContactData:ComercialPhonePrincipal% == \"\"), false,true), IF(%StepRegistration:ContactData:PhoneSelect:ContactData:Email% != \"\" && %StepRegistration:ContactData:PhoneSelect:ContactData:Email% != \"null\" , true, false)))"
         },
         "executionConditionalFormula": "",
         "failOnStepError": true,

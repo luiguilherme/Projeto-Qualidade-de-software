@@ -3,14 +3,18 @@
     "%vlocity_namespace%__ApprovedOn__c": "",
     "%vlocity_namespace%__AttributeAssignment__c": "SIM-Card_AttributeAssignments.json",
     "%vlocity_namespace%__AttributeDefaultValues__c": {
+        "ATT_RT_ACCOUNT_CHANNEL": null,
         "ATT_RT_ACTIVATION_TYPE": null,
+        "ATT_RT_HYBRIS_TRANSACTION_ID": null,
         "ATT_RT_ICCID": null,
         "ATT_RT_IMSI": null,
         "ATT_RT_MSISDN": null,
         "ATT_RT_PRE_RESERVATION_ID": null,
         "ATT_RT_SIM_CARD_FORM": "Sim",
         "ATT_RT_SIM_CARD_TECHNOLOGY": null,
-        "ATT_RT_SIM_CARD_TYPE": null
+        "ATT_RT_SIM_CARD_TYPE": null,
+        "ATT_RT_SKU": null,
+        "ATT_RT_SUSPENSION_STATUS": "Pendente"
     },
     "%vlocity_namespace%__AttributeMetadata__c": {
         "messages": [
@@ -38,7 +42,6 @@
                             "hasRules": false,
                             "hidden": true,
                             "inputType": "dropdown",
-                            "isNotAssetizable": false,
                             "isNotTranslatable": false,
                             "label": "Tecnologia do Sim Card",
                             "messages": [
@@ -49,28 +52,34 @@
                             "userValues": null,
                             "values": [
                                 {
-                                    "disabled": false,
-                                    "displaySequence": 10,
-                                    "id": "611962ee-9f26-80e3-7dfd-91d853fb60f2",
-                                    "label": "3G",
-                                    "readonly": false,
-                                    "value": "3G"
-                                },
-                                {
-                                    "disabled": false,
-                                    "displaySequence": 20,
-                                    "id": "e50d2ccf-e990-9737-a71a-f543668e8389",
-                                    "label": "4G",
-                                    "readonly": false,
-                                    "value": "4G"
-                                },
-                                {
+                                    "defaultSelected": false,
                                     "disabled": false,
                                     "displaySequence": 30,
                                     "id": "00574706-e5e7-bac1-f917-1a9458a10a2e",
                                     "label": "5G",
+                                    "name": "00574706-e5e7-bac1-f917-1a9458a10a2e",
                                     "readonly": false,
                                     "value": "5G"
+                                },
+                                {
+                                    "defaultSelected": false,
+                                    "disabled": false,
+                                    "displaySequence": 10,
+                                    "id": "611962ee-9f26-80e3-7dfd-91d853fb60f2",
+                                    "label": "3G",
+                                    "name": "611962ee-9f26-80e3-7dfd-91d853fb60f2",
+                                    "readonly": false,
+                                    "value": "3G"
+                                },
+                                {
+                                    "defaultSelected": false,
+                                    "disabled": false,
+                                    "displaySequence": 20,
+                                    "id": "e50d2ccf-e990-9737-a71a-f543668e8389",
+                                    "label": "4G",
+                                    "name": "e50d2ccf-e990-9737-a71a-f543668e8389",
+                                    "readonly": false,
+                                    "value": "4G"
                                 }
                             ]
                         },
@@ -85,7 +94,6 @@
                             "hasRules": false,
                             "hidden": true,
                             "inputType": "dropdown",
-                            "isNotAssetizable": false,
                             "isNotTranslatable": false,
                             "label": "Tipo de SIM Card",
                             "messages": [
@@ -96,20 +104,44 @@
                             "userValues": null,
                             "values": [
                                 {
+                                    "defaultSelected": false,
+                                    "disabled": false,
+                                    "displaySequence": 30,
+                                    "id": "1d622011-54ba-b147-7fca-64845cca5152",
+                                    "label": "Varejo",
+                                    "name": "1d622011-54ba-b147-7fca-64845cca5152",
+                                    "readonly": false,
+                                    "value": "Varejo"
+                                },
+                                {
+                                    "defaultSelected": false,
+                                    "disabled": false,
+                                    "displaySequence": 10,
+                                    "id": "7764c6eb-163e-a362-f7ea-63719fba996e",
+                                    "label": "Avulso",
+                                    "name": "7764c6eb-163e-a362-f7ea-63719fba996e",
+                                    "readonly": false,
+                                    "value": "Avulso"
+                                },
+                                {
+                                    "defaultSelected": false,
                                     "disabled": false,
                                     "displaySequence": 10,
                                     "id": "78c449c5-b5e8-ddfa-8989-276248813ab7",
                                     "label": "HRS",
+                                    "name": "78c449c5-b5e8-ddfa-8989-276248813ab7",
                                     "readonly": false,
                                     "value": "HRS"
                                 },
                                 {
+                                    "defaultSelected": false,
                                     "disabled": false,
                                     "displaySequence": 20,
-                                    "id": "7764c6eb-163e-a362-f7ea-63719fba996e",
-                                    "label": "Avulso",
+                                    "id": "ecb414ba-77cd-7113-5904-ef49847f2c7b",
+                                    "label": "Combo",
+                                    "name": "ecb414ba-77cd-7113-5904-ef49847f2c7b",
                                     "readonly": false,
-                                    "value": "Avulso"
+                                    "value": "Combo"
                                 }
                             ]
                         },
@@ -124,7 +156,6 @@
                             "hasRules": false,
                             "hidden": true,
                             "inputType": "text",
-                            "isNotAssetizable": false,
                             "isNotTranslatable": false,
                             "label": "ICCID",
                             "messages": [
@@ -151,7 +182,6 @@
                             "hasRules": false,
                             "hidden": true,
                             "inputType": "text",
-                            "isNotAssetizable": false,
                             "isNotTranslatable": false,
                             "label": "IMSI",
                             "messages": [
@@ -178,7 +208,6 @@
                             "hasRules": false,
                             "hidden": true,
                             "inputType": "text",
-                            "isNotAssetizable": false,
                             "isNotTranslatable": false,
                             "label": "MSISDN",
                             "messages": [
@@ -205,7 +234,6 @@
                             "hasRules": false,
                             "hidden": true,
                             "inputType": "dropdown",
-                            "isNotAssetizable": false,
                             "isNotTranslatable": false,
                             "label": "Formato de SIM Card",
                             "messages": [
@@ -216,25 +244,55 @@
                             "userValues": null,
                             "values": [
                                 {
+                                    "defaultSelected": true,
                                     "disabled": false,
                                     "displaySequence": 10,
                                     "id": "ac9211a3-5053-4edf-02de-39c2e174f359",
                                     "label": "SIM",
+                                    "name": "ac9211a3-5053-4edf-02de-39c2e174f359",
                                     "readonly": false,
                                     "value": "Sim"
                                 },
                                 {
+                                    "defaultSelected": false,
                                     "disabled": false,
                                     "displaySequence": 20,
                                     "id": "e4f55d52-aef8-f414-4e88-c5e6a07f0209",
                                     "label": "eSIM",
+                                    "name": "e4f55d52-aef8-f414-4e88-c5e6a07f0209",
                                     "readonly": false,
                                     "value": "eSim"
                                 }
                             ]
+                        },
+                        {
+                            "attributeId": "a0X78000000Mke1EAC",
+                            "cloneable": true,
+                            "code": "ATT_RT_SKU",
+                            "dataType": "text",
+                            "disabled": false,
+                            "displaySequence": 800,
+                            "filterable": false,
+                            "hasRules": false,
+                            "hidden": false,
+                            "inputType": "text",
+                            "isNotTranslatable": false,
+                            "label": "SKU",
+                            "messages": [
+                            ],
+                            "multiselect": false,
+                            "readonly": false,
+                            "required": false,
+                            "userValues": null,
+                            "values": [
+                                {
+                                    "disabled": false,
+                                    "readonly": false
+                                }
+                            ]
                         }
                     ],
-                    "totalSize": 6
+                    "totalSize": 7
                 }
             },
             {
@@ -259,7 +317,6 @@
                             "hasRules": false,
                             "hidden": true,
                             "inputType": "dropdown",
-                            "isNotAssetizable": false,
                             "isNotTranslatable": false,
                             "label": "Tipo de Habilitação",
                             "messages": [
@@ -270,20 +327,121 @@
                             "userValues": null,
                             "values": [
                                 {
+                                    "defaultSelected": false,
                                     "disabled": false,
                                     "displaySequence": 10,
                                     "id": "6d3847c7-2489-14ff-536a-00e3b74467fa",
                                     "label": "Remota",
+                                    "name": "6d3847c7-2489-14ff-536a-00e3b74467fa",
                                     "readonly": false,
                                     "value": "Remota"
                                 },
                                 {
+                                    "defaultSelected": false,
                                     "disabled": false,
                                     "displaySequence": 20,
                                     "id": "c56197a9-f377-1a36-35a6-3c22be535adc",
                                     "label": "Presencial",
+                                    "name": "c56197a9-f377-1a36-35a6-3c22be535adc",
                                     "readonly": false,
                                     "value": "Presencial"
+                                }
+                            ]
+                        },
+                        {
+                            "attributeId": "a0X78000000LZ7xEAG",
+                            "cloneable": true,
+                            "code": "ATT_RT_HYBRIS_TRANSACTION_ID",
+                            "dataType": "text",
+                            "disabled": false,
+                            "displaySequence": 1,
+                            "filterable": false,
+                            "hasRules": false,
+                            "hidden": false,
+                            "inputType": "text",
+                            "isNotTranslatable": false,
+                            "label": "Id da transação do Hybris",
+                            "messages": [
+                            ],
+                            "multiselect": false,
+                            "readonly": false,
+                            "required": false,
+                            "userValues": null,
+                            "values": [
+                                {
+                                    "disabled": false,
+                                    "readonly": false
+                                }
+                            ]
+                        },
+                        {
+                            "attributeId": "a0X78000000MlYnEAK",
+                            "cloneable": true,
+                            "code": "ATT_RT_ACCOUNT_CHANNEL",
+                            "disabled": false,
+                            "displaySequence": 80,
+                            "filterable": false,
+                            "hasRules": false,
+                            "hidden": false,
+                            "isNotTranslatable": false,
+                            "label": "Canal de Cadastro da Conta",
+                            "messages": [
+                            ],
+                            "multiselect": false,
+                            "readonly": false,
+                            "required": false,
+                            "userValues": null,
+                            "values": null
+                        },
+                        {
+                            "attributeId": "a0X78000000MlYqEAK",
+                            "cloneable": true,
+                            "code": "ATT_RT_SUSPENSION_STATUS",
+                            "dataType": "text",
+                            "disabled": false,
+                            "displaySequence": 100,
+                            "filterable": false,
+                            "hasRules": false,
+                            "hidden": false,
+                            "inputType": "dropdown",
+                            "isNotTranslatable": false,
+                            "label": "Status da Suspensao",
+                            "messages": [
+                            ],
+                            "multiselect": false,
+                            "readonly": false,
+                            "required": false,
+                            "userValues": null,
+                            "values": [
+                                {
+                                    "defaultSelected": false,
+                                    "disabled": false,
+                                    "displaySequence": 10,
+                                    "id": "49318c15-756f-218b-76da-ceb7f2efeef8",
+                                    "label": "Suspender",
+                                    "name": "49318c15-756f-218b-76da-ceb7f2efeef8",
+                                    "readonly": false,
+                                    "value": "Suspender"
+                                },
+                                {
+                                    "defaultSelected": true,
+                                    "disabled": false,
+                                    "displaySequence": 1,
+                                    "id": "930a3b29-1821-d2d5-19e4-752f00536f70",
+                                    "label": "Pendente",
+                                    "name": "930a3b29-1821-d2d5-19e4-752f00536f70",
+                                    "readonly": false,
+                                    "value": "Pendente"
+                                },
+                                {
+                                    "defaultSelected": false,
+                                    "disabled": false,
+                                    "displaySequence": 20,
+                                    "id": "9a1e5404-7d8a-eb06-133b-32c7065ca0e7",
+                                    "label": "Não Suspender",
+                                    "name": "9a1e5404-7d8a-eb06-133b-32c7065ca0e7",
+                                    "readonly": false,
+                                    "value": "Não Suspender"
                                 }
                             ]
                         },
@@ -298,7 +456,6 @@
                             "hasRules": false,
                             "hidden": true,
                             "inputType": "text",
-                            "isNotAssetizable": false,
                             "isNotTranslatable": false,
                             "label": "Id da Pré-reserva",
                             "messages": [
@@ -315,7 +472,7 @@
                             ]
                         }
                     ],
-                    "totalSize": 2
+                    "totalSize": 5
                 }
             }
         ],
@@ -332,10 +489,27 @@
             "displaySequence": -1,
             "fields": {
             },
-            "id": "a1476000000Gy0jAAC",
+            "id": "a1476000000Gy4iAAC",
             "messages": [
             ],
             "name": "Catálogo SIM Card PTI897-160",
+            "nameResult": {
+            },
+            "uiStates": {
+            }
+        },
+        {
+            "actions": {
+            },
+            "childCategories": [
+            ],
+            "displaySequence": -1,
+            "fields": {
+            },
+            "id": "a1476000000GyF6AAK",
+            "messages": [
+            ],
+            "name": "Catálogo Precificação",
             "nameResult": {
             },
             "uiStates": {
@@ -361,7 +535,7 @@
     "%vlocity_namespace%__IsOrderable__c": false,
     "%vlocity_namespace%__JeopardySafetyIntervalUnit__c": "Seconds",
     "%vlocity_namespace%__JeopardySafetyInterval__c": "",
-    "%vlocity_namespace%__LifecycleStatus__c": "Draft",
+    "%vlocity_namespace%__LifecycleStatus__c": "Released",
     "%vlocity_namespace%__MainFeatureQuantityUom__c": "",
     "%vlocity_namespace%__MainFeatureQuantity__c": "",
     "%vlocity_namespace%__MainFeatureTermInDays__c": "",
@@ -393,9 +567,10 @@
     "%vlocity_namespace%__VendorAccountId__c": "",
     "%vlocity_namespace%__VersionEndDateTime__c": "",
     "%vlocity_namespace%__VersionLabel__c": "V1",
-    "%vlocity_namespace%__VersionStartDateTime__c": "",
-    "CanUseQuantitySchedule": false,
-    "CanUseRevenueSchedule": false,
+    "%vlocity_namespace%__VersionStartDateTime__c": "2023-02-09T18:45:00.000Z",
+    "ActiveGSIM__c": false,
+    "CanUseQuantitySchedule": true,
+    "CanUseRevenueSchedule": true,
     "Description": "O chip pré pago para habilitação de uma nova linha. É necessário o cadastro do CPF do cliente e após a primeira recarga, já está pronto para usar",
     "DisplayUrl": "",
     "ExternalDataSourceId": "",
@@ -452,7 +627,7 @@
             "VlocityRecordSourceKey": "PricebookEntry/Pricebook2/Standard Price Book/Product2/0d3dfc17-8a93-9d5a-e406-361e8c68d69b"
         }
     ],
-    "StockKeepingUnit": "",
+    "StockKeepingUnit": "ABC0001",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "Product2",
     "VlocityRecordSourceKey": "Product2/0d3dfc17-8a93-9d5a-e406-361e8c68d69b"

@@ -16,8 +16,8 @@
             "StepRegistration:DocumentBlock:DocumentNumberForeignRO": "%DocumentBlock:DocumentNumberForeign%",
             "customerName": "",
             "isBlocked": false,
-            "isDocumentValid": "=IF(%DRValidDocumentsSalesforce:ExistingCustomer%==true||%DRValidCalcCNPJ:IsCNPJNumberValid%==false,false,true)",
-            "validationMessage": "=IF(%DRValidCalcCNPJ:IsCNPJNumberValid%==false, \"O CNPJ informado não é válido\",IF(%DRValidDocumentsSalesforce:ExistingCustomer%==true,\"Cliente já cadastrado. Por favor utilizar outro documento\",\"Cliente Prospect\")"
+            "isDocumentValid": "=IF(((%DocumentBlock:DocumentNumberCPF%==null && %DocumentBlock:DocumentNumberForeign%==null)||%SVValidateDocumentType:hasDocumentType%==false),false,IF(%DRValidDocumentsSalesforce:ExistingCustomer%==true||%DRValidCalcCNPJ:IsCNPJNumberValid%==false,false,true))",
+            "validationMessage": "=IF(%DocumentBlock:DocumentType%='Passaporte' && %DocumentBlock:DocumentNumberForeign%==null,\"Passaporte não preenchido.\",IF(%DocumentBlock:DocumentType%='Documento estrangeiro' && %DocumentBlock:DocumentNumberForeign%==null,\"Documento estrangeiro não preenchido.\", IF(((%DocumentBlock:DocumentNumberCPF%==null && %DocumentBlock:DocumentNumberForeign%==null)||%SVValidateDocumentType:hasDocumentType%==false),\"Documento não preenchido para pesquisa.\",IF(%DRValidCalcCNPJ:IsCNPJNumberValid%==false, \"O CNPJ informado não é válido\",IF(%DRValidDocumentsSalesforce:ExistingCustomer%==true,\"Cliente já cadastrado. Por favor utilizar outro documento\",\"Cliente Prospect\"))))"
         },
         "executionConditionalFormula": "IF(%DRVerifyData% == null, true, false)",
         "failOnStepError": true,
