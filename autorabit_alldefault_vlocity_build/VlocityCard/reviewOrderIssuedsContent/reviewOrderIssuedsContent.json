@@ -2,20 +2,24 @@
     "dataSource": {
         "contextVariables": [
             {
-                "id": 1,
+                "id": 0,
                 "name": "Parent.VaAccountId",
-                "val": "0018G00000R9qnDQAR"
+                "val": "0017800000MReXhAAL"
             }
         ],
         "orderBy": {
             "isReverse": "",
             "name": ""
         },
-        "type": "Query",
+        "type": "DataRaptor",
         "value": {
+            "bundle": "GetOrderIssuedList",
+            "bundleType": "",
             "dsDelay": "",
+            "inputMap": {
+                "AccountId": "{Parent.VaAccountId}"
+            },
             "jsonMap": "{\"Parent.VaAccountId\":\"{Parent.VaAccountId}\"}",
-            "query": "select  Id, OrderStatus__c, AmdocsOrder__c, Name  from OrderIssued__c  where AccountId__c =  '{Parent.VaAccountId}' order by CreatedDate desc  limit 2",
             "resultVar": ""
         }
     },
@@ -24,11 +28,12 @@
     "isRepeatable": false,
     "lwc": {
         "DeveloperName": "cfReviewOrderIssuedsContent_3_FEU",
-        "Id": "0Rb5f000002Kd7pCAC",
+        "Id": "0Rb78000000LGw7CAG",
         "ManageableState": "unmanaged",
         "MasterLabel": "cfReviewOrderIssuedsContent_3_FEU",
         "NamespacePrefix": "c"
     },
+    "osSupport": true,
     "selectableMode": "Multi",
     "states": [
         {
@@ -43,7 +48,7 @@
                         {
                             "class": "slds-col ",
                             "element": "outputField",
-                            "elementLabel": "Text-0",
+                            "elementLabel": "Text-1",
                             "name": "Text",
                             "property": {
                                 "card": "{card}",
@@ -154,7 +159,7 @@
                         {
                             "class": "slds-col ",
                             "element": "childCardPreview",
-                            "elementLabel": "FlexCard-1",
+                            "elementLabel": "FlexCard-2",
                             "name": "FlexCard",
                             "property": {
                                 "cardName": "reviewOrderIssuedsData",
@@ -428,7 +433,7 @@
                         {
                             "class": "slds-col ",
                             "element": "outputField",
-                            "elementLabel": "Text-1",
+                            "elementLabel": "Text-0",
                             "name": "Text",
                             "property": {
                                 "card": "{card}",
@@ -439,7 +444,7 @@
                                 "default": "12",
                                 "isResponsive": false
                             },
-                            "stateIndex": 0,
+                            "stateIndex": 1,
                             "styleObject": {
                                 "sizeClass": "slds-size_12-of-12"
                             },
@@ -546,7 +551,7 @@
         "isExposed": true,
         "masterLabel": "reviewOrderIssuedsContent",
         "runtimeNamespace": "%vlocity_namespace%",
-        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgogICAgICA8cHJvcGVydHkgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iLz4KICAgICAgPHByb3BlcnR5IG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciLz4KICAgIDwvdGFyZ2V0Q29uZmlnPgogICAgPHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPgogICAgICA8cHJvcGVydHkgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iLz4KICAgIDwvdGFyZ2V0Q29uZmlnPgogICAgPHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdDb21tdW5pdHlfX0RlZmF1bHQiPgogICAgICA8cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPgogICAgPC90YXJnZXRDb25maWc+",
+        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiIvPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIi8+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiIvPjwvdGFyZ2V0Q29uZmlnPjx0YXJnZXRDb25maWcgdGFyZ2V0cz0ibGlnaHRuaW5nQ29tbXVuaXR5X19EZWZhdWx0Ij48cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPjwvdGFyZ2V0Q29uZmlnPg==",
         "targets": {
             "target": [
                 "lightning__RecordPage",
