@@ -98,7 +98,8 @@
             "eventname": "cpq_chargetype_change",
             "eventtype": "pubsub",
             "key": "event-0",
-            "recordIndex": "0"
+            "recordIndex": "0",
+            "showSpinner": "false"
         },
         {
             "actionData": {
@@ -126,14 +127,16 @@
             },
             "actionList": [
                 {
+                    "actionIndex": 0,
                     "card": "{card}",
-                    "draggable": true,
-                    "isOpen": false,
+                    "draggable": false,
+                    "isOpen": true,
                     "key": "1629447196379-pjdfnx4qc",
                     "label": "Action",
                     "stateAction": {
                         "eventName": "cpq_{recordId}",
                         "extraParams": {
+                            "cartType": "{Parent.cartType}",
                             "getInputMethod": "prepareApplyAdjustmentInput",
                             "handleResponseMethod": "processApplyAdjustmentResponse",
                             "input": "{action}",
@@ -142,7 +145,7 @@
                             "responseCallbackEventName": "cpq_adjustment_apply"
                         },
                         "hasExtraParams": true,
-                        "id": "flex-action-1629447159157",
+                        "id": "flex-action-1641566092458",
                         "message": "cpq_ui_event",
                         "subType": "PubSub",
                         "type": "Event"
@@ -156,7 +159,8 @@
             "eventname": "cpq_adjustment_apply_click",
             "eventtype": "pubsub",
             "key": "event-1",
-            "recordIndex": "0"
+            "recordIndex": "0",
+            "showSpinner": "false"
         },
         {
             "actionData": {
@@ -220,7 +224,8 @@
             "eventname": "cpq_adjustment_delete_click",
             "eventtype": "pubsub",
             "key": "event-2",
-            "recordIndex": "0"
+            "recordIndex": "0",
+            "showSpinner": "false"
         },
         {
             "actionData": {
@@ -262,17 +267,18 @@
             "eventname": "cpq_adjustment_apply",
             "eventtype": "pubsub",
             "key": "event-3",
-            "recordIndex": "0"
+            "recordIndex": "0",
+            "showSpinner": "false"
         }
     ],
     "globalCSS": false,
     "isFlex": true,
     "isRepeatable": false,
     "lwc": {
-        "DeveloperName": "cfCpqManualPriceAdjustments_1_Vlocity",
-        "Id": "0Rb5e000002RDniCAG",
+        "DeveloperName": "cfCpqManualPriceAdjustments_2_Vlocity",
+        "Id": "0Rb5e0000013wGkCAI",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfCpqManualPriceAdjustments_1_Vlocity",
+        "MasterLabel": "cfCpqManualPriceAdjustments_2_Vlocity",
         "NamespacePrefix": "%vlocity_namespace%"
     },
     "multilanguageSupport": true,
@@ -332,7 +338,7 @@
                                     "parentElementKey": "element_block_0_0",
                                     "property": {
                                         "card": "{card}",
-                                        "mergeField": "%3Cdiv%20class=%22slds-text-heading_medium%20slds-text-body_regular%22%3E%3Cspan%20class=%22slds-text-heading_medium%22%20style=%22font-family:%20'Salesforce%20Sans',%20Arial,%20sans-serif;%20font-size:%2018pt;%22%3E%7BParent.lineItemName%7D%20Pricing%3C/span%3E%3C/div%3E",
+                                        "mergeField": "%3Cdiv%20class=%22slds-text-heading_medium%20slds-text-body_regular%22%3E%3Cspan%20class=%22slds-text-heading_medium%22%20style=%22font-family:%20'Salesforce%20Sans',%20Arial,%20sans-serif;%20font-size:%2018pt;%22%3E%7BParent.lineItemName%7D%20%7BLabel.CPQCartPricing%7D%3C/span%3E%3C/div%3E",
                                         "record": "{record}"
                                     },
                                     "size": {
@@ -1858,6 +1864,7 @@
                                                 "parentAttribute": {
                                                     "PricingVariableCode": "{Session.PricingVariableCode}",
                                                     "cartId": "{Parent.cartId}",
+                                                    "cartType": "{Parent.cartType}",
                                                     "chargeType": "{Session.chargeType}",
                                                     "defaultEmptyValue": "",
                                                     "fields": "{Session.fields}",
@@ -2903,6 +2910,21 @@
         "customFields": [
         ]
     },
+    "xmlJson": [
+        {
+            "@attributes": {
+                "targets": "lightningCommunity__Default"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "name": "recordId",
+                        "type": "String"
+                    }
+                }
+            ]
+        }
+    ],
     "xmlObject": {
         "apiVersion": 48,
         "isExplicitImport": false,

@@ -20,11 +20,15 @@
         "extraPayload": {
             "CreateSelectOrder": {
                 "AssetIds": "%AssetIds%",
-                "ContextId": "%ContextId%"
+                "ContextId": "%ContextId%",
+                "filterString": "%filterString%",
+                "query": "%query%",
+                "searchBy": "%searchBy%",
+                "selectAllResults": "%selectAllResults%"
             }
         },
-        "failureAbortLabel": "",
-        "failureAbortMessage": "",
+        "failureAbortLabel": null,
+        "failureAbortMessage": null,
         "failureGoBackLabel": "GoBack",
         "failureNextLabel": "Continue",
         "inProgressMessage": "InProgress",
@@ -36,10 +40,10 @@
         "postTransformBundle": "",
         "preTransformBundle": "",
         "pubsub": false,
-        "redirectNextLabel": "",
+        "redirectNextLabel": null,
         "redirectNextWidth": 3,
         "redirectPageName": "",
-        "redirectPreviousLabel": "",
+        "redirectPreviousLabel": null,
         "redirectPreviousWidth": 3,
         "redirectTemplateUrl": "vlcAcknowledge.html",
         "remoteOptions": {
@@ -53,7 +57,35 @@
         "responseJSONPath": "",
         "sendJSONNode": "",
         "sendJSONPath": "CreateSelectOrder",
-        "show": null,
+        "show": {
+            "group": {
+                "operator": "OR",
+                "rules": [
+                    {
+                        "condition": "=",
+                        "data": "changeAssets",
+                        "field": "selectActionType"
+                    },
+                    {
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "moveAssets",
+                                    "field": "selectActionType"
+                                },
+                                {
+                                    "condition": "<>",
+                                    "data": "true",
+                                    "field": "isMultipleAssetsSelected"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
         "showPersistentComponent": [
             true,
             false

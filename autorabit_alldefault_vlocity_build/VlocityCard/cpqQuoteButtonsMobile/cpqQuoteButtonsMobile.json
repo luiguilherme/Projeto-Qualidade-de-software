@@ -52,10 +52,10 @@
     "globalCSS": false,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfCpqQuoteButtonsMobile_4_Vlocity",
-        "Id": "0Rb5g0000011WZOCA2",
+        "DeveloperName": "cfCpqQuoteButtonsMobile_1_Vlocity",
+        "Id": "0Rb5e000002RTD1CAO",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfCpqQuoteButtonsMobile_4_Vlocity",
+        "MasterLabel": "cfCpqQuoteButtonsMobile_1_Vlocity",
         "NamespacePrefix": "%vlocity_namespace%"
     },
     "multilanguageSupport": true,
@@ -64,41 +64,12 @@
     "states": [
         {
             "actions": [
-                "Home"
             ],
             "childCards": [
             ],
             "components": {
                 "layer-0": {
                     "children": [
-                        {
-                            "class": "slds-col ",
-                            "element": "action",
-                            "elementLabel": "Action-0",
-                            "name": "Action",
-                            "property": {
-                                "card": "{card}",
-                                "record": "{record}",
-                                "stateAction": {
-                                    "displayName": "Action",
-                                    "id": "flex-action-1610469288632",
-                                    "name": "Home",
-                                    "openUrlIn": "Current Window",
-                                    "type": "Vlocity Action",
-                                    "vlocityIcon": "standard-default"
-                                },
-                                "stateObj": "{record}"
-                            },
-                            "size": {
-                                "default": "12",
-                                "isResponsive": false
-                            },
-                            "stateIndex": 0,
-                            "styleObject": {
-                                "sizeClass": "slds-size_12-of-12"
-                            },
-                            "type": "element"
-                        },
                         {
                             "class": "slds-col ",
                             "element": "flexMenu",
@@ -152,11 +123,13 @@
                                 "iconName": "utility:down",
                                 "menuItems": [
                                     {
+                                        "actionConditions": null,
                                         "actionData": {
                                             "card": "{card}",
                                             "contextId": "\\{Id}",
                                             "sObjectType": "Quote",
                                             "stateAction": {
+                                                "actionConditions": null,
                                                 "displayName": "{Label.CPQViewRecord}",
                                                 "id": "flex-action-1629442585704",
                                                 "name": "View Record",
@@ -167,16 +140,37 @@
                                             },
                                             "stateObj": "{record}"
                                         },
+                                        "actionList": [
+                                            {
+                                                "card": "{card}",
+                                                "contextId": "\\{Id}",
+                                                "sObjectType": "Quote",
+                                                "stateAction": {
+                                                    "actionConditions": null,
+                                                    "displayName": "{Label.CPQViewRecord}",
+                                                    "id": "flex-action-1629442585704",
+                                                    "name": "View Record",
+                                                    "openUrlIn": "Current Window",
+                                                    "parent": "menu",
+                                                    "type": "Vlocity Action",
+                                                    "vlocityIcon": "icon-v-document1-line"
+                                                },
+                                                "stateObj": "{record}"
+                                            }
+                                        ],
                                         "iconName": "icon-v-document1-line",
                                         "label": "{Label.CPQViewRecord}",
-                                        "name": "menu-item-1612100275302-0"
+                                        "name": "menu-item-1612100275302-0",
+                                        "showSpinner": "false"
                                     },
                                     {
+                                        "actionConditions": null,
                                         "actionData": {
                                             "card": "{card}",
                                             "contextId": "\\{Id}",
                                             "sObjectType": "Quote",
                                             "stateAction": {
+                                                "actionConditions": null,
                                                 "displayName": "{Label.CPQEdit}",
                                                 "id": "flex-action-1629442589218",
                                                 "name": "Edit Record",
@@ -187,39 +181,59 @@
                                             },
                                             "stateObj": "{record}"
                                         },
+                                        "actionList": [
+                                            {
+                                                "card": "{card}",
+                                                "contextId": "\\{Id}",
+                                                "sObjectType": "Quote",
+                                                "stateAction": {
+                                                    "actionConditions": null,
+                                                    "displayName": "{Label.CPQEdit}",
+                                                    "id": "flex-action-1629442589218",
+                                                    "name": "Edit Record",
+                                                    "openUrlIn": "Current Window",
+                                                    "parent": "menu",
+                                                    "type": "Vlocity Action",
+                                                    "vlocityIcon": "icon-v-document1-line"
+                                                },
+                                                "stateObj": "{record}"
+                                            }
+                                        ],
                                         "iconName": "icon-v-document1-line",
                                         "label": "{Label.CPQEdit}",
-                                        "name": "menu-item-1613645815945-1"
+                                        "name": "menu-item-1613645815945-1",
+                                        "showSpinner": "false"
                                     },
                                     {
+                                        "actionConditions": {
+                                            "group": [
+                                                {
+                                                    "field": "Parent.details.records[0].canCheckoutDiscounts",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-3",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "true"
+                                                },
+                                                {
+                                                    "field": "Parent.details.records[0].frameAgreementPresent",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-10",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "false"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
                                         "actionData": {
                                             "card": "{card}",
                                             "contextId": "\\{Id}",
                                             "sObjectType": "Quote",
                                             "stateAction": {
-                                                "actionConditions": {
-                                                    "group": [
-                                                        {
-                                                            "field": "Parent.details.records[0].canCheckoutDiscounts",
-                                                            "hasMergeField": false,
-                                                            "id": "state-new-condition-3",
-                                                            "operator": "==",
-                                                            "type": "custom",
-                                                            "value": "true"
-                                                        },
-                                                        {
-                                                            "field": "Parent.details.records[0].frameAgreementPresent",
-                                                            "hasMergeField": false,
-                                                            "id": "state-new-condition-10",
-                                                            "logicalOperator": "&&",
-                                                            "operator": "==",
-                                                            "type": "custom",
-                                                            "value": "false"
-                                                        }
-                                                    ],
-                                                    "id": "state-condition-object",
-                                                    "isParent": true
-                                                },
+                                                "actionConditions": null,
                                                 "displayName": "{Label.CPQCreateFrameAgreement}",
                                                 "id": "flex-action-1629442591833",
                                                 "name": "Create Frame Agreement-Quote",
@@ -230,39 +244,59 @@
                                             },
                                             "stateObj": "{record}"
                                         },
+                                        "actionList": [
+                                            {
+                                                "card": "{card}",
+                                                "contextId": "\\{Id}",
+                                                "sObjectType": "Quote",
+                                                "stateAction": {
+                                                    "actionConditions": null,
+                                                    "displayName": "{Label.CPQCreateFrameAgreement}",
+                                                    "id": "flex-action-1629442591833",
+                                                    "name": "Create Frame Agreement-Quote",
+                                                    "openUrlIn": "Current Window",
+                                                    "parent": "menu",
+                                                    "type": "Vlocity Action",
+                                                    "vlocityIcon": "icon-v-document1-line"
+                                                },
+                                                "stateObj": "{record}"
+                                            }
+                                        ],
                                         "iconName": "icon-v-document1-line",
                                         "label": "{Label.CPQCreateFrameAgreement}",
-                                        "name": "menu-item-1613645988089-1"
+                                        "name": "menu-item-1613645988089-1",
+                                        "showSpinner": "false"
                                     },
                                     {
+                                        "actionConditions": {
+                                            "group": [
+                                                {
+                                                    "field": "Parent.details.records[0].canCheckoutDiscounts",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-32",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "true"
+                                                },
+                                                {
+                                                    "field": "Parent.details.records[0].frameAgreementPresent",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-39",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "false"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
                                         "actionData": {
                                             "card": "{card}",
                                             "contextId": "\\{Id}",
                                             "sObjectType": "Quote",
                                             "stateAction": {
-                                                "actionConditions": {
-                                                    "group": [
-                                                        {
-                                                            "field": "Parent.details.records[0].canCheckoutDiscounts",
-                                                            "hasMergeField": false,
-                                                            "id": "state-new-condition-32",
-                                                            "operator": "==",
-                                                            "type": "custom",
-                                                            "value": "true"
-                                                        },
-                                                        {
-                                                            "field": "Parent.details.records[0].frameAgreementPresent",
-                                                            "hasMergeField": false,
-                                                            "id": "state-new-condition-39",
-                                                            "logicalOperator": "&&",
-                                                            "operator": "==",
-                                                            "type": "custom",
-                                                            "value": "false"
-                                                        }
-                                                    ],
-                                                    "id": "state-condition-object",
-                                                    "isParent": true
-                                                },
+                                                "actionConditions": null,
                                                 "displayName": "{Label.CPQUpdateFrameAgreement}",
                                                 "id": "flex-action-1629442594792",
                                                 "name": "Update Frame Agreement-Quote",
@@ -273,30 +307,50 @@
                                             },
                                             "stateObj": "{record}"
                                         },
+                                        "actionList": [
+                                            {
+                                                "card": "{card}",
+                                                "contextId": "\\{Id}",
+                                                "sObjectType": "Quote",
+                                                "stateAction": {
+                                                    "actionConditions": null,
+                                                    "displayName": "{Label.CPQUpdateFrameAgreement}",
+                                                    "id": "flex-action-1629442594792",
+                                                    "name": "Update Frame Agreement-Quote",
+                                                    "openUrlIn": "Current Window",
+                                                    "parent": "menu",
+                                                    "type": "Vlocity Action",
+                                                    "vlocityIcon": "icon-v-document1-line"
+                                                },
+                                                "stateObj": "{record}"
+                                            }
+                                        ],
                                         "iconName": "icon-v-document1-line",
                                         "label": "{Label.CPQUpdateFrameAgreement}",
-                                        "name": "menu-item-1613648233553-1"
+                                        "name": "menu-item-1613648233553-1",
+                                        "showSpinner": "false"
                                     },
                                     {
+                                        "actionConditions": {
+                                            "group": [
+                                                {
+                                                    "field": "Parent.details.records[0].discountsForSubmission",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-8",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "true"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
                                         "actionData": {
                                             "card": "{card}",
                                             "contextId": "\\{Id}",
                                             "sObjectType": "Quote",
                                             "stateAction": {
-                                                "actionConditions": {
-                                                    "group": [
-                                                        {
-                                                            "field": "Parent.details.records[0].discountsForSubmission",
-                                                            "hasMergeField": false,
-                                                            "id": "state-new-condition-8",
-                                                            "operator": "==",
-                                                            "type": "custom",
-                                                            "value": "true"
-                                                        }
-                                                    ],
-                                                    "id": "state-condition-object",
-                                                    "isParent": true
-                                                },
+                                                "actionConditions": null,
                                                 "displayName": "{Label.CPQRequestPendingApproval}",
                                                 "flyoutLwc": "l-w-c-c-p-q-approve-discount-items-multi-language",
                                                 "flyoutParams": {
@@ -315,16 +369,50 @@
                                             },
                                             "stateObj": "{record}"
                                         },
+                                        "actionList": [
+                                            {
+                                                "actionIndex": 0,
+                                                "card": "{card}",
+                                                "contextId": "\\{Id}",
+                                                "draggable": false,
+                                                "isOpen": true,
+                                                "key": "1644314804895-nihq8op3w",
+                                                "label": "Action",
+                                                "sObjectType": "Quote",
+                                                "stateAction": {
+                                                    "actionConditions": null,
+                                                    "channelName": "close_modal",
+                                                    "displayName": "{Label.CPQRequestPendingApproval}",
+                                                    "flyoutLwc": "l-w-c-c-p-q-approve-discount-items-multi-language",
+                                                    "flyoutParams": {
+                                                        "ContextId": "{Id}"
+                                                    },
+                                                    "flyoutType": "OmniScripts",
+                                                    "hasExtraParams": true,
+                                                    "id": "flex-action-1644314806614",
+                                                    "layoutType": "lightning",
+                                                    "openFlyoutIn": "Modal",
+                                                    "openUrlIn": "Current Window",
+                                                    "osName": "LWCCPQ/ApproveDiscountItems/Multi-Language",
+                                                    "type": "Flyout",
+                                                    "vlocityIcon": "icon-v-document1-line"
+                                                },
+                                                "stateObj": "{record}"
+                                            }
+                                        ],
                                         "iconName": "icon-v-document1-line",
                                         "label": "{Label.CPQRequestPendingApproval}",
-                                        "name": "menu-item-1613648434460-1"
+                                        "name": "menu-item-1613648434460-1",
+                                        "showSpinner": "false"
                                     },
                                     {
+                                        "actionConditions": null,
                                         "actionData": {
                                             "card": "{card}",
                                             "contextId": "\\{Id}",
                                             "sObjectType": "Quote",
                                             "stateAction": {
+                                                "actionConditions": null,
                                                 "displayName": "{Label.CPQGenerateDocumentPDF}",
                                                 "id": "flex-action-1629442600120",
                                                 "name": "Generate Document PDF",
@@ -335,14 +423,35 @@
                                             },
                                             "stateObj": "{record}"
                                         },
+                                        "actionList": [
+                                            {
+                                                "card": "{card}",
+                                                "contextId": "\\{Id}",
+                                                "sObjectType": "Quote",
+                                                "stateAction": {
+                                                    "actionConditions": null,
+                                                    "displayName": "{Label.CPQGenerateDocumentPDF}",
+                                                    "id": "flex-action-1629442600120",
+                                                    "name": "Generate Document PDF",
+                                                    "openUrlIn": "Current Window",
+                                                    "parent": "menu",
+                                                    "type": "Vlocity Action",
+                                                    "vlocityIcon": "icon-v-document1-line"
+                                                },
+                                                "stateObj": "{record}"
+                                            }
+                                        ],
                                         "iconName": "icon-v-document1-line",
                                         "label": "{Label.CPQGenerateDocumentPDF}",
-                                        "name": "menu-item-1615284560878-1"
+                                        "name": "menu-item-1615284560878-1",
+                                        "showSpinner": "false"
                                     },
                                     {
+                                        "actionConditions": null,
                                         "actionData": {
                                             "card": "{card}",
                                             "stateAction": {
+                                                "actionConditions": null,
                                                 "cardName": "cpqDeleteModal",
                                                 "displayName": "{Label.CPQDelete}",
                                                 "flyoutLwc": "cpqDeleteModal",
@@ -361,17 +470,44 @@
                                             },
                                             "stateObj": "{record}"
                                         },
+                                        "actionList": [
+                                            {
+                                                "card": "{card}",
+                                                "stateAction": {
+                                                    "actionConditions": null,
+                                                    "cardName": "cpqDeleteModal",
+                                                    "displayName": "{Label.CPQDelete}",
+                                                    "flyoutLwc": "cpqDeleteModal",
+                                                    "flyoutParams": {
+                                                        "cartId": "{Id}",
+                                                        "objType": "Quote"
+                                                    },
+                                                    "flyoutType": "childCard",
+                                                    "hasExtraParams": true,
+                                                    "id": "flex-action-1629108575060",
+                                                    "openFlyoutIn": "Modal",
+                                                    "openUrlIn": "Current Window",
+                                                    "parent": "menu",
+                                                    "type": "Flyout",
+                                                    "vlocityIcon": "icon-v-document1-line"
+                                                },
+                                                "stateObj": "{record}"
+                                            }
+                                        ],
                                         "iconName": "icon-v-document1-line",
                                         "label": "{Label.CPQDelete}",
-                                        "name": "menu-item-1615284832131-1"
+                                        "name": "menu-item-1615284832131-1",
+                                        "showSpinner": "false"
                                     },
                                     {
+                                        "actionConditions": null,
                                         "actionData": {
                                             "card": "{card}",
                                             "stateAction": {
                                                 "Web Page": {
                                                     "targetName": "/apex/QuoteCloneWithLineItems?id={Id}"
                                                 },
+                                                "actionConditions": null,
                                                 "displayName": "{Label.CPQCloneWithProducts}",
                                                 "id": "flex-action-1629108557379",
                                                 "openUrlIn": "New Tab/Window",
@@ -382,17 +518,39 @@
                                             },
                                             "stateObj": "{record}"
                                         },
+                                        "actionList": [
+                                            {
+                                                "card": "{card}",
+                                                "stateAction": {
+                                                    "Web Page": {
+                                                        "targetName": "/apex/QuoteCloneWithLineItems?id={Id}"
+                                                    },
+                                                    "actionConditions": null,
+                                                    "displayName": "{Label.CPQCloneWithProducts}",
+                                                    "id": "flex-action-1629108557379",
+                                                    "openUrlIn": "New Tab/Window",
+                                                    "parent": "menu",
+                                                    "targetType": "Web Page",
+                                                    "type": "Custom",
+                                                    "vlocityIcon": "icon-v-document1-line"
+                                                },
+                                                "stateObj": "{record}"
+                                            }
+                                        ],
                                         "iconName": "icon-v-document1-line",
                                         "label": "{Label.CPQCloneWithProducts}",
-                                        "name": "menu-item-1615284866661-1"
+                                        "name": "menu-item-1615284866661-1",
+                                        "showSpinner": "false"
                                     },
                                     {
+                                        "actionConditions": null,
                                         "actionData": {
                                             "card": "{card}",
                                             "stateAction": {
                                                 "Web Page": {
                                                     "targetName": "/apex/QuoteClonePage?id={Id}"
                                                 },
+                                                "actionConditions": null,
                                                 "displayName": "{Label.CPQCloneWithoutProducts}",
                                                 "id": "flex-action-1629108524335",
                                                 "openUrlIn": "New Tab/Window",
@@ -403,14 +561,72 @@
                                             },
                                             "stateObj": "{record}"
                                         },
+                                        "actionList": [
+                                            {
+                                                "card": "{card}",
+                                                "stateAction": {
+                                                    "Web Page": {
+                                                        "targetName": "/apex/QuoteClonePage?id={Id}"
+                                                    },
+                                                    "actionConditions": null,
+                                                    "displayName": "{Label.CPQCloneWithoutProducts}",
+                                                    "id": "flex-action-1629108524335",
+                                                    "openUrlIn": "New Tab/Window",
+                                                    "parent": "menu",
+                                                    "targetType": "Web Page",
+                                                    "type": "Custom",
+                                                    "vlocityIcon": "icon-v-document1-line"
+                                                },
+                                                "stateObj": "{record}"
+                                            }
+                                        ],
                                         "iconName": "icon-v-document1-line",
                                         "label": "{Label.CPQCloneWithoutProducts}",
-                                        "name": "menu-item-1615284909877-1"
+                                        "name": "menu-item-1615284909877-1",
+                                        "showSpinner": "false"
                                     },
                                     {
+                                        "actionConditions": {
+                                            "group": [
+                                                {
+                                                    "field": "Parent.isAsyncProcessesPresent",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-0",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "0"
+                                                },
+                                                {
+                                                    "group": [
+                                                        {
+                                                            "field": "Parent.isAsyncProcessesPresent",
+                                                            "hasMergeField": false,
+                                                            "id": "state-new-condition-11",
+                                                            "operator": ">",
+                                                            "type": "custom",
+                                                            "value": "0"
+                                                        },
+                                                        {
+                                                            "field": "Parent.isAsyncProcessCompleted",
+                                                            "hasMergeField": false,
+                                                            "id": "state-new-condition-39",
+                                                            "logicalOperator": "&&",
+                                                            "operator": "==",
+                                                            "type": "custom",
+                                                            "value": "true"
+                                                        }
+                                                    ],
+                                                    "id": "state-new-group-12",
+                                                    "logicalOperator": "||"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
                                         "actionData": {
                                             "card": "{card}",
                                             "stateAction": {
+                                                "actionConditions": null,
                                                 "cardName": "cpqDiscount",
                                                 "displayName": "{Label.CPQApplyDiscount}",
                                                 "flyoutLwc": "cpqDiscount",
@@ -428,39 +644,69 @@
                                             },
                                             "stateObj": "{record}"
                                         },
+                                        "actionList": [
+                                            {
+                                                "actionIndex": 0,
+                                                "card": "{card}",
+                                                "draggable": false,
+                                                "isOpen": true,
+                                                "key": "1658215563403-ms1qry9ba",
+                                                "label": "Action",
+                                                "stateAction": {
+                                                    "actionConditions": null,
+                                                    "cardName": "cpqDiscount",
+                                                    "channelName": "close_modal_apply_discount",
+                                                    "displayName": "{Label.CPQApplyDiscount}",
+                                                    "flyoutLwc": "cpqDiscount",
+                                                    "flyoutParams": {
+                                                        "cartId": "{Id}"
+                                                    },
+                                                    "flyoutType": "childCard",
+                                                    "hasExtraParams": true,
+                                                    "id": "flex-action-1658215564999",
+                                                    "openFlyoutIn": "Modal",
+                                                    "openUrlIn": "Current Window",
+                                                    "type": "Flyout",
+                                                    "vlocityIcon": "icon-v-document1-line"
+                                                },
+                                                "stateObj": "{record}"
+                                            }
+                                        ],
                                         "iconName": "icon-v-document1-line",
                                         "label": "{Label.CPQApplyDiscount}",
-                                        "name": "menu-item-1615284958721-1"
+                                        "name": "menu-item-1615284958721-1",
+                                        "showSpinner": "false"
                                     },
                                     {
+                                        "actionConditions": {
+                                            "group": [
+                                                {
+                                                    "field": "Parent.details.records[0].canCheckoutDiscounts",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-3",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "true"
+                                                },
+                                                {
+                                                    "field": "Parent.details.records[0].frameAgreementPresent",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-10",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "true"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
                                         "actionData": {
                                             "card": "{card}",
                                             "contextId": "\\{Id}",
                                             "sObjectType": "Quote",
                                             "stateAction": {
-                                                "actionConditions": {
-                                                    "group": [
-                                                        {
-                                                            "field": "Parent.details.records[0].canCheckoutDiscounts",
-                                                            "hasMergeField": false,
-                                                            "id": "state-new-condition-3",
-                                                            "operator": "==",
-                                                            "type": "custom",
-                                                            "value": "true"
-                                                        },
-                                                        {
-                                                            "field": "Parent.details.records[0].frameAgreementPresent",
-                                                            "hasMergeField": false,
-                                                            "id": "state-new-condition-10",
-                                                            "logicalOperator": "&&",
-                                                            "operator": "==",
-                                                            "type": "custom",
-                                                            "value": "true"
-                                                        }
-                                                    ],
-                                                    "id": "state-condition-object",
-                                                    "isParent": true
-                                                },
+                                                "actionConditions": null,
                                                 "displayName": "{Label.CPQCreateFrameAmendment}",
                                                 "id": "flex-action-1629442611785",
                                                 "name": "Create Frame Amendment-Quote",
@@ -471,39 +717,59 @@
                                             },
                                             "stateObj": "{record}"
                                         },
+                                        "actionList": [
+                                            {
+                                                "card": "{card}",
+                                                "contextId": "\\{Id}",
+                                                "sObjectType": "Quote",
+                                                "stateAction": {
+                                                    "actionConditions": null,
+                                                    "displayName": "{Label.CPQCreateFrameAmendment}",
+                                                    "id": "flex-action-1629442611785",
+                                                    "name": "Create Frame Amendment-Quote",
+                                                    "openUrlIn": "Current Window",
+                                                    "parent": "menu",
+                                                    "type": "Vlocity Action",
+                                                    "vlocityIcon": "icon-v-document1-line"
+                                                },
+                                                "stateObj": "{record}"
+                                            }
+                                        ],
                                         "iconName": "icon-v-document1-line",
                                         "label": "{Label.CPQCreateFrameAmendment}",
-                                        "name": "menu-item-1627468535578-0"
+                                        "name": "menu-item-1627468535578-0",
+                                        "showSpinner": "false"
                                     },
                                     {
+                                        "actionConditions": {
+                                            "group": [
+                                                {
+                                                    "field": "Parent.details.records[0].canCheckoutDiscounts",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-26",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "true"
+                                                },
+                                                {
+                                                    "field": "Parent.details.records[0].frameAgreementPresent",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-33",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "true"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
                                         "actionData": {
                                             "card": "{card}",
                                             "contextId": "\\{Id}",
                                             "sObjectType": "Quote",
                                             "stateAction": {
-                                                "actionConditions": {
-                                                    "group": [
-                                                        {
-                                                            "field": "Parent.details.records[0].canCheckoutDiscounts",
-                                                            "hasMergeField": false,
-                                                            "id": "state-new-condition-26",
-                                                            "operator": "==",
-                                                            "type": "custom",
-                                                            "value": "true"
-                                                        },
-                                                        {
-                                                            "field": "Parent.details.records[0].frameAgreementPresent",
-                                                            "hasMergeField": false,
-                                                            "id": "state-new-condition-33",
-                                                            "logicalOperator": "&&",
-                                                            "operator": "==",
-                                                            "type": "custom",
-                                                            "value": "true"
-                                                        }
-                                                    ],
-                                                    "id": "state-condition-object",
-                                                    "isParent": true
-                                                },
+                                                "actionConditions": null,
                                                 "displayName": "{Label.CPQUpdateFrameAmendment}",
                                                 "id": "flex-action-1629442618420",
                                                 "name": "Update Frame Amendment-Quote",
@@ -514,9 +780,28 @@
                                             },
                                             "stateObj": "{record}"
                                         },
+                                        "actionList": [
+                                            {
+                                                "card": "{card}",
+                                                "contextId": "\\{Id}",
+                                                "sObjectType": "Quote",
+                                                "stateAction": {
+                                                    "actionConditions": null,
+                                                    "displayName": "{Label.CPQUpdateFrameAmendment}",
+                                                    "id": "flex-action-1629442618420",
+                                                    "name": "Update Frame Amendment-Quote",
+                                                    "openUrlIn": "Current Window",
+                                                    "parent": "menu",
+                                                    "type": "Vlocity Action",
+                                                    "vlocityIcon": "icon-v-document1-line"
+                                                },
+                                                "stateObj": "{record}"
+                                            }
+                                        ],
                                         "iconName": "icon-v-document1-line",
                                         "label": "{Label.CPQUpdateFrameAmendment}",
-                                        "name": "menu-item-1627468740723-0"
+                                        "name": "menu-item-1627468740723-0",
+                                        "showSpinner": "false"
                                     }
                                 ],
                                 "overflow": true,

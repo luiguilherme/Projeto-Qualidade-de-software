@@ -20,10 +20,10 @@
     "globalCSS": false,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfCpqCartPromotion",
-        "Id": "0Rb5g000000QSd1CAG",
+        "DeveloperName": "cfCpqCartPromotion_2_Vlocity",
+        "Id": "0RbRN0000001wwU0AQ",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfCpqCartPromotion",
+        "MasterLabel": "cfCpqCartPromotion_2_Vlocity",
         "NamespacePrefix": "%vlocity_namespace%"
     },
     "multilanguageSupport": true,
@@ -611,6 +611,7 @@
                                                 "actionData": {
                                                     "card": "{card}",
                                                     "stateAction": {
+                                                        "actionConditions": null,
                                                         "displayName": "{Label.CPQDelete}",
                                                         "eventName": "cpq_{recordId}",
                                                         "extraParams": {
@@ -634,10 +635,44 @@
                                                     },
                                                     "stateObj": "{record}"
                                                 },
+                                                "actionList": [
+                                                    {
+                                                        "actionIndex": 0,
+                                                        "card": "{card}",
+                                                        "draggable": false,
+                                                        "isOpen": true,
+                                                        "key": "1639132977729-hrzyj5i0m",
+                                                        "label": "Action",
+                                                        "stateAction": {
+                                                            "actionConditions": null,
+                                                            "displayName": "{Label.CPQDelete}",
+                                                            "eventName": "cpq_{recordId}",
+                                                            "extraParams": {
+                                                                "cartId": "{Parent.cartId}",
+                                                                "getInputMethod": "prepareDeletePromotionInput",
+                                                                "handleResponseMethod": "processDeletePromotionResponse",
+                                                                "id": "{Id.value}",
+                                                                "methodName": "deletePromotion",
+                                                                "price": "true",
+                                                                "promotionName": "{name}",
+                                                                "validate": "true"
+                                                            },
+                                                            "hasExtraParams": true,
+                                                            "id": "flex-action-1639132978972",
+                                                            "message": "cpq_ui_event",
+                                                            "openUrlIn": "Current Window",
+                                                            "subType": "PubSub",
+                                                            "type": "Event",
+                                                            "vlocityIcon": ""
+                                                        },
+                                                        "stateObj": "{record}"
+                                                    }
+                                                ],
                                                 "iconName": "",
                                                 "iconPosition": "",
                                                 "label": "{Label.CPQDelete}",
-                                                "name": "menu-item-1611281111302-0"
+                                                "name": "menu-item-1611281111302-0",
+                                                "showSpinner": "false"
                                             }
                                         ],
                                         "overflow": true,
@@ -946,5 +981,49 @@
         }
     ],
     "theme": "slds",
-    "title": "cpqCartPromotion"
+    "title": "cpqCartPromotion",
+    "xmlJson": [
+        {
+            "@attributes": {
+                "targets": "lightning__AppPage"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "name": "debug",
+                        "type": "Boolean"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "name": "recordId",
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        {
+            "@attributes": {
+                "targets": "lightning__RecordPage"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "name": "debug",
+                        "type": "Boolean"
+                    }
+                }
+            ]
+        }
+    ],
+    "xmlObject": {
+        "targetConfigs": "PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgogICAgICAgICAgICAgICAgICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgICAgICAgICAgICAgICAgICA8cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPgogICAgICAgICAgICAgICAgICA8L3RhcmdldENvbmZpZz4KICAgICAgICAgICAgICAgICAgPHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPgogICAgICAgICAgICAgICAgICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgICAgICAgICAgICAgIDwvdGFyZ2V0Q29uZmlnPg==",
+        "targets": {
+            "target": [
+                "lightning__RecordPage",
+                "lightning__AppPage",
+                "lightning__HomePage"
+            ]
+        }
+    }
 }

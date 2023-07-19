@@ -30,7 +30,7 @@ baseCtrl.prototype.setDocXIPScope = function(scp) {
         }
         if (event.data && event.data.constructor === Object && event.data.hasOwnProperty('GET_BPTREE_RESPONSE')) {
             if (!window.bpTreeResponseSent) {
-                var fContentWindow = document.getElementById('obj-doc-creation-docx-os-iframe').contentWindow;
+                var fContentWindow = document.getElementsByTagName('iframe')[length-1].contentWindow;
                 fContentWindow.postMessage({'clmDocxBpTreeResponse': baseCtrl.prototype.$scope.bpTree.response}, '*');
                 window.bpTreeResponseSent = true;
             }

@@ -11,7 +11,7 @@
         "additionalChainableResponse": {
         },
         "additionalInput": {
-            "assetIds": "=LIST(%CreateSelectQuote:AssetIds%)",
+            "assetIds": "=IF(%CreateSelectQuote:selectAllResults% == true, LIST(%GetRootAssetIds%), LIST(%CreateSelectQuote:AssetIds%)",
             "fileName": "CPQ-BP-AssetIds.json",
             "nodeNames": "assetIds",
             "parentId": "=IF(CreateSelectQuote:selectType == \"createQuote\", %CreateQuoteRecord:records:Id% , CreateSelectQuote:selectQuoteName)"

@@ -11,7 +11,7 @@
         "additionalChainableResponse": {
         },
         "additionalInput": {
-            "assetIds": "=LIST(%CreateSelectOrder:AssetIds%)",
+            "assetIds": "=IF(%CreateSelectOrder:selectAllResults% == true, LIST(%GetRootAssetIds%), LIST(%CreateSelectOrder:AssetIds%)",
             "fileName": "CPQ-BP-AssetIds.json",
             "nodeNames": "assetIds",
             "parentId": "=IF(CreateSelectOrder:selectType == \"createOrder\", %CreateOrderRecord:records:Id%, CreateSelectOrder:selectOrderName)"

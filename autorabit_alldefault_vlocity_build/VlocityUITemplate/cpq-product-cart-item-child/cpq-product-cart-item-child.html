@@ -204,7 +204,8 @@
                             title="{{::importedScope.customLabels.CPQDeleteItem}}" ng-click="importedScope.delete(obj, childProd)"
                             ng-if="importedScope.isActionDisconnect(childProd) && importedScope.checkCardinalityForDelete(obj, childProd) && childProd.actions.deleteitem" ng-disabled="childProd.processingLine || attrs.processingLine === 'true'">
                             <slds-button-svg-icon sprite="'utility'" icon="'delete'"></slds-button-svg-icon>
-                            <span class="slds-assistive-text">{{::importedScope.customLabels.CPQDelete}}</span>
+                            <span ng-if="childProd[$root.nsPrefix + 'Action__c'].value !== 'Add'"  class="slds-assistive-text">{{::importedScope.customLabels.Disconnect}}</span>
+                            <span ng-if="childProd[$root.nsPrefix + 'Action__c'].value === 'Add'" class="slds-assistive-text">{{::importedScope.customLabels.CPQDelete}}</span>
                         </button>
                         <button class="slds-button slds-p-horizontal_xx-small" ng-class="{'slds-button_icon-border': importedScope.isMobileTablet}"
                             title="{{::importedScope.customLabels.Cancel}}" 
@@ -259,9 +260,13 @@
                                     <a href="javascript:void(0);" role="menuitemcheckbox" aria-checked="true" tabindex="0" ng-click="importedScope.delete(obj, childProd)"
                                         ng-if="importedScope.isActionDisconnect(childProd) && importedScope.checkCardinalityForDelete(obj, childProd) && childProd.actions.deleteitem"
                                         ng-hide="childProd.processingLine || attrs.processingLine === 'true'">
-                                        <span class="slds-truncate cpq-action-item-label">
+                                        <span ng-if="childProd[$root.nsPrefix + 'Action__c'].value === 'Add'" class="slds-truncate cpq-action-item-label">
                                             <slds-svg-icon sprite="'utility'" icon="'delete'" size="'x-small'"></slds-svg-icon>
                                             {{::importedScope.customLabels.CPQDelete}}
+                                        </span>
+                                        <span ng-if="childProd[$root.nsPrefix + 'Action__c'].value !== 'Add'" class="slds-truncate cpq-action-item-label">
+                                            <slds-svg-icon sprite="'utility'" icon="'delete'" size="'x-small'"></slds-svg-icon>
+                                            {{::importedScope.customLabels.Disconnect}}
                                         </span>
                                     </a>
                                 </li>

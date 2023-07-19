@@ -30,6 +30,11 @@
                 "id": 77,
                 "name": "Parent.category",
                 "val": "Qualified"
+            },
+            {
+                "id": 19,
+                "name": "Parent.pricelistId",
+                "val": ""
             }
         ],
         "orderBy": {
@@ -47,6 +52,7 @@
                 "offerType": "{Parent.typeId}",
                 "offsetSize": "0",
                 "pagesize": "{Parent.pagesize}",
+                "pricelistId": "{Parent.pricelistId}",
                 "qualifiedFilter": "{Parent.category}",
                 "query": "{Parent.query}"
             },
@@ -383,6 +389,7 @@
             "recordIndex": "0"
         }
     ],
+    "globalCSS": false,
     "isFlex": true,
     "listenToWidthResize": false,
     "lwc": {
@@ -417,6 +424,231 @@
         }
     ],
     "states": [
+        {
+            "actions": [
+            ],
+            "blankCardState": false,
+            "childCards": [
+            ],
+            "components": {
+                "layer-0": {
+                    "children": [
+                        {
+                            "class": "slds-col ",
+                            "element": "outputField",
+                            "elementLabel": "Text-0",
+                            "name": "Text",
+                            "property": {
+                                "card": "{card}",
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "Parent.pricelistId",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-0",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "undefined"
+                                        },
+                                        {
+                                            "field": "Parent.pricelistId",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-7",
+                                            "logicalOperator": "||",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": ""
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "mergeField": "%3Ch4%20class=%22slds-text-align_center%22%3E%3Cspan%20class=%22slds-text-body_regular%20slds-text-color_default%20slds-text-heading_medium%22%20style=%22color:%20#000000;%22%3E%7BLabel.CPQNoPriceListSelected%7D%3C/span%3E%3C/h4%3E%0A%3Cp%20class=%22slds-text-align_center%22%3E%3Cspan%20class=%22slds-text-body_regular%20slds-text-color_default%22%20style=%22color:%20#3e3e3c;%22%3E%7BLabel.CPQNoPriceListMessageDescription%7D%3C/span%3E%3C/p%3E",
+                                "record": "{record}"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "text"
+                        },
+                        {
+                            "class": "slds-col ",
+                            "element": "outputField",
+                            "elementLabel": "Text-0-clone-0",
+                            "name": "Text",
+                            "property": {
+                                "card": "{card}",
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "group": [
+                                                {
+                                                    "field": "Parent.pricelistId",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-26",
+                                                    "operator": "!=",
+                                                    "type": "custom",
+                                                    "value": "undefined"
+                                                },
+                                                {
+                                                    "field": "Parent.pricelistId",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-44",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "!=",
+                                                    "type": "custom",
+                                                    "value": ""
+                                                }
+                                            ],
+                                            "id": "state-new-group-27"
+                                        },
+                                        {
+                                            "group": [
+                                                {
+                                                    "field": "result.totalSize",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-59",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "0"
+                                                },
+                                                {
+                                                    "field": "result.totalSize",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-98",
+                                                    "logicalOperator": "||",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "undefined"
+                                                }
+                                            ],
+                                            "id": "state-new-group-60",
+                                            "logicalOperator": "&&"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "mergeField": "%3Ch4%20class=%22slds-text-align_center%22%3E%3Cspan%20class=%22slds-text-body_regular%20slds-text-color_default%20slds-text-heading_medium%22%20style=%22color:%20#000000;%22%3E%7BLabel.CPQNoItemsFound%7D%3C/span%3E%3C/h4%3E%0A%3Cp%20class=%22slds-text-align_center%22%3E%3Cspan%20class=%22slds-text-body_regular%20slds-text-color_default%22%20style=%22color:%20#3e3e3c;%22%3E%7BLabel.CPQNoItemsFoundMessageDescription%7D%3C/span%3E%3C/p%3E",
+                                "record": "{record}"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "text"
+                        }
+                    ]
+                }
+            },
+            "conditions": {
+                "group": [
+                    {
+                        "field": "Parent.pricelistId",
+                        "hasMergeField": false,
+                        "id": "state-new-condition-0",
+                        "operator": "==",
+                        "type": "custom",
+                        "value": "undefined"
+                    },
+                    {
+                        "field": "Parent.pricelistId",
+                        "hasMergeField": false,
+                        "id": "state-new-condition-9",
+                        "logicalOperator": "||",
+                        "operator": "==",
+                        "type": "custom",
+                        "value": ""
+                    },
+                    {
+                        "field": "result.totalSize",
+                        "hasMergeField": false,
+                        "id": "state-new-condition-16",
+                        "logicalOperator": "||",
+                        "operator": "==",
+                        "type": "custom",
+                        "value": "0"
+                    },
+                    {
+                        "field": "result.totalSize",
+                        "hasMergeField": false,
+                        "id": "state-new-condition-29",
+                        "logicalOperator": "||",
+                        "operator": "==",
+                        "type": "custom",
+                        "value": "undefined"
+                    }
+                ],
+                "id": "state-condition-object",
+                "isParent": true
+            },
+            "documents": [
+            ],
+            "fields": [
+            ],
+            "isSmartAction": false,
+            "name": "Empty State",
+            "omniscripts": [
+            ],
+            "smartAction": {
+            },
+            "styleObject": {
+                "background": {
+                    "color": "",
+                    "image": "",
+                    "position": "",
+                    "repeat": "",
+                    "size": ""
+                },
+                "border": {
+                    "color": "",
+                    "radius": "",
+                    "style": "",
+                    "type": "",
+                    "width": ""
+                },
+                "class": "cpq__products-promotions_empty slds-p-around_x-small slds-m-bottom_x-small ",
+                "container": {
+                    "class": "cpq__products-promotions_empty"
+                },
+                "elementStyleProperties": {
+                },
+                "inlineStyle": "",
+                "margin": [
+                    {
+                        "label": "bottom:x-small",
+                        "size": "x-small",
+                        "type": "bottom"
+                    }
+                ],
+                "padding": [
+                    {
+                        "label": "around:x-small",
+                        "size": "x-small",
+                        "type": "around"
+                    }
+                ],
+                "size": {
+                    "default": "12",
+                    "isResponsive": false
+                },
+                "sizeClass": "slds-size_12-of-12 ",
+                "style": "      \n         ",
+                "text": {
+                    "align": "",
+                    "color": ""
+                }
+            }
+        },
         {
             "actions": [
             ],
@@ -467,6 +699,15 @@
                         "operator": "==",
                         "type": "custom",
                         "value": "-2"
+                    },
+                    {
+                        "field": "result.totalSize",
+                        "hasMergeField": false,
+                        "id": "state-new-condition-0",
+                        "logicalOperator": "&&",
+                        "operator": ">",
+                        "type": "custom",
+                        "value": "0"
                     }
                 ],
                 "id": "state-condition-object",
@@ -551,6 +792,7 @@
                                     "phase": "{Parent.phase}",
                                     "qualifiedFilter": "{Parent.category}",
                                     "query": "{Parent.query}",
+                                    "type": "{Parent.type}",
                                     "view": "{Parent.view}"
                                 },
                                 "recordId": "{recordId}",
@@ -658,6 +900,15 @@
                         "operator": "!=",
                         "type": "custom",
                         "value": "-2"
+                    },
+                    {
+                        "field": "result.totalSize",
+                        "hasMergeField": false,
+                        "id": "state-new-condition-10",
+                        "logicalOperator": "&&",
+                        "operator": ">",
+                        "type": "custom",
+                        "value": "0"
                     }
                 ],
                 "id": "state-condition-object",

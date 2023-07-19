@@ -69,8 +69,7 @@
             ],
             "childCards": [
                 "cpqAppliedDiscounts",
-                "cpqDiscountList",
-                "cpqCreateCustomDiscountModal"
+                "cpqDiscountList"
             ],
             "components": {
                 "layer-0": {
@@ -294,7 +293,7 @@
                                                 "cardNode": "",
                                                 "isChildCardTrackingEnabled": false,
                                                 "parentAttribute": {
-                                                    "cartId": "{recordId}"
+                                                    "cartId": "{Parent.cartId}"
                                                 },
                                                 "recordId": "{recordId}",
                                                 "selectedState": "Active"
@@ -903,7 +902,7 @@
                                                 },
                                                 "isChildCardTrackingEnabled": false,
                                                 "parentAttribute": {
-                                                    "cartId": "{recordId}",
+                                                    "cartId": "{Parent.cartId}",
                                                     "discountType": "{isQualifiedTabSelected}"
                                                 },
                                                 "recordId": "{recordId}",
@@ -1081,29 +1080,73 @@
                                             "name": "Action",
                                             "parentElementKey": "element_element_block_1_0_block_2_0",
                                             "property": {
+                                                "actionList": [
+                                                    {
+                                                        "actionIndex": 0,
+                                                        "buttonVariant": "brand",
+                                                        "card": "{card}",
+                                                        "displayAsButton": true,
+                                                        "draggable": true,
+                                                        "hideActionIcon": false,
+                                                        "iconColor": "#FFFFFF",
+                                                        "isOpen": true,
+                                                        "key": "1650372971185-b73lqgump",
+                                                        "label": "Open Custom Discount Flyout",
+                                                        "reRenderFlyout": true,
+                                                        "record": "{record}",
+                                                        "stateAction": {
+                                                            "cardName": "cpqCreateCustomDiscountModal",
+                                                            "cardNode": "",
+                                                            "channelName": "close_modal_custom_discount",
+                                                            "displayName": "{Label.CPQCreateCustomDiscount}",
+                                                            "flyoutLwc": "cpqCreateCustomDiscountModal",
+                                                            "flyoutParams": {
+                                                                "cartId": "{Parent.cartId}"
+                                                            },
+                                                            "flyoutType": "childCard",
+                                                            "hasExtraParams": true,
+                                                            "id": "flex-action-1650372972920",
+                                                            "openFlyoutIn": "Modal",
+                                                            "openUrlIn": "Current Window",
+                                                            "type": "Flyout",
+                                                            "vlocityIcon": "utility:add"
+                                                        },
+                                                        "stateObj": "{record}"
+                                                    },
+                                                    {
+                                                        "actionIndex": 1,
+                                                        "card": "{card}",
+                                                        "draggable": true,
+                                                        "isOpen": true,
+                                                        "key": "1658063503286-mrbkvf58k",
+                                                        "label": "Fire open event",
+                                                        "stateAction": {
+                                                            "displayName": "Action",
+                                                            "eventName": "cpq_{recordId}",
+                                                            "id": "flex-action-1658063524733",
+                                                            "message": "open_modal_custom_discount",
+                                                            "openUrlIn": "Current Window",
+                                                            "subType": "PubSub",
+                                                            "type": "Event",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    }
+                                                ],
                                                 "buttonVariant": "brand",
                                                 "card": "{card}",
                                                 "displayAsButton": true,
+                                                "flyoutChannel": "close_modal_custom_discount",
+                                                "flyoutDetails": {
+                                                    "openFlyoutIn": "Modal"
+                                                },
                                                 "hideActionIcon": false,
                                                 "iconColor": "#FFFFFF",
+                                                "iconName": "utility:add",
+                                                "iconSize": "x-small",
+                                                "label": "{Label.CPQCreateCustomDiscount}",
                                                 "reRenderFlyout": true,
                                                 "record": "{record}",
-                                                "stateAction": {
-                                                    "cardName": "cpqCreateCustomDiscountModal",
-                                                    "cardNode": "",
-                                                    "displayName": "{Label.CPQCreateCustomDiscount}",
-                                                    "flyoutLwc": "cpqCreateCustomDiscountModal",
-                                                    "flyoutParams": {
-                                                        "cartId": "{Parent.cartId}"
-                                                    },
-                                                    "flyoutType": "childCard",
-                                                    "hasExtraParams": true,
-                                                    "id": "flex-action-1628582641341",
-                                                    "openFlyoutIn": "Modal",
-                                                    "openUrlIn": "Current Window",
-                                                    "type": "Flyout",
-                                                    "vlocityIcon": "utility:add"
-                                                },
+                                                "showSpinner": "false",
                                                 "stateObj": "{record}"
                                             },
                                             "size": {
@@ -1131,7 +1174,8 @@
                                                     "class": ""
                                                 },
                                                 "elementStyleProperties": {
-                                                    "iconColor": "#FFFFFF"
+                                                    "iconColor": "#FFFFFF",
+                                                    "iconSize": "x-small"
                                                 },
                                                 "inlineStyle": "",
                                                 "margin": [
@@ -1177,7 +1221,8 @@
                                                             "class": ""
                                                         },
                                                         "elementStyleProperties": {
-                                                            "iconColor": "#FFFFFF"
+                                                            "iconColor": "#FFFFFF",
+                                                            "iconSize": "x-small"
                                                         },
                                                         "inlineStyle": "",
                                                         "margin": [

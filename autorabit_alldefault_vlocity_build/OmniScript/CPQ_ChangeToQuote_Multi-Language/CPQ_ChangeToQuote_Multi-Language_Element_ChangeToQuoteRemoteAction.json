@@ -11,6 +11,7 @@
         "businessCategory": "",
         "businessEvent": "",
         "controlWidth": 12,
+        "disOnTplt": false,
         "enableActionMessage": false,
         "enableDefaultAbort": false,
         "errorMessage": {
@@ -18,15 +19,17 @@
             ],
             "default": "CPQPriceListMismatchError"
         },
+        "errorMessage:default": "CPQPriceListMismatchError",
         "extraPayload": {
             "accountId": "%ContextId%",
             "assetIdList": "%AssetIds%",
+            "assetsData": "%assetsData%",
             "isAssetsFromMultiAccount": true,
             "listTypeAsset": "all",
             "quoteId": "%QuoteId%"
         },
-        "failureAbortLabel": "",
-        "failureAbortMessage": "",
+        "failureAbortLabel": null,
+        "failureAbortMessage": null,
         "failureGoBackLabel": "GoBack",
         "failureNextLabel": "Continue",
         "inProgressMessage": "InProgress",
@@ -37,10 +40,10 @@
         "postTransformBundle": "",
         "preTransformBundle": "",
         "pubsub": false,
-        "redirectNextLabel": "",
+        "redirectNextLabel": null,
         "redirectNextWidth": 3,
         "redirectPageName": "",
-        "redirectPreviousLabel": "",
+        "redirectPreviousLabel": null,
         "redirectPreviousWidth": 3,
         "redirectTemplateUrl": "vlcAcknowledge.html",
         "remoteClass": "OmniChangeToQuoteWrapper",
@@ -55,7 +58,18 @@
         "sendJSONNode": "",
         "sendJSONPath": "",
         "sendOnlyExtraPayload": false,
-        "show": null,
+        "show": {
+            "group": {
+                "operator": "AND",
+                "rules": [
+                    {
+                        "condition": "<>",
+                        "data": null,
+                        "field": "AssetIds"
+                    }
+                ]
+            }
+        },
         "showPersistentComponent": [
             true,
             false

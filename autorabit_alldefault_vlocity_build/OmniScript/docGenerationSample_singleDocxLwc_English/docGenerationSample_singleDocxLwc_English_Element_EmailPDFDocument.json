@@ -75,9 +75,43 @@
                 "operator": "AND",
                 "rules": [
                     {
+                        "group": {
+                            "operator": "OR",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "false",
+                                    "field": "inTest"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "",
+                                    "field": "inTest"
+                                }
+                            ]
+                        }
+                    },
+                    {
                         "condition": "=",
                         "data": "true",
                         "field": "isPDFAttachDone"
+                    },
+                    {
+                        "group": {
+                            "operator": "OR",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "pdf",
+                                    "field": "downloadFileFormat"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "all",
+                                    "field": "downloadFileFormat"
+                                }
+                            ]
+                        }
                     }
                 ]
             }

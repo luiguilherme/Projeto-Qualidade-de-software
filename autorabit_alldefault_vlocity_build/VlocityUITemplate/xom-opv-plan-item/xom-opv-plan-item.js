@@ -8,7 +8,25 @@ vlocity.cardframework.registerModule
             if(customTaskExecUrl) {
                 url = customTaskExecUrl;
                 console.log('customTaskExecUrl', customTaskExecUrl);
-                url=url.toString().replace("ContextId/{0}","ContextId/"+itemId);
+                url=url.toString();
+                if (url.includes('ContextId/{0}'))
+                {
+                    url = url.replace('ContextId/{0}', 'ContextId/' + itemId);
+                }
+                else if (url.includes('ContextId={0}')) {
+                    url = url.replace('ContextId={0}', '&ContextId=' + itemId);
+                }
+                else if (url.includes('LWCOmniWrapper') && !url.includes('&c__ContextId=')) {
+                    url = url + '&c__ContextId=' + itemId;
+                }
+                else if (!url.includes('?'))
+                {
+                    url = url + '?orchItemId=' + itemId;
+                }
+                else {
+                    url = url+ '&orchItemId=' + itemId;
+                }
+                console.log('Omniscript Launch URL', url);
             } else {
                 var isExternalId = !isNaN(parseFloat(itemId)) && isFinite(itemId);
                 if(!isExternalId)

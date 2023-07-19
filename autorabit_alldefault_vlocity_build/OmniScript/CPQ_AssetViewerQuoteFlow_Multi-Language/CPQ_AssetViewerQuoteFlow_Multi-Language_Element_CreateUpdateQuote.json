@@ -20,7 +20,11 @@
         "extraPayload": {
             "CreateSelectQuote": {
                 "AssetIds": "%AssetIds%",
-                "ContextId": "%ContextId%"
+                "ContextId": "%ContextId%",
+                "filterString": "%filterString%",
+                "query": "%query%",
+                "searchBy": "%searchBy%",
+                "selectAllResults": "%selectAllResults%"
             }
         },
         "failureAbortLabel": null,
@@ -53,7 +57,23 @@
         "responseJSONPath": "",
         "sendJSONNode": "",
         "sendJSONPath": "CreateSelectQuote",
-        "show": null,
+        "show": {
+            "group": {
+                "operator": "AND",
+                "rules": [
+                    {
+                        "condition": "<>",
+                        "data": "changePlan",
+                        "field": "selectActionType"
+                    },
+                    {
+                        "condition": "<>",
+                        "data": "moveAssets",
+                        "field": "selectActionType"
+                    }
+                ]
+            }
+        },
         "showPersistentComponent": [
             true,
             false

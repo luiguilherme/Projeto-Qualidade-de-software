@@ -18,6 +18,7 @@
                 "cartId": "{recordId}"
             },
             "ipMethod": "CPQ_GetAppliedDiscounts",
+            "jsonMap": "{\"recordId\":\"{recordId}\"}",
             "resultVar": "",
             "vlocityAsync": false
         }
@@ -52,16 +53,57 @@
             "eventname": "cpq_discount_apply_response",
             "eventtype": "pubsub",
             "key": "event-0",
-            "recordIndex": "0"
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1657867559854-4ez9ehx2z",
+                    "label": "Open Discount Info Modal",
+                    "stateAction": {
+                        "cardName": "cpqApplyDiscountInfoModal",
+                        "cardNode": "",
+                        "channelName": "close_modal_discount_info",
+                        "displayName": "Action",
+                        "flyoutLwc": "cpqApplyDiscountInfoModal",
+                        "flyoutParams": {
+                            "cartId": "{Parent.cartId}",
+                            "data": "{action.data}",
+                            "discountType": "custom"
+                        },
+                        "flyoutType": "childCard",
+                        "hasExtraParams": true,
+                        "id": "flex-action-1657880195910",
+                        "openFlyoutIn": "Modal",
+                        "openUrlIn": "Current Window",
+                        "type": "Flyout",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "cpq_{recordId}",
+            "displayLabel": "cpq_{recordId}:open_discount_info_modal",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "open_discount_info_modal",
+            "eventtype": "pubsub",
+            "key": "event-1",
+            "recordIndex": "0",
+            "showSpinner": "false"
         }
     ],
     "globalCSS": false,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfCpqCreateCustomDiscountModal_1_Vlocity",
-        "Id": "0Rb5e000001ahSnCAI",
+        "DeveloperName": "cfCpqCreateCustomDiscountModal_4_Vlocity",
+        "Id": "0Rb5g000000SrGlCAK",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfCpqCreateCustomDiscountModal_1_Vlocity",
+        "MasterLabel": "cfCpqCreateCustomDiscountModal_4_Vlocity",
         "NamespacePrefix": "%vlocity_namespace%"
     },
     "multilanguageSupport": true,
@@ -1067,6 +1109,34 @@
                                     "name": "Action",
                                     "parentElementKey": "element_block_2_0",
                                     "property": {
+                                        "actionList": [
+                                            {
+                                                "actionIndex": 1,
+                                                "card": "{card}",
+                                                "draggable": true,
+                                                "isOpen": false,
+                                                "key": "1657615879614-bp04z7qrh",
+                                                "label": "Action - Validate Input Values",
+                                                "stateAction": {
+                                                    "displayName": "Action",
+                                                    "eventName": "cpqutils_{recordId}",
+                                                    "extraParams": {
+                                                        "cartId": "{Parent.cartId}",
+                                                        "data": "{response}",
+                                                        "ipMethod": "CPQ_ApplyDiscount",
+                                                        "onlyValidateInput": "true",
+                                                        "utilMethod": "createDiscountSubmit"
+                                                    },
+                                                    "hasExtraParams": true,
+                                                    "id": "flex-action-1657616996311",
+                                                    "message": "cpq_ui_event",
+                                                    "openUrlIn": "Current Window",
+                                                    "subType": "PubSub",
+                                                    "type": "Event",
+                                                    "vlocityIcon": "standard-default"
+                                                }
+                                            }
+                                        ],
                                         "buttonVariant": "brand",
                                         "card": "{card}",
                                         "data-conditions": {
@@ -1084,25 +1154,15 @@
                                             "isParent": true
                                         },
                                         "displayAsButton": true,
-                                        "hideActionIcon": true,
-                                        "record": "{record}",
-                                        "stateAction": {
-                                            "displayName": "{Label.SaveAndApply}",
-                                            "eventName": "cpqutils_{recordId}",
-                                            "extraParams": {
-                                                "cartId": "{recordId}",
-                                                "data": "{response}",
-                                                "ipMethod": "CPQ_ApplyDiscount",
-                                                "utilMethod": "createDiscountSubmit"
-                                            },
-                                            "hasExtraParams": true,
-                                            "id": "flex-action-1626185726038",
-                                            "message": "cpq_ui_event",
-                                            "openUrlIn": "Current Window",
-                                            "subType": "PubSub",
-                                            "type": "Event",
-                                            "vlocityIcon": "standard-default"
+                                        "flyoutChannel": "close_modal",
+                                        "flyoutDetails": {
                                         },
+                                        "hideActionIcon": true,
+                                        "iconName": "standard-default",
+                                        "label": "\\{Label.SaveAndApply}",
+                                        "reRenderFlyout": true,
+                                        "record": "{record}",
+                                        "showSpinner": "false",
                                         "stateObj": "{record}"
                                     },
                                     "size": {
@@ -1128,9 +1188,9 @@
                                             "type": "",
                                             "width": ""
                                         },
-                                        "class": "slds-text-align_right ",
+                                        "class": "slds-text-align_right cpq__apply-discount_info-modal ",
                                         "container": {
-                                            "class": ""
+                                            "class": "cpq__apply-discount_info-modal"
                                         },
                                         "customClass": "",
                                         "elementStyleProperties": {
@@ -1148,7 +1208,7 @@
                                             "small": "12"
                                         },
                                         "sizeClass": "slds-large-size_12-of-12 slds-medium-size_12-of-12 slds-small-size_12-of-12 slds-size_12-of-12 ",
-                                        "style": "     : #ccc 1px solid; \n         ",
+                                        "style": "      \n         ",
                                         "text": {
                                             "align": "right",
                                             "color": ""
@@ -1177,9 +1237,9 @@
                                                     "type": "",
                                                     "width": ""
                                                 },
-                                                "class": "slds-text-align_right ",
+                                                "class": "slds-text-align_right cpq__apply-discount_info-modal ",
                                                 "container": {
-                                                    "class": ""
+                                                    "class": "cpq__apply-discount_info-modal"
                                                 },
                                                 "customClass": "",
                                                 "elementStyleProperties": {
@@ -1197,7 +1257,7 @@
                                                     "small": "12"
                                                 },
                                                 "sizeClass": "slds-large-size_12-of-12 slds-medium-size_12-of-12 slds-small-size_12-of-12 slds-size_12-of-12 ",
-                                                "style": "     : #ccc 1px solid; \n         ",
+                                                "style": "      \n         ",
                                                 "text": {
                                                     "align": "right",
                                                     "color": ""

@@ -26,7 +26,7 @@
         "dataType": "Boolean",
         "dateFormat": "MM-dd-yyyy",
         "disOnTplt": false,
-        "expression": "OR(%orderStartRequestDateTime%=NULL,IF(DATE(YEAR(%orderStartRequestDateTime%),MONTH(%orderStartRequestDateTime%),DAYOFMONTH(%orderStartRequestDateTime%)) < TODAY() , false, IF(DATE(YEAR(%orderStartRequestDateTime%),MONTH(%orderStartRequestDateTime%),DAYOFMONTH(%orderStartRequestDateTime%)) = TODAY(), IF(HOUR(%orderStartRequestDateTime%) < HOUR(NOW()), false, IF(MINUTE(%orderStartRequestDateTime%) < MINUTE(NOW()),false,true),true),true)))",
+        "expression": "OR (\n\t%orderStartRequestDateTime%=NULL,\n\tIF(\n\t\tDATE(\n\t\t\t\tYEAR(%orderStartRequestDateTime%),MONTH(%orderStartRequestDateTime%),DAYOFMONTH(%orderStartRequestDateTime%)\n\t\t\t) < TODAY(), \n\t\tfalse, \n\t\tIF(\n\t\t\tDATE(\n\t\t\t\t\tYEAR(%orderStartRequestDateTime%),MONTH(%orderStartRequestDateTime%),DAYOFMONTH(%orderStartRequestDateTime%)\n\t\t\t\t) = TODAY(),\n\t\t\tIF(\n\t\t\t\tHOUR(%orderStartRequestDateTime%) < HOUR(NOW()), \n\t\t\t\tfalse, \n\t\t\t\tIF(\n\t\t\t\t\tHOUR(%orderStartRequestDateTime%) = HOUR(NOW()), \n\t\t\t\t\tIF(\n\t\t\t\t\t\tMINUTE(%orderStartRequestDateTime%) < MINUTE(NOW()),\n\t\t\t\t\t\tfalse,\n\t\t\t\t\t\ttrue\n\t\t\t\t\t),\n\t\t\t\t\ttrue\n\t\t\t\t)\n\t\t\t),\n\t\t\ttrue\n\t\t)\n\t)\n)",
         "hide": true,
         "hideGroupSep": false,
         "inputWidth": 12,

@@ -44,7 +44,6 @@
     "states": [
         {
             "actions": [
-                "Home"
             ],
             "childCards": [
                 "cpqSubmitButtonHeader",
@@ -189,7 +188,7 @@
                                             "id": "state-condition-object",
                                             "isParent": true
                                         },
-                                        "mergeField": "%3Cdiv%3E%3Cstrong%3E%3Cspan%20style=%22font-size:%2012pt;%22%3E%7BLabel.CPQOrder%7D%3C/span%3E%3C/strong%3E%3C/div%3E%0A%3Cdiv%3E%3Cstrong%3E%3Cstrong%3E%3Cspan%20style=%22font-size:%2012pt;%22%3E%7BParent.details.records%5B0%5D.OrderNumber%7D%3C/span%3E%3C/strong%3E%3C/strong%3E%3C/div%3E",
+                                        "mergeField": "%3Ch1%3E%3Cstrong%3E%3Cspan%20style=%22font-size:%2012pt;%22%3E%7BLabel.CPQOrder%7D%3C/span%3E%3C/strong%3E%3C/h1%3E%0A%3Ch1%3E%3Cstrong%3E%3Cstrong%3E%3Cspan%20style=%22font-size:%2012pt;%22%3E%7BParent.details.records%5B0%5D.OrderNumber%7D%3C/span%3E%3C/strong%3E%3C/strong%3E%3C/h1%3E",
                                         "record": "{record}"
                                     },
                                     "size": {
@@ -212,9 +211,9 @@
                                             "type": "",
                                             "width": ""
                                         },
-                                        "class": "object-id-text",
+                                        "class": "cpq__cart_title object-id-text",
                                         "container": {
-                                            "class": ""
+                                            "class": "cpq__cart_title"
                                         },
                                         "customClass": "object-id-text",
                                         "elementStyleProperties": {
@@ -229,12 +228,60 @@
                                             "isResponsive": false
                                         },
                                         "sizeClass": "slds-size_3-of-12 ",
-                                        "style": "     : #ccc 1px solid; \n         ",
+                                        "style": "      \n         ",
                                         "text": {
                                             "align": "",
                                             "color": ""
                                         }
                                     },
+                                    "styleObjects": [
+                                        {
+                                            "conditionString": "",
+                                            "conditions": "default",
+                                            "draggable": false,
+                                            "key": 0,
+                                            "label": "Default",
+                                            "name": "Default",
+                                            "styleObject": {
+                                                "background": {
+                                                    "color": "",
+                                                    "image": "",
+                                                    "position": "",
+                                                    "repeat": "",
+                                                    "size": ""
+                                                },
+                                                "border": {
+                                                    "color": "",
+                                                    "radius": "",
+                                                    "style": "",
+                                                    "type": "",
+                                                    "width": ""
+                                                },
+                                                "class": "cpq__cart_title object-id-text",
+                                                "container": {
+                                                    "class": "cpq__cart_title"
+                                                },
+                                                "customClass": "object-id-text",
+                                                "elementStyleProperties": {
+                                                },
+                                                "inlineStyle": "",
+                                                "margin": [
+                                                ],
+                                                "padding": [
+                                                ],
+                                                "size": {
+                                                    "default": "3",
+                                                    "isResponsive": false
+                                                },
+                                                "sizeClass": "slds-size_3-of-12 ",
+                                                "style": "      \n         ",
+                                                "text": {
+                                                    "align": "",
+                                                    "color": ""
+                                                }
+                                            }
+                                        }
+                                    ],
                                     "type": "text"
                                 },
                                 {
@@ -251,7 +298,9 @@
                                                 "cardNode": "{record}",
                                                 "isChildCardTrackingEnabled": false,
                                                 "parentAttribute": {
-                                                    "details": "{Parent.details}"
+                                                    "details": "{Parent.details}",
+                                                    "isAsyncProcessCompleted": "{Parent.isAsyncProcessCompleted}",
+                                                    "isAsyncProcessesPresent": "{Parent.isAsyncProcessesPresent}"
                                                 },
                                                 "recordId": "{recordId}",
                                                 "selectedState": "Submit Order"
@@ -371,7 +420,9 @@
                                                 "cardNode": "{record}",
                                                 "isChildCardTrackingEnabled": false,
                                                 "parentAttribute": {
-                                                    "details": "{Parent.details}"
+                                                    "details": "{Parent.details}",
+                                                    "isAsyncProcessCompleted": "{Parent.isAsyncProcessCompleted}",
+                                                    "isAsyncProcessesPresent": "{Parent.isAsyncProcessesPresent}"
                                                 },
                                                 "recordId": "{recordId}",
                                                 "selectedState": "Order 1"
@@ -856,6 +907,20 @@
                                         "card": "{card}",
                                         "collapsedByDefault": false,
                                         "collapsible": false,
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "AccountName",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-0",
+                                                    "operator": "!=",
+                                                    "type": "custom",
+                                                    "value": "undefined"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
                                         "label": "Block",
                                         "record": "{record}"
                                     },
@@ -1547,6 +1612,14 @@
                                         "collapsible": false,
                                         "data-conditions": {
                                             "group": [
+                                                {
+                                                    "field": "Parent.isMultisiteFlow",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-0",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "false"
+                                                }
                                             ],
                                             "id": "state-condition-object",
                                             "isParent": true
@@ -2439,7 +2512,7 @@
                                             "id": "state-condition-object",
                                             "isParent": true
                                         },
-                                        "mergeField": "%3Cdiv%3E%3Cstrong%3E%3Cspan%20style=%22font-size:%2012pt;%22%3E%7BLabel.CPQOrder%7D%3C/span%3E%3C/strong%3E%3C/div%3E%0A%3Cdiv%3E%3Cstrong%3E%3Cspan%20style=%22font-size:%2012pt;%22%3E%7BParent.details.records%5B0%5D.OrderNumber%7D%3C/span%3E%3C/strong%3E%3C/div%3E",
+                                        "mergeField": "%3Ch1%3E%3Cstrong%3E%3Cspan%20style=%22font-size:%2012pt;%22%3E%7BLabel.CPQOrder%7D%3C/span%3E%3C/strong%3E%3C/h1%3E%0A%3Ch1%3E%3Cstrong%3E%3Cspan%20style=%22font-size:%2012pt;%22%3E%7BParent.details.records%5B0%5D.OrderNumber%7D%3C/span%3E%3C/strong%3E%3C/h1%3E",
                                         "record": "{record}"
                                     },
                                     "size": {
@@ -2462,9 +2535,9 @@
                                             "type": "",
                                             "width": ""
                                         },
-                                        "class": "object-id-text",
+                                        "class": "cpq__cart_title object-id-text",
                                         "container": {
-                                            "class": ""
+                                            "class": "cpq__cart_title"
                                         },
                                         "customClass": "object-id-text",
                                         "elementStyleProperties": {
@@ -2479,12 +2552,60 @@
                                             "isResponsive": false
                                         },
                                         "sizeClass": "slds-size_3-of-12 ",
-                                        "style": "     : #ccc 1px solid; \n         ",
+                                        "style": "      \n         ",
                                         "text": {
                                             "align": "",
                                             "color": ""
                                         }
                                     },
+                                    "styleObjects": [
+                                        {
+                                            "conditionString": "",
+                                            "conditions": "default",
+                                            "draggable": false,
+                                            "key": 0,
+                                            "label": "Default",
+                                            "name": "Default",
+                                            "styleObject": {
+                                                "background": {
+                                                    "color": "",
+                                                    "image": "",
+                                                    "position": "",
+                                                    "repeat": "",
+                                                    "size": ""
+                                                },
+                                                "border": {
+                                                    "color": "",
+                                                    "radius": "",
+                                                    "style": "",
+                                                    "type": "",
+                                                    "width": ""
+                                                },
+                                                "class": "cpq__cart_title object-id-text",
+                                                "container": {
+                                                    "class": "cpq__cart_title"
+                                                },
+                                                "customClass": "object-id-text",
+                                                "elementStyleProperties": {
+                                                },
+                                                "inlineStyle": "",
+                                                "margin": [
+                                                ],
+                                                "padding": [
+                                                ],
+                                                "size": {
+                                                    "default": "3",
+                                                    "isResponsive": false
+                                                },
+                                                "sizeClass": "slds-size_3-of-12 ",
+                                                "style": "      \n         ",
+                                                "text": {
+                                                    "align": "",
+                                                    "color": ""
+                                                }
+                                            }
+                                        }
+                                    ],
                                     "type": "text"
                                 },
                                 {
@@ -2621,7 +2742,9 @@
                                                 "cardNode": "{record}",
                                                 "isChildCardTrackingEnabled": false,
                                                 "parentAttribute": {
-                                                    "details": "{Parent.details}"
+                                                    "details": "{Parent.details}",
+                                                    "isAsyncProcessCompleted": "{Parent.isAsyncProcessCompleted}",
+                                                    "isAsyncProcessesPresent": "{Parent.isAsyncProcessesPresent}"
                                                 },
                                                 "recordId": "{recordId}",
                                                 "selectedState": "Order 1"
@@ -3054,6 +3177,14 @@
                                         "collapsible": false,
                                         "data-conditions": {
                                             "group": [
+                                                {
+                                                    "field": "AccountName",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-7",
+                                                    "operator": "!=",
+                                                    "type": "custom",
+                                                    "value": "undefined"
+                                                }
                                             ],
                                             "id": "state-condition-object",
                                             "isParent": true
@@ -3842,6 +3973,14 @@
                                         "collapsible": false,
                                         "data-conditions": {
                                             "group": [
+                                                {
+                                                    "field": "Parent.isMultisiteFlow",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-14",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "false"
+                                                }
                                             ],
                                             "id": "state-condition-object",
                                             "isParent": true
@@ -4940,34 +5079,6 @@
                                     "align": "center",
                                     "color": ""
                                 }
-                            },
-                            "type": "element"
-                        },
-                        {
-                            "class": "slds-col ",
-                            "element": "action",
-                            "elementLabel": "Action-8",
-                            "name": "Action",
-                            "property": {
-                                "card": "{card}",
-                                "record": "{record}",
-                                "stateAction": {
-                                    "displayName": "Action",
-                                    "id": "flex-action-1610469288632",
-                                    "name": "Home",
-                                    "openUrlIn": "Current Window",
-                                    "type": "Vlocity Action",
-                                    "vlocityIcon": "standard-default"
-                                },
-                                "stateObj": "{record}"
-                            },
-                            "size": {
-                                "default": "12",
-                                "isResponsive": false
-                            },
-                            "stateIndex": 0,
-                            "styleObject": {
-                                "sizeClass": "slds-size_12-of-12"
                             },
                             "type": "element"
                         }

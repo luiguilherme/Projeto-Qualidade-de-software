@@ -1,0 +1,125 @@
+{
+    "GlobalKey__c": "teste/DeloitteLATAM/1/1635537774868",
+    "dataSource": {
+        "type": null,
+        "value": {
+        }
+    },
+    "enableLwc": true,
+    "filter": {
+        "['objAPIName']": "%vlocity_namespace%"
+    },
+    "sessionVars": [
+        {
+            "name": "iconName",
+            "val": "custom:custom15"
+        }
+    ],
+    "states": [
+        {
+            "collapse": true,
+            "conditions": {
+                "group": [
+                    {
+                        "field": "$scope.data.status",
+                        "operator": "===",
+                        "type": "system",
+                        "value": "'active'"
+                    }
+                ]
+            },
+            "definedActions": {
+                "actions": [
+                ]
+            },
+            "fields": [
+                {
+                    "collapse": true,
+                    "displayLabel": "<<Custom Field>>",
+                    "editing": false,
+                    "fieldType": "custom",
+                    "label": "Tipo",
+                    "name": "['highlight']",
+                    "type": "string"
+                }
+            ],
+            "flyout": {
+                "lwc": {
+                    "DeveloperName": "storyEditStateFlyout",
+                    "Id": "0Rb5f000000aSbQCAU",
+                    "MasterLabel": "storyEditStateFlyout",
+                    "NamespacePrefix": "%vlocity_namespace%",
+                    "name": "storyEditStateFlyout"
+                }
+            },
+            "flyoutAttributes": [
+                {
+                    "name": "parent",
+                    "val": "$scope.obj"
+                }
+            ],
+            "isSmartAction": false,
+            "lwc": {
+                "DeveloperName": "storyOngoingState",
+                "Id": "0Rb5f000000aSbSCAU",
+                "MasterLabel": "storyOngoingState",
+                "NamespacePrefix": "%vlocity_namespace%",
+                "name": "storyOngoingState"
+            },
+            "name": "Customer Interaction Onging",
+            "sObjectType": "%vlocity_namespace%__CustomerInteraction__c",
+            "smartAction": {
+            }
+        },
+        {
+            "collapse": true,
+            "conditions": {
+                "group": [
+                    {
+                        "field": "$scope.data.status",
+                        "operator": "===",
+                        "type": "system",
+                        "value": "'active'"
+                    },
+                    {
+                        "field": "['onGoing']",
+                        "logicalOperator": "&&",
+                        "operator": "===",
+                        "type": "custom",
+                        "value": "true"
+                    }
+                ]
+            },
+            "definedActions": {
+                "actions": [
+                ]
+            },
+            "disableAddCondition": false,
+            "fields": [
+                {
+                    "collapse": true,
+                    "displayLabel": "<<Custom Field>>",
+                    "editing": false,
+                    "fieldType": "custom",
+                    "label": "Tipo",
+                    "name": "['highlight']",
+                    "type": "string"
+                }
+            ],
+            "filter": "$scope.data.status === 'active' && $scope.obj['onGoing'] === true",
+            "isSmartAction": false,
+            "lwc": {
+                "DeveloperName": "storyNormalState",
+                "Id": "0Rb5f000000aSbRCAU",
+                "MasterLabel": "storyNormalState",
+                "NamespacePrefix": "%vlocity_namespace%",
+                "name": "storyNormalState"
+            },
+            "name": "Customer Interaction",
+            "sObjectType": "%vlocity_namespace%__CustomerInteraction__c",
+            "smartAction": {
+            }
+        }
+    ],
+    "title": "teste"
+}

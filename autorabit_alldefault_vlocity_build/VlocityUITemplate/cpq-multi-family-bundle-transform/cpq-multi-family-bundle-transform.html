@@ -33,6 +33,7 @@
                 <div class="slds-p-bottom_small cpq-multiplay-text-wrap">
                     <div ng-if="transformItem.record.info.parentName" cpq-translate="Product2.Name" ng-attr-title="{{importedScope.getProductTitle(transformItem.record.info)}}" class="cpq-multiplay-parent-bundle cpq-large-name-text-wrap cpq-block-element">{{transformItem.record.info.parentName}}</div>
                     <div class="cpq-large-name-text-wrap cpq-block-element" ng-class="{'cpq-multiplay-child-bundle':!transformItem.record.info.parentName}"> <span cpq-translate="Product2.Name" ng-attr-title="{{importedScope.getProductTitle(transformItem.record.info)}}">{{transformItem.record.info.productName}}</div>
+                    <div ng-if="transformItem.record.info && transformItem.record.info.messages && transformItem.record.info.messages[0].message" class="cpq-multiplay-parent-bundle-error">{{transformItem.record.info.messages[0].message}}</div>
                 </div>
                 <!--Action dropdown -->
                     <div class="slds-form-element cpq-pricing-picklist" ng-init="actionSelected = transformItem.record.info.Action.selectedActionType">

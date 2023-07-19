@@ -12,10 +12,10 @@
         "businessCategory": "",
         "businessEvent": "",
         "cancelLabel": "Cancel",
-        "cancelMessage": "",
+        "cancelMessage": null,
         "chartLabel": null,
-        "completeLabel": "",
-        "completeMessage": "",
+        "completeLabel": null,
+        "completeMessage": null,
         "conditionType": "Hide if False",
         "errorMessage": {
             "custom": [
@@ -31,7 +31,7 @@
             "remoteTimeout": 30000,
             "typeFilter": ""
         },
-        "label": "",
+        "label": null,
         "message": {
         },
         "nextLabel": "Next",
@@ -54,6 +54,35 @@
                         "condition": "=",
                         "data": "",
                         "field": "OrderId"
+                    },
+                    {
+                        "group": {
+                            "operator": "OR",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "changeAssets",
+                                    "field": "selectActionType"
+                                },
+                                {
+                                    "group": {
+                                        "operator": "AND",
+                                        "rules": [
+                                            {
+                                                "condition": "=",
+                                                "data": "moveAssets",
+                                                "field": "selectActionType"
+                                            },
+                                            {
+                                                "condition": "<>",
+                                                "data": "true",
+                                                "field": "isMultipleAssetsSelected"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
                     }
                 ]
             }
