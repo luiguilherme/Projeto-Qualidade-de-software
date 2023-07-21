@@ -107,6 +107,7 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
         String product_type;
         List<WrapperAPI> lstSubproducts = new List<WrapperAPI>();
         Set<String> setProducts = new Set<String>();
+        Account customer = AccountDAO.getByIds(accountId);
         
         if(!lstAssetsToCreate.isEmpty())
         {
@@ -154,9 +155,21 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
                 }                                                              
             }
         }                
-        
-        
+        String customerType = '';
+        for(Asset item : lstAssetToCreateUpdate){
+            if(customerType == 'Totalizado') break;
+            if(item.Type__c == 'Pre') continue;
+
+            customerType = customerType == ''? item.Type__c : customerType != item.Type__c && customerType != null ? 'Totalizado' : customerType; 
+        }
+
+        customerType = customerType == 'Movel' ? 'Móvel' : customerType;
+
         try{
+            if(customer.vlocity_cmt__CustomerClass__c != customerType && customerType != ''){
+                customer.vlocity_cmt__CustomerClass__c = customerType;
+                update customer;
+            }
             upsert lstAssetToCreateUpdate ExternalId__c;
         }catch(Exception e){
             System.debug('Erro no Upsert de Asset: ' + e.getMessage());
