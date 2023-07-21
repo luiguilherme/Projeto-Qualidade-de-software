@@ -1,6 +1,6 @@
 public with sharing class CanvasService {
     private static final Map<String, CanvasServiceInterface> serviceMap = new Map<String, CanvasServiceInterface>{
-        'Account-Consumer'                            => new CanvasHybrisOrderService()
+        'Asset-'                            => new CanvasHybrisOrderService()
     };
 
     private Id recordId;
@@ -35,7 +35,12 @@ public with sharing class CanvasService {
         System.debug('CanvasService.getRecordTypeName - obj: ' + obj);
 
         Map<Id, Schema.RecordTypeInfo> rtMap = describe.getRecordTypeInfosById();
+        if(obj.isSet('RecordTypeId')){
+            if(obj.get('RecordTypeId') != null){
+                return rtMap.get((String)obj.get('RecordTypeId')).getDeveloperName();
+            } 
+        } 
         
-        return rtMap.get((String)obj.get('RecordTypeId')).getDeveloperName();
+        return '';
     }
 }

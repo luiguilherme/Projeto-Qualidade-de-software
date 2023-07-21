@@ -7,25 +7,25 @@ public abstract class CanvasHybrisServices implements CanvasServiceInterface {
     }
 
     public Map<String,Object> getParameters(Id id){
-        Account context = query(id);
+        Asset context = query(id);
         
         return canvasResultParameters(context);
     }
     
-    private Map<String,Object> canvasResultParameters(Account context){
+    private Map<String,Object> canvasResultParameters(Asset context){
 
         Map<String,Object> parameters = new Map<String,Object>();
         User currentUser = UserDAO.getById(System.UserInfo.getUserId());
         String userRole = currentUser.Profile.UserLicense.Name != 'Partner Community' ? currentUser.UserRole.DeveloperName : currentUser.PartnerGroup__c;
         CanvasHybrisMigration__mdt hybrisMetadata = CanvasHybrisMigrationDAO.getByUserRole(userRole);
         
-        parameters.put('documento',         context.DocumentNumber__c != null ? context.DocumentNumber__c : '');
-        parameters.put('nomeConta',         context.Name != null ? context.Name : '');
+        parameters.put('documento',         context.account.DocumentNumber__c != null ? context.account.DocumentNumber__c : '');
+        parameters.put('nomeConta',         context.account.Name != null ? context.account.Name : '');
         parameters.put('endereco',          getAddress(context));
-        parameters.put('nomeMae',           context.vlocity_cmt__PrimaryContactId__r.MotherName__c  != null ? context.vlocity_cmt__PrimaryContactId__r.MotherName__c : '');
-        parameters.put('email',             context.vlocity_cmt__PrimaryContactId__r.Email   != null ? context.vlocity_cmt__PrimaryContactId__r.Email : '');
-        parameters.put('telefoneContato',   context.vlocity_cmt__PrimaryContactId__r.MobilePhone   != null ? context.vlocity_cmt__PrimaryContactId__r.MobilePhone : '');
-        parameters.put('dataNascimento',    formatBirthDate(context));
+        parameters.put('nomeMae',           context.account.vlocity_cmt__PrimaryContactId__r.MotherName__c  != null ? context.account.vlocity_cmt__PrimaryContactId__r.MotherName__c : '');
+        parameters.put('email',             context.account.vlocity_cmt__PrimaryContactId__r.Email   != null ? context.account.vlocity_cmt__PrimaryContactId__r.Email : '');
+        parameters.put('telefoneContato',   context.account.vlocity_cmt__PrimaryContactId__r.MobilePhone   != null ? context.account.vlocity_cmt__PrimaryContactId__r.MobilePhone : '');
+        parameters.put('dataNascimento',    formatBirthDate(context.account));
         parameters.put('tipoOferta',        TIPO_OFERTA);
         parameters.put('nomeOperador',      currentUser.Name);
         parameters.put('emailOperador',     currentUser.Email);
@@ -39,11 +39,11 @@ public abstract class CanvasHybrisServices implements CanvasServiceInterface {
         return parameters;
     }
     
-    private Endereco getAddress (Account context){
+    private Endereco getAddress (Asset context){
         Endereco enderecoReturn = new Endereco();
-        enderecoReturn.cep = context.ShippingPostalCode != null ? context.ShippingPostalCode : '';
-        enderecoReturn.numero = context.ShippingNumber__c != null ? context.ShippingNumber__c : '';
-        enderecoReturn.complemento = context.FullComplement__c != null ? context.FullComplement__c : '';
+        enderecoReturn.cep = context.vlocity_cmt__BillingAccountId__r.BillingPostalCode != null ? context.vlocity_cmt__BillingAccountId__r.BillingPostalCode : '';
+        enderecoReturn.numero = context.vlocity_cmt__BillingAccountId__r.BillingNumber__c != null ? context.vlocity_cmt__BillingAccountId__r.BillingNumber__c : '';
+        enderecoReturn.complemento = context.vlocity_cmt__BillingAccountId__r.FullComplement__c != null ? context.vlocity_cmt__BillingAccountId__r.FullComplement__c : '';
         return enderecoReturn;
     }
     
@@ -69,5 +69,5 @@ public abstract class CanvasHybrisServices implements CanvasServiceInterface {
         @AuraEnabled public string numero {get; set;}
         @AuraEnabled public string complemento {get; set;}
     }
-    protected abstract Account query(Id recordId);
+    protected abstract Asset query(Id recordId);
 }

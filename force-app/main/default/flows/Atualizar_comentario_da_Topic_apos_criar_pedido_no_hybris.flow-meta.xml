@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <description>Flow temporário utilizado enquanto não é atualizado o swagger de criação do pedido na Hybris. O fluxo atualiza o campo remarkup (Comentário/Observação) da customer interaction topic que possui um pedido associado.</description>
+    <interviewLabel>Atualizar comentário da Topic após criar pedido no hybris {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Atualizar comentário da Topic após criar pedido no hybris</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Atualizar_Observacao_apos_criar_pedido</name>
+        <label>Atualizar Observação após criar pedido</label>
+        <locationX>615</locationX>
+        <locationY>392</locationY>
+        <inputAssignments>
+            <field>remarkup__c</field>
+            <value>
+                <stringValue>Aceite de voz e Contrato verbalizado ao cliente: Sim</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>490</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Atualizar_Observacao_apos_criar_pedido</targetReference>
+        </connector>
+        <filterLogic>1 AND 2  AND (3 OR 4 OR 5 OR 6)</filterLogic>
+        <filters>
+            <field>Origin__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Hybris</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>OrderIssued__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>remarkup__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>-</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>remarkup__c</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>Aguardando escolha da oferta</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>remarkup__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>remarkup__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>vlocity_cmt__CustomerInteractionTopic__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

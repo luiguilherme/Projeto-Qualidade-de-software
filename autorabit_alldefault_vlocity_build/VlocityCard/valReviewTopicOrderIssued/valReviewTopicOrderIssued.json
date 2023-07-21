@@ -4,7 +4,7 @@
             {
                 "id": 3,
                 "name": "recordId",
-                "val": "a738G000000CJqOQAW"
+                "val": "a7F78000000L0OLEA0"
             }
         ],
         "orderBy": {
@@ -18,6 +18,7 @@
                 "OrderIssuedId": "{recordId}"
             },
             "ipMethod": "val_ReviewInteractionTopicOrderIssued",
+            "jsonMap": "{\"recordId\":\"{recordId}\"}",
             "resultVar": "",
             "vlocityAsync": false
         }
@@ -4890,10 +4891,10 @@
                                                 "actionList": [
                                                     {
                                                         "actionIndex": 0,
-                                                        "draggable": false,
-                                                        "isOpen": true,
+                                                        "draggable": true,
+                                                        "isOpen": false,
                                                         "key": "1683726265894-wxxdivbsc",
-                                                        "label": "Action",
+                                                        "label": "Atualizar Status do Pedido",
                                                         "stateAction": {
                                                             "channelName": "close_modal",
                                                             "flyoutType": "childCard",
@@ -4903,6 +4904,26 @@
                                                             "openFlyoutIn": "Popover",
                                                             "openUrlIn": "Current Window",
                                                             "type": "DataAction"
+                                                        }
+                                                    },
+                                                    {
+                                                        "actionIndex": 1,
+                                                        "card": "{card}",
+                                                        "draggable": true,
+                                                        "isOpen": true,
+                                                        "key": "1688770496284-2cgso0u4b",
+                                                        "label": "Recarregar FlexCard",
+                                                        "stateAction": {
+                                                            "Web Page": {
+                                                                "targetName": "/apex"
+                                                            },
+                                                            "displayName": "Action",
+                                                            "eventName": "reload",
+                                                            "id": "flex-action-1688770511512",
+                                                            "openUrlIn": "Current Window",
+                                                            "targetType": "Web Page",
+                                                            "type": "cardAction",
+                                                            "vlocityIcon": "standard-default"
                                                         }
                                                     }
                                                 ],
@@ -5895,7 +5916,7 @@
                                             "parentElementKey": "element_element_block_1_0_block_3_0",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "OrderProduct.ProductDescription",
+                                                "fieldName": "ProductDescription.ProductDescription",
                                                 "label": "",
                                                 "labelclass": "bold",
                                                 "placeholder": "-",
@@ -6828,7 +6849,7 @@
                                             "property": {
                                                 "card": "{card}",
                                                 "currency": "BRL",
-                                                "fieldName": "OrderProduct.Price",
+                                                "fieldName": "OrderIssued.TotalPrice",
                                                 "label": "",
                                                 "labelclass": "bold",
                                                 "locale": "pt-BR",
@@ -6959,7 +6980,7 @@
                                             "parentElementKey": "element_element_block_1_0_block_3_0",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "OrderProduct.ProductCode",
+                                                "fieldName": "ProductDescription.ProductCode",
                                                 "label": "",
                                                 "labelclass": "bold",
                                                 "placeholder": "-",
@@ -7219,7 +7240,7 @@
                                             "parentElementKey": "element_element_block_1_0_block_3_0",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "OrderIssued.PortedNumber",
+                                                "fieldName": "Topic.LineInstance",
                                                 "label": "",
                                                 "labelclass": "bold",
                                                 "placeholder": "-",
@@ -8881,7 +8902,8 @@
     "xmlJson": [
         {
             "@attributes": {
-                "targets": "lightning__AppPage"
+                "targets": "lightning__AppPage",
+                "xmlns": "http://soap.sforce.com/2006/04/metadata"
             },
             "property": [
                 {
@@ -8900,7 +8922,8 @@
         },
         {
             "@attributes": {
-                "targets": "lightning__RecordPage"
+                "targets": "lightning__RecordPage",
+                "xmlns": "http://soap.sforce.com/2006/04/metadata"
             },
             "property": [
                 {
@@ -8910,13 +8933,33 @@
                     }
                 }
             ]
+        },
+        {
+            "@attributes": {
+                "targets": "lightningCommunity__Default",
+                "xmlns": ""
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "name": "recordId",
+                        "type": "String"
+                    }
+                }
+            ]
         }
     ],
     "xmlObject": {
+        "apiVersion": 51,
+        "isExplicitImport": false,
+        "isExposed": true,
         "masterLabel": "valReviewTopicOrderIssued",
-        "targetConfigs": "PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgogICAgICAgICAgICAgICAgICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgICAgICAgICAgICAgICAgICA8cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPgogICAgICAgICAgICAgICAgICA8L3RhcmdldENvbmZpZz4KICAgICAgICAgICAgICAgICAgPHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPgogICAgICAgICAgICAgICAgICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgICAgICAgICAgICAgIDwvdGFyZ2V0Q29uZmlnPg==",
+        "runtimeNamespace": "%vlocity_namespace%",
+        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgogICAgICA8cHJvcGVydHkgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iLz4KICAgICAgPHByb3BlcnR5IG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciLz4KICAgIDwvdGFyZ2V0Q29uZmlnPgogICAgPHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPgogICAgICA8cHJvcGVydHkgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iLz4KICAgIDwvdGFyZ2V0Q29uZmlnPgogICAgPHRhcmdldENvbmZpZyB4bWxucz0iIiB0YXJnZXRzPSJsaWdodG5pbmdDb21tdW5pdHlfX0RlZmF1bHQiPgogICAgICA8cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPgogICAgPC90YXJnZXRDb25maWc+",
         "targets": {
             "target": [
+                "lightningCommunity__Page",
+                "lightningCommunity__Default",
                 "lightning__RecordPage",
                 "lightning__AppPage",
                 "lightning__HomePage"

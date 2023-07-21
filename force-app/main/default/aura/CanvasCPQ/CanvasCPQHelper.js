@@ -73,7 +73,7 @@
         LightningUtil.callApex(
             component,
             'getCanvasData',
-            { 'recordId': phoneNumber.AccountId },
+            { 'recordId': phoneNumber.Id },
             (result) => {
                 let assetObj = component.get('v.phoneNumber');
                 result.parameters.telefoneMigracao = assetObj.PhoneNumber__c;
