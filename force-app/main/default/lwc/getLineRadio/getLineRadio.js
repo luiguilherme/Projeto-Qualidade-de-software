@@ -12,7 +12,8 @@ export default class GetLineRadio extends OmniscriptBaseMixin( LightningElement)
     @track ResponseDataValICCID = {};
     @track idPesquisa;
     @track DDD;
-    @track capacityDemandAmount;    
+    @track capacityDemandAmount;
+    @track numeroResultados;
 
     @api hasLinesAvailable = false;
     @api isLoaded = false;
@@ -35,26 +36,24 @@ export default class GetLineRadio extends OmniscriptBaseMixin( LightningElement)
 
     handleOmniAction(data)
     {
-        this.isLoaded = false;        
+        this.isLoaded = false;
+        if(data.selectedLine.length != 0) {
+            this.options = data.selectedLine.options;
+            this.numeroResultados = this.options.length;
+            var obj = data.selectedLine.options;
+            this.idPesquisa = data.selectedLine.idPesquisa;
+        }
+        else{
+            this.options              = data.phones;
+            var obj                   = data.phones;
+            this.idPesquisa           = data.idPesquisa;
+        }
         
-        this.options              = data.phones;
-        var obj                   = data.phones;
-        this.idPesquisa           = data.idPesquisa;
+        this.numeroResultados = this.options.length;
         this.DDD                  = data.DDD;
         this.capacityDemandAmount = data.capacityDemandAmount;
         this.hasLinesAvailable    = (this.capacityDemandAmount > 0);
-        //this.SearchedDDD = data.SearchedDDD;        
-        /*
-        console.log('----------------------##-------------------------');
-        console.log('Entrada do LWC');
-        console.log("ID DE PESQUISA: "+ this.idPesquisa);
-        console.log("DDD: "+ this.DDD);
-        console.log("capacityDemandAmount: "+ this.capacityDemandAmount);
-        console.log("hasLinesAvailable:    "+ this.hasLinesAvailable);        
-        console.log("Data");
-        console.log(JSON.stringify(data));
-        console.log('----------------------!!-------------------------');
-        */
+
         var needle = this.getCheckedValue();
 
         for (var i = 0; i < obj.length; i++)
@@ -121,10 +120,6 @@ export default class GetLineRadio extends OmniscriptBaseMixin( LightningElement)
                 }
             }
         };
- 
-
-        //console.log('handleGetMSISDN: this.omniJsonDataStr');
-        //console.log(this.omniJsonDataStr);
 
         const options = {};
 
@@ -138,7 +133,7 @@ export default class GetLineRadio extends OmniscriptBaseMixin( LightningElement)
         this.omniRemoteCall(params, true).then(result => {
             this.lstReturn = result.result.IPResult.options;
             this.options = this.lstReturn;
-            //console.log('omniRemoteCall: result '+ JSON.stringify(result));
+            this.numeroResultados = this.options.length;
 
             this.capacityDemandAmount = result.result.IPResult.capacityDemandAmount;
             this.hasLinesAvailable = (this.capacityDemandAmount > 0);
@@ -153,7 +148,7 @@ export default class GetLineRadio extends OmniscriptBaseMixin( LightningElement)
 
             this.isLoaded = true;
         }).catch(error => {
-            this.isLoaded = true;                        
+            this.isLoaded = true;
             console.log('error: ' + error);
         })
         .finally(()=>{
@@ -165,28 +160,32 @@ export default class GetLineRadio extends OmniscriptBaseMixin( LightningElement)
     pushItemToView(event)
     {
         const selectedOption = event.target.value;
-        console.log('selectedOption'+selectedOption);
-        console.log('this.idPesquisa'+this.idPesquisa);        
 
         this.selectedline = { line : selectedOption };
         this.statusICCID = { statusICCID : 'Valid'};
         this.lastNumberSearch = {idPesquisa: this.idPesquisa.toString()};
+        this.ResponseDataValICCID = {options: this.options}
 
         this.omniUpdateDataJson(this.lastNumberSearch);
-        this.omniUpdateDataJson(this.selectedline);      
+        this.omniUpdateDataJson(this.selectedline);
         this.omniUpdateDataJson(this.statusICCID);
+        this.omniUpdateDataJson(this.ResponseDataValICCID);
     
     }    
 
     
     getCheckedValue(){
-        if(this.omniJsonData !== undefined){            
-            var jsonData = this.omniJsonData; 
+        if(this.omniJsonData !== undefined){
+            var jsonData = this.omniJsonData;
             if(jsonData.hasOwnProperty('StepConfigureLine')){
                 jsonData = this.omniJsonData.StepConfigureLine;   
                 if(jsonData.hasOwnProperty('selectedLine')){
-                    var jsonDataLine = jsonData.selectedLine.line;
-
+                    if(jsonData.selectedLine == null) {
+                        return ""
+                    }
+                    else {
+                        var jsonDataLine = jsonData.selectedLine.line;
+                    }
                     return jsonDataLine;
                 }
             }
