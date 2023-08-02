@@ -5,7 +5,7 @@
         }, 500);        
     },   
     onRender: function(component, event, helper) {
-            const utilityBarAPI = component.find('utilityBarAPI');
+            const utilityBarAPI = component.find('utilitybar');
             utilityBarAPI.getEnclosingUtilityId().then((utilityId) => {
             	console.log("utilityId", utilityId);        
             });
