@@ -29,15 +29,21 @@
         if (workPositionId) {
             let forceRestart = component.get("v.forceRestart");
 
+            /*
             if (forceRestart) {
                 this.forceEndService(component);
                 
             } else {
                 this.restart(component, false);
             }
+            */
+
+            component.set("v.forceRestart", false);
+
+            this.restart(component, forceRestart);
 
         } else {
-            this.getPickListWorkPositions(component, true, "");
+            this.getPickListWorkPositions(component, true);
         }
     },
 
@@ -206,6 +212,7 @@
             ltWorkPosition = [{label: workPositionId, value: workPositionId}];
 
             component.set("v.ltWorkPosition", ltWorkPosition);
+            component.set("v.workPositionId", workPositionId);
         }
         
         this.updateControls(component, ((isPaused) ? this.Mode.Paused : this.Mode.Started));
@@ -219,8 +226,9 @@
         }
     },
 
+    /*
     forceEndService : function(component) {
-        let workPositionId = component.get("v.workPositionId");
+        var workPositionId = component.get("v.workPositionId");
 
         component.set("v.forceRestart", false);
 
@@ -233,15 +241,16 @@
             (returnValue) => {
                 let errorMessage = "";
 
-                if (returnValue["success"] ) {
+                if (returnValue["success"] && workPositionId) {
                     this.forceRestartService(component);
 
                 } else {
+                    component.set("v.ltWorkPosition", []);
                     component.set("v.workPositionId", "");
 
-                    this.ready(component);
+                    this.getPickListWorkPositions(component, true);
 
-                    errorMessage = returnValue["error"];
+                    errorMessage = ((returnValue["error"]) ? returnValue["error"] : "");
                 }
 
                 this.afterCallAction(errorMessage);
@@ -292,6 +301,7 @@
             }
         );
     },
+    */
 
     cancelPause : function(component) {
         component.set("v.pauseReasonId", '');
@@ -490,6 +500,29 @@
         let isOwnerStore = component.get("v.isOwnerStore");
         let workPositionId = component.get("v.workPositionId");
 
+        if (workPositionId) {
+            let ltWorkPosition = component.get("v.ltWorkPosition");
+
+            if (!ltWorkPosition || ltWorkPosition.length == 0) {
+                ltWorkPosition = [{label: workPositionId, value: workPositionId}];
+
+                component.set("v.ltWorkPosition", ltWorkPosition);
+                component.set("v.workPositionId", workPositionId);
+    
+            } else {
+                let workPosition = ltWorkPosition.filter(function(checkWorkPosition) {
+                    return checkWorkPosition.value === workPositionId;
+                });
+
+                if (!workPosition || workPosition.length === 0) {
+                    ltWorkPosition.push({label: workPositionId, value: workPositionId});
+
+                    component.set("v.ltWorkPosition", ltWorkPosition);
+                    component.set("v.workPositionId", workPositionId);
+                }
+            }
+        }
+
         component.set("v.mode", mode);
 
         component.set("v.disablePosition", (mode != this.Mode.Ready || workPositionId != ""));
@@ -497,7 +530,7 @@
         component.set("v.disablePause", (mode != this.Mode.Started));
         component.set("v.disableUpdate", (mode == this.Mode.Wait || mode == this.Mode.Ready || mode == this.Mode.Paused));
         component.set("v.disableStart", (mode != this.Mode.Ready && mode != this.Mode.Paused));
-        component.set("v.disableFnish", (mode != this.Mode.Started && mode != this.Mode.Paused));
+        component.set("v.disableFinish", (mode != this.Mode.Started && mode != this.Mode.Paused));
     },
 
     fetchOperationalInformations : function(component) {
