@@ -103,12 +103,23 @@
 							if (workPositionId) {
 								let ltWorkPosition = component.get("v.ltWorkPosition");
 								
-								let workPosition = ltWorkPosition.filter(function(checkWorkPosition) {
-									return checkWorkPosition.value === workPositionId;
-								});
+								if (!ltWorkPosition || ltWorkPosition.length == 0) {
+									ltWorkPosition = [{label: workPositionId, value: workPositionId}];
+					
+									component.set("v.ltWorkPosition", ltWorkPosition);
+									component.set("v.workPositionId", workPositionId);
+						
+								} else {
+									let workPosition = ltWorkPosition.filter(function(checkWorkPosition) {
+										return checkWorkPosition.value === workPositionId;
+									});
 
-								if (!workPosition || workPosition.length === 0) {
-									ltWorkPosition.push({"label": workPositionId, "value": workPositionId});
+									if (!workPosition || workPosition.length === 0) {
+										ltWorkPosition.push({label: workPositionId, value: workPositionId});
+									
+										component.set("v.ltWorkPosition", ltWorkPosition);
+										component.set("v.workPositionId", workPositionId);
+									}
 								}
 
 								gotoPageInit = false;
