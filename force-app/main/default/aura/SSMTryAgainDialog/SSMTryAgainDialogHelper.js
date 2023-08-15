@@ -22,54 +22,20 @@
             {},
             (returnValue) => {
                 let positionInformationStatus = returnValue["success"];
-                let workPositionId = component.get("v.workPositionId"); 
-                let newWorkPositionId = "";
-                let disableButtonTryAgain = false;
-                let disableButtonBackHome = false;
-                let calledInformationAttendance = false;
 
-                if (positionInformationStatus && 
-                    positionInformationStatus.statusPosition === "A"
-                ) {
-                    if (positionInformationStatus.workPositionId === workPositionId) {
-                        let pageOperation = component.get("v.pageOperation");
-
-                        if (pageOperation == "home") {
-                            disableButtonBackHome = true;
-
-                        } else {
-                            calledInformationAttendance = true;
-
-                            this.getInformationAttendance(component);
-                        }
-
-                    } else {
-                        newWorkPositionId = positionInformationStatus.workPositionId;
-                        disableButtonTryAgain = true;
-                    }
+                if (positionInformationStatus && positionInformationStatus.statusPosition === "A") {
+                    component.set("v.newWorkPositionId", positionInformationStatus.workPositionId);
+                
+                    this.getInformationAttendance(component);
 
                 } else {
-                    disableButtonTryAgain = true;
-                }
-
-                if (!calledInformationAttendance) {
-                    component.set("v.newWorkPositionId", newWorkPositionId);
-                    component.set("v.disableButtonTryAgain", disableButtonTryAgain);
-                    component.set("v.disableButtonBackHome", disableButtonBackHome);
-
-                    if (disableButtonTryAgain && !disableButtonBackHome) {
-                        component.set("v.displayErrorMessage", $A.get("$Label.c.StoreServiceManagerErrorEndService"));
-
-                    } else if (!disableButtonTryAgain && disableButtonBackHome) {
-                        component.set("v.displayErrorMessage", $A.get("$Label.c.StoreServiceManagerErrorTryAgainService"));
-                    }
+                    this.updateDialog(component, true);
                 }
 
                 this.afterCallAction();
             },
             (exceptions) => {
-                component.set("v.disableButtonTryAgain", true);
-                component.set("v.displayErrorMessage", $A.get("$Label.c.StoreServiceManagerErrorEndService"));
+                this.updateDialog(component, true);
             }
         );
     },
@@ -83,106 +49,99 @@
 			{},
 			(returnValue) => {
                 let attendanceInformationStatus = returnValue["success"];
-                let disableButtonTryAgain = false;
-                let disableButtonBackHome = false;
+                let inService = (attendanceInformationStatus && attendanceInformationStatus.statusAttendance === "2");
                 let forceInitialPageService = false;
 
-                if (attendanceInformationStatus && 
-                    attendanceInformationStatus.statusAttendance === "2"
-                ) {
+                if  (inService) {
+                    let workPositionId = component.get("v.workPositionId"); 
+                    let newWorkPositionId = component.get("v.newWorkPositionId"); 
                     let serviceTicket = component.get("v.serviceTicket");
 
-                    disableButtonBackHome = true;
-                    forceInitialPageService = (attendanceInformationStatus.ticketId !== serviceTicket.ticketId);
-
-                } else {
-                    disableButtonTryAgain = true;
+                    forceInitialPageService = (
+                        (newWorkPositionId != workPositionId) || 
+                        (attendanceInformationStatus.ticketId !== serviceTicket.ticketId)
+                    );
                 }
 
                 component.set("v.attendanceInformationStatus", attendanceInformationStatus);
-                component.set("v.disableButtonTryAgain", disableButtonTryAgain);
-                component.set("v.disableButtonBackHome", disableButtonBackHome);
                 component.set("v.forceInitialPageService", forceInitialPageService);
-				
-                if (disableButtonTryAgain && !disableButtonBackHome) {
-                    component.set("v.displayErrorMessage", $A.get("$Label.c.StoreServiceManagerErrorEndService"));
 
-                } else if (!disableButtonTryAgain && disableButtonBackHome) {
-                    component.set("v.displayErrorMessage", $A.get("$Label.c.StoreServiceManagerErrorTryAgainService"));
-                }
+                this.updateDialog(component, !inService);
                 
 				this.afterCallAction();
 			},
 			(exceptions) => {
-                component.set("v.disableButtonTryAgain", true);
-                component.set("v.displayErrorMessage", $A.get("$Label.c.StoreServiceManagerErrorEndService"));
+                this.updateDialog(component, true);
 			}
 		);
 	},
 
+    updateDialog : function(component, enableButtonBackHome) {
+        let displayErrorMessage = ((enableButtonBackHome)
+            ? $A.get("$Label.c.StoreServiceManagerErrorEndService")
+            : $A.get("$Label.c.StoreServiceManagerErrorTryAgainService")
+        );
+
+        component.set("v.displayErrorMessage", displayErrorMessage);
+        component.set("v.disableButtonTryAgain", enableButtonBackHome);
+        component.set("v.disableButtonBackHome", !enableButtonBackHome);
+    },
+
     tryAgain : function(component, event, helper) {
         let errorMessage = component.get("v.errorMessage");
-        let pageOperation = component.get("v.pageOperation");
+        let forceInitialPageService = component.get("v.forceInitialPageService");
 
         LightningUtil.setItemLocalStorage("SSMErrorMessage", errorMessage, "ERROR");
 
-        if (pageOperation === "home") {
-            this.notifySSMTickets(true);
+        if (forceInitialPageService) {
+            let newWorkPositionId = component.get("v.newWorkPositionId"); 
+            let attendanceInformationStatus = component.get("v.attendanceInformationStatus");
 
-        } else {
-            let forceInitialPageService = component.get("v.forceInitialPageService");
+            let serviceTicket = {
+                type: '',
+                view: '',
+                workPositionId: attendanceInformationStatus.workPositionId,
+                displayAlert: true,
+                ticketId: attendanceInformationStatus.ticketId,
+                customerSpecialNeeds: false,
+                customerPriority: 2,
+                customerId: '',
+                customerName: attendanceInformationStatus.customerName,
+                customerAlias: attendanceInformationStatus.customerName,
+                customerDocument: attendanceInformationStatus.customerDocument,
+                customerCellPhone: attendanceInformationStatus.customerCellPhone,
+                segmentation: attendanceInformationStatus.segmentationId,
+                segmentationName: attendanceInformationStatus.segmentationName,
+                activity: '',
+                protocol: '',
+                waitTime: attendanceInformationStatus.waitTime,
+                startTime: attendanceInformationStatus.startTime,
+                finalTime: '',
+                duration: attendanceInformationStatus.duration,
+                service: '',
+                serviceName: attendanceInformationStatus.serviceName,
+                category: '',
+                categoryName: '',
+                mainDocumentType: '',
+                documentNumber: '',
+                giveUpReason: '',
+                activities: '',
+                notes: ''
+            };
 
-            if (forceInitialPageService) {
-                let attendanceInformationStatus = component.get("v.attendanceInformationStatus");
+            component.set("v.workPositionId", newWorkPositionId);
+            component.set("v.serviceTicket", serviceTicket);
 
-				let serviceTicket = {
-                    type: '',
-                    view: '',
-                    workPositionId: attendanceInformationStatus.workPositionId,
-                    displayAlert: true,
-                    ticketId: attendanceInformationStatus.ticketId,
-                    customerSpecialNeeds: false,
-                    customerPriority: 2,
-                    customerId: '',
-                    customerName: attendanceInformationStatus.customerName,
-                    customerAlias: attendanceInformationStatus.customerName,
-                    customerDocument: attendanceInformationStatus.customerDocument,
-                    customerCellPhone: attendanceInformationStatus.customerCellPhone,
-                    segmentation: attendanceInformationStatus.segmentationId,
-                    segmentationName: attendanceInformationStatus.segmentationName,
-                    activity: '',
-                    protocol: '',
-                    waitTime: attendanceInformationStatus.waitTime,
-                    startTime: attendanceInformationStatus.startTime,
-                    finalTime: '',
-                    duration: attendanceInformationStatus.duration,
-                    service: '',
-                    serviceName: attendanceInformationStatus.serviceName,
-                    category: '',
-                    categoryName: '',
-                    mainDocumentType: '',
-                    documentNumber: '',
-                    giveUpReason: '',
-                    activities: '',
-                    notes: ''
-				};
-
-                component.set("v.serviceTicket", serviceTicket);
-
-                this.notifySSMAttendance();
-            }
+            this.notifySSMAttendance();
         }
 
         this.notifyStoreServiceManager({type: "closeTryAgainDialog"});
     },
 
     backHome : function(component, event, helper) {
-        let workPositionId = component.get("v.workPositionId"); 
         let newWorkPositionId = component.get("v.newWorkPositionId"); 
 
-        if (newWorkPositionId && newWorkPositionId !== workPositionId) {
-            component.set("v.workPositionId", newWorkPositionId);
-        }
+        component.set("v.workPositionId", newWorkPositionId);
 
         LightningUtil.removeItemLocalStorage("SSMErrorMessage");
 
