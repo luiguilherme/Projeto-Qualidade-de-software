@@ -57,4 +57,24 @@ public with sharing class SyncOrderWithHybrisButtonControllerTest {
         Test.stopTest();
         System.assertEquals(true, isException, 'O erro aconteceu como esperado.' );
     }
+
+    @IsTest
+    static void syncOrderStatusWithHybrisTestViaInvokeMethod(){
+        Map<String,Object> inputMap = new Map<String, Object>();
+        Map<String,Object> outMap = new Map<String, Object>();
+        Map<String,Object> options = new Map<String, Object>();
+        Boolean result = false;
+
+        Test.startTest();
+            OrderHybrisCalloutMock getRequest = new OrderHybrisCalloutMock(200, CONST_BODYSUCCESS, CONST_MAPHEADER);
+            Test.setMock(HttpCalloutMock.class, getRequest);
+            SyncOrderWithHybrisButtonController syncObj = new SyncOrderWithHybrisButtonController();
+            
+            OrderIssued__c orderIssuedToAssert = [SELECT Id FROM OrderIssued__c WHERE HybrisOrder__c ='PE-00999999' limit 1];
+            inputMap.put('OrderIssuedId', orderIssuedToAssert.Id);
+            result = syncObj.invokeMethod('syncHybrisOrderStatus', inputMap, outMap, options);
+
+        Test.stopTest();
+        System.assertEquals(true, result, 'Status não foi atualizado como deveria.' );
+    }
 }

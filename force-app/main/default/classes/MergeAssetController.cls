@@ -305,7 +305,8 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
                         mapSVAProducts.put(wrap.identifiers[0], new List<String>());
                         mapSVAProducts.get(wrap.identifiers[0]).add(wrap.display_name);
                     }
-                }else{                    
+                }
+                if(LIST_VALIDS_PRODUCTS_TYPES.contains(wrap.product_type)){                    
                     String strKey = wrap.identifiers[0].startsWith('+55') ? documentNumber + wrap.identifiers[0].substring(3, wrap.identifiers[0].length()) : documentNumber + wrap.identifiers[0];
                     apiIds.put(strKey, wrap);
                     mapLegacy.put(wrap.identifiers[0], wrap.tags);
