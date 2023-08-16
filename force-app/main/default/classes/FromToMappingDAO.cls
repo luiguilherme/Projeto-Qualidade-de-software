@@ -111,15 +111,4 @@ public with sharing class FromToMappingDAO {
             	OriginApiName__c = :userRole
         ];
     }
-
-    public static List<FromToMapping__mdt> getLstByUserRole(String userRole) {
-        return [
-            SELECT
-                TokenPID__c
-            FROM
-            	FromToMapping__mdt
-            WHERE
-            	OriginApiName__c = :userRole
-        ];
-    }
 }
