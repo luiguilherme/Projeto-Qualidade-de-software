@@ -72,7 +72,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
         this.pubsubEvent[1] = {
           [interpolateWithRegex(`baseinputvaluechange`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[1],1)
         };
-        this.pubsubChannel1 = interpolateWithRegex(`type`,this._allMergeFields,this._regexPattern,"noparse");
+        this.pubsubChannel1 = interpolateWithRegex(`topicSearch`,this._allMergeFields,this._regexPattern,"noparse");
         pubsub.register(this.pubsubChannel1,this.pubsubEvent[1]);
 
         this.pubsubEvent[2] = {
@@ -88,6 +88,13 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
         this.pubsubChannel3 = interpolateWithRegex(`topicfilter`,this._allMergeFields,this._regexPattern,"noparse");
         pubsub.register(this.pubsubChannel3,this.pubsubEvent[3]);
 
+        this.pubsubEvent[4] = {
+          [interpolateWithRegex(`showtree`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[6],6),
+[interpolateWithRegex(`hidetree`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[7],7)
+        };
+        this.pubsubChannel4 = interpolateWithRegex(`topicsauto`,this._allMergeFields,this._regexPattern,"noparse");
+        pubsub.register(this.pubsubChannel4,this.pubsubEvent[4]);
+
               }
 
               unregisterEvents(){
@@ -95,6 +102,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
 pubsub.unregister(this.pubsubChannel1,this.pubsubEvent[1]);
 pubsub.unregister(this.pubsubChannel2,this.pubsubEvent[2]);
 pubsub.unregister(this.pubsubChannel3,this.pubsubEvent[3]);
+pubsub.unregister(this.pubsubChannel4,this.pubsubEvent[4]);
 
               }
             

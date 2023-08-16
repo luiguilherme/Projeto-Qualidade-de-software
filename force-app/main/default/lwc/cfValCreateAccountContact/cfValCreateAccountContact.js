@@ -108,7 +108,8 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
           return this._sessionApiVars["ComercialPhonePrincipalDisable"] || "true";
         }
       
-              
+              @track Label={OmniValidationMaskIncomplete:"This field is incomplete."
+        };
               pubsubEvent = [];
               customEvent = [];
               
@@ -119,7 +120,10 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
                 data.Session = {} //reinitialize on reload
                 
                 
-                
+                this.customLabels = this.Label;
+                      
+                          this.fetchUpdatedCustomLabels();
+                      
                 this.setDefinition(data);
  this.registerEvents();
                 

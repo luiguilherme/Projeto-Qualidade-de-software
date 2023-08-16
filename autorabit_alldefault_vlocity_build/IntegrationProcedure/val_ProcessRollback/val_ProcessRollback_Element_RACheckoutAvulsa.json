@@ -1,0 +1,63 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valProcessRollback",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ProcessRollback/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__ParentElementId__c": {
+        "%vlocity_namespace%__OmniScriptId__c": {
+            "Name": "valProcessRollback",
+            "VlocityDataPackType": "VlocityMatchingKeyObject",
+            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ProcessRollback/Procedure",
+            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+        },
+        "Name": "CBHabAvulsaProcessRollback",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ProcessRollback/Procedure/CBHabAvulsaProcessRollback",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
+    },
+    "%vlocity_namespace%__ParentElementName__c": "CBHabAvulsaProcessRollback",
+    "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "additionalChainableResponse": {
+        },
+        "additionalInput": {
+            "ContextId": "%RACancelOrderAvulsa:records|1:supplementalOrderId%",
+            "cartId": "%RACancelOrderAvulsa:records|1:supplementalOrderId%",
+            "orderId": "%RACancelOrderAvulsa:records|1:supplementalOrderId%",
+            "skipCheckoutValidation": true
+        },
+        "additionalOutput": {
+        },
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "executionConditionalFormula": "IF(%RAPreValidateAvulsa:records|1:didAnyOrderItemReachPONR% == false, true, false)",
+        "failOnStepError": false,
+        "failureConditionalFormula": "%RAPreCheckoutAvulsaStatus% == false",
+        "failureResponse": {
+        },
+        "label": "RemoteAction4",
+        "remoteClass": "%vlocity_namespace%.CPQAppHandler",
+        "remoteMethod": "checkout",
+        "remoteOptions": {
+        },
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "returnOnlyAdditionalOutput": false,
+        "returnOnlyFailureResponse": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "sendOnlyAdditionalInput": false,
+        "show": null,
+        "useFormulas": true
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Remote Action",
+    "Name": "RACheckoutAvulsa",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ProcessRollback/Procedure/RACheckoutAvulsa"
+}
