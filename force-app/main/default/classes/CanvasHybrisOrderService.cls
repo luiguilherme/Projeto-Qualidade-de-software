@@ -11,7 +11,8 @@ public with sharing class CanvasHybrisOrderService extends CanvasHybrisServices 
                     account.vlocity_cmt__PrimaryContactId__r.Birthdate,
                     vlocity_cmt__BillingAccountId__r.BillingPostalCode,
                     vlocity_cmt__BillingAccountId__r.BillingNumber__c,
-                    vlocity_cmt__BillingAccountId__r.FullComplement__c
+                    vlocity_cmt__BillingAccountId__r.FullComplement__c,
+                	ProductType__c
                 FROM    
                     Asset 
                 WHERE   
