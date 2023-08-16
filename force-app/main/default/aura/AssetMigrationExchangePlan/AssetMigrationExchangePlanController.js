@@ -1,19 +1,16 @@
 ({
     doInit : function(component, event, helper){
-        helper.showOffer(component);
+        helper.checkAccessToComponent(component);
     },
     
     startMigrationProcess : function (component, event, helper) {
-        var isCanvasHybris = component.get('v.isCanvasHybris')
-        if (isCanvasHybris) {
+        var haveTokenAccess = component.get('v.haveTokenAccess')
+        var haveUserAccess = component.get('v.haveUserAccess')
+
+        if (haveTokenAccess && haveUserAccess) {
             component.set('v.showAssetMigrationSelection', true);
         } else {
-            LightningUtil.fireNotification(
-                'Atenção',
-                'No momento você está sem acesso à funcionalidade de Troca de Oferta, verifique com o seu CSL/SAL.',
-                'error',
-                5000
-            );
+            component.set('v.showModal', true);
         }
     },
     
@@ -47,5 +44,9 @@
             type: "closeCanvasHybris"
         });
         compEvent.fire();
+    },
+
+    modalClosed : function(component, event){
+        component.set('v.showModal', false);
     }
 })

@@ -41,9 +41,53 @@ public abstract class CanvasHybrisServices implements CanvasServiceInterface {
     
     private Endereco getAddress (Asset context){
         Endereco enderecoReturn = new Endereco();
-        enderecoReturn.cep = context.vlocity_cmt__BillingAccountId__r.BillingPostalCode != null ? context.vlocity_cmt__BillingAccountId__r.BillingPostalCode : '';
-        enderecoReturn.numero = context.vlocity_cmt__BillingAccountId__r.BillingNumber__c != null ? context.vlocity_cmt__BillingAccountId__r.BillingNumber__c : '';
-        enderecoReturn.complemento = context.vlocity_cmt__BillingAccountId__r.FullComplement__c != null ? context.vlocity_cmt__BillingAccountId__r.FullComplement__c : '';
+
+        if(context.ProductType__c != 'Pré-Pago'){
+            enderecoReturn.cep = context.vlocity_cmt__BillingAccountId__r.BillingPostalCode != null ? context.vlocity_cmt__BillingAccountId__r.BillingPostalCode : '';
+            enderecoReturn.numero = context.vlocity_cmt__BillingAccountId__r.BillingNumber__c != null ? context.vlocity_cmt__BillingAccountId__r.BillingNumber__c : '';
+            enderecoReturn.complemento = context.vlocity_cmt__BillingAccountId__r.FullComplement__c != null ? context.vlocity_cmt__BillingAccountId__r.FullComplement__c : '';
+        } else{
+            List<Asset> lstAllAssets = AssetDAO.getAssetMobileByAccount(context.AccountId);
+            Boolean onlyPrePaid = true;
+            for(Asset iAsset : lstAllAssets){
+                if (iAsset.ProductType__c != 'Pré-Pago'){
+                    onlyPrePaid = false;
+                    break;
+                }
+            }
+            
+            if(onlyPrePaid){
+                enderecoReturn.cep ='';
+                enderecoReturn.numero = '';
+                enderecoReturn.complemento = '';
+            } else{
+                List<Account> lstBillingAddress = [SELECT BillingAddress, BillingStreet, BillingPostalCode, BillingNumber__c, ShippingAddress, ShippingStreet, ShippingPostalCode, ShippingNumber__c, RecordTypeId, BillingAccountType__c, FullComplement__c  FROM Account WHERE ParentId = :context.AccountId AND RecordType.DeveloperName	= 'Billing']; 
+                if(lstBillingAddress == null){
+                    enderecoReturn.cep ='';
+                    enderecoReturn.numero = '';
+                    enderecoReturn.complemento = '';
+                } else {
+                    Boolean haveBillingAddress = false;
+                
+                    for(Account iBillingAddress : lstBillingAddress){
+                        if(iBillingAddress.BillingAddress != null){
+                            haveBillingAddress = true;
+                            enderecoReturn.cep = iBillingAddress.BillingPostalCode != null ? iBillingAddress.BillingPostalCode : '';
+                            enderecoReturn.numero = iBillingAddress.BillingNumber__c != null ? iBillingAddress.BillingNumber__c : '';
+                            enderecoReturn.complemento = iBillingAddress.FullComplement__c != null ? iBillingAddress.FullComplement__c : '';
+                        	break;
+                        }
+                    }
+                    
+                    if(!haveBillingAddress){
+                        enderecoReturn.cep ='';
+                        enderecoReturn.numero = '';
+                        enderecoReturn.complemento = '';                    
+                    }
+                }
+            }
+        } 
+        
         return enderecoReturn;
     }
     
