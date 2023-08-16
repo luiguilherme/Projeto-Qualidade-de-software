@@ -1,19 +1,17 @@
 ({
-	checkAccessToComponent : function(component) {
+	showOffer : function(component) {
         component.set('v.isLoading', true);
-        var customerInteractionId = component.get('v.recordId');
-		var action = component.get('c.checkAccessToComponent');
+		var userId = $A.get('$SObjectType.CurrentUser.Id');
+		var action = component.get('c.showOffer');
         action.setParams({
-            "customerInteractionId" : customerInteractionId 
+            "userId" : userId 
         });
         action.setCallback(this, function(response) {
             component.set('v.isLoading', false);
             var state = response.getState();
             if (state === 'SUCCESS') {
-                var accessReturn = response.getReturnValue();
-                component.set('v.showComponent', accessReturn.haveAccessToToken);
-                component.set('v.haveTokenAccess', accessReturn.haveTokenValidated);
-                component.set('v.haveUserAccess', accessReturn.userHaveAccess);
+                var storeResponse = response.getReturnValue();
+                component.set('v.isCanvasHybris', storeResponse);
             }
         });
         $A.enqueueAction(action);

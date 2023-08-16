@@ -24,10 +24,7 @@ public class CustomerInteractionDAO {
 				vlocity_cmt__Type__c,
 				vlocity_cmt__VerificationTimestamp__c,
 				vlocity_cmt__Verified__c,
-				vlocity_cmt__VerifiedAgentName__c,
-				TokenStatus__c,
-				TokenSendAttempts__c,
-				TokenFirstDateSend__c
+				vlocity_cmt__VerifiedAgentName__c
             FROM
             	vlocity_cmt__CustomerInteraction__c
             WHERE
