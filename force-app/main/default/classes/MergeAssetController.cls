@@ -1,6 +1,6 @@
 global without sharing class MergeAssetController implements vlocity_cmt.VlocityOpenInterface2 
 {
-    private static final List<String> LST_PRODUCT_TYPE_TO_GET_DESC = new List<String>{'iptv', 'internet', 'landline'};
+    private static final List<String> LIST_VALIDS_PRODUCTS_TYPES =  new List<String>{'landline', 'cable_tv', 'iptv', 'streaming_TV', 'dth', 'mobile', 'TV', 'hybrid_tv', 'internet'};
 
     global boolean invokeMethod(String methodName, Map<String, Object> inputs, Map<String, Object> output, Map<String, Object> options)
     {    
