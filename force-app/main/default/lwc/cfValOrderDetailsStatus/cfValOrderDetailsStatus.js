@@ -22,7 +22,8 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               
               @track record;
               
-              
+              @track Label={CPQCancel:"Cancel"
+        };
               pubsubEvent = [];
               customEvent = [];
               
@@ -33,7 +34,8 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
                 data.Session = {} //reinitialize on reload
                 
                 
-                
+                this.customLabels = this.Label;
+                      
                 this.setDefinition(data);
  this.registerEvents();
                 

@@ -1,0 +1,41 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valProcessRollback",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ProcessRollback/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "additionalOutput": {
+            "RACancelOrder": "%RACancelOrderAvulsa:messages|1:message%",
+            "RACheckout": "%RACheckoutAvulsa:messages|1:message%",
+            "RAPreValidate": "%RAPreValidateAvulsa:messages|1:message%",
+            "RAUnfreeze": "%RAUnfreezeOrderAvulsa:messages|1:message%",
+            "message": "=IF(%RAPreValidateAvulsaStatus% == true && %RACancelOrderAvulsaStatus% == true && %RACheckoutAvulsaStatus% == true , \"Cancelamento solicitado com sucesso.\", \"Cancelamento Rejeitado. Verifique o estado do Pedido antes de solicitar o cancelamento.\")",
+            "variant": "=IF(%RAPreValidateAvulsaStatus% == true && %RACancelOrderAvulsaStatus% == true && %RACheckoutAvulsaStatus% == true , \"success\", \"warning\")"
+        },
+        "disOnTplt": false,
+        "executionConditionalFormula": "",
+        "label": "ResponseAction4",
+        "responseDefaultData": {
+        },
+        "responseFormat": "JSON",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "returnFullDataJSON": false,
+        "returnOnlyAdditionalOutput": true,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "show": null,
+        "useFormulas": true,
+        "vlcResponseHeaders": {
+        }
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Response Action",
+    "Name": "RAAvulsaProcessRollback",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ProcessRollback/Procedure/RAAvulsaProcessRollback"
+}

@@ -16,10 +16,8 @@ export default class ValBreadcrumbs extends LightningElement {
         return this.menus;
     }
     set menusbyname(value){
-        //console.log('set.menusbyname: '+value);
         if(value != '' && value.length > 0){
             this.menus = value;
-            //console.log('set.menusbyname: (IF) '+value);
         }
     }
 
@@ -85,13 +83,7 @@ export default class ValBreadcrumbs extends LightningElement {
     }    
 
     menuClick(event){
-        pubsub.fire("topicSearch","baseinputvaluechange",{"value":event.target.name,"producttype":this.productType,"servicetree":this.serviceTree,"parmactive":this.parmActive,"assetid":this.assetId,"otherproduct":this.otherProduct,"visibleto":this.visibleTo});
-        console.log(this.productType);
-        console.log(this.serviceTree);
-        console.log(this.parmActive);
-        console.log(this.assetId);
-        console.log(this.otherProduct);
-        console.log(this.visibleTo);        
+        pubsub.fire("topicSearch","baseinputvaluechange",{"value":event.target.name,"producttype":this.productType,"servicetree":this.serviceTree,"parmactive":this.parmActive,"assetid":this.assetId,"otherproduct":this.otherProduct,"visibleto":this.visibleTo});   
     }
 
     renderedCallback(){

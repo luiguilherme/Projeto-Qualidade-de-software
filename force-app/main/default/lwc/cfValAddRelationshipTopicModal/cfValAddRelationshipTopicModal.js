@@ -5,12 +5,12 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
           import { LightningElement, api, track, wire } from "lwc";
           import pubsub from "vlocity_cmt/pubsub";
           import { getRecord } from "lightning/uiRecordApi";
-          
+          import { OmniscriptBaseMixin } from "vlocity_cmt/omniscriptBaseMixin";
           import data from "./definition";
           
           import styleDef from "./styleDefinition";
               
-          export default class cfValAddRelationshipTopicModal extends FlexCardMixin(LightningElement){
+          export default class cfValAddRelationshipTopicModal extends FlexCardMixin(OmniscriptBaseMixin(LightningElement)){
               currentPageReference;        
               @wire(CurrentPageReference)
               setCurrentPageReference(currentPageReference) {
@@ -19,9 +19,47 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               @api debug;
               @api recordId;
               @api objectApiName;
-              
+              @track _omniSupportKey = 'cfValAddRelationshipTopicModal';
+                  @api get omniSupportKey() {
+                    return this._omniSupportKey;
+                  }
+                  set omniSupportKey(parentRecordKey) {
+                    this._omniSupportKey = this._omniSupportKey  + '_' + parentRecordKey;
+                  }
               @track record;
               @track _sessionApiVars = {};
+        @api set cfCustomerInteractionId(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["CustomerInteractionId"] = val;
+          }
+        } get cfCustomerInteractionId() {
+          return this._sessionApiVars["CustomerInteractionId"] || "undefined";
+        }
+      
+        @api set cfChannel(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["Channel"] = val;
+          }
+        } get cfChannel() {
+          return this._sessionApiVars["Channel"] || "undefined";
+        }
+      
+        @api set cfOrderId(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["OrderId"] = val;
+          }
+        } get cfOrderId() {
+          return this._sessionApiVars["OrderId"] || "undefined";
+        }
+      
+        @api set cfAccountId(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["AccountId"] = val;
+          }
+        } get cfAccountId() {
+          return this._sessionApiVars["AccountId"] || "undefined";
+        }
+      
               
               pubsubEvent = [];
               customEvent = [];
@@ -42,7 +80,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               
               disconnectedCallback(){
                 super.disconnectedCallback();
-                    
+                    this.omniSaveState(this.records,this.omniSupportKey,true);
                     
 
                   this.unregisterEvents();
