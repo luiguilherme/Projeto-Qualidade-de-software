@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>58.0</apiVersion>
-    <description>Flow temporário utilizado enquanto não é atualizado o swagger de criação do pedido na Hybris. O fluxo atualiza o campo remarkup (Comentário/Observação) da customer interaction topic que possui um pedido associado.</description>
-    <interviewLabel>Atualizar comentário da Topic após criar pedido no hybris {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Atualizar comentário da Topic após criar pedido no hybris</label>
+    <description>Flow temporário utilizado enquanto não é atualizado o swagger de criação do pedido na Hybris. O fluxo atualiza os campo remarkup__c da Customer Interaction Topic, e o campo PortedNumber__c do Pedido Emitido.</description>
+    <interviewLabel>Atualizar Topic e Pedido Emitido - Canvas Hybris {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Atualizar Topic e Pedido Emitido - Canvas Hybris</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -24,10 +24,27 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordUpdates>
+        <name>Atualizar_Numero_Migrado_do_Pedido_Emitido</name>
+        <label>Atualizar Número Migrado do Pedido Emitido</label>
+        <locationX>618</locationX>
+        <locationY>575</locationY>
+        <inputAssignments>
+            <field>PortedNumber__c</field>
+            <value>
+                <elementReference>$Record.vlocity_cmt__AssetId__r.PhoneNumber__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record.OrderIssued__r</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Atualiza campo remarkup__c (Oberservação/Comentário)</description>
         <name>Atualizar_Observacao_apos_criar_pedido</name>
         <label>Atualizar Observação após criar pedido</label>
-        <locationX>615</locationX>
-        <locationY>392</locationY>
+        <locationX>616</locationX>
+        <locationY>411</locationY>
+        <connector>
+            <targetReference>Atualizar_Numero_Migrado_do_Pedido_Emitido</targetReference>
+        </connector>
         <inputAssignments>
             <field>remarkup__c</field>
             <value>
@@ -42,7 +59,7 @@
         <connector>
             <targetReference>Atualizar_Observacao_apos_criar_pedido</targetReference>
         </connector>
-        <filterLogic>1 AND 2  AND (3 OR 4 OR 5 OR 6)</filterLogic>
+        <filterLogic>1 AND 2 AND (3 OR 4 OR 5 OR 6)</filterLogic>
         <filters>
             <field>Origin__c</field>
             <operator>EqualTo</operator>
@@ -59,13 +76,6 @@
         </filters>
         <filters>
             <field>remarkup__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>-</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>remarkup__c</field>
             <operator>Contains</operator>
             <value>
                 <stringValue>Aguardando escolha da oferta</stringValue>
@@ -73,16 +83,23 @@
         </filters>
         <filters>
             <field>remarkup__c</field>
-            <operator>EqualTo</operator>
+            <operator>IsNull</operator>
             <value>
-                <stringValue></stringValue>
+                <booleanValue>true</booleanValue>
             </value>
         </filters>
         <filters>
             <field>remarkup__c</field>
-            <operator>IsNull</operator>
+            <operator>EqualTo</operator>
             <value>
-                <booleanValue>true</booleanValue>
+                <stringValue>-</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>remarkup__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue></stringValue>
             </value>
         </filters>
         <object>vlocity_cmt__CustomerInteractionTopic__c</object>
