@@ -13,9 +13,9 @@
         "elementValueMap": {
             "accountId": "=%DRGetCustomerInteractionTopicData:accountId%",
             "assetId": "=%AssetId%",
-            "interactionTopicId": "=%DRGetCustomerInteractionTopicData:interactionTopicId%",
-            "origin": "=IF(%ProductType%=='Pre','VIVO/NET',IF(%ProductType%=='Fixed','GPS','Salesforce'))",
-            "otherProduct": "=%OtherProduct%",
+            "interactionTopicId": "=IF(%DRGetCustomerInteractionTopicData:interactionTopicId%!=NULL,%DRGetCustomerInteractionTopicData:interactionTopicId%,%interactionTopicId%)",
+            "origin": "=IF(%ProductType%=='Pre','VIVO/NET',IF(%ProductType%=='Fixed','GPS',IF(%ProductType%=='Mobile' && %DRgetOriginSystemAssetAndTopicTree:OriginSystem:Asset% == %DRgetOriginSystemAssetAndTopicTree:OriginSystem:TopicTree%, %DRgetOriginSystemAssetAndTopicTree:OriginSystem:Asset%,'Salesforce')))",
+            "otherProduct": "=IF(%OtherProduct%=='{OtherProduct}','',%OtherProduct%)",
             "outcome": "Completo",
             "process": "Palitagem Manual",
             "reason": "=IF(%ProductType%=='Pre','Palitagem Pré',IF(%ProductType%=='Mobile','Palitagem Móvel','Palitagem Fixa'))",

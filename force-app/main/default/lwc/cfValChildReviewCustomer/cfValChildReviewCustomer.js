@@ -33,7 +33,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
             this._sessionApiVars["InteractionNumber"] = val;
           }
         } get cfInteractionNumber() {
-          return this._sessionApiVars["InteractionNumber"] || "";
+          return this._sessionApiVars["InteractionNumber"] || "undefined";
         }
       
               

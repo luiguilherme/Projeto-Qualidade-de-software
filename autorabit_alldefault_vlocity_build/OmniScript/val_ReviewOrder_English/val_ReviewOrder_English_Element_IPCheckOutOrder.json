@@ -50,7 +50,42 @@
         "responseJSONPath": "",
         "sendJSONNode": "",
         "sendJSONPath": "",
-        "show": null,
+        "show": {
+            "group": {
+                "operator": "OR",
+                "rules": [
+                    {
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "true",
+                                    "field": "hasOptinValue"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "SalesJourney",
+                                    "field": "Functionality"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "RechargeJourney",
+                                    "field": "Functionality"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
         "showPersistentComponent": [
             true,
             false

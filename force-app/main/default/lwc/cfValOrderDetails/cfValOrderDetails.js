@@ -38,9 +38,9 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
  this.registerEvents();
                 this.setAttribute(
                   "class", (this.getAttribute("class") ? this.getAttribute("class") : "") +
-                  " card-a5W78000000HGp0EAG"
+                  " card-a5W76000000H9LpEAK"
                 );
-                this.loadCustomStylesheetAttachement("00P78000005hDsJEAU");
+                this.loadCustomStylesheetAttachement("00P76000004lmaEEAQ");
                 
                 
               }
@@ -55,10 +55,17 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
 
               registerEvents() {
                 
+        this.pubsubEvent[0] = {
+          [interpolateWithRegex(`fireToast`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[0],0)
+        };
+        this.pubsubChannel0 = interpolateWithRegex(`valOrderDetails`,this._allMergeFields,this._regexPattern,"noparse");
+        pubsub.register(this.pubsubChannel0,this.pubsubEvent[0]);
+
               }
 
               unregisterEvents(){
-                
+                pubsub.unregister(this.pubsubChannel0,this.pubsubEvent[0]);
+
               }
             
               renderedCallback() {

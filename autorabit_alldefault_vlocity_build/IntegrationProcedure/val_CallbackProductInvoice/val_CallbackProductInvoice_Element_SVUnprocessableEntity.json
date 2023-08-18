@@ -1,0 +1,35 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__InternalNotes__c": "Set Values utilizado para definir se algum dos campos está com valor inválido.",
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valCallbackProductInvoice",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CallbackProductInvoice/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "activitySectorUE": "=IF(%activitySector% <> \"AP\" && %activitySector% <> \"SV\", true, false)",
+            "invoiceKeyUE": "=IF(%activitySector% == \"AP\" && ISBLANK(%invoiceKey%), true, false)",
+            "invoiceNumberUE": "=IF(%activitySector% == \"AP\" && ISBLANK(%invoiceNumber%), true, false)",
+            "serviceStatusUE": "=IF(%activitySector% == \"SV\" && ISBLANK(%serviceStatus%), true, false)",
+            "treasuryStatusUE": "=IF(%activitySector% == \"AP\" && ISBLANK(%treasuryStatus%), true, false)"
+        },
+        "executionConditionalFormula": "",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues3",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVUnprocessableEntity",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CallbackProductInvoice/Procedure/SVUnprocessableEntity"
+}

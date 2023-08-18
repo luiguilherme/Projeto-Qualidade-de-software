@@ -2,9 +2,9 @@
     "dataSource": {
         "contextVariables": [
             {
-                "id": 1,
-                "name": "recordId",
-                "val": "80176000000Pc5aAAC"
+                "id": 6,
+                "name": "Session.OrderId",
+                "val": ""
             }
         ],
         "orderBy": {
@@ -15,9 +15,10 @@
         "value": {
             "dsDelay": "",
             "inputMap": {
-                "OrderId": "{recordId}"
+                "OrderId": "{Session.OrderId}"
             },
             "ipMethod": "val_GetReviewOrder",
+            "jsonMap": "{\"Session.OrderId\":\"{Session.OrderId}\"}",
             "resultVar": "",
             "vlocityAsync": false
         }
@@ -25,13 +26,20 @@
     "enableLwc": true,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValReviewOrder_2_Telefonica_Brasil_Valentina",
-        "Id": "0Rb760000004Gu3CAE",
+        "DeveloperName": "cfValReviewOrder_3_Telefonica_Brasil_Valentina",
+        "Id": "0Rb760000008vSkCAI",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValReviewOrder_2_Telefonica_Brasil_Valentina",
+        "MasterLabel": "cfValReviewOrder_3_Telefonica_Brasil_Valentina",
         "NamespacePrefix": "c"
     },
     "osSupport": true,
+    "sessionVars": [
+        {
+            "isApi": true,
+            "name": "OrderId",
+            "val": ""
+        }
+    ],
     "states": [
         {
             "actions": [
@@ -499,8 +507,11 @@
                                     "parentElementKey": "element_block_7_0",
                                     "property": {
                                         "cardName": "valReviewPermission",
-                                        "cardNode": "{record.Permission}",
+                                        "cardNode": "",
                                         "isChildCardTrackingEnabled": false,
+                                        "parentAttribute": {
+                                            "OrderId": "{Session.OrderId}"
+                                        },
                                         "recordId": "{recordId}",
                                         "selectedState": "Active"
                                     },
@@ -524,7 +535,7 @@
                                 "card": "{card}",
                                 "collapsedByDefault": false,
                                 "collapsible": true,
-                                "label": "Permissões de Contato",
+                                "label": "Permissão de Contato",
                                 "record": "{record}"
                             },
                             "size": {
@@ -613,6 +624,13 @@
                         "name": "recordId",
                         "type": "String"
                     }
+                },
+                {
+                    "@attributes": {
+                        "label": "OrderId",
+                        "name": "cfOrderId",
+                        "type": "String"
+                    }
                 }
             ]
         },
@@ -627,6 +645,27 @@
                         "name": "debug",
                         "type": "Boolean"
                     }
+                },
+                {
+                    "@attributes": {
+                        "label": "OrderId",
+                        "name": "cfOrderId",
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        {
+            "@attributes": {
+                "targets": "lightning__HomePage"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "label": "OrderId",
+                        "name": "cfOrderId",
+                        "type": "String"
+                    }
                 }
             ]
         }
@@ -637,11 +676,11 @@
         "isExposed": true,
         "masterLabel": "valReviewOrder",
         "runtimeNamespace": "%vlocity_namespace%",
-        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiIvPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIi8+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiIvPjwvdGFyZ2V0Q29uZmlnPg==",
+        "targetConfigs": "PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nX19BcHBQYWdlIiB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIj48cHJvcGVydHkgIG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48cHJvcGVydHkgIG5hbWU9ImNmT3JkZXJJZCIgdHlwZT0iU3RyaW5nIiBsYWJlbD0iT3JkZXJJZCI+PC9wcm9wZXJ0eT48L3RhcmdldENvbmZpZz48dGFyZ2V0Q29uZmlnICB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiIHhtbG5zPSJodHRwOi8vc29hcC5zZm9yY2UuY29tLzIwMDYvMDQvbWV0YWRhdGEiPjxwcm9wZXJ0eSAgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iPjwvcHJvcGVydHk+PHByb3BlcnR5ICBuYW1lPSJjZk9yZGVySWQiIHR5cGU9IlN0cmluZyIgbGFiZWw9Ik9yZGVySWQiPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nX19Ib21lUGFnZSI+PHByb3BlcnR5ICBuYW1lPSJjZk9yZGVySWQiIHR5cGU9IlN0cmluZyIgbGFiZWw9Ik9yZGVySWQiPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+",
         "targets": {
             "target": [
-                "lightning__RecordPage",
                 "lightning__AppPage",
+                "lightning__RecordPage",
                 "lightning__HomePage"
             ]
         }

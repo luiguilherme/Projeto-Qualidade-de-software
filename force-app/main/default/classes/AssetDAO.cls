@@ -281,4 +281,20 @@ public without sharing class AssetDAO {
         return [SELECT Id, Type__c, SourceSystem__c, vlocity_cmt__ServiceIdentifier__c FROM Asset WHERE AccountId =: accountId AND Type__c = 'Fixa' AND SourceSystem__c = 'SIEBEL' LIMIT 1];
          
     }
+
+    public static List<Asset> getPidAssetMobileByAccount(String accountId) {
+        final String STR_STATUS = 'Active';
+        final String STR_TYPE = 'Movel';
+        final String STR_NAMELEN = '___________';
+        Set<String> setProduto = new Set<String>{'Pós-Pago','Controle','Pré'};
+
+        return [SELECT Name, ProductType__c
+            FROM  Asset
+            WHERE AccountId = :accountId 
+                AND Status = :STR_STATUS
+                AND Type__c = :STR_TYPE
+                AND Name LIKE :STR_NAMELEN
+                AND ProductType__c IN :setProduto
+            ORDER BY StartDate__c ASC];
+    }
 }
