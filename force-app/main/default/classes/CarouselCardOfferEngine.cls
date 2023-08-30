@@ -264,7 +264,7 @@ public with sharing class CarouselCardOfferEngine {
         List<CardOfferServiceReturn.Card> cardToSortList = cardList;
         for (Integer i = 0; i < cardToSortList.size() -1 ; i++) {
             for (Integer j = 0; j < cardToSortList.size() - 1 - i; j++) {
-                if (cardToSortList[j].rank > cardToSortList[j + 1].rank) {
+                if (Integer.valueOf(cardToSortList[j].rank) > Integer.valueOf(cardToSortList[j + 1].rank)) {
                     CardOfferServiceReturn.Card auxCard = cardToSortList[j];
                     cardToSortList[j] = cardToSortList[j + 1];
                     cardToSortList[j + 1] = auxCard;
