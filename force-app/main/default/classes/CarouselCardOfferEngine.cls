@@ -225,7 +225,7 @@ public with sharing class CarouselCardOfferEngine {
             subOffer.description = splitList[0];
             subOffer.type = splitList[1];
             subOffer.campaignCode = splitList[2];
-            subOffer.offerPrice = splitList[3];       
+            subOffer.offerPrice = splitList.size() > 3 ? splitList[3] : '0';       
         }
         return subOffer;
     }
