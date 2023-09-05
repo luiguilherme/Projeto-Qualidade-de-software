@@ -10,7 +10,69 @@
         "Language": "Portuguese (Brazil)",
         "Sub Type": "configureLine",
         "Type": "val",
-        "show": null
+        "show": {
+            "group": {
+                "operator": "OR",
+                "rules": [
+                    {
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "true",
+                                    "field": "hasChipSelected"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "Lojas Proprias",
+                                    "field": "channel"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "true",
+                                    "field": "FormChipSelectCallSAP"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "group": {
+                            "operator": "OR",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "Call Center",
+                                    "field": "channel"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "Lojas Revendas",
+                                    "field": "channel"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "false",
+                                    "field": "FormChipSelectCallSAP"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "Lojas Proprias",
+                                    "field": "channel"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
     "%vlocity_namespace%__SearchKey__c": "val|configureLine|Portuguese (Brazil)",
