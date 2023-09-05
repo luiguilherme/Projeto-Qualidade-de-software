@@ -225,7 +225,7 @@ public with sharing class CarouselCardOfferEngine {
             subOffer.description = splitList[0];
             subOffer.type = splitList[1];
             subOffer.campaignCode = splitList[2];
-            subOffer.offerPrice = splitList[3];       
+            subOffer.offerPrice = splitList.size() > 3 ? splitList[3] : '0';       
         }
         return subOffer;
     }
@@ -264,7 +264,7 @@ public with sharing class CarouselCardOfferEngine {
         List<CardOfferServiceReturn.Card> cardToSortList = cardList;
         for (Integer i = 0; i < cardToSortList.size() -1 ; i++) {
             for (Integer j = 0; j < cardToSortList.size() - 1 - i; j++) {
-                if (cardToSortList[j].rank > cardToSortList[j + 1].rank) {
+                if (Integer.valueOf(cardToSortList[j].rank) > Integer.valueOf(cardToSortList[j + 1].rank)) {
                     CardOfferServiceReturn.Card auxCard = cardToSortList[j];
                     cardToSortList[j] = cardToSortList[j + 1];
                     cardToSortList[j + 1] = auxCard;
