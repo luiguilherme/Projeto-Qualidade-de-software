@@ -9,11 +9,15 @@
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
             "ICCID": "=IF(%DRGetLineDetails:ICCID%,TOSTRING(%DRGetLineDetails:ICCID%),NULL)",
+            "IMEI": "=%DRGetLineDetails:IMEI%",
             "Plan": "=%DRGetLineDetails:Plan%",
+            "Platform": "=IF(%LAMergeTranslatedPlatform:AssetPlatform__cValue%, %LAMergeTranslatedPlatform:AssetPlatform__cValue%, %DRGetLineDetails:Platform%)",
             "ServiceIdentifier": "=IF(%DRGetLineDetails:ServiceIdentifier%,TOSTRING(%DRGetLineDetails:ServiceIdentifier%),NULL)",
             "Status": "=IF(%LATranslatedData:TargetValue%,%LATranslatedData:TargetValue%,%LATranslatedData:status%)",
             "SubscriptionNumber": "=IF(%DRGetLineDetails:SubscriptionNumber%,TOSTRING(%DRGetLineDetails:SubscriptionNumber%),NULL)",
-            "hasError": "=IF(%HTTPGetUserProductsInfo:statusCode% != 200 || ISBLANK(%SVUserId:UserId%), True, False)"
+            "SubscriptionStatus": "=%DRGetLineDetails:SubscriptionStatus%",
+            "hasError": "=IF(%HTTPGetUserProductsInfo:statusCode% != 200 || ISBLANK(%SVUserId:UserId%), True, False)",
+            "providerId": "=%IPgetBalanceDetailed:providerId%"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",

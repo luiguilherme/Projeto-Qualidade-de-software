@@ -1,0 +1,232 @@
+{
+    "%vlocity_namespace%__Author__c": "TelefonicaBrasil_Davi",
+    "%vlocity_namespace%__CardType__c": "flex",
+    "%vlocity_namespace%__Datasource__c": {
+        "dataSource": {
+            "contextVariables": [
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "Custom",
+            "value": {
+                "body": "{\n\"SearchType\": \"CEP\",\n\"ShowLWCAddress\": false\n}",
+                "dsDelay": "",
+                "resultVar": ""
+            }
+        },
+        "event-0_1": {
+            "contextVariables": [
+                {
+                    "id": 4,
+                    "name": "PageControl.CurrentPage",
+                    "val": "1"
+                },
+                {
+                    "id": 6,
+                    "name": "recordId",
+                    "val": "02i7600000Cu5LOAAZ"
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "AssetId": "{recordId}",
+                    "CurrentPage": "{PageControl.CurrentPage}",
+                    "Navigation": "next"
+                },
+                "ipMethod": "val_getMonthlyStatementSubScheduleHistory",
+                "vlocityAsync": false
+            }
+        },
+        "event-1_1": {
+            "contextVariables": [
+                {
+                    "id": 3,
+                    "name": "PageControl.CurrentPage",
+                    "val": "2"
+                },
+                {
+                    "id": 6,
+                    "name": "recordId",
+                    "val": "02i7600000Cu5LOAAZ"
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "AssetId": "{recordId}",
+                    "CurrentPage": "{PageControl.CurrentPage}",
+                    "Navigation": "previous"
+                },
+                "ipMethod": "val_getMonthlyStatementSubScheduleHistory",
+                "vlocityAsync": false
+            }
+        },
+        "event-2_0": {
+            "contextVariables": [
+                {
+                    "id": 6,
+                    "name": "action.recordId",
+                    "val": ""
+                },
+                {
+                    "id": 7,
+                    "name": "action.Id",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "AssetId": "{action.recordId}",
+                    "Id": "{action.Id}"
+                },
+                "ipMethod": "val_MonthlyStatementSubScheduleHistoryCancel",
+                "vlocityAsync": false
+            }
+        },
+        "event-2_1": {
+            "contextVariables": [
+                {
+                    "id": 8,
+                    "name": "itemProtocol.TopicNameComplete",
+                    "val": ""
+                },
+                {
+                    "id": 9,
+                    "name": "itemProtocol.ProtocolItem.interactionTopicId",
+                    "val": ""
+                },
+                {
+                    "id": 10,
+                    "name": "itemProtocol.ProtocolItem.interactionId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "interactionId": "{itemProtocol.ProtocolItem.interactionId}",
+                    "interactionTopicId": "{itemProtocol.ProtocolItem.interactionTopicId}",
+                    "topicName": "{itemProtocol.TopicNameComplete}"
+                },
+                "ipMethod": "val_CallOutProtocolItemVivoNet",
+                "vlocityAsync": false
+            }
+        },
+        "event-2_3": {
+            "contextVariables": [
+                {
+                    "id": 4,
+                    "name": "PageControl.CurrentPage",
+                    "val": ""
+                },
+                {
+                    "id": 5,
+                    "name": "action.recordId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "AssetId": "{action.recordId}",
+                    "CurrentPage": "{PageControl.CurrentPage}"
+                },
+                "ipMethod": "val_getMonthlyStatementSubScheduleHistory",
+                "vlocityAsync": false
+            }
+        },
+        "state0element4block_element0_0": {
+            "contextVariables": [
+                {
+                    "id": 2,
+                    "name": "SearchCEP",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "CEP": "{SearchCEP}"
+                },
+                "ipMethod": "val_ValidateCEP",
+                "vlocityAsync": false
+            }
+        },
+        "state1element7_0": {
+            "contextVariables": [
+                {
+                    "id": 49,
+                    "name": "recordId",
+                    "val": "02i7600000Cu5LOAAZ"
+                },
+                {
+                    "id": 4,
+                    "name": "Parent.InteractionId",
+                    "val": "a1c76000001AompAAC"
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "AssetId": "{recordId}",
+                    "InteractionId": "{Parent.InteractionId}"
+                },
+                "ipMethod": "val_CreateMontlySchedule",
+                "jsonMap": "{\"recordId\":\"{recordId}\",\"Parent.InteractionId\":\"{Parent.InteractionId}\"}",
+                "vlocityAsync": false
+            }
+        }
+    },
+    "%vlocity_namespace%__Definition__c": "valSearchAddress.json",
+    "%vlocity_namespace%__Description__c": "Componente que realiza pesquisa de endereço por CEP e Logradouro",
+    "%vlocity_namespace%__GlobalKey__c": "valSearchAddress/TelefonicaBrasil_Davi/1/1672277088949",
+    "%vlocity_namespace%__IsChildCard__c": true,
+    "%vlocity_namespace%__ParentID__c": "valCreateMontlySchedule/TelefonicaBrasil_GleydsonAndDavi/3/1672228921268",
+    "%vlocity_namespace%__SampleData__c": "{\"SearchType\":\"CEP\",\"ShowLWCAddress\":false}",
+    "%vlocity_namespace%__Styles__c": "{\"customStyles\":\".enabled-btn{\\r\\n    background-color: white;;\\r\\n  \\r\\n}\\r\\n\\r\\n.disabled-btn{\\r\\n    background-color: white;\\r\\n    \\r\\n}\\r\\n\\r\\n.enabled-btn:hover{\\r\\n    background-color:  white;\\r\\n}\\r\\n\\r\\n.enabled2-btn{\\r\\n    background-color: #660099;;\\r\\n  \\r\\n}\\r\\n\\r\\n.disabled2-btn{\\r\\n    background-color: white;\\r\\n    \\r\\n}\\r\\n\\r\\n.enabled2-btn:hover{\\r\\n    background-color:  #1589ee;\\r\\n}\"}",
+    "%vlocity_namespace%__Type__c": "",
+    "%vlocity_namespace%__Version__c": 1,
+    "Name": "valSearchAddress",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityCard__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__VlocityCard__c/valSearchAddress"
+}
