@@ -12,7 +12,7 @@
             "success": false
         },
         "disOnTplt": false,
-        "executionConditionalFormula": "IF((ISBLANK(customerInformation:name) || ISBLANK(customerInformation:msisdn) || ISBLANK(customerInformation:birthdate)  || ISBLANK(customerInformation:digitalAgreementDate) || ISBLANK(customerInformation:documentType) || ISBLANK(customerInformation:documentNumber) || ISBLANK(customerInformation:stateOrProvince) || ISBLANK(customerInformation:city) || ISBLANK(customerInformation:neighborhood) || ISBLANK(customerInformation:street1) || ISBLANK(customerInformation:street2) || ISBLANK(customerInformation:addressNumber) || ISBLANK(customerInformation:postCode)) || (customerInformation:channel = \"HYBRIS\" && (ISBLANK(customerInformation:contactAgreement) || ISBLANK(customerInformation:orderExternalId) || ISBLANK(customerInformation:cnl) || ISBLANK(customerInformation:ibge))) || (customerInformation:channel = \"HYBRIS\" || customerInformation:channel = \"URA\" || customerInformation:channel = \"SATPUSH\" && (ISBLANK(customerInformation:digitalAgreementIP) || ISBLANK(customerInformation:addressComplement))),true,false)",
+        "executionConditionalFormula": "IF(  (  ISBLANK(customerInformation:name) || ISBLANK(customerInformation:msisdn) || ISBLANK(customerInformation:birthdate)  || ISBLANK(customerInformation:documentType) || ISBLANK(customerInformation:documentNumber) || ISBLANK(customerInformation:stateOrProvince) || ISBLANK(customerInformation:city) || ISBLANK(customerInformation:neighborhood) || ISBLANK(customerInformation:street1) || ISBLANK(customerInformation:street2) || ISBLANK(customerInformation:addressNumber) || ISBLANK(customerInformation:postCode)  ) ||  (  customerInformation:channel = \"HYBRIS\" && ( ISBLANK(customerInformation:contactAgreement) || ISBLANK(customerInformation:orderExternalId) ||  ISBLANK(customerInformation:cnl) || ISBLANK(customerInformation:ibge)||  ISBLANK(customerInformation:digitalAgreementIP) ||  ISBLANK(customerInformation:digitalAgreementDate))) || (customerInformation:channel = \"URA\" || customerInformation:channel = \"SATPUSH\" &&(ISBLANK(customerInformation:addressComplement))), true,false)",
         "label": "ResponseAction1",
         "responseDefaultData": {
         },
@@ -26,7 +26,8 @@
         "show": null,
         "useFormulas": true,
         "vlcResponseHeaders": {
-            "statusCode": 400
+            "Content-Type": "application/json",
+            "StatusCode": 400
         }
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,

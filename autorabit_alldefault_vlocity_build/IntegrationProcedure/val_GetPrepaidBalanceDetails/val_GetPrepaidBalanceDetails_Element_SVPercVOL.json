@@ -1,0 +1,34 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valGetPrepaidBalanceDetails",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/GetPrepaidBalanceDetails/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "availablePercentualTotal1": "=IF(%Response:VOLTotal:grantedBalanceTotal%==0,0,(%Response:VOLTotal:totalAvailable% / (%Response:VOLTotal:grantedBalanceTotal%+0.01)*100))",
+            "consumedPercentualTotal": "=IF(%Response:VOLTotal:grantedBalanceTotal%==0,0,(%Response:VOLTotal:totalConsumed% / (%Response:VOLTotal:grantedBalanceTotal%+0.01)*100))",
+            "grantedBalanceTotal": "=%Response:VOLTotal:grantedBalanceTotal%",
+            "totalAvailable": "=%Response:VOLTotal:totalAvailable%",
+            "totalConsumed": "=%Response:VOLTotal:totalConsumed%"
+        },
+        "executionConditionalFormula": "",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues4",
+        "responseJSONNode": "Response:VOLPerc",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVPercVOL",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetPrepaidBalanceDetails/Procedure/SVPercVOL"
+}
