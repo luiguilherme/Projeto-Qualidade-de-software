@@ -122,4 +122,18 @@ public with sharing class FromToMappingDAO {
             	OriginApiName__c = :userRole
         ];
     }
+
+    public static List<FromToMapping__mdt> getLstByUsersRole(Set<String> lstUserRole) {
+        List<FromToMapping__mdt> lstReturn = [
+            SELECT
+            	OperatorSegment__c,
+                OriginApiName__c
+            FROM
+            	FromToMapping__mdt
+            WHERE
+            	OriginApiName__c in :lstUserRole
+        ];
+
+        return lstReturn.isEmpty() ? new List<FromToMapping__mdt>() : lstReturn;
+    }
 }

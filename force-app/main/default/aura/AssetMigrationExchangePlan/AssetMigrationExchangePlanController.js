@@ -4,9 +4,10 @@
     },
     
     startMigrationProcess : function (component, event, helper) {
+        helper.checkAccessToComponent(component);
         var haveTokenAccess = component.get('v.haveTokenAccess')
         var haveUserAccess = component.get('v.haveUserAccess')
-
+		
         if (haveTokenAccess && haveUserAccess) {
             component.set('v.showAssetMigrationSelection', true);
         } else {
