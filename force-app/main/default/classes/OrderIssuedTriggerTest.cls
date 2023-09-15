@@ -1,7 +1,7 @@
 @isTest
 private class OrderIssuedTriggerTest {
     private static final String CHECKED_VALID_STATUS = 'Pedido Recebido';
-    private static final String END_ORDER_ACTION_STATUS = 'Pedido Concluído';
+    private static final String END_ORDER_ACTION_STATUS = 'Pedido Concluído - NEXT';
     
     @TestSetup
     static void setup(){
