@@ -36,6 +36,8 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
                 
                 this.customLabels = this.Label;
                       
+                          this.fetchUpdatedCustomLabels();
+                      
                 this.setDefinition(data);
  this.registerEvents();
                 
