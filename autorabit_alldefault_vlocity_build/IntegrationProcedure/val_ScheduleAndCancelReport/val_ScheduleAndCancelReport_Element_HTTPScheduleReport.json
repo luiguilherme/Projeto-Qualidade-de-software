@@ -1,0 +1,87 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "ValScheduleAndCancelReport",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ScheduleAndCancelReport/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__ParentElementId__c": {
+        "%vlocity_namespace%__OmniScriptId__c": {
+            "Name": "ValScheduleAndCancelReport",
+            "VlocityDataPackType": "VlocityMatchingKeyObject",
+            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ScheduleAndCancelReport/Procedure",
+            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+        },
+        "Name": "CBScheduleReport",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ScheduleAndCancelReport/Procedure/CBScheduleReport",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
+    },
+    "%vlocity_namespace%__ParentElementName__c": "CBScheduleReport",
+    "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "additionalInput": {
+            "city": "%city%",
+            "clientName": "%DREGetAccountData:name%",
+            "district": "=%neighborhood%",
+            "email": "=IF(%email% != NULL, %email%, %customerEmail%)",
+            "endDate": "=CONCAT(YEAR(ADDDAY(TODAY(),90)), IF(MONTH(ADDDAY(TODAY(),90)) < 10, CONCAT(0, MONTH(ADDDAY(TODAY(),90))), MONTH(ADDDAY(TODAY(),90))), IF(DAY(ADDDAY(TODAY(),90)) < 10, CONCAT(0, DAY(ADDDAY(TODAY(),90))), DAY(ADDDAY(TODAY(),90))))",
+            "msisdn": "%DREGetMSISDNFromAsset:Products:LineNumber%",
+            "period": "=IF(%period% == \"Dia 01 ao dia 30\", 1, IF(%period% == \"Dia 10 ao dia 09\", 2, 3))",
+            "reason": 1,
+            "receiptAdNr": "%number%",
+            "receiptAddress": "=CONCAT(%addressType%,\" \", %address%)",
+            "receiptComp": "=CONCAT(IF(%complementType1% != NULL, CONCAT(%complementType1%, \" \"), \"\"),IF(%complement1% != NULL, CONCAT(%complement1%, \" \"), \"\"), IF(%complementType2% != NULL, CONCAT(%complementType2%, \" \"), \"\"), IF(%complement2% != NULL, CONCAT(%complement2%, \" \"), \"\"),IF(%complementType3% != NULL, CONCAT(%complementType3%, \" \"), \"\"), %complement3%)",
+            "reportType": "=IF(%reportType% == \"email\", 2, IF(TOSTRING(%reportType%) == \"false\", 3, 4))",
+            "startDate": "=CONCAT(YEAR(TODAY()), IF(MONTH(TODAY()) < 10, CONCAT(0, MONTH(TODAY())), MONTH(TODAY())), IF(DAY(TODAY()) < 10, CONCAT(0, DAY(TODAY())), DAY(TODAY())))",
+            "uf": "%state%",
+            "zipCode": "%SVSetCEPAsNumber:cep%"
+        },
+        "additionalOutput": {
+        },
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "executionConditionalFormula": "",
+        "failOnStepError": false,
+        "failureConditionalFormula": "",
+        "failureResponse": {
+        },
+        "label": "HTTPAction1",
+        "namedCredential": "APITelefonica",
+        "postActionLogging": "",
+        "preActionLogging": "%endpoint%",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "restMethod": "POST",
+        "restOptions": {
+            "clientCertificateName": "",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "isCompressed": false,
+            "params": {
+            },
+            "sendBody": true,
+            "timeout": 0,
+            "xmlEscapeResponse": false
+        },
+        "restPath": "/customerInformationManagement/usageConsumptionManagement/v1/history/report/schedule",
+        "retryCount": 0,
+        "returnOnlyAdditionalOutput": false,
+        "returnOnlyFailureResponse": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "sendOnlyAdditionalInput": true,
+        "show": null,
+        "type": "Integration",
+        "useFormulas": true
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Rest Action",
+    "Name": "HTTPScheduleReport",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ScheduleAndCancelReport/Procedure/HTTPScheduleReport"
+}

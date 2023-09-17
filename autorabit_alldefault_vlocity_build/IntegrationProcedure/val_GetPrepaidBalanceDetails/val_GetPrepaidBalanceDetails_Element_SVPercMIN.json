@@ -1,0 +1,33 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valGetPrepaidBalanceDetails",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/GetPrepaidBalanceDetails/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "availablePercentualTotal1": "=IF(%Response:MINTotal:grantedBalanceTotal%==0,0,%Response:MIN|1:availableBalance% / (%Response:MINTotal:grantedBalanceTotal%+0.01) * 100))",
+            "availablePercentualTotal2": "=IF(%Response:MINTotal:grantedBalanceTotal%==0,0,%Response:MIN|2:availableBalance% / (%Response:MINTotal:grantedBalanceTotal%+0.01) * 100))",
+            "availablePercentualTotal3": "=IF(%Response:MINTotal:grantedBalanceTotal%==0,0,%Response:MIN|3:availableBalance% / (%Response:MINTotal:grantedBalanceTotal%+0.01) * 100))",
+            "consumedPercentualTotal": "=IF(%Response:MINTotal:grantedBalanceTotal%==0,0,%Response:MINTotal:totalConsumed% / (%Response:MINTotal:grantedBalanceTotal%+0.01) * 100))"
+        },
+        "executionConditionalFormula": "=IF(ISBLANK(Response:MIN),false,true)",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues4",
+        "responseJSONNode": "Response:MINPerc",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVPercMIN",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetPrepaidBalanceDetails/Procedure/SVPercMIN"
+}

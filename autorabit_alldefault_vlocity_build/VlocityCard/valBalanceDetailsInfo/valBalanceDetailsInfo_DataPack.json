@@ -1,0 +1,99 @@
+{
+    "%vlocity_namespace%__Author__c": "Lucas",
+    "%vlocity_namespace%__CardType__c": "flex",
+    "%vlocity_namespace%__Datasource__c": {
+        "dataSource": {
+            "contextVariables": [
+                {
+                    "id": 6,
+                    "name": "Parent.networkNumber",
+                    "val": "11999205044"
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "networkNumber": "{Parent.networkNumber}"
+                },
+                "ipMethod": "val_GetPrepaidBalanceDetails",
+                "jsonMap": "{\"Parent.networkNumber\":\"{Parent.networkNumber}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        },
+        "state0element0block_element0_0": {
+            "contextVariables": [
+                {
+                    "id": 7,
+                    "name": "Parent.interactionId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "interactionId": "{Parent.interactionId}",
+                    "process": "Consultar Consumo de Mensagens, Voz, Bonus",
+                    "topicName": "Início > Informação > Crédito > Saldo Detalhado"
+                },
+                "ipMethod": "val_CreateCustomerInteractionTopic",
+                "jsonMap": "{\"Parent.interactionId\":\"{Parent.interactionId}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        },
+        "state0element0block_element0_1": {
+            "contextVariables": [
+                {
+                    "id": 6,
+                    "name": "ProtocolResponse.interactionTopicId",
+                    "val": "a1b76000000WfmyAAC"
+                },
+                {
+                    "id": 8,
+                    "name": "ProtocolResponse.interactionId",
+                    "val": "a1c76000001VtBFAA0"
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "interactionId": "{ProtocolResponse.interactionId}",
+                    "interactionTopicId": "{ProtocolResponse.interactionTopicId}",
+                    "topicName": "Início > Informação > Crédito > Saldo Detalhado"
+                },
+                "ipMethod": "val_CallOutProtocolItemVivoNet",
+                "jsonMap": "{\"ProtocolResponse.interactionTopicId\":\"{ProtocolResponse.interactionTopicId}\",\"ProtocolResponse.interactionId\":\"{ProtocolResponse.interactionId}\"}",
+                "vlocityAsync": false
+            }
+        }
+    },
+    "%vlocity_namespace%__Definition__c": "valBalanceDetailsInfo.json",
+    "%vlocity_namespace%__Description__c": "",
+    "%vlocity_namespace%__GlobalKey__c": "valBalanceDetailsInfo/Lucas/7/1683144071325",
+    "%vlocity_namespace%__IsChildCard__c": true,
+    "%vlocity_namespace%__ParentID__c": "",
+    "%vlocity_namespace%__SampleData__c": "{\"EVE\":[\"\"],\"MIN\":[\"\"],\"MON\":[\"\"],\"VOL\":[\"\"],\"balanceData\":[{\"balanceData\":{\"attributesList\":[null,null,{\"width\":0,\"title\":\"Consumidos\",\"color\":\"#E4E3E2\"}]}},{\"balanceData\":{\"attributesList\":[null,null,null,{\"title\":\"Consumidos\",\"color\":\"#E4E3E2\"}]}},{\"balanceData\":{\"attributesList\":[null,{\"width\":0,\"title\":\"Consumidos\",\"color\":\"#E4E3E2\"}],\"grantedBalanceTotal\":[0,0],\"availableBalanceTotal\":[0,0]}}]}",
+    "%vlocity_namespace%__Styles__c": "{\"customStyles\":\"\"}",
+    "%vlocity_namespace%__Type__c": "",
+    "%vlocity_namespace%__Version__c": 7,
+    "Name": "valBalanceDetailsInfo",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityCard__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__VlocityCard__c/valBalanceDetailsInfo"
+}

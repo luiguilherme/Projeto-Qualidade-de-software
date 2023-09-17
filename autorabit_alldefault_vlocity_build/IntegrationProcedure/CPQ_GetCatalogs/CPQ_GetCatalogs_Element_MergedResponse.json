@@ -11,7 +11,7 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "value": "=LISTMERGE(\"Id\", LIST(%AllProducts:value%), LIST(%Promotions:value%), LIST (%GetCatalogsLoopBlock:output%))"
+            "value": "=IF(%FilterCatalogsByOrderType:teste% == null, LIST(LISTMERGE(\"Id\", LIST(%AllProducts:value%), LIST(%Promotions:value%), LIST (%GetCatalogsLoopBlock:output%))), LIST(LISTMERGE(\"Id\", LIST(%AllProducts:value%), LIST(%Promotions:value%), LIST (%FilterCatalogsByOrderType:teste%))))"
         },
         "executionConditionalFormula": "",
         "failOnStepError": true,
