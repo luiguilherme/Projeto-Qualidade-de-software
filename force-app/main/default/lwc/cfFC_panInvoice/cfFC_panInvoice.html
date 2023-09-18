@@ -1,0 +1,93 @@
+<template>
+            <div class="slds-grid slds-wrap slds-is-relative ">
+            <div style="position: fixed;z-index: 999999;top: 0;right: 0;">
+  <vlocity_cmt-toast class="flexcard-toast-element" theme="slds" title="" message="" styletype=""> </vlocity_cmt-toast>
+</div>
+            <div if:true={showLoader} class="slds-is-absolute vloc-loader_override" style="height: 100%; width: 100%; min-height:50px; background: transparent; z-index: 99;">
+  <div>
+   <vlocity_cmt-spinner
+      variant="brand"
+      alternative-text="Loading content..."
+      size="medium"
+      theme="slds"
+      ></vlocity_cmt-spinner>
+  </div>
+</div>
+            <template if:false={hasPermission}>
+              You don't have required permissions to view this card.
+            </template>
+            <template if:true={hasPermission}>
+              <template if:true={hasRecords}>
+                        <template for:each={_records} for:item="record" for:index="rindex">
+                            <vlocity_cmt-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-large-size_12-of-12 slds-medium-size_9-of-12 slds-small-size_9-of-12 slds-size_9-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-around_none " style="      
+         ">
+          <div data-style-id="state0element0" class="slds-col   slds-p-around_x-small slds-size_12-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0" class="slds-col   slds-size_2-of-12  " data-rindex={rindex} style="" ><vlocity_cmt-output-field data-style-id="state0element0block_element0_child"   record={record}  card={card}  merge-field="%3Cdiv%20class=%22slds-text-align_left%22%3E%3Cspan%20style=%22font-size:%2018pt;%22%3E%3Cstrong%3ENota%20Fiscal%3C/strong%3E%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><c-cf-f-c_pan-invoice-date-filter data-style-id="state0element1_child"  tracking-obj={_childCardTrackingObj}  is-inside-parent={insideParent} parent-uniquekey={uniqueKey}  card-node=""  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  is-child-card-tracking-enabled="false"  object-api-name={objectApiName}  theme="slds"   onupdateparent={updateParentData}></c-cf-f-c_pan-invoice-date-filter>
+    </div><div data-style-id="state0element2" class="slds-col   slds-p-around_medium  slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"Session.ShowTable","operator":"!=","value":"0","type":"custom","hasMergeField":false}]}' >
+    <vlocity_cmt-block data-style-id="state0element2_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"Session.ShowTable","operator":"!=","value":"0","type":"custom","hasMergeField":false}]}'  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element2block_element0" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><c-cf-f-c_pan-invoice_-datatable-header data-style-id="state0element2block_element0_child"  tracking-obj={_childCardTrackingObj}  is-inside-parent={insideParent} parent-uniquekey={uniqueKey}  card-node=""  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  is-child-card-tracking-enabled="false"  object-api-name={objectApiName}  theme="slds"   onupdateparent={updateParentData}></c-cf-f-c_pan-invoice_-datatable-header>
+    </div><div data-style-id="state0element2block_element1" class="slds-col    slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"group":[{"field":"statusCode","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"200"}],"id":"state-condition-object","isParent":true}' >
+    <vlocity_cmt-block data-style-id="state0element2block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  data-conditions='\{"group":[{"field":"statusCode","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"200"}],"id":"state-condition-object","isParent":true}'  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element2block_element1block_element0" class="slds-col   slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"group":[{"field":"recordListSize","hasMergeField":false,"id":"state-new-condition-27","operator":">","type":"custom","value":"0"}],"id":"state-condition-object","isParent":true}' ><c-cf-f-c_pan-invoice_-datatable-row data-style-id="state0element2block_element1block_element0_child"  tracking-obj={_childCardTrackingObj}  is-inside-parent={insideParent} parent-uniquekey={uniqueKey}  card-node="\{record.invoice}"  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  data-conditions='\{"group":[{"field":"recordListSize","hasMergeField":false,"id":"state-new-condition-27","operator":">","type":"custom","value":"0"}],"id":"state-condition-object","isParent":true}'  is-child-card-tracking-enabled="false"  data-preload-conditional-element="true"  parent-attribute='\{"contextNumber":"{Parent.contextNumber}"}'  object-api-name={objectApiName}  theme="slds"   onupdateparent={updateParentData}></c-cf-f-c_pan-invoice_-datatable-row>
+    </div><div data-style-id="state0element2block_element1block_element1" class="slds-col   slds-size_12-of-12 condition-element" data-rindex={rindex} style=""  data-conditions='\{"group":[{"field":"recordListSize","hasMergeField":false,"id":"state-new-condition-7","operator":"==","type":"custom","value":"0"}],"id":"state-condition-object","isParent":true}' ><c-cf-pan-alert-no-records data-style-id="state0element2block_element1block_element1_child"  tracking-obj={_childCardTrackingObj}  is-inside-parent={insideParent} parent-uniquekey={uniqueKey}  card-node=""  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  data-conditions='\{"group":[{"field":"recordListSize","hasMergeField":false,"id":"state-new-condition-7","operator":"==","type":"custom","value":"0"}],"id":"state-condition-object","isParent":true}'  is-child-card-tracking-enabled="false"  data-preload-conditional-element="true"  object-api-name={objectApiName}  theme="slds"   onupdateparent={updateParentData}></c-cf-pan-alert-no-records>
+    </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element2block_element2" class="slds-col   slds-size_12-of-12 condition-element" data-rindex={rindex} style=""  data-conditions='\{"group":[{"field":"statusCode","hasMergeField":false,"id":"state-new-condition-36","operator":"!=","type":"custom","value":"200"}],"id":"state-condition-object","isParent":true}' ><c-cf-pan-alert-service-error data-style-id="state0element2block_element2_child"  tracking-obj={_childCardTrackingObj}  is-inside-parent={insideParent} parent-uniquekey={uniqueKey}  card-node="\{record}"  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  data-conditions='\{"group":[{"field":"statusCode","hasMergeField":false,"id":"state-new-condition-36","operator":"!=","type":"custom","value":"200"}],"id":"state-condition-object","isParent":true}'  is-child-card-tracking-enabled="false"  data-preload-conditional-element="true"  object-api-name={objectApiName}  theme="slds"   onupdateparent={updateParentData}></c-cf-pan-alert-service-error>
+    </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                        </template>
+                      </template>
+                      <template if:false={hasRecords}>
+                            <vlocity_cmt-flex-card-state  record={record} data-statue="false"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-large-size_12-of-12 slds-medium-size_9-of-12 slds-small-size_9-of-12 slds-size_9-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-around_none " style="      
+         ">
+          <div data-style-id="state0element0" class="slds-col   slds-p-around_x-small slds-size_12-of-12  " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0" class="slds-col   slds-size_2-of-12  " data-rindex={rindex} style="" ><vlocity_cmt-output-field data-style-id="state0element0block_element0_child"   record={record}  card={card}  merge-field="%3Cdiv%20class=%22slds-text-align_left%22%3E%3Cspan%20style=%22font-size:%2018pt;%22%3E%3Cstrong%3ENota%20Fiscal%3C/strong%3E%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><c-cf-f-c_pan-invoice-date-filter data-style-id="state0element1_child"  tracking-obj={_childCardTrackingObj}  is-inside-parent={insideParent} parent-uniquekey={uniqueKey}  card-node=""  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  is-child-card-tracking-enabled="false"  object-api-name={objectApiName}  theme="slds"   onupdateparent={updateParentData}></c-cf-f-c_pan-invoice-date-filter>
+    </div><div data-style-id="state0element2" class="slds-col   slds-p-around_medium  slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"Session.ShowTable","operator":"!=","value":"0","type":"custom","hasMergeField":false}]}' >
+    <vlocity_cmt-block data-style-id="state0element2_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"Session.ShowTable","operator":"!=","value":"0","type":"custom","hasMergeField":false}]}'  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element2block_element0" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><c-cf-f-c_pan-invoice_-datatable-header data-style-id="state0element2block_element0_child"  tracking-obj={_childCardTrackingObj}  is-inside-parent={insideParent} parent-uniquekey={uniqueKey}  card-node=""  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  is-child-card-tracking-enabled="false"  object-api-name={objectApiName}  theme="slds"   onupdateparent={updateParentData}></c-cf-f-c_pan-invoice_-datatable-header>
+    </div><div data-style-id="state0element2block_element1" class="slds-col    slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"group":[{"field":"statusCode","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"200"}],"id":"state-condition-object","isParent":true}' >
+    <vlocity_cmt-block data-style-id="state0element2block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  data-conditions='\{"group":[{"field":"statusCode","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"200"}],"id":"state-condition-object","isParent":true}'  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element2block_element1block_element0" class="slds-col   slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"group":[{"field":"recordListSize","hasMergeField":false,"id":"state-new-condition-27","operator":">","type":"custom","value":"0"}],"id":"state-condition-object","isParent":true}' ><c-cf-f-c_pan-invoice_-datatable-row data-style-id="state0element2block_element1block_element0_child"  tracking-obj={_childCardTrackingObj}  is-inside-parent={insideParent} parent-uniquekey={uniqueKey}  card-node="\{record.invoice}"  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  data-conditions='\{"group":[{"field":"recordListSize","hasMergeField":false,"id":"state-new-condition-27","operator":">","type":"custom","value":"0"}],"id":"state-condition-object","isParent":true}'  is-child-card-tracking-enabled="false"  data-preload-conditional-element="true"  parent-attribute='\{"contextNumber":"{Parent.contextNumber}"}'  object-api-name={objectApiName}  theme="slds"   onupdateparent={updateParentData}></c-cf-f-c_pan-invoice_-datatable-row>
+    </div><div data-style-id="state0element2block_element1block_element1" class="slds-col   slds-size_12-of-12 condition-element" data-rindex={rindex} style=""  data-conditions='\{"group":[{"field":"recordListSize","hasMergeField":false,"id":"state-new-condition-7","operator":"==","type":"custom","value":"0"}],"id":"state-condition-object","isParent":true}' ><c-cf-pan-alert-no-records data-style-id="state0element2block_element1block_element1_child"  tracking-obj={_childCardTrackingObj}  is-inside-parent={insideParent} parent-uniquekey={uniqueKey}  card-node=""  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  data-conditions='\{"group":[{"field":"recordListSize","hasMergeField":false,"id":"state-new-condition-7","operator":"==","type":"custom","value":"0"}],"id":"state-condition-object","isParent":true}'  is-child-card-tracking-enabled="false"  data-preload-conditional-element="true"  object-api-name={objectApiName}  theme="slds"   onupdateparent={updateParentData}></c-cf-pan-alert-no-records>
+    </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element2block_element2" class="slds-col   slds-size_12-of-12 condition-element" data-rindex={rindex} style=""  data-conditions='\{"group":[{"field":"statusCode","hasMergeField":false,"id":"state-new-condition-36","operator":"!=","type":"custom","value":"200"}],"id":"state-condition-object","isParent":true}' ><c-cf-pan-alert-service-error data-style-id="state0element2block_element2_child"  tracking-obj={_childCardTrackingObj}  is-inside-parent={insideParent} parent-uniquekey={uniqueKey}  card-node="\{record}"  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  data-conditions='\{"group":[{"field":"statusCode","hasMergeField":false,"id":"state-new-condition-36","operator":"!=","type":"custom","value":"200"}],"id":"state-condition-object","isParent":true}'  is-child-card-tracking-enabled="false"  data-preload-conditional-element="true"  object-api-name={objectApiName}  theme="slds"   onupdateparent={updateParentData}></c-cf-pan-alert-service-error>
+    </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                      </template>
+            </template>
+            <template if:true={hasError}>
+            {error}
+            </template>
+            
+      <vlocity_cmt-action action-wrapperclass="slds-hide" re-render-flyout class="action-trigger slds-col" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+      
+      </vlocity_cmt-action>
+  
+            <vlocity_cmt-action class="execute-action" re-render-flyout action-wrapperclass="slds-hide" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+            
+            </vlocity_cmt-action>
+            </div>
+          </template>
