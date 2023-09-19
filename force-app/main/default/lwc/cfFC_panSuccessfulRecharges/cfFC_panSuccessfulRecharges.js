@@ -16,7 +16,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               @api objectApiName;
               
               @track record;
-              
+              @track _sessionApiVars = {};
 
               _regexPattern = /\{([a-zA-Z.0-9_]+)\}/g; //for {} fields by default
               
