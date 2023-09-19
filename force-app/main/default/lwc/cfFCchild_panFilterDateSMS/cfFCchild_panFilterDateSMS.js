@@ -10,7 +10,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
           
           import styleDef from "./styleDefinition";
               
-          export default class cfFC_panSuccessfulRecharges extends FlexCardMixin(LightningElement){
+          export default class cfFCchild_panFilterDateSMS extends FlexCardMixin(LightningElement){
               @api debug;
               @api recordId;
               @api objectApiName;
@@ -107,23 +107,15 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               registerEvents() {
                 
         this.pubsubEvent[0] = {
-          [interpolateWithRegex(`aguarde`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[1],1)
+          [interpolateWithRegex(`getdatebind`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[0],0)
         };
-        this.pubsubChannel0 = interpolateWithRegex(`FC_panSuccessfulRecharges`,this._allMergeFields,this._regexPattern,"noparse");
+        this.pubsubChannel0 = interpolateWithRegex(`FCchild_panFilterDateSMS`,this._allMergeFields,this._regexPattern,"noparse");
         pubsub.register(this.pubsubChannel0,this.pubsubEvent[0]);
 
-            this.customEventName0 = interpolateWithRegex(`querysuccessfulrecharges`,this._allMergeFields,this._regexPattern,"noparse");
-            this.customEvent[0] = this.handleEventAction.bind(this, data.events[0],0);
-
-            this.template.addEventListener(this.customEventName0,this.customEvent[0]);
-
-          
               }
 
               unregisterEvents(){
                 pubsub.unregister(this.pubsubChannel0,this.pubsubEvent[0]);
-
-            this.template.removeEventListener(this.customEventName0,this.customEvent[0]);
 
               }
             
