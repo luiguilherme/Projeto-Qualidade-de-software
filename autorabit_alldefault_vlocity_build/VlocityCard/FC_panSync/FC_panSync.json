@@ -8,9 +8,18 @@
             }
         ],
         "orderBy": {
+            "isReverse": "",
+            "name": ""
         },
-        "type": null,
+        "type": "IntegrationProcedures",
         "value": {
+            "dsDelay": "5",
+            "inputMap": {
+                "networkNumber": "{Parent.networkNumber}"
+            },
+            "ipMethod": "val_GetUserPermission",
+            "resultVar": "[\"UserPermission\"]",
+            "vlocityAsync": true
         }
     },
     "enableLwc": true,
@@ -58,10 +67,10 @@
     "isFlex": true,
     "listenToWidthResize": true,
     "lwc": {
-        "DeveloperName": "cfFC_panSync_12_PandoraTatico",
-        "Id": "0Rb7j000000Do9DCAS",
+        "DeveloperName": "cfFC_panSync_11_PandoraTatico",
+        "Id": "0Rb7j000000Db2DCAS",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfFC_panSync_12_PandoraTatico",
+        "MasterLabel": "cfFC_panSync_11_PandoraTatico",
         "NamespacePrefix": "c"
     },
     "multilanguageSupport": true,
@@ -708,7 +717,7 @@
                                         "data-conditions": {
                                             "group": [
                                                 {
-                                                    "field": "Session.showMessage",
+                                                    "field": "showMessage",
                                                     "hasMergeField": false,
                                                     "id": "state-new-condition-19",
                                                     "operator": "==",
@@ -931,7 +940,7 @@
                                             {
                                                 "actionIndex": 0,
                                                 "draggable": true,
-                                                "isOpen": false,
+                                                "isOpen": true,
                                                 "key": "1664835911423-4fde6jnhs",
                                                 "label": "pubSubSync",
                                                 "stateAction": {
@@ -953,7 +962,7 @@
                                                 "actionIndex": 1,
                                                 "card": "{card}",
                                                 "draggable": true,
-                                                "isOpen": true,
+                                                "isOpen": false,
                                                 "key": "1664836011561-r2a231msk",
                                                 "label": "setValues",
                                                 "stateAction": {
@@ -961,11 +970,11 @@
                                                     "eventName": "setValues",
                                                     "fieldValues": [
                                                         {
-                                                            "fieldName": "Session.showMessage",
+                                                            "fieldName": "showMessage",
                                                             "fieldValue": "true"
                                                         }
                                                     ],
-                                                    "id": "flex-action-1692130349832",
+                                                    "id": "flex-action-1664892167907",
                                                     "openUrlIn": "Current Window",
                                                     "type": "cardAction",
                                                     "vlocityIcon": "standard-default"
@@ -1144,6 +1153,127 @@
             },
             "conditions": {
                 "group": [
+                    {
+                        "field": "LineSync",
+                        "hasMergeField": false,
+                        "id": "state-new-condition-3",
+                        "operator": "==",
+                        "type": "custom",
+                        "value": "true"
+                    }
+                ],
+                "id": "state-condition-object",
+                "isParent": true
+            },
+            "definedActions": {
+                "actions": [
+                ]
+            },
+            "documents": [
+            ],
+            "fields": [
+            ],
+            "isSmartAction": false,
+            "name": "Active",
+            "omniscripts": [
+            ],
+            "smartAction": {
+            },
+            "styleObject": {
+                "background": {
+                    "color": "",
+                    "image": "",
+                    "position": "",
+                    "repeat": "",
+                    "size": ""
+                },
+                "border": {
+                    "color": "",
+                    "radius": "",
+                    "style": "",
+                    "type": "",
+                    "width": ""
+                },
+                "class": "slds-card slds-p-around_x-small slds-m-around_none ",
+                "container": {
+                    "class": "slds-card"
+                },
+                "elementStyleProperties": {
+                },
+                "inlineStyle": "",
+                "margin": [
+                    {
+                        "label": "around:none",
+                        "size": "none",
+                        "type": "around"
+                    }
+                ],
+                "padding": [
+                    {
+                        "label": "around:x-small",
+                        "size": "x-small",
+                        "type": "around"
+                    }
+                ],
+                "size": {
+                    "default": "12",
+                    "isResponsive": false
+                },
+                "sizeClass": "slds-size_12-of-12 ",
+                "style": "      \n         ",
+                "text": {
+                    "align": "",
+                    "color": ""
+                }
+            }
+        },
+        {
+            "actions": [
+            ],
+            "childCards": [
+                "valMessageAlert"
+            ],
+            "components": {
+                "layer-0": {
+                    "children": [
+                        {
+                            "class": "slds-col ",
+                            "element": "childCardPreview",
+                            "elementLabel": "FlexCard-0",
+                            "name": "FlexCard",
+                            "property": {
+                                "cardName": "valMessageAlert",
+                                "cardNode": "",
+                                "isChildCardTrackingEnabled": false,
+                                "parentAttribute": {
+                                    "ErrorMessage": "Perfil do Usuário sem permissão"
+                                },
+                                "recordId": "{recordId}",
+                                "selectedState": "WarningCustomAttribute"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 1,
+                            "styleObject": {
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "element"
+                        }
+                    ]
+                }
+            },
+            "conditions": {
+                "group": [
+                    {
+                        "field": "LineSync",
+                        "hasMergeField": false,
+                        "id": "state-new-condition-10",
+                        "operator": "==",
+                        "type": "custom",
+                        "value": "false"
+                    }
                 ],
                 "id": "state-condition-object",
                 "isParent": true
