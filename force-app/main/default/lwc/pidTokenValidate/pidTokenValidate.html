@@ -1,67 +1,85 @@
 <template>
     <template if:true={showComponent}>
         <lightning-card>
-            <p class="slds-p-top_small textTitle" slot="title">
-                Validação de Segurança (Token)
-            </p>
-            <div class="borderLenght slds-border_bottom"></div>
-            <template if:false={showTokenScreen}>
-                <div class="buttonAlign">
-                    <div class="slds-box slds-box_x-small boxTheme">
+            <div class="slds-card slds-p-right_medium slds-p-left_medium slds-m-bottom_x-small">
+                <strong>
+                    <p  class="slds-col slds-border_bottom slds-p-bottom_small slds-size_12-of-12 slds-rich-text-editor__output" data-style-id="state0element0" style="font-size: 14pt; border-bottom: 1px solid rgb(204, 204, 204);" slot="title">
+                        Validação de Segurança (Token)
+                    </p>
+                </strong>
+
+                <template if:false={showTokenScreen}>
+                    <div class="slds-box slds-box_x-small boxTheme slds-size_12-of-12 slds-text-align_center">
                         <button class="slds-button slds-button_brand" onclick={beginPidToken}>Iniciar</button>
                     </div>
-                </div>
-            </template>
-    
-            <template if:true={showTokenScreen}>
-                <div class="slds-var-m-around_medium">
+                </template>
+
+            
+                <template if:true={showTokenScreen}>
                     <template if:true={returnValue}>
-                        <p class="slds-p-top_x-small slds-p-bottom_x-small slds-text-heading_small">Linha para recebimento do Token:</p>
-                        <div class="slds-box slds-box_x-small">
-                            <p class="textValue">{phone}</p>
+                        <div class="slds-grid slds-wrap slds-p-vertical_x-small slds-m-around_none slds-border_bottom">
+                            <div class="slds-size_1-of-2 slds-medium-size_2-of-4">
+                                <p class="">Nº da linha</p>
+                            </div>
+        
+                            <div class="slds-size_2-of-2 slds-medium-size_2-of-4">
+                                {phoneFormatted}
+                                <span style="position:relative; top:-5px; left: 5px;">
+                                    <lightning-helptext content="A validação de segurança é realizada enviando um SMS para o número do cliente considerando o produto e tempo de ativação."></lightning-helptext>
+                                </span>
+
+                            </div>
                         </div>
-    
                     </template>
-                </div>
-                <div class="buttonAlign">
-                    <div class="slds-box slds-box_x-small boxTheme">
-    
-                        <template if:true={isCancelarToken}>
-                            <button class="slds-button" onclick={handleCancelarToken}>Cancelar token</button>
-                        </template>
-    
-                        <template if:true={isEnviar}>
-                            <button disabled={disableEnviar} class="slds-button slds-button_brand" onclick={handleEnviar}>Enviar</button>
-                        </template>
-    
-                        <template if:true={isCarregando}>
-                            <button class="slds-button slds-button_neutral">Carregando</button>
-                        </template>
-                    </div>
-                </div>
-    
-                <div>
-                    <div class="slds-box slds-box_x-small boxTheme">
-    
+                    <template if:true={showPath}>
+                        <div class="slds-p-top_x-small slds-m-around_none">
+                            <span>
+                                Status
+                            </span>
+                        </div>
+                    </template>
+                    <div class="slds-grid slds-wrap">
                         <template if:true={showPath}>
-                            <lightning-progress-indicator current-step={currentStep} type="base" has-error={hasError} variant="base">
-                                <lightning-progress-step label={piStep1} value="1"></lightning-progress-step>
-                                <lightning-progress-step label={piStep2} value="2"></lightning-progress-step>
-                                <lightning-progress-step label={piStep3} value="3"></lightning-progress-step>
-                                <lightning-progress-step label={piStep4} value="4"></lightning-progress-step>
-                            </lightning-progress-indicator>
-    
-                            <p class="slds-text-align_center slds-text-body_small">{screenStatus}</p>
+                            <div class="slds-size_1-of-1">
+                                <lightning-progress-indicator current-step={currentStep} type="base" has-error={hasError} variant="base" class="custom-css">
+                                    <lightning-progress-step value="1"></lightning-progress-step>
+                                    <lightning-progress-step value="2" class={cssMedStep}></lightning-progress-step>
+                                    <lightning-progress-step value="3" class={cssFinalStep}></lightning-progress-step>
+                                </lightning-progress-indicator>
+                            </div>
+                           
+                            <div class="slds-progress">
+                                <ol class="slds-progress__list">
+                                    <div><div data-id="divStep1" class={step1Classname}>{piStep1}</div></div>
+                                    <div><div data-id="divStep2" class={step2Classname}>{piStep2}</div></div>
+                                    <div><div data-id="divStep3" class={step3Classname}>{piStep3}</div></div>
+                                </ol>
+                            </div>
                         </template>
     
                         <template if:true={isTimerOn}>
-                            <p class="slds-text-align_center slds-text-body_small textTimer">{timer}</p>
-                            <p class="slds-text-align_center slds-text-body_small">Tentativa: {countAttempt}</p>
+                            <p class="slds-size_1-of-1 slds-text-align_center slds-text-body_small textTimer slds-p-top_x-small">{timer}</p>
+                            <p class="slds-size_1-of-1 slds-text-align_center slds-text-body_small">Tentativa: {countAttempt}</p>
                         </template>
                     </div>
-                </div>
-            
-            </template>
+                    <div class="buttonAlign">
+                        <div class="slds-box slds-box_x-small boxTheme">
+        
+                            <template if:true={isCancelarToken}>
+                                <button class="slds-button" onclick={handleCancelarToken}>Cancelar token</button>
+                            </template>
+        
+                            <template if:true={isEnviar}>
+                                <button disabled={disableEnviar} class="slds-button slds-button_brand" onclick={handleEnviar}>Enviar</button>
+                            </template>
+        
+                            <template if:true={isCarregando}>
+                                <button class="slds-button slds-button_neutral">Carregando</button>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
         </lightning-card>
     </template>
 </template>

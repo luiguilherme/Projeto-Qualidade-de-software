@@ -286,7 +286,7 @@ public without sharing class AssetDAO {
         final String STR_STATUS = 'Active';
         final String STR_TYPE = 'Movel';
         final String STR_NAMELEN = '___________';
-        Set<String> setProduto = new Set<String>{'Pós-Pago','Controle','Pré'};
+        Set<String> setProduto = new Set<String>{'Pós-Pago','Controle','Pré-Pago'};
 
         return [SELECT Name, ProductType__c
             FROM  Asset
