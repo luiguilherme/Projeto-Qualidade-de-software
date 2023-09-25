@@ -1,6 +1,7 @@
 public with sharing class CanvasService {
     private static final Map<String, CanvasServiceInterface> serviceMap = new Map<String, CanvasServiceInterface>{
-        'Asset-'                            => new CanvasHybrisOrderService()
+        'Asset-'                            => new CanvasHybrisOrderService(),
+        'Asset-Movel'                            => new CanvasHybrisOrderService()
     };
 
     private Id recordId;
