@@ -7,22 +7,22 @@ public with sharing class PIDTokenValidateService {
             Boolean wasSentSuccessfully = PIDTokenValidateEngine.postTokenValidate(thisCustomerInt.Id, phoneNumber);
 
             if(wasSentSuccessfully){
-                thisCustomerInt.TokenStatus__c = 'Aguardando validação';
+                PIDTokenValidateEngine.updateTokenStatus(thisCustomerInt, 'Aguardando validação');
                 thisCustomerInt.TokenSendAttempts__c ++;
                 thisCustomerInt.TokenFirstDateSend__c = thisCustomerInt.TokenFirstDateSend__c != null ? thisCustomerInt.TokenFirstDateSend__c : System.now();
-                thisCustomerInt.TokenSendNumber__c = thisCustomerInt.TokenSendNumber__c != null ? thisCustomerInt.TokenSendNumber__c : Double.valueOf(phoneNumber);
+        
             } else {
-                thisCustomerInt.TokenStatus__c = 'Falha no envio';
+                PIDTokenValidateEngine.updateTokenStatus(thisCustomerInt, 'Falha no envio');
             }
-            
-            PIDTokenValidateEngine.updatePalitagem(thisCustomerInt);
-            update thisCustomerInt;
+
+            update(thisCustomerInt);
             return thisCustomerInt;
               
         } catch (Exception e) {
             System.debug(e.getMessage());
             return thisCustomerInt;
         }
+         
     }
 
     public static void updateTokenStatus(String customerIntId, String tokenStatus) {
