@@ -61,9 +61,7 @@ public without sharing class UserDAO {
         return [SELECT
                 Id, 
                 Name,
-                PartnerGroup__c,
-                UserRole.DeveloperName,
-                Profile.UserLicense.name
+                PartnerGroup__c
             FROM 
                 User 
             WHERE 
