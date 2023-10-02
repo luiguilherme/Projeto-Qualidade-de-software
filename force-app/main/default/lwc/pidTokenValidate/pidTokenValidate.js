@@ -23,8 +23,8 @@ export default class PidTokenValidate extends LightningElement {
 
     // Progress Indicator
     piStep1 = 'Enviando Token';
-    piStep2 = 'Aguardando Validação';
-    piStep3 = 'Token Validado';
+    piStep2 = '';
+    piStep3 = '';
     initialPiStep1Classname = 'slds-size_1-of-3  initialClassStep1';
     initialPiStep2Classname = 'slds-size_2-of-3 initialClassStep2';
     initialPiStep3Classname = 'slds-size_3-of-3 initialClassStep3';
@@ -161,6 +161,7 @@ export default class PidTokenValidate extends LightningElement {
                         parentThis.disableAllScene();
                         parentThis.cssLimitExceed();
                         parentThis.piStep1 = 'Token Enviado';
+                        parentThis.piStep2 = '';
                         parentThis.piStep3 = 'Token Não Validado Por Nº De Tentativas Excedidas';
                         parentThis.showPath = true;
                         parentThis.currentStep = '3';
@@ -171,9 +172,9 @@ export default class PidTokenValidate extends LightningElement {
                         parentThis.piStep1 = 'Token Enviado';
                         parentThis.piStep2 = 'Token Não Validado! Envie novamente';
                         parentThis.hasError = true;
-                        this.cssTokenNoValidated();
+                        parentThis.cssTokenNoValidated();
                     }
-                    parentThis.handleUpdateTokenStatus('Não validado');
+                    updateTokenStatus({customerIntId: parentThis.recordId, tokenStatus: 'Não validado'});
                 }
     
                 parentThis.refreshData();
@@ -232,6 +233,7 @@ export default class PidTokenValidate extends LightningElement {
                 this.hasError = true;
                 this.isTimerOn = false;
                 this.piStep1 = 'Falha no envio';
+                this.cssFailedSend();
             }
 		})
 		.catch(error => {
@@ -290,6 +292,7 @@ export default class PidTokenValidate extends LightningElement {
         this.piStep1Classname = ' tokenLimitExceedStep1';
         this.piStep2Classname = ' tokenLimitExceedStep2';
         this.piStep3Classname = ' tokenLimitExceedStep3 ';
+        this.cssMedStep = ' slds-hide ';
     }
 
     cssTokenNoValidated(){
@@ -303,6 +306,10 @@ export default class PidTokenValidate extends LightningElement {
         this.piStep2Classname = ' tokenCanceledStep2';
         this.piStep3Classname = ' tokenCanceledStep3 ';
         this.cssMedStep = ' slds-hide ';
+    }
+
+    cssFailedSend(){
+        this.piStep1Classname = ' tokenFailedSendStep1';
     }
     
     get step1Classname(){
