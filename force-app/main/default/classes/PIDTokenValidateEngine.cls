@@ -42,6 +42,11 @@ public with sharing class PIDTokenValidateEngine {
         return jsonBody;
     }
 
+    public static void updateTokenStatus(vlocity_cmt__CustomerInteraction__c thisCustomerInt, String tokenStatus) {
+        thisCustomerInt.TokenStatus__c = tokenStatus;
+        updatePalitagem(thisCustomerInt);
+    }
+
     public static void updateTokenStatus(String customerIntId, String tokenStatus) {
         vlocity_cmt__CustomerInteraction__c thisCustomerInt = new vlocity_cmt__CustomerInteraction__c();
         thisCustomerInt.Id = customerIntId;
@@ -53,7 +58,7 @@ public with sharing class PIDTokenValidateEngine {
 
 
     public static void updatePalitagem(vlocity_cmt__CustomerInteraction__c thisCustomerInt) {
-        String palitagemString = '';
+        String palitagemString;
 
         switch on thisCustomerInt.TokenStatus__c {
             when 'Falha no envio' {
