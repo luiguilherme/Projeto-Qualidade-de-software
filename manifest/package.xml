@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <version>57.0</version>
+    <version>58.0</version>
     <types>
         <members>APIGatewayRequestConfigurator</members>
         <members>AccessTokenController</members>
@@ -12,6 +12,7 @@
         <members>AccountRetentionTO</members>
         <members>AccountTestFactory</members>
         <members>AssetDAO</members>
+        <members>AssetMigrationDTO</members>
         <members>AssetMigrationExchangePlanController</members>
         <members>AssetMigrationExchangePlanControllerTest</members>
         <members>AssetMigrationExchangePlanEngine</members>
@@ -85,12 +86,15 @@
         <members>CustomerInteractionControllerTest</members>
         <members>CustomerInteractionDAO</members>
         <members>CustomerInteractionTopicTreeDAO</members>
+        <members>CustomerOrdersController</members>
+        <members>CustomerOrdersControllerTest</members>
         <members>DataFactory</members>
         <members>DataTableColumns</members>
         <members>DatatableColumnsTO</members>
         <members>DatatableDataTO</members>
         <members>DatatableItemTO</members>
         <members>ExtractDetailedAsPdfController</members>
+        <members>ExtractDetailedAsPdfControllerPrepaid</members>
         <members>FibraRuralLeadElegibilidadeCallout</members>
         <members>FibraRuralLeadElegibilidadeEngine</members>
         <members>FibraRuralLeadElegibilidadeMock</members>
@@ -129,6 +133,7 @@
         <members>GroupMemberDAO</members>
         <members>GroupMemberEngine</members>
         <members>GroupMemberService</members>
+        <members>HDECasesService</members>
         <members>HandlerScriptNotification</members>
         <members>HandlerScriptNotificationTest</members>
         <members>HttpClient</members>
@@ -206,6 +211,12 @@
         <members>OrderIssuedDAO</members>
         <members>OrderIssuedManagement</members>
         <members>OrderIssuedTriggerTest</members>
+        <members>OrderItemController</members>
+        <members>OrderItemControllerTest</members>
+        <members>PIDTokenValidateController</members>
+        <members>PIDTokenValidateDTO</members>
+        <members>PIDTokenValidateEngine</members>
+        <members>PIDTokenValidateService</members>
         <members>PagedResult</members>
         <members>ParametersDataTO</members>
         <members>PermissionSetAssigmentDAO</members>
@@ -277,6 +288,8 @@
         <members>ScriptRuleTriggerHandlerTest</members>
         <members>SearchAccountByAssetController</members>
         <members>SearchAccountByAssetControllerTest</members>
+        <members>ServiceAuthorization</members>
+        <members>ServiceAuthorizationResponse</members>
         <members>ServiceAvailabilityAddressCoverageMock</members>
         <members>ServiceAvailabilityAddressValidateMock</members>
         <members>ServiceAvailabilityController</members>
@@ -367,6 +380,7 @@
         <members>TopicsAutoController</members>
         <members>TopicsAutoControllerTest</members>
         <members>TreatmentConsultationController</members>
+        <members>TriggerHelper</members>
         <members>TypeAttributes</members>
         <members>UnsualUserTrackingController</members>
         <members>UnsualUserTrackingControllerTest</members>
@@ -424,7 +438,9 @@
         <members>ChangePassword</members>
         <members>CreateAccount</members>
         <members>ExtractDetailedAsPdf</members>
+        <members>ExtractDetailedAsPdfPrepaid</members>
         <members>ExtractSimplifiedAsPDF</members>
+        <members>ExtractSimplifiedAsPdfPrepaid</members>
         <members>ForgotPassword</members>
         <members>ForgotPasswordConfirm</members>
         <members>ReassignApprovalRequest</members>
@@ -437,6 +453,7 @@
     </types>
     <types>
         <members>CartAccountTrigger</members>
+        <members>CaseTrigger</members>
         <members>ClusterTrigger</members>
         <members>GPSCanvasInterface</members>
         <members>OfferTrigger</members>
@@ -451,6 +468,7 @@
     <types>
         <members>Account.AssociateLine</members>
         <members>Account.CadastralChange</members>
+        <members>Order.SalesJourney</members>
         <name>ApprovalProcess</name>
     </types>
     <types>
@@ -557,6 +575,7 @@
         <members>VlocityDiagnosticWizard_StepElementErrorMessage</members>
         <members>VlocityDiagnosticWizard_StepList</members>
         <members>VlocityUpgradeWizard</members>
+        <members>WrapperChangeOwnerHDE</members>
         <members>createAccount</members>
         <members>groupProgressBar</members>
         <members>interactionLauncherUtility</members>
@@ -612,9 +631,51 @@
     </types>
     <types>
         <members>AtendimentoRetencaoB2C</members>
+        <members>Industries_CPQ</members>
+        <members>Lead_Generation</members>
+        <members>Relationship_Management</members>
+        <members>Sales_Leadership</members>
+        <members>Sales_Operations</members>
         <members>Sustentacao</members>
+        <members>VlocityInstallationAssistant</members>
+        <members>Vlocity_OM_Lightning</members>
+        <members>sfLma__LicenseManagementApp</members>
+        <members>standard__AllTabSet</members>
+        <members>standard__AppLauncher</members>
+        <members>standard__Chatter</members>
+        <members>standard__Community</members>
+        <members>standard__Content</members>
+        <members>standard__DataManager</members>
+        <members>standard__ExpressionSetConsole</members>
+        <members>standard__Insights</members>
+        <members>standard__LightningBolt</members>
+        <members>standard__LightningInstrumentation</members>
+        <members>standard__LightningSales</members>
+        <members>standard__LightningSalesConsole</members>
         <members>standard__LightningService</members>
+        <members>standard__Marketing</members>
+        <members>standard__OnlineSales</members>
+        <members>standard__Platform</members>
+        <members>standard__Sales</members>
+        <members>standard__SalesforceCMS</members>
+        <members>standard__Service</members>
+        <members>standard__ServiceConsole</members>
+        <members>vlocity_cmt__DataRaptor</members>
+        <members>vlocity_cmt__FulfillmentDesigner</members>
+        <members>vlocity_cmt__VlocityConsoleApp</members>
+        <members>vlocity_cmt__VlocityPricingConsole</members>
+        <members>vlocity_cmt__VlocityProductConsole</members>
+        <members>vlocity_cmt__VlocityTelecommunicationServices</members>
+        <members>vlocity_cmt__VlocityXOM</members>
+        <members>vlocity_cmt__Vlocity_CMT_Console</members>
+        <members>vlocity_cmt__Vlocity_Digital_Studio</members>
+        <members>whatslly__Whatslly_App</members>
+        <members>whatslly__Whatslly_lightning</members>
         <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>vlocity_cmt__LookupComponent</members>
+        <name>CustomApplicationComponent</name>
     </types>
     <types>
         <members>Account.AcceptLGPD__c</members>
@@ -753,6 +814,7 @@
         <members>Alarm__c.OfertarFaturaDigitalMovel__c</members>
         <members>ApproversFuncionality__mdt.Approvers__c</members>
         <members>ApproversFuncionality__mdt.Funcionality__c</members>
+        <members>Asset.AcceptPromotion__c</members>
         <members>Asset.BillingAccountFormulaName__c</members>
         <members>Asset.Cabinet__c</members>
         <members>Asset.CanCreateNote__c</members>
@@ -1150,6 +1212,7 @@
         <members>FromToMapping__mdt.OriginName__c</members>
         <members>FromToMapping__mdt.RecordType__c</members>
         <members>FromToMapping__mdt.ServiceTree__c</members>
+        <members>FromToMapping__mdt.TokenPID__c</members>
         <members>FromToMapping__mdt.UsedIn__c</members>
         <members>GPSCanvasInterface__e.AccountId__c</members>
         <members>GPSCanvasInterface__e.CaseId__c</members>
@@ -1325,6 +1388,34 @@
         <members>Material__c.SalesOrg__c</members>
         <members>Material__c.ShortDescription__c</members>
         <members>MobileOffersSettings__c.DDDOferta__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.AssetId__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.CancellationDateTime__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.CancellationUser__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.Coast__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.Email__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.LastChangeDateFormula__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.PeriodMonth__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.Reason__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.ShippingAddressConcat__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.ShippingAddressType__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.ShippingAddress__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.ShippingCity__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.ShippingComplement1__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.ShippingComplement2__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.ShippingComplement3__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.ShippingComplement4__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.ShippingComplementType1__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.ShippingComplementType2__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.ShippingComplementType3__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.ShippingComplementType4__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.ShippingComplement__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.ShippingIBGECode__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.ShippingNeighborhood__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.ShippingNumber__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.ShippingPostalCode__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.ShippingStateCode__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.ShippingType__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c.Status__c</members>
         <members>NextBestOfferAndAction__c.Reason__c</members>
         <members>NextBestOfferAndAction__c.Type__c</members>
         <members>OAMProvider__mdt.AuthorizeURL__c</members>
@@ -1461,6 +1552,7 @@
         <members>OrderIssued__c.PortedNumber__c</members>
         <members>OrderIssued__c.StatusCode__c</members>
         <members>OrderIssued__c.Status__c</members>
+        <members>OrderIssued__c.UserLogin__c</members>
         <members>OrderItem.AcceptPromotion__c</members>
         <members>OrderItem.ProductCode</members>
         <members>OrderItem.Quantity</members>
@@ -1477,7 +1569,6 @@
         <members>OrderProduct__c.ProductCode__c</members>
         <members>OrderProduct__c.ProductDescription__c</members>
         <members>OrderProduct__c.ProductExternalId__c</members>
-        <members>OrderProduct__c.User_Login__c</members>
         <members>POMapping__mdt.AreaCode__c</members>
         <members>POMapping__mdt.GenericPO__c</members>
         <members>POMapping__mdt.PO__c</members>
@@ -1577,6 +1668,9 @@
         <members>Script__c.UpdatableField1__c</members>
         <members>Script__c.UpdatableField2__c</members>
         <members>Script__c.UpdatableField3__c</members>
+        <members>ServiceAuthorization__mdt.Attempts__c</members>
+        <members>ServiceAuthorization__mdt.Interval__c</members>
+        <members>ServiceAuthorization__mdt.Message_Code__c</members>
         <members>ServiceHistory__c.Account__c</members>
         <members>ServiceHistory__c.Channel__c</members>
         <members>ServiceHistory__c.ContactReason__c</members>
@@ -1746,6 +1840,7 @@
         <members>Webservice__c.Version__c</members>
         <members>Webservice__c.switchedOn__c</members>
         <members>vlocity_cmt__CachedAPIResponse__c.vlocity_cmt__Type__c</members>
+        <members>vlocity_cmt__Catalog__c.OrderType__c</members>
         <members>vlocity_cmt__Catalog__c.SequenceNumber__c</members>
         <members>vlocity_cmt__CustomerInteractionTopic__c.IdServiceVivoNet__c</members>
         <members>vlocity_cmt__CustomerInteractionTopic__c.InteractionNumberInternal__c</members>
@@ -1768,6 +1863,10 @@
         <members>vlocity_cmt__CustomerInteraction__c.InteractionNumber__c</members>
         <members>vlocity_cmt__CustomerInteraction__c.Origin__c</members>
         <members>vlocity_cmt__CustomerInteraction__c.Subject__c</members>
+        <members>vlocity_cmt__CustomerInteraction__c.TokenFirstDateSend__c</members>
+        <members>vlocity_cmt__CustomerInteraction__c.TokenLastDateSend__c</members>
+        <members>vlocity_cmt__CustomerInteraction__c.TokenSendAttempts__c</members>
+        <members>vlocity_cmt__CustomerInteraction__c.TokenStatus__c</members>
         <members>vlocity_cmt__CustomerInteraction__c.vlocity_cmt__AccountId__c</members>
         <members>vlocity_cmt__CustomerInteraction__c.vlocity_cmt__Channel__c</members>
         <members>vlocity_cmt__CustomerInteraction__c.vlocity_cmt__Comments__c</members>
@@ -2199,6 +2298,7 @@
         <members>Category</members>
         <members>CellPhone</members>
         <members>CellUnavailable</members>
+        <members>ChangeOwnerHDEPermissions</members>
         <members>Close</members>
         <members>ConfigurationNotFound</members>
         <members>Confirm</members>
@@ -4572,6 +4672,7 @@
         <members>FromToMapping.Sub_aty_internet_movel_Atlys</members>
         <members>FromToMapping.Sub_ngn_internet_movel_NGIN</members>
         <members>FromToMapping.Sub_sibel_Siebel</members>
+        <members>FromToMapping.Sub_siebel_Siebel</members>
         <members>FromToMapping.SubnternetBandaLarga</members>
         <members>FromToMapping.SubnternetFixa</members>
         <members>FromToMapping.TelefonicaBrasilGold</members>
@@ -8220,6 +8321,7 @@
         <members>SalesOffices.ZTOP_VP01</members>
         <members>ScriptRuleNotification.Conta</members>
         <members>ScriptRuleNotification.ProdutoContratado</members>
+        <members>ServiceAuthorization.PID</members>
         <members>SystemLink.ABRTelecom</members>
         <members>SystemLink.AtExpress</members>
         <members>SystemLink.Atis</members>
@@ -8356,6 +8458,10 @@
         <members>ToFromHDE.CritGoldDesmembramentodecontasPos</members>
         <members>ToFromHDE.CritLojaAgendatecnicanaocumprida</members>
         <members>ToFromHDE.CritLojaAnaliseSuspeitadeFraude</members>
+        <members>ToFromHDE.CritOuvidComuniAnaliseSuspeitadeFraude</members>
+        <members>ToFromHDE.CritOuvidComuniInfluencersLinhaVermelha</members>
+        <members>ToFromHDE.CritOuvidComuniPriorizacaoCampo</members>
+        <members>ToFromHDE.CritOuvidComuniPriorizacaoRedes</members>
         <members>ToFromHDE.CritOuvidoriaAnaliseSuspeitadeFraude</members>
         <members>ToFromHDE.CritOuvidoriaInfluencersLinhaVermelha</members>
         <members>ToFromHDE.CritOuvidoriaPriorizacaoCampo</members>
@@ -8367,6 +8473,14 @@
         <members>ToFromHDE.CritPlatinumRetorno24hSincronismoReconci</members>
         <members>ToFromHDE.CritPrimeAgendatecnicanaocumprida</members>
         <members>ToFromHDE.CritPrimeAnaliseSuspeitadeFraude</members>
+        <members>ToFromHDE.CritPurpuraAgendatecnicanaocumprida</members>
+        <members>ToFromHDE.CritPurpuraAnaliseSuspeitaDeFraude</members>
+        <members>ToFromHDE.CritPurpuraDesmembramentodecontasPos</members>
+        <members>ToFromHDE.CritRevendaAgendatecnicanaocumprida</members>
+        <members>ToFromHDE.CritRevendaAnaliseSuspeitadeFraude</members>
+        <members>ToFromHDE.CritSilverAgendatecnicanaocumprida</members>
+        <members>ToFromHDE.CritSilverAnaliseSuspeitadeFraude</members>
+        <members>ToFromHDE.CritSilverDesmembramentodecontasPos</members>
         <members>ToFromHDE.CritVAgendatecnicanaocumprida</members>
         <members>ToFromHDE.CritVAnaliseSuspeitadeFraude</members>
         <members>ToFromHDE.CritVSMAPAcompanhamento</members>
@@ -8395,6 +8509,34 @@
         <members>ToFromHDE.IlhaAtendimentoGoldConvergenteFormulario</members>
         <members>ToFromHDE.LojaProcessoChip</members>
         <members>ToFromHDE.LojaProcessoCompraEntregadeAparelho</members>
+        <members>ToFromHDE.OuvidComuni2ViadeNF</members>
+        <members>ToFromHDE.OuvidComuniAnaliseSuspeitadeFraude</members>
+        <members>ToFromHDE.OuvidComuniAnalisedeCobertura</members>
+        <members>ToFromHDE.OuvidComuniBaixaPagtoEnviodeComprovanteR</members>
+        <members>ToFromHDE.OuvidComuniContratoLocacao</members>
+        <members>ToFromHDE.OuvidComuniCorrecaoCausaRaizContestacao</members>
+        <members>ToFromHDE.OuvidComuniCorrecaodeCadastroSiebel</members>
+        <members>ToFromHDE.OuvidComuniDesbloqueioLinhaAparelho</members>
+        <members>ToFromHDE.OuvidComuniEmissaoOVColetaReenvio</members>
+        <members>ToFromHDE.OuvidComuniExclusaoMailingdeCobranca</members>
+        <members>ToFromHDE.OuvidComuniExclusaodaNegativacao</members>
+        <members>ToFromHDE.OuvidComuniFalhaSistemicaAberturaRemedy</members>
+        <members>ToFromHDE.OuvidComuniIncidenciasBKOLojaonline</members>
+        <members>ToFromHDE.OuvidComuniIncidenciasLogistica</members>
+        <members>ToFromHDE.OuvidComuniInclusaoMailingNaomePerturbe</members>
+        <members>ToFromHDE.OuvidComuniInfluencersLinhaVermelha</members>
+        <members>ToFromHDE.OuvidComuniLiberacaodeCredito</members>
+        <members>ToFromHDE.OuvidComuniMotivoNaoMapeado</members>
+        <members>ToFromHDE.OuvidComuniPagamentoemDuplicidade</members>
+        <members>ToFromHDE.OuvidComuniPortabilidadeIncidencias</members>
+        <members>ToFromHDE.OuvidComuniPriorizacaoBKO</members>
+        <members>ToFromHDE.OuvidComuniPriorizacaoCampo</members>
+        <members>ToFromHDE.OuvidComuniPriorizacaoLogistica</members>
+        <members>ToFromHDE.OuvidComuniPriorizacaoRedes</members>
+        <members>ToFromHDE.OuvidComuniPriorizacaoResCartaoCredito</members>
+        <members>ToFromHDE.OuvidComuniSolicitacaoMudancadeTitul</members>
+        <members>ToFromHDE.OuvidComuniSolicitacaoResgatedeGravacao</members>
+        <members>ToFromHDE.OuvidComuniSolicitacaoTrocadeNumero</members>
         <members>ToFromHDE.Ouvidoria2ViadeNF</members>
         <members>ToFromHDE.OuvidoriaAnaliseSuspeitadeFraude</members>
         <members>ToFromHDE.OuvidoriaAnalisedeCobertura</members>
@@ -8437,6 +8579,52 @@
         <members>ToFromHDE.PlatinumAnlisedeCoberturaCondominio</members>
         <members>ToFromHDE.PrimeProcessoChip</members>
         <members>ToFromHDE.PrimeProcessoCompraEntregadeAparelho</members>
+        <members>ToFromHDE.PurpuraAgendatecnicanaocumprida</members>
+        <members>ToFromHDE.PurpuraAnaliseSuspeitadeFraude</members>
+        <members>ToFromHDE.PurpuraAnalisedeRetiradadeFidelidade</members>
+        <members>ToFromHDE.PurpuraAnalisedecreditoparamudancade</members>
+        <members>ToFromHDE.PurpuraAtivacaodeservicofalhasistmic</members>
+        <members>ToFromHDE.PurpuraAtrasonaentregadecontroleremoto</members>
+        <members>ToFromHDE.PurpuraClienteVivo1</members>
+        <members>ToFromHDE.PurpuraCorrecaodeSubSegmentoPJPF</members>
+        <members>ToFromHDE.PurpuraDadosdeOfertaValoresDivergentes</members>
+        <members>ToFromHDE.PurpuraDesmembramentodecontasPos</members>
+        <members>ToFromHDE.PurpuraEnfileiramentoCancelamentoProblem</members>
+        <members>ToFromHDE.PurpuraEscalonamentosFinanceiro</members>
+        <members>ToFromHDE.PurpuraInsatisfeitoValorOfertaPlano</members>
+        <members>ToFromHDE.PurpuraPriorizacaoRemedySemsolucao</members>
+        <members>ToFromHDE.PurpuraPriorizacaodeBKOSemsolucao</members>
+        <members>ToFromHDE.PurpuraProblemasMudancaTitularidade</members>
+        <members>ToFromHDE.PurpuraProblemasPortabilidade</members>
+        <members>ToFromHDE.PurpuraProblemasistemico</members>
+        <members>ToFromHDE.PurpuraProcessoChip</members>
+        <members>ToFromHDE.PurpuraProcessoCompraEntregadeAparelho</members>
+        <members>ToFromHDE.PurpuraSVAcobrancaindevida</members>
+        <members>ToFromHDE.PurpuraSolicitacaocancelamentoExclusivo</members>
+        <members>ToFromHDE.RevendaProcessoChip</members>
+        <members>ToFromHDE.RevendaProcessoCompraEntregadeAparelho</members>
+        <members>ToFromHDE.SilverAgendatecnicanaocumprida</members>
+        <members>ToFromHDE.SilverAnaliseSuspeitadeFraude</members>
+        <members>ToFromHDE.SilverAnalisedeRetiradadeFidelidade</members>
+        <members>ToFromHDE.SilverAnalisedecreditoparamudancade</members>
+        <members>ToFromHDE.SilverAtivacaodeservicofalhasistmic</members>
+        <members>ToFromHDE.SilverAtrasonaentregadecontroleremoto</members>
+        <members>ToFromHDE.SilverClienteVivo1</members>
+        <members>ToFromHDE.SilverCorrecaodeSubSegmentoPJPF</members>
+        <members>ToFromHDE.SilverDadosdeOfertaValoresDivergentes</members>
+        <members>ToFromHDE.SilverDesmembramentodecontasPosPago</members>
+        <members>ToFromHDE.SilverEnfileiramentoCancelamentoProblem</members>
+        <members>ToFromHDE.SilverEscalonamentosFinanceiro</members>
+        <members>ToFromHDE.SilverInsatisfeitocomValorOfertaPlano</members>
+        <members>ToFromHDE.SilverPriorizacaodeBKOSemsolucao</members>
+        <members>ToFromHDE.SilverPriorizacaodeRemedySemsolucao</members>
+        <members>ToFromHDE.SilverProblemasMudancaTitularidade</members>
+        <members>ToFromHDE.SilverProblemasPortabilidade</members>
+        <members>ToFromHDE.SilverProblemasistemico</members>
+        <members>ToFromHDE.SilverProcessoChip</members>
+        <members>ToFromHDE.SilverProcessoCompraEntregadeAparelho</members>
+        <members>ToFromHDE.SilverSVAcobrancaindevida</members>
+        <members>ToFromHDE.SilverSolicitacaocancelamentoExclusivo</members>
         <members>ToFromHDE.VAlocacaodefundosKenan</members>
         <members>ToFromHDE.VClienteReindenteemContestacao</members>
         <members>ToFromHDE.VContestacaoKenan</members>
@@ -8526,6 +8714,7 @@
         <members>LinksBook__c</members>
         <members>Material__c</members>
         <members>MobileOffersSettings__c</members>
+        <members>MonthlyStatementSubScheduleHistory__c</members>
         <members>NextBestOfferAndAction__c</members>
         <members>OAMProvider__mdt</members>
         <members>OfferFilter__c</members>
@@ -8547,6 +8736,7 @@
         <members>ScriptRuleNotification__mdt</members>
         <members>ScriptRule__c</members>
         <members>Script__c</members>
+        <members>ServiceAuthorization__mdt</members>
         <members>ServiceHistory__c</members>
         <members>ServiceRequestLink__c</members>
         <members>ServiceRequest__c</members>
@@ -8598,6 +8788,7 @@
         <members>ConfiguracaodePalitagem</members>
         <members>ConsultaEnviodeSaldos</members>
         <members>ConsultarAlteracaoCadastral</members>
+        <members>ConsultarExtrato</members>
         <members>ConsultarOrdens</members>
         <members>ConsultarRelacionamentos</members>
         <members>Consultardetalhesdalinha</members>
@@ -8605,6 +8796,7 @@
         <members>EditInteractionsAtAllSubstatus</members>
         <members>Editardetalhesdalinha</members>
         <members>EnablePrepaid</members>
+        <members>ExecuteCreateRemoteCustomerPermission</members>
         <members>ExtractDetailed</members>
         <members>FalhasdaOrdem</members>
         <members>FinalizaAtendimento</members>
@@ -8631,6 +8823,8 @@
         <members>Portabilidade</members>
         <members>ReachOutTasks</members>
         <members>RealizarAlteracaoCadastral</members>
+        <members>RealizarRecargaFisica</members>
+        <members>RealizarRecargaOnline</members>
         <members>Reativacaodelinha</members>
         <members>Recargas</members>
         <members>ServiceQualificationFixedVisualization</members>
@@ -8664,6 +8858,7 @@
         <members>ServiceRequest__c</members>
         <members>ServiceTransaction__c</members>
         <members>SuggestedSpeed__c</members>
+        <members>vlocity_cmt__VlocityAPIMetadata__c</members>
         <name>CustomTab</name>
     </types>
     <types>
@@ -8695,6 +8890,7 @@
     <types>
         <members>unfiled$public/ApprovalProcessTemplateAlcada</members>
         <members>unfiled$public/ApprovalProcessTemplateAlcadaAssociateLine</members>
+        <members>unfiled$public/ApprovalProcessTemplateAlcadaOrder</members>
         <members>unfiled$public/CompromissoHDE</members>
         <members>unfiled$public/HDEAvisoMudancaStatus</members>
         <name>EmailTemplate</name>
@@ -8753,6 +8949,7 @@
         <members>Palitagem_Automatica</members>
         <members>Pedido_P_gina_de_registro</members>
         <members>PesquisaCliente</members>
+        <members>ProductConsoleRecordPage</members>
         <members>SFI_Customer_Asset_Console</members>
         <members>ScriptConfigPage</members>
         <members>ScriptLog</members>
@@ -8769,8 +8966,10 @@
         <members>AssociateLineApprovalProcess</members>
         <members>Atualizar_Status_do_Pedido</members>
         <members>CadastralUpdate</members>
+        <members>ClosedCustomerTopicInProgress</members>
         <members>ClusterMessageList</members>
         <members>CustomerSegment</members>
+        <members>DeleteOverrideRechargeFlowTrigger</members>
         <members>FibraRuralLeadElegibilidade</members>
         <members>FlowCadastralChange</members>
         <members>GuidedScriptServiceRequestFlow</members>
@@ -8786,21 +8985,31 @@
         <members>HDEUpdatesCaseLastActivityDate</members>
         <members>HDEUpdatesTaskSubject</members>
         <members>HDEcaseAssignment</members>
+        <members>OverrideRechargeFlowTrigger</members>
         <members>PermissionSetLicenseSFIAssignUser</members>
         <members>PermissionSetLicenseSFIAssignUserCommunity</members>
         <members>PersonalGuindanceSS</members>
         <members>RatingScaleStarsFlow</members>
         <members>RetrieveClusterMessageFlow</members>
+        <members>SalesJourneyApprovalProcess</members>
         <members>ScriptAltaMobileSemRPA</members>
         <members>ScriptFlow</members>
         <members>SystemLinks</members>
         <members>UpdateFibraRuralCanceledLeadfield</members>
+        <members>UpdateOrderItemSAP</members>
         <members>UpdateOrderStatusFailed</members>
         <members>UpdateStatusTask</members>
         <members>UpdateSubscriptionOnCreationFlow</members>
+        <members>UpdateTopicOrderIssuedHybris</members>
         <members>UserLoginMultiSession</members>
         <members>getRecordTypeId</members>
         <name>Flow</name>
+    </types>
+    <types>
+        <members>DeleteOverrideRechargeFlowTrigger</members>
+        <members>OverrideRechargeFlowTrigger</members>
+        <members>UpdateTopicOrderIssuedHybris</members>
+        <name>FlowDefinition</name>
     </types>
     <types>
         <members>AddressComplement</members>
@@ -8814,6 +9023,7 @@
         <members>Naturalness</members>
         <members>NoteFunctionality</members>
         <members>Occupation</members>
+        <members>OrderType</members>
         <members>ProductType</members>
         <members>ShippingAddressType</members>
         <members>Streaming</members>
@@ -8863,6 +9073,7 @@
         <members>CartOffer__c-Oferta do Carrinho Layout</members>
         <members>Case-CallDroped</members>
         <members>Case-FixedServiceQualificationPageLayout</members>
+        <members>Case-HDECommunityPageLayout</members>
         <members>Case-HDEPageLayout</members>
         <members>Case-MobileServiceQualificationPageLayout</members>
         <members>Center__c-Centro Layout</members>
@@ -8921,6 +9132,7 @@
         <members>Script__c-LytClusterScript</members>
         <members>Script__c-ManualWarningLayout</members>
         <members>Script__c-QuestionScriptLayout</members>
+        <members>ServiceAuthorization__mdt-ServiceAuthorization Layout</members>
         <members>ServiceHistory__c-Layout de Histórico de contato</members>
         <members>ServiceRequest__c-Annotations</members>
         <members>ServiceRequest__c-ServiceRequestLayout</members>
@@ -8944,9 +9156,11 @@
         <members>vlocity_cmt__CustomerInteraction__c-Customer Interaction Valentina</members>
         <members>vlocity_cmt__ManualQueue__c-ManualQueueAdmLayout</members>
         <members>vlocity_cmt__ManualQueue__c-ManualQueueLayout</members>
+        <members>vlocity_cmt__VlocityAPIMetadata__c-vlocity_cmt__Vlocity API Metadata Layout</members>
         <name>Layout</name>
     </types>
     <types>
+        <members>assetMigrationModal</members>
         <members>assetMigrationSelection</members>
         <members>b2cCmexAccountSubscriptions_ext</members>
         <members>b2cCmexConsoleActions_ext</members>
@@ -8955,6 +9169,9 @@
         <members>b2cCmexStoryCardCanvas_ext</members>
         <members>b2cCmexSubscriberActions_ext</members>
         <members>b2cCmexSubscriptionsDetailsCard_ext</members>
+        <members>backScreenButton</members>
+        <members>balanceDetailsCard</members>
+        <members>balanceTypeDetails</members>
         <members>cPQAssetViewerOrderFlowMultiLanguage</members>
         <members>cPQAssetViewerQuoteFlowMultiLanguage</members>
         <members>cPQBulkChangeMultiLanguage</members>
@@ -8968,6 +9185,8 @@
         <members>cPQSubmitOrderMultiLanguage</members>
         <members>cTIServiceIntegrationChild</members>
         <members>cTIServiceIntegrationNotification</members>
+        <members>cfAppointmentFoundModal</members>
+        <members>cfAppointmentFoundModalLine</members>
         <members>cfCPQAttributeCategoryList</members>
         <members>cfCPQAttributeConfigFields</members>
         <members>cfCPQAttributeConfigFields_MACDBulkChange</members>
@@ -9079,6 +9298,11 @@
         <members>cfFC_panEventTableResultList</members>
         <members>cfFC_panEventsDetailModal</members>
         <members>cfFC_panExtractInfo</members>
+        <members>cfFC_panFilterDate</members>
+        <members>cfFC_panInvoice</members>
+        <members>cfFC_panInvoiceDateFilter</members>
+        <members>cfFC_panInvoice_DatatableHeader</members>
+        <members>cfFC_panInvoice_DatatableRow</members>
         <members>cfFC_panNoteList</members>
         <members>cfFC_panRecharges</members>
         <members>cfFC_panSuccessfulRecharges</members>
@@ -9087,9 +9311,13 @@
         <members>cfFC_panSync</members>
         <members>cfFC_panTableBalanceDetailChild</members>
         <members>cfFCchild_panEventTableHeaderSMS</members>
+        <members>cfFCchild_panFilterDateSMS</members>
         <members>cfPanAlertNoRecords</members>
         <members>cfPanAlertRangeBetweenDates</members>
         <members>cfPanAlertServiceError</members>
+        <members>cfPanContractedServices</members>
+        <members>cfPanInvoiceModal</members>
+        <members>cfSelectTypeExtracts</members>
         <members>cfSfiAddOnsHistory</members>
         <members>cfSfiBasket</members>
         <members>cfSfiBasketCard</members>
@@ -9152,6 +9380,13 @@
         <members>cfValApprovalRequestsJourney</members>
         <members>cfValAssignedTaskBody</members>
         <members>cfValAssignedTaskContainer</members>
+        <members>cfValBalanceDescription</members>
+        <members>cfValBalanceDetailsInfo</members>
+        <members>cfValBalanceDetailsInfoDataTable</members>
+        <members>cfValBalanceDetailsTypeData</members>
+        <members>cfValBalanceDetailsTypeMessage</members>
+        <members>cfValBalanceDetailsTypeVoice</members>
+        <members>cfValBalanceIcon</members>
         <members>cfValBillingAccFlyout</members>
         <members>cfValBillingAccountAssetsContainer</members>
         <members>cfValBillingAccountAssetsContainer_1_Front360</members>
@@ -9175,6 +9410,10 @@
         <members>cfValChildApproverListHeaderJourney</members>
         <members>cfValChildApproverListJourney</members>
         <members>cfValChildReviewCustomer</members>
+        <members>cfValChildReviewCustomer_16_Telefonica</members>
+        <members>cfValChipProductContainer</members>
+        <members>cfValChipProductDatas</members>
+        <members>cfValChipProductHeaderTable</members>
         <members>cfValCloseManualProtocolDetails</members>
         <members>cfValComplementUpdateAccount</members>
         <members>cfValComplementUpdateAccountShipping</members>
@@ -9182,6 +9421,8 @@
         <members>cfValCreateAccountContact</members>
         <members>cfValCreateAndAssociateAccount</members>
         <members>cfValCreateAndAssociateAccountNotResults</members>
+        <members>cfValCreateMontlySchedule</members>
+        <members>cfValCreateSubmissionExtract</members>
         <members>cfValCustomerInteractionTabTopics</members>
         <members>cfValCustomerInteractionsTabOrders</members>
         <members>cfValCustomerInteractionsTabs</members>
@@ -9193,7 +9434,13 @@
         <members>cfValCustomerProductsController</members>
         <members>cfValCustomerProductsSearch</members>
         <members>cfValCustomerSearchAlert</members>
+        <members>cfValExtractData</members>
+        <members>cfValExtractDataTables</members>
+        <members>cfValExtractDataTabsValues</members>
+        <members>cfValExtractPlanCard</members>
+        <members>cfValExtractSearch</members>
         <members>cfValFixedFooterFlex</members>
+        <members>cfValGlobalHeaderContainer</members>
         <members>cfValHeader</members>
         <members>cfValHeaderTopicsTreeConfig</members>
         <members>cfValHeaderTopicsTreeConfig_3_Telefonica</members>
@@ -9207,6 +9454,12 @@
         <members>cfValMessageAlert</members>
         <members>cfValMessageAlertModal</members>
         <members>cfValMessageSuccess</members>
+        <members>cfValMonthlyStatementSubScheduleHistory</members>
+        <members>cfValMonthlyStatementSubScheduleHistoryData</members>
+        <members>cfValMonthlyStatementSubScheduleHistoryFlyOut</members>
+        <members>cfValMonthlyStatementSubScheduleHistoryTitle</members>
+        <members>cfValMontlyScheduleCorreios</members>
+        <members>cfValMontlyScheduleEmail</members>
         <members>cfValNavigateCustomerDetailsPage</members>
         <members>cfValNavigateShowAll</members>
         <members>cfValOrderDetails</members>
@@ -9217,6 +9470,7 @@
         <members>cfValOrderDetailsStatus</members>
         <members>cfValOrderDetailsStatusInvoice</members>
         <members>cfValPhoneSelect</members>
+        <members>cfValPrePaidAssetDetails</members>
         <members>cfValProductDetails</members>
         <members>cfValProductDigitalServices</members>
         <members>cfValProductSummaryTitle</members>
@@ -9233,6 +9487,8 @@
         <members>cfValRecentOrders</members>
         <members>cfValRecentOrdersData</members>
         <members>cfValRecentOrdersTitle</members>
+        <members>cfValRechargeVoucher</members>
+        <members>cfValRechargeVoucherModal</members>
         <members>cfValReviewAddress</members>
         <members>cfValReviewChannel</members>
         <members>cfValReviewContact</members>
@@ -9240,14 +9496,18 @@
         <members>cfValReviewCustomer</members>
         <members>cfValReviewCustomerAddress</members>
         <members>cfValReviewCustomerAddressConditional</members>
+        <members>cfValReviewCustomerAddressConditional_2_TelefonicaFrontEnd360</members>
         <members>cfValReviewCustomerBody</members>
         <members>cfValReviewCustomerContact</members>
+        <members>cfValReviewCustomerContact_1_Telefonica</members>
         <members>cfValReviewCustomerContainer</members>
         <members>cfValReviewCustomerDetails</members>
         <members>cfValReviewCustomerDetailsChild</members>
         <members>cfValReviewCustomerDetailsPendingRegistration</members>
+        <members>cfValReviewCustomerDetails_11_Telefonica</members>
         <members>cfValReviewCustomerDocuments</members>
         <members>cfValReviewCustomerPersonal</members>
+        <members>cfValReviewCustomerPersonal_3_Telefonica</members>
         <members>cfValReviewDataBalance</members>
         <members>cfValReviewGenericBalance</members>
         <members>cfValReviewGenericDataInfo</members>
@@ -9267,6 +9527,9 @@
         <members>cfValReviewOutdatedData</members>
         <members>cfValReviewPermission</members>
         <members>cfValReviewPrepaidBalance</members>
+        <members>cfValReviewPrepaidBalanceDetails</members>
+        <members>cfValReviewPrepaidBalanceDetailsDataGB</members>
+        <members>cfValReviewPrepaidBalanceDetailsDatas</members>
         <members>cfValReviewPrepaidBalanceModal</members>
         <members>cfValReviewProductsItems</members>
         <members>cfValReviewProductsItemsChild</members>
@@ -9275,6 +9538,10 @@
         <members>cfValReviewTopicsDetails</members>
         <members>cfValReviewTotal</members>
         <members>cfValReviewTotalUniqueBold</members>
+        <members>cfValSearchAddress</members>
+        <members>cfValSearchAddressSubmission</members>
+        <members>cfValSelectOptionExtract</members>
+        <members>cfValSelectOptionRecharge</members>
         <members>cfValServiceFlow</members>
         <members>cfValServiceFlow_11_usPalitagemCrossRegistrarPalito</members>
         <members>cfValServiceFlow_13_usPalitagemCrossRegistrarPalito</members>
@@ -9291,6 +9558,8 @@
         <members>cfValShowCaseFromTopicsContainer</members>
         <members>cfValShowCaseFromTopicsData</members>
         <members>cfValShowLineDetails</members>
+        <members>cfValSubmissionCorreios</members>
+        <members>cfValSubmissionEmail</members>
         <members>cfValTicketsContainer</members>
         <members>cfValTicketsContainer_1_Front360</members>
         <members>cfValTicketsContainer_2_Front360</members>
@@ -9343,10 +9612,14 @@
         <members>cfVplInteractionTopicStory</members>
         <members>changeOwnerHDE</members>
         <members>copyButton</members>
+        <members>createCaseRecord</members>
+        <members>createCaseRecordLWC</members>
         <members>ctiCallDroppedButtonChild</members>
         <members>ctiCallDroppedButtonNotification</members>
+        <members>extendedTreeListSelector</members>
         <members>feuInteractionLauncherOmniPortugueseBrazil</members>
         <members>getLineRadio</members>
+        <members>getSearchedPhoneNumber</members>
         <members>gpsCanvasIntegration</members>
         <members>interactionLauncherListner</members>
         <members>interactionLauncherNotification</members>
@@ -9357,8 +9630,10 @@
         <members>offerTable</members>
         <members>paginator</members>
         <members>panCreateNoteEnglish</members>
+        <members>pidTokenValidate</members>
         <members>pocMilestone</members>
         <members>pubsub</members>
+        <members>rechargeVoucher</members>
         <members>serviceFlowGPSCanvasChild</members>
         <members>serviceFlowGPSCanvasNotification</members>
         <members>serviceRequestTreatmentConsultation</members>
@@ -9379,6 +9654,7 @@
         <members>valDualListBoxTemplate</members>
         <members>valFlyout</members>
         <members>valHandleTopicAuto</members>
+        <members>valModal</members>
         <members>valPaymentMethodEnglish</members>
         <members>valReviewOrderEnglish</members>
         <members>valSalesJourneyPortugueseBrazil</members>
@@ -9428,6 +9704,10 @@
         <members>CartAccount__c.OfferAccountError</members>
         <members>Case.AllOpenCases</members>
         <members>Case.CTIIntegrationQueue_Case</members>
+        <members>Case.Caixa_OUVIDORIA_COMUNIDADES_em_tratativa</members>
+        <members>Case.Caixa_P_rpura_em_tratativa</members>
+        <members>Case.Caixa_REVENDAS_em_tratativa</members>
+        <members>Case.Caixa_Silver_em_tratativa</members>
         <members>Case.CasesCreatedByMe</members>
         <members>Case.CasosPalitagemFixaInterrompidos</members>
         <members>Case.HDEAllCases</members>
@@ -9471,7 +9751,23 @@
         <members>Case.HDEHighComplexityReasons_Case</members>
         <members>Case.HDEMyCases</members>
         <members>Case.HDEMyOpenCases</members>
+        <members>Case.HDE_CRI_Esc_Lojas_Revendas_Distribu_do</members>
+        <members>Case.HDE_CRI_Esc_Lojas_Revendas_Distribuir</members>
+        <members>Case.HDE_CRI_Esc_Ouvid_Comunidade_Distribu_do</members>
+        <members>Case.HDE_CRI_Esc_Ouvid_Comunidades_Distribuir</members>
+        <members>Case.HDE_CRI_Escalonam_Ouvidoria_Comunidades</members>
+        <members>Case.HDE_CRI_Escalonamento_Lojas_Revendas</members>
+        <members>Case.HDE_CRI_Escalonamento_P_rpura</members>
+        <members>Case.HDE_CRI_Escalonamento_P_rpuraDistribu_do</members>
+        <members>Case.HDE_CRI_Escalonamento_P_rpura_Distribuir</members>
+        <members>Case.HDE_CRI_Escalonamento_Silver</members>
+        <members>Case.HDE_CRI_Escalonamento_SilverDistribuir</members>
+        <members>Case.HDE_CRI_Escalonamento_Silver_Distribu_do</members>
         <members>Case.HDE_Case</members>
+        <members>Case.HDE_Lojas_Revendas_Todos</members>
+        <members>Case.HDE_Ouvidoria_Comunidades_Todos</members>
+        <members>Case.HDE_P_rpura_Todos</members>
+        <members>Case.HDE_Silver_Todos</members>
         <members>Case.HDE_Todos_os_casos_Kanban</members>
         <members>Case.MeusCasosPalitagemFixaInterrompidos</members>
         <members>Case.MyCases</members>
@@ -9518,6 +9814,7 @@
         <members>ScriptConfig__c.All</members>
         <members>Script__c.All</members>
         <members>Script__c.FlowRecordType</members>
+        <members>ServiceAuthorization__mdt.AllFields</members>
         <members>ServiceRequest__c.AddressRegisterSAVQueue_ServiceRequest</members>
         <members>ServiceRequest__c.AddressRegisterSAVQueue_ServiceRequest1</members>
         <members>ServiceRequest__c.AddressRegister_ServiceRequest</members>
@@ -9585,11 +9882,15 @@
     </types>
     <types>
         <members>HDECallSupervisor</members>
+        <members>HDECommunityOuvidoriaProcessesEscalation</members>
         <members>HDEEscalationAndLawSuits</members>
         <members>HDEGoldProcessesEscalation</members>
         <members>HDEOuvidoriaProcessesEscalation</members>
         <members>HDEPlatinumProcessesEscalation</members>
         <members>HDEPrimeProcessesEscalation</members>
+        <members>HDEPurpuraProcessesEscalation</members>
+        <members>HDEResellerStoreProcessesEscalation</members>
+        <members>HDESilverProcessesEscalation</members>
         <members>HDEStoreProcessesEscalation</members>
         <members>HDETechnicalMonitoring</members>
         <members>HDETriggerEmail</members>
@@ -9597,6 +9898,7 @@
         <name>PathAssistant</name>
     </types>
     <types>
+        <members>AjustarSaldo</members>
         <members>AllowCreateNotesAsset</members>
         <members>BloqueioDesbloqueioLinha</members>
         <members>CadastroCliente</members>
@@ -9607,11 +9909,15 @@
         <members>ConfiguracaodePalitagem</members>
         <members>ConsultaEnviodeSaldos</members>
         <members>ConsultarAlteracaoCadastral</members>
+        <members>ConsultarListaRestritivas</members>
         <members>ConsultarOrdens</members>
         <members>Consultardetalhesdalinha</members>
         <members>CreditScoreAccess</members>
         <members>Editardetalhesdalinha</members>
+        <members>ExecuteCallbackProvisioningSFB2C</members>
+        <members>ExecuteCreateRemoteCustomerSFB2C</members>
         <members>ExecuteSAPMaterialDataLoadSFB2C</members>
+        <members>ExecuteStartRemoteProvisioningSFB2C</members>
         <members>ExportReport</members>
         <members>FalhasdaOrdem</members>
         <members>GerarPalitagemmanual</members>
@@ -9620,18 +9926,24 @@
         <members>HDECaseGuardian</members>
         <members>HDECaseOperator</members>
         <members>HDECaseSearchOperator</members>
+        <members>HDECommunityOuvidoriaProcessesEscalation</members>
         <members>HDEEmailTrigger</members>
         <members>HDEEscalationAndLawSuits</members>
         <members>HDEGoldProcessAndEscalation</members>
         <members>HDEGuardiansManager</members>
         <members>HDEOperationsManager</members>
+        <members>HDEOperationsManagerCommunity</members>
         <members>HDEOuvidoriaProcessesEscalation</members>
         <members>HDEPerformance</members>
         <members>HDEPlatinumProcessesEscalation</members>
         <members>HDEPrimeProcessesEscalation</members>
+        <members>HDEPurpuraProcessAndEscalation</members>
+        <members>HDEResellerStoreProcessesEscalation</members>
+        <members>HDESilverProcessAndEscalation</members>
         <members>HDEStoreProcessesEscalation</members>
         <members>HDETechnicalMonitoring</members>
         <members>HDETriageGuardian</members>
+        <members>HDETriageGuardianCommunity</members>
         <members>HDEVivoVProcessesAndEscalation</members>
         <members>HabilitacaoAvulsaComAquisicao</members>
         <members>HabilitacaoAvulsaSemAquisicao</members>
@@ -9661,6 +9973,7 @@
         <members>ServiceQualificationMobileVisualization</members>
         <members>StoreServiceManage</members>
         <members>StoreServiceManager</members>
+        <members>TokenSMS</members>
         <members>TrocadeNumero</members>
         <members>TrocadeSIMCard</members>
         <members>VisualizarPlanodeOrquestracao</members>
@@ -9739,6 +10052,7 @@
     </types>
     <types>
         <members>Account.RootCauseSolved</members>
+        <members>Case.AlterarPropAura</members>
         <members>Case.ChangeOwnerHDE</members>
         <members>Case.Change_Priority</members>
         <members>Case.CloseCaseHDE</members>
@@ -9885,6 +10199,7 @@
         <members>Case.CTIService</members>
         <members>Case.CallDroped</members>
         <members>Case.CallSupervisor</members>
+        <members>Case.CommunityOuvidoriaProcessesEscalation</members>
         <members>Case.EmailTrigger</members>
         <members>Case.EscalationAndLawSuits</members>
         <members>Case.FixedServiceQualification</members>
@@ -9893,6 +10208,9 @@
         <members>Case.OuvidoriaProcessesEscalation</members>
         <members>Case.PlatinumProcessesEscalation</members>
         <members>Case.PrimeProcessesEscalation</members>
+        <members>Case.PurpuraProcessesEscalation</members>
+        <members>Case.ResellerStoreProcessesEscalation</members>
+        <members>Case.SilverProcessesEscalation</members>
         <members>Case.StoreProcessesEscalation</members>
         <members>Case.StoreServiceManagerRecordType</members>
         <members>Case.TechnicalMonitoring</members>
@@ -9970,6 +10288,7 @@
         <members>HDE/CaseInformation</members>
         <members>HDE/CaseRepresentativeProductivity</members>
         <members>HDE/HDECallManagementByHCCommercialChannel</members>
+        <members>HDE/HDECallManagementByHCPartnerChannel</members>
         <members>HDE/HDECallManagementByHCServiceChannel</members>
         <members>HDE/RootCauseHistory</members>
         <members>HDEGold</members>
@@ -9986,6 +10305,13 @@
         <members>HDELoja/HistoricoCausaRaizLoja</members>
         <members>HDELoja/InformacoesdeCasosLoja</members>
         <members>HDELoja/ProdutividadedosRepresentantesemCasoLoja</members>
+        <members>HDELojasRevendas</members>
+        <members>HDELojasRevendas/HDECRIEscalonamentoRevendas</members>
+        <members>HDELojasRevendas/HDECallManagementByHCServiceChannelRevendas</members>
+        <members>HDELojasRevendas/HDEGerenciamentodechamadosRevendas</members>
+        <members>HDELojasRevendas/HistoricoCausaRaizRevendas</members>
+        <members>HDELojasRevendas/InformacoesdeCasosRevendas</members>
+        <members>HDELojasRevendas/ProdutividadeDosRepresentantesEmCasoRevendas</members>
         <members>HDEOuvidoria</members>
         <members>HDEOuvidoria/HDECRIEscalonamentoOuvidoria</members>
         <members>HDEOuvidoria/HDECallManagementByHCServiceChannelOuvid</members>
@@ -9999,6 +10325,13 @@
         <members>HDEOuvidoria/HistoricoCausaRaizOuvidoria</members>
         <members>HDEOuvidoria/InformacoesdeCasosOuvidoria</members>
         <members>HDEOuvidoria/ProdutividadedosRepresentantesemCasoOuvi</members>
+        <members>HDEOuvidoriaComunidades</members>
+        <members>HDEOuvidoriaComunidades/HDECRIEscalonamentoOuvidoriaComunidades</members>
+        <members>HDEOuvidoriaComunidades/HDECallManagementByHCServiceChannelOuvidoriaComunidades</members>
+        <members>HDEOuvidoriaComunidades/HDEGerenciamentodechamadosOuvidoriaComunidades</members>
+        <members>HDEOuvidoriaComunidades/HistoricoCausaRaizOuvidoriaComunidades</members>
+        <members>HDEOuvidoriaComunidades/InformacoesdeCasosOuvidoriaComunidades</members>
+        <members>HDEOuvidoriaComunidades/ProdutividadeDosRepresentantesEmCasoOuvidoriaComunidades</members>
         <members>HDEPlatinum</members>
         <members>HDEPrime</members>
         <members>HDEPrime/HDECRIEscalonamentoPrime</members>
@@ -10007,6 +10340,20 @@
         <members>HDEPrime/HistoricoCausaRaizPrime</members>
         <members>HDEPrime/InformacoesdeCasosPrime</members>
         <members>HDEPrime/ProdutividadedosRepresentantesemCasoPrim</members>
+        <members>HDEPurpura</members>
+        <members>HDEPurpura/HDECRIEscalonamentoPurpura</members>
+        <members>HDEPurpura/HDECallManagementByHCServiceChannelPurpura</members>
+        <members>HDEPurpura/HDEGerenciamentodechamadosPurpura</members>
+        <members>HDEPurpura/HistoricoCausaRaizPurpura</members>
+        <members>HDEPurpura/InformacoesdeCasosPurpura</members>
+        <members>HDEPurpura/ProdutividadeDosRepresentantesEmCasoPurpura</members>
+        <members>HDESilver</members>
+        <members>HDESilver/HDECRIEscalonamentoSilver</members>
+        <members>HDESilver/HDECallManagementByHCServiceChannelSilver</members>
+        <members>HDESilver/HDEGerenciamentodechamadosSilver</members>
+        <members>HDESilver/HistoricoCausaRaizSilver</members>
+        <members>HDESilver/InformacoesdeCasosSilver</members>
+        <members>HDESilver/ProdutividadeDosRepresentantesEmCasoSilver</members>
         <members>HDEVIVOV</members>
         <members>HDEVIVOV/HDECRIEmailV</members>
         <members>HDEVIVOV/HDECRIEscalonamentoV</members>
@@ -10287,6 +10634,7 @@
         <members>TelefonicaBrasil</members>
         <members>VATelefonica_Brasil</members>
         <members>Vendas</members>
+        <members>VendasLojasPerformance</members>
         <members>VendasLojasPropriasConsultorJR</members>
         <members>VendasLojasPropriasConsultorPL</members>
         <members>VendasLojasPropriasConsultorSR</members>
@@ -10299,6 +10647,7 @@
         <members>VendasLojasPropriasVConsultorTec</members>
         <members>VendasLojasPropriasVGerenteGeral</members>
         <members>VendasLojasPropriasVGerenteOperacional</members>
+        <members>VendasRevendasPerformance</members>
         <members>VendasSuperPremiumPropriasConsultor</members>
         <members>VendasSuperPremiumPropriasCoordenador</members>
         <members>VendasSuperPremiumPropriasGerente</members>
@@ -10366,9 +10715,16 @@
     </types>
     <types>
         <members>ApprovalRequests</members>
+        <members>BackPhysicalCardRecharge</members>
+        <members>BackPhysicalCardRechargePt1</members>
+        <members>BackPhysicalCardRechargePt2</members>
+        <members>BackPhysicalCardRechargePt3</members>
         <members>Charts</members>
         <members>EmptyStateOpenRoad</members>
         <members>EmptyStateTree</members>
+        <members>ExtratoDetalhado</members>
+        <members>ExtratoSimplificado</members>
+        <members>FrontPhysicalCardRecharge</members>
         <members>GifApprovalConfirmation</members>
         <members>HDEBlackDot</members>
         <members>HDEGray</members>
@@ -10385,14 +10741,19 @@
         <members>InvoicePaidStatus</members>
         <members>LightningUtil</members>
         <members>LogoVivo</members>
+        <members>Logo_VIVO_vertical</members>
+        <members>RecargaFisica</members>
+        <members>RecargaOnline</members>
         <members>SiteSamples</members>
         <members>VlocityDiagnosticWizard_Bundle</members>
+        <members>all_inclusive</members>
         <members>approvalProcessCustomCss</members>
         <members>chartsjsDatalabel</members>
         <members>cometd</members>
         <members>customSBALightningOverride</members>
         <members>interactionLauncherCustomCss</members>
         <members>modalfullsize</members>
+        <members>vlocity_cmt__WAITGIF</members>
         <name>StaticResource</name>
     </types>
     <types>
@@ -10508,6 +10869,13 @@
         <members>Account.UpdateNames</members>
         <members>Account.UpdateReqName</members>
         <members>Case.ChangePriorityToHigh</members>
+        <members>Order.CancelOrder</members>
+        <members>Order.ClearApproverProcessName</members>
+        <members>Order.ClearApproverProcessName1</members>
+        <members>Order.ClearApproverUserId</members>
+        <members>Order.ClearApproverUserId1</members>
+        <members>Order.ClearApproverUserName</members>
+        <members>Order.ClearApproverUserName1</members>
         <name>WorkflowFieldUpdate</name>
     </types>
     <types>
