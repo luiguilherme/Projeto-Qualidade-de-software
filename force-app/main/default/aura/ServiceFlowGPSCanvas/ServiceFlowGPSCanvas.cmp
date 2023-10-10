@@ -35,7 +35,8 @@
                 <force:canvasApp developerName="{!v.canvasAppName}" 
                                 applicationName="{!v.canvasAppName}" 
                                 width="100%"
-                                parameters="{!v.canvasParameters}" />
+                                parameters="{!v.canvasParameters}" 
+                                onCanvasAppLoad="{! c.handleCanvasLoad}"/>
             </aura:if>
         </div>
 
@@ -44,4 +45,12 @@
             <div></div>
         </aura:set>
     </aura:renderIf>
+
+    <aura:if isTrue="{!v.isLoading}">
+        <div style="height: 250px" class="slds-spinner_container">
+            <lightning:spinner alternativeText="Loading" variant="brand" class="slds-is-relative slds-spinner"/>
+        </div>
+    </aura:if>
+
+    
 </aura:component>

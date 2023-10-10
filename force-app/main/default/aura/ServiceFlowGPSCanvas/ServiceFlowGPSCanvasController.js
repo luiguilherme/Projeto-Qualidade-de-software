@@ -71,6 +71,7 @@
                 component.set("v.isCallActive", JSON.parse(isCallActive));
                 component.find('gpscanvaschild').canvasOpened();
                 component.set("v.canOpenCanvas", true);
+                component.set("v.isLoading", true);
 
             }if(typeEvent == 'GPSCanvasIntegration_SetCaseWDE'){
                 let gpsCase = JSON.parse(JSON.stringify(event.getParam('sobject')));
@@ -91,5 +92,9 @@
             }
         }
 
+    },
+
+    handleCanvasLoad : function(component){
+        component.set("v.isLoading", false);
     }
 })
