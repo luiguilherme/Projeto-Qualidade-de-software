@@ -7,7 +7,7 @@ export default class AssetMigrationModal extends LightningElement {
 
     renderedCallback() {
         if(!this.haveTokenAccess){
-            this.bodyText = 'É necessário realizar a validação de segurança (token) antes de iniciar o fluxo.';
+            this.bodyText = 'Realize a validação de segurança para iniciar o fluxo. Caso já tenha validado, tente novamente.';
         } else if(!this.haveUserAccess){
             this.bodyText = 'No momento você está sem acesso à funcionalidade de Troca de Oferta, verifique com o seu CSL/SAL.';
         }
