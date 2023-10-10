@@ -3,6 +3,11 @@
     <apiVersion>58.0</apiVersion>
     <description>Fluxo com execução diária para alterar a palitagem das customer interaction topics do fluxo de migração que estão &quot;Em Andamento&quot;</description>
     <formulas>
+        <name>ValidacaoCreatedDate</name>
+        <dataType>DateTime</dataType>
+        <expression>{!$Flow.CurrentDateTime} - 1</expression>
+    </formulas>
+    <formulas>
         <name>ValidacaoLastModifiedDate</name>
         <dataType>DateTime</dataType>
         <expression>{!$Flow.CurrentDateTime} - (2/24)</expression>
@@ -31,7 +36,7 @@
     <recordUpdates>
         <name>Atualizar_Topic_em_Andamento</name>
         <label>Atualizar Topic em Andamento</label>
-        <locationX>616</locationX>
+        <locationX>615</locationX>
         <locationY>302</locationY>
         <filterLogic>and</filterLogic>
         <filters>
@@ -42,13 +47,6 @@
             </value>
         </filters>
         <filters>
-            <field>remarkup__c</field>
-            <operator>Contains</operator>
-            <value>
-                <stringValue>Aguardando escolha da oferta</stringValue>
-            </value>
-        </filters>
-        <filters>
             <field>TopicName__c</field>
             <operator>Contains</operator>
             <value>
@@ -56,10 +54,17 @@
             </value>
         </filters>
         <filters>
-            <field>LastModifiedDate</field>
+            <field>SystemModstamp</field>
             <operator>LessThanOrEqualTo</operator>
             <value>
                 <elementReference>ValidacaoLastModifiedDate</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>CreatedDate</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>ValidacaoCreatedDate</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -84,7 +89,7 @@
         </connector>
         <schedule>
             <frequency>Daily</frequency>
-            <startDate>2023-09-27</startDate>
+            <startDate>2023-10-10</startDate>
             <startTime>02:00:00.000Z</startTime>
         </schedule>
         <triggerType>Scheduled</triggerType>
