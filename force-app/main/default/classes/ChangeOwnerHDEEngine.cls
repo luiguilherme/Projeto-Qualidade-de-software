@@ -35,7 +35,7 @@ public without sharing class ChangeOwnerHDEEngine {
             String permissionsWithoutAccess = System.Label.ChangeOwnerHDEPermissions;
             List<String> lstPermissionsWithoutAccess = permissionsWithoutAccess.split(',');
             List<PermissionSetAssignment> lstPermissionsAssigments = PermissionSetDAO.getAllPermissionSetByUserId(UserInfo.getUserId());
-            Pattern regexPattern = Pattern.compile('\\bHDE.*ProcessAndEscalation\\b'); //Padrão solicitado na hist PTI4367-7
+            Pattern regexPattern = Pattern.compile('\\bHDE.*Processos.*Escalonamento\\b'); //Padrão solicitado na hist PTI4367-7
 
             for(PermissionSetAssignment iPerm : lstPermissionsAssigments){
                 if (hasGestaoPermission == false && (iPerm.PermissionSet.Name == 'HDETriageGuardianCommunity' || iPerm.PermissionSet.Name == 'HDEOperationsManagerCommunity')) {
@@ -44,7 +44,7 @@ public without sharing class ChangeOwnerHDEEngine {
                     return false;
                 }
 
-                Matcher m = regexPattern.matcher(iPerm.PermissionSet.Name);
+                Matcher m = regexPattern.matcher(iPerm.PermissionSet.Label);
                 if (m.find()) {
                     hasAtLeastAHDEPermission = true;
                 }
@@ -56,9 +56,6 @@ public without sharing class ChangeOwnerHDEEngine {
 
     public static Boolean updateOwnerCase(Id caseId, Id ownerId) {
         Case caseToUpdateOwner = new Case();
-        System.debug('caso '+ caseId);
-        System.debug('owner ' + ownerId);
-
         caseToUpdateOwner.id = caseId;
         caseToUpdateOwner.OwnerId = ownerId;
         Database.SaveResult saveResult = Database.update(caseToUpdateOwner);

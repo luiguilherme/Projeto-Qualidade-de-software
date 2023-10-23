@@ -174,12 +174,13 @@ export default class PidTokenValidate extends LightningElement {
                         parentThis.hasError = true;
                         parentThis.cssTokenNoValidated();
                     }
+					parentThis.resetTimer();
+
                     updateTokenStatus({customerIntId: parentThis.recordId, tokenStatus: 'Não validado'});
                 }
     
                 parentThis.refreshData();
                 parentThis.timeMiliseconds -= 1000;
-                this.resetTimer();
             }, 1000);
         }
         
