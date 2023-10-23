@@ -132,6 +132,7 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
                     asset.ProductType__c = type == 'Movel' ? getProductType(assetToCreate.subscription_type, mapFromTo) : getProductType(assetToCreate.product_type, mapFromTo);
                     asset.Name = assetToCreate.identifiers[0].startsWith('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : assetToCreate.identifiers[0];
                     asset.Status = assetToCreate.status;
+                  	asset.StatusDescription__c = assetToCreate.status_description;
                     asset.IsHolder__c = assetToCreate.tags != null ? getStringValue(assetToCreate.tags, 'multivivo:') : 'TIT';
                     asset.MainProductDescription__c = getMainProductDescription(assetToCreate);
                     asset.AccountId = accountId;
@@ -200,6 +201,7 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
                 asset.ProductType__c = type == 'Movel' ? getProductType(assetToCreate.subscription_type, mapFromTo) : getProductType(assetToCreate.product_type, mapFromTo);
                 asset.Name = assetToCreate.identifiers[0].startsWith('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : assetToCreate.identifiers[0];
                 asset.Status = assetToCreate.status;
+                asset.StatusDescription__c = assetToCreate.status_description;
                 asset.IsHolder__c = assetToCreate.tags != null ? getStringValue(assetToCreate.tags, 'multivivo:') : 'TIT';
                 asset.MainProductDescription__c = getMainProductDescription(assetToCreate);
                 asset.AccountId = accountId;
@@ -370,6 +372,7 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
         private String product_type {get; set;}
         private String display_name {get; set;}
         private String status {get; set;}
+		private String status_description {get;set;}
         private Connection connection {get; set;}
         private List<String> tags {get; set;}
         private List<Descriptions> descriptions {get;set;}

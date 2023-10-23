@@ -1,4 +1,4 @@
-trigger TaskTrigger on Task (before delete) {
+trigger TaskTrigger on Task (before delete, before insert) {
 
     if(Trigger.isBefore){
 
@@ -7,5 +7,9 @@ trigger TaskTrigger on Task (before delete) {
         }
 
     }
+    
+    if (Trigger.IsInsert && Trigger.Isbefore){
+                TaskTriggerHandler.ValidateCreateHDETask(Trigger.new);     
+            }
 
 }
