@@ -67,6 +67,9 @@ public with sharing class HDECasesService {
                     if (currentUserSegment == null || !iCase.Segment__c.contains(currentUserSegment)) {
                         iCase.addError('Este usuário não pode alterar o proprietário para outro se não estiver no mesmo segmento do caso');
                     } else if(!mapSegmentUser.containsKey(iCase.Segment__c)){
+                        if(isQueue(iCase.OwnerId)){
+                            continue;
+                        }
                         iCase.addError('Não pode alterar o proprietário para outro se usuário destino não estiver no mesmo segmento do caso');
                     }
                 }
@@ -134,5 +137,10 @@ public with sharing class HDECasesService {
         } else {
             return true;
         }
+    }
+
+    public static Boolean isQueue(Id recordId) {
+        String ownerId = recordId;
+        return ownerId.startsWith('00G');
     }
 }
