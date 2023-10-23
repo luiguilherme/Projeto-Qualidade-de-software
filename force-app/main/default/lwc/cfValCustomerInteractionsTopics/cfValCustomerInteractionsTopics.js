@@ -45,8 +45,8 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
                 this.setDefinition(data);
  this.registerEvents();
                 this.setAttribute(
-                  "class",
-                  "card-a5W78000000KzcIEAS"
+                  "class", (this.getAttribute("class") ? this.getAttribute("class") : "") +
+                  " card-a5W78000000KzcIEAS"
                 );
                 this.loadCustomStylesheetAttachement("00P78000008KdUeEAK");
                 

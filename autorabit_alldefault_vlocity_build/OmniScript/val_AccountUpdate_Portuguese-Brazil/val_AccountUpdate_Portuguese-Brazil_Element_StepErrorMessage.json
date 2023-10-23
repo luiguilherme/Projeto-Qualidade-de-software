@@ -47,7 +47,28 @@
         "remoteTimeout": 30000,
         "saveLabel": "Save for later",
         "saveMessage": "Are you sure you want to save it for later?",
-        "show": null,
+        "show": {
+            "group": {
+                "operator": "OR",
+                "rules": [
+                    {
+                        "condition": "=",
+                        "data": "null",
+                        "field": "hasApproverSelected"
+                    },
+                    {
+                        "condition": "=",
+                        "data": null,
+                        "field": "hasApproverSelected"
+                    },
+                    {
+                        "condition": "=",
+                        "data": "NULL",
+                        "field": "hasApproverSelected"
+                    }
+                ]
+            }
+        },
         "showPersistentComponent": [
             true,
             false
