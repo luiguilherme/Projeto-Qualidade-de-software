@@ -94,7 +94,8 @@ public with sharing class PIDTokenValidateEngine {
                     return true;
                 }
             }
-            return false;
+            
+            return !PermissionSetAssigmentDAO.getCurrentPSA(Userinfo.getUserId(), 'TokenSMS').isEmpty();    
 
         } catch (Exception e) {
             return false;

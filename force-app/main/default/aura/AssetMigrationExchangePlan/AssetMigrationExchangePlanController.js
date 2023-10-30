@@ -17,13 +17,10 @@
     
     handleComponentEvent : function (component,event, helper) {
         var selectedTypeFromEvent = event.getParam("type");
-        var interactionId = event.getParam("sobject");
 
         if (selectedTypeFromEvent == 'closeCanvasHybris') {
-            if (interactionId != component.get('v.recordId')) {
-                component.set('v.showCanvas ', false);   
-                component.set('v.showResetButton', false);
-            }
+            component.set('v.showCanvas ', false);   
+            component.set('v.showResetButton', false);
         }
     },
 
@@ -40,7 +37,8 @@
         component.set('v.showAssetMigrationSelection', true);
         component.set('v.showResetButton', false);
 
-        var compEvent = component.getEvent("c:BroadcastNotification");
+        var compEvent = component.getEvent("BroadcastNotification");
+        
         compEvent.setParams({
             type: "closeCanvasHybris"
         });
