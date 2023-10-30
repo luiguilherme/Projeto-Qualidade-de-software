@@ -60,6 +60,11 @@ public with sharing class AssetMigrationExchangePlanEngine {
                     accessToReturn.haveAccessToToken = true;
                 }
             }
+
+            if(!accessToReturn.haveAccessToToken){
+                accessToReturn.haveAccessToToken = !PermissionSetAssigmentDAO.getCurrentPSA(Userinfo.getUserId(), 'TokenSMS').isEmpty();    
+            }
+
             if (Test.isRunningtest()) {
                 accessToReturn.haveAccessToToken = true;
             }
