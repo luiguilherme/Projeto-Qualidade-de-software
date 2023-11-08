@@ -19,7 +19,8 @@
             "default": null
         },
         "extraPayload": {
-            "TopicName": "%TopicNameByRequest%"
+            "TopicName": "%TopicNameByRequest%",
+            "topicName2": "%TopicNameByRequest2%"
         },
         "failureAbortLabel": "Abort",
         "failureAbortMessage": "Are you sure?",
@@ -75,11 +76,26 @@
                     },
                     {
                         "group": {
-                            "operator": "AND",
+                            "operator": "OR",
                             "rules": [
                                 {
                                     "condition": "=",
                                     "data": "RechargeJourney",
+                                    "field": "Functionality"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "AdditionalPackage",
+                                    "field": "Functionality"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "Promotion",
+                                    "field": "Functionality"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "ServiceManagement",
                                     "field": "Functionality"
                                 }
                             ]

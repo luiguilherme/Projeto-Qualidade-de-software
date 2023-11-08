@@ -41,15 +41,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
             this._sessionApiVars["SourceComponent"] = val;
           }
         } get cfSourceComponent() {
-          return this._sessionApiVars["SourceComponent"] || "";
-        }
-      
-        @api set cfCustomerId(val) {
-          if(typeof val !== "undefined") {
-            this._sessionApiVars["CustomerId"] = val;
-          }
-        } get cfCustomerId() {
-          return this._sessionApiVars["CustomerId"] || "";
+          return this._sessionApiVars["SourceComponent"] || "undefined";
         }
       
         @api set cfAccountId(val) {
@@ -57,7 +49,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
             this._sessionApiVars["AccountId"] = val;
           }
         } get cfAccountId() {
-          return this._sessionApiVars["AccountId"] || "";
+          return this._sessionApiVars["AccountId"] || "undefined";
         }
       
         @api set cfInteractionNumber(val) {
@@ -65,39 +57,15 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
             this._sessionApiVars["InteractionNumber"] = val;
           }
         } get cfInteractionNumber() {
-          return this._sessionApiVars["InteractionNumber"] || "";
+          return this._sessionApiVars["InteractionNumber"] || "undefined";
         }
       
-        @api set cfChannelName(val) {
+        @api set cfCustomerId(val) {
           if(typeof val !== "undefined") {
-            this._sessionApiVars["ChannelName"] = val;
+            this._sessionApiVars["CustomerId"] = val;
           }
-        } get cfChannelName() {
-          return this._sessionApiVars["ChannelName"] || "";
-        }
-      
-        @api set cfUserPermissionOnline(val) {
-          if(typeof val !== "undefined") {
-            this._sessionApiVars["UserPermissionOnline"] = val;
-          }
-        } get cfUserPermissionOnline() {
-          return this._sessionApiVars["UserPermissionOnline"] || "";
-        }
-      
-        @api set cfUserPermissionPhysical(val) {
-          if(typeof val !== "undefined") {
-            this._sessionApiVars["UserPermissionPhysical"] = val;
-          }
-        } get cfUserPermissionPhysical() {
-          return this._sessionApiVars["UserPermissionPhysical"] || "";
-        }
-      
-        @api set cfRechargeSubmitted(val) {
-          if(typeof val !== "undefined") {
-            this._sessionApiVars["RechargeSubmitted"] = val;
-          }
-        } get cfRechargeSubmitted() {
-          return this._sessionApiVars["RechargeSubmitted"] || "";
+        } get cfCustomerId() {
+          return this._sessionApiVars["CustomerId"] || "undefined";
         }
       
               
@@ -106,6 +74,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               
               connectedCallback() {
                 super.connectedCallback();
+                this.setThemeClass(data);
                 this.setStyleDefinition(styleDef);
                 data.Session = {} //reinitialize on reload
                 
@@ -128,9 +97,9 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               registerEvents() {
                 
         this.pubsubEvent[0] = {
-          [interpolateWithRegex(`data`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[0],0)
+          [interpolateWithRegex(`Reload`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[0],0)
         };
-        this.pubsubChannel0 = interpolateWithRegex(`omniscript_action`,this._allMergeFields,this._regexPattern,"noparse");
+        this.pubsubChannel0 = interpolateWithRegex(`valPrePaidAssetDetails`,this._allMergeFields,this._regexPattern,"noparse");
         pubsub.register(this.pubsubChannel0,this.pubsubEvent[0]);
 
               }

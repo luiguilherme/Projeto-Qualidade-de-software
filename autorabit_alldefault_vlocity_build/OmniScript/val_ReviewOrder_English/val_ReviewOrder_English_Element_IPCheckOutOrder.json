@@ -44,7 +44,9 @@
             "chainable": false,
             "postTransformBundle": "",
             "preTransformBundle": "",
-            "useFuture": false
+            "queueableChainable": false,
+            "useFuture": false,
+            "useQueueable": false
         },
         "remoteTimeout": 30000,
         "responseJSONNode": "",
@@ -74,11 +76,26 @@
                     },
                     {
                         "group": {
-                            "operator": "AND",
+                            "operator": "OR",
                             "rules": [
                                 {
                                     "condition": "=",
                                     "data": "RechargeJourney",
+                                    "field": "Functionality"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "AdditionalPackage",
+                                    "field": "Functionality"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "Promotion",
+                                    "field": "Functionality"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "ServiceManagement",
                                     "field": "Functionality"
                                 }
                             ]
