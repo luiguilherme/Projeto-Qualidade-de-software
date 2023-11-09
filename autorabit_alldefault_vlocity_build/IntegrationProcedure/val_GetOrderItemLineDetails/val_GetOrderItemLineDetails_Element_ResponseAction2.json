@@ -13,18 +13,18 @@
             "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/GetOrderItemLineDetails/Procedure",
             "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
         },
-        "Name": "ConditionalBlock2",
+        "Name": "CBWithAssetId",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetOrderItemLineDetails/Procedure/ConditionalBlock2",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetOrderItemLineDetails/Procedure/CBWithAssetId",
         "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
     },
-    "%vlocity_namespace%__ParentElementName__c": "ConditionalBlock2",
+    "%vlocity_namespace%__ParentElementName__c": "CBWithAssetId",
     "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "Plan": "%DRGetProductsPromotionPlan:Plan:Name%",
+            "Plan": "=IF(%DRGetProductsPromotionPlan:OrderType% != 'Change', %DRGetProductsPromotionPlan:Plan:Name%, %DRGetProductsPromotionPlan:NewPlan:Name%)",
             "Platform": "%DRGetLineDetails:Platform%",
-            "Promotion": "%DRGetProductsPromotionPlan:Promotion:Name%",
+            "Promotion": "=IF(%DRGetProductsPromotionPlan:OrderType% != 'Change', %DRGetProductsPromotionPlan:Promotion:Name%, %DRGetProductsPromotionPlan:NewPromotion:Name%)",
             "serviceIdentifier": "%DRGetLineDetails:ServiceIdentifier%"
         },
         "disOnTplt": false,

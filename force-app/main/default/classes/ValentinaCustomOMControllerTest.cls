@@ -88,4 +88,37 @@
         System.assertEquals('OK', outputMap.get('ATT_DC_PROVISIONING_STATUS'));
         Test.stopTest();
     }
+
+    @isTest static void testGetHistoryStatus(){
+        ValentinaCustomOMController controller = new ValentinaCustomOMController();
+        
+        Map<String,Object> inputMap = new Map<String,Object>();
+        Map<String,Object> outputMap  = new Map<String,Object>();
+        Map<String,Object> options  = new Map<String,Object>();
+          
+        Map<String,Object> mapHistory1 = new Map<String,Object>();
+        mapHistory1.put('status', 'PreAtivo');
+
+        Map<String,Object> mapHistory2 = new Map<String,Object>();
+        mapHistory2.put('status', 'Ativo');   
+        
+        Map<String,Object> mapHistory3 = new Map<String,Object>();
+        mapHistory3.put('status', 'SuspAPedido'); 
+        
+        List<Object> listHistory = new List<Object>();
+        listHistory.add(mapHistory1);
+        listHistory.add(mapHistory2);
+        listHistory.add(mapHistory3);
+
+		inputMap.put('statusHistory', listHistory);      
+
+        Test.startTest();
+        
+        controller.invokeMethod('getHistoryStatus', inputMap, outputMap, options); 
+
+        System.assertEquals('Ativo', outputMap.get('actualStatus'));
+        System.assertEquals('PreAtivo', outputMap.get('lastStatus'));
+
+        Test.stopTest();
+    }    
 }

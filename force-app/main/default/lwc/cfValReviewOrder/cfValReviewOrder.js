@@ -33,7 +33,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
             this._sessionApiVars["OrderId"] = val;
           }
         } get cfOrderId() {
-          return this._sessionApiVars["OrderId"] || "";
+          return this._sessionApiVars["OrderId"] || "undefined";
         }
       
         @api set cfAssetId(val) {
@@ -49,7 +49,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
             this._sessionApiVars["Functionality"] = val;
           }
         } get cfFunctionality() {
-          return this._sessionApiVars["Functionality"] || "";
+          return this._sessionApiVars["Functionality"] || "undefined";
         }
       
               

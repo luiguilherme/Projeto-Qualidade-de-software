@@ -1,4 +1,4 @@
-global with sharing class ValentinaCustomOMController  implements vlocity_cmt.VlocityOpenInterface2 {
+global with sharing class ValentinaCustomOMController implements vlocity_cmt.VlocityOpenInterface2 {
     
     global Object invokeMethod(String methodName, Map<String,Object> inputMap, Map<String,Object> outMap, Map<String,Object> options) {
         Boolean success = true;
@@ -8,6 +8,9 @@ global with sharing class ValentinaCustomOMController  implements vlocity_cmt.Vl
                 when 'repropagateAttribute' {
                     repropagateAttribute(inputMap, outMap, options); 
                 }
+                when 'getHistoryStatus' {
+                    getHistoryStatus(inputMap, outMap, options); 
+                }                
             }
 
         } catch(Exception e) {
@@ -47,4 +50,24 @@ global with sharing class ValentinaCustomOMController  implements vlocity_cmt.Vl
 
         frlController.invokeMethod('setAttribute', frlInputMap, frlOutputMap, options);
     }
+
+    public void getHistoryStatus(Map<String,Object> inputMap, Map<String,Object> outputMap, Map<String,Object> options) {
+        String actualStatus, lastStatus;
+        List<Object> listStatusHistory = (List<Object>) inputMap.get('statusHistory');
+        
+        if (listStatusHistory != null) {
+            Integer historySize = listStatusHistory.size();
+
+            if (historySize >= 2) {
+                Map<String,Object> StatusHistory = (Map<String,Object>) listStatusHistory.get(historySize-2);
+                actualStatus = (String) StatusHistory.get('status');
+
+                StatusHistory = (Map<String,Object>) listStatusHistory.get(historySize-3);
+                lastStatus = (String) StatusHistory.get('status');            
+            }
+        }
+
+        outputMap.put('actualStatus', actualStatus);
+        outputMap.put('lastStatus', lastStatus);
+    }    
 }
