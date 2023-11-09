@@ -423,6 +423,15 @@ public class CustomFunctionServiceTest {
         System.debug(output);
         System.assert(output.get('result') != null);
     }
+	@isTest
+    static void testgetUserInCommunity() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
 
-	
+		CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getUserInCommunity', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
 }

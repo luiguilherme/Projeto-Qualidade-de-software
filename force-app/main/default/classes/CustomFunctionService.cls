@@ -61,7 +61,12 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             {output.put('result', reorderComplements(arguments));}
             when 'properCase'
             {output.put('result', properCase(arguments));}
-          
+            when 'orgURL'
+            {output.put('result', orgURL(arguments));}
+            when 'mapAttributes'
+            {output.put('result', mapAttributes(inputs));}
+            when 'getUserInCommunity'
+            {output.put('result', getUserInCommunity(arguments));}
         }
         return true;
     }
@@ -311,7 +316,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         system.debug(logginglevel.error,dt);		        
         return dt;
     }
-    
+        
     /*
     * Autor....: Lucas Ferreira Magalhães - Deloitte 22/04/2022
     * Modificado por: Giovani de Souza 22/04/2022
@@ -663,5 +668,68 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     
         return String.join(words, ' ');
     }
+    
+    /*
+    * Autor....: Henrique Berdu - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método criado para retornar a ORG atual.
+    * Data.....: 03/08/2023
+    */
+    public static String orgURL(List<Object> arguments) {
+        
+        String name = (String) arguments[0];    
+        
+        if (name == 'getURL') {
+            
+            String sfdcBaseURL = URL.getOrgDomainUrl().toExternalForm();
+            String strValue = String.valueOf( sfdcBaseURL );
+            return strValue;   
+            
+        }
+		return name;
+    }
+    
+    /*
+    * Autor....: Henrique Berdu - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método criado para retornar a ORG atual.
+    * Data.....: 18/08/2023
+    */  
+	class SubWrapper {
+          String value;
+          String code;
+          String name;
+	}
+    class Wrapper{
+        List<SubWrapper> Attribute;
+    }    
+    public String mapAttributes(Map<String, Object> inputMap) {
+    	
+        String obj1 = JSON.serialize(inputMap.get('map1'));
+        String obj2 = JSON.serialize(inputMap.get('map2'));
+        
+        Map<String, Object> map1 = (Map<String, Object>) JSON.deserializeUntyped(obj1);
+        Wrapper objetoDesserializado = (Wrapper) JSON.deserialize(obj2, Wrapper.class);
+           
+        for(Subwrapper item : objetoDesserializado.Attribute){
+            if(map1.containsKey(item.code)){
+            	item.value = String.valueOf(map1.get(item.code));
+        	}
+        }  
+		return JSON.Serialize(objetoDesserializado.Attribute); 
+    }
 
+    /*
+    * Autor....: Guilherme Kaiser - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método para identificar se usuário está na comunidade
+    * Data.....: 18/09/2023
+    */
+    public static Boolean getUserInCommunity(List<Object> arguments) {
+  		String sfdcBaseURL = URL.getCurrentRequestUrl().toExternalForm();
+        String strValue = String.valueOf( sfdcBaseURL );
+        system.debug('url...'+ strValue);        
+        
+        return strValue.Contains('my.site.com');
+    }        
 }

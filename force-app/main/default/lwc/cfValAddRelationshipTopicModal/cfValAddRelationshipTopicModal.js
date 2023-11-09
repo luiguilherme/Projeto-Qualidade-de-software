@@ -60,6 +60,38 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
           return this._sessionApiVars["AccountId"] || "undefined";
         }
       
+        @api set cfAssetId(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["AssetId"] = val;
+          }
+        } get cfAssetId() {
+          return this._sessionApiVars["AssetId"] || "";
+        }
+      
+        @api set cfLineNumber(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["LineNumber"] = val;
+          }
+        } get cfLineNumber() {
+          return this._sessionApiVars["LineNumber"] || "";
+        }
+      
+        @api set cfSourceCalled(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["SourceCalled"] = val;
+          }
+        } get cfSourceCalled() {
+          return this._sessionApiVars["SourceCalled"] || "";
+        }
+      
+        @api set cfInteractionNumber(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["InteractionNumber"] = val;
+          }
+        } get cfInteractionNumber() {
+          return this._sessionApiVars["InteractionNumber"] || "";
+        }
+      
               
               pubsubEvent = [];
               customEvent = [];

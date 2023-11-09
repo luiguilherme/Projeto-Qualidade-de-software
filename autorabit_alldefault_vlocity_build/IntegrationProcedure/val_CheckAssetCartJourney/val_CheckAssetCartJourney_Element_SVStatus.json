@@ -1,0 +1,34 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "ValCheckAssetCartJourney",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CheckAssetCartJourney/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "HasAddItem": "=ISNOTBLANK(FILTER(LIST(%DREGetOLI:OLI%),'ProductCode LIKE \"PRE_OFFER_SIMPLE_PACK_ADD\"&&Action==\"Add\"'))",
+            "HasBundleActive": "=ISNOTBLANK(FILTER(LIST(%DREGetOLI:OLI%),'ProductCode==\"PRE_OFFER_BUNDLE_PRE_TURBO_15D_004\"&&Action==\"Existing\"&&ProvisioningStatus==\"Active\"'))",
+            "HasDeleteItem": "=ISNOTBLANK(FILTER(LIST(%DREGetOLI:OLI%),'ProductCode LIKE \"PRE_OFFER_SIMPLE_PACK_ADD\"&&Action==\"Disconnect\"'))",
+            "HasPlanActive": "=ISNOTBLANK(FILTER(LIST(%DREGetOLI:OLI%),'ProductCode==\"PRE_OFFER_SIMPLE_PRE_DIARIO_001\"&&Action==\"Existing\"&&ProvisioningStatus==\"Active\"'))",
+            "HasSimCardActive": "=ISNOTBLANK(FILTER(LIST(%DREGetOLI:OLI%),'ProductCode==\"PRE_OFFER_SIMPLE_SIM_CARD_001\"&&Action==\"Existing\"&&ProvisioningStatus==\"Active\"'))"
+        },
+        "executionConditionalFormula": "",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues1",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVStatus",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CheckAssetCartJourney/Procedure/SVStatus"
+}
