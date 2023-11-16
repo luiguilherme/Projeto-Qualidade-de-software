@@ -12,7 +12,7 @@ public with sharing class CarouselCardOfferEngine {
     private static final String CONST_ACCOUNT_RECORD_TYPE = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Consumer').getrecordTypeId();
     private static final String CONST_CART_ACCOUNT_NBO_NBA_RECORD_TYPE = Schema.SObjectType.CartAccount__c.getRecordTypeInfosByDeveloperName().get('NextBestOfferAndAction').getrecordTypeId();
 
-    public static Boolean checkIfAccountHaveUserId (Id accountId) {        
+    public static Boolean checkIfAccountHaveUserId (Id accountId) {
         Account account = AccountDAO.getByIds(accountId);
         if (account.UserId__c != null) {
             return true;
@@ -21,7 +21,7 @@ public with sharing class CarouselCardOfferEngine {
         }
     }
     
-    public static CardOfferServiceReturn getCardsOffers (Id accountId) {
+    public static CardOfferServiceReturn getCardsOffers (Id accountId, Id customerInteractionId) {
         CardOfferServiceReturn cardOffers = new CardOfferServiceReturn();
 
         Webservice__c wsConfig = Webservice__c.getInstance(CONST_WEB_SERVICE_RTD);
@@ -53,7 +53,7 @@ public with sharing class CarouselCardOfferEngine {
         HttpClient client = new HttpClient();
         HttpResponse response;
         try {
-            response = client.get(wsConfig, endpoint);
+            response = client.get(wsConfig, endpoint, customerInteractionId);
             responseBody = response.getBody();
             System.debug('ResponseBody:' + responseBody);
         } catch (Exception e) {
@@ -106,7 +106,8 @@ public with sharing class CarouselCardOfferEngine {
         return userChannel != null ? userChannel : '';
     }
 
-    public static Boolean postCardOffers (Id accountId, 
+    public static Boolean postCardOffers (Id customerInteractionId,
+                                          Id accountId, 
                                           CardOfferServiceReturn.Card card, 
                                           String acceptOrNot, 
                                           String reason) {
@@ -119,13 +120,13 @@ public with sharing class CarouselCardOfferEngine {
         if (accountCurrent == null) {
             return false;
         }
-
+            
         String payload = buildPayloadAcceptOrDeny(card, acceptOrNot, reason);
         wsConfig.Endpoint__c = wsConfig.Endpoint__c + accountCurrent.UserId__c + '/cards/feedback';
         HttpClient client = new HttpClient();
         HttpResponse response;
         try {
-            response = client.post(wsConfig, payload);
+            response = client.post(wsConfig, payload, customerInteractionId);
         } catch (Exception e) {
             return false;
         }
@@ -219,9 +220,9 @@ public with sharing class CarouselCardOfferEngine {
     
     private static CardOfferServiceReturn.SubOffers convertDescriptionToFields (CardOfferServiceReturn.SubOffers subOffer) {
         List<String> splitList = subOffer.description.split('\\|');
-        if (isPrincipalOffer(subOffer.categories)) {
+        if (isPrincipalOffer(subOffer.categories)) {    
             subOffer.description = splitList[0];
-        } else {
+                    } else {
             subOffer.description = splitList[0];
             subOffer.type = splitList[1];
             subOffer.campaignCode = splitList[2];
@@ -262,7 +263,7 @@ public with sharing class CarouselCardOfferEngine {
     
     public static List<CardOfferServiceReturn.Card> sortCardsByPriority (List<CardOfferServiceReturn.Card> cardList) {
         List<CardOfferServiceReturn.Card> cardToSortList = cardList;
-        for (Integer i = 0; i < cardToSortList.size() -1 ; i++) {
+                for (Integer i = 0; i < cardToSortList.size() -1 ; i++) {
             for (Integer j = 0; j < cardToSortList.size() - 1 - i; j++) {
                 if (Integer.valueOf(cardToSortList[j].rank) > Integer.valueOf(cardToSortList[j + 1].rank)) {
                     CardOfferServiceReturn.Card auxCard = cardToSortList[j];
@@ -271,10 +272,11 @@ public with sharing class CarouselCardOfferEngine {
                 }
             }
         }
-        return cardToSortList;
+                return cardToSortList;
     }
 
-    public static String createNboCartAccount (Id accountId, 
+    public static String createNboCartAccount (Id customerInteractionId,
+                                               Id accountId, 
                                                CardOfferServiceReturn.Card card, 
                                                String acceptOrNot, 
                                                String reason, 
@@ -287,6 +289,8 @@ public with sharing class CarouselCardOfferEngine {
             cartAccountToCreate.TotalPrice__c = price;
             cartAccountToCreate.OfferType__c = card.title;
             cartAccountToCreate.AccountId__c = accountId;
+            cartAccountToCreate.CustomerInteractionId__c = customerInteractionId;
+            cartAccountToCreate.Description__c = getSubOfferDescription(card);
 
             if (acceptOrNot == 'ACEITOU') {
                 cartAccountToCreate.Accepted__c = 'Accepted';
@@ -304,5 +308,35 @@ public with sharing class CarouselCardOfferEngine {
         } else {
             return 'error';
         }
+    }
+
+    public static String setNumberOfOffers(Id customerInteractionId, Integer numberOfOffers){
+        vlocity_cmt__CustomerInteraction__c customerInteraction = 
+            new vlocity_cmt__CustomerInteraction__c(Id = customerInteractionId, NumberOfOffers__c = numberOfOffers);
+        
+        Database.SaveResult saveResult = Database.update(customerInteraction);
+
+        return saveResult.isSuccess() ? 'success': 'error';
+    }
+
+    private static String getSubOfferDescription(CardOfferServiceReturn.Card card){
+
+        for(CardOfferServiceReturn.SubOffers subOffers : card.sub_offers){
+
+            if(isPrincipalOffer(subOffers.categories)){
+                return formatSubOfferDescription(subOffers.description);
+            }
+        }
+
+        return '';
+    }
+
+    private static String formatSubOfferDescription (String description){
+
+        if(String.isNotBlank(description)){
+            return description.split('\\|')[0];
+        }
+
+        return '';
     }
 }
