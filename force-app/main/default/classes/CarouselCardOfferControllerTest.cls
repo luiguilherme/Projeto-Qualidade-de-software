@@ -22,6 +22,7 @@ public class CarouselCardOfferControllerTest {
             
         insert new NextBestOfferAndAction__c(Name = 'UP FTTH', Reason__c = 'Aceitou outra oferta, Preço - achou caro, Não quis ouvir a oferta	', Type__c = 'UP FTTH');
         insert new NextBestOfferAndAction__c(Name = 'MIGRA FTTH',Reason__c = 'Quer pensar melhor sobre a oferta, Está satisfeito com a velocidade atual, Prefere comprar em outro canal	', Type__c = 'MIGRA FTTH');
+        insert new vlocity_cmt__CustomerInteraction__c(vlocity_cmt__AccountId__c = accObj.Id);
     }
     
     private void createUserRunAs()
@@ -57,15 +58,14 @@ public class CarouselCardOfferControllerTest {
         List<User> lstUserRunAs = [SELECT Id FROM User WHERE UserRole.Name LIKE 'Vivo Prime' AND IsActive = true limit 1];        
 
         Account accObj = [SELECT Id FROM Account WHERE Name = 'Account Test' LIMIT 1];
-        GetCardOfferCalloutMock getRequest = new GetCardOfferCalloutMock(200, 
-        CONST_BODYSUCCESS,
-        CONST_MAPHEADER);
+        vlocity_cmt__CustomerInteraction__c customerInteraction = [SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
+        GetCardOfferCalloutMock getRequest = new GetCardOfferCalloutMock(200, CONST_BODYSUCCESS, CONST_MAPHEADER);
         CardOfferServiceReturn cardOffer;
 
         Test.startTest();
         System.runAs(lstUserRunAs[0]){
             Test.setMock(HttpCalloutMock.class, getRequest);        
-            cardOffer = CarouselCardOfferController.getCardsOffers(accObj.id);
+            cardOffer = CarouselCardOfferController.getCardsOffers(accObj.Id, customerInteraction.Id);
         }
         Test.stopTest();
 		
@@ -79,6 +79,7 @@ public class CarouselCardOfferControllerTest {
         List<User> lstUserRunAs = [SELECT Id FROM User WHERE UserRole.Name LIKE 'Vivo Prime' AND IsActive = true limit 1];
                         
         Account accObj = [SELECT Id FROM Account WHERE Name = 'Account Test' LIMIT 1];
+        vlocity_cmt__CustomerInteraction__c customerInteraction = [SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
         GetCardOfferCalloutMock getRequest = new GetCardOfferCalloutMock(200, 
         CONST_BODYWITHOUTCARD,
         CONST_MAPHEADER);
@@ -86,7 +87,7 @@ public class CarouselCardOfferControllerTest {
         Test.startTest();
         System.runAs(lstUserRunAs[0]){
             Test.setMock(HttpCalloutMock.class, getRequest);
-             cardOffer = CarouselCardOfferController.getCardsOffers(accObj.id); 
+             cardOffer = CarouselCardOfferController.getCardsOffers(accObj.Id, customerInteraction.Id); 
         }
        
         Test.stopTest();
@@ -102,6 +103,7 @@ public class CarouselCardOfferControllerTest {
         List<User> lstUserRunAs = [SELECT Id FROM User WHERE UserRole.Name LIKE 'Vivo Prime' AND IsActive = true limit 1];
                          
         Account accObj = [SELECT Id FROM Account WHERE Name = 'Account Test' LIMIT 1];
+        vlocity_cmt__CustomerInteraction__c customerInteraction = [SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
         GetCardOfferCalloutMock getRequest = new GetCardOfferCalloutMock(200, 
         '',
         CONST_MAPHEADER);
@@ -111,7 +113,7 @@ public class CarouselCardOfferControllerTest {
         Test.startTest();
         System.runAs(lstUserRunAs[0]){
             Test.setMock(HttpCalloutMock.class, getRequest);
-            cardOffer = CarouselCardOfferController.getCardsOffers(accObj.id);
+            cardOffer = CarouselCardOfferController.getCardsOffers(accObj.Id, customerInteraction.Id);
         }
         
         Test.stopTest();
@@ -126,6 +128,7 @@ public class CarouselCardOfferControllerTest {
         List<User> lstUserRunAs = [SELECT Id FROM User WHERE UserRole.Name LIKE 'Vivo Prime' AND IsActive = true limit 1];
                          
         Account accObj = [SELECT Id FROM Account WHERE Name = 'Account Test' LIMIT 1];
+        vlocity_cmt__CustomerInteraction__c customerInteraction = [SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
         GetCardOfferCalloutMock getRequest = new GetCardOfferCalloutMock(500, 
         CONST_BODYWITHOUTCARD,
         CONST_MAPHEADER);
@@ -135,7 +138,7 @@ public class CarouselCardOfferControllerTest {
         Test.startTest();
         System.runAs(lstUserRunAs[0]){
             Test.setMock(HttpCalloutMock.class, getRequest);
-            cardOffer = CarouselCardOfferController.getCardsOffers(accObj.id); 
+            cardOffer = CarouselCardOfferController.getCardsOffers(accObj.Id, customerInteraction.Id);
         }
         
         Test.stopTest();
@@ -145,14 +148,15 @@ public class CarouselCardOfferControllerTest {
 
     @isTest 
     static void postCardOfferAcceptedTest(){
-        Account accObj = [SELECT Id FROM Account WHERE Name = 'Account Test' LIMIT 1]; 
+        Account accObj = [SELECT Id FROM Account WHERE Name = 'Account Test' LIMIT 1];
+        vlocity_cmt__CustomerInteraction__c customerInteraction = [SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
         GetCardOfferCalloutMock postRequest = new GetCardOfferCalloutMock(200, 
         CONST_POSTRESPONSE,
         CONST_MAPHEADER);   
 
         Test.startTest();
         Test.setMock(HttpCalloutMock.class, postRequest);
-        String responseString = CarouselCardOfferController.postCardOffers(accObj.Id, CONST_CARD, 'ACEITOU', 'ACEITOU');   
+        String responseString = CarouselCardOfferController.postCardOffers(customerInteraction.Id, accObj.Id, CONST_CARD, 'ACEITOU', 'ACEITOU');   
         Test.stopTest();
 
         System.assertEquals('success', responseString, 'Fez a chamada com sucesso aceitando a oferta');
@@ -160,14 +164,15 @@ public class CarouselCardOfferControllerTest {
 
     @isTest 
     static void postCardOfferDeniedTest(){
-        Account accObj = [SELECT Id FROM Account WHERE Name = 'Account Test' LIMIT 1]; 
+        Account accObj = [SELECT Id FROM Account WHERE Name = 'Account Test' LIMIT 1];
+        vlocity_cmt__CustomerInteraction__c customerInteraction = [SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
         GetCardOfferCalloutMock postRequest = new GetCardOfferCalloutMock(200, 
         CONST_POSTRESPONSE,
         CONST_MAPHEADER);   
 
         Test.startTest();
         Test.setMock(HttpCalloutMock.class, postRequest);
-        String responseString = CarouselCardOfferController.postCardOffers(accObj.Id, CONST_CARD, 'RECUSOU', 'Recusou - Prefere pré-pago');   
+        String responseString = CarouselCardOfferController.postCardOffers(customerInteraction.Id, accObj.Id, CONST_CARD, 'RECUSOU', 'Aceitou outra oferta');   
         Test.stopTest();
 
         System.assertEquals('success', responseString, 'Fez a chamada com sucesso recusando a oferta');
@@ -178,6 +183,7 @@ public class CarouselCardOfferControllerTest {
     static void getWithoutWebService(){
         Webservice__c wsConfig = Webservice__c.getInstance(webServiceName);
         Account accObj = [SELECT Id FROM Account WHERE Name = 'Account Test' LIMIT 1];
+        vlocity_cmt__CustomerInteraction__c customerInteraction = [SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
         delete wsConfig;
         GetCardOfferCalloutMock getRequest = new GetCardOfferCalloutMock(200, 
         CONST_BODYSUCCESS,
@@ -185,7 +191,7 @@ public class CarouselCardOfferControllerTest {
 
         Test.startTest();
         Test.setMock(HttpCalloutMock.class, getRequest);
-        CardOfferServiceReturn cardOffer = CarouselCardOfferController.getCardsOffers(accObj.id); 
+        CardOfferServiceReturn cardOffer = CarouselCardOfferController.getCardsOffers(accObj.Id, customerInteraction.Id); 
         Test.stopTest();
 
         System.assertEquals('error', cardOffer.msg, 'Ocorreu um erro, pois não tem um web service cadastrado para o endpoint');
@@ -194,13 +200,14 @@ public class CarouselCardOfferControllerTest {
     @isTest
     static void postWithError(){
         Account accObj = [SELECT Id FROM Account WHERE Name = 'Account Test' LIMIT 1];
+        vlocity_cmt__CustomerInteraction__c customerInteraction = [SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
         GetCardOfferCalloutMock postRequest = new GetCardOfferCalloutMock(500, 
         CONST_POSTRESPONSE,
         CONST_MAPHEADER);   
 
         Test.startTest();
         Test.setMock(HttpCalloutMock.class, postRequest);
-        String responseString = CarouselCardOfferController.postCardOffers(accObj.Id, CONST_CARD, 'ACEITOU', 'ACEITOU');   
+        String responseString = CarouselCardOfferController.postCardOffers(customerInteraction.Id, accObj.Id, CONST_CARD, 'ACEITOU', 'ACEITOU');   
         Test.stopTest();
 
         System.assertEquals('error', responseString, 'Ocorreu um erro ao realizar a consulta');
@@ -211,13 +218,14 @@ public class CarouselCardOfferControllerTest {
         Webservice__c wsConfig = Webservice__c.getInstance(webServiceName);
         delete wsConfig;
         Account accObj = [SELECT Id FROM Account WHERE Name = 'Account Test' LIMIT 1];
+        vlocity_cmt__CustomerInteraction__c customerInteraction = [SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
         GetCardOfferCalloutMock postRequest = new GetCardOfferCalloutMock(500, 
         CONST_POSTRESPONSE,
         CONST_MAPHEADER);   
 
         Test.startTest();
         Test.setMock(HttpCalloutMock.class, postRequest);
-        String responseString = CarouselCardOfferController.postCardOffers(accObj.Id, CONST_CARD, 'ACEITOU', 'ACEITOU');   
+        String responseString = CarouselCardOfferController.postCardOffers(customerInteraction.Id, accObj.Id, CONST_CARD, 'ACEITOU', 'ACEITOU');   
         Test.stopTest();
 
         System.assertEquals('error', responseString, 'Ocorreu um erro, pois não tem um web service cadastrado para o endpoint');
@@ -244,5 +252,18 @@ public class CarouselCardOfferControllerTest {
         Test.stopTest();
         
         System.assertEquals(false, haveUserId, 'Account não possui UserId');
+    }
+
+    @isTest
+    static void setNumberOfOffers(){
+        vlocity_cmt__CustomerInteraction__c oldCustomerInteraction = [SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
+                
+        Test.startTest();
+        CarouselCardOfferController.setNumberOfOffers(oldCustomerInteraction.Id, 10);        
+        Test.stopTest();
+
+        vlocity_cmt__CustomerInteraction__c updatedCustomerInteraction = [SELECT Id, NumberOfOffers__c FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
+        Boolean hasNumberOfOffers = updatedCustomerInteraction.NumberOfOffers__c != null;
+        System.assertEquals(true, hasNumberOfOffers, 'Número de ofertas não atualizadas');
     }
 }
