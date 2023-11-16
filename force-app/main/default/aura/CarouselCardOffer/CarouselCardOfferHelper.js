@@ -11,19 +11,22 @@
     },
     
     getCardOffer: function (component, event, helper) {
-        LightningUtil.callApex(component, 'getCardsOffers', {accountId : component.get('v.record.vlocity_cmt__AccountId__c')}, 
-            (returnValue) =>{ 
+        LightningUtil.callApex(component, 'getCardsOffers', {accountId : component.get('v.record.vlocity_cmt__AccountId__c'), customerInteractionId : component.get('v.recordId')},
+            (returnValue) =>{
                 if (returnValue!= null && returnValue.msg == 'success') {
                     var iconName = this.setIconTitle(returnValue.cards[0].title);
                     component.set('v.ltCard', returnValue.cards);
                     component.set('v.iconName', iconName);
                     component.set('v.isWaitingForCheckUserId', false);
                     $A.util.removeClass(component.find('divCarousel'), 'slds-hide');
+                    
+                    let numberOfOffers = returnValue.cards.length;
+                    this.setNumberOfOffers(component, numberOfOffers);
                 } else {
                     component.set('v.isWaitingForCheckUserId', false);
-                    if (returnValue == null || returnValue == undefined 
+                    if (returnValue == null || returnValue == undefined
                         || returnValue.msg == null || returnValue.msg == undefined) {
-                        component.set('v.returnMsg', '');    
+                        component.set('v.returnMsg', '');
                     }else {
                         component.set('v.returnMsg', returnValue.msg);
                     }
@@ -37,12 +40,12 @@
                     this.showCardError(component, '');
                 }
             }
-        ); 
+        );
     },
 
     sendCardOffer: function (component, cardToSend, acceptOrNot, reason) {
         let card = JSON.stringify(cardToSend);
-        LightningUtil.callApex(component, 'postCardOffers', {accountId : component.get('v.record.vlocity_cmt__AccountId__c'), card: card, acceptOrNot:acceptOrNot, reason: reason}, 
+        LightningUtil.callApex(component, 'postCardOffers', {customerInteractionId : component.get('v.recordId'), accountId : component.get('v.record.vlocity_cmt__AccountId__c'), card: card, acceptOrNot:acceptOrNot, reason: reason}, 
             (returnValue) =>{
                 if (returnValue == 'success') {
                     LightningUtil.fireNotification(
@@ -172,5 +175,29 @@
                 $A.util.toggleClass(component.find('divCarousel'), 'slds-hide');
             }
         // }
-	}
+	},
+
+    setNumberOfOffers: function (component, responseNumberOfOffers){
+        let hasNumberOfOffers = component.get('v.record.NumberOfOffers__c');
+
+        if($A.util.isUndefinedOrNull(hasNumberOfOffers)){
+            LightningUtil.callApex(
+                component, 'setNumberOfOffers',
+                {
+                    customerInteractionId : component.get('v.recordId'),
+                    numberOfOffers : responseNumberOfOffers
+                },
+                (returnValue) =>{
+                    console.log('returnValue> ', returnValue);
+                    if (returnValue!= null && returnValue == 'success') {
+                        console.info('Número do Posicionamento Gravado com Suceso!');
+                    }else{
+                        console.error('Falha ao atualizar o número do posicionamento!');
+                    }
+                }
+            );
+        }else{
+            console.info('Número do Posicionamento já exite!');
+        }
+    }
 })
