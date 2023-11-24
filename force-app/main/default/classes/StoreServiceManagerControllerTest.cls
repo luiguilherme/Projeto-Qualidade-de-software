@@ -341,6 +341,13 @@ public with sharing class StoreServiceManagerControllerTest {
     }
 
     @IsTest
+    public static void isPartnerCommunityLicenseTest() {
+        Boolean test = StoreServiceManagerController.isPartnerCommunityLicense();
+    
+        System.assertEquals(false, test);
+    }
+
+    @IsTest
     public static void  getParamsTest() {
         User userTest = [
             SELECT id 
@@ -358,9 +365,16 @@ public with sharing class StoreServiceManagerControllerTest {
     }
 
     @IsTest
-    public static void isPartnerCommunityLicenseTest() {
-        Boolean test = StoreServiceManagerController.isPartnerCommunityLicense();
+    public static void calculateStartTimeTest() {
+        String test = StoreServiceManagerController.calculateStartTime('00:30:00');
     
-        System.assertEquals(false, test);
+        System.assertNotEquals(null, test);
+    }
+
+    @IsTest
+    public static void calculateElapsedTimeTest() {
+        String test = StoreServiceManagerController.calculateElapsedTime('16:00:00', '16:30:00');
+    
+        System.assertEquals('00:30:00', test);
     }
 }

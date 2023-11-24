@@ -56,4 +56,24 @@ public with sharing class StoreServiceManagerController {
     public static Map<String, Object> getParams() {
         return (StoreServiceManagerService.getParams());
     }
+
+    @AuraEnabled
+    public static String calculateStartTime(String elapsedTime) {
+        return (StoreServiceManagerService.calculateStartTime(elapsedTime));
+    }
+
+    @AuraEnabled
+    public static Double calculateElapsedTimeInMilliseconds(String startTime, String finalTime) {
+        return (StoreServiceManagerService.calculateElapsedTimeInMilliseconds(startTime, finalTime));
+    }
+
+    @AuraEnabled
+    public static String calculateElapsedTime(Double millisecondsElapsedTime) {
+        return (StoreServiceManagerService.calculateElapsedTime(millisecondsElapsedTime));
+    }
+    
+    @AuraEnabled
+    public static String calculateElapsedTime(String startTime, String finalTime) {
+        return (StoreServiceManagerService.calculateElapsedTime(startTime, finalTime));
+    }
 }
