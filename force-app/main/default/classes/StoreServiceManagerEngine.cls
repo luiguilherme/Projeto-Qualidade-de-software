@@ -546,7 +546,7 @@ public with sharing class StoreServiceManagerEngine {
             dtStart = dtCurrent;
         }
 
-        return (dtStart.formatGmt('dd/MM/YYYY HH:mm:ss'));
+        return (dtStart.formatGmt('YYYY-MM-dd HH:mm:ss'));
     }    
 
     public static Double calculateElapsedTimeInMilliseconds(String startTime, String finalTime) {
