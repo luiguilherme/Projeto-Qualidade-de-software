@@ -202,68 +202,68 @@
 		let attendanceInformationStatus = component.get("v.attendanceInformationStatus");
 
 		if (workPositionId && attendanceInformationStatus && attendanceInformationStatus.ticketId) {
-			let lsSSMTicketInfo = LightningUtil.getItemLocalStorage("SSMTicketInfo", "TICKET");
-
 			gotoPage = "servicePage";
 			
+			serviceTicket = {
+				Id: attendanceInformationStatus.Id,
+				createdDateTime: attendanceInformationStatus.createdDateTime,	
+				type: '',
+				view: '',
+				workPositionId: attendanceInformationStatus.workPositionId,
+				displayAlert: true,
+				ticketId: attendanceInformationStatus.ticketId,
+				customerSpecialNeeds: false,
+				customerPriority: 2,
+				customerId: '',
+				customerName: attendanceInformationStatus.customerName,
+				customerAlias: attendanceInformationStatus.customerName,
+				customerDocument: attendanceInformationStatus.customerDocument,
+				customerCellPhone: attendanceInformationStatus.customerCellPhone,
+				segmentation: attendanceInformationStatus.segmentationId,
+				segmentationName: attendanceInformationStatus.segmentationName,
+				activity: '',
+				protocol: '',
+				waitTime: attendanceInformationStatus.waitTime,
+				startTime: attendanceInformationStatus.startTime,
+				finalTime: '',
+				duration: attendanceInformationStatus.duration,
+				service: '',
+				serviceName: attendanceInformationStatus.serviceName,
+				category: '',
+				categoryName: '',
+				mainDocumentType: '',
+				documentNumber: '',
+				giveUpReason: '',
+				activities: '',
+				notes: ''
+			};
+
+			// Retrieve cached information entered by the user into the component before the 
+			// browser page was refreshed or the service was stopped
+			let lsSSMTicketInfo = LightningUtil.getItemLocalStorage("SSMTicketInfo", "TICKET");
+
 			if (lsSSMTicketInfo) {
 				let SSMTicketInfo = {};
 
 				try {
 					SSMTicketInfo = JSON.parse(lsSSMTicketInfo);
 
+					if (SSMTicketInfo && SSMTicketInfo.ticketId && SSMTicketInfo.ticketId === attendanceInformationStatus.ticketId) {
+						serviceTicket.customerName = SSMTicketInfo.customerName;
+						serviceTicket.customerCellPhone = SSMTicketInfo.customerCellPhone;
+						serviceTicket.category = SSMTicketInfo.category;
+						serviceTicket.categoryName = SSMTicketInfo.categoryName;
+						serviceTicket.mainDocumentType = SSMTicketInfo.mainDocumentType;
+						serviceTicket.mainDocumentTypeName = SSMTicketInfo.mainDocumentTypeName;
+						serviceTicket.documentNumber = SSMTicketInfo.documentNumber
+						serviceTicket.giveUpReason = SSMTicketInfo.giveUpReason;
+						serviceTicket.activities = SSMTicketInfo.activities;
+						serviceTicket.notes = SSMTicketInfo.notes;
+					}
+				
 				} catch (error) {
 					
 				}
-
-				if (SSMTicketInfo && SSMTicketInfo.ticketId && SSMTicketInfo.ticketId === attendanceInformationStatus.ticketId) {
-					serviceTicket = SSMTicketInfo;
-
-					serviceTicket.customerName = attendanceInformationStatus.customerName;
-					serviceTicket.customerAlias = attendanceInformationStatus.customerName;
-					serviceTicket.customerDocument = attendanceInformationStatus.customerDocument;
-					serviceTicket.customerCellPhone = attendanceInformationStatus.customerCellPhone;
-					serviceTicket.segmentation = attendanceInformationStatus.segmentationId;
-					serviceTicket.segmentationName = attendanceInformationStatus.segmentationName;
-					serviceTicket.waitTime = attendanceInformationStatus.waitTime;
-					serviceTicket.startTime = attendanceInformationStatus.startTime;
-					serviceTicket.duration = attendanceInformationStatus.duration;
-					serviceTicket.serviceName = attendanceInformationStatus.serviceName;
-				}
-			}
-
-			if (Object.keys(serviceTicket).length === 0) {
-				serviceTicket = {
-                    type: '',
-                    view: '',
-                    workPositionId: attendanceInformationStatus.workPositionId,
-                    displayAlert: true,
-                    ticketId: attendanceInformationStatus.ticketId,
-                    customerSpecialNeeds: false,
-                    customerPriority: 2,
-                    customerId: '',
-                    customerName: attendanceInformationStatus.customerName,
-                    customerAlias: attendanceInformationStatus.customerName,
-                    customerDocument: attendanceInformationStatus.customerDocument,
-                    customerCellPhone: attendanceInformationStatus.customerCellPhone,
-                    segmentation: attendanceInformationStatus.segmentationId,
-                    segmentationName: attendanceInformationStatus.segmentationName,
-                    activity: '',
-                    protocol: '',
-                    waitTime: attendanceInformationStatus.waitTime,
-                    startTime: attendanceInformationStatus.startTime,
-                    finalTime: '',
-                    duration: attendanceInformationStatus.duration,
-                    service: '',
-                    serviceName: attendanceInformationStatus.serviceName,
-                    category: '',
-                    categoryName: '',
-                    mainDocumentType: '',
-                    documentNumber: '',
-                    giveUpReason: '',
-                    activities: '',
-                    notes: ''
-				};
 			}
 		}
 

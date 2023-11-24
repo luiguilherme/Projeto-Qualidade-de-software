@@ -98,6 +98,8 @@
             let attendanceInformationStatus = component.get("v.attendanceInformationStatus");
 
             let serviceTicket = {
+                Id: attendanceInformationStatus.Id,
+                createdDateTime: attendanceInformationStatus.createdDateTime,
                 type: '',
                 view: '',
                 workPositionId: attendanceInformationStatus.workPositionId,
