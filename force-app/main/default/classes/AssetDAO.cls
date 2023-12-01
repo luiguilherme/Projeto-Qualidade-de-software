@@ -284,6 +284,10 @@ public without sharing class AssetDAO {
 
     public static List<Asset> getPidAssetMobileByAccount(String accountId) {
         final String STR_STATUS = 'Active';
+        final List<String> LST_SUBSTATUS_TO_NOT_SEND = new List<String> {'SUSPENSÃO A PEDIDO', 'SUSPENSO A PEDIDO',
+        																 'SUSPENSO POR CADASTRO', 'SUSPENSO POR ROUBO',
+            															 'SUSPAFRAUDE','SUSPAPEDIDO','SUSPAROUBO',
+            															 'SUSPCADASTRO'} ;
         final String STR_TYPE = 'Movel';
         final String STR_NAMELEN = '___________';
         Set<String> setProduto = new Set<String>{'Pós-Pago','Controle','Pré-Pago'};
@@ -292,6 +296,7 @@ public without sharing class AssetDAO {
             FROM  Asset
             WHERE AccountId = :accountId 
                 AND Status = :STR_STATUS
+                AND StatusDescription__c not IN :LST_SUBSTATUS_TO_NOT_SEND
                 AND Type__c = :STR_TYPE
                 AND Name LIKE :STR_NAMELEN
                 AND ProductType__c IN :setProduto
