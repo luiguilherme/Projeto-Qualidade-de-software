@@ -4,7 +4,7 @@
     <decisions>
         <name>Campo_Motivo_Atendimento_esta_com_Fluxo_Andamento</name>
         <label>Campo Motivo de Atendimento está com Fluxo em Andamento?</label>
-        <locationX>1238</locationX>
+        <locationX>1370</locationX>
         <locationY>323</locationY>
         <defaultConnector>
             <targetReference>Qual_o_tipo_de_movimento</targetReference>
@@ -31,7 +31,7 @@
         <description>Validar o tipo de movimento no fluxo de migração</description>
         <name>Qual_o_tipo_de_movimento</name>
         <label>Qual o tipo de movimento?</label>
-        <locationX>1238</locationX>
+        <locationX>1370</locationX>
         <locationY>623</locationY>
         <defaultConnector>
             <targetReference>Atualizar_apenas_linha_migrada</targetReference>
@@ -172,6 +172,21 @@
             </connector>
             <label>Pós - Pré</label>
         </rules>
+        <rules>
+            <name>Pos_Controle</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.TopicName__c</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Pós - Controle</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Atualizar_Pedido_de_Pos_Controle</targetReference>
+            </connector>
+            <label>Pós - Controle</label>
+        </rules>
     </decisions>
     <description>Flow temporário utilizado enquanto não é atualizado o swagger de criação do pedido na Hybris. O fluxo atualiza os campo remarkup__c da Customer Interaction Topic, e os campos PortedNumber__c e MigrationType__c do Pedido Emitido.</description>
     <interviewLabel>Atualizar Topic e Pedido Emitido - Canvas Hybris {!$Flow.CurrentDateTime}</interviewLabel>
@@ -199,7 +214,7 @@
         <description>Quando não identificar o tipo de movimento, atualiza apenas a linha utilizada na migração</description>
         <name>Atualizar_apenas_linha_migrada</name>
         <label>Atualiza apenas linha migrada</label>
-        <locationX>2426</locationX>
+        <locationX>2690</locationX>
         <locationY>731</locationY>
         <inputAssignments>
             <field>PortedNumber__c</field>
@@ -213,7 +228,7 @@
         <description>Atualiza campo remarkup__c (Oberservação/Comentário)</description>
         <name>Atualizar_Observacao_apos_criar_pedido</name>
         <label>Atualizar Observação após criar pedido</label>
-        <locationX>1106</locationX>
+        <locationX>1238</locationX>
         <locationY>431</locationY>
         <connector>
             <targetReference>Qual_o_tipo_de_movimento</targetReference>
@@ -296,6 +311,26 @@
             <field>MovimentationType__c</field>
             <value>
                 <stringValue>Controle Upgrade</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>PortedNumber__c</field>
+            <value>
+                <elementReference>$Record.vlocity_cmt__AssetId__r.PhoneNumber__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record.OrderIssued__r</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Atualiza o campo de movimentação e número utilizado na migração</description>
+        <name>Atualizar_Pedido_de_Pos_Controle</name>
+        <label>Atualizar Pedido de Pós - Controle</label>
+        <locationX>2426</locationX>
+        <locationY>731</locationY>
+        <inputAssignments>
+            <field>MovimentationType__c</field>
+            <value>
+                <stringValue>Pós -Controle</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -407,7 +442,7 @@
         <inputReference>$Record.OrderIssued__r</inputReference>
     </recordUpdates>
     <start>
-        <locationX>1112</locationX>
+        <locationX>1244</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Campo_Motivo_Atendimento_esta_com_Fluxo_Andamento</targetReference>

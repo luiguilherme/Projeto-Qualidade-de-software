@@ -10,7 +10,7 @@ public with sharing class HDECasesService {
         Set<Id> setOwnerId = new Set<Id>();
         
         for (Case iCase : lstCases) {
-            if (iCase.Origin == 'HDE' && TriggerHelper.changedField(iCase, new Set<String>{'CaseOwnerFormula__c'})) {
+            if (iCase.Origin == 'HDE' && !isQueue(iCase.OwnerId) && TriggerHelper.changedField(iCase, new Set<String>{'CaseOwnerFormula__c'})) {
                 lstChangedCase.add(iCase);
                 setOwnerId.add(iCase.OwnerId);
             }
