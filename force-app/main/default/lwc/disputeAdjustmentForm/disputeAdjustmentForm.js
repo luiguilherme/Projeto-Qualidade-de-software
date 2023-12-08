@@ -23,6 +23,7 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
 
     //Futuramente pode vir via @API este valor
     @track totalAdjustmentAmount = 'R$0,00'; // Para manter o valor total do ajuste para todos os itens
+    @track totalAdjustmentAmountInitial;
 
     @track showPage = false;
     @track showLoading = true;
@@ -48,7 +49,7 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
     isLastItem;
 
     invoiceStatus; // Aberta ou Fechada
-    hasAutoDebit;  // Sim ou Nao (true/false)
+    hasAutoDebit;  // Sim ou Nao (yes/no)
     withinAdjustmentPeriod; //até 10 dias antes da programação do débito automático
 
 
@@ -73,12 +74,15 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
 
 
     connectedCallback() {
-         // Adiciona Listener
+        // Adiciona Listener
          this._actionUtil = new OmniscriptActionCommonUtil();
 
         // Capturar variaveis
         this.getFromRecords();
         this.subscribeToEvent('ServiceDefinition', 'RegisterBtn', this.handleSave.bind(this));
+
+        //Ouvir alertas
+        this.subscribeToEvent('FeedbackUser', 'Message', this.handleMessage.bind(this));
 
         // Captura Parâmetros Amdocs
         this.creditReasonDescriptionMapping = creditReasonDescriptionMapping();
@@ -88,9 +92,21 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
             this.handleGetItems();
         } else {
             this.showLoading = false;
-            console.log('Não passou pelo Fluxo de Ajuste ou isLastItem != yes -> Renderizar apenas as Definições de Atendimento');
         }
     }
+
+    handleMessage({Success, Error}){
+        const isSuccess = (Success === 'true' || Success === true);
+        const isError = (Error === 'true' || Error === true);
+    
+        if(isSuccess){
+            return this.openAlertModal('Sucesso', 'Registro de caso atualizado com sucesso!', 'success');
+        }
+        if(isError){
+            return this.openAlertModal('Erro', 'Falha ao atualizar registro de Caso!', 'error');
+        }
+    }
+    
 
     disconnectedCallback(){
         this.unsubscribeFromAllEvents();
@@ -120,6 +136,11 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
             return;
         }
         let forceParamObject = JSON.parse(JSON.stringify(this.param))[0];
+        for (let key in forceParamObject) {
+            if (typeof forceParamObject[key] === 'string' && forceParamObject[key].startsWith('=')) {
+                forceParamObject[key] = forceParamObject[key].substring(1);
+            }
+        }
         const { caseId, hasAutoDebit, invoiceStatus, invoiceNumber, withinAdjustmentPeriod, isLastItem, accountId  } = forceParamObject;
 
         this.caseId = (caseId !== undefined && caseId !== "") ? caseId : null;
@@ -153,7 +174,6 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
         //Dispara ação para preencher o select options
         this.accountId = (accountId !== undefined && accountId !== "") ? accountId : null;
         if(this.accountId) {
-            //chama DR
             this.getOptionsFromAccountId();
         }
     }
@@ -175,7 +195,7 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
     
                 for (let key in responseIp[0]) {
                     const option = responseIp[0][key];
-                    if (this.isValidEmail(option.label) && option.label !== "Não Cadastrado") {
+                    if (option.label !== "Não Cadastrado" && this.isValidEmail(option.label)) {
                         resultOptions.push({
                             value: option.value,
                             name: option.name,
@@ -189,13 +209,12 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
                     name: "Outro",
                     label: "Outro"
                 });
-    
-                console.log('Converted Options:', JSON.stringify({ Options: resultOptions }));
+
                 //Options e-mail
                 pubsub.fire('ServiceDefinition', 'GetOptions', resultOptions);
             })
             .catch((error) => {
-                console.error(error);
+                console.log('error:', JSON.stringify(error));
             });
     }
     
@@ -243,8 +262,8 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
                     break;
                     
                 case 'open':
-                    if (this.hasAutoDebit) {
-                        if (this.withinAdjustmentPeriod) {
+                    if (this.hasAutoDebit === "yes") {
+                        if (this.withinAdjustmentPeriod === "yes") {
                             options.push({ label: DisputeAdjustmentForm.MODALIDADES.BOLETO, value: DisputeAdjustmentForm.MODALIDADES.BOLETO });
                         } else {
                             options.push({ label: DisputeAdjustmentForm.MODALIDADES.CONTA_FUTURA, value: DisputeAdjustmentForm.MODALIDADES.CONTA_FUTURA });
@@ -287,17 +306,17 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
             let difference = valorAtual - adjustmentValue;
             let decimalPart = (adjustmentValueStr.split('.')[1] || '').length;
             if(adjustmentValue < 0){
-                this.openAlertModal('Valor inválido', 'Favor fornecer um número positivo', 'error');
+                return this.openAlertModal('Valor inválido', 'Favor fornecer um número positivo', 'error');
                 adjustmentValue = 0;
                 adjustmentItem.valorAjuste = 0;
             }
             if(decimalPart > 2){
-                this.openAlertModal('Valor inválido', 'Favor fornecer um número com no máximo duas casas decimais', 'error');
+                return this.openAlertModal('Valor inválido', 'Favor fornecer um número com no máximo duas casas decimais', 'error');
                 adjustmentValue = 0;
                 adjustmentItem.valorAjuste = 0;
             }
             if (adjustmentValue > valorAtual || difference < 0) {
-                this.openAlertModal('Valor inválido', 'Não há como gerar crédito para item de fatura maior do que o valor disponível', 'error');
+                return this.openAlertModal('Valor inválido', 'Não há como gerar crédito para item de fatura maior do que o valor disponível', 'error');
                 adjustmentValue = 0;
                 adjustmentItem.valorAjuste = 0;
             }
@@ -308,7 +327,7 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
             }
             if (this.adjustmentItems && this.adjustmentItems.length) {
                 this.totalAdjustmentAmount = this.adjustmentItems.reduce((total, item) => total + (item.valorAjuste || 0), 0).toFixed(2);
-
+                this.totalAdjustmentAmountInitial = this.adjustmentItems.reduce((total, item) => total + (item.valorAtual || 0), 0).toFixed(2);
                 this.totalAdjustmentAmount = parseFloat(this.totalAdjustmentAmount) ? parseFloat(this.totalAdjustmentAmount).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : "R$0,00";
             } else {
                 this.totalAdjustmentAmount = "R$0.00";
@@ -316,11 +335,19 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
             adjustmentItem.valorPagar = (valorAtual - adjustmentValue).toFixed(2);
             this.adjustmentItemsFormated = this.formatNumberForHtml(this.adjustmentItems);
             //Valor a ser ressarcido
-            pubsub.fire('ServiceDefinition', 'GetTotalAdjustmentAmount', this.totalAdjustmentAmount);
+            pubsub.fire('ServiceDefinition', 'GetTotalAdjustmentAmount', parseFloat(this.totalAdjustmentAmount.replace(/\D/g, '').replace(',', '.')) / 100);
+
+            if(parseFloat(this.totalAdjustmentAmount.replace(/\D/g, '').replace(',', '.')) / 100 == parseFloat(this.totalAdjustmentAmountInitial.replace(/\D/g, '').replace(',', '.')) / 100){
+                pubsub.fire('ServiceDefinition', 'CheckBoleto', true);
+            } else {
+                pubsub.fire('ServiceDefinition', 'CheckBoleto', false);
+            }
+
         } else {
             console.error('Item not found: ', itemId);
         }
     }
+
 
     // Mudança no Valor Ajuste (input para o usuário)
     handleInputFocus(event) {
@@ -391,8 +418,58 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
         pubsub.fire('ServiceDefinition', 'GetModality', newModalidade);
     }
 
-    // Enviar Informações para o FlexCard
-    handleSave() {
+    @track sessionFields = false;
+    @track sessionNotes;
+    // Método para validar os campos baseado na modalidade
+    validateSessionFields({ Session }) {
+    const {
+        modality,
+        email,
+        otherEmail,
+        bank,
+        agency,
+        cc,
+        notes,
+    } = Session;
+
+    
+    // Validação para a modalidade 'Boleto'.
+    if (modality === 'Boleto') {
+        if (!email || (email === 'Outro' && !otherEmail)) {
+            this.openAlertModal('Campos Obrigatórios!', 'Favor preencher o campo ' + (!email ? 'E-mail' : 'Outro e-mail'), 'error');
+            return false;
+        }
+    }
+    // Validação para a modalidade 'Reembolso'.
+    else if (modality === 'Reembolso') {
+        if (!bank || !agency || !cc) {
+            const missingField = !bank ? 'Banco' : (!agency ? 'Agência' : 'Conta Corrente');
+            this.openAlertModal('Campos Obrigatórios!', 'Favor preencher o campo ' + missingField, 'error');
+            return false;
+        }
+    }
+
+    if(email === 'Outro' && !this.isValidEmail(otherEmail)){
+        this.openAlertModal('Erro E-mail', 'Formato de e-mail inválido!', 'error');
+        return false;
+    }
+
+    // Validação para 'notes' que é um campo obrigatório em todos os casos.
+    if (!notes) {
+        this.openAlertModal('Campos Obrigatórios!', 'Favor preencher o campo Observações', 'error');
+        return false;
+    }
+
+    this.sessionNotes = notes;
+    this.sessionFields = true;
+    return true;
+    }
+
+
+    handleSave(evt) {
+        if (!this.validateSessionFields(evt)) {
+        return;
+        }
         if(this.showPage){
             const filteredAdjustmentItems = this.adjustmentItems.map(item => {
                 return {
@@ -422,15 +499,15 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
                 }
             }
             if(!allItemsValid){
-                return this.openAlertModal('Erro', 'Todos os campos do Formulário devem ser preenchidos antes de Registrar o Atendimento.', 'error');
+                return this.openAlertModal('Campos obrigatórios!', 'Todos os campos do Formulário devem ser preenchidos antes de Registrar o Atendimento.', 'error');
             } else if (!nonAdjustmentValue) {
                 return this.openAlertModal('Erro', 'O valor de Ajuste deve ser diferente de R$0.00', 'error');
-            } else {
+            } else if (this.sessionFields){
                 pubsub.fire('ServiceDefinition', 'GetInformation', filteredAdjustmentItems);
-                return this.openAlertModal('Sucesso', 'Registro de Atendimento efetuado com sucesso!', 'success');
+                pubsub.fire('DisputeFlexCardServiceDefinitionMessage', 'CaseClosureDefinition', { Notes: this.sessionNotes });
             }
-        } else {
-            console.log('ShowPage = false');
+        } else if (this.sessionFields){
+            pubsub.fire('DisputeFlexCardServiceDefinitionMessage', 'CaseClosureDefinition', { Notes: this.sessionNotes });
         }
     }
 

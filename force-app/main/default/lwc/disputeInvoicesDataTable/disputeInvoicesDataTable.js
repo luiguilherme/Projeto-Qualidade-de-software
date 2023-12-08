@@ -1,31 +1,34 @@
 import { LightningElement, track, api } from 'lwc';
-import {OmniscriptBaseMixin} from 'vlocity_cmt/omniscriptBaseMixin'; 
+import { OmniscriptBaseMixin } from 'vlocity_cmt/omniscriptBaseMixin'; 
 import { getNamespaceDotNotation } from "vlocity_cmt/omniscriptInternalUtils";
 import { OmniscriptActionCommonUtil } from "vlocity_cmt/omniscriptActionUtils";
 
 const columns1 = [
-    { label: 'Número', fieldName: 'invoiceNumber', type: 'text' },
-    { label: 'Conta pós paga', fieldName: 'billingAccountId', type: 'text' }, //Exibe o valor de billingAccountId
-    { label: 'Período de apuração', fieldName: 'Entrega2_Periodo', type: 'text' },
-    { label: 'Data de vencimento', fieldName: 'paymentDueDate', type: 'text' },
-    { label: 'Baixa', fieldName: 'Entrega2_Baixa', type: 'text' },
-    { label: 'Valor', fieldName: 'amount', type: 'currency' },
-    { label: 'Ajustes', fieldName: 'Entrega2_Ajustes', type: 'text' },
-    { label: 'Pagamento', fieldName: 'Entrega2_Pagamento', type: 'text' },
-    { label: 'Saldo', fieldName: 'balance', type: 'currency' },
+    { label: 'Número', fieldName: 'invoiceNumber', type: 'text', initialWidth: 130 },
+    { label: 'Conta Pós Paga', fieldName: 'billingAccountId', type: 'text', initialWidth: 150 }, //Exibe o valor de billingAccountId
+    { label: 'Período do Ciclo', fieldName: 'period', type: 'text', initialWidth: 175 },
+    { label: 'Data de Vencimento', fieldName: 'paymentDueDate', type: 'text', initialWidth: 175 },
+    { label: 'Baixa', fieldName: 'l9InvoiceCloseDate', type: 'text', initialWidth: 130 },
+    { label: 'Valor', fieldName: 'amount', type: 'currency', initialWidth: 130 },
+    { label: 'Ajustes', fieldName: 'totalAmount', type: 'currency', initialWidth: 130 },
+    { label: 'Pagamento', fieldName: 'paymentAmount', type: 'currency', initialWidth: 130 },
+    { label: 'Saldo', fieldName: 'balance', type: 'currency', initialWidth: 130 }
+    
 ];
 
 const columns2 = [
-    { label: 'Instância/Produto', fieldName: 'Instance' },
-    { label: 'Descrição', fieldName: 'codeDescription' },
-    { label: 'Valor', fieldName: 'totalAmount', type: 'currency' },
-    { label: 'Ajustes', fieldName: 'adjustments', type: 'currency' },
-    { label: 'Descontos', fieldName: 'discount', type: 'currency' },
-    { label: 'Valor Atual', fieldName: 'availableAmount', type: 'currency' },
+    { label: 'Instância/Produto', fieldName: 'instance', initialWidth: 175 },
+    { label: 'Descrição', fieldName: 'codeDescription', initialWidth: 200 },
+    { label: 'Valor', fieldName: 'totalAmount', type: 'currency', initialWidth: 150 },
+    { label: 'Ajustes', fieldName: 'amountCredits', type: 'currency', initialWidth: 150 },
+    { label: 'Descontos', fieldName: 'discount', type: 'currency', initialWidth: 150 },
+    { label: 'Valor Atual', fieldName: 'availableAmount', type: 'currency', initialWidth: 150 },
+    { label: 'Data/Hora', fieldName: 'startTime', initialWidth: 150 }
 ];
 
 export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(LightningElement) {
     @api invoicesApi = [];
+    @api accountId = '';
     @api generalSetting = [];
 
     @track filteredInvoices = [];
@@ -57,6 +60,7 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
     columns1 = columns1;
     columns2 = columns2;
     
+    
     _ns = getNamespaceDotNotation();
 
 
@@ -85,6 +89,7 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
     get totalPages() {
         return Math.ceil(this.filteredInvoices.length / this.displayAmount);
     }
+
 
     connectedCallback() {
         this.invoicesApi = Array.isArray(this.invoicesApi) ? this.invoicesApi : [this.invoicesApi];
@@ -208,7 +213,7 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
         return item ? item.ChargeCategory : null;
     }
 
-    handleSelection(event) {
+    handleSelection(event) {   
         this.selectedRow = [JSON.parse(JSON.stringify(event.detail.selectedRows[0]))];
         this.divVisible = true;
         this.tableVisible = false;
@@ -224,7 +229,7 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
             imageNo: this.selectedRow[0]?.imageNo || '',
             financialAccountId: this.selectedRow[0]?.financialAccountId || '', //billingAccountId:MS precisa dessa Chave, mas o valor está em financialAccountId
             billingSystem: 'AMDOCS',
-            cycleEndDate:  this.selectedRow[0]?.cycleEndDate || ''
+            cycleEndDate:  this.selectedRow[0]?.l9CycleCloseDate || ''
         };
         this.omniApplyCallResp({"invoicesForAddSerVerification": {"selectedInvoice" : selectedInvoice}});
         this.omniApplyCallResp({"invoicesForAddSerVerification": {"previousInvoices" : null}});
@@ -245,9 +250,13 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
             imageNo: this.selectedRow[0]?.imageNo || '',
             financialAccountId: this.selectedRow[0]?.financialAccountId || '', //billingAccountId:MS precisa dessa Chave, mas o valor está em financialAccountId
             billingSystem: 'AMDOCS',
+            accountId: this.accountId
         };
 
-        const options = {};
+       const options = {
+          //"isDebug":true, "chainable":false, "resetCache":false, "ignoreCache":true, "queueableChainable":false, "useQueueableApexRemoting":false
+        };
+    
         const params = {
             input: JSON.stringify(obj),
             sClassName: `${this._ns}IntegrationProcedureService`,
@@ -255,15 +264,20 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
             options: JSON.stringify(options)
         };
 
-        this._actionUtil
-            .executeAction(params, null, this, null, null)
+        this.omniRemoteCall(params, true)
             .then((response) => {
+                this.resetSelectionsByTypeField();
                 this.tableVisible = true;
                 this.responseIP = response.result.IPResult;
                 this.isSuccess = response.result.IPResult.isSuccess;
                 this.omniApplyCallResp({"responseIP": this.responseIP});
-                const charges = Array.isArray(this.responseIP.invoiceCharges) ? this.responseIP.invoiceCharges : [this.responseIP.invoiceCharges];
-                this.productList = this.normalizeCharges(charges ?? []);
+
+                const processedCharges = this.processCharges(this.responseIP.invoiceCharges);
+                const credits = this.ensureArray(this.responseIP.invoiceCredits);
+                const newCharges = this.combineChargesAndCredits(processedCharges, credits);
+                
+
+                this.productList = this.normalizeCharges(newCharges ?? []);
                 let types = [];
                 this.productListByType= [];
                 
@@ -304,8 +318,47 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
                     this.dispatchEvent(selectedEvent);
                 }
             });      
-
     }     
+
+    // Função para garantir que os dados estejam no formato de array
+    ensureArray(data) {
+        return Array.isArray(data) ? data : [data];
+    }
+
+    // Função para processar charges, completando informações que podem estar faltando
+    processCharges(charges) {
+        charges = this.ensureArray(charges);
+        const offerMapping = {};
+
+        return charges.map(charge => {
+            if (charge.offerId && charge.offerType) {
+                offerMapping[charge.subscriberId] = { offerId: charge.offerId, offerType: charge.offerType };
+                return charge;
+            }
+            const offerDetails = offerMapping[charge.subscriberId];
+            return offerDetails ? { ...charge, ...offerDetails } : charge;
+        });
+    }
+
+    // Função para combinar informações de charges e credits
+     combineChargesAndCredits(charges, credits) {
+        let check = JSON.stringify(credits);
+        if(check != '[null]'){
+            return charges.map(charge => {
+                if (parseFloat(charge.totalAmount) >= 0) {
+                    const correspondingCredit = credits.find(credit => 
+                        credit.l9ChargeInvoiceId === charge.id || credit.l9EventId === charge.id
+                    );
+                    if (correspondingCredit) {
+                        return { ...charge, amountCredits: correspondingCredit.amount };
+                    }
+                }
+                return charge;
+            });
+        } else {
+            return charges;
+        }
+    }
 
     normalizeCharges(charges = []){
         const chargesMapper = {}
@@ -341,6 +394,10 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
         }
         this.selectedType = event.currentTarget.dataset.id;
         this.selectedRows = this.selectionsByType[this.selectedType] || [];
+        this.template.querySelectorAll('.tab').forEach(tab => {
+            tab.classList.remove('tab-selected');
+        });
+        event.currentTarget.parentElement.classList.add('tab-selected');
     }
     
 
@@ -354,6 +411,10 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
 
     get currentSelections() {
         return [...(this.selectionsByType[this.selectedType] || [])];
+    }
+
+    resetSelectionsByTypeField() {
+        this.selectionsByType = {};
     }
 
     handleRowSelection(event) {
@@ -374,7 +435,7 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
                 this.fullSelectionsByType[this.selectedType].push(product);
             }
         });
-    
+
         this.selectedRows = this.selectionsByType[this.selectedType];
     
         let allSelections = [];
