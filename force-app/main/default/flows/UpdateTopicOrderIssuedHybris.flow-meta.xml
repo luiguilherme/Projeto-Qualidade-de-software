@@ -2,14 +2,14 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>58.0</apiVersion>
     <decisions>
-        <name>Campo_Motivo_Atendimento_esta_em_Andamento</name>
-        <label>Campo Motivo de Atendimento está em Andamento?</label>
+        <name>Campo_Motivo_Atendimento_esta_com_Fluxo_Andamento</name>
+        <label>Campo Motivo de Atendimento está com Fluxo em Andamento?</label>
         <locationX>1238</locationX>
         <locationY>323</locationY>
         <defaultConnector>
-            <targetReference>Validar_tipo_de_movimento</targetReference>
+            <targetReference>Qual_o_tipo_de_movimento</targetReference>
         </defaultConnector>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <defaultConnectorLabel>Não</defaultConnectorLabel>
         <rules>
             <name>Sim</name>
             <conditionLogic>and</conditionLogic>
@@ -29,14 +29,14 @@
     </decisions>
     <decisions>
         <description>Validar o tipo de movimento no fluxo de migração</description>
-        <name>Validar_tipo_de_movimento</name>
-        <label>Validar tipo de movimento</label>
+        <name>Qual_o_tipo_de_movimento</name>
+        <label>Qual o tipo de movimento?</label>
         <locationX>1238</locationX>
         <locationY>623</locationY>
         <defaultConnector>
             <targetReference>Atualizar_apenas_linha_migrada</targetReference>
         </defaultConnector>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <defaultConnectorLabel>Não Reconheceu o Movimento</defaultConnectorLabel>
         <rules>
             <name>Controle_Upgrade</name>
             <conditionLogic>and</conditionLogic>
@@ -44,13 +44,13 @@
                 <leftValueReference>$Record.TopicName__c</leftValueReference>
                 <operator>Contains</operator>
                 <rightValue>
-                    <stringValue>Controle Upgrade</stringValue>
+                    <stringValue>Controle - Upgrade</stringValue>
                 </rightValue>
             </conditions>
             <connector>
                 <targetReference>Atualizar_Pedido_de_Controle_Upgrade</targetReference>
             </connector>
-            <label>Controle Upgrade</label>
+            <label>Controle - Upgrade</label>
         </rules>
         <rules>
             <name>Controle_Downgrade</name>
@@ -59,13 +59,13 @@
                 <leftValueReference>$Record.TopicName__c</leftValueReference>
                 <operator>Contains</operator>
                 <rightValue>
-                    <stringValue>Controle Downgrade</stringValue>
+                    <stringValue>Controle - Downgrade</stringValue>
                 </rightValue>
             </conditions>
             <connector>
                 <targetReference>Atualizar_Pedido_de_Controle_Downgrade</targetReference>
             </connector>
-            <label>Controle Downgrade</label>
+            <label>Controle - Downgrade</label>
         </rules>
         <rules>
             <name>Controle_Pos</name>
@@ -134,13 +134,13 @@
                 <leftValueReference>$Record.TopicName__c</leftValueReference>
                 <operator>Contains</operator>
                 <rightValue>
-                    <stringValue>Pós Upgrade</stringValue>
+                    <stringValue>Pós - Upgrade</stringValue>
                 </rightValue>
             </conditions>
             <connector>
                 <targetReference>Atualizar_Pedido_de_Pos_Upgrade</targetReference>
             </connector>
-            <label>Pós Upgrade</label>
+            <label>Pós - Upgrade</label>
         </rules>
         <rules>
             <name>Pos_Downgrade</name>
@@ -149,13 +149,13 @@
                 <leftValueReference>$Record.TopicName__c</leftValueReference>
                 <operator>Contains</operator>
                 <rightValue>
-                    <stringValue>Pós Downgrade</stringValue>
+                    <stringValue>Pós - Downgrade</stringValue>
                 </rightValue>
             </conditions>
             <connector>
                 <targetReference>Atualizar_Pedido_de_Pos_Downgrade</targetReference>
             </connector>
-            <label>Pós Downgrade</label>
+            <label>Pós - Downgrade</label>
         </rules>
         <rules>
             <name>Pos_Pre</name>
@@ -216,7 +216,7 @@
         <locationX>1106</locationX>
         <locationY>431</locationY>
         <connector>
-            <targetReference>Validar_tipo_de_movimento</targetReference>
+            <targetReference>Qual_o_tipo_de_movimento</targetReference>
         </connector>
         <inputAssignments>
             <field>remarkup__c</field>
@@ -229,7 +229,7 @@
     <recordUpdates>
         <description>Atualiza o campo de movimentação e número utilizado na migração</description>
         <name>Atualizar_Pedido_de_Controle_Downgrade</name>
-        <label>Atualizar Pedido de Controle Downgrade</label>
+        <label>Atualizar Pedido de Controle - Downgrade</label>
         <locationX>314</locationX>
         <locationY>731</locationY>
         <inputAssignments>
@@ -289,7 +289,7 @@
     <recordUpdates>
         <description>Atualiza o campo de movimentação e número utilizado na migração</description>
         <name>Atualizar_Pedido_de_Controle_Upgrade</name>
-        <label>Atualizar Pedido de Controle Upgrade</label>
+        <label>Atualizar Pedido de Controle - Upgrade</label>
         <locationX>50</locationX>
         <locationY>731</locationY>
         <inputAssignments>
@@ -309,7 +309,7 @@
     <recordUpdates>
         <description>Atualiza o campo de movimentação e número utilizado na migração</description>
         <name>Atualizar_Pedido_de_Pos_Downgrade</name>
-        <label>Atualizar Pedido de Pós Downgrade</label>
+        <label>Atualizar Pedido de Pós - Downgrade</label>
         <locationX>1898</locationX>
         <locationY>731</locationY>
         <inputAssignments>
@@ -349,7 +349,7 @@
     <recordUpdates>
         <description>Atualiza o campo de movimentação e número utilizado na migração</description>
         <name>Atualizar_Pedido_de_Pos_Upgrade</name>
-        <label>Atualizar Pedido de Pós Upgrade</label>
+        <label>Atualizar Pedido de Pós - Upgrade</label>
         <locationX>1634</locationX>
         <locationY>731</locationY>
         <inputAssignments>
@@ -410,7 +410,7 @@
         <locationX>1112</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Campo_Motivo_Atendimento_esta_em_Andamento</targetReference>
+            <targetReference>Campo_Motivo_Atendimento_esta_com_Fluxo_Andamento</targetReference>
         </connector>
         <filterLogic>1 AND 2</filterLogic>
         <filters>
