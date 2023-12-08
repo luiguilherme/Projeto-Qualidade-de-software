@@ -105,6 +105,32 @@
                         "type": "Event",
                         "vlocityIcon": "standard-default"
                     }
+                },
+                {
+                    "actionIndex": 2,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1699463985351-zxtuisbj5",
+                    "label": "SetSessionProductSourceSystem",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.ProductSourceSystem",
+                                "fieldValue": "{SourceSystem}"
+                            }
+                        ],
+                        "id": "flex-action-1699463999125",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
                 }
             ],
             "channelname": "valServiceFlow",
@@ -309,7 +335,7 @@
         {
             "actionList": [
                 {
-                    "actionIndex": 0,
+                    "actionIndex": 1,
                     "card": "{card}",
                     "draggable": false,
                     "isOpen": true,
@@ -347,7 +373,7 @@
                                 "fieldValue": "''"
                             }
                         ],
-                        "id": "flex-action-1672920303211",
+                        "id": "flex-action-1699537405254",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "cardAction",
@@ -701,9 +727,25 @@
                             {
                                 "fieldName": "Session.OpenedDispute",
                                 "fieldValue": "{action.OpenedDispute}"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipLegacySystem",
+                                "fieldValue": "''"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipParentName",
+                                "fieldValue": "''"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipTargetFlow",
+                                "fieldValue": "''"
+                            },
+                            {
+                                "fieldName": "Session.ProductSourceSystem",
+                                "fieldValue": "''"
                             }
                         ],
-                        "id": "flex-action-1685653939906",
+                        "id": "flex-action-1699537811684",
                         "openUrlIn": "Current Window",
                         "type": "cardAction",
                         "vlocityIcon": "standard-default"
@@ -763,6 +805,10 @@
         {
             "name": "OpenedDispute",
             "val": "false"
+        },
+        {
+            "name": "ProductSourceSystem",
+            "val": ""
         }
     ],
     "states": [
@@ -3594,6 +3640,7 @@
                                         "isChildCardTrackingEnabled": false,
                                         "parentAttribute": {
                                             "CustomerInteractionId": "CustomerInteractionId",
+                                            "ProductSourceSystem": "{Session.ProductSourceSystem}",
                                             "Restart": "{Session.Restart}",
                                             "SelectedFunction": "RelationshipTopicFront",
                                             "ServiceIdentifier": "{ServiceIdentifier}"

@@ -9,7 +9,6 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "AssetSourceSystem": "%DRgetOriginSystemAssetAndTopicTree:OriginSystem:Asset%",
             "CustomerInteractionTopicId": "=%DRUpsertInteractionTopic:InteractionTopicId%",
             "ProductType": "%ProductType%",
             "RecordTypeName": "%SVRecordType:RecordTypeName%",
@@ -21,7 +20,7 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "disableChainable": false,
-        "executionConditionalFormula": "%ProductType% == 'Fixed' || (%ProductType%=='Mobile' && %FolderName% == 'Contestar Fatura' && %DRgetOriginSystemAssetAndTopicTree:OriginSystem:TopicTree% == 'NEXT')",
+        "executionConditionalFormula": "%ProductType% == 'Fixed' || (%ProductType%=='Mobile' && %SelectedRelationshipTargetFlow%=='InvoiceDispute' && %SelectedRelationshipLegacySystem%=='NEXT' && (%ProductSourceSystem%=='Next' || %ProductSourceSystem%=='NEXT'))",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {
