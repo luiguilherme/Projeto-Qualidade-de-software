@@ -28,7 +28,7 @@
         "messages": [
             {
                 "active": true,
-                "text": "O processo de BulkReplace falhou. Não é possível prosseguir.",
+                "text": "O processamento do seu pedido terminou em falha, contate o suporte para verificar o problema encontrado.",
                 "type": "Warning",
                 "value": true
             },
@@ -42,12 +42,17 @@
         "show": null,
         "validateExpression": {
             "group": {
-                "operator": "OR",
+                "operator": "AND",
                 "rules": [
                     {
                         "condition": "<>",
                         "data": "",
                         "field": "StatusAsyncJobPromotion:JobBulkReplaceStepError:message"
+                    },
+                    {
+                        "condition": "=",
+                        "data": "SUCCESS",
+                        "field": "StatusAsyncJobPromotion:JobAddMembersStatus"
                     }
                 ]
             }

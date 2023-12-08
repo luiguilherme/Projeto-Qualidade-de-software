@@ -65,7 +65,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
             this._sessionApiVars["AssetId"] = val;
           }
         } get cfAssetId() {
-          return this._sessionApiVars["AssetId"] || "";
+          return this._sessionApiVars["AssetId"] || "undefined";
         }
       
         @api set cfLineNumber(val) {
@@ -81,7 +81,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
             this._sessionApiVars["SourceCalled"] = val;
           }
         } get cfSourceCalled() {
-          return this._sessionApiVars["SourceCalled"] || "";
+          return this._sessionApiVars["SourceCalled"] || "undefined";
         }
       
         @api set cfInteractionNumber(val) {
@@ -89,7 +89,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
             this._sessionApiVars["InteractionNumber"] = val;
           }
         } get cfInteractionNumber() {
-          return this._sessionApiVars["InteractionNumber"] || "";
+          return this._sessionApiVars["InteractionNumber"] || "undefined";
         }
       
               

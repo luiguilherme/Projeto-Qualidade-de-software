@@ -6,7 +6,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
 {
     global Boolean invokeMethod(String methodName, Map<String, Object> inputs, Map<String, Object> output, Map<String, Object> options)
     {
-        List<Object> arguments = (List<Object>) inputs.get('arguments');  
+        List<Object> arguments = (List<Object>) inputs.get('arguments');
 
         switch on methodName {
             when 'validateEmailFormat' 
@@ -23,6 +23,8 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             {output.put('result', mapKeysValues(arguments));}  
             when 'trim' 
             {output.put('result', trimValues(arguments));}   
+            when 'trimClass'
+            {output.put('result', trimClass(arguments));}
             when 'length' 
             {output.put('result', length(arguments));}               
             when 'formatDate' 
@@ -67,6 +69,10 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             {output.put('result', mapAttributes(inputs));}
             when 'getUserInCommunity'
             {output.put('result', getUserInCommunity(arguments));}
+            //when 'getDependentPicklist'
+            //{output.put('result', getDependentPicklist(arguments));}
+            when 'convertPicklistAPINameToLabel'
+            {output.put('result', convertPicklistAPINameToLabel(arguments));}
         }
         return true;
     }
@@ -294,8 +300,16 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     String trimValues(List<Object> argument) {
         String value = (String) argument[0];  
         
-        return value.replace(' ', '');
+        return value.replace(' ', '');       
     }   
+    String trimClass(List<Object> argument) {
+        String value = (String) argument[0];  
+        
+        return value.trim();
+    }   
+    
+    
+
 
     Integer length(List<Object> argument) {
         String value = (String) argument[0];
@@ -456,28 +470,20 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
 
     
     public static List<Object> GetListRange(List<Object> arguments){
-        
         try{
             Map <String, Object> objectsMap =  (Map <String, Object>) arguments[0];
-            
             List<Object> objects = (List<Object>) objectsMap.get('Objects');
-            
+            List<Object> filtredList =  new List<Object> ();            
             Integer startIndex = Integer.valueOf(arguments[1]);
             Integer endIndex = Integer.valueOf(arguments[2]);
             
-            
-            List<Object> filtredList =  new List<Object> ();
-            
             for(Integer index = startIndex; index < endIndex && index <objects.Size(); index++){
                 filtredList.add(objects[index]);
-            }
-            
+            }            
             return filtredList;
-            
         } 
         catch(Exception e){
             System.debug(e.getMessage());
-            
             return null;
         }
     }
@@ -732,4 +738,109 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         
         return strValue.Contains('my.site.com');
     }        
+    
+    
+    /*
+    * Autor....: Guilherme Kaiser - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método para recuperar DependentPicklist values de 1 campo específico
+    * Data.....: 09/11/2023
+       
+    public class MyPickListInfo {
+        public String validFor;    
+    }
+    
+    public static List<Map<String, String>> getDependentPicklist(List<Object> arguments){
+        
+        String objectName       	= (String) arguments[0];
+        String controllingField 	= (String) arguments[1];
+        String dependentField   	= (String) arguments[2];
+		String pickListValueRequest = (String) arguments[3];
+        
+        List<Map<String, String>> listLabelValues = new List<Map<String, String>>();        
+        Map<String, String> mapItens = new Map<String, String>();
+        Map<String, List<String>> controllingInfo = new Map<String, List<String>>();
+        
+        Schema.SObjectType           objType              = Schema.getGlobalDescribe().get(objectName) ;
+        Schema.DescribeSObjectResult describeResult       = objType.getDescribe();
+        Schema.DescribeFieldResult   controllingFieldInfo = describeResult.fields.getMap().get(controllingField).getDescribe();
+        Schema.DescribeFieldResult   dependentFieldInfo   = describeResult.fields.getMap().get(dependentField).getDescribe();
+        
+        List<Schema.PicklistEntry>   controllingValues    = controllingFieldInfo.getPicklistValues();
+        List<Schema.PicklistEntry>   dependentValues      = dependentFieldInfo.getPicklistValues();
+               
+        for (Schema.PicklistEntry currControllingValue : controllingValues){
+            if(pickListValueRequest ==currControllingValue.getLabel()){
+            	controllingInfo.put(currControllingValue.getLabel(),new List<String>());
+            }
+        }
+        
+        for (Schema.PicklistEntry currDependentValue:dependentValues){
+            String  jsonString  = JSON.serialize(currDependentValue) ;
+            MyPickListInfo info = (MyPickListInfo)  JSON.deserialize(jsonString,MyPickListInfo.class) ;            
+            String  hexString   = EncodingUtil.convertToHex(EncodingUtil.base64Decode(info.validFor)).toUpperCase();            
+            Integer baseCount   =  0;
+            
+            for (Integer curr:hexString.getChars()){                
+                Integer  val  =  0;                
+                if  (curr  >=  65){
+                    val  =  curr - 65 + 10;
+                }  else  {
+                    val  =  curr - 48;                    
+                }
+                mapItens = new Map<String, String>();
+                mapItens.put('value', currDependentValue.getLabel());
+                mapItens.put('label', currDependentValue.getLabel());
+                
+                if (((val & 8)  ==  8) && (controllingValues[baseCount+0].getLabel()==pickListValueRequest))  {
+					controllingInfo.get (controllingValues[baseCount+0].getLabel()).add(currDependentValue.getLabel());  
+                    listLabelValues.add(mapItens);                    
+                }                
+                if (((val & 4)  ==  4) && (controllingValues[baseCount+1].getLabel()==pickListValueRequest))  {
+					controllingInfo.get (controllingValues[baseCount+1].getLabel()).add(currDependentValue.getLabel());                    
+                    listLabelValues.add(mapItens);
+                }                
+                if (((val & 2)  ==  2) && (controllingValues[baseCount+2].getLabel()==pickListValueRequest))  {
+					controllingInfo.get (controllingValues[baseCount+2].getLabel()).add(currDependentValue.getLabel());
+					listLabelValues.add(mapItens);
+                }                
+                if (((val & 1)  ==  1) && (controllingValues[baseCount+3].getLabel()==pickListValueRequest))  {
+                    controllingInfo.get(controllingValues[baseCount+3].getLabel()).add (currDependentValue.getLabel());
+                    listLabelValues.add(mapItens);
+                }
+                baseCount += 4;
+            }            
+        }
+        return listLabelValues;
+    }
+	*/ 
+    
+    /*
+    * Autor....: Pedro Richtmann - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método para picklis entry API Value para Lable
+    * Data.....: 24/11/2023
+    */ 
+    
+    public static String convertPicklistAPINameToLabel(List<Object> arguments) {
+  		
+		String sobjName = (String) arguments[0];
+		String objField = (String) arguments[1];
+		String fieldApiValue = (String) arguments[2];
+		
+		List < sObject > sList =Database.query('SELECT toLabel(' + objField + ') fieldLabel, ' + objField + ' FROM ' + sobjName + ' WHERE ' + objField + ' = \'' + fieldApiValue + '\' LIMIT 1' );
+		
+        if ( !sList.isEmpty()){
+            
+         	String s =  JSON.serialize(sList[0]);
+        
+			Map<String, Object> m = (Map<String, Object>) JSON.deserializeUntyped(s);
+			String result = String.valueOf(m.get('fieldLabel'));
+        
+			return result;   
+        }
+        
+		return 'Valor nao encontrado';   
+	}
+    
 }

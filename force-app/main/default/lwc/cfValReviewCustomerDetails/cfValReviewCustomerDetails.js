@@ -28,12 +28,44 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
                   }
               @track record;
               @track _sessionApiVars = {};
+        @api set cfEditButtonLabel(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["EditButtonLabel"] = val;
+          }
+        } get cfEditButtonLabel() {
+          return this._sessionApiVars["EditButtonLabel"] || "";
+        }
+      
+        @api set cfCustomer(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["Customer"] = val;
+          }
+        } get cfCustomer() {
+          return this._sessionApiVars["Customer"] || "";
+        }
+      
+        @api set cfPlatform(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["Platform"] = val;
+          }
+        } get cfPlatform() {
+          return this._sessionApiVars["Platform"] || "";
+        }
+      
         @api set cfInteractionNumber(val) {
           if(typeof val !== "undefined") {
             this._sessionApiVars["InteractionNumber"] = val;
           }
         } get cfInteractionNumber() {
           return this._sessionApiVars["InteractionNumber"] || "";
+        }
+      
+        @api set cfAccountId(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["AccountId"] = val;
+          }
+        } get cfAccountId() {
+          return this._sessionApiVars["AccountId"] || "";
         }
       
         @api set cfInteractionId(val) {

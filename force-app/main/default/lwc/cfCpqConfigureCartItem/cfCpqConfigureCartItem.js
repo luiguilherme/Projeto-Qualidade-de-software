@@ -25,8 +25,8 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               @track Label={CPQCollapseHierarchy:"Collapse Product Hierarchy",
         CPQExpandHierarchy:"Expand Product Hierarchy",
         Quantity2:"Quantidade",
-        OneTime:"Único",
         EffectiveCPQRecurringTotal:"Total Recorrente",
+        OneTime:"Único",
         CPQDelete:"Remover",
         Action:"Ação"
         };

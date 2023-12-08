@@ -28,7 +28,6 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               
               connectedCallback() {
                 super.connectedCallback();
-                this.setThemeClass(data);
                 this.setStyleDefinition(styleDef);
                 data.Session = {} //reinitialize on reload
                 
