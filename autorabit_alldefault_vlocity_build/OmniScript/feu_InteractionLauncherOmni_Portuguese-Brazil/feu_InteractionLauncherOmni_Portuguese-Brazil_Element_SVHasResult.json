@@ -10,9 +10,11 @@
         "HTMLTemplateId": "",
         "controlWidth": 12,
         "elementValueMap": {
+            "HasAsset": "=IF(%StepSearch:UpdateFieldsFormula% == true && %SubscriptionInfo|1:assetId% != NULL, true,  false)",
             "HasResultShowAccount": "=IF(%AccountInfo|1:Id% != NULL && %AccountInfo|1:RecordTypeName% != \"Genérica\", true, false)",
             "HasResults": "=IF(%AccountInfo|1:Id% == NULL && %AccountInfo|1:Status% == \"Pré Ativo\" || %AccountInfo|1:Id% == NULL && %AccountInfo|1:Status% == \"Suspenso\" , true, false)",
-            "customerid": "%AccountInfo:Id%"
+            "customerid": "=IF(%AccountInfo|1:Id% != \"\", %AccountInfo|1:Id%, IF(%SubscriptionInfo|1:accountId% != \"\", %SubscriptionInfo|1:accountId%, %AccountInfo:Id%))",
+            "docNumber": "=IF(%AccountInfo|1:DocumentNumber% != \"\", %AccountInfo|1:DocumentNumber%, IF(%SubscriptionInfo|1:documentNumber% != \"\", %SubscriptionInfo|1:documentNumber%, %AccountInfo:DocumentNumber%))"
         },
         "label": "SetValues1",
         "message": {

@@ -39,7 +39,7 @@ export default class DisputeCartItemsDataTable extends OmniscriptBaseMixin(Light
         { label: 'Valor Atual', fieldName: 'AvailableAmount__c', initialWidth: 150,typeAttributes: { title: { fieldName: 'AvailableAmount__c' } } },
         { label: 'Status Contestação', fieldName: 'StatusPt', initialWidth: 150,cellAttributes: { cellClass: 'status-cell' }, typeAttributes: { title: { fieldName: 'StatusPt' } } },
         { label: 'Dias de Ajuste', fieldName: 'AdjustmentDays__c', initialWidth: 150,typeAttributes: { title: { fieldName: 'AdjustmentDays__c' } } },
-        { label: 'Ajustes', fieldName: 'Fit__c', initialWidth: 150,typeAttributes: { title: { fieldName: 'Fit__c' } } },
+        { label: 'Ajustes', fieldName: 'Adjustments__c', initialWidth: 150,typeAttributes: { title: { fieldName: 'Fit__c' } } },
         { label: 'Definição de Atendimento', fieldName: 'ServiceDefinitionName', initialWidth: 150,typeAttributes: { title: { fieldName: 'ServiceDefinitionName' } } },
         { type: 'action', typeAttributes: { rowActions: [{ label: 'Remover', name: 'delete', iconName: 'utility:delete' }] } }
     ];

@@ -147,6 +147,34 @@ public class CustomFunctionServiceTest {
         c.invokeMethod('trim', inputs, output, options);
         System.assertEquals('teste', output.get('result'));
     }
+    @isTest    
+    public static void testTrimClass(){
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+        
+        List<object> objectList = new List<object>();
+        objectList.add(' tes te ');
+        inputs.put('arguments',objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('trimClass', inputs, output, options);
+        System.assertEquals('tes te', output.get('result'));
+    }
+    @isTest    
+    public static void testlength(){
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+        
+        List<object> objectList = new List<object>();
+        objectList.add('teste');
+        inputs.put('arguments',objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('length', inputs, output, options);
+        System.assertEquals(5, Integer.valueOf(output.get('result')));
+    }
     @isTest
     public static void testTranslatePickListValues() {
 		Map<String, Object> inputs = new Map<String, Object>();
@@ -434,4 +462,42 @@ public class CustomFunctionServiceTest {
         System.debug(output);
         System.assert(output.get('result') != null);
     }
+    
+    /*
+    @isTest
+    public static void testgetDependentPicklist(){
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('CustomerInteractionTopicTree__c');
+        objectList.add('CaseHandling__c');
+        objectList.add('SLA__c');
+        objectList.add('Grupo de Atendimento - Ouvidoria');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getDependentPicklist', inputs, output, options);
+        System.debug(output);
+        System.assertEquals('({label=10, value=10})', String.valueOf(output.get('result')));
+    }
+	*/	
+	
+    @isTest
+    public  static void testconvertPicklistAPINameToLabel(){
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+        List<object> objectList = new List<object>();
+        objectList.add('Product2');
+        objectList.add('vlocity_cmt__Type__c');
+        objectList.add('Prepaid');
+        inputs.put('arguments',objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('convertPicklistAPINameToLabel', inputs, output, options);
+        System.debug(output);
+    } 
 }

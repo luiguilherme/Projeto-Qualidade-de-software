@@ -1,0 +1,102 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__InternalNotes__c": "AJU000.3\nAJU006.2\nAJU006.2 - H500\nAJU006.3- H64.6",
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "MobileAdjust",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/Dispute/MobileAdjust/English",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "HTMLTemplateId": "",
+        "allowSaveForLater": false,
+        "businessCategory": "",
+        "businessEvent": "",
+        "cancelLabel": "Cancel",
+        "cancelMessage": "Are you sure?",
+        "chartLabel": "Definição de Atendimento",
+        "completeLabel": "Complete",
+        "completeMessage": "Are you sure you want to complete the script?",
+        "conditionType": "Hide if False",
+        "errorMessage": {
+            "custom": [
+            ],
+            "default": null
+        },
+        "instruction": "",
+        "instructionKey": "",
+        "knowledgeOptions": {
+            "dataCategoryCriteria": "",
+            "keyword": "",
+            "language": "English",
+            "publishStatus": "Online",
+            "remoteTimeout": 30000,
+            "typeFilter": ""
+        },
+        "label": "Definição de Atendimento",
+        "message": {
+        },
+        "nextLabel": "Próximo",
+        "nextWidth": 3,
+        "previousLabel": "",
+        "previousWidth": "0",
+        "pubsub": false,
+        "remoteClass": "",
+        "remoteMethod": "",
+        "remoteOptions": {
+        },
+        "remoteTimeout": 30000,
+        "saveLabel": "Save for later",
+        "saveMessage": "Are you sure you want to save it for later?",
+        "show": {
+            "group": {
+                "operator": "OR",
+                "rules": [
+                    {
+                        "condition": "=",
+                        "data": "no",
+                        "field": "ValidateCartItemStatus:hasStatusConcessionORApproved"
+                    },
+                    {
+                        "condition": "=",
+                        "data": "yes",
+                        "field": "AJU006:isPaid"
+                    },
+                    {
+                        "condition": "=",
+                        "data": "no",
+                        "field": "AJU007:hasAutoDebit"
+                    },
+                    {
+                        "condition": "=",
+                        "data": "yes",
+                        "field": "AJU008:withinAdjustmentPeriod"
+                    },
+                    {
+                        "condition": "=",
+                        "data": "yes",
+                        "field": "SetAllStatusAndDefinition:isLastItem"
+                    },
+                    {
+                        "condition": "=",
+                        "data": "yes",
+                        "field": "AJU006.3:hasDueInvoice"
+                    }
+                ]
+            }
+        },
+        "showPersistentComponent": [
+            true,
+            false
+        ],
+        "ssm": false,
+        "validationRequired": true,
+        "wpm": false
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": true,
+    "%vlocity_namespace%__Type__c": "Step",
+    "Name": "ServiceDefinition",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Dispute/MobileAdjust/English/ServiceDefinition"
+}

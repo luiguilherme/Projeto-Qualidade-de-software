@@ -4,12 +4,12 @@
             {
                 "id": 10,
                 "name": "recordId",
-                "val": "0017800000OKDtuAAH"
+                "val": ""
             },
             {
                 "id": 2,
                 "name": "objectApiName",
-                "val": "Account"
+                "val": ""
             }
         ],
         "orderBy": {
@@ -85,17 +85,37 @@
     "globalCSS": false,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValReviewCustomerDetails_11_Telefonica",
-        "Id": "0Rb78000000LMINCA4",
+        "DeveloperName": "cfValReviewCustomerDetails_12_Telefonica",
+        "Id": "0Rb76000000DBdQCAW",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValReviewCustomerDetails_11_Telefonica",
+        "MasterLabel": "cfValReviewCustomerDetails_12_Telefonica",
         "NamespacePrefix": "c"
     },
     "osSupport": true,
     "sessionVars": [
         {
             "isApi": true,
+            "name": "EditButtonLabel",
+            "val": ""
+        },
+        {
+            "isApi": true,
+            "name": "Customer",
+            "val": ""
+        },
+        {
+            "isApi": true,
+            "name": "Platform",
+            "val": ""
+        },
+        {
+            "isApi": true,
             "name": "InteractionNumber",
+            "val": ""
+        },
+        {
+            "isApi": true,
+            "name": "AccountId",
             "val": ""
         },
         {
@@ -127,7 +147,7 @@
                                                 {
                                                     "class": "slds-col ",
                                                     "element": "outputField",
-                                                    "elementLabel": "Contacts-Block-0-Text-0",
+                                                    "elementLabel": "Contacts-Block-0-Block-2-Text-0",
                                                     "key": "element_element_element_element_block_0_0_block_0_0_block_0_0_outputField_0_0",
                                                     "name": "Text",
                                                     "parentElementKey": "element_element_element_block_0_0_block_0_0_block_0_0",
@@ -243,7 +263,7 @@
                                                 {
                                                     "class": "slds-col ",
                                                     "element": "action",
-                                                    "elementLabel": "Contacts-Block-0-Action-1",
+                                                    "elementLabel": "Contacts-Block-0-Block-2-Action-1",
                                                     "key": "element_element_element_element_block_0_0_block_0_0_block_0_0_action_1_0",
                                                     "name": "Action",
                                                     "parentElementKey": "element_element_element_block_0_0_block_0_0_block_0_0",
@@ -252,17 +272,31 @@
                                                             {
                                                                 "actionIndex": 0,
                                                                 "contextId": "\\{recordId}",
-                                                                "draggable": true,
+                                                                "draggable": false,
                                                                 "isOpen": true,
                                                                 "key": "1673894479328-b2aabvrus",
                                                                 "label": "Editar",
                                                                 "stateAction": {
+                                                                    "actionConditions": {
+                                                                        "group": [
+                                                                            {
+                                                                                "field": "Session.EditButtonLabel",
+                                                                                "hasMergeField": false,
+                                                                                "id": "state-new-condition-5",
+                                                                                "operator": "==",
+                                                                                "type": "custom",
+                                                                                "value": "Editar"
+                                                                            }
+                                                                        ],
+                                                                        "id": "state-condition-object",
+                                                                        "isParent": true
+                                                                    },
                                                                     "extraParams": {
                                                                         "c__interactionId": "{Session.InteractionId}",
                                                                         "c__protocolNumber": "{Session.InteractionNumber}"
                                                                     },
                                                                     "hasExtraParams": true,
-                                                                    "id": "flex-action-1676847834536",
+                                                                    "id": "flex-action-1691671622319",
                                                                     "isLwcOS": true,
                                                                     "layoutType": "lightning",
                                                                     "omniType": {
@@ -303,10 +337,10 @@
                                                         "displayAsButton": false,
                                                         "flyoutDetails": {
                                                         },
-                                                        "iconColor": "#dddbda",
+                                                        "iconColor": "#FAFAFA",
                                                         "iconName": "utility:edit",
                                                         "iconOnly": true,
-                                                        "label": "Editar",
+                                                        "label": "\\{Session.EditButtonLabel}",
                                                         "record": "{record}",
                                                         "showSpinner": "false",
                                                         "stateObj": "{record}"
@@ -336,13 +370,13 @@
                                                             ],
                                                             "width": "1"
                                                         },
-                                                        "class": "slds-text-align_center slds-border_top slds-border_bottom slds-border_left slds-border_right slds-p-top_xx-small editButton",
+                                                        "class": "slds-text-align_center slds-border_top slds-border_bottom slds-border_left slds-border_right slds-p-top_xx-small editButton2",
                                                         "container": {
                                                             "class": ""
                                                         },
-                                                        "customClass": "editButton",
+                                                        "customClass": "editButton2",
                                                         "elementStyleProperties": {
-                                                            "iconColor": "#dddbda"
+                                                            "iconColor": "#FAFAFA"
                                                         },
                                                         "inlineStyle": "width: 35px; ",
                                                         "margin": [
@@ -370,6 +404,8 @@
                                                             "conditionString": "",
                                                             "conditions": "default",
                                                             "draggable": false,
+                                                            "isSetForDesignTime": false,
+                                                            "isopen": true,
                                                             "key": 0,
                                                             "label": "Default",
                                                             "name": "Default",
@@ -422,6 +458,78 @@
                                                                     "color": ""
                                                                 }
                                                             }
+                                                        },
+                                                        {
+                                                            "conditionString": "Session.EditButtonLabel != Editar",
+                                                            "conditions": {
+                                                                "group": [
+                                                                    {
+                                                                        "field": "Session.EditButtonLabel",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-0",
+                                                                        "operator": "!=",
+                                                                        "type": "custom",
+                                                                        "value": "Editar"
+                                                                    }
+                                                                ],
+                                                                "id": "state-condition-object",
+                                                                "isParent": true
+                                                            },
+                                                            "draggable": true,
+                                                            "isSetForDesignTime": true,
+                                                            "isopen": true,
+                                                            "key": 1,
+                                                            "label": "NoPrepaid",
+                                                            "name": "NoPrepaid",
+                                                            "styleObject": {
+                                                                "background": {
+                                                                    "color": "",
+                                                                    "image": "",
+                                                                    "position": "",
+                                                                    "repeat": "",
+                                                                    "size": ""
+                                                                },
+                                                                "border": {
+                                                                    "color": "#cccccc",
+                                                                    "radius": "5px",
+                                                                    "style": "",
+                                                                    "type": [
+                                                                        "border_top",
+                                                                        "border_bottom",
+                                                                        "border_left",
+                                                                        "border_right"
+                                                                    ],
+                                                                    "width": "1"
+                                                                },
+                                                                "class": "slds-text-align_center slds-border_top slds-border_bottom slds-border_left slds-border_right slds-p-top_xx-small editButton2",
+                                                                "container": {
+                                                                    "class": ""
+                                                                },
+                                                                "customClass": "editButton2",
+                                                                "elementStyleProperties": {
+                                                                    "iconColor": "#FAFAFA"
+                                                                },
+                                                                "inlineStyle": "width: 35px; ",
+                                                                "margin": [
+                                                                ],
+                                                                "padding": [
+                                                                    {
+                                                                        "label": "top:xx-small",
+                                                                        "size": "xx-small",
+                                                                        "type": "top"
+                                                                    }
+                                                                ],
+                                                                "size": {
+                                                                    "default": "1",
+                                                                    "isResponsive": false
+                                                                },
+                                                                "sizeClass": "slds-size_1-of-12 ",
+                                                                "style": "     border-top: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid;border-right: #cccccc 1px solid; \n    border-radius:5px;     width: 35px; ",
+                                                                "text": {
+                                                                    "align": "center",
+                                                                    "color": ""
+                                                                }
+                                                            }
                                                         }
                                                     ],
                                                     "type": "element"
@@ -429,7 +537,7 @@
                                             ],
                                             "class": "slds-col ",
                                             "element": "block",
-                                            "elementLabel": "Contacts-Block-0-Block-2",
+                                            "elementLabel": "Contacts-Block-0-Block-0",
                                             "key": "element_element_element_block_0_0_block_0_0_block_0_0",
                                             "name": "Block",
                                             "parentElementKey": "element_element_block_0_0_block_0_0",
@@ -780,7 +888,7 @@
                                             ],
                                             "class": "slds-col ",
                                             "element": "block",
-                                            "elementLabel": "Contacts-Block-0-Block-3",
+                                            "elementLabel": "Contacts-Block-0-Block-1",
                                             "key": "element_element_element_block_0_0_block_0_0_block_1_0",
                                             "name": "Block",
                                             "parentElementKey": "element_element_block_0_0_block_0_0",
@@ -1817,6 +1925,34 @@
                         "name": "cfInteractionId",
                         "type": "String"
                     }
+                },
+                {
+                    "@attributes": {
+                        "label": "Customer",
+                        "name": "cfCustomer",
+                        "type": "String"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "label": "Platform",
+                        "name": "cfPlatform",
+                        "type": "String"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "label": "EditButtonLabel",
+                        "name": "cfEditButtonLabel",
+                        "type": "String"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "label": "AccountId",
+                        "name": "cfAccountId",
+                        "type": "String"
+                    }
                 }
             ]
         },
@@ -1843,6 +1979,34 @@
                     "@attributes": {
                         "label": "InteractionId",
                         "name": "cfInteractionId",
+                        "type": "String"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "label": "Customer",
+                        "name": "cfCustomer",
+                        "type": "String"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "label": "Platform",
+                        "name": "cfPlatform",
+                        "type": "String"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "label": "EditButtonLabel",
+                        "name": "cfEditButtonLabel",
+                        "type": "String"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "label": "AccountId",
+                        "name": "cfAccountId",
                         "type": "String"
                     }
                 }
@@ -1881,6 +2045,34 @@
                         "name": "cfInteractionId",
                         "type": "String"
                     }
+                },
+                {
+                    "@attributes": {
+                        "label": "Customer",
+                        "name": "cfCustomer",
+                        "type": "String"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "label": "Platform",
+                        "name": "cfPlatform",
+                        "type": "String"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "label": "EditButtonLabel",
+                        "name": "cfEditButtonLabel",
+                        "type": "String"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "label": "AccountId",
+                        "name": "cfAccountId",
+                        "type": "String"
+                    }
                 }
             ]
         }
@@ -1891,7 +2083,7 @@
         "isExposed": true,
         "masterLabel": "valReviewCustomerDetails",
         "runtimeNamespace": "%vlocity_namespace%",
-        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgogICAgICA8cHJvcGVydHkgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iLz4KICAgICAgPHByb3BlcnR5IG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciLz4KICAgICAgPHByb3BlcnR5IG5hbWU9ImNmSW50ZXJhY3Rpb25OdW1iZXIiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkludGVyYWN0aW9uTnVtYmVyIi8+CiAgICAgIDxwcm9wZXJ0eSBuYW1lPSJjZkludGVyYWN0aW9uSWQiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkludGVyYWN0aW9uSWQiLz4KICAgIDwvdGFyZ2V0Q29uZmlnPgogICAgPHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPgogICAgICA8cHJvcGVydHkgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iLz4KICAgICAgPHByb3BlcnR5IG5hbWU9ImNmSW50ZXJhY3Rpb25OdW1iZXIiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkludGVyYWN0aW9uTnVtYmVyIi8+CiAgICAgIDxwcm9wZXJ0eSBuYW1lPSJjZkludGVyYWN0aW9uSWQiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkludGVyYWN0aW9uSWQiLz4KICAgIDwvdGFyZ2V0Q29uZmlnPgogICAgPHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdDb21tdW5pdHlfX0RlZmF1bHQiPgogICAgICA8cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPgogICAgPC90YXJnZXRDb25maWc+CiAgICA8dGFyZ2V0Q29uZmlnIHhtbG5zPSJodHRwOi8vc29hcC5zZm9yY2UuY29tLzIwMDYvMDQvbWV0YWRhdGEiIHRhcmdldHM9ImxpZ2h0bmluZ19fSG9tZVBhZ2UiPgogICAgICA8cHJvcGVydHkgbmFtZT0iY2ZJbnRlcmFjdGlvbk51bWJlciIgdHlwZT0iU3RyaW5nIiBsYWJlbD0iSW50ZXJhY3Rpb25OdW1iZXIiLz4KICAgICAgPHByb3BlcnR5IG5hbWU9ImNmSW50ZXJhY3Rpb25JZCIgdHlwZT0iU3RyaW5nIiBsYWJlbD0iSW50ZXJhY3Rpb25JZCIvPgogICAgPC90YXJnZXRDb25maWc+",
+        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgogICAgICA8cHJvcGVydHkgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iLz4KICAgICAgPHByb3BlcnR5IG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciLz4KICAgICAgPHByb3BlcnR5IG5hbWU9ImNmSW50ZXJhY3Rpb25OdW1iZXIiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkludGVyYWN0aW9uTnVtYmVyIi8+CiAgICAgIDxwcm9wZXJ0eSBuYW1lPSJjZkludGVyYWN0aW9uSWQiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkludGVyYWN0aW9uSWQiLz4KICAgICAgPHByb3BlcnR5IG5hbWU9ImNmQ3VzdG9tZXIiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkN1c3RvbWVyIi8+CiAgICAgIDxwcm9wZXJ0eSBuYW1lPSJjZlBsYXRmb3JtIiB0eXBlPSJTdHJpbmciIGxhYmVsPSJQbGF0Zm9ybSIvPgogICAgICA8cHJvcGVydHkgbmFtZT0iY2ZFZGl0QnV0dG9uTGFiZWwiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkVkaXRCdXR0b25MYWJlbCIvPgogICAgICA8cHJvcGVydHkgbmFtZT0iY2ZBY2NvdW50SWQiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkFjY291bnRJZCIvPgogICAgPC90YXJnZXRDb25maWc+CiAgICA8dGFyZ2V0Q29uZmlnIHhtbG5zPSJodHRwOi8vc29hcC5zZm9yY2UuY29tLzIwMDYvMDQvbWV0YWRhdGEiIHRhcmdldHM9ImxpZ2h0bmluZ19fUmVjb3JkUGFnZSI+CiAgICAgIDxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiIvPgogICAgICA8cHJvcGVydHkgbmFtZT0iY2ZJbnRlcmFjdGlvbk51bWJlciIgdHlwZT0iU3RyaW5nIiBsYWJlbD0iSW50ZXJhY3Rpb25OdW1iZXIiLz4KICAgICAgPHByb3BlcnR5IG5hbWU9ImNmSW50ZXJhY3Rpb25JZCIgdHlwZT0iU3RyaW5nIiBsYWJlbD0iSW50ZXJhY3Rpb25JZCIvPgogICAgICA8cHJvcGVydHkgbmFtZT0iY2ZDdXN0b21lciIgdHlwZT0iU3RyaW5nIiBsYWJlbD0iQ3VzdG9tZXIiLz4KICAgICAgPHByb3BlcnR5IG5hbWU9ImNmUGxhdGZvcm0iIHR5cGU9IlN0cmluZyIgbGFiZWw9IlBsYXRmb3JtIi8+CiAgICAgIDxwcm9wZXJ0eSBuYW1lPSJjZkVkaXRCdXR0b25MYWJlbCIgdHlwZT0iU3RyaW5nIiBsYWJlbD0iRWRpdEJ1dHRvbkxhYmVsIi8+CiAgICAgIDxwcm9wZXJ0eSBuYW1lPSJjZkFjY291bnRJZCIgdHlwZT0iU3RyaW5nIiBsYWJlbD0iQWNjb3VudElkIi8+CiAgICA8L3RhcmdldENvbmZpZz4KICAgIDx0YXJnZXRDb25maWcgeG1sbnM9Imh0dHA6Ly9zb2FwLnNmb3JjZS5jb20vMjAwNi8wNC9tZXRhZGF0YSIgdGFyZ2V0cz0ibGlnaHRuaW5nQ29tbXVuaXR5X19EZWZhdWx0Ij4KICAgICAgPHByb3BlcnR5IG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciLz4KICAgIDwvdGFyZ2V0Q29uZmlnPgogICAgPHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0hvbWVQYWdlIj4KICAgICAgPHByb3BlcnR5IG5hbWU9ImNmSW50ZXJhY3Rpb25OdW1iZXIiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkludGVyYWN0aW9uTnVtYmVyIi8+CiAgICAgIDxwcm9wZXJ0eSBuYW1lPSJjZkludGVyYWN0aW9uSWQiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkludGVyYWN0aW9uSWQiLz4KICAgICAgPHByb3BlcnR5IG5hbWU9ImNmQ3VzdG9tZXIiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkN1c3RvbWVyIi8+CiAgICAgIDxwcm9wZXJ0eSBuYW1lPSJjZlBsYXRmb3JtIiB0eXBlPSJTdHJpbmciIGxhYmVsPSJQbGF0Zm9ybSIvPgogICAgICA8cHJvcGVydHkgbmFtZT0iY2ZFZGl0QnV0dG9uTGFiZWwiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkVkaXRCdXR0b25MYWJlbCIvPgogICAgICA8cHJvcGVydHkgbmFtZT0iY2ZBY2NvdW50SWQiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkFjY291bnRJZCIvPgogICAgPC90YXJnZXRDb25maWc+",
         "targets": {
             "target": [
                 "lightning__RecordPage",

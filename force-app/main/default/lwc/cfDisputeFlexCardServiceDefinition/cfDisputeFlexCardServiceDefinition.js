@@ -34,6 +34,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               
               connectedCallback() {
                 super.connectedCallback();
+                this.setThemeClass(data);
                 this.setStyleDefinition(styleDef);
                 data.Session = {} //reinitialize on reload
                 
@@ -59,7 +60,8 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
           [interpolateWithRegex(`GetInformation`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[0],0),
 [interpolateWithRegex(`GetModality`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[1],1),
 [interpolateWithRegex(`GetTotalAdjustmentAmount`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[2],2),
-[interpolateWithRegex(`GetOptions`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[3],3)
+[interpolateWithRegex(`GetOptions`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[3],3),
+[interpolateWithRegex(`CheckBoleto`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[4],4)
         };
         this.pubsubChannel0 = interpolateWithRegex(`ServiceDefinition`,this._allMergeFields,this._regexPattern,"noparse");
         pubsub.register(this.pubsubChannel0,this.pubsubEvent[0]);

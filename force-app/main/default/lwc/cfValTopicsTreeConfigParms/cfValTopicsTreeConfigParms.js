@@ -22,31 +22,32 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               
               @track record;
               
-              @track Label={ParametrosPalitoBtnAdicionar:"Adicionar",
-        ParametrosPalitoBtnSalvar:"Salvar",
-        ParametrosPalitoBtnCancelar:"Cancelar",
-        ParametrosPalitoMsgClassificacaoDeveSerPreenchido:"O campo Classificação deve ser preenchido",
-        ParametrosPalitoClassificacao:"Classificação",
-        ParametrosPalitoNao:"Não",
-        ParametrosPalitoSim:"Sim",
-        ParametrosPalitoEnvioSMSEmail:"Envio SMS/Email",
-        ParametrosPalitoNotificacoes:"Notificações",
-        ParametrosPalitoIdentificacaoVivoNet:"Identificação VivoNet",
-        ParametrosPalitoMsgIdentificacaoVivoNetDeveSerPreenchido:"O campo Identificação VivoNet deve ser preenchido",
-        ParametrosPalitoMsgDescricaoDeveSerPreenchido:"O campo Descrição deve ser preenchido",
-        ParametrosPalitoTipodeRelacionamento:"Tipo de Relacionamento",
-        ParametrosPalitoPalito:"Palito",
-        ParametrosPalitoPasta:"Pasta",
-        ParametrosPalitoTipo:"Tipo",
-        ParametrosPalitoDescricao:"Descrição",
+              @track Label={ParametrosPalitoMsgErroaoSalvar:"Erro ao salvar. Por favor atualize a página",
         ParametrosPalitoMsgPalitoSalvocomSucesso:"adicionado com sucesso",
-        ParametrosPalitoMsgErroaoSalvar:"Erro ao salvar. Por favor atualize a página"
+        ParametrosPalitoDescricao:"Descrição",
+        ParametrosPalitoTipo:"Tipo",
+        ParametrosPalitoPasta:"Pasta",
+        ParametrosPalitoPalito:"Palito",
+        ParametrosPalitoTipodeRelacionamento:"Tipo de Relacionamento",
+        ParametrosPalitoMsgDescricaoDeveSerPreenchido:"O campo Descrição deve ser preenchido",
+        ParametrosPalitoMsgIdentificacaoVivoNetDeveSerPreenchido:"O campo Identificação VivoNet deve ser preenchido",
+        ParametrosPalitoIdentificacaoVivoNet:"Identificação VivoNet",
+        ParametrosPalitoNotificacoes:"Notificações",
+        ParametrosPalitoEnvioSMSEmail:"Envio SMS/Email",
+        ParametrosPalitoSim:"Sim",
+        ParametrosPalitoNao:"Não",
+        ParametrosPalitoClassificacao:"Classificação",
+        ParametrosPalitoMsgClassificacaoDeveSerPreenchido:"O campo Classificação deve ser preenchido",
+        ParametrosPalitoBtnCancelar:"Cancelar",
+        ParametrosPalitoBtnSalvar:"Salvar",
+        ParametrosPalitoBtnAdicionar:"Adicionar"
         };
               pubsubEvent = [];
               customEvent = [];
               
               connectedCallback() {
                 super.connectedCallback();
+                this.setThemeClass(data);
                 this.setStyleDefinition(styleDef);
                 data.Session = {} //reinitialize on reload
                 

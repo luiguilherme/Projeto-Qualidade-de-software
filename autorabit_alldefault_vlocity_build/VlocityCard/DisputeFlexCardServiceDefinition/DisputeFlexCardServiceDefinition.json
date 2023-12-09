@@ -1,6 +1,21 @@
 {
     "dataSource": {
         "contextVariables": [
+            {
+                "id": 0,
+                "name": "isLastItem",
+                "val": "yes"
+            },
+            {
+                "id": 1,
+                "name": "serviceDefinitionName",
+                "val": "Teste Nome"
+            },
+            {
+                "id": 2,
+                "name": "attendantMessage",
+                "val": "mensagem"
+            }
         ],
         "orderBy": {
             "isReverse": "",
@@ -8,7 +23,7 @@
         },
         "type": "Custom",
         "value": {
-            "body": "{\n\"isLastItem\": \"\",\n\"serviceDefinitionName\": \"\",\n\"attendantMessage\": \"\",\n\"caseId\": \"\",\n\"accountId\":\"\",\n\"hasAutoDebit\": \"true\",\n\"invoiceStatus\": \"\",\n\"invoiceNumber\": \"\",\n\"withinAdjustmentPeriod\":\"true\"\n}",
+            "body": "{\n\"isLastItem\": \"yes\",\n\"serviceDefinitionName\": \"ATC-MVL-FIN-CONT-NEG-RET-DESC-006\",\n\"attendantMessage\": \"Ajuste Negado! Após conclusão do roteiro de atendimento realize o processo de retenção para reverter a intenção de cancelamento do cliente.\",\n\"caseId\": \"5008K000004QRoGQAW\",\n\"accountId\":\"\",\n\"hasAutoDebit\": \"=yes\",\n\"invoiceStatus\": \"open\",\n\"invoiceNumber\": \"100001\",\n\"withinAdjustmentPeriod\":\"=no\"\n}",
             "dsDelay": "",
             "resultVar": ""
         }
@@ -164,14 +179,53 @@
             "key": "event-3",
             "recordIndex": "0",
             "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1698675736642-diz7t66am",
+                    "label": "SetSessionCheckBoleto",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.checkBoleto",
+                                "fieldValue": "{action}"
+                            }
+                        ],
+                        "id": "flex-action-1698675774995",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "ServiceDefinition",
+            "displayLabel": "ServiceDefinition:CheckBoleto",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "CheckBoleto",
+            "eventtype": "pubsub",
+            "key": "event-4",
+            "recordIndex": "0",
+            "showSpinner": "false"
         }
     ],
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfDisputeFlexCardServiceDefinition_3_Dispute",
-        "Id": "0Rb8K000000aJRxSAM",
+        "DeveloperName": "cfDisputeFlexCardServiceDefinition_6_Dispute",
+        "Id": "0Rb78000000LSVrCAO",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfDisputeFlexCardServiceDefinition_3_Dispute",
+        "MasterLabel": "cfDisputeFlexCardServiceDefinition_6_Dispute",
         "NamespacePrefix": "c"
     },
     "osSupport": true,
@@ -216,6 +270,10 @@
         {
             "name": "options",
             "val": ""
+        },
+        {
+            "name": "checkBoleto",
+            "val": "false"
         }
     ],
     "states": [
@@ -234,7 +292,7 @@
                             "name": "Text",
                             "property": {
                                 "card": "{card}",
-                                "mergeField": "%3Cdiv%20class=%22slds-text-heading_small%20slds-text-title%20slds-text-align_center%22%3E%3Cspan%20style=%22color:%20#7e8c8d;%22%3E%3Cstrong%3E%3Cspan%20style=%22font-size:%2018pt;%20font-family:%20'Salesforce%20Sans',%20Arial,%20sans-serif;%22%3EDefini&ccedil;&atilde;o%20de%20Atendimento%3C/span%3E%3C/strong%3E%3C/span%3E%3C/div%3E%0A%3Cdiv%20class=%22slds-text-heading_small%20slds-text-color_default%20slds-text-body_regular%20slds-text-align_left%22%3E%3Cspan%20style=%22color:%20#7e8c8d;%22%3E%3Cstrong%3E%3Cspan%20style=%22font-family:%20'Salesforce%20Sans',%20Arial,%20sans-serif;%22%3E%3Cspan%20style=%22font-size:%2012pt;%22%3EDesfecho%20para%3C/span%3E%3Cspan%20style=%22font-size:%2012pt;%22%3E%20o%20%3C/span%3E%3Cspan%20style=%22font-size:%2012pt;%22%3Eatendimento%3C/span%3E%3C/span%3E%3C/strong%3E%3C/span%3E%3C/div%3E%0A%3Cblockquote%20class=%22slds-text-heading_small%20slds-text-color_default%20slds-text-body_regular%20slds-text-align_left%22%3E%3Cstrong%3E%3Cspan%20style=%22color:%20#e03e2d;%22%3EInforma&ccedil;&otilde;es%20esclarecidas%20durante%20o%20atendimento:%3C/span%3E%3C/strong%3E%3C/blockquote%3E",
+                                "mergeField": "%3Cdiv%20class=%22slds-text-align_left%22%3EInforma&ccedil;&otilde;es%20esclarecidas%20durante%20o%20atendimento:%3C/div%3E",
                                 "record": "{record}"
                             },
                             "size": {
@@ -263,7 +321,7 @@
                                 },
                                 "elementStyleProperties": {
                                 },
-                                "inlineStyle": "",
+                                "inlineStyle": "font-family: 'Segoe UI Semibold'; font-size: 16px; color: #5C169D",
                                 "margin": [
                                 ],
                                 "padding": [
@@ -273,7 +331,7 @@
                                     "isResponsive": false
                                 },
                                 "sizeClass": "slds-size_12-of-12 ",
-                                "style": "      \n         ",
+                                "style": "      \n         font-family: 'Segoe UI Semibold'; font-size: 16px; color: #5C169D",
                                 "text": {
                                     "align": "center",
                                     "color": ""
@@ -308,7 +366,7 @@
                                         },
                                         "elementStyleProperties": {
                                         },
-                                        "inlineStyle": "",
+                                        "inlineStyle": "font-family: 'Segoe UI Semibold'; font-size: 16px; color: #5C169D",
                                         "margin": [
                                         ],
                                         "padding": [
@@ -318,7 +376,7 @@
                                             "isResponsive": false
                                         },
                                         "sizeClass": "slds-size_12-of-12 ",
-                                        "style": "      \n         ",
+                                        "style": "      \n         font-family: 'Segoe UI Semibold'; font-size: 16px; color: #5C169D",
                                         "text": {
                                             "align": "center",
                                             "color": ""
@@ -349,7 +407,7 @@
                                     "id": "state-condition-object",
                                     "isParent": true
                                 },
-                                "mergeField": "%3Cblockquote%20class=%22slds-text-title_caps%22%3E%3Cspan%20style=%22color:%20#7e8c8d;%22%3E%3Cstrong%3E%7BattendantMessage%7D%20(%7BserviceDefinitionName%7D)%3C/strong%3E%3C/span%3E%3C/blockquote%3E",
+                                "mergeField": "%3Cdiv%3E%7BattendantMessage%7D%3Cbr%20/%3E(%7BserviceDefinitionName%7D)%3C/div%3E",
                                 "record": "{record}"
                             },
                             "size": {
@@ -358,48 +416,104 @@
                             },
                             "stateIndex": 0,
                             "styleObject": {
-                                "sizeClass": "slds-size_12-of-12"
+                                "background": {
+                                    "color": "",
+                                    "image": "",
+                                    "position": "",
+                                    "repeat": "",
+                                    "size": ""
+                                },
+                                "border": {
+                                    "color": "",
+                                    "radius": "",
+                                    "style": "",
+                                    "type": "",
+                                    "width": ""
+                                },
+                                "class": "",
+                                "container": {
+                                    "class": ""
+                                },
+                                "elementStyleProperties": {
+                                },
+                                "inlineStyle": "font-family: 'Segoe UI Regular'; font-size: 12px; color: #3E3E3C",
+                                "margin": [
+                                ],
+                                "padding": [
+                                ],
+                                "size": {
+                                    "default": "12",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_12-of-12 ",
+                                "style": "      \n         font-family: 'Segoe UI Regular'; font-size: 12px; color: #3E3E3C",
+                                "text": {
+                                    "align": "",
+                                    "color": ""
+                                }
                             },
+                            "styleObjects": [
+                                {
+                                    "conditionString": "",
+                                    "conditions": "default",
+                                    "draggable": false,
+                                    "key": 0,
+                                    "label": "Default",
+                                    "name": "Default",
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "font-family: 'Segoe UI Regular'; font-size: 12px; color: #3E3E3C",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "      \n         font-family: 'Segoe UI Regular'; font-size: 12px; color: #3E3E3C",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    }
+                                }
+                            ],
                             "type": "text"
                         },
                         {
-                            "children": [
-                                {
-                                    "class": "slds-col ",
-                                    "element": "customLwc",
-                                    "elementLabel": "Block-3-Custom LWC-1",
-                                    "key": "element_element_block_2_0_customLwc_0_0",
-                                    "name": "Custom LWC",
-                                    "parentElementKey": "element_block_2_0",
-                                    "property": {
-                                        "customlwcname": "cfDisputeFlexCardServiceDefinitionMessage",
-                                        "recordId": "{caseId}"
-                                    },
-                                    "size": {
-                                        "default": "12",
-                                        "isResponsive": false
-                                    },
-                                    "stateIndex": 0,
-                                    "styleObject": {
-                                        "sizeClass": "slds-size_12-of-12"
-                                    },
-                                    "type": "element"
-                                }
-                            ],
                             "class": "slds-col ",
-                            "element": "block",
-                            "elementLabel": "Block-3",
-                            "name": "Block",
+                            "element": "customLwc",
+                            "elementLabel": "Custom LWC-3",
+                            "name": "Custom LWC",
                             "property": {
-                                "card": "{card}",
-                                "collapsedByDefault": false,
-                                "collapsible": false,
+                                "customlwcname": "cfDisputeFlexCardServiceDefinitionMessage",
                                 "data-conditions": {
                                     "group": [
                                         {
                                             "field": "isLastItem",
                                             "hasMergeField": false,
-                                            "id": "state-new-condition-11",
+                                            "id": "state-new-condition-2",
                                             "operator": "==",
                                             "type": "custom",
                                             "value": "yes"
@@ -408,8 +522,7 @@
                                     "id": "state-condition-object",
                                     "isParent": true
                                 },
-                                "label": "Block",
-                                "record": "{record}"
+                                "recordId": "{caseId}"
                             },
                             "size": {
                                 "default": "12",
@@ -417,16 +530,9 @@
                             },
                             "stateIndex": 0,
                             "styleObject": {
-                                "class": "slds-p-around_x-small",
-                                "padding": [
-                                    {
-                                        "size": "x-small",
-                                        "type": "around"
-                                    }
-                                ],
                                 "sizeClass": "slds-size_12-of-12"
                             },
-                            "type": "block"
+                            "type": "element"
                         },
                         {
                             "children": [
@@ -439,7 +545,7 @@
                                     "parentElementKey": "element_block_3_0",
                                     "property": {
                                         "card": "{card}",
-                                        "mergeField": "%3Cdiv%3E%3Cspan%20style=%22color:%20#e03e2d;%22%3E%3Cstrong%3EPreencha%20os%20campos%20abaixo%20de%20acordo%20com%20o%20informado%20pelo%20cliente.%3C/strong%3E%3C/span%3E%3C/div%3E",
+                                        "mergeField": "%3Cdiv%3EPreencha%20os%20campos%20abaixo%20de%20acordo%20com%20o%20informado%20pelo%20cliente.%3C/div%3E",
                                         "record": "{record}"
                                     },
                                     "size": {
@@ -448,8 +554,89 @@
                                     },
                                     "stateIndex": 0,
                                     "styleObject": {
-                                        "sizeClass": "slds-size_12-of-12"
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "font-family: 'Segoe UI Semibold'; font-size: 16px; color: #5C169D",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "      \n         font-family: 'Segoe UI Semibold'; font-size: 16px; color: #5C169D",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
                                     },
+                                    "styleObjects": [
+                                        {
+                                            "conditionString": "",
+                                            "conditions": "default",
+                                            "draggable": false,
+                                            "key": 0,
+                                            "label": "Default",
+                                            "name": "Default",
+                                            "styleObject": {
+                                                "background": {
+                                                    "color": "",
+                                                    "image": "",
+                                                    "position": "",
+                                                    "repeat": "",
+                                                    "size": ""
+                                                },
+                                                "border": {
+                                                    "color": "",
+                                                    "radius": "",
+                                                    "style": "",
+                                                    "type": "",
+                                                    "width": ""
+                                                },
+                                                "class": "",
+                                                "container": {
+                                                    "class": ""
+                                                },
+                                                "elementStyleProperties": {
+                                                },
+                                                "inlineStyle": "font-family: 'Segoe UI Semibold'; font-size: 16px; color: #5C169D",
+                                                "margin": [
+                                                ],
+                                                "padding": [
+                                                ],
+                                                "size": {
+                                                    "default": "12",
+                                                    "isResponsive": false
+                                                },
+                                                "sizeClass": "slds-size_12-of-12 ",
+                                                "style": "      \n         font-family: 'Segoe UI Semibold'; font-size: 16px; color: #5C169D",
+                                                "text": {
+                                                    "align": "",
+                                                    "color": ""
+                                                }
+                                            }
+                                        }
+                                    ],
                                     "type": "text",
                                     "userUpdatedElementLabel": true
                                 },
@@ -758,10 +945,10 @@
                                 {
                                     "class": "slds-col ",
                                     "element": "customLwc",
-                                    "elementLabel": "Block-1-Custom LWC-1",
-                                    "key": "element_element_block_2_0_customLwc_0_0",
+                                    "elementLabel": "Block-5-Custom LWC-0",
+                                    "key": "element_element_block_5_0_customLwc_0_0",
                                     "name": "Custom LWC",
-                                    "parentElementKey": "element_block_2_0",
+                                    "parentElementKey": "element_block_5_0",
                                     "property": {
                                         "customlwcname": "disputeAdjustmentForm",
                                         "param": "{records}"
@@ -790,19 +977,114 @@
                             },
                             "size": {
                                 "default": "12",
-                                "isResponsive": false
+                                "isResponsive": false,
+                                "large": "12",
+                                "medium": "12",
+                                "small": "12"
                             },
                             "stateIndex": 0,
                             "styleObject": {
-                                "class": "slds-p-around_x-small",
+                                "background": {
+                                    "color": "",
+                                    "image": "",
+                                    "position": "",
+                                    "repeat": "",
+                                    "size": ""
+                                },
+                                "border": {
+                                    "color": "",
+                                    "radius": "",
+                                    "style": "",
+                                    "type": "",
+                                    "width": ""
+                                },
+                                "class": "slds-p-around_x-small ",
+                                "container": {
+                                    "class": ""
+                                },
+                                "elementStyleProperties": {
+                                },
+                                "height": "",
+                                "inlineStyle": "",
+                                "margin": [
+                                ],
                                 "padding": [
                                     {
+                                        "label": "around:x-small",
                                         "size": "x-small",
                                         "type": "around"
                                     }
                                 ],
-                                "sizeClass": "slds-size_12-of-12"
+                                "size": {
+                                    "default": "12",
+                                    "isResponsive": false,
+                                    "large": "12",
+                                    "medium": "12",
+                                    "small": "12"
+                                },
+                                "sizeClass": "slds-size_12-of-12 ",
+                                "style": "      \n         ",
+                                "text": {
+                                    "align": "",
+                                    "color": ""
+                                }
                             },
+                            "styleObjects": [
+                                {
+                                    "conditionString": "",
+                                    "conditions": "default",
+                                    "draggable": false,
+                                    "key": 0,
+                                    "label": "Default",
+                                    "name": "Default",
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "slds-p-around_x-small ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "height": "",
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                            {
+                                                "label": "around:x-small",
+                                                "size": "x-small",
+                                                "type": "around"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false,
+                                            "large": "12",
+                                            "medium": "12",
+                                            "small": "12"
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    }
+                                }
+                            ],
                             "type": "block"
                         },
                         {
@@ -969,6 +1251,15 @@
                                             "operator": "==",
                                             "type": "custom",
                                             "value": "Boleto"
+                                        },
+                                        {
+                                            "field": "Session.checkBoleto",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-0",
+                                            "logicalOperator": "&&",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "false"
                                         }
                                     ],
                                     "id": "state-condition-object",
@@ -1009,9 +1300,17 @@
                                         "propertyObj": {
                                             "fieldBinding": "{Session.notes}",
                                             "label": "Observação",
+                                            "required": true,
                                             "styles": "{\n        \"label\": {\n            \"width\":\"auto\"\n        }\n      }"
                                         },
                                         "record": "{record}",
+                                        "styles": {
+                                            "label": {
+                                                "color": "#3E3E3C",
+                                                "fontFamily": "Segoe UI Semibold",
+                                                "fontSize": "16px"
+                                            }
+                                        },
                                         "type": "textarea"
                                     },
                                     "size": {
@@ -1020,21 +1319,123 @@
                                     },
                                     "stateIndex": 0,
                                     "styleObject": {
-                                        "class": "slds-p-right_x-small",
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "slds-p-right_small slds-m-bottom_xx-small ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                            "styles": {
+                                                "label": {
+                                                    "color": "#3E3E3C",
+                                                    "fontFamily": "Segoe UI Semibold",
+                                                    "fontSize": "16px"
+                                                }
+                                            }
+                                        },
+                                        "inlineStyle": "",
                                         "margin": [
                                             {
+                                                "label": "bottom:xx-small",
                                                 "size": "xx-small",
                                                 "type": "bottom"
                                             }
                                         ],
                                         "padding": [
                                             {
+                                                "label": "right:small",
                                                 "size": "small",
                                                 "type": "right"
                                             }
                                         ],
-                                        "sizeClass": "slds-size_12-of-12"
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
                                     },
+                                    "styleObjects": [
+                                        {
+                                            "conditionString": "",
+                                            "conditions": "default",
+                                            "draggable": false,
+                                            "key": 0,
+                                            "label": "Default",
+                                            "name": "Default",
+                                            "styleObject": {
+                                                "background": {
+                                                    "color": "",
+                                                    "image": "",
+                                                    "position": "",
+                                                    "repeat": "",
+                                                    "size": ""
+                                                },
+                                                "border": {
+                                                    "color": "",
+                                                    "radius": "",
+                                                    "style": "",
+                                                    "type": "",
+                                                    "width": ""
+                                                },
+                                                "class": "slds-p-right_small slds-m-bottom_xx-small ",
+                                                "container": {
+                                                    "class": ""
+                                                },
+                                                "elementStyleProperties": {
+                                                    "styles": {
+                                                        "label": {
+                                                            "color": "#3E3E3C",
+                                                            "fontFamily": "Segoe UI Semibold",
+                                                            "fontSize": "16px"
+                                                        }
+                                                    }
+                                                },
+                                                "inlineStyle": "",
+                                                "margin": [
+                                                    {
+                                                        "label": "bottom:xx-small",
+                                                        "size": "xx-small",
+                                                        "type": "bottom"
+                                                    }
+                                                ],
+                                                "padding": [
+                                                    {
+                                                        "label": "right:small",
+                                                        "size": "small",
+                                                        "type": "right"
+                                                    }
+                                                ],
+                                                "size": {
+                                                    "default": "12",
+                                                    "isResponsive": false
+                                                },
+                                                "sizeClass": "slds-size_12-of-12 ",
+                                                "style": "      \n         ",
+                                                "text": {
+                                                    "align": "",
+                                                    "color": ""
+                                                }
+                                            }
+                                        }
+                                    ],
                                     "type": "element",
                                     "userUpdatedElementLabel": true
                                 }
@@ -1077,38 +1478,17 @@
                                 "actionList": [
                                     {
                                         "actionIndex": 0,
-                                        "card": "{card}",
-                                        "draggable": true,
-                                        "isOpen": true,
-                                        "key": "1691780004328-v9ohoq1k7",
-                                        "label": "CriarInteraction",
-                                        "stateAction": {
-                                            "channelName": "close_modal",
-                                            "displayName": "Action",
-                                            "eventName": "setValues",
-                                            "fieldValues": [
-                                                {
-                                                    "fieldName": "criarInteraction",
-                                                    "fieldValue": "true"
-                                                }
-                                            ],
-                                            "flyoutType": "childCard",
-                                            "id": "flex-action-1691780063146",
-                                            "openFlyoutIn": "Popover",
-                                            "openUrlIn": "Current Window",
-                                            "type": "cardAction",
-                                            "vlocityIcon": "standard-default"
-                                        }
-                                    },
-                                    {
-                                        "actionIndex": 0,
                                         "draggable": true,
                                         "isOpen": true,
                                         "key": "1686757760317-2nzbpmiui",
                                         "label": "DispararAjuste",
                                         "stateAction": {
                                             "eventName": "ServiceDefinition",
-                                            "id": "flex-action-1691667756372",
+                                            "extraParams": {
+                                                "Session": "{Session}"
+                                            },
+                                            "hasExtraParams": true,
+                                            "id": "flex-action-1698064397777",
                                             "message": "RegisterBtn",
                                             "openUrlIn": "Current Window",
                                             "subType": "PubSub",
@@ -1138,13 +1518,19 @@
                                 "flyoutDetails": {
                                 },
                                 "hideActionIcon": true,
-                                "iconName": "standard-default",
+                                "iconColor": "#FFFFFF",
+                                "iconName": "custom:custom14",
+                                "iconOnly": false,
+                                "iconSize": "medium",
                                 "label": "Registrar Atendimento",
                                 "record": "{record}",
                                 "showSpinner": "false",
                                 "stateObj": "{record}",
                                 "styles": {
                                     "label": {
+                                        "color": "#FFFFFF",
+                                        "fontFamily": "Segoe UI Semibold",
+                                        "fontSize": "16px",
                                         "textAlign": "center"
                                     }
                                 }
@@ -1174,8 +1560,13 @@
                                     "class": ""
                                 },
                                 "elementStyleProperties": {
+                                    "iconColor": "#FFFFFF",
+                                    "iconSize": "medium",
                                     "styles": {
                                         "label": {
+                                            "color": "#FFFFFF",
+                                            "fontFamily": "Segoe UI Semibold",
+                                            "fontSize": "16px",
                                             "textAlign": "center"
                                         }
                                     }
@@ -1224,8 +1615,13 @@
                                             "class": ""
                                         },
                                         "elementStyleProperties": {
+                                            "iconColor": "#FFFFFF",
+                                            "iconSize": "medium",
                                             "styles": {
                                                 "label": {
+                                                    "color": "#FFFFFF",
+                                                    "fontFamily": "Segoe UI Semibold",
+                                                    "fontSize": "16px",
                                                     "textAlign": "center"
                                                 }
                                             }

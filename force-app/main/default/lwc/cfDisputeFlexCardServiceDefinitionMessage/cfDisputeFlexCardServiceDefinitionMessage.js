@@ -34,6 +34,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               
               connectedCallback() {
                 super.connectedCallback();
+                this.setThemeClass(data);
                 this.setStyleDefinition(styleDef);
                 data.Session = {} //reinitialize on reload
                 
@@ -55,10 +56,17 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
 
               registerEvents() {
                 
+        this.pubsubEvent[0] = {
+          [interpolateWithRegex(`CaseClosureDefinition`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[0],0)
+        };
+        this.pubsubChannel0 = interpolateWithRegex(`DisputeFlexCardServiceDefinitionMessage`,this._allMergeFields,this._regexPattern,"noparse");
+        pubsub.register(this.pubsubChannel0,this.pubsubEvent[0]);
+
               }
 
               unregisterEvents(){
-                
+                pubsub.unregister(this.pubsubChannel0,this.pubsubEvent[0]);
+
               }
             
               renderedCallback() {

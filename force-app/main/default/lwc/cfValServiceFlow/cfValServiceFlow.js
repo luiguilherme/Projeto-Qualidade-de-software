@@ -78,7 +78,8 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
 [interpolateWithRegex(`clearvalues`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[6],6),
 [interpolateWithRegex(`openedcanvas`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[7],7),
 [interpolateWithRegex(`open`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[8],8),
-[interpolateWithRegex(`recoveryids`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[10],10)
+[interpolateWithRegex(`recoveryids`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[10],10),
+[interpolateWithRegex(`OpenedDispute`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[13],13)
         };
         this.pubsubChannel0 = interpolateWithRegex(`valServiceFlow`,this._allMergeFields,this._regexPattern,"noparse");
         pubsub.register(this.pubsubChannel0,this.pubsubEvent[0]);

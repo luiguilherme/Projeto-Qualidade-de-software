@@ -28,7 +28,7 @@
         "messages": [
             {
                 "active": true,
-                "text": "O processo de BulkReplace está em execução. Aguarde alguns minutos e tente novamente.",
+                "text": "Seu pedido está sendo processado, aguarde a conclusão no sino de notificações e realize uma consulta no botão abaixo.",
                 "type": "Warning",
                 "value": true
             },
@@ -39,7 +39,18 @@
                 "value": false
             }
         ],
-        "show": null,
+        "show": {
+            "group": {
+                "operator": "AND",
+                "rules": [
+                    {
+                        "condition": "=",
+                        "data": "2",
+                        "field": "1"
+                    }
+                ]
+            }
+        },
         "validateExpression": {
             "group": {
                 "operator": "AND",
@@ -48,6 +59,11 @@
                         "condition": "=",
                         "data": "INPROGESS",
                         "field": "StatusAsyncJobPromotion:JobBulkReplaceStatus"
+                    },
+                    {
+                        "condition": "=",
+                        "data": "SUCCESS",
+                        "field": "StatusAsyncJobPromotion:JobAddMembersStatus"
                     }
                 ]
             }

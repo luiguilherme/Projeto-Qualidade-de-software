@@ -10,7 +10,7 @@
         "HTMLTemplateId": "",
         "controlWidth": 12,
         "elementValueMap": {
-            "NotBalanceLineAvailable": "=IF(%Functionality%=='AdditionalPackage',IF(NUMBER(%BalanceLineAvailable:totalMonetary%,2) <= 0.0 || NUMBER(%BalanceLineAvailable:totalMonetary%,2) < NUMBER(%ResponseOrder:OrderDetails:OrderTotalValue%,2),'Saldo insuficiente! Ativação de pacote não realizada.','.'))",
+            "NotBalanceLineAvailable": "=IF(%Functionality%=='AdditionalPackage' && %OLIStatus:HasRecurrentAddPack%==false,IF(NUMBER(%BalanceLineAvailable:totalMonetary%,2) <= 0.0 || NUMBER(%BalanceLineAvailable:totalMonetary%,2) < NUMBER(%ResponseOrder:OrderDetails:OrderTotalValue%,2),'Saldo insuficiente! Ativação de pacote não realizada.','.'))",
             "messageOrderInFlight": "A linha tem uma ordem Salesforce em andamento e não permite executar essa operação."
         },
         "label": "SVMessages",

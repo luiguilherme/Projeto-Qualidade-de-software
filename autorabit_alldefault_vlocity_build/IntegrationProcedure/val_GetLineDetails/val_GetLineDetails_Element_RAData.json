@@ -10,8 +10,10 @@
         "additionalOutput": {
             "ActivationDate": "%DRGetLineDetails:ActivationDate%",
             "CreatedDate": "%DRGetLineDetails:CreatedDate%",
+            "Device": "%RemoteTransformResourceResponse:result:DEVICE%",
             "ICCID": "=IF(%DRGetLineDetails:ICCID%,TOSTRING(%DRGetLineDetails:ICCID%),NULL)",
-            "IMEI": "=%DRGetLineDetails:IMEI%",
+            "IMEI": "=TOSTRING(%RemoteTransformResourceResponse:result:IMEI%)",
+            "Model": "%RemoteTransformResourceResponse:result:MODEL%",
             "Plan": "=%DRGetLineDetails:Plan%",
             "Platform": "=IF(%LAMergeTranslatedPlatform:AssetPlatform__cValue%, %LAMergeTranslatedPlatform:AssetPlatform__cValue%, %DRGetLineDetails:Platform%)",
             "ProductType": "%DRGetLineDetails:ProductType%",
@@ -22,6 +24,7 @@
             "SubscriptionNextStatus": "%DRGetLineDetails:NextStatus%",
             "SubscriptionNumber": "=IF(%DRGetLineDetails:SubscriptionNumber%,TOSTRING(%DRGetLineDetails:SubscriptionNumber%),NULL)",
             "SubscriptionStatus": "%DRGetLineDetails:SubscriptionStatus%",
+            "Vendor": "%RemoteTransformResourceResponse:result:VENDOR%",
             "hasError": "=IF(%HTTPGetUserProductsInfo:statusCode% != 200 || ISBLANK(%SVUserId:UserId%), True, False)",
             "providerId": "=%IPgetBalanceDetailed:providerId%"
         },
