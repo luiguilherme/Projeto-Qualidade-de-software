@@ -6,6 +6,8 @@ public with sharing class PIDTokenValidateDTO {
     @AuraEnabled
     public Integer attempts {get;set;}
     @AuraEnabled
+    public String sendedPhone {get; set;}
+    @AuraEnabled
     public Boolean hasAccess {get;set;}
     @AuraEnabled
     public Integer interval {get;set;}

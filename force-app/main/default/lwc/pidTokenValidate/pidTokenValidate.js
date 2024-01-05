@@ -3,6 +3,7 @@ import getCustomerIntAPX from '@salesforce/apex/PIDTokenValidateController.getCu
 import updateTokenStatus from '@salesforce/apex/PIDTokenValidateController.updateTokenStatus';
 import sendToken from '@salesforce/apex/PIDTokenValidateController.sendToken';
 import { refreshApex } from "@salesforce/apex";
+import pubsub from 'vlocity_cmt/pubsub';
 
 export default class PidTokenValidate extends LightningElement {
     @api recordId;
@@ -15,6 +16,8 @@ export default class PidTokenValidate extends LightningElement {
     showPath = false;
     currentStep = 1;
     screenStatus;
+    handleEventObj;
+    showPhone = false;
 
     // Buttons
     isEnviar = false;
@@ -44,9 +47,14 @@ export default class PidTokenValidate extends LightningElement {
     hasNoAssetTimer = false;
 
 
+
     // Counter
     countAttempt;
     maxCountAttempts;
+
+    connectedCallback() {
+        this.registerPubSub();
+    }
 
     beginPidToken(){
         this.showTokenScreen = true;
@@ -63,23 +71,15 @@ export default class PidTokenValidate extends LightningElement {
 
                 if(result.data.phone === 'Não possui linha válida') {
                     this.phoneFormatted = 'Não Possui Linha Válida';
-                    this.hasNoAssetTimer = true;
-                    this.startTimer();
-
                     this.disableAllScene();
                 } else {
-                    this.hasNoAssetTimer = false;
-                    clearInterval(this.timeIntervalInstanceNoAsset);
-                    this.phone = result.data.phone;
+                    this.phone = this.isNotEndedStatus(result) ? result.data.phone : result.data.sendedPhone ? result.data.sendedPhone : '';
                     this.phoneFormatted = this.phone.toString().slice(0,2) + '-' + this.phone.toString().slice(2,11);
                     this.maxCountAttempts = result.data.attempts;
                     this.countAttempt = result.data.tokenSendAttempts;
-
-                    if (result.data.tokenStatus != 'Cancelado'
-                            && result.data.tokenStatus != 'Validado'
-                            && result.data.tokenStatus != 'Não validado'
-                            && this.countAttempt <= this.maxCountAttempts
-                            && this.isCarregando == false ) {
+                    if (this.isNotEndedStatus(result) && 
+                        this.countAttempt <= this.maxCountAttempts &&
+                        this.isCarregando == false ) {
                         this.isEnviar = true;
                     } else {
                         this.disableAllScene();
@@ -143,46 +143,39 @@ export default class PidTokenValidate extends LightningElement {
 
     startTimer() {
         var parentThis = this;
+        this.timeIntervalInstance = setInterval(function() {
+            var minutes = Math.floor((parentThis.timeMiliseconds % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((parentThis.timeMiliseconds % (1000 * 60)) / 1000);
+            parentThis.timer = String(minutes).padStart(2,'0') + ':' + String(seconds).padStart(2,'0');
 
-        if(this.hasNoAssetTimer){
-            this.timeIntervalInstanceNoAsset = setInterval(function() {
-                parentThis.refreshData();
-            }, 1000);
-
-        } else{
-            this.timeIntervalInstance = setInterval(function() {
-                var minutes = Math.floor((parentThis.timeMiliseconds % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((parentThis.timeMiliseconds % (1000 * 60)) / 1000);
-                parentThis.timer = String(minutes).padStart(2,'0') + ':' + String(seconds).padStart(2,'0');
-    
-                if(parentThis.timeMiliseconds <= 0) {
-                    clearInterval(parentThis.timeIntervalInstance);
-                    if (parentThis.countAttempt === parentThis.maxCountAttempts) {
-                        parentThis.disableAllScene();
-                        parentThis.cssLimitExceed();
-                        parentThis.piStep1 = 'Token Enviado';
-                        parentThis.piStep2 = '';
-                        parentThis.piStep3 = 'Token Não Validado Por Nº De Tentativas Excedidas';
-                        parentThis.showPath = true;
-                        parentThis.currentStep = '3';
-                        parentThis.hasError = true;
-                    } else {
-                        parentThis.isEnviar = true;
-                        parentThis.isCarregando = false;
-                        parentThis.piStep1 = 'Token Enviado';
-                        parentThis.piStep2 = 'Token Não Validado! Envie novamente';
-                        parentThis.hasError = true;
-                        parentThis.cssTokenNoValidated();
-                    }
-					parentThis.resetTimer();
-
-                    updateTokenStatus({customerIntId: parentThis.recordId, tokenStatus: 'Não validado'});
+            if(parentThis.timeMiliseconds <= 0) {
+                clearInterval(parentThis.timeIntervalInstance);
+                if (parentThis.countAttempt === parentThis.maxCountAttempts) {
+                    parentThis.disableAllScene();
+                    parentThis.cssLimitExceed();
+                    parentThis.piStep1 = 'Token Enviado';
+                    parentThis.piStep2 = '';
+                    parentThis.piStep3 = 'Token Não Validado Por Nº De Tentativas Excedidas';
+                    parentThis.showPath = true;
+                    parentThis.currentStep = '3';
+                    parentThis.hasError = true;
+                } else {
+                    parentThis.isEnviar = true;
+                    parentThis.isCarregando = false;
+                    parentThis.piStep1 = 'Token Enviado';
+                    parentThis.piStep2 = 'Token Não Validado! Envie novamente';
+                    parentThis.hasError = true;
+                    parentThis.cssTokenNoValidated();
                 }
-    
-                parentThis.refreshData();
-                parentThis.timeMiliseconds -= 1000;
-            }, 1000);
-        }
+                parentThis.resetTimer();
+
+                updateTokenStatus({customerIntId: parentThis.recordId, tokenStatus: 'Não validado'});
+            }
+
+            parentThis.refreshData();
+            parentThis.timeMiliseconds -= 1000;
+        }, 1000);
+        
         
     }
 
@@ -328,5 +321,23 @@ export default class PidTokenValidate extends LightningElement {
     get cssFinalStep(){
         return this.cssFinalStep;
     }
+    
+    registerPubSub() {
+        this.handleEventObj = {
+            assetUpdateFinished : this.handleEventAction.bind(this)
+        };
 
+        pubsub.register("updatedata", this.handleEventObj);
+    }
+
+    handleEventAction(actionObj, index, event) {
+        this.refreshData();
+        this.showPhone = true;
+    }
+
+    isNotEndedStatus(result) {
+        return result.data.tokenStatus != 'Cancelado' && 
+        result.data.tokenStatus != 'Validado' && 
+        result.data.tokenStatus != 'Não validado';
+    }
 }
