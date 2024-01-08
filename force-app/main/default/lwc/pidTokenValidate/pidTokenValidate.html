@@ -16,7 +16,13 @@
 
             
                 <template if:true={showTokenScreen}>
-                    <template if:true={returnValue}>
+                    <template if:false={showPhone}>
+                        <div>
+                            <lightning-spinner class="spinnerDiv" variant="brand" alternative-text="Loading"></lightning-spinner>
+                        </div>
+                    </template>
+
+                    <template if:true={showPhone}>
                         <div class="slds-grid slds-wrap slds-p-vertical_x-small slds-m-around_none slds-border_bottom">
                             <div class="slds-size_1-of-2 slds-medium-size_2-of-4">
                                 <p class="">Nº da linha</p>

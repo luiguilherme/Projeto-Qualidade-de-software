@@ -43,6 +43,7 @@ public with sharing class PIDTokenValidateService {
             thisPIDTokenValidateDTO.tokenSendAttempts = Integer.valueOf(thisCustomerInt.TokenSendAttempts__c);
             thisPIDTokenValidateDTO.hasAccess = true;
             thisPIDTokenValidateDTO.phone = PIDTokenValidateEngine.getPhoneNumber(thisCustomerInt.vlocity_cmt__AccountId__c);
+            thisPIDTokenValidateDTO.sendedPhone = String.valueOf(thisCustomerInt.TokenSendNumber__c);
             return thisPIDTokenValidateDTO;
         }
 
