@@ -2,40 +2,15 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>58.0</apiVersion>
     <decisions>
-        <name>Campo_Comentario_esta_Aguardando_Escolha_da_Oferta</name>
-        <label>Campo de Comentário está aguardando escolha da oferta?</label>
-        <locationX>1370</locationX>
-        <locationY>323</locationY>
-        <defaultConnector>
-            <targetReference>Qual_o_tipo_de_movimento</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Não</defaultConnectorLabel>
-        <rules>
-            <name>Sim</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>$Record.TopicName__c</leftValueReference>
-                <operator>Contains</operator>
-                <rightValue>
-                    <stringValue>Fluxo em Andamento</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Atualizar_Observacao_apos_criar_pedido</targetReference>
-            </connector>
-            <label>Sim</label>
-        </rules>
-    </decisions>
-    <decisions>
         <description>Validar o tipo de movimento no fluxo de migração</description>
-        <name>Qual_o_tipo_de_movimento</name>
-        <label>Qual o tipo de movimento?</label>
-        <locationX>1370</locationX>
-        <locationY>623</locationY>
+        <name>Validar_tipo_de_movimento</name>
+        <label>Validar tipo de movimento</label>
+        <locationX>1238</locationX>
+        <locationY>431</locationY>
         <defaultConnector>
             <targetReference>Atualizar_apenas_linha_migrada</targetReference>
         </defaultConnector>
-        <defaultConnectorLabel>Não Reconheceu o Movimento</defaultConnectorLabel>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Controle_Upgrade</name>
             <conditionLogic>and</conditionLogic>
@@ -43,13 +18,13 @@
                 <leftValueReference>$Record.TopicName__c</leftValueReference>
                 <operator>Contains</operator>
                 <rightValue>
-                    <stringValue>Controle - Upgrade</stringValue>
+                    <stringValue>Controle Upgrade</stringValue>
                 </rightValue>
             </conditions>
             <connector>
                 <targetReference>Atualizar_Pedido_de_Controle_Upgrade</targetReference>
             </connector>
-            <label>Controle - Upgrade</label>
+            <label>Controle Upgrade</label>
         </rules>
         <rules>
             <name>Controle_Downgrade</name>
@@ -58,13 +33,13 @@
                 <leftValueReference>$Record.TopicName__c</leftValueReference>
                 <operator>Contains</operator>
                 <rightValue>
-                    <stringValue>Controle - Downgrade</stringValue>
+                    <stringValue>Controle Downgrade</stringValue>
                 </rightValue>
             </conditions>
             <connector>
                 <targetReference>Atualizar_Pedido_de_Controle_Downgrade</targetReference>
             </connector>
-            <label>Controle - Downgrade</label>
+            <label>Controle Downgrade</label>
         </rules>
         <rules>
             <name>Controle_Pos</name>
@@ -133,13 +108,13 @@
                 <leftValueReference>$Record.TopicName__c</leftValueReference>
                 <operator>Contains</operator>
                 <rightValue>
-                    <stringValue>Pós - Upgrade</stringValue>
+                    <stringValue>Pós Upgrade</stringValue>
                 </rightValue>
             </conditions>
             <connector>
                 <targetReference>Atualizar_Pedido_de_Pos_Upgrade</targetReference>
             </connector>
-            <label>Pós - Upgrade</label>
+            <label>Pós Upgrade</label>
         </rules>
         <rules>
             <name>Pos_Downgrade</name>
@@ -148,13 +123,13 @@
                 <leftValueReference>$Record.TopicName__c</leftValueReference>
                 <operator>Contains</operator>
                 <rightValue>
-                    <stringValue>Pós - Downgrade</stringValue>
+                    <stringValue>Pós Downgrade</stringValue>
                 </rightValue>
             </conditions>
             <connector>
                 <targetReference>Atualizar_Pedido_de_Pos_Downgrade</targetReference>
             </connector>
-            <label>Pós - Downgrade</label>
+            <label>Pós Downgrade</label>
         </rules>
         <rules>
             <name>Pos_Pre</name>
@@ -170,21 +145,6 @@
                 <targetReference>Atualizar_Pedido_de_Pos_Pre</targetReference>
             </connector>
             <label>Pós - Pré</label>
-        </rules>
-        <rules>
-            <name>Pos_Controle</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>$Record.TopicName__c</leftValueReference>
-                <operator>Contains</operator>
-                <rightValue>
-                    <stringValue>Pós - Controle</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Atualizar_Pedido_de_Pos_Controle</targetReference>
-            </connector>
-            <label>Pós - Controle</label>
         </rules>
     </decisions>
     <description>Flow temporário utilizado enquanto não é atualizado o swagger de criação do pedido na Hybris. O fluxo atualiza os campo remarkup__c da Customer Interaction Topic, e os campos PortedNumber__c e MigrationType__c do Pedido Emitido.</description>
@@ -213,8 +173,8 @@
         <description>Quando não identificar o tipo de movimento, atualiza apenas a linha utilizada na migração</description>
         <name>Atualizar_apenas_linha_migrada</name>
         <label>Atualiza apenas linha migrada</label>
-        <locationX>2690</locationX>
-        <locationY>731</locationY>
+        <locationX>2426</locationX>
+        <locationY>539</locationY>
         <inputAssignments>
             <field>PortedNumber__c</field>
             <value>
@@ -228,9 +188,9 @@
         <name>Atualizar_Observacao_apos_criar_pedido</name>
         <label>Atualizar Observação após criar pedido</label>
         <locationX>1238</locationX>
-        <locationY>431</locationY>
+        <locationY>323</locationY>
         <connector>
-            <targetReference>Qual_o_tipo_de_movimento</targetReference>
+            <targetReference>Validar_tipo_de_movimento</targetReference>
         </connector>
         <inputAssignments>
             <field>remarkup__c</field>
@@ -243,9 +203,9 @@
     <recordUpdates>
         <description>Atualiza o campo de movimentação e número utilizado na migração</description>
         <name>Atualizar_Pedido_de_Controle_Downgrade</name>
-        <label>Atualizar Pedido de Controle - Downgrade</label>
+        <label>Atualizar Pedido de Controle Downgrade</label>
         <locationX>314</locationX>
-        <locationY>731</locationY>
+        <locationY>539</locationY>
         <inputAssignments>
             <field>MovimentationType__c</field>
             <value>
@@ -265,7 +225,7 @@
         <name>Atualizar_Pedido_de_Controle_Pos</name>
         <label>Atualizar Pedido de Controle - Pós</label>
         <locationX>578</locationX>
-        <locationY>731</locationY>
+        <locationY>539</locationY>
         <inputAssignments>
             <field>MovimentationType__c</field>
             <value>
@@ -285,7 +245,7 @@
         <name>Atualizar_Pedido_de_Controle_Pre</name>
         <label>Atualizar Pedido de Controle - Pré</label>
         <locationX>842</locationX>
-        <locationY>731</locationY>
+        <locationY>539</locationY>
         <inputAssignments>
             <field>MovimentationType__c</field>
             <value>
@@ -303,9 +263,9 @@
     <recordUpdates>
         <description>Atualiza o campo de movimentação e número utilizado na migração</description>
         <name>Atualizar_Pedido_de_Controle_Upgrade</name>
-        <label>Atualizar Pedido de Controle - Upgrade</label>
+        <label>Atualizar Pedido de Controle Upgrade</label>
         <locationX>50</locationX>
-        <locationY>731</locationY>
+        <locationY>539</locationY>
         <inputAssignments>
             <field>MovimentationType__c</field>
             <value>
@@ -322,30 +282,10 @@
     </recordUpdates>
     <recordUpdates>
         <description>Atualiza o campo de movimentação e número utilizado na migração</description>
-        <name>Atualizar_Pedido_de_Pos_Controle</name>
-        <label>Atualizar Pedido de Pós - Controle</label>
-        <locationX>2426</locationX>
-        <locationY>731</locationY>
-        <inputAssignments>
-            <field>MovimentationType__c</field>
-            <value>
-                <stringValue>Pós -Controle</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>PortedNumber__c</field>
-            <value>
-                <elementReference>$Record.vlocity_cmt__AssetId__r.PhoneNumber__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputReference>$Record.OrderIssued__r</inputReference>
-    </recordUpdates>
-    <recordUpdates>
-        <description>Atualiza o campo de movimentação e número utilizado na migração</description>
         <name>Atualizar_Pedido_de_Pos_Downgrade</name>
-        <label>Atualizar Pedido de Pós - Downgrade</label>
+        <label>Atualizar Pedido de Pós Downgrade</label>
         <locationX>1898</locationX>
-        <locationY>731</locationY>
+        <locationY>539</locationY>
         <inputAssignments>
             <field>MovimentationType__c</field>
             <value>
@@ -365,7 +305,7 @@
         <name>Atualizar_Pedido_de_Pos_Pre</name>
         <label>Atualizar Pedido de Pós - Pre</label>
         <locationX>2162</locationX>
-        <locationY>731</locationY>
+        <locationY>539</locationY>
         <inputAssignments>
             <field>MovimentationType__c</field>
             <value>
@@ -383,9 +323,9 @@
     <recordUpdates>
         <description>Atualiza o campo de movimentação e número utilizado na migração</description>
         <name>Atualizar_Pedido_de_Pos_Upgrade</name>
-        <label>Atualizar Pedido de Pós - Upgrade</label>
+        <label>Atualizar Pedido de Pós Upgrade</label>
         <locationX>1634</locationX>
-        <locationY>731</locationY>
+        <locationY>539</locationY>
         <inputAssignments>
             <field>MovimentationType__c</field>
             <value>
@@ -405,7 +345,7 @@
         <name>Atualizar_Pedido_de_Pre_Controle</name>
         <label>Atualizar Pedido de Pré - Controle</label>
         <locationX>1106</locationX>
-        <locationY>731</locationY>
+        <locationY>539</locationY>
         <inputAssignments>
             <field>MovimentationType__c</field>
             <value>
@@ -425,7 +365,7 @@
         <name>Atualizar_Pedido_de_Pre_Pos</name>
         <label>Atualizar Pedido de Pré - Pós</label>
         <locationX>1370</locationX>
-        <locationY>731</locationY>
+        <locationY>539</locationY>
         <inputAssignments>
             <field>MovimentationType__c</field>
             <value>
@@ -441,12 +381,12 @@
         <inputReference>$Record.OrderIssued__r</inputReference>
     </recordUpdates>
     <start>
-        <locationX>1244</locationX>
+        <locationX>1112</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Campo_Comentario_esta_Aguardando_Escolha_da_Oferta</targetReference>
+            <targetReference>Atualizar_Observacao_apos_criar_pedido</targetReference>
         </connector>
-        <filterLogic>1 AND 2</filterLogic>
+        <filterLogic>1 AND 2 AND (3 OR 4 OR 5 OR 6)</filterLogic>
         <filters>
             <field>Origin__c</field>
             <operator>EqualTo</operator>
@@ -459,6 +399,34 @@
             <operator>IsNull</operator>
             <value>
                 <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>remarkup__c</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>Aguardando escolha da oferta</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>remarkup__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>remarkup__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>-</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>remarkup__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue></stringValue>
             </value>
         </filters>
         <object>vlocity_cmt__CustomerInteractionTopic__c</object>
