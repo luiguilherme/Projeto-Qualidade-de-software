@@ -41,16 +41,17 @@ public with sharing class ChatIAInterfaceAPI {
 
             ChatIAQNAAnswerVO.BodyToReceive retorno = new ChatIAQNAAnswerVO.BodyToReceive();
             ChatIASubscriptionId__c subscription = ChatIASubscriptionId__c.getValues('SubscriptionId');
-
+            String idUsuario = UserInfo.getUserId();
             HttpRequest req = new HttpRequest();
             req.setEndpoint('https://ai-br-pro.telefonicabigdata.com/qna-mobile-products/?question=' + question);
             req.setHeader('Content-Type', 'application/json');
             req.setHeader('session_id', '123456');
-            req.setHeader('user_id', 'A0000000');
+            req.setHeader('user_id', idUsuario);
             req.setHeader('token', token);
             req.setHeader('service', 'QNA_MOBILE_PRODUCTS');
             req.setHeader('subscription_id', subscription.SubscriptionId__c);
             req.setHeader('User-Agent', 'Mozilla');
+            req.setHeader('Origin', 'SFA');
             req.setMethod('GET');
             req.setTimeout(120000);
             Http http = new Http();
