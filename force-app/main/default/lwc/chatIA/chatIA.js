@@ -13,6 +13,7 @@ import createNewChat from '@salesforce/apex/ChatIAController.createNewChat';
 import addConversation from '@salesforce/apex/ChatIAController.AddConversation';
 import deleteChatById from '@salesforce/apex/ChatIAController.deleteChatById';
 import getQNAAnswer from '@salesforce/apex/ChatIAController.getQNAAnswer';
+import getPermission from '@salesforce/apex/ChatIAController.getPermission';
 
 import CHATIA_OBJECT from "@salesforce/schema/ChatIA__c";
 import ID_FIELD from "@salesforce/schema/ChatIA__c.Id";
@@ -46,22 +47,33 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
     connectedCallback(){
         let size = (window.screen.height *0.7) -110;
         this.heigthSize = 'height:'+ size.toString() +'px';
-
-        this.getQuestions();
-        this.startSessionId();
+        this.verifyPermission();
     }
-
+    
     @api
     forceScroll(){
-        setTimeout(() => {
-            const inputScroll = this.template.querySelector('[data-id="scrollable"]');
-            const input = this.template.querySelector('lightning-input[data-id="campoMensagem"]');
-            inputScroll.scrollTop = inputScroll.scrollHeight;
-            input.focus();
-
-        })
+        if(this.thereIsPermission){
+            setTimeout(() => {
+                const inputScroll = this.template.querySelector('[data-id="scrollable"]');
+                const input = this.template.querySelector('lightning-input[data-id="campoMensagem"]');
+                console.log(input + ' input');
+                inputScroll.scrollTop = inputScroll.scrollHeight;
+                input.focus();
+            })
+        }
     }
-
+    async verifyPermission(){
+        try{
+            const data = await getPermission();
+            this.thereIsPermission = data;
+            if(this.thereIsPermission === true){
+                this.getQuestions();
+                this.startSessionId();
+            }
+        } catch{
+            this.thereIsPermission = false;
+        }
+    }
     async getQuestions(){
         try{
             const data = await getQuestionSuggestion();

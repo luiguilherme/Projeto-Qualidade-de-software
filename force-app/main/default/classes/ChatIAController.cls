@@ -91,6 +91,20 @@ public with sharing class ChatIAController {
             throw new AuraHandledException(e.getMessage());
         }
     }
+    @AuraEnabled(cacheable=true)
+    public static Boolean getPermission(){
+        try {
+            String idUser = UserInfo.getUserId();
+            List<PermissionSetAssignment> permission = ChatIASelector.getInstance().getPermission(idUser);
+            Boolean active = FeatureFlagService.applicationIsActive('ChatIA');
+            if(permission.size() > 0 && active){
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
 
     @AuraEnabled(cacheable=true)
     public static ChatIAQNAAnswerVO.BodyToReceive getQNAAnswer(String question){
