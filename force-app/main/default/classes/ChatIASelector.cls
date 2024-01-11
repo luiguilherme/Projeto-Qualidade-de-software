@@ -18,4 +18,7 @@ public with sharing class ChatIASelector {
     public List<StandardQuestionSuggestion__mdt> getStandardQuestionSuggestion(Integer quantityNeeded) {
         return [SELECT Id, Question__c, Order__c FROM StandardQuestionSuggestion__mdt ORDER BY Order__c LIMIT :quantityNeeded];
     }
+    public List<PermissionSetAssignment> getPermission(String userId) {
+        return [SELECT Id, AssigneeId, PermissionSet.Name FROM PermissionSetAssignment WHERE AssigneeId =: userId AND PermissionSet.Name = 'ChatIA'];
+    }
 }

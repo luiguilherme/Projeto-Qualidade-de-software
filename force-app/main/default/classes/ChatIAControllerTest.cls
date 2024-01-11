@@ -7,7 +7,11 @@ private class ChatIAControllerTest{
 		setting.Name = 'SubscriptionId';
 		setting.SubscriptionId__c = '6495ac826e4f0f95368f288c';
 		insert setting;
-
+		FeatureFlag__c featureFlag = new FeatureFlag__c();
+		featureFlag.Name = 'ChatIA';
+		featureFlag.Application__c = 'ChatIA';
+		featureFlag.Active__c = true ;
+		insert featureFlag;
 		Questionsuggestion__c questionsuggestioncObj = new Questionsuggestion__c (
 			Question__c = 'test value', 
 			Order__c = 1
@@ -123,6 +127,21 @@ private class ChatIAControllerTest{
         Boolean res = ChatIAController.deleteChatById('123');
 		Test.stopTest();
 
+        System.assertEquals(true, res);
+    }
+	@isTest static void retornaPermissaoVerdadeiro() {
+		String idUser = UserInfo.getUserId();
+		PermissionSet permissionSet = [SELECT Id FROM PermissionSet WHERE Name = 'ChatIA' LIMIT 1];
+		List<PermissionSetAssignment> lstPermissionSetAssignment = ChatIASelector.getInstance().getPermission(idUser);
+		if(lstPermissionSetAssignment.isEmpty()){
+			PermissionSetAssignment psAssignment = new PermissionSetAssignment();
+			psAssignment.AssigneeId = idUser;
+			psAssignment.PermissionSetId = permissionSet.Id;
+			insert psAssignment;
+		}
+		Test.startTest();
+        Boolean res = ChatIAController.getPermission();
+		Test.stopTest();
         System.assertEquals(true, res);
     }
 
