@@ -34,7 +34,7 @@ public abstract class CanvasHybrisServices implements CanvasServiceInterface {
         parameters.put('segmento',          getUserSegments(hybrisMetadata.UserSegment__c));
         parameters.put('posToPre',          hybrisMetadata.PosToPre__c);
         parameters.put('controleToPre',     hybrisMetadata.ControleToPre__c);
-        parameters.put('adabas',            currentUser.Adabas__c != null ? currentUser.Adabas__c : '');
+        parameters.put('adabas',            currentUser.Adabas__c != null ? currentUser.Adabas__c : '0');
         
         return parameters;
     }
@@ -61,7 +61,7 @@ public abstract class CanvasHybrisServices implements CanvasServiceInterface {
                 enderecoReturn.numero = '';
                 enderecoReturn.complemento = '';
             } else{
-                List<Account> lstBillingAddress = [SELECT BillingAddress, BillingStreet, BillingPostalCode, BillingNumber__c, ShippingAddress, ShippingStreet, ShippingPostalCode, ShippingNumber__c, RecordTypeId, BillingAccountType__c, FullComplement__c  FROM Account WHERE ParentId = :context.AccountId AND RecordType.DeveloperName	= 'Billing']; 
+                List<Account> lstBillingAddress = [SELECT BillingAddress, BillingStreet, BillingPostalCode, BillingNumber__c, ShippingAddress, ShippingStreet, ShippingPostalCode, ShippingNumber__c, RecordTypeId, BillingAccountType__c, FullComplement__c  FROM Account WHERE ParentId = :context.AccountId AND RecordType.DeveloperName = 'Billing']; 
                 if(lstBillingAddress == null){
                     enderecoReturn.cep ='';
                     enderecoReturn.numero = '';
@@ -75,7 +75,7 @@ public abstract class CanvasHybrisServices implements CanvasServiceInterface {
                             enderecoReturn.cep = iBillingAddress.BillingPostalCode != null ? iBillingAddress.BillingPostalCode : '';
                             enderecoReturn.numero = iBillingAddress.BillingNumber__c != null ? iBillingAddress.BillingNumber__c : '';
                             enderecoReturn.complemento = iBillingAddress.FullComplement__c != null ? iBillingAddress.FullComplement__c : '';
-                        	break;
+                          break;
                         }
                     }
                     
