@@ -102,37 +102,54 @@ public with sharing class PIDTokenValidateEngine {
         }
     }
 
-    public static String getPhoneNumber(String accId) {
+    public static Map<String, Object> getPhoneNumbers(String accId) {
+        Map<String, Object> phoneNumbers = new Map<String, Object>();
+        
+        List<String> ltPhoneNumbers;
+        String phoneNumber = 'Não possui linha válida';
+
         List<Asset> lstAsset = AssetDAO.getPidAssetMobileByAccount(accId);
 
-        String posPago = 'Pós-Pago';
-        String controle = 'Controle';
-        String prepago = 'Pré-Pago'; 
+        if (!lstAsset.isEmpty()) {
+            final String posPago = 'Pós-Pago';
+            final String controle = 'Controle';
+            final String prePago = 'Pré-Pago';
+            
+            Map<String, List<String>> mapPhoneProducts = new Map<String, List<String>>();
 
-        Map<String,String> mapPhoneProduct = new Map<String,String>();
-        String phoneReturn;
-        if(!lstAsset.isEmpty()) {
-            for(Asset iAsset : lstAsset) {
-                if(!mapPhoneProduct.containsKey(posPago) && iAsset.ProductType__c==posPago) {
-                    mapPhoneProduct.put(posPago, iAsset.Name);
-                } else if(!mapPhoneProduct.containsKey(controle) && iAsset.ProductType__c==controle) {
-                    mapPhoneProduct.put(controle, iAsset.Name);
-                } else if(!mapPhoneProduct.containsKey(prepago) && iAsset.ProductType__c==prepago) {
-                    mapPhoneProduct.put(prepago, iAsset.Name);
+            mapPhoneProducts.put(posPago, new List<String>());
+            mapPhoneProducts.put(controle, new List<String>());
+            mapPhoneProducts.put(prePago, new List<String>());
+
+            for (Asset asset : lstAsset) {
+                String phoneType = asset.ProductType__c;
+                
+                if (phoneType == posPago || phoneType == controle || phoneType == prePago) {
+                    mapPhoneProducts.get(phoneType).add(asset.Name);
                 }
             }
 
-            if(mapPhoneProduct.containsKey(posPago)) {
-                phoneReturn = mapPhoneProduct.get(posPago);
-            } else if(mapPhoneProduct.containsKey(controle)) {
-                phoneReturn = mapPhoneProduct.get(controle);
-            } else if(mapPhoneProduct.containsKey(prepago)) {
-                phoneReturn = mapPhoneProduct.get(prepago);
+            ltPhoneNumbers = new List<String>();
+
+            if (!mapPhoneProducts.get(posPago).isEmpty()) {
+                ltPhoneNumbers.addAll(mapPhoneProducts.get(posPago));                
             }
-        } else {
-            phoneReturn = 'Não possui linha válida';
+            
+            if (!mapPhoneProducts.get(controle).isEmpty()) {
+                ltPhoneNumbers.addAll(mapPhoneProducts.get(controle));
+            }
+
+            if (ltPhoneNumbers.isEmpty() && !mapPhoneProducts.get(prePago).isEmpty()) {
+                ltPhoneNumbers.addAll(mapPhoneProducts.get(prePago));
+            }
+
+            phoneNumber = ltPhoneNumbers[0];
         }
-        return phoneReturn;
+
+        phoneNumbers.put('phone', phoneNumber);
+        phoneNumbers.put('phones', ltPhoneNumbers);
+
+        return (phoneNumbers);
     }
     
     public class CustomerIntWrapper {
