@@ -4,7 +4,7 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
     @TestSetup
     static void setup() {
         // #region setupShowOffer
-        
+                
         List<User> lstInsert = new List<User>();
 
         String profileId = [SELECT Id FROM Profile WHERE Name = 'Governanca'].Id;
@@ -16,7 +16,7 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
         
         User userPapelSemAcesso = DataFactory.createUser(profileId, roleToInsert.Id);
         insert userPapelSemAcesso;
-		
+    
         CanvasHybrisMigration__mdt chmWithoutAccess = [SELECT id, OriginApiName__c, HasAccessToHybrisMigration__c, UserLicense__c FROM CanvasHybrisMigration__mdt WHERE HasAccessToHybrisMigration__c = false LIMIT  1];
         UserRole role = [SELECT id FROM userRole WHERE DeveloperName   ='PapelSemAcesso'];
 
@@ -39,7 +39,7 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
         Profile communityProfile = [SELECT id FROM Profile WHERE Name = 'AliadoExterno'];
         
         String profileAdminId = [SELECT Id FROM Profile WHERE Name = 'Administrador do sistema' OR Name = 'System Administrator'].Id;
-		User userAdmin = DataFactory.createUser(profileAdminId, roleWithAccess.Id);
+        User userAdmin = DataFactory.createUser(profileAdminId, roleWithAccess.Id);
         insert userAdmin;
         
         User userPartner = new User();
@@ -81,7 +81,7 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
         assignUserToPermission.AssigneeId = userWithPermissionSet.Id;
         assignUserToPermission.PermissionSetId = canvasPermissionSet.Id;
         insert assignUserToPermission;
-
+        
     // #endregion
     // #region createCustomerInteractionTopic
     // #endregion
@@ -89,6 +89,8 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
 
     @isTest
     public static void showOffer() {
+        createFeatFlag();
+        
         Test.startTest();
             User userTest = [SELECT Id FROM User WHERE FirstName = 'WithSalesforceAccessUser' LIMIT 1];
             AssetMigrationDTO accessReturn = new AssetMigrationDTO();
@@ -105,6 +107,8 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
 
     @isTest
     public static void showOfferTestWithoutUser() {
+        createFeatFlag();
+
         Test.startTest();
             User userTest = [SELECT Id FROM User WHERE FirstName = 'WithSalesforceAccessUser' LIMIT 1];
             AssetMigrationDTO accessReturn = new AssetMigrationDTO();
@@ -121,6 +125,8 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
 
     @isTest
     public static void showOfferTestWithoutRole() {
+      createFeatFlag();
+
       Test.startTest();
             User userTest = [SELECT Id FROM User WHERE FirstName = 'WithSalesforceAccessUser' LIMIT 1];
             AssetMigrationDTO accessReturn = new AssetMigrationDTO();
@@ -137,6 +143,8 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
 
     @isTest
     public static void showOfferPartner() {
+        createFeatFlag();
+
         Test.startTest();
             User userTest = [SELECT Id, profile.userlicense.name FROM User WHERE FirstName = 'userPartner' LIMIT 1];
             AssetMigrationDTO accessReturn = new AssetMigrationDTO();
@@ -155,6 +163,8 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
     
     @isTest
     public static void showOfferToUserWithPermissionSet() {
+       createFeatFlag();
+
        Test.startTest();
             User userTest = [SELECT Id FROM User WHERE FirstName = 'WithSalesforceAccessUser' LIMIT 1];
             AssetMigrationDTO accessReturn = new AssetMigrationDTO();
@@ -191,5 +201,14 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
         Test.stopTest();
 
         System.assert(returnMap.containsKey('error'), 'CustomerInteractionTopic não foi criada');
+    }
+    
+    public static void createFeatFlag() {
+        FeatureFlag__c feat = new FeatureFlag__c();
+        feat.Name = 'FluxoMigracaoCanvasHybris';
+        feat.Active__c = true;
+        feat.Application__c = 'FluxoMigracaoCanvasHybris';
+        
+        insert feat;
     }
 }

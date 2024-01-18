@@ -1,3 +1,9 @@
+/*
+    ---------------------------------------------------
+    @PTI3946-120 - 06/11/2023 - Márcio Las (deprecated)
+    @description - Recuperação das Senhas de Atendimento | Salesforce x GSS
+    ---------------------------------------------------
+*/
 @IsTest
 global class PointOfServiceTicketsCalloutMock implements HttpCalloutMock {
     protected Map<String, String> responseHeader = new Map<String,String>{'Content-Type' => 'application/json'};

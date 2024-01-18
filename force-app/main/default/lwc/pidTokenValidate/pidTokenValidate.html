@@ -3,7 +3,7 @@
         <lightning-card>
             <div class="slds-card slds-p-right_medium slds-p-left_medium slds-m-bottom_x-small">
                 <strong>
-                    <p  class="slds-col slds-border_bottom slds-p-bottom_small slds-size_12-of-12 slds-rich-text-editor__output" data-style-id="state0element0" style="font-size: 14pt; border-bottom: 1px solid rgb(204, 204, 204);" slot="title">
+                    <p class="slds-col slds-border_bottom slds-p-bottom_small slds-size_12-of-12 slds-rich-text-editor__output" data-style-id="state0element0" style="font-size: 14pt; border-bottom: 1px solid rgb(204, 204, 204);" slot="title">
                         Validação de Segurança
                     </p>
                 </strong>
@@ -13,7 +13,6 @@
                         <button class="slds-button slds-button_brand" onclick={beginPidToken}>Iniciar</button>
                     </div>
                 </template>
-
             
                 <template if:true={showTokenScreen}>
                     <template if:false={showPhone}>
@@ -24,19 +23,38 @@
 
                     <template if:true={showPhone}>
                         <div class="slds-grid slds-wrap slds-p-vertical_x-small slds-m-around_none slds-border_bottom">
-                            <div class="slds-size_1-of-2 slds-medium-size_2-of-4">
+                            <div class=" slds-size_6-of-12 ">
                                 <p class="">Nº da linha</p>
                             </div>
         
-                            <div class="slds-size_2-of-2 slds-medium-size_2-of-4">
-                                {phoneFormatted}
+                            <div class="slds-size_5-of-12">
+                                <div class="slds-form-element__control">
+                                    <template if:false={isEnviar}>
+                                        {phoneFormatted}
+                                    </template>
+
+                                    <template if:true={isEnviar}>
+                                        <lightning-combobox
+                                            name="cmbPhone"
+                                            placeholder="Selecione uma linha..."
+                                            variant="label-hidden"
+                                            options={phones}
+                                            value={phone}
+                                            onchange={onPhoneChange}
+                                            required>
+                                        </lightning-combobox>
+                                    </template>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-size_1-of-12">
                                 <span style="position:relative; top:-5px; left: 5px;">
                                     <lightning-helptext content="A validação de segurança é realizada enviando um SMS para o número do cliente considerando o produto e tempo de ativação."></lightning-helptext>
                                 </span>
-
                             </div>
                         </div>
                     </template>
+
                     <template if:true={showPath}>
                         <div class="slds-p-top_x-small slds-m-around_none">
                             <span>
@@ -68,9 +86,15 @@
                             <p class="slds-size_1-of-1 slds-text-align_center slds-text-body_small">Tentativa: {countAttempt}</p>
                         </template>
                     </div>
+
+                    <template if:true={showMessage}>
+                        <div class="slds-notify slds-notify_alert slds-alert_error tokenMessageMargin" role="alert">
+                            {tokenMessage}
+                        </div>
+                    </template>
+                    
                     <div class="buttonAlign">
                         <div class="slds-box slds-box_x-small boxTheme">
-        
                             <template if:true={isCancelarToken}>
                                 <button class="slds-button" onclick={handleCancelarToken}>Cancelar token</button>
                             </template>

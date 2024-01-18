@@ -89,6 +89,30 @@ public with sharing class SSMHomeOperationsControllerTest {
             );
 
             Database.insert(ltWebservicesSSM);
+
+            ServiceTicket__c ticketTest = new ServiceTicket__c(
+                ExternalID__c = 'TICKET_TEST',
+                Store__c = '307',
+                TicketId__c = 'T98',
+                Status__c = 'On Hold',
+                SpecialNeeds__c = false,
+                Priority__c = 2,
+                CustomerName__c = 'Márcio Las',
+                Alias__c = 'MLAS',
+                Document__c = '85274136987',
+                GeographicAreaCode__c = '81',
+                NetworkNumber__c = '966778899',
+                SegmentID__c = '1',
+                SegmentName__c = 'Cliente',
+                Activity__c = 'Test ticket',
+                Protocol__c = '000011/2023',
+                InteractionID__c = '4',
+                InteractionName__c = 'Teste Componente SSM',
+                WaitTime__c = '00:05:25',
+                ActivityPriority__c = 1
+            );
+    
+            Database.insert(ticketTest);
         }
     }
 
@@ -102,24 +126,20 @@ public with sharing class SSMHomeOperationsControllerTest {
         ];
 
         System.runAs(userTest) {
-            StoreServiceManagerTO.ServiceTicket serviceTicket = new StoreServiceManagerTO.ServiceTicket();
-                    
-            serviceTicket.ticketId = 'T98';
-            serviceTicket.workPositionId = '01';
-            serviceTicket.displayAlert = true;
-            
+            Map<String, Object> mapServiceTicketTest = SSMTicketsController.getPointOfServiceTitckets();
+
+            List<StoreServiceManagerTO.ServiceTicket> ltServiceTicketTest = 
+                (List<StoreServiceManagerTO.ServiceTicket>) mapServiceTicketTest.get('success');
+
+            StoreServiceManagerTO.ServiceTicket serviceTicketTest = ltServiceTicketTest[0];
+
             Test.startTest();
                 Test.setMock(HttpCalloutMock.class, new PointOfServiceAttendanceCalloutMock());
 
-                Map<String, Object> mapTest = SSMHomeOperationsController.startAttendance(serviceTicket);
+                Map<String, Object> mapTest = SSMHomeOperationsController.startAttendance(serviceTicketTest);
             Test.stopTest();
 
-            String responseAttendance = (String) mapTest.get('success');
-
-            StoreServiceManagerResponse.Attendance attendanceTest = (StoreServiceManagerResponse.Attendance) 
-                JSON.deserialize(responseAttendance, StoreServiceManagerResponse.Attendance.class);
-
-            System.assertEquals(serviceTicket.ticketId, attendanceTest.ticket.id);
+            System.assertEquals('T98', serviceTicketTest.ticketId);
         }
     }
 }

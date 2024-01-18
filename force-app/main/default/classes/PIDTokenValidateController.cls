@@ -1,5 +1,4 @@
 public with sharing class PIDTokenValidateController {
-
     @AuraEnabled(cacheable=true)
     public static PIDTokenValidateDTO getCustomerIntAPX(String aRecordId) {
         return PIDTokenValidateService.getCustomerIntAPX(aRecordId);

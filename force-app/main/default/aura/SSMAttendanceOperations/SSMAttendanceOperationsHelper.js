@@ -13,10 +13,13 @@
 			"recallTicket",
 			{serviceTicket: serviceTicket},
 			(returnValue) => {
-				let errorMessage = "";
+                let errorMessage = "";
+                let startTime = returnValue["success"];
 
-                if (returnValue["success"]) {
-                    serviceTicket.startTime = returnValue["startTime"];
+                if (startTime) {
+                    serviceTicket.startTime = startTime;
+
+                    component.set("v.serviceTicket", serviceTicket);
 
                 } else {
                    errorMessage = returnValue["error"];

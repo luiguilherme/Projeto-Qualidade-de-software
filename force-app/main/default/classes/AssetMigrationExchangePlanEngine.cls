@@ -1,13 +1,23 @@
 public with sharing class AssetMigrationExchangePlanEngine {
+    private static final String APPLICATION_NAME = 'FluxoMigracaoCanvasHybris';
     public static AssetMigrationDTO checkAccessToComponent(Id customerInteractionId){
         AssetMigrationDTO accessToReturn = new AssetMigrationDTO();
-        checkAccessToTokenComponent(accessToReturn);
-        if(accessToReturn.haveAccessToToken){
-            checkTokenValidated(accessToReturn, customerInteractionId);
-            if(accessToReturn.haveTokenValidated){
-                checkUserHasAccess(accessToReturn);
+        Boolean isActiveFeatureFlag = FeatureFlagService.applicationIsActive(APPLICATION_NAME);
+        
+        if(isActiveFeatureFlag){
+            checkAccessToTokenComponent(accessToReturn);
+            if(accessToReturn.haveAccessToToken){
+                checkTokenValidated(accessToReturn, customerInteractionId);
+                if(accessToReturn.haveTokenValidated){
+                    checkUserHasAccess(accessToReturn);
+                }
             }
+        } else {
+            accessToReturn.userHaveAccess = true;
+            accessToReturn.haveAccessToToken = true;
+            accessToReturn.haveTokenValidated = true;
         }
+        
         return accessToReturn;       
     }
 
