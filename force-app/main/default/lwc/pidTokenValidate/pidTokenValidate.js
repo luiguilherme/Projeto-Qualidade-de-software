@@ -10,6 +10,7 @@ export default class PidTokenValidate extends LightningElement {
     phone;
     phoneFormatted;
     @track returnValue;
+    showMessage = false;
     showTokenScreen = false;
     showComponent = false;
     hasError = false;
@@ -18,6 +19,8 @@ export default class PidTokenValidate extends LightningElement {
     screenStatus;
     handleEventObj;
     showPhone = false;
+    phones;
+    tokenMessage;
 
     // Buttons
     isEnviar = false;
@@ -43,10 +46,6 @@ export default class PidTokenValidate extends LightningElement {
     timeMiliseconds;
     systemTimeMs;
     timeIntervalInstance;
-    timeIntervalInstanceNoAsset;
-    hasNoAssetTimer = false;
-
-
 
     // Counter
     countAttempt;
@@ -61,30 +60,43 @@ export default class PidTokenValidate extends LightningElement {
     }
 
     @wire(getCustomerIntAPX, {aRecordId: '$recordId'})
-    wiredCustomerIntAPX( result ) {
+    wiredCustomerIntAPX(result) {
         this.returnValue = result;
+        this.showMessage = '';
+        this.phones = [];
 
         if (result.data) {
-            if(result.data.hasAccess){
+            if (result.data.hasAccess) {
                 this.showTokenScreen = this.showTokenScreen == true || result.data.tokenStatus != undefined ? true : false
                 this.showComponent = true;
-
-                if(result.data.phone === 'Não possui linha válida') {
+                
+                if (result.data.phone === 'Não possui linha válida') {
                     this.phoneFormatted = 'Não Possui Linha Válida';
                     this.disableAllScene();
+
                 } else {
                     this.phone = this.isNotEndedStatus(result) ? result.data.phone : result.data.sendedPhone ? result.data.sendedPhone : '';
-                    this.phoneFormatted = this.phone.toString().slice(0,2) + '-' + this.phone.toString().slice(2,11);
+                    this.phoneFormatted = this.phone.toString().slice(0, 2) + '-' + this.phone.toString().slice(2, 11);
+
+                    this.phones = result.data.phones.map(phoneNumber => {
+                        return {
+                            value: phoneNumber, 
+                            label: (phoneNumber.toString().slice(0, 2) + '-' + phoneNumber.toString().slice(2, 11))
+                        }
+                    });
+
                     this.maxCountAttempts = result.data.attempts;
                     this.countAttempt = result.data.tokenSendAttempts;
                     if (this.isNotEndedStatus(result) && 
-                        this.countAttempt <= this.maxCountAttempts &&
-                        this.isCarregando == false ) {
+                        this.countAttempt <= this.maxCountAttempts && 
+                        this.isCarregando == false
+                    ) {
                         this.isEnviar = true;
+
                     } else {
                         this.disableAllScene();
 
-                        if(result.data.tokenStatus === 'Cancelado') {
+                        if (result.data.tokenStatus === 'Cancelado') {
                             this.piStep1 = 'Token Enviado';
                             this.piStep2 = '';
                             this.piStep3 = 'Fluxo Cancelado';
@@ -92,32 +104,45 @@ export default class PidTokenValidate extends LightningElement {
                             this.currentStep = '3';
                             this.hasError = true;
                             this.showPath = true;
+
                             this.cssTokenCancelled();
                             this.disableAllScene();
-                        } else if(result.data.tokenStatus === 'Validado') {
+
+                        } else if (result.data.tokenStatus === 'Validado') {
                             this.piStep1 = 'Token Enviado';
                             this.piStep2 = '';
                             this.piStep3 = 'Token Validado!';
                             this.showPath = true;
                             this.currentStep = '3';
+
                             this.resetTimer();
                             this.cssValidatedToken();
-                        } else if(this.countAttempt >= this.maxCountAttempts && result.data.tokenStatus != 'Aguardando validação'  ) {
+
+                        } else if (this.countAttempt >= this.maxCountAttempts && result.data.tokenStatus != 'Aguardando validação') {
                             this.piStep1 = 'Token Enviado';
                             this.piStep3 = 'Token Não Validado Por Nº De Tentativas Excedidas';
                             this.showPath = true;
                             this.currentStep = '3';
                             this.hasError = true;
+                            this.showMessage = true;
+                            this.tokenMessage = (
+                                'Atenção, limite excedido de tentativas de validação do Link de validação do atendimento. ' +
+                                '\"Oriente o cliente a concluir a sua solicitação, através do App Vivo ou em uma de nossas lojas Vivo.\"'
+                            );
+
                             this.cssLimitExceed();
-                        } else if(result.data.tokenStatus === 'Não validado' && this.countAttempt < this.maxCountAttempts) {
+
+                        } else if (result.data.tokenStatus === 'Não validado' && this.countAttempt < this.maxCountAttempts) {
                             this.piStep1 = 'Token Enviado';
                             this.piStep2 = 'Token Não Validado! Envie Novamente';
                             this.isEnviar = true;
                             this.showPath = true;
                             this.currentStep = '2';
                             this.hasError = true;
+
                             this.cssTokenNoValidated();
-                        } else if(result.data.tokenStatus === 'Aguardando validação'){
+
+                        } else if (result.data.tokenStatus === 'Aguardando validação') {
                             this.piStep1 = 'Token Enviado';
                             this.piStep2 = 'Aguardando Validação';
                             this.isEnviar = false;
@@ -128,11 +153,13 @@ export default class PidTokenValidate extends LightningElement {
                             this.isCarregando = true;
                             this.isTimerOn = true;
                             this.countAttempt = result.data.tokenSendAttempts;
-                        } else if(result.data.tokenStatus === 'Falha na comunicação API'){
+
+                        } else if (result.data.tokenStatus === 'Falha na comunicação API') {
                             this.piStep1 = 'Falha no envio';
                             this.showPath = true;
                             this.currentStep = '1';
                             this.hasError = true;
+
                             this.resetTimer();
                         }
                     }
@@ -186,22 +213,29 @@ export default class PidTokenValidate extends LightningElement {
         this.isCarregando = true;
 		this.showPath = true;
 		this.currentStep = '1';
+
         this.resetTimer();
+
         this.piStep1 = 'Enviando Token';
 
-        if(this.countAttempt < this.maxCountAttempts) {
+        if (this.countAttempt < this.maxCountAttempts) {
             this.systemTimeMs = this.returnValue.data.interval * 60000;
             this.timeMiliseconds = this.returnValue.data.interval * 60000;
+
             this.handleSendToken();
+
         } else {
             this.isTimerOn = false;
             this.isCancelarToken = false;
             this.isCarregando = false;
             this.currentStep = '3';
             this.hasError = true;
-            this.handleUpdateTokenStatus('Não validado');                            
+
+            this.handleUpdateTokenStatus('Não validado'); 
+
             this.piStep1 = 'Token Enviado';
             this.piStep3 = 'Token Não Validado Por Nº De Tentativas Excedidas';
+
             this.cssLimitExceed();
             this.resetTimer();
         }
@@ -210,9 +244,11 @@ export default class PidTokenValidate extends LightningElement {
     handleSendToken() {
 		sendToken({customerIntId: this.recordId, phoneNumber : this.phone})
 		.then(result => {
-            if(result.TokenStatus__c === 'Aguardando validação'){
+            if (result.TokenStatus__c === 'Aguardando validação') {
                 this.isTimerOn = true;
+
                 this.startTimer();
+
                 this.countAttempt = result.TokenSendAttempts__c;
                 this.hasError = false;
                 this.currentStep = '2';
@@ -252,6 +288,11 @@ export default class PidTokenValidate extends LightningElement {
         updateTokenStatus({customerIntId: this.recordId, tokenStatus: ciStatus});
     }
 
+    onPhoneChange(event) {
+        this.phone = event.detail.value;
+        this.phoneFormatted = (this.phone.toString().slice(0, 2) + '-' + this.phone.toString().slice(2, 11));
+    };
+
     disableAllScene() {
         this.isEnviar = false;
         this.isCancelarToken = false;
@@ -262,6 +303,7 @@ export default class PidTokenValidate extends LightningElement {
     resetTimer() {
         this.timer = '00:00';
         this.timeMiliseconds = this.systemTimeMs;
+
         clearInterval(this.timeIntervalInstance);
     }
 
@@ -269,56 +311,56 @@ export default class PidTokenValidate extends LightningElement {
         return refreshApex(this.returnValue);
     }
 
-    cssWaitingApproval(){
+    cssWaitingApproval() {
         this.piStep1Classname = ' aguardandoValidacaoStep1';
         this.piStep2Classname = ' aguardandoValidacaoStep2';
         this.piStep3Classname = ' aguardandoValidacaoStep3';
     }
 
-    cssValidatedToken(){
+    cssValidatedToken() {
         this.piStep1Classname = ' tokenValidadoStep1';
         this.piStep2Classname = ' tokenValidadoStep2';
         this.piStep3Classname = ' tokenValidadoStep3 ';
         this.cssFinalStep = ' slds-hide';
     }
 
-    cssLimitExceed(){
+    cssLimitExceed() {
         this.piStep1Classname = ' tokenLimitExceedStep1';
         this.piStep2Classname = ' tokenLimitExceedStep2';
         this.piStep3Classname = ' tokenLimitExceedStep3 ';
         this.cssMedStep = ' slds-hide ';
     }
 
-    cssTokenNoValidated(){
+    cssTokenNoValidated() {
         this.piStep1Classname = ' tokenNoValidatedStep1';
         this.piStep2Classname = ' tokenNoValidatedStep2';
         this.piStep3Classname = ' tokenNoValidatedStep3 ';
     }
 
-    cssTokenCancelled(){
+    cssTokenCancelled() {
         this.piStep1Classname = ' tokenCanceledStep1';
         this.piStep2Classname = ' tokenCanceledStep2';
         this.piStep3Classname = ' tokenCanceledStep3 ';
         this.cssMedStep = ' slds-hide ';
     }
 
-    cssFailedSend(){
+    cssFailedSend() {
         this.piStep1Classname = ' tokenFailedSendStep1';
     }
     
-    get step1Classname(){
+    get step1Classname() {
         return this.initialPiStep1Classname + this.piStep1Classname;
     }
 
-    get step2Classname(){
+    get step2Classname() {
         return this.initialPiStep2Classname + this.piStep2Classname;
     }
 
-    get step3Classname(){
+    get step3Classname() {
         return this.initialPiStep3Classname + this.piStep3Classname;
     }
 
-    get cssFinalStep(){
+    get cssFinalStep() {
         return this.cssFinalStep;
     }
     
