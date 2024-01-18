@@ -23,10 +23,19 @@ public with sharing class StoreServiceManagerTO {
 
     public class ServiceTicket {
         @AuraEnabled
+        public String id {get; set;}
+
+        @AuraEnabled
+        public String createdDateTime {get; set;}
+
+        @AuraEnabled
         public String type {get; set;}
 
         @AuraEnabled
         public String view {get; set;}
+
+        @AuraEnabled
+        public String store {get; set;}
 
         @AuraEnabled
         public String workPositionId {get; set;}
@@ -36,6 +45,9 @@ public with sharing class StoreServiceManagerTO {
         
         @AuraEnabled
 		public String ticketId {get; set;}
+
+        @AuraEnabled
+        public String externalId {get; set;}
 
         @AuraEnabled
         public Boolean customerSpecialNeeds {get; set;}        
@@ -56,10 +68,16 @@ public with sharing class StoreServiceManagerTO {
 		public String customerAlias {get; set;}
 
         @AuraEnabled
-        public String customerCellPhone {get; set;}
+        public String customerDocument {get; set;}
 
         @AuraEnabled
-        public String customerDocument {get; set;}
+        public String geographicAreaCode {get; set;}
+
+        @AuraEnabled
+        public String networkNumber {get; set;}
+
+        @AuraEnabled
+        public String customerCellPhone {get; set;}
 
         @AuraEnabled
         public String segmentation {get; set;}
@@ -77,6 +95,12 @@ public with sharing class StoreServiceManagerTO {
         public String waitTime {get; set;}
 
         @AuraEnabled
+        public String status {get; set;}
+
+        @AuraEnabled
+        public String userLogin {get; set;}
+
+        @AuraEnabled
         public String startTime {get; set;}
 
         @AuraEnabled
@@ -89,7 +113,10 @@ public with sharing class StoreServiceManagerTO {
         public String service {get; set;}
     
         @AuraEnabled
-        public String serviceName {get; set;}    
+        public String serviceName {get; set;}
+
+        @AuraEnabled
+        public Integer activityPriority {get; set;}
 
         @AuraEnabled
         public String category {get; set;}
@@ -99,6 +126,9 @@ public with sharing class StoreServiceManagerTO {
 
         @AuraEnabled
         public String mainDocumentType {get; set;}
+
+        @AuraEnabled
+        public String mainDocumentTypeName {get; set;}
 
         @AuraEnabled
         public String documentNumber {get; set;}
@@ -122,6 +152,12 @@ public with sharing class StoreServiceManagerTO {
 	}
     
     public class AttendanceInformationStatus {
+        @AuraEnabled
+        public String Id {get; set;}
+
+        @AuraEnabled
+        public String createdDateTime {get; set;}
+        
         @AuraEnabled
         public String pauseReasonId {get; set;}
 
