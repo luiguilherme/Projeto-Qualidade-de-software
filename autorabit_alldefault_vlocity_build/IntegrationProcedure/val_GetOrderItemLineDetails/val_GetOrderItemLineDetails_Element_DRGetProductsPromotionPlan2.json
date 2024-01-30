@@ -13,41 +13,46 @@
             "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/GetOrderItemLineDetails/Procedure",
             "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
         },
-        "Name": "CBWithAssetId",
+        "Name": "CBWithAssetPromotion",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetOrderItemLineDetails/Procedure/CBWithAssetId",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetOrderItemLineDetails/Procedure/CBWithAssetPromotion",
         "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
     },
-    "%vlocity_namespace%__ParentElementName__c": "CBWithAssetId",
+    "%vlocity_namespace%__ParentElementName__c": "CBWithAssetPromotion",
     "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
-        "additionalOutput": {
-            "Plan": "=IF(%DRGetProductsPromotionPlan:OrderType% != \"Change\", %DRGetProductsPromotionPlan:Plan:Name%, %DRGetProductsPromotionPlan:NewPlan:Name%)",
-            "Platform": "%DRGetLineDetails:Platform%",
-            "Promotion": "=IF(%DRGetProductsPromotionPlan:OrderType% != \"Change\", %DRGetProductsPromotionPlan:Promotion:Name%, %DRGetProductsPromotionPlan:NewPromotion:Name%)",
-            "serviceIdentifier": "%DRGetLineDetails:ServiceIdentifier%"
+        "actionMessage": "",
+        "additionalInput": {
+            "orderId": "%orderId%"
         },
+        "additionalOutput": {
+        },
+        "bundle": "valGetProductsByOrderItem",
+        "chainOnStep": false,
+        "dataRaptor Input Parameters": [
+        ],
         "disOnTplt": false,
         "executionConditionalFormula": "",
-        "label": "ResponseAction1",
-        "responseDefaultData": {
+        "failOnStepError": false,
+        "failureConditionalFormula": "",
+        "failureResponse": {
         },
-        "responseFormat": "JSON",
+        "ignoreCache": false,
+        "label": "DataRaptorExtractAction3",
         "responseJSONNode": "",
         "responseJSONPath": "",
-        "returnFullDataJSON": false,
         "returnOnlyAdditionalOutput": false,
+        "returnOnlyFailureResponse": false,
         "sendJSONNode": "",
         "sendJSONPath": "",
+        "sendOnlyAdditionalInput": false,
         "show": null,
-        "useFormulas": true,
-        "vlcResponseHeaders": {
-        }
+        "useFormulas": true
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
-    "%vlocity_namespace%__Type__c": "Response Action",
-    "Name": "ResponseAction2",
+    "%vlocity_namespace%__Type__c": "DataRaptor Extract Action",
+    "Name": "DRGetProductsPromotionPlan2",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetOrderItemLineDetails/Procedure/ResponseAction2"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetOrderItemLineDetails/Procedure/DRGetProductsPromotionPlan2"
 }
