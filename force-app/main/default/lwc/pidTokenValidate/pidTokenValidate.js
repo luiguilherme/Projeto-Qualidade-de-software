@@ -75,16 +75,24 @@ export default class PidTokenValidate extends LightningElement {
                     this.disableAllScene();
 
                 } else {
-                    this.phone = this.isNotEndedStatus(result) ? result.data.phone : result.data.sendedPhone ? result.data.sendedPhone : '';
-                    this.phoneFormatted = this.phone.toString().slice(0, 2) + '-' + this.phone.toString().slice(2, 11);
+                    var phoneExist = false;
 
                     this.phones = result.data.phones.map(phoneNumber => {
+                        if (!phoneExist && this.phone && phoneNumber === this.phone) {
+                            phoneExist = true;
+                        }
+
                         return {
                             value: phoneNumber, 
                             label: (phoneNumber.toString().slice(0, 2) + '-' + phoneNumber.toString().slice(2, 11))
                         }
                     });
 
+                    if (!phoneExist) {
+                        this.phone = this.isNotEndedStatus(result) ? result.data.phone : result.data.sendedPhone ? result.data.sendedPhone : '';
+                        this.phoneFormatted = this.phone.toString().slice(0, 2) + '-' + this.phone.toString().slice(2, 11);
+                    }
+                    
                     this.maxCountAttempts = result.data.attempts;
                     this.countAttempt = result.data.tokenSendAttempts;
                     if (this.isNotEndedStatus(result) && 
