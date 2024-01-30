@@ -17,6 +17,9 @@ public with sharing class ChatIAController {
                 ChatIAHistoryVO.History history = new ChatIAHistoryVO.History();
                 history.type = body.mensagemUsuario == true ? 'user' : 'assistant';
                 history.message = body.conteudoMensagem;
+                if(body.mensagemUsuario == false){
+                    history.correlator = body.correlator;
+                }
                 history.x_id = '';
                 historyList.add(history);
             }
@@ -25,6 +28,7 @@ public with sharing class ChatIAController {
             chat.x_id = '';
             fullChat.chat = chat;
             ChatIAHistoryVO.CreateNewChatResponse retorno = ChatIAInterfaceAPI.CreateNewChat(fullChat, token);
+            System.debug(' retorno' + retorno );
 
             return retorno;
         } catch (Exception e) {
@@ -32,10 +36,42 @@ public with sharing class ChatIAController {
         }
         
     }
+    @AuraEnabled
+    public static ChatIAHistoryVO.CreateNewChatResponse createNewHistory(String chatList){
+        try{
+            ChatIAAuthenticationVO.BodyToReceive authentication = ChatIAInterfaceAPI.getAuthentication();
+            String token = authentication.token;
+
+            ChatIAHistoryVO.CreateNewHistory fullChat = new ChatIAHistoryVO.CreateNewHistory();
+            ChatIAHistoryVO.ChatHistory chat = new ChatIAHistoryVO.ChatHistory();
+            List<ChatIAHistoryVO.ChatHistory> listChat = new List<ChatIAHistoryVO.ChatHistory>();
+            List<ChatIAHistoryVO.NewHistory> historyList = new List<ChatIAHistoryVO.NewHistory>();
+
+            List<messageJSON> bodyToSend = (List<messageJSON>) JSON.deserialize(chatList, List<messageJSON>.class);
+            for(messageJSON body : bodyToSend){
     
+                ChatIAHistoryVO.NewHistory history = new ChatIAHistoryVO.NewHistory();
+                history.type = body.mensagemUsuario == true ? 'user' : 'assistant';
+                history.message = body.conteudoMensagem;
+                if(body.mensagemUsuario == false){
+                    history.correlator = body.correlator;
+                }
+                historyList.add(history);
+            }
+            chat.history = historyList;
+            chat.x_date = String.valueOf(System.today());
+            listChat.add(chat);
+            fullChat.chats = listChat;
+            ChatIAHistoryVO.CreateNewHistoryResponse retorno = ChatIAInterfaceAPI.CreateNewHistory(fullChat, token);
+            ChatIAHistoryVO.CreateNewChatResponse newCreateChat = retorno.chats[0];
+            return newCreateChat;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+        
+    }
     @AuraEnabled(cacheable=true)
     public static ChatIAHistoryVO.CreateNewChatResponse AddConversation(String chatList, String backupChat){
-        System.debug('chatlist '+ chatList);
         try{
             ChatIAAuthenticationVO.BodyToReceive authentication = ChatIAInterfaceAPI.getAuthentication();
             String token = authentication.token;
@@ -50,6 +86,9 @@ public with sharing class ChatIAController {
                 ChatIAHistoryVO.History history = new ChatIAHistoryVO.History();
                 history.type = body.mensagemUsuario == true ? 'user' : 'assistant';
                 history.message = body.conteudoMensagem;
+                if(body.mensagemUsuario == false){
+                    history.correlator = body.correlator;
+                }
                 history.x_id = '';
                 historyList.add(history);
             }
@@ -65,7 +104,35 @@ public with sharing class ChatIAController {
         }
         
     }
-
+    @AuraEnabled(cacheable=true)
+    public static ChatIAHistoryVO.CreateNewChatResponse updateFeedback(String correlator, String feedback, String chatId){
+        try {
+            ChatIAAuthenticationVO.BodyToReceive authentication = ChatIAInterfaceAPI.getAuthentication();
+            String token = authentication.token;
+            ChatIAHistoryVO.Feedback feedbackBody = new ChatIAHistoryVO.Feedback();
+            feedbackBody.correlator = correlator;
+            feedbackBody.feedback = feedback;
+            ChatIAHistoryVO.CreateNewChatResponse retorno = ChatIAInterfaceAPI.UpdateFeedback(feedbackBody, token, chatId);
+            return retorno;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+    @AuraEnabled(cacheable=true)
+    public static ChatIAFeedbackVO.FeedbackResponse sendFeedback(String correlator, String feedback, String message){
+        try {
+            ChatIAAuthenticationVO.BodyToReceive authentication = ChatIAInterfaceAPI.getAuthentication();
+            String token = authentication.token;
+            ChatIAFeedbackVO.Feedback feedbackBody = new ChatIAFeedbackVO.Feedback();
+            feedbackBody.correlator = correlator;
+            feedbackBody.feedback = feedback;
+            feedbackBody.message = message;
+            ChatIAFeedbackVO.FeedbackResponse retorno = ChatIAInterfaceAPI.sendFeedback(feedbackBody, token);
+            return retorno;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
     @AuraEnabled(cacheable=true)
     public static ChatIAHistoryVO.GetHistoryByIdResponse getChatById(String backupChat){
         try {
@@ -119,26 +186,35 @@ public with sharing class ChatIAController {
         }
     }
 
-    @AuraEnabled(cacheable=true)
-    public static Map<String, String> getSessionId(){
-        Map<String, String> mapSessionId = new Map<String, String>();
+    @AuraEnabled(cacheable=false)
+    public static InfoChatIA getSessionId(){
+        InfoChatIA info = new InfoChatIA();
         String userId = UserInfo.getUserId();
-        String sessionId = null;
-        String backupChat = null;
-        String recordFound;
-        List<ChatIA__c> chatIa = ChatIASelector.getInstance().getActiveChatIA(userId);
+        List<ChatIA__c> chatIa = ChatIASelector.getInstance().getLastChatIA(userId);
         if(!chatIa.isEmpty()){
-            sessionId = chatIa[0].Session__c;
-            backupChat = chatIa[0].Backup__c;
-            recordFound = chatIa[0].Id;
-        } else{
-            sessionId = userId+String.valueOf(System.today().day())+String.valueOf(System.today().month())+String.valueOf(System.today().year())+String.valueOf(System.now().hour())+String.valueOf(System.now().minute())+String.valueOf(System.now().millisecond());
-            recordFound = 'null';
+            if(chatIa[0].History__c && chatIa[0].Active__c){
+                info.active = chatIa[0].Active__c ? 'ok':'null' ;
+                info.history = chatIa[0].History__c ? 'ok':'null';
+                info.backupChat = chatIa[0].Backup__c;
+                info.recordFound = chatIa[0].Id;
+            }
+            else if(!chatIa[0].History__c && chatIa[0].Active__c){
+                info.recordFound = 'null';
+                info.history = 'null';
+            }
+            else if(chatIa[0].History__c && !chatIa[0].Active__c){
+                info.recordFound = 'null';
+                info.history = 'ok';
+            } else{
+                info.recordFound = 'null';
+                info.history = 'null';
+            }
+        } 
+        else{
+            info.recordFound = 'null';
+            info.history = 'null';
         }
-        
-        mapSessionId.put(backupChat, recordFound);
-
-        return mapSessionId;
+        return info;
     }   
 
     @AuraEnabled(cacheable=true)
@@ -174,5 +250,12 @@ public with sharing class ChatIAController {
     public class messageJSON {
         @AuraEnabled public Boolean mensagemUsuario; 
         @AuraEnabled public String conteudoMensagem; 
+        @AuraEnabled public String correlator;
+    }
+    public class InfoChatIA{
+        @AuraEnabled public String active;
+        @AuraEnabled public String history;
+        @AuraEnabled public String backupChat; 
+        @AuraEnabled public String recordFound;
     }
 }
