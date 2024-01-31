@@ -1,9 +1,3 @@
-/*
-    ---------------------------------------------------
-    @PTI3946-120 - 06/11/2023 - Márcio Las (deprecated)
-    @description - Recuperação das Senhas de Atendimento | Salesforce x GSS
-    ---------------------------------------------------
-*/
 public with sharing class PointOfServiceTicketsCallout {
     private static final Boolean API_INTEGRATION = true;
 
