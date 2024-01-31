@@ -546,6 +546,80 @@ public with sharing class StoreServiceManagerEngine {
             dtStart = dtCurrent;
         }
 
-        return (dtStart.format('dd/MM/YYYY HH:mm:ss'));
+        return (dtStart.formatGmt('dd/MM/YYYY HH:mm:ss'));
+    }    
+
+    public static Double calculateElapsedTimeInMilliseconds(String startTime, String finalTime) {
+        Double millisecondsElapsedTime = 0;
+ 
+        if (!String.isBlank(startTime) && !String.isBlank(finalTime) && !startTime.equals(finalTime)) {
+            try {
+                // Start date/time
+                String[] ltStartTime = ((startTime.contains(' '))
+                                        ? startTime.split(' ')[1].split(':')
+                                        : startTime.split(':')
+                                    );
+                
+                DateTime dtStartTime = Datetime.newInstanceGmt(
+                    Datetime.now().year(), 
+                    Datetime.now().month(), 
+                    Datetime.now().day(), 
+                    Integer.valueOf(ltStartTime[0]), 
+                    Integer.valueOf(ltStartTime[1]), 
+                    Integer.valueOf(ltStartTime[2])
+                );
+                
+                // Final date/time
+                String[] ltFinalTime = ((finalTime.contains(' '))
+                                        ? finalTime.split(' ')[1].split(':')
+                                        : finalTime.split(':')
+                                    );
+                
+                DateTime dtFinalTime = Datetime.newInstanceGmt(
+                    Datetime.now().year(), 
+                    Datetime.now().month(), 
+                    Datetime.now().day(), 
+                    Integer.valueOf(ltFinalTime[0]), 
+                    Integer.valueOf(ltFinalTime[1]), 
+                    Integer.valueOf(ltFinalTime[2])
+                );
+                
+                // Calculate elapsed time
+                millisecondsElapsedTime = Math.abs(dtFinalTime.getTime() - dtStartTime.getTime());
+
+            } catch (Exception e) {
+
+            }
+        }
+
+        return (millisecondsElapsedTime);
+    }
+
+    public static String calculateElapsedTime(Double millisecondsElapsedTime) {
+        String elapsedTime = '00:00:00';
+
+        if (millisecondsElapsedTime != null && millisecondsElapsedTime > 0) {
+            Integer seconds = Integer.valueOf(Math.floor(millisecondsElapsedTime / 1000));
+            Integer minutes = Integer.valueOf(Math.floor(seconds / 60));
+            Integer hours = Integer.valueOf(Math.floor(minutes / 60));
+            
+            seconds = Math.mod(seconds, 60);
+            minutes = Math.mod(minutes, 60);
+            hours = Math.mod(hours, 24);
+            
+            elapsedTime = (
+                String.valueOf(hours).leftPad(2, '0') + ':' +
+                String.valueOf(minutes).leftPad(2, '0') + ':' +
+                String.valueOf(seconds).leftPad(2, '0').substring(0, 2)
+            );
+        }
+
+        return (elapsedTime.substring(0, 8));
+    }
+
+    public static String calculateElapsedTime(String startTime, String finalTime) {
+        Double elapsedTime = calculateElapsedTimeInMilliseconds(startTime, finalTime);
+
+        return (calculateElapsedTime(elapsedTime));
     }
 }

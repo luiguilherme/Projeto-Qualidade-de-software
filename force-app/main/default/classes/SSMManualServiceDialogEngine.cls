@@ -43,7 +43,7 @@ public with sharing class SSMManualServiceDialogEngine {
                 serviceTicket.activity = '';
                 serviceTicket.protocol = '';
                 serviceTicket.waitTime = '';
-                serviceTicket.startTime = (DateTime.now()).format('dd/MM/YYYY HH:mm:ss');
+                serviceTicket.startTime = (DateTime.now()).formatGmt('dd/MM/YYYY HH:mm:ss');
                 serviceTicket.finalTime = '';
                 serviceTicket.duration = '';
                 serviceTicket.service = '';

@@ -1,5 +1,8 @@
 @IsTest
 public with sharing class SSMAttendanceOperationsControllerTest {
+    private static final String TEST_PHONE_NUMBER = '81010101212';
+    private static final String TEST_CNPJ_CPF_NUMBER = '55566677788';
+
     @TestSetup
     public static void setup() {
         Profile profileTest = [
@@ -96,8 +99,8 @@ public with sharing class SSMAttendanceOperationsControllerTest {
             accountTest.Name = 'Account Test SSM';
             accountTest.CustomerSegment__c = 'PLATINUM';
             accountTest.vlocity_cmt__Active__c = 'Yes';
-            accountTest.DocumentNumber__c = '55566677788';
-            accountTest.Phone = '81010101212';
+            accountTest.DocumentNumber__c = TEST_CNPJ_CPF_NUMBER;
+            accountTest.Phone = TEST_PHONE_NUMBER;
 
             Database.insert(accountTest);
 
@@ -117,7 +120,7 @@ public with sharing class SSMAttendanceOperationsControllerTest {
         ];
 
         System.runAs(userTest) {
-            List<Account> ltAccountTest = AccountDAO.getAccountByPhoneNumber('81010101212');
+            List<Account> ltAccountTest = AccountDAO.getAccountByPhoneNumber(TEST_PHONE_NUMBER);
 
             StoreServiceManagerTO.ServiceTicket serviceTicket = new StoreServiceManagerTO.ServiceTicket();
                     
@@ -157,7 +160,7 @@ public with sharing class SSMAttendanceOperationsControllerTest {
         ];
 
         System.runAs(userTest) {
-            List<Account> ltAccountTest = AccountDAO.getAccountByPhoneNumber('81010101212');
+            List<Account> ltAccountTest = AccountDAO.getAccountByPhoneNumber(TEST_PHONE_NUMBER);
 
             StoreServiceManagerTO.ServiceTicket serviceTicket = new StoreServiceManagerTO.ServiceTicket();
                     
@@ -197,7 +200,9 @@ public with sharing class SSMAttendanceOperationsControllerTest {
         ];
 
         System.runAs(userTest) {
-            List<Account> ltAccountTest = AccountDAO.getAccountByPhoneNumber('81010101212');
+            Map<String, Object> mapCustomer = SSMAttendanceController.getAccount('', TEST_CNPJ_CPF_NUMBER);
+            Account acc = (Account) mapCustomer.get('success');
+            Id customerInteractionId = (Id) mapCustomer.get('CustomerInteractionId');
 
             StoreServiceManagerTO.ServiceTicket serviceTicket = new StoreServiceManagerTO.ServiceTicket();
                     
@@ -208,17 +213,18 @@ public with sharing class SSMAttendanceOperationsControllerTest {
             serviceTicket.segmentation = '01';
             serviceTicket.segmentationName = 'Cliente V';
             serviceTicket.customerPriority = 1;
-            serviceTicket.customerId = ltAccountTest[0].Id;
+            serviceTicket.customerId = acc.Id;
             serviceTicket.customerName = 'Maria da Silva';
             serviceTicket.customerAlias = 'Maria da Silva';
-            serviceTicket.customerCellPhone = '11988887777';
-            serviceTicket.customerDocument = '45678932103';
+            serviceTicket.customerCellPhone = TEST_PHONE_NUMBER;
+            serviceTicket.customerDocument = TEST_CNPJ_CPF_NUMBER;
             serviceTicket.category = 'FIXA';
             serviceTicket.categoryName = 'Fixa';
             serviceTicket.mainDocumentType = 'CPF';
             serviceTicket.documentNumber = '45678932103';
             serviceTicket.activities = '[{\"value\": \"728\", \"label\": \"Cancelamento - Fixa"}]';
             serviceTicket.notes = 'O cliente solicitou o cancelamento';
+            serviceTicket.customerInteractionId = customerInteractionId;
 
             Test.startTest();
                 Test.setMock(HttpCalloutMock.class, new PointOfServiceAttendanceCalloutMock());
@@ -240,7 +246,7 @@ public with sharing class SSMAttendanceOperationsControllerTest {
         ];
 
         System.runAs(userTest) {
-            List<Account> ltAccountTest = AccountDAO.getAccountByPhoneNumber('81010101212');
+            List<Account> ltAccountTest = AccountDAO.getAccountByPhoneNumber(TEST_PHONE_NUMBER);
 
             StoreServiceManagerTO.ServiceTicket serviceTicket = new StoreServiceManagerTO.ServiceTicket();
                     
