@@ -179,83 +179,95 @@ public with sharing class StoreServiceManagerEngine {
                 if (ltInformationAttendance != null && !ltInformationAttendance.isEmpty() &&
                     ltInformationAttendance[0].O_TP_STATUS != null
                 ) {
-                    informationAttendance.statusAttendance = ltInformationAttendance[0].O_TP_STATUS;
-
                     if (ltInformationAttendance[0].O_TP_STATUS == '2' && ltInformationAttendance[0].O_ST_SENHA != null) {
-                        informationAttendance.ticketId = (
-                            (ltInformationAttendance[0].O_ST_SENHA != null) 
-                            ? ltInformationAttendance[0].O_ST_SENHA 
-                            : ''
-                        );
-                        
-                        informationAttendance.segmentationId = (
-                            (ltInformationAttendance[0].O_CD_SEGMENTACAO_CLIENTE != null) 
-                            ? ltInformationAttendance[0].O_CD_SEGMENTACAO_CLIENTE 
-                            : ''
-                        );
-                        
-                        informationAttendance.segmentationName = (
-                            (ltInformationAttendance[0].O_ST_SEGMENTACAO_CLIENTE != null) 
-                            ? ltInformationAttendance[0].O_ST_SEGMENTACAO_CLIENTE 
-                            : ''
+                        // Get the object's ticket record ID
+                        User attendant = UserDAO.getById(UserInfo.getUserId());
+
+                        ServiceTicket__c ticket = ServiceTicketDAO.getGSSInServiceByStoreLoginAndTicketId(
+                            attendant.StoreCode__c, attendant.Login__c, ltInformationAttendance[0].O_ST_SENHA
                         );
 
-                        informationAttendance.waitTime = (
-                            (ltInformationAttendance[0].O_DT_TEMPO_ESPERA != null) 
-                            ? (
-                                (ltInformationAttendance[0].O_DT_TEMPO_ESPERA.contains(' '))
-                                ? ltInformationAttendance[0].O_DT_TEMPO_ESPERA.split(' ')[1]
-                                : ltInformationAttendance[0].O_DT_TEMPO_ESPERA          
-                              )
-                            : ''
-                        );
+                        if (ticket != null) {
+                            informationAttendance.Id = ticket.Id;
+                            informationAttendance.createdDateTime = (DateTime.valueOf(ticket.CreatedDate)).formatGmt('YYYY-MM-dd HH:mm:ss');
 
-                        informationAttendance.duration = (
-                            (ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO != null) 
-                            ? (
-                                (ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO.contains(' '))
-                                ? ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO.split(' ')[1]
-                                : ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO          
-                              )
-                            : ''
-                        );
-                        
-                        informationAttendance.customerCellPhone = (
-                            ((ltInformationAttendance[0].O_ST_DDD != null) 
-                                ? ltInformationAttendance[0].O_ST_DDD 
+                            informationAttendance.statusAttendance = ltInformationAttendance[0].O_TP_STATUS;
+                            informationAttendance.ticketId = ltInformationAttendance[0].O_ST_SENHA;
+                            
+                            informationAttendance.segmentationId = (
+                                (ltInformationAttendance[0].O_CD_SEGMENTACAO_CLIENTE != null) 
+                                ? ltInformationAttendance[0].O_CD_SEGMENTACAO_CLIENTE 
                                 : ''
-                            ) + 
-                            ((ltInformationAttendance[0].O_ST_TELEFONE != null) 
-                                ? '-' + ltInformationAttendance[0].O_ST_TELEFONE 
+                            );
+                        
+                            informationAttendance.segmentationName = (
+                                (ltInformationAttendance[0].O_ST_SEGMENTACAO_CLIENTE != null) 
+                                ? ltInformationAttendance[0].O_ST_SEGMENTACAO_CLIENTE 
                                 : ''
-                            )
-                        );
-                        
-                        informationAttendance.serviceName = (
-                            (ltInformationAttendance[0].O_ST_DESCRICAO != null) 
-                            ? ltInformationAttendance[0].O_ST_DESCRICAO 
-                            : ''
-                        );
-                        
-                        informationAttendance.type = (
-                            (ltInformationAttendance[0].O_TP_TIPO != null) 
-                            ? ltInformationAttendance[0].O_TP_TIPO 
-                            : ''
-                        );
-                        
-                        informationAttendance.startTime = calculateStartTime(informationAttendance.duration);
+                            );
 
-                        informationAttendance.customerName = (
-                            (ltInformationAttendance[0].O_ST_NOME != null) 
-                            ? ltInformationAttendance[0].O_ST_NOME 
-                            : ''
-                        );
+                            informationAttendance.waitTime = (
+                                (ltInformationAttendance[0].O_DT_TEMPO_ESPERA != null) 
+                                ? (
+                                    (ltInformationAttendance[0].O_DT_TEMPO_ESPERA.contains(' '))
+                                    ? ltInformationAttendance[0].O_DT_TEMPO_ESPERA.split(' ')[1]
+                                    : ltInformationAttendance[0].O_DT_TEMPO_ESPERA          
+                                )
+                                : ''
+                            );
 
-                        informationAttendance.customerDocument = (
-                            (ltInformationAttendance[0].O_ST_CPF != null) 
-                            ? ltInformationAttendance[0].O_ST_CPF 
-                            : ''
-                        );
+                            informationAttendance.duration = (
+                                (ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO != null) 
+                                ? (
+                                    (ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO.contains(' '))
+                                    ? ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO.split(' ')[1]
+                                    : ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO          
+                                )
+                                : ''
+                            );
+                        
+                            informationAttendance.customerCellPhone = (
+                                ((ltInformationAttendance[0].O_ST_DDD != null) 
+                                    ? ltInformationAttendance[0].O_ST_DDD 
+                                    : ''
+                                ) + 
+                                ((ltInformationAttendance[0].O_ST_TELEFONE != null) 
+                                    ? '-' + ltInformationAttendance[0].O_ST_TELEFONE 
+                                    : ''
+                                )
+                            );
+                        
+                            informationAttendance.serviceName = (
+                                (ltInformationAttendance[0].O_ST_DESCRICAO != null) 
+                                ? ltInformationAttendance[0].O_ST_DESCRICAO 
+                                : ''
+                            );
+                        
+                            informationAttendance.type = (
+                                (ltInformationAttendance[0].O_TP_TIPO != null) 
+                                ? ltInformationAttendance[0].O_TP_TIPO 
+                                : ''
+                            );
+                        
+                            if (ticket.ServiceStart__c == null) {
+                                informationAttendance.startTime = (DateTime.now()).formatGmt('YYYY-MM-dd HH:mm:ss');
+
+                            } else {
+                                informationAttendance.startTime = (DateTime.valueOf(ticket.ServiceStart__c)).formatGmt('YYYY-MM-dd HH:mm:ss');
+                            }
+
+                            informationAttendance.customerName = (
+                                (ltInformationAttendance[0].O_ST_NOME != null) 
+                                ? ltInformationAttendance[0].O_ST_NOME 
+                                : ''
+                            );
+
+                            informationAttendance.customerDocument = (
+                                (ltInformationAttendance[0].O_ST_CPF != null) 
+                                ? ltInformationAttendance[0].O_ST_CPF 
+                                : ''
+                            );
+                        }
 
                     } else if (ltInformationAttendance[0].O_TP_STATUS == '4') {
                         informationAttendance.pauseReasonId = '9999';

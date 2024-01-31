@@ -153,6 +153,12 @@ public with sharing class StoreServiceManagerTO {
     
     public class AttendanceInformationStatus {
         @AuraEnabled
+        public String Id {get; set;}
+
+        @AuraEnabled
+        public String createdDateTime {get; set;}
+        
+        @AuraEnabled
         public String pauseReasonId {get; set;}
 
         @AuraEnabled

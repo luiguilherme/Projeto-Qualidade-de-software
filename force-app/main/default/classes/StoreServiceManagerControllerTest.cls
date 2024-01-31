@@ -170,6 +170,31 @@ public with sharing class StoreServiceManagerControllerTest {
             );
 
             Database.insert(ltWebservicesSSM);
+
+            ServiceTicket__c ticketTest = new ServiceTicket__c(
+                ExternalID__c = 'TICKET_TEST',
+                Store__c = '307',
+                TicketId__c = 'SSM17',
+                Status__c = 'In Service',
+                Login__c = 'A024895',
+                SpecialNeeds__c = false,
+                Priority__c = 2,
+                CustomerName__c = 'Cliente Teste',
+                Alias__c = 'MLAS',
+                Document__c = '85274136987',
+                GeographicAreaCode__c = '81',
+                NetworkNumber__c = '966778899',
+                SegmentID__c = '1',
+                SegmentName__c = 'Cliente',
+                Activity__c = 'Test ticket',
+                Protocol__c = '000011/2023',
+                InteractionID__c = '4',
+                InteractionName__c = 'Teste Componente SSM',
+                WaitTime__c = '00:05:25',
+                ActivityPriority__c = 1
+            );
+
+            Database.insert(ticketTest);
         }
     }
 

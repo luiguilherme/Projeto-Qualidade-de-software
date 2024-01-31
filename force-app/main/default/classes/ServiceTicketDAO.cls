@@ -147,4 +147,30 @@ public with sharing class ServiceTicketDAO {
     public static List<ServiceTicket__c> getGSSOnHoldByStore(String store) {
         return (getByRecordTypeStoreAndStatus(GSS_RECORD_TYPE_ID, store, GSS_STATUS_ON_HOLD));
     }
+
+    public static ServiceTicket__c getGSSInServiceByStoreLoginAndTicketId(String store, String login, String ticketId) {
+        List<ServiceTicket__c> lstServiceTicket = [
+            SELECT
+                Id, 
+                CreatedDate, 
+                RecordTypeId, 
+                Store__c, 
+                Login__c, 
+                TicketId__c, 
+                Status__c, 
+                ServiceStart__c 
+            FROM 
+                ServiceTicket__c 
+            WHERE (
+                RecordTypeId = :GSS_RECORD_TYPE_ID AND 
+                Store__c = :store AND 
+                Login__c = :login AND 
+                TicketId__c = :ticketId AND 
+                Status__c = :GSS_STATUS_IN_SERVICE AND 
+                CreatedDate = TODAY
+            )
+        ];
+        
+        return ((lstServiceTicket == null || lstServiceTicket.isEmpty()) ? null : lstServiceTicket[0]);
+    }
 }
