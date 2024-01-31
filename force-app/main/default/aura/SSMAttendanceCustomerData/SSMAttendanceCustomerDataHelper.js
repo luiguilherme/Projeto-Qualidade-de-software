@@ -55,17 +55,10 @@
 
     onMainDocumentTypeChange : function(component, event, helper) {
         let serviceTicket = component.get("v.serviceTicket");
-        let documentTypeValue = event.getParam("value");
-        let ltDocumentTypes = component.get("v.ltDocumentTypes");
-
-        let documentType = ltDocumentTypes.filter(function(checkDocumentType) {
-            return checkDocumentType.value === documentTypeValue;
-        });
-
-        serviceTicket.mainDocumentTypeName = documentType[0].label;
-        serviceTicket.documentNumber = "";
 
         this.setDocumentNumberFormat(component, serviceTicket.mainDocumentType);
+
+        serviceTicket.documentNumber = "";
         
         component.set("v.serviceTicket", serviceTicket);
 

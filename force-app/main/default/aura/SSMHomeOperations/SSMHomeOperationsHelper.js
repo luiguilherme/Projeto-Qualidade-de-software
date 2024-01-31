@@ -54,10 +54,11 @@
 			{serviceTicket: serviceTicket},
 			(returnValue) => {
 				let errorMessage = "";
-                let serviceTicketUpdated = returnValue["success"];
 
-				if (serviceTicketUpdated) {
-                    component.set("v.serviceTicket", serviceTicketUpdated);
+				if (returnValue["success"]) {
+                    serviceTicket.startTime = returnValue["startTime"];
+                    
+                    component.set("v.serviceTicket", serviceTicket);
                     
                     this.posAttendance(component);
 

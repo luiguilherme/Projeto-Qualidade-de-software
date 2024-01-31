@@ -119,11 +119,9 @@ public with sharing class StoreServiceManagerRequestTest {
             StoreServiceManagerTO.ServiceTicket serviceTicket = new StoreServiceManagerTO.ServiceTicket();
                     
             serviceTicket.ticketId = 'A229';
-            serviceTicket.externalId = 'SenhaTeste01';
             serviceTicket.workPositionId = '01';
             serviceTicket.displayAlert = true;
-            serviceTicket.status = ServiceTicketDAO.GSS_STATUS_IN_SERVICE;
-
+            
             Test.startTest();
                 StoreServiceManagerResponse.Attendance request = StoreServiceManagerRequest.getStartAttendanceRequest(serviceTicket);
             Test.stopTest();
@@ -174,5 +172,12 @@ public with sharing class StoreServiceManagerRequestTest {
             System.assertEquals(serviceTicket.displayAlert, request.displayAlert);
             System.assertEquals('Closed', request.status);
         }
+    }
+
+    @IsTest
+    public static void calculateElapsedTimeTest() {
+        String test = StoreServiceManagerRequest.calculateElapsedTime('16:00:00', '16:30:00');
+    
+        System.assertEquals('00:30:00', test);
     }
 }
