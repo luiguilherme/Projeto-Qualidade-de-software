@@ -289,9 +289,7 @@ public with sharing class StoreServiceManagerRequest {
 
         StoreServiceManagerResponse.Duration duration = new StoreServiceManagerResponse.Duration();
         
-        serviceTicket.finalTime = (DateTime.now()).formatGmt('dd/MM/YYYY HH:mm:ss');
-        
-        duration.amount = StoreServiceManagerService.calculateElapsedTime(serviceTicket.startTime, serviceTicket.finalTime);
+        duration.amount = serviceTicket.duration;
 
         ticket.duration = duration;
         ticket.geographicArea = geographicArea;

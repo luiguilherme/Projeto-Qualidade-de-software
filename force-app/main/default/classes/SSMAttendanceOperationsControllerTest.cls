@@ -107,6 +107,30 @@ public with sharing class SSMAttendanceOperationsControllerTest {
             GeneralParam__c paramTest = new GeneralParam__c(
                 TimeAutomaticTicketCall__c = 10
             );
+
+            ServiceTicket__c ticketTest = new ServiceTicket__c(
+                ExternalID__c = 'TICKET_TEST',
+                Store__c = '307',
+                TicketId__c = 'T98',
+                Status__c = 'On Hold',
+                SpecialNeeds__c = false,
+                Priority__c = 2,
+                CustomerName__c = 'Márcio Las',
+                Alias__c = 'MLAS',
+                Document__c = '85274136987',
+                GeographicAreaCode__c = '81',
+                NetworkNumber__c = '966778899',
+                SegmentID__c = '1',
+                SegmentName__c = 'Cliente',
+                Activity__c = 'Test ticket',
+                Protocol__c = '000011/2023',
+                InteractionID__c = '4',
+                InteractionName__c = 'Teste Componente SSM',
+                WaitTime__c = '00:05:25',
+                ActivityPriority__c = 1
+            );
+    
+            Database.insert(ticketTest);
         }
     }
 
@@ -120,33 +144,47 @@ public with sharing class SSMAttendanceOperationsControllerTest {
         ];
 
         System.runAs(userTest) {
-            List<Account> ltAccountTest = AccountDAO.getAccountByPhoneNumber(TEST_PHONE_NUMBER);
+            Map<String, Object> mapServiceTicketTest = SSMTicketsController.getPointOfServiceTitckets();
 
-            StoreServiceManagerTO.ServiceTicket serviceTicket = new StoreServiceManagerTO.ServiceTicket();
-                    
-            serviceTicket.type = 'MANUAL';
-            serviceTicket.workPositionId = '01';
-            serviceTicket.displayAlert = false;
-            serviceTicket.ticketId = 'A229';
-            serviceTicket.customerPriority = 1;
-            serviceTicket.customerId = ltAccountTest[0].Id;
-            serviceTicket.customerName = 'Maria da Silva';
-            serviceTicket.customerAlias = 'Maria da Silva';
-            serviceTicket.customerCellPhone = '11988887777';
-            serviceTicket.customerDocument = '45678932103';
-            serviceTicket.category = 'FIXA';
-            serviceTicket.categoryName = 'Fixa';
-            serviceTicket.mainDocumentType = 'CPF';
-            serviceTicket.documentNumber = '45678932103';
-            serviceTicket.giveUpReason = '{\"value\": \"QR1\", \"label\": \"Retornará em outro horário / dia\"}';
-            
+            List<StoreServiceManagerTO.ServiceTicket> ltServiceTicketTest = 
+                (List<StoreServiceManagerTO.ServiceTicket>) mapServiceTicketTest.get('success');
+
+            StoreServiceManagerTO.ServiceTicket serviceTicketTest = ltServiceTicketTest[0];
+
             Test.startTest();
                 Test.setMock(HttpCalloutMock.class, new PointOfServiceAttendanceCalloutMock());
 
-                Map<String, Object> mapTest = SSMAttendanceOperationsController.recallTicket(serviceTicket);
+                Map<String, Object> mapTest = SSMAttendanceOperationsController.recallTicket(serviceTicketTest);
             Test.stopTest();
 
-            System.assertNotEquals(null, mapTest.get('success'));
+            System.assertEquals('T98', serviceTicketTest.ticketId);
+        }
+    }
+
+    @IsTest
+    public static void returnToHome() { 
+        User userTest = [
+            SELECT id 
+            FROM User 
+            WHERE UserName = 'ssmgssvssf@ssmgssvssf.com' 
+            LIMIT 1
+        ];
+
+        System.runAs(userTest) {
+            Map<String, Object> mapServiceTicketTest = SSMTicketsController.getPointOfServiceTitckets();
+
+            List<StoreServiceManagerTO.ServiceTicket> ltServiceTicketTest = 
+                (List<StoreServiceManagerTO.ServiceTicket>) mapServiceTicketTest.get('success');
+
+            StoreServiceManagerTO.ServiceTicket serviceTicketTest = ltServiceTicketTest[0];
+
+            Test.startTest();
+                Test.setMock(HttpCalloutMock.class, new PointOfServiceAttendanceCalloutMock());
+
+                Map<String, Object> mapTest = SSMAttendanceOperationsController.returnToHome(serviceTicketTest);
+            Test.stopTest();
+
+            System.assertEquals('T98', serviceTicketTest.ticketId);
         }
     }
 
@@ -160,33 +198,27 @@ public with sharing class SSMAttendanceOperationsControllerTest {
         ];
 
         System.runAs(userTest) {
-            List<Account> ltAccountTest = AccountDAO.getAccountByPhoneNumber(TEST_PHONE_NUMBER);
+            Map<String, Object> mapServiceTicketTest = SSMTicketsController.getPointOfServiceTitckets();
 
-            StoreServiceManagerTO.ServiceTicket serviceTicket = new StoreServiceManagerTO.ServiceTicket();
-                    
-            serviceTicket.type = 'MANUAL';
-            serviceTicket.workPositionId = '01';
-            serviceTicket.displayAlert = false;
-            serviceTicket.ticketId = 'A229';
-            serviceTicket.customerPriority = 1;
-            serviceTicket.customerId = ltAccountTest[0].Id;
-            serviceTicket.customerName = 'Maria da Silva';
-            serviceTicket.customerAlias = 'Maria da Silva';
-            serviceTicket.customerCellPhone = '11988887777';
-            serviceTicket.customerDocument = '45678932103';
-            serviceTicket.category = 'FIXA';
-            serviceTicket.categoryName = 'Fixa';
-            serviceTicket.mainDocumentType = 'CPF';
-            serviceTicket.documentNumber = '45678932103';
-            serviceTicket.giveUpReason = '{\"value\": \"QR1\", \"label\": \"Retornará em outro horário / dia\"}';
-            
+            List<StoreServiceManagerTO.ServiceTicket> ltServiceTicketTest = 
+                (List<StoreServiceManagerTO.ServiceTicket>) mapServiceTicketTest.get('success');
+
+            StoreServiceManagerTO.ServiceTicket serviceTicketTest = ltServiceTicketTest[0];
+
+            serviceTicketTest.category = 'FIXA';
+            serviceTicketTest.categoryName = 'Fixa';
+            serviceTicketTest.mainDocumentType = 'CPF';
+            serviceTicketTest.mainDocumentTypeName = 'CPF';
+            serviceTicketTest.documentNumber = '45678932103';
+            serviceTicketTest.giveUpReason = '{\"value\": \"QR1\", \"label\": \"Retornará em outro horário / dia\"}';
+
             Test.startTest();
                 Test.setMock(HttpCalloutMock.class, new PointOfServiceAttendanceCalloutMock());
 
-                Map<String, Object> mapTest = SSMAttendanceOperationsController.giveUp(serviceTicket);
+                Map<String, Object> mapTest = SSMAttendanceOperationsController.giveUp(serviceTicketTest);
             Test.stopTest();
 
-            System.assertNotEquals(null, mapTest.get('success'));
+            System.assertEquals('T98', serviceTicketTest.ticketId);
         }
     }
 
@@ -204,74 +236,30 @@ public with sharing class SSMAttendanceOperationsControllerTest {
             Account acc = (Account) mapCustomer.get('success');
             Id customerInteractionId = (Id) mapCustomer.get('CustomerInteractionId');
 
-            StoreServiceManagerTO.ServiceTicket serviceTicket = new StoreServiceManagerTO.ServiceTicket();
+            Map<String, Object> mapServiceTicketTest = SSMTicketsController.getPointOfServiceTitckets();
+
+            List<StoreServiceManagerTO.ServiceTicket> ltServiceTicketTest = 
+                (List<StoreServiceManagerTO.ServiceTicket>) mapServiceTicketTest.get('success');
+
+            StoreServiceManagerTO.ServiceTicket serviceTicketTest = ltServiceTicketTest[0];
                     
-            serviceTicket.type = 'MANUAL';
-            serviceTicket.workPositionId = '01';
-            serviceTicket.displayAlert = false;
-            serviceTicket.ticketId = 'A229';
-            serviceTicket.segmentation = '01';
-            serviceTicket.segmentationName = 'Cliente V';
-            serviceTicket.customerPriority = 1;
-            serviceTicket.customerId = acc.Id;
-            serviceTicket.customerName = 'Maria da Silva';
-            serviceTicket.customerAlias = 'Maria da Silva';
-            serviceTicket.customerCellPhone = TEST_PHONE_NUMBER;
-            serviceTicket.customerDocument = TEST_CNPJ_CPF_NUMBER;
-            serviceTicket.category = 'FIXA';
-            serviceTicket.categoryName = 'Fixa';
-            serviceTicket.mainDocumentType = 'CPF';
-            serviceTicket.documentNumber = '45678932103';
-            serviceTicket.activities = '[{\"value\": \"728\", \"label\": \"Cancelamento - Fixa"}]';
-            serviceTicket.notes = 'O cliente solicitou o cancelamento';
-            serviceTicket.customerInteractionId = customerInteractionId;
+            serviceTicketTest.customerInteractionId = customerInteractionId;
+            serviceTicketTest.customerId = acc.Id;
+            serviceTicketTest.category = 'FIXA';
+            serviceTicketTest.categoryName = 'Fixa';
+            serviceTicketTest.mainDocumentType = 'CPF';
+            serviceTicketTest.mainDocumentTypeName = 'CPF';
+            serviceTicketTest.documentNumber = '45678932103';
+            serviceTicketTest.activities = '[{\"value\": \"728\", \"label\": \"Cancelamento - Fixa"}]';
+            serviceTicketTest.notes = 'O cliente solicitou o cancelamento';
 
             Test.startTest();
                 Test.setMock(HttpCalloutMock.class, new PointOfServiceAttendanceCalloutMock());
 
-                Map<String, Object> mapTest = SSMAttendanceOperationsController.confirmService(serviceTicket);
+                Map<String, Object> mapTest = SSMAttendanceOperationsController.confirmService(serviceTicketTest);
             Test.stopTest();
 
-            System.assertNotEquals(null, mapTest.get('success'));
-        }
-    }
-
-    @IsTest
-    public static void returnToHome() { 
-        User userTest = [
-            SELECT id 
-            FROM User 
-            WHERE UserName = 'ssmgssvssf@ssmgssvssf.com' 
-            LIMIT 1
-        ];
-
-        System.runAs(userTest) {
-            List<Account> ltAccountTest = AccountDAO.getAccountByPhoneNumber(TEST_PHONE_NUMBER);
-
-            StoreServiceManagerTO.ServiceTicket serviceTicket = new StoreServiceManagerTO.ServiceTicket();
-                    
-            serviceTicket.type = 'MANUAL';
-            serviceTicket.workPositionId = '01';
-            serviceTicket.displayAlert = false;
-            serviceTicket.ticketId = 'A229';
-            serviceTicket.customerPriority = 1;
-            serviceTicket.customerId = ltAccountTest[0].Id;
-            serviceTicket.customerName = 'Maria da Silva';
-            serviceTicket.customerAlias = 'Maria da Silva';
-            serviceTicket.customerCellPhone = '11988887777';
-            serviceTicket.customerDocument = '45678932103';
-            serviceTicket.category = 'FIXA';
-            serviceTicket.categoryName = 'Fixa';
-            serviceTicket.mainDocumentType = 'CPF';
-            serviceTicket.documentNumber = '45678932103';
-            
-            Test.startTest();
-                Test.setMock(HttpCalloutMock.class, new PointOfServiceAttendanceCalloutMock());
-
-                Map<String, Object> mapTest = SSMAttendanceOperationsController.returnToHome(serviceTicket);
-            Test.stopTest();
-
-            System.assertNotEquals(null, mapTest.get('success'));
+            System.assertEquals('T98', serviceTicketTest.ticketId);
         }
     }
 }

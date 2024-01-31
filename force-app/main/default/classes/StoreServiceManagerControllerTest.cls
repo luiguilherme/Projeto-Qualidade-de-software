@@ -322,6 +322,26 @@ public with sharing class StoreServiceManagerControllerTest {
     }
 
     @IsTest
+    public static void getWorkPositionsPickListTest() {
+        User userTest = [
+            SELECT id 
+            FROM User 
+            WHERE UserName = 'ssmgssvssf@ssmgssvssf.com' 
+            LIMIT 1
+        ];
+
+        System.runAs(userTest) {
+            Test.startTest();
+                Test.setMock(HttpCalloutMock.class, new PointOfServiceCalloutMock());
+
+                List<StoreServiceManagerTO.ItemPicklistValue> ltWorkPositions = StoreServiceManagerController.getWorkPositionsPickList();
+            Test.stopTest();
+
+            System.assertNotEquals(0, ltWorkPositions.size());
+        }
+    }
+
+    @IsTest
     public static void getAccountCustomerSegmentGSSTest() {
         String CUSTOMER_SEGMENT_PLATINUM_IN = 'PLATINUM';
         String CUSTOMER_SEGMENT_PLATINUM_OUT = '1';
@@ -373,8 +393,15 @@ public with sharing class StoreServiceManagerControllerTest {
 
     @IsTest
     public static void calculateElapsedTimeTest() {
-        String test = StoreServiceManagerController.calculateElapsedTime('16:00:00', '16:30:00');
+        String startTime = '16:00:00';
+        String endTime = '16:30:00';
+
+        Double dElapsedTimeTest = StoreServiceManagerController.calculateElapsedTimeInMilliseconds(startTime, endTime);
+        String sElapsedTimeTest = StoreServiceManagerController.calculateElapsedTime(dElapsedTimeTest);
+        String elapsedTimeTest = StoreServiceManagerController.calculateElapsedTime(startTime, endTime);
     
-        System.assertEquals('00:30:00', test);
+        System.assertEquals(1800000.0, dElapsedTimeTest);
+        System.assertEquals('00:30:00', sElapsedTimeTest);
+        System.assertEquals('00:30:00', elapsedTimeTest);
     }
 }

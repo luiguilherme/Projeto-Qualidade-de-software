@@ -39,7 +39,7 @@ public with sharing class StoreServiceManagerController {
     
     @AuraEnabled
     public static List<StoreServiceManagerTO.ItemPicklistValue> getWorkPositionsPickList() {
-        return (StoreServiceManagerEngine.getWorkPositionsPickList(null));
+        return (StoreServiceManagerService.getWorkPositionsPickList(null));
     }
     
     @AuraEnabled

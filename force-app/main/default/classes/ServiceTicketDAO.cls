@@ -5,6 +5,14 @@
     @description    DAO Class for ServiceTicket__c
 */
 public with sharing class ServiceTicketDAO {
+    public static final String GSS_RECORD_TYPE_NAME = 'StoreServiceManager';
+    public static final Id GSS_RECORD_TYPE_ID = getRecordTypeId(GSS_RECORD_TYPE_NAME);
+
+    public static final String GSS_STATUS_ON_HOLD = 'On Hold';
+    public static final String GSS_STATUS_IN_SERVICE = 'In Service';
+    public static final String GSS_STATUS_CANCELED = 'Canceled';
+    public static final String GSS_STATUS_CLOSED = 'Closed';
+
     public static Id getRecordTypeId(String recordTypeName) {
         return (SObjectType.ServiceTicket__c.getRecordTypeInfosByDeveloperName().get(recordTypeName).getRecordTypeId());
     }
@@ -25,10 +33,9 @@ public with sharing class ServiceTicketDAO {
                 Id, 
                 CreatedDate, 
                 RecordTypeId, 
-                ExternalID__c, 
                 Store__c, 
                 TicketId__c, 
-                Status__c, 
+                ExternalID__c, 
                 SpecialNeeds__c, 
                 Priority__c, 
                 CustomerName__c, 
@@ -41,21 +48,21 @@ public with sharing class ServiceTicketDAO {
                 Activity__c, 
                 ActivityPriority__c, 
                 Protocol__c, 
-                InteractionID__c, 
-                InteractionName__c, 
                 WaitTime__c, 
+                Status__c, 
                 Login__c, 
                 ServiceStart__c, 
                 ServiceEnd__c, 
                 Duration__c, 
+                InteractionID__c, 
+                InteractionName__c, 
                 BusinessLineID__c, 
                 BusinessLineName__c, 
                 MainDocumentTypeID__c, 
                 MainDocumentTypeName__c, 
                 DocumentNumber__c, 
                 Activities__c, 
-                Notes__c, 
-                SFPriority__c
+                Notes__c 
             FROM 
                 ServiceTicket__c
             WHERE (
@@ -64,17 +71,17 @@ public with sharing class ServiceTicketDAO {
         ]);
     }
 
-    public static List<ServiceTicket__c> getByRecordTypeAndStoreAndStatus(String recordTypeName, String store, String status) {
+    public static List<ServiceTicket__c> getByRecordTypeStoreAndStatus(String recordTypeName, String store, String status) {
         if (String.isBlank(recordTypeName)) {
             return (new List<ServiceTicket__c>());
         }
 
         Id recordTypeId = getRecordTypeId(recordTypeName);
 
-        return (getByRecordTypeAndStoreAndStatus(recordTypeId, store, status));
+        return (getByRecordTypeStoreAndStatus(recordTypeId, store, status));
     }
 
-    public static List<ServiceTicket__c> getByRecordTypeAndStoreAndStatus(Id recordTypeId, String store, String status) {
+    public static List<ServiceTicket__c> getByRecordTypeStoreAndStatus(Id recordTypeId, String store, String status) {
         if (recordTypeId == null) {
             return (new List<ServiceTicket__c>());
         }
@@ -92,10 +99,9 @@ public with sharing class ServiceTicketDAO {
                 Id, 
                 CreatedDate, 
                 RecordTypeId, 
-                ExternalID__c, 
                 Store__c, 
                 TicketId__c, 
-                Status__c, 
+                ExternalID__c, 
                 SpecialNeeds__c, 
                 Priority__c, 
                 CustomerName__c, 
@@ -108,28 +114,28 @@ public with sharing class ServiceTicketDAO {
                 Activity__c, 
                 ActivityPriority__c, 
                 Protocol__c, 
-                InteractionID__c, 
-                InteractionName__c, 
                 WaitTime__c, 
+                Status__c, 
                 Login__c, 
                 ServiceStart__c, 
                 ServiceEnd__c, 
                 Duration__c, 
+                InteractionID__c, 
+                InteractionName__c, 
                 BusinessLineID__c, 
                 BusinessLineName__c, 
                 MainDocumentTypeID__c, 
                 MainDocumentTypeName__c, 
                 DocumentNumber__c, 
                 Activities__c, 
-                Notes__c, 
-                SFPriority__c 
+                Notes__c 
             FROM 
                 ServiceTicket__c 
             WHERE (
                 RecordTypeId = :recordTypeId AND 
                 Store__c = :store AND 
                 Status__c = :status AND 
-                CreatedDate = TODAY 
+                CreatedDate = TODAY
             ) 
             ORDER BY 
                 Priority__c, 
@@ -138,20 +144,7 @@ public with sharing class ServiceTicketDAO {
         ]);
     }
 
-    /*
-
-        GSS | StoreServiceManager
-
-    */
-    public static final String GSS_RECORD_TYPE_NAME = 'StoreServiceManager';
-    public static final Id GSS_RECORD_TYPE_ID = getRecordTypeId(GSS_RECORD_TYPE_NAME);
-
-    public static final String GSS_STATUS_ON_HOLD = 'On Hold';
-    public static final String GSS_STATUS_IN_SERVICE = 'In Service';
-    public static final String GSS_STATUS_CANCELED = 'Canceled';
-    public static final String GSS_STATUS_CLOSED = 'Closed';
-
-    public static List<ServiceTicket__c> getGSSOnHold(String store) {
-        return (getByRecordTypeAndStoreAndStatus(GSS_RECORD_TYPE_ID, store, GSS_STATUS_ON_HOLD));
+    public static List<ServiceTicket__c> getGSSOnHoldByStore(String store) {
+        return (getByRecordTypeStoreAndStatus(GSS_RECORD_TYPE_ID, store, GSS_STATUS_ON_HOLD));
     }
 }

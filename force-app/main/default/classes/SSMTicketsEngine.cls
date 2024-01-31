@@ -18,7 +18,7 @@ public with sharing class SSMTicketsEngine {
         List<StoreServiceManagerTO.ServiceTicket> ltServiceTickets = new List<StoreServiceManagerTO.ServiceTicket>();
         
         User attendant = UserDAO.getById(UserInfo.getUserId());
-        List<ServiceTicket__c> ltTickets = ServiceTicketDAO.getGSSOnHold(attendant.StoreCode__c);
+        List<ServiceTicket__c> ltTickets = ServiceTicketDAO.getGSSOnHoldByStore(attendant.StoreCode__c);
 
         if (ltTickets != null && ltTickets.size() > 0) {
             String customerName;
@@ -32,6 +32,7 @@ public with sharing class SSMTicketsEngine {
             String segmentationName;
             String service;
             String serviceName;
+            Integer activityPriority;
             String activity;
             String protocol;
             String customerCellPhone;
@@ -53,46 +54,58 @@ public with sharing class SSMTicketsEngine {
                 segmentationName = ((!String.isBlank(ticket.SegmentName__c)) ? ticket.SegmentName__c : '');
                 service = ((!String.isBlank(ticket.InteractionID__c)) ? ticket.InteractionID__c : '');
                 serviceName = ((!String.isBlank(ticket.InteractionName__c)) ? ticket.InteractionName__c : '');
+                activityPriority = ((ticket.ActivityPriority__c != null) ? Integer.valueOf(ticket.ActivityPriority__c) : 1);
                 activity = ((!String.isBlank(ticket.Activity__c)) ? ticket.Activity__c : '');
                 protocol = ((!String.isBlank(ticket.Protocol__c)) ? ticket.Protocol__c : '');
                     
                 customerCellPhone = (
                     geographicAreaCode + 
-                    ((!String.isBlank(geographicAreaCode) && !String.isBlank(networkNumber)) 
-                        ? ' ' + networkNumber.substring(0, 5) + '-' + networkNumber.substring(5)
+                    ((!String.isBlank(networkNumber)) 
+                        ? (networkNumber.substring(0, 5) + '-' + networkNumber.substring(5))
                         : ''
                     )
                 );
 
-                createdDateTime = (DateTime.valueOf(ticket.CreatedDate)).formatGmt('HH:mm:ss');
-                currentDateTime = (DateTime.now()).formatGmt('HH:mm:ss');
+                createdDateTime = (DateTime.valueOf(ticket.CreatedDate)).formatGmt('YYYY-MM-dd HH:mm:ss');
+                currentDateTime = (DateTime.now()).formatGmt('YYYY-MM-dd HH:mm:ss');
                 waitTime = StoreServiceManagerService.calculateElapsedTime(createdDateTime, currentDateTime);
                     
+                serviceTicket.Id = ticket.Id;
+                serviceTicket.createdDateTime = createdDateTime;
                 serviceTicket.type = '';
                 serviceTicket.view = '';
+                serviceTicket.store = ticket.Store__c;
                 serviceTicket.workPositionId = '';
                 serviceTicket.displayAlert = false;
                 serviceTicket.ticketId = ticket.TicketId__c;
+                serviceTicket.externalId = ticket.ExternalID__c;
                 serviceTicket.customerSpecialNeeds = customerSpecialNeeds;
                 serviceTicket.customerPriority = customerPriority;
+                serviceTicket.customerInteractionId = '';
                 serviceTicket.customerId = '';
                 serviceTicket.customerName = customerName;
                 serviceTicket.customerAlias = customerAlias;
                 serviceTicket.customerDocument = customerDocument;
+                serviceTicket.geographicAreaCode = geographicAreaCode;
+                serviceTicket.networkNumber = networkNumber;
                 serviceTicket.customerCellPhone = customerCellPhone;
                 serviceTicket.segmentation = segmentation;
                 serviceTicket.segmentationName = segmentationName;
                 serviceTicket.activity = activity;
                 serviceTicket.protocol = protocol;
                 serviceTicket.waitTime = waitTime;
+                serviceTicket.status = ticket.Status__c;
+                serviceTicket.userLogin = '';
                 serviceTicket.startTime = '';
                 serviceTicket.finalTime = '';
                 serviceTicket.duration = '';
                 serviceTicket.service = service;
                 serviceTicket.serviceName = serviceName;
+                serviceTicket.activityPriority = activityPriority;
                 serviceTicket.category = '';
                 serviceTicket.categoryName = '';
                 serviceTicket.mainDocumentType = '';
+                serviceTicket.mainDocumentTypeName = '';
                 serviceTicket.documentNumber = '';
                 serviceTicket.giveUpReason = '';
                 serviceTicket.activities = '';
