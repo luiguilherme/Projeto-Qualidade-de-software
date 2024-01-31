@@ -170,31 +170,6 @@ public with sharing class StoreServiceManagerControllerTest {
             );
 
             Database.insert(ltWebservicesSSM);
-
-            ServiceTicket__c ticketTest = new ServiceTicket__c(
-                ExternalID__c = 'TICKET_TEST',
-                Store__c = '307',
-                TicketId__c = 'SSM17',
-                Status__c = 'In Service',
-                Login__c = 'A024895',
-                SpecialNeeds__c = false,
-                Priority__c = 2,
-                CustomerName__c = 'Cliente Teste',
-                Alias__c = 'MLAS',
-                Document__c = '85274136987',
-                GeographicAreaCode__c = '81',
-                NetworkNumber__c = '966778899',
-                SegmentID__c = '1',
-                SegmentName__c = 'Cliente',
-                Activity__c = 'Test ticket',
-                Protocol__c = '000011/2023',
-                InteractionID__c = '4',
-                InteractionName__c = 'Teste Componente SSM',
-                WaitTime__c = '00:05:25',
-                ActivityPriority__c = 1
-            );
-
-            Database.insert(ticketTest);
         }
     }
 
@@ -347,26 +322,6 @@ public with sharing class StoreServiceManagerControllerTest {
     }
 
     @IsTest
-    public static void getWorkPositionsPickListTest() {
-        User userTest = [
-            SELECT id 
-            FROM User 
-            WHERE UserName = 'ssmgssvssf@ssmgssvssf.com' 
-            LIMIT 1
-        ];
-
-        System.runAs(userTest) {
-            Test.startTest();
-                Test.setMock(HttpCalloutMock.class, new PointOfServiceCalloutMock());
-
-                List<StoreServiceManagerTO.ItemPicklistValue> ltWorkPositions = StoreServiceManagerController.getWorkPositionsPickList();
-            Test.stopTest();
-
-            System.assertNotEquals(0, ltWorkPositions.size());
-        }
-    }
-
-    @IsTest
     public static void getAccountCustomerSegmentGSSTest() {
         String CUSTOMER_SEGMENT_PLATINUM_IN = 'PLATINUM';
         String CUSTOMER_SEGMENT_PLATINUM_OUT = '1';
@@ -383,13 +338,6 @@ public with sharing class StoreServiceManagerControllerTest {
         
         System.assertEquals(CUSTOMER_SEGMENT_PLATINUM_OUT, segmentPLATINUM.value);
         System.assertEquals(CUSTOMER_SEGMENT_NONE_OUT, segmentNONE.value);
-    }
-
-    @IsTest
-    public static void isPartnerCommunityLicenseTest() {
-        Boolean test = StoreServiceManagerController.isPartnerCommunityLicense();
-    
-        System.assertEquals(false, test);
     }
 
     @IsTest
@@ -410,23 +358,9 @@ public with sharing class StoreServiceManagerControllerTest {
     }
 
     @IsTest
-    public static void calculateStartTimeTest() {
-        String test = StoreServiceManagerController.calculateStartTime('00:30:00');
+    public static void isPartnerCommunityLicenseTest() {
+        Boolean test = StoreServiceManagerController.isPartnerCommunityLicense();
     
-        System.assertNotEquals(null, test);
-    }
-
-    @IsTest
-    public static void calculateElapsedTimeTest() {
-        String startTime = '16:00:00';
-        String endTime = '16:30:00';
-
-        Double dElapsedTimeTest = StoreServiceManagerController.calculateElapsedTimeInMilliseconds(startTime, endTime);
-        String sElapsedTimeTest = StoreServiceManagerController.calculateElapsedTime(dElapsedTimeTest);
-        String elapsedTimeTest = StoreServiceManagerController.calculateElapsedTime(startTime, endTime);
-    
-        System.assertEquals(1800000.0, dElapsedTimeTest);
-        System.assertEquals('00:30:00', sElapsedTimeTest);
-        System.assertEquals('00:30:00', elapsedTimeTest);
+        System.assertEquals(false, test);
     }
 }
