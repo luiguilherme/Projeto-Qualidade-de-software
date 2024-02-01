@@ -179,83 +179,95 @@ public with sharing class StoreServiceManagerEngine {
                 if (ltInformationAttendance != null && !ltInformationAttendance.isEmpty() &&
                     ltInformationAttendance[0].O_TP_STATUS != null
                 ) {
-                    informationAttendance.statusAttendance = ltInformationAttendance[0].O_TP_STATUS;
-
                     if (ltInformationAttendance[0].O_TP_STATUS == '2' && ltInformationAttendance[0].O_ST_SENHA != null) {
-                        informationAttendance.ticketId = (
-                            (ltInformationAttendance[0].O_ST_SENHA != null) 
-                            ? ltInformationAttendance[0].O_ST_SENHA 
-                            : ''
-                        );
-                        
-                        informationAttendance.segmentationId = (
-                            (ltInformationAttendance[0].O_CD_SEGMENTACAO_CLIENTE != null) 
-                            ? ltInformationAttendance[0].O_CD_SEGMENTACAO_CLIENTE 
-                            : ''
-                        );
-                        
-                        informationAttendance.segmentationName = (
-                            (ltInformationAttendance[0].O_ST_SEGMENTACAO_CLIENTE != null) 
-                            ? ltInformationAttendance[0].O_ST_SEGMENTACAO_CLIENTE 
-                            : ''
+                        // Get the object's ticket record ID
+                        User attendant = UserDAO.getById(UserInfo.getUserId());
+
+                        ServiceTicket__c ticket = ServiceTicketDAO.getGSSInServiceByStoreLoginAndTicketId(
+                            attendant.StoreCode__c, attendant.Login__c, ltInformationAttendance[0].O_ST_SENHA
                         );
 
-                        informationAttendance.waitTime = (
-                            (ltInformationAttendance[0].O_DT_TEMPO_ESPERA != null) 
-                            ? (
-                                (ltInformationAttendance[0].O_DT_TEMPO_ESPERA.contains(' '))
-                                ? ltInformationAttendance[0].O_DT_TEMPO_ESPERA.split(' ')[1]
-                                : ltInformationAttendance[0].O_DT_TEMPO_ESPERA          
-                              )
-                            : ''
-                        );
+                        if (ticket != null) {
+                            informationAttendance.Id = ticket.Id;
+                            informationAttendance.createdDateTime = (DateTime.valueOf(ticket.CreatedDate)).formatGmt('YYYY-MM-dd HH:mm:ss');
 
-                        informationAttendance.duration = (
-                            (ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO != null) 
-                            ? (
-                                (ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO.contains(' '))
-                                ? ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO.split(' ')[1]
-                                : ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO          
-                              )
-                            : ''
-                        );
-                        
-                        informationAttendance.customerCellPhone = (
-                            ((ltInformationAttendance[0].O_ST_DDD != null) 
-                                ? ltInformationAttendance[0].O_ST_DDD 
+                            informationAttendance.statusAttendance = ltInformationAttendance[0].O_TP_STATUS;
+                            informationAttendance.ticketId = ltInformationAttendance[0].O_ST_SENHA;
+                            
+                            informationAttendance.segmentationId = (
+                                (ltInformationAttendance[0].O_CD_SEGMENTACAO_CLIENTE != null) 
+                                ? ltInformationAttendance[0].O_CD_SEGMENTACAO_CLIENTE 
                                 : ''
-                            ) + 
-                            ((ltInformationAttendance[0].O_ST_TELEFONE != null) 
-                                ? '-' + ltInformationAttendance[0].O_ST_TELEFONE 
+                            );
+                        
+                            informationAttendance.segmentationName = (
+                                (ltInformationAttendance[0].O_ST_SEGMENTACAO_CLIENTE != null) 
+                                ? ltInformationAttendance[0].O_ST_SEGMENTACAO_CLIENTE 
                                 : ''
-                            )
-                        );
-                        
-                        informationAttendance.serviceName = (
-                            (ltInformationAttendance[0].O_ST_DESCRICAO != null) 
-                            ? ltInformationAttendance[0].O_ST_DESCRICAO 
-                            : ''
-                        );
-                        
-                        informationAttendance.type = (
-                            (ltInformationAttendance[0].O_TP_TIPO != null) 
-                            ? ltInformationAttendance[0].O_TP_TIPO 
-                            : ''
-                        );
-                        
-                        informationAttendance.startTime = calculateStartTime(informationAttendance.duration);
+                            );
 
-                        informationAttendance.customerName = (
-                            (ltInformationAttendance[0].O_ST_NOME != null) 
-                            ? ltInformationAttendance[0].O_ST_NOME 
-                            : ''
-                        );
+                            informationAttendance.waitTime = (
+                                (ltInformationAttendance[0].O_DT_TEMPO_ESPERA != null) 
+                                ? (
+                                    (ltInformationAttendance[0].O_DT_TEMPO_ESPERA.contains(' '))
+                                    ? ltInformationAttendance[0].O_DT_TEMPO_ESPERA.split(' ')[1]
+                                    : ltInformationAttendance[0].O_DT_TEMPO_ESPERA          
+                                )
+                                : ''
+                            );
 
-                        informationAttendance.customerDocument = (
-                            (ltInformationAttendance[0].O_ST_CPF != null) 
-                            ? ltInformationAttendance[0].O_ST_CPF 
-                            : ''
-                        );
+                            informationAttendance.duration = (
+                                (ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO != null) 
+                                ? (
+                                    (ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO.contains(' '))
+                                    ? ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO.split(' ')[1]
+                                    : ltInformationAttendance[0].O_DT_TEMPO_ATENDIMENTO          
+                                )
+                                : ''
+                            );
+                        
+                            informationAttendance.customerCellPhone = (
+                                ((ltInformationAttendance[0].O_ST_DDD != null) 
+                                    ? ltInformationAttendance[0].O_ST_DDD 
+                                    : ''
+                                ) + 
+                                ((ltInformationAttendance[0].O_ST_TELEFONE != null) 
+                                    ? '-' + ltInformationAttendance[0].O_ST_TELEFONE 
+                                    : ''
+                                )
+                            );
+                        
+                            informationAttendance.serviceName = (
+                                (ltInformationAttendance[0].O_ST_DESCRICAO != null) 
+                                ? ltInformationAttendance[0].O_ST_DESCRICAO 
+                                : ''
+                            );
+                        
+                            informationAttendance.type = (
+                                (ltInformationAttendance[0].O_TP_TIPO != null) 
+                                ? ltInformationAttendance[0].O_TP_TIPO 
+                                : ''
+                            );
+                        
+                            if (ticket.ServiceStart__c == null) {
+                                informationAttendance.startTime = (DateTime.now()).formatGmt('YYYY-MM-dd HH:mm:ss');
+
+                            } else {
+                                informationAttendance.startTime = (DateTime.valueOf(ticket.ServiceStart__c)).formatGmt('YYYY-MM-dd HH:mm:ss');
+                            }
+
+                            informationAttendance.customerName = (
+                                (ltInformationAttendance[0].O_ST_NOME != null) 
+                                ? ltInformationAttendance[0].O_ST_NOME 
+                                : ''
+                            );
+
+                            informationAttendance.customerDocument = (
+                                (ltInformationAttendance[0].O_ST_CPF != null) 
+                                ? ltInformationAttendance[0].O_ST_CPF 
+                                : ''
+                            );
+                        }
 
                     } else if (ltInformationAttendance[0].O_TP_STATUS == '4') {
                         informationAttendance.pauseReasonId = '9999';
@@ -546,6 +558,80 @@ public with sharing class StoreServiceManagerEngine {
             dtStart = dtCurrent;
         }
 
-        return (dtStart.format('dd/MM/YYYY HH:mm:ss'));
+        return (dtStart.formatGmt('YYYY-MM-dd HH:mm:ss'));
+    }    
+
+    public static Double calculateElapsedTimeInMilliseconds(String startTime, String finalTime) {
+        Double millisecondsElapsedTime = 0;
+ 
+        if (!String.isBlank(startTime) && !String.isBlank(finalTime) && !startTime.equals(finalTime)) {
+            try {
+                // Start date/time
+                String[] ltStartTime = ((startTime.contains(' '))
+                                        ? startTime.split(' ')[1].split(':')
+                                        : startTime.split(':')
+                                    );
+                
+                DateTime dtStartTime = Datetime.newInstanceGmt(
+                    Datetime.now().year(), 
+                    Datetime.now().month(), 
+                    Datetime.now().day(), 
+                    Integer.valueOf(ltStartTime[0]), 
+                    Integer.valueOf(ltStartTime[1]), 
+                    Integer.valueOf(ltStartTime[2])
+                );
+                
+                // Final date/time
+                String[] ltFinalTime = ((finalTime.contains(' '))
+                                        ? finalTime.split(' ')[1].split(':')
+                                        : finalTime.split(':')
+                                    );
+                
+                DateTime dtFinalTime = Datetime.newInstanceGmt(
+                    Datetime.now().year(), 
+                    Datetime.now().month(), 
+                    Datetime.now().day(), 
+                    Integer.valueOf(ltFinalTime[0]), 
+                    Integer.valueOf(ltFinalTime[1]), 
+                    Integer.valueOf(ltFinalTime[2])
+                );
+                
+                // Calculate elapsed time
+                millisecondsElapsedTime = Math.abs(dtFinalTime.getTime() - dtStartTime.getTime());
+
+            } catch (Exception e) {
+
+            }
+        }
+
+        return (millisecondsElapsedTime);
+    }
+
+    public static String calculateElapsedTime(Double millisecondsElapsedTime) {
+        String elapsedTime = '00:00:00';
+
+        if (millisecondsElapsedTime != null && millisecondsElapsedTime > 0) {
+            Integer seconds = Integer.valueOf(Math.floor(millisecondsElapsedTime / 1000));
+            Integer minutes = Integer.valueOf(Math.floor(seconds / 60));
+            Integer hours = Integer.valueOf(Math.floor(minutes / 60));
+            
+            seconds = Math.mod(seconds, 60);
+            minutes = Math.mod(minutes, 60);
+            hours = Math.mod(hours, 24);
+            
+            elapsedTime = (
+                String.valueOf(hours).leftPad(2, '0') + ':' +
+                String.valueOf(minutes).leftPad(2, '0') + ':' +
+                String.valueOf(seconds).leftPad(2, '0').substring(0, 2)
+            );
+        }
+
+        return (elapsedTime.substring(0, 8));
+    }
+
+    public static String calculateElapsedTime(String startTime, String finalTime) {
+        Double elapsedTime = calculateElapsedTimeInMilliseconds(startTime, finalTime);
+
+        return (calculateElapsedTime(elapsedTime));
     }
 }
