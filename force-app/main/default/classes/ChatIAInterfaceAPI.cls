@@ -35,18 +35,21 @@ public with sharing class ChatIAInterfaceAPI {
         }
     }
 
-
     public static ChatIAQNAAnswerVO.BodyToReceive getQNAAnswer(String question, String token){
         try{
-
             ChatIAQNAAnswerVO.BodyToReceive retorno = new ChatIAQNAAnswerVO.BodyToReceive();
             ChatIASubscriptionId__c subscription = ChatIASubscriptionId__c.getValues('SubscriptionId');
-            String idUsuario = UserInfo.getUserId();
+            User user = ChatIASelector.getInstance().getUser(UserInfo.getUserId());
+            String login = user.Login__c != null ? user.Login__c : user.Id;
+            String email = user.Email != null ? user.Email : '';
+            String name = user.Name != null ? user.Name : '';
             HttpRequest req = new HttpRequest();
             req.setEndpoint('https://ai-br-pro.telefonicabigdata.com/qna-mobile-products/?question=' + question);
             req.setHeader('Content-Type', 'application/json');
             req.setHeader('session_id', '123456');
-            req.setHeader('user_id', idUsuario);
+            req.setHeader('user_id', login);
+            req.setHeader('user_name', name);
+            req.setHeader('user_email', email);
             req.setHeader('token', token);
             req.setHeader('service', 'QNA_MOBILE_PRODUCTS');
             req.setHeader('subscription_id', subscription.SubscriptionId__c);
@@ -80,13 +83,13 @@ public with sharing class ChatIAInterfaceAPI {
             bodyToSend = bodyToSend.replace('x_id', '_id');
             ChatIAHistoryVO.CreateNewChatResponse retorno = new ChatIAHistoryVO.CreateNewChatResponse();
             ChatIASubscriptionId__c subscription = ChatIASubscriptionId__c.getValues('SubscriptionId');
-
+            system.debug( UserInfo.getUserId());
             HttpRequest req = new HttpRequest();
             req.setEndpoint('https://ai-br-pro.telefonicabigdata.com/flow/chat/12345');
             req.setHeader('Content-Type', 'application/json');
-            req.setHeader('user_id', 'A0000000');
+            req.setHeader('user_id', UserInfo.getUserId());
             req.setHeader('token', token);
-            req.setHeader('session_id', '132456');
+            req.setHeader('session_id', '123456');
             req.setHeader('subscription_id', subscription.SubscriptionId__c);
             req.setHeader('_id', '123456');
             req.setHeader('User-Agent', 'Mozilla');
@@ -116,7 +119,81 @@ public with sharing class ChatIAInterfaceAPI {
             throw ex;
         }
     }
+    public static ChatIAHistoryVO.CreateNewChatResponse UpdateFeedback(ChatIAHistoryVO.Feedback body, String token, String chatId){
+        try{
+            String bodyToSend = JSON.serialize(body);
+            ChatIAHistoryVO.CreateNewChatResponse retorno = new ChatIAHistoryVO.CreateNewChatResponse();
+            ChatIASubscriptionId__c subscription = ChatIASubscriptionId__c.getValues('SubscriptionId');
+            HttpRequest req = new HttpRequest();
+            req.setEndpoint('https://ai-br-pro.telefonicabigdata.com/flow/chat/feedback/12345');
+            req.setHeader('Content-Type', 'application/json');
+            req.setHeader('user_id', UserInfo.getUserId());
+            req.setHeader('token', token);
+            req.setHeader('session_id', '132456');
+            req.setHeader('subscription_id', subscription.SubscriptionId__c);
+            req.setHeader('_id', chatId);
+            req.setHeader('User-Agent', 'Mozilla');
+            req.setMethod('PUT');
+            req.setTimeout(120000);
+            req.setBody(bodyToSend);
+            Http http = new Http();
+            HTTPResponse res = new Http().send(req);
+            
+            System.debug('request => ' + bodyToSend);
+            System.debug('response => ' + res.getBody());
 
+            if(res.getStatusCode() >= 200 && res.getStatusCode() <= 202){
+                String response = res.getBody();
+                response = response.replace('_id', 'x_id');
+                response = response.replace('date', 'x_date');
+
+                retorno = (ChatIAHistoryVO.CreateNewChatResponse)  System.JSON.deserialize(response, ChatIAHistoryVO.CreateNewChatResponse.class);
+                System.debug('retorno => '+ retorno);
+            }
+            return retorno;
+        } catch(JSONException ex) {
+            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
+            throw new AuraHandledException('Erro ao consultar dados, procure seu administrador. Código 400');
+        } catch(Exception ex) {
+            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
+            throw ex;
+        }
+    }
+    public static ChatIAFeedbackVO.FeedbackResponse sendFeedback(ChatIAFeedbackVO.Feedback body, String token){
+        try{
+            String bodyToSend = JSON.serialize(body);
+            User user = ChatIASelector.getInstance().getUser(UserInfo.getUserId());
+            String login = user.Login__c != null ? user.Login__c : user.Id;
+            ChatIAFeedbackVO.FeedbackResponse retorno = new ChatIAFeedbackVO.FeedbackResponse();
+            ChatIASubscriptionId__c subscription = ChatIASubscriptionId__c.getValues('SubscriptionId');
+            HttpRequest req = new HttpRequest();
+            req.setEndpoint('https://ai-br-pro.telefonicabigdata.com/v1/feedback');
+            req.setHeader('Content-Type', 'application/json');
+            req.setHeader('user_id', login);
+            req.setHeader('token', token);
+            req.setHeader('session_id', '132456');
+            req.setHeader('subscription_id', subscription.SubscriptionId__c);
+            req.setHeader('service', 'QNA_MOBILE_PRODUCTS');
+            req.setHeader('User-Agent', 'Mozilla');
+            req.setMethod('POST');
+            req.setTimeout(120000);
+            req.setBody(bodyToSend);
+            Http http = new Http();
+            HTTPResponse res = new Http().send(req);
+            if(res.getStatusCode() >= 200 && res.getStatusCode() <= 202){
+                String response = res.getBody();
+                retorno = (ChatIAFeedbackVO.FeedbackResponse)  System.JSON.deserialize(response, ChatIAFeedbackVO.FeedbackResponse.class);
+                System.debug('retorno => '+ retorno);
+            }
+            return retorno;
+        }catch(JSONException ex) {
+            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
+            throw new AuraHandledException('Erro ao consultar dados, procure seu administrador. Código 400');
+        } catch(Exception ex) {
+            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
+            throw ex;
+        }
+    }
     public static ChatIAHistoryVO.CreateNewChatResponse AddConversation(ChatIAHistoryVO.CreateNewChat body, String token, String idChat){
         try{
             String flow_id = '12345';
@@ -132,7 +209,7 @@ public with sharing class ChatIAInterfaceAPI {
             HttpRequest req = new HttpRequest();
             req.setEndpoint('https://ai-br-pro.telefonicabigdata.com/flow/chat/'+ flow_Id);
             req.setHeader('Content-Type', 'application/json');
-            req.setHeader('user_id', 'A0000000');
+            req.setHeader('user_id', UserInfo.getUserId());
             req.setHeader('token', token);
             req.setHeader('session_id', '123456');
             req.setHeader('subscription_id', subscription.SubscriptionId__c);
@@ -173,7 +250,7 @@ public with sharing class ChatIAInterfaceAPI {
             HttpRequest req = new HttpRequest();
             req.setEndpoint('https://ai-br-pro.telefonicabigdata.com/flow/chat/12345');
             req.setHeader('Content-Type', 'application/json');
-            req.setHeader('user_id', 'A0000000');
+            req.setHeader('user_id', UserInfo.getUserId());
             req.setHeader('token', token);
             req.setHeader('session_id', '123456');
             req.setHeader('subscription_id', subscription.SubscriptionId__c);
@@ -220,7 +297,7 @@ public with sharing class ChatIAInterfaceAPI {
             req.setHeader('Content-Type', 'application/json');
             req.setHeader('subscription_id', subscription.SubscriptionId__c);
             req.setHeader('token', token);
-            req.setHeader('user_id', 'A0000000');
+            req.setHeader('user_id', UserInfo.getUserId());
             req.setHeader('session_id', '123456');
             req.setHeader('chat_id', chatId);
             req.setHeader('User-Agent', 'Mozilla');
@@ -239,6 +316,54 @@ public with sharing class ChatIAInterfaceAPI {
         } catch(JSONException ex) {
             System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
             throw new AuraHandledException('Erro ao consultar dados, procure seu administrador. Código 400');
+        } catch(Exception ex) {
+            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
+            throw ex;
+        }
+    }
+
+    /**
+    * Date: 18-01-2024
+    * Author: nicholas.cinto@everymind.com.br
+    * Description: Criação de novo método para geração do histórico por usuário
+    */
+    public static ChatIAHistoryVO.CreateNewHistoryResponse CreateNewHistory(ChatIAHistoryVO.CreateNewHistory body, String token){
+        try{
+            String bodyToSend = JSON.serialize(body);
+            bodyToSend = bodyToSend.replace('x_date', 'date');
+            bodyToSend = bodyToSend.replace('x_id', '_id');
+            ChatIAHistoryVO.CreateNewHistoryResponse retorno = new ChatIAHistoryVO.CreateNewHistoryResponse();
+            ChatIASubscriptionId__c subscription = ChatIASubscriptionId__c.getValues('SubscriptionId');
+
+            HttpRequest req = new HttpRequest();
+            req.setEndpoint('https://ai-br-pro.telefonicabigdata.com/flow/chat/12345');
+            req.setHeader('Content-Type', 'application/json');
+            req.setHeader('user_id', UserInfo.getUserId());
+            req.setHeader('token', token);
+            req.setHeader('session_id', '132456');
+            req.setHeader('subscription_id', subscription.SubscriptionId__c);
+            req.setHeader('flow_id', '12345');
+            req.setHeader('User-Agent', 'Mozilla');
+            req.setMethod('POST');
+            req.setTimeout(120000);
+            req.setBody(bodyToSend);
+            Http http = new Http();
+            HTTPResponse res = new Http().send(req);
+
+            if(res.getStatusCode() >= 200 && res.getStatusCode() <= 202){
+                String response = res.getBody();
+                response = response.replace('_id', 'x_id');
+                response = response.replace('date', 'x_date');
+
+                retorno = (ChatIAHistoryVO.CreateNewHistoryResponse)  System.JSON.deserialize(response, ChatIAHistoryVO.CreateNewHistoryResponse.class);
+                System.debug('retorno => '+ retorno);
+            }
+            return retorno;
+
+        } catch(JSONException ex) {
+            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
+            throw new AuraHandledException('Erro ao consultar dados, procure seu administrador. Código 400');
+
         } catch(Exception ex) {
             System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
             throw ex;

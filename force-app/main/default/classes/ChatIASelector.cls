@@ -7,8 +7,8 @@ public with sharing class ChatIASelector {
         return instance;
     }
 
-    public List<ChatIA__c> getActiveChatIA(String userId) {
-        return [SELECT Id, Session__c, Backup__c, Usuario__c FROM ChatIA__c WHERE Active__c = true AND Usuario__c = :userId LIMIT 1];
+    public List<ChatIA__c> getLastChatIA(String userId) {
+        return [SELECT Id, Session__c, History__c, Active__c, Backup__c, Usuario__c FROM ChatIA__c WHERE Usuario__c =:userId ORDER BY CreatedDate DESC LIMIT 1];
     }
 
     public List<QuestionSuggestion__c> getQuestionSuggestion() {
@@ -20,5 +20,9 @@ public with sharing class ChatIASelector {
     }
     public List<PermissionSetAssignment> getPermission(String userId) {
         return [SELECT Id, AssigneeId, PermissionSet.Name FROM PermissionSetAssignment WHERE AssigneeId =: userId AND PermissionSet.Name = 'ChatIA'];
+    }
+    public User getUser(String userId) {
+        //para B2B usar BI_BR_Login_de_rede__c
+        return [SELECT Id, Name, Email, Login__c FROM User WHERE Id =: userId];
     }
 }
