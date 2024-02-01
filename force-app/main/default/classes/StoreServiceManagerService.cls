@@ -50,4 +50,20 @@ public with sharing class StoreServiceManagerService {
     public static Map<String, Object> getParams() {
         return (StoreServiceManagerEngine.getParams());
     }
+
+    public static String calculateStartTime(String elapsedTime) {
+        return (StoreServiceManagerEngine.calculateStartTime(elapsedTime));
+    }
+
+    public static Double calculateElapsedTimeInMilliseconds(String startTime, String finalTime) {
+        return (StoreServiceManagerEngine.calculateElapsedTimeInMilliseconds(startTime, finalTime));
+    }
+
+    public static String calculateElapsedTime(Double millisecondsElapsedTime) {
+        return (StoreServiceManagerEngine.calculateElapsedTime(millisecondsElapsedTime));
+    }
+
+    public static String calculateElapsedTime(String startTime, String finalTime) {
+        return (StoreServiceManagerEngine.calculateElapsedTime(startTime, finalTime));
+    }
 }

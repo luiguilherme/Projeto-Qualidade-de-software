@@ -14,7 +14,22 @@ public with sharing class SSMHomeOperationsEngine {
 
         try {
             mapResponse = PointOfServiceAttendanceCallout.execute(serviceTicket);
-        
+
+            if (mapResponse.get('success') != null) {
+                User attendant = UserDAO.getById(UserInfo.getUserId());
+
+                serviceTicket.status = ServiceTicketDAO.GSS_STATUS_IN_SERVICE;
+                serviceTicket.userLogin = attendant.Login__c;
+                serviceTicket.startTime = (DateTime.now()).formatGmt('YYYY-MM-dd HH:mm:ss');
+                serviceTicket.waitTime = StoreServiceManagerService.calculateElapsedTime(serviceTicket.createdDateTime, serviceTicket.startTime);
+
+                updateServiceTicket(serviceTicket);
+
+                mapResponse.clear();
+
+                mapResponse.put('success', serviceTicket);
+            }
+
         } catch (Exception e) {
             mapResponse.clear();
 
@@ -22,5 +37,17 @@ public with sharing class SSMHomeOperationsEngine {
         }
 
         return (mapResponse);
+    }
+
+    private static void updateServiceTicket(StoreServiceManagerTO.ServiceTicket serviceTicket) {
+        ServiceTicket__c ticket = new ServiceTicket__c(
+            Id = serviceTicket.Id, 
+            Status__c = serviceTicket.status, 
+            Login__c = serviceTicket.userLogin, 
+            ServiceStart__c = DateTime.valueOfGmt(serviceTicket.startTime), 
+            WaitTime__c = serviceTicket.waitTime
+        );
+
+        update ticket;
     }
 }

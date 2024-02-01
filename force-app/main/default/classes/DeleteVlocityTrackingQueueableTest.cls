@@ -13,11 +13,11 @@ private class DeleteVlocityTrackingQueueableTest {
         insert vtes;
 
         Test.startTest();
-        DeleteVlocityTrackingQueueable queueableJob = new DeleteVlocityTrackingQueueable(100, 0, -1);
+        DeleteVlocityTrackingQueueable queueableJob = new DeleteVlocityTrackingQueueable(100, 2, -2);
         Id jobId = System.enqueueJob(queueableJob);
         Test.stopTest();
 
-        List<vlocity_cmt__VlocityTrackingEntry__c> result = [SELECT Id FROM vlocity_cmt__VlocityTrackingEntry__c WHERE CreatedDate = TODAY];
+        List<vlocity_cmt__VlocityTrackingEntry__c> result = [SELECT Id FROM vlocity_cmt__VlocityTrackingEntry__c];
         System.assertEquals(0, result.size(), 'Expurgo nao realizado');
 
     }
