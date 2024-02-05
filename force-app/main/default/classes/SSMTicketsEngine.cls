@@ -57,14 +57,19 @@ public with sharing class SSMTicketsEngine {
                 activityPriority = ((ticket.ActivityPriority__c != null) ? Integer.valueOf(ticket.ActivityPriority__c) : 1);
                 activity = ((!String.isBlank(ticket.Activity__c)) ? ticket.Activity__c : '');
                 protocol = ((!String.isBlank(ticket.Protocol__c)) ? ticket.Protocol__c : '');
-                    
-                customerCellPhone = (
-                    geographicAreaCode + 
-                    ((!String.isBlank(networkNumber)) 
-                        ? (networkNumber.substring(0, 5) + '-' + networkNumber.substring(5))
-                        : ''
-                    )
-                );
+                
+                try {
+                    customerCellPhone = (
+                        geographicAreaCode + 
+                        ((!String.isBlank(networkNumber)) 
+                            ? (networkNumber.substring(0, 5) + '-' + networkNumber.substring(5))
+                            : ''
+                        )
+                    );
+
+                } catch (Exception e) {
+                    customerCellPhone = '';
+                }
 
                 createdDateTime = (DateTime.valueOf(ticket.CreatedDate)).formatGmt('YYYY-MM-dd HH:mm:ss');
                 currentDateTime = (DateTime.now()).formatGmt('YYYY-MM-dd HH:mm:ss');
