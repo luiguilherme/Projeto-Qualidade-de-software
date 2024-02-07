@@ -11,14 +11,15 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "list": "=LIST(%HASuccess:Consumptions%)"
+            "list": "=IF(%eventError%,LIST(%LB-MaskUsageType%),LIST(%SVListFilterRemoveRecharges:Consumptions%))",
+            "typeService": "=IF(%type%,%type%,'all')"
         },
-        "executionConditionalFormula": "%freeEvents% = true",
+        "executionConditionalFormula": "",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "label": "SetValues4",
-        "responseJSONNode": "getList",
-        "responseJSONPath": "list",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
         "show": null
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
