@@ -1,5 +1,5 @@
 {
-    "%vlocity_namespace%__Active__c": false,
+    "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
         "Name": "IP_panPagination",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
@@ -13,10 +13,11 @@
         "loopList": "LAsetValues",
         "loopOutput": {
             "balanceKB": "=LAsetValues:object:summaryConsumption:aggregatedBalance/1024",
-            "connectionConsumptionType": "=LAsetValues:object:callType +\" \"+IF(LAsetValues:object:subscription:connectionConsumptionType==\"RoamingNationalInterRegion\",\"Inter\",IF(LAsetValues:object:subscription:connectionConsumptionType==\"RoamingNationalIntraRegion\",\"Intra\",LAsetValues:object:subscription:connectionConsumptionType)))",
             "networkType": "=SUBSTRING(TOSTRING(LAsetValues:object:3gppPattern:userLocation),0,2)",
             "object": "=LAsetValues:object",
-            "timeHHMMSS": "=FORMATDATETIME(UNIXTODATETIME(LAsetValues:object:summaryConsumption:aggregatedBalance*1000), \"HH:mm:ss\", \"Etc/GMT\")"
+            "timeHH": "=IF(LAsetValues:object:summaryConsumption:aggregatedBalance/3600>0,ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/3600,0,DOWN),0)",
+            "timeMM": "=IF(LAsetValues:object:summaryConsumption:aggregatedBalance/60>0,SUM(ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/60,0,DOWN),IF(LAsetValues:object:summaryConsumption:aggregatedBalance/3600>0,ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/3600,0,DOWN)*-60,0),0),0)",
+            "timeSS": "=IF(ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/3600,0,DOWN)>0&&ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/60,0,DOWN)>0,SUM(LAsetValues:object:summaryConsumption:aggregatedBalance,ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/60,0,DOWN)*-60),IF(ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/60,0,DOWN)>0,SUM(LAsetValues:object:summaryConsumption:aggregatedBalance,ROUND(LAsetValues:object:summaryConsumption:aggregatedBalance/60,0,DOWN)*-60),LAsetValues:object:summaryConsumption:aggregatedBalance),0)"
         },
         "show": null
     },
