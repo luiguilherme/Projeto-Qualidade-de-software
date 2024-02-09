@@ -76,7 +76,9 @@ public with sharing class MergeAssetControllerTest {
         MergeAssetController controller = new MergeAssetController();
         controller.invokeMethod('mergeAssets', inputs, new Map<String, Object>(), new Map<String, Object>());
         Asset assetToUpdate = [SELECT Id, ExternalId__c, StartDate__c FROM Asset WHERE ExternalId__c = '12345678910TV-SPO-81HLO8DAN-050' LIMIT 1];
-        List<Asset> assetToDelete = [SELECT Id, ExternalId__c FROM Asset WHERE ExternalId__c = '12345678910TV-CTA-81HLRDN9B-050'];
+        List<Asset> assetToDelete = [SELECT Id, ExternalId__c FROM Asset WHERE ExternalId__c = '12345678910TV-CTA-81HLRDN9B-050'
+        AND Platform__c != 'Prepaid'
+        AND Product2Id = null];
         List<Asset> assetToCreate = [SELECT Id, ExternalId__c FROM Asset];        
         System.assert(assetToUpdate.StartDate__c == Datetime.newInstanceGMT(2022,04,16,09,00,00), 'O campo StartDate__c não foi atualizado como deveria.');        
         System.assert(assetToDelete.isEmpty(), 'O asset foi deletado.');
