@@ -25,7 +25,10 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
             return 'API não retornou dados. ' + e.getMessage();
         }
         
-        List<Asset> lstAsset = [SELECT Id, ExternalId__c, vlocity_cmt__ServiceIdentifier__c, StartDate__c FROM Asset WHERE AccountId = :accountId ORDER BY StartDate__c DESC];
+        List<Asset> lstAsset = [SELECT Id, ExternalId__c, vlocity_cmt__ServiceIdentifier__c, StartDate__c, Platform__c FROM Asset WHERE AccountId = :accountId
+        AND Platform__c != 'Prepaid'
+        AND Product2Id = null
+    	ORDER BY StartDate__c DESC];
         List<Asset> lstAssetToUpdate = new List<Asset>();
         List<String> assetsToDelete = new List<String>();
         List<WrapperAPI> assetsToCreateUpdate = new List<WrapperAPI>();        
@@ -84,7 +87,8 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
     
     public static void deleteAsset(List<String> lstAssetsToDelete)
     {
-        List<Asset> lstAssets = [SELECT Id FROM Asset WHERE Id IN: lstAssetsToDelete];
+        List<Asset> lstAssets = [SELECT Id FROM Asset WHERE Id IN :lstAssetsToDelete AND Platform__c != 'Prepaid'
+        AND Product2Id = null];
         List<Asset> lstAssetsToDel = new List<Asset>();
         
         for(Asset asset : lstAssets)
@@ -342,7 +346,8 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
         
         if(String.isNotEmpty(accountObject.BillingAccount__c))
         {
-            List<Asset> assetList = [SELECT Id FROM Asset WHERE AccountId = :accountId];
+            List<Asset> assetList = [SELECT Id FROM Asset WHERE AccountId = :accountId AND Platform__c != 'Prepaid'
+        	AND Product2Id = null];
             if(assetList.isEmpty()) 
             {
                 delete new Account(Id = accountObject.BillingAccount__c);
