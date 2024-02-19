@@ -54,33 +54,182 @@
             "key": "event-0",
             "recordIndex": "0",
             "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1701810846460-ollsgdv41",
+                    "label": "GetValuesFromDisputeCloseServiceFlexcard",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.UpsertSuccess",
+                                "fieldValue": "{action.UpsertSuccess}"
+                            },
+                            {
+                                "fieldName": "Session.ShowServiceDefinition",
+                                "fieldValue": "{action.ShowServiceDefinition}"
+                            },
+                            {
+                                "fieldName": "Session.attendantMessage",
+                                "fieldValue": "{action.attendantMessage}"
+                            },
+                            {
+                                "fieldName": "Session.serviceDefinitionName",
+                                "fieldValue": "{action.serviceDefinitionName}"
+                            },
+                            {
+                                "fieldName": "Session.DisputeCloseService",
+                                "fieldValue": "{action.DisputeCloseService}"
+                            },
+                            {
+                                "fieldName": "Session.CaseId",
+                                "fieldValue": "{action.CaseId}"
+                            }
+                        ],
+                        "id": "flex-action-1701954282771",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "Dispute",
+            "displayLabel": "Dispute:DisputeCompleteService",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "DisputeCompleteService",
+            "eventtype": "pubsub",
+            "key": "event-1",
+            "recordIndex": "0",
+            "showSpinner": "false"
         }
     ],
+    "globalCSS": true,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfDisputeFlexCardWrapper_6_Dispute",
-        "Id": "0Rb78000000LSz3CAG",
+        "DeveloperName": "cfDisputeFlexCardWrapper_12_Dispute",
+        "Id": "0Rb78000000LWGHCA4",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfDisputeFlexCardWrapper_6_Dispute",
+        "MasterLabel": "cfDisputeFlexCardWrapper_12_Dispute",
         "NamespacePrefix": "c"
     },
     "selectableMode": "Multi",
+    "sessionVars": [
+        {
+            "name": "UpsertSuccess",
+            "val": ""
+        },
+        {
+            "name": "ShowServiceDefinition",
+            "val": "false"
+        },
+        {
+            "name": "serviceDefinitionName",
+            "val": ""
+        },
+        {
+            "name": "attendantMessage",
+            "val": ""
+        },
+        {
+            "name": "DisputeCloseService",
+            "val": ""
+        },
+        {
+            "name": "CaseId",
+            "val": ""
+        }
+    ],
     "states": [
         {
             "actions": [
             ],
             "childCards": [
+                "DisputeFlexCardServiceDefinition"
             ],
             "components": {
                 "layer-0": {
                     "children": [
                         {
+                            "children": [
+                                {
+                                    "class": "slds-col ",
+                                    "element": "customLwc",
+                                    "elementLabel": "LWCdisputeCartItemsDataTable",
+                                    "key": "element_element_block_0_0_customLwc_0_0",
+                                    "name": "Custom LWC",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "customlwcname": "disputeCartItemsDataTable"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "sizeClass": "slds-size_12-of-12"
+                                    },
+                                    "type": "element",
+                                    "userUpdatedElementLabel": true
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "customLwc",
+                                    "elementLabel": "Omniscript",
+                                    "key": "element_element_block_0_0_customLwc_1_0",
+                                    "name": "Custom LWC",
+                                    "property": {
+                                        "customlwcname": "disputeInvoicesFlowEnglish",
+                                        "prefill": "{\"AssetId\": \"{AssetId}\",\"ServiceIdentifier\": \"{ServiceIdentifier}\",\"CaseId\": \"{CaseId}\",\"AccountId\": \"{AccountId}\",\"InteractionId\": \"{InteractionId}\",\"InteractionTopicId\":\"{InteractionTopicId}\",\"ContactId\":\"{ContactId}\"}"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "sizeClass": "slds-size_12-of-12"
+                                    },
+                                    "type": "element",
+                                    "userUpdatedElementLabel": true
+                                }
+                            ],
                             "class": "slds-col ",
-                            "element": "customLwc",
-                            "elementLabel": "LWCdisputeCartItemsDataTable",
-                            "name": "Custom LWC",
+                            "element": "block",
+                            "elementLabel": "Block-0",
+                            "name": "Block",
                             "property": {
-                                "customlwcname": "disputeCartItemsDataTable"
+                                "card": "{card}",
+                                "collapsedByDefault": false,
+                                "collapsible": false,
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "Session.ShowServiceDefinition",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-0",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "false"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "label": "",
+                                "record": "{record}"
                             },
                             "size": {
                                 "default": "12",
@@ -88,19 +237,75 @@
                             },
                             "stateIndex": 0,
                             "styleObject": {
+                                "class": "slds-p-around_x-small",
+                                "padding": [
+                                    {
+                                        "size": "x-small",
+                                        "type": "around"
+                                    }
+                                ],
                                 "sizeClass": "slds-size_12-of-12"
                             },
-                            "type": "element",
-                            "userUpdatedElementLabel": true
+                            "type": "block"
                         },
                         {
+                            "children": [
+                                {
+                                    "class": "slds-col ",
+                                    "element": "childCardPreview",
+                                    "elementLabel": "Block-2-FlexCard-0",
+                                    "key": "element_element_block_1_0_childCardPreview_0_0",
+                                    "name": "FlexCard",
+                                    "parentElementKey": "element_block_1_0",
+                                    "property": {
+                                        "cardName": "DisputeFlexCardServiceDefinition",
+                                        "cardNode": "",
+                                        "isChildCardTrackingEnabled": false,
+                                        "parentAttribute": {
+                                            "CaseId": "{Session.CaseId}",
+                                            "DisputeCloseService": "{Session.DisputeCloseService}",
+                                            "attendantMessage": "{Session.attendantMessage}",
+                                            "serviceDefinitionName": "{Session.serviceDefinitionName}"
+                                        },
+                                        "recordId": "{recordId}",
+                                        "selectedState": "Active"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "sizeClass": "slds-size_12-of-12"
+                                    },
+                                    "type": "element"
+                                }
+                            ],
                             "class": "slds-col ",
-                            "element": "customLwc",
-                            "elementLabel": "Omniscript",
-                            "name": "Custom LWC",
+                            "element": "block",
+                            "elementLabel": "Block-2",
+                            "name": "Block",
                             "property": {
-                                "customlwcname": "disputeInvoicesFlowEnglish",
-                                "prefill": "{\"AssetId\": \"{AssetId}\",\"ServiceIdentifier\": \"{ServiceIdentifier}\",\"CaseId\": \"{CaseId}\",\"AccountId\": \"{AccountId}\",\"InteractionId\": \"{InteractionId}\",\"InteractionTopicId\":\"{InteractionTopicId}\",\"ContactId\":\"{ContactId}\"}"
+                                "card": "{card}",
+                                "collapsedByDefault": false,
+                                "collapsible": false,
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "Session.ShowServiceDefinition",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-0",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "true"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "data-preloadConditionalElement": false,
+                                "label": "Block",
+                                "record": "{record}"
                             },
                             "size": {
                                 "default": "12",
@@ -108,10 +313,16 @@
                             },
                             "stateIndex": 0,
                             "styleObject": {
+                                "class": "slds-p-around_x-small",
+                                "padding": [
+                                    {
+                                        "size": "x-small",
+                                        "type": "around"
+                                    }
+                                ],
                                 "sizeClass": "slds-size_12-of-12"
                             },
-                            "type": "element",
-                            "userUpdatedElementLabel": true
+                            "type": "block"
                         }
                     ]
                 }
