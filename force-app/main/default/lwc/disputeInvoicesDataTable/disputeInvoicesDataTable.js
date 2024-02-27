@@ -347,7 +347,7 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
             return charges.map(charge => {
                 if (parseFloat(charge.totalAmount) >= 0) {
                     const correspondingCredit = credits.find(credit => 
-                        credit.l9ChargeInvoiceId === charge.id || credit.l9EventId === charge.id
+                        (credit.reversalReason === null || credit.reversalReason === "") && (credit.l9ChargeInvoiceId === charge.id || credit.l9EventId === charge.id || credit.l9BillingChargeSeqNo === charge.id)
                     );
                     if (correspondingCredit) {
                         return { ...charge, amountCredits: correspondingCredit.amount };
