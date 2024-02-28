@@ -4,6 +4,20 @@
     "%vlocity_namespace%__Datasource__c": {
         "dataSource": {
             "contextVariables": [
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "Custom",
+            "value": {
+                "body": "{\"notes\":\"\",\"HideRegisterButton\":\"\",\"accountId\":\"\",\"attendantMessage\":\"\",\"caseId\":\"\",\"hasAutoDebit\":\"\",\"invoiceNumber\":\"\",\"invoiceStatus\":\"\",\"isLastItem\":\"\",\"serviceDefinitionName\":\"\",\"withinAdjustmentPeriod\":\"\",\"responseUpsertSuccess\":{},\"selectedInvoice\":[]}",
+                "dsDelay": "",
+                "resultVar": ""
+            }
+        },
+        "event-0_0": {
+            "contextVariables": [
                 {
                     "id": 0,
                     "name": "isLastItem",
@@ -18,6 +32,11 @@
                     "id": 2,
                     "name": "attendantMessage",
                     "val": "mensagem"
+                },
+                {
+                    "id": 0,
+                    "name": "Parent.DisputeCloseService",
+                    "val": "false"
                 }
             ],
             "orderBy": {
@@ -26,32 +45,217 @@
             },
             "type": "Custom",
             "value": {
-                "body": "{\n\"isLastItem\": \"yes\",\n\"serviceDefinitionName\": \"ATC-MVL-FIN-CONT-NEG-RET-DESC-006\",\n\"attendantMessage\": \"Ajuste Negado! Após conclusão do roteiro de atendimento realize o processo de retenção para reverter a intenção de cancelamento do cliente.\",\n\"caseId\": \"5008K000004QRoGQAW\",\n\"accountId\":\"\",\n\"hasAutoDebit\": \"=yes\",\n\"invoiceStatus\": \"open\",\n\"invoiceNumber\": \"100001\",\n\"withinAdjustmentPeriod\":\"=no\"\n}",
+                "body": "{\"HideRegisterButton\":\"true\"}",
                 "dsDelay": "",
                 "resultVar": ""
             }
         },
-        "event-0_0": {
+        "event-0_1": {
             "contextVariables": [
                 {
+                    "id": 0,
+                    "name": "isLastItem",
+                    "val": "yes"
+                },
+                {
+                    "id": 1,
+                    "name": "serviceDefinitionName",
+                    "val": "Teste Nome"
+                },
+                {
                     "id": 2,
-                    "name": "action.serviceDefinitionName",
-                    "val": "Valida Funcionário Vivo"
+                    "name": "attendantMessage",
+                    "val": "mensagem"
+                },
+                {
+                    "id": 0,
+                    "name": "Parent.DisputeCloseService",
+                    "val": "false"
+                },
+                {
+                    "id": 1,
+                    "name": "action",
+                    "val": ""
+                },
+                {
+                    "id": 3,
+                    "name": "caseId",
+                    "val": ""
+                },
+                {
+                    "id": 5,
+                    "name": "modality",
+                    "val": ""
+                },
+                {
+                    "id": 7,
+                    "name": "email",
+                    "val": ""
+                },
+                {
+                    "id": 9,
+                    "name": "otherEmail",
+                    "val": ""
+                },
+                {
+                    "id": 11,
+                    "name": "ShouldSendBill",
+                    "val": ""
+                },
+                {
+                    "id": 12,
+                    "name": "action.requests",
+                    "val": ""
+                },
+                {
+                    "id": 12,
+                    "name": "action.Items",
+                    "val": ""
                 }
             ],
             "orderBy": {
                 "isReverse": "",
                 "name": ""
             },
-            "type": "DataRaptor",
+            "type": "IntegrationProcedures",
             "value": {
-                "bundle": "getServiceDefinition",
-                "bundleType": "",
                 "dsDelay": "",
                 "inputMap": {
-                    "inputName": "{action.serviceDefinitionName}"
+                    "CaseId": "{caseId}",
+                    "Email": "{email}",
+                    "Modality": "{modality}",
+                    "OtherEmail": "{otherEmail}",
+                    "ShouldSendBill": "{ShouldSendBill}",
+                    "filteredAdjustmentItems": "{action.Items}"
                 },
-                "jsonMap": "{\"action.serviceDefinitionName\":\"{action.serviceDefinitionName}\"}"
+                "ipMethod": "Dispute_CreateCreditForChargeAndEvent",
+                "jsonMap": "{\"isLastItem\":\"{isLastItem}\",\"serviceDefinitionName\":\"{serviceDefinitionName}\",\"attendantMessage\":\"{attendantMessage}\",\"Parent.DisputeCloseService\":\"{Parent.DisputeCloseService}\",\"action\":\"{action}\",\"caseId\":\"{caseId}\",\"modality\":\"{modality}\",\"email\":\"{email}\",\"otherEmail\":\"{otherEmail}\",\"ShouldSendBill\":\"{ShouldSendBill}\",\"action.requests\":\"{action.requests}\",\"action.Items\":\"{action.Items}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        },
+        "event-0_2": {
+            "contextVariables": [
+                {
+                    "id": 0,
+                    "name": "isLastItem",
+                    "val": "yes"
+                },
+                {
+                    "id": 1,
+                    "name": "serviceDefinitionName",
+                    "val": "Teste Nome"
+                },
+                {
+                    "id": 2,
+                    "name": "attendantMessage",
+                    "val": "mensagem"
+                },
+                {
+                    "id": 0,
+                    "name": "Parent.DisputeCloseService",
+                    "val": "false"
+                },
+                {
+                    "id": 1,
+                    "name": "action",
+                    "val": ""
+                },
+                {
+                    "id": 3,
+                    "name": "caseId",
+                    "val": ""
+                },
+                {
+                    "id": 5,
+                    "name": "Session.modality",
+                    "val": ""
+                },
+                {
+                    "id": 6,
+                    "name": "modality",
+                    "val": ""
+                },
+                {
+                    "id": 7,
+                    "name": "email",
+                    "val": ""
+                },
+                {
+                    "id": 9,
+                    "name": "otherEmail",
+                    "val": ""
+                },
+                {
+                    "id": 12,
+                    "name": "checkBoleto",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "CaseId": "{caseId}",
+                    "CheckBoleto": "{checkBoleto}",
+                    "Email": "{email}",
+                    "Modality": "{modality}",
+                    "OtherEmail": "{otherEmail}",
+                    "filteredAdjustmentItems": "{action}"
+                },
+                "ipMethod": "Dispute_CreateCreditForChargeAndEvent",
+                "jsonMap": "{\"isLastItem\":\"{isLastItem}\",\"serviceDefinitionName\":\"{serviceDefinitionName}\",\"attendantMessage\":\"{attendantMessage}\",\"Parent.DisputeCloseService\":\"{Parent.DisputeCloseService}\",\"action\":\"{action}\",\"caseId\":\"{caseId}\",\"Session.modality\":\"{Session.modality}\",\"modality\":\"{modality}\",\"email\":\"{email}\",\"otherEmail\":\"{otherEmail}\",\"checkBoleto\":\"{checkBoleto}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        },
+        "event-0_4": {
+            "contextVariables": [
+                {
+                    "id": 0,
+                    "name": "isLastItem",
+                    "val": "yes"
+                },
+                {
+                    "id": 1,
+                    "name": "serviceDefinitionName",
+                    "val": "Teste Nome"
+                },
+                {
+                    "id": 2,
+                    "name": "attendantMessage",
+                    "val": "mensagem"
+                },
+                {
+                    "id": 0,
+                    "name": "Parent.DisputeCloseService",
+                    "val": "false"
+                },
+                {
+                    "id": 2,
+                    "name": "Session.Notes",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "Notes": "b",
+                    "disputedItems": "a"
+                },
+                "ipMethod": "Dispute_CaseClosureDefinition",
+                "jsonMap": "{\"isLastItem\":\"{isLastItem}\",\"serviceDefinitionName\":\"{serviceDefinitionName}\",\"attendantMessage\":\"{attendantMessage}\",\"Parent.DisputeCloseService\":\"{Parent.DisputeCloseService}\",\"Session.Notes\":\"{Session.Notes}\"}",
+                "resultVar": "[\"feedbackUser\"]",
+                "vlocityAsync": false
             }
         },
         "event-3_0": {
@@ -67,17 +271,116 @@
                 "dsDelay": "",
                 "resultVar": ""
             }
+        },
+        "event-5_0": {
+            "contextVariables": [
+                {
+                    "id": 0,
+                    "name": "isLastItem",
+                    "val": "yes"
+                },
+                {
+                    "id": 1,
+                    "name": "serviceDefinitionName",
+                    "val": "Teste Nome"
+                },
+                {
+                    "id": 2,
+                    "name": "attendantMessage",
+                    "val": "mensagem"
+                },
+                {
+                    "id": 0,
+                    "name": "Parent.DisputeCloseService",
+                    "val": "false"
+                },
+                {
+                    "id": 1,
+                    "name": "action",
+                    "val": ""
+                },
+                {
+                    "id": 2,
+                    "name": "Session.filteredAdjustmentsItems",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "filteredAdjustmentsItems": "{Session.filteredAdjustmentsItems}"
+                },
+                "ipMethod": "Dispute_CreateCreditForChargeAndEvent",
+                "jsonMap": "{\"isLastItem\":\"{isLastItem}\",\"serviceDefinitionName\":\"{serviceDefinitionName}\",\"attendantMessage\":\"{attendantMessage}\",\"Parent.DisputeCloseService\":\"{Parent.DisputeCloseService}\",\"action\":\"{action}\",\"Session.filteredAdjustmentsItems\":\"{Session.filteredAdjustmentsItems}\"}",
+                "vlocityAsync": false
+            }
+        },
+        "state0element12_0": {
+            "contextVariables": [
+                {
+                    "id": 4,
+                    "name": "CaseId",
+                    "val": "5008K000004lnqYQAQ"
+                },
+                {
+                    "id": 6,
+                    "name": "SendedNotesLegacySystem__c",
+                    "val": "TESTEE"
+                },
+                {
+                    "id": 4,
+                    "name": "Parent.CaseId",
+                    "val": "5008K000004lnqYQAQ"
+                },
+                {
+                    "id": 5,
+                    "name": "Session.notes",
+                    "val": ""
+                },
+                {
+                    "id": 6,
+                    "name": "notas",
+                    "val": ""
+                },
+                {
+                    "id": 6,
+                    "name": "notes",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "CaseId": "{Parent.CaseId}",
+                    "SendedNotesLegacySystem__c": "{notes}",
+                    "Status": "Closed"
+                },
+                "ipMethod": "Dispute_DisputeUpdateCase",
+                "jsonMap": "{\"CaseId\":\"{CaseId}\",\"SendedNotesLegacySystem__c\":\"{SendedNotesLegacySystem__c}\",\"Parent.CaseId\":\"{Parent.CaseId}\",\"Session.notes\":\"{Session.notes}\",\"notas\":\"{notas}\",\"notes\":\"{notes}\"}",
+                "resultVar": "['SVInfos']",
+                "vlocityAsync": false
+            }
         }
     },
     "%vlocity_namespace%__Definition__c": "DisputeFlexCardServiceDefinition.json",
     "%vlocity_namespace%__Description__c": "",
-    "%vlocity_namespace%__GlobalKey__c": "DisputeFlexCardServiceDefinition/Dispute/6/1698763018610",
+    "%vlocity_namespace%__GlobalKey__c": "DisputeFlexCardServiceDefinition/Dispute/15/1703270132516",
     "%vlocity_namespace%__IsChildCard__c": true,
     "%vlocity_namespace%__ParentID__c": "",
-    "%vlocity_namespace%__SampleData__c": "{\"isLastItem\":\"yes\",\"serviceDefinitionName\":\"ATC-MVL-FIN-CONT-NEG-RET-DESC-006\",\"attendantMessage\":\"Ajuste Negado! Após conclusão do roteiro de atendimento realize o processo de retenção para reverter a intenção de cancelamento do cliente.\",\"caseId\":\"5008K000004QRoGQAW\",\"accountId\":\"\",\"hasAutoDebit\":\"=yes\",\"invoiceStatus\":\"open\",\"invoiceNumber\":\"100001\",\"withinAdjustmentPeriod\":\"=no\"}",
+    "%vlocity_namespace%__SampleData__c": "{\"notes\":\"\",\"HideRegisterButton\":\"\",\"accountId\":\"\",\"attendantMessage\":\"\",\"caseId\":\"\",\"hasAutoDebit\":\"\",\"invoiceNumber\":\"\",\"invoiceStatus\":\"\",\"isLastItem\":\"\",\"serviceDefinitionName\":\"\",\"withinAdjustmentPeriod\":\"\",\"responseUpsertSuccess\":{},\"selectedInvoice\":[]}",
     "%vlocity_namespace%__Styles__c": "",
     "%vlocity_namespace%__Type__c": "",
-    "%vlocity_namespace%__Version__c": 6,
+    "%vlocity_namespace%__Version__c": 15,
     "Name": "DisputeFlexCardServiceDefinition",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityCard__c",
