@@ -3,9 +3,18 @@
         "contextVariables": [
         ],
         "orderBy": {
+            "isReverse": "",
+            "name": ""
         },
-        "type": null,
+        "type": "IntegrationProcedures",
         "value": {
+            "dsDelay": "",
+            "inputMap": {
+                "numberOfDays": "91"
+            },
+            "ipMethod": "pan_pagination",
+            "resultVar": "",
+            "vlocityAsync": false
         }
     },
     "enableLwc": true,
@@ -17,13 +26,99 @@
                     "card": "{card}",
                     "draggable": false,
                     "isOpen": true,
+                    "key": "1697055626127-fnc0fuzqd",
+                    "label": "Invalid Date",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "{action.numberOfDays}",
+                                    "hasMergeField": true,
+                                    "id": "state-new-condition-6",
+                                    "operator": ">",
+                                    "type": "custom",
+                                    "value": "90"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.invalidDate",
+                                "fieldValue": "true"
+                            }
+                        ],
+                        "id": "flex-action-1697056950015",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1697056543792-8ux7cb89a",
+                    "label": "Valid Date",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "{action.numberOfDays}",
+                                    "hasMergeField": true,
+                                    "id": "state-new-condition-32",
+                                    "operator": "<",
+                                    "type": "custom",
+                                    "value": "90"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.invalidDate",
+                                "fieldValue": "empty"
+                            }
+                        ],
+                        "id": "flex-action-1697056976976",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
                     "key": "1657591225678-f4m99cqo8",
                     "label": "UpdateDatasourcePagination",
                     "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
                         "displayName": "Action",
                         "eventName": "updatedatasource",
-                        "id": "flex-action-1681563340216",
-                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"pan_pagination\",\"vlocityAsync\":false,\"inputMap\":{\"contextNumber\":\"{action.contextNumber}\",\"startDateBind\":\"{action.startDateBind}\",\"endDateBind\":\"{action.endDateBind}\",\"numberOfDays\":\"{action.numberOfDays}\",\"type\":\"{action.type}\",\"currentPage\":\"{action.currentPage}\",\"amount\":\"{action.amount}\",\"event\":\"{action.event}\",\"eventError\":\"{action.eventError}\"},\"jsonMap\":\"{\\\"action.contextNumber\\\":\\\"{action.contextNumber}\\\",\\\"action.startDateBind\\\":\\\"{action.startDateBind}\\\",\\\"action.endDateBind\\\":\\\"{action.endDateBind}\\\",\\\"action.numberOfDays\\\":\\\"{action.numberOfDays}\\\",\\\"action.type\\\":\\\"{action.type}\\\",\\\"action.currentPage\\\":\\\"{action.currentPage}\\\",\\\"action.amount\\\":\\\"{action.amount}\\\",\\\"action.event\\\":\\\"{action.event}\\\",\\\"action.eventError\\\":\\\"{action.eventError}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"action.contextNumber\",\"val\":\"11950952341\",\"id\":13},{\"name\":\"action.startDateBind\",\"val\":\"\",\"id\":14},{\"name\":\"action.endDateBind\",\"val\":\"\",\"id\":15},{\"name\":\"action.numberOfDays\",\"val\":\"0\",\"id\":16},{\"name\":\"action.type\",\"val\":\"all\",\"id\":17},{\"name\":\"action.currentPage\",\"val\":\"1\",\"id\":18},{\"name\":\"action.amount\",\"val\":\"7\",\"id\":19},{\"name\":\"action.event\",\"val\":\"default\",\"id\":20},{\"name\":\"action.eventError\",\"val\":\"false\",\"id\":17}]}",
+                        "id": "flex-action-1697056530852",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"pan_pagination\",\"vlocityAsync\":false,\"inputMap\":{\"contextNumber\":\"{action.contextNumber}\",\"startDateBind\":\"{action.startDateBind}\",\"endDateBind\":\"{action.endDateBind}\",\"numberOfDays\":\"{action.numberOfDays}\",\"type\":\"{action.type}\",\"currentPage\":\"{action.currentPage}\",\"amount\":\"{action.amount}\",\"event\":\"{action.event}\",\"eventError\":\"{action.eventError}\",\"freeEvents\":\"{action.freeEvents}\"}},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"action.contextNumber\",\"val\":\"16999921431\",\"id\":13},{\"name\":\"action.startDateBind\",\"val\":\"\",\"id\":14},{\"name\":\"action.endDateBind\",\"val\":\"\",\"id\":15},{\"name\":\"action.numberOfDays\",\"val\":\"35\",\"id\":16},{\"name\":\"action.type\",\"val\":\"all\",\"id\":17},{\"name\":\"action.currentPage\",\"val\":\"1\",\"id\":18},{\"name\":\"action.amount\",\"val\":\"7\",\"id\":19},{\"name\":\"action.event\",\"val\":\"default\",\"id\":20},{\"name\":\"action.eventError\",\"val\":\"false\",\"id\":17},{\"name\":\"action.freeEvents\",\"val\":\"true\",\"id\":19}]}",
                         "openUrlIn": "Current Window",
                         "subType": "PubSub",
                         "type": "cardAction",
@@ -78,15 +173,21 @@
                         "Web Page": {
                             "targetName": "/apex"
                         },
+                        "actionConditions": {
+                            "group": [
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
                         "displayName": "Action",
                         "eventName": "setValues",
                         "fieldValues": [
                             {
                                 "fieldName": "Session.statusCode",
-                                "fieldValue": "{records[0].statusCode}"
+                                "fieldValue": "{invalidDate}"
                             }
                         ],
-                        "id": "flex-action-1659979176009",
+                        "id": "flex-action-1697051307557",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "cardAction",
@@ -108,10 +209,10 @@
     "isFlex": true,
     "isRepeatable": false,
     "lwc": {
-        "DeveloperName": "cfFC_panEventTableResult_6_VitorSSM",
-        "Id": "0Rb7j000000DZpfCAG",
+        "DeveloperName": "cfFC_panEventTableResultList_9_edupontes",
+        "Id": "0Rb78000000LVQkCAO",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfFC_panEventTableResult_6_VitorSSM",
+        "MasterLabel": "cfFC_panEventTableResultList_9_edupontes",
         "NamespacePrefix": "c"
     },
     "selectableMode": "Multi",
@@ -119,6 +220,10 @@
         {
             "name": "statusCode",
             "val": "init"
+        },
+        {
+            "name": "invalidDate",
+            "val": "false"
         }
     ],
     "states": [
@@ -127,65 +232,16 @@
             ],
             "blankCardState": false,
             "childCards": [
-                "FC_panEventTableConsuption",
                 "FC_panEventTableHeader",
-                "valMessageAlert",
-                "FC_panEventTableResultList",
-                "FC_panEventPageControl"
+                "FC_panEventTableResultList"
             ],
             "components": {
                 "layer-0": {
                     "children": [
                         {
                             "class": "slds-col ",
-                            "element": "childCardPreview",
-                            "elementLabel": "FlexCard-0",
-                            "name": "FlexCard",
-                            "property": {
-                                "cardName": "FC_panEventTableConsuption",
-                                "cardNode": "{records[0]}",
-                                "data-conditions": {
-                                    "group": [
-                                        {
-                                            "field": "typeService",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-4",
-                                            "operator": "!=",
-                                            "type": "custom",
-                                            "value": "all"
-                                        },
-                                        {
-                                            "field": "object",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-0",
-                                            "logicalOperator": "&&",
-                                            "operator": "!=",
-                                            "type": "custom",
-                                            "value": "undefined"
-                                        }
-                                    ],
-                                    "id": "state-condition-object",
-                                    "isParent": true
-                                },
-                                "data-preloadConditionalElement": false,
-                                "isChildCardTrackingEnabled": false,
-                                "recordId": "{recordId}",
-                                "selectedState": "Active"
-                            },
-                            "size": {
-                                "default": "12",
-                                "isResponsive": false
-                            },
-                            "stateIndex": 0,
-                            "styleObject": {
-                                "sizeClass": "slds-size_12-of-12"
-                            },
-                            "type": "element"
-                        },
-                        {
-                            "class": "slds-col ",
                             "element": "outputField",
-                            "elementLabel": "Text-1",
+                            "elementLabel": "Text-0",
                             "name": "Text",
                             "property": {
                                 "card": "{card}",
@@ -299,134 +355,12 @@
                         },
                         {
                             "class": "slds-col ",
-                            "element": "childCardPreview",
-                            "elementLabel": "FlexCard-2",
-                            "name": "FlexCard",
-                            "property": {
-                                "cardName": "FC_panEventTableHeader",
-                                "cardNode": "{records[0]}",
-                                "data-conditions": {
-                                    "group": [
-                                        {
-                                            "field": "object",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-80",
-                                            "operator": "!=",
-                                            "type": "custom",
-                                            "value": "undefined"
-                                        }
-                                    ],
-                                    "id": "state-condition-object",
-                                    "isParent": true
-                                },
-                                "data-preloadConditionalElement": false,
-                                "isChildCardTrackingEnabled": false,
-                                "recordId": "{recordId}",
-                                "selectedState": "Active"
-                            },
-                            "size": {
-                                "default": "12",
-                                "isResponsive": false
-                            },
-                            "stateIndex": 0,
-                            "styleObject": {
-                                "sizeClass": "slds-size_12-of-12"
-                            },
-                            "type": "element"
-                        },
-                        {
-                            "children": [
-                                {
-                                    "class": "slds-col ",
-                                    "element": "childCardPreview",
-                                    "elementLabel": "Block-2-FlexCard-0",
-                                    "key": "element_element_block_2_0_childCardPreview_0_0",
-                                    "name": "FlexCard",
-                                    "parentElementKey": "element_block_2_0",
-                                    "property": {
-                                        "cardName": "valMessageAlert",
-                                        "cardNode": "",
-                                        "data-conditions": {
-                                            "group": [
-                                            ],
-                                            "id": "state-condition-object",
-                                            "isParent": true
-                                        },
-                                        "data-preloadConditionalElement": false,
-                                        "isChildCardTrackingEnabled": false,
-                                        "parentAttribute": {
-                                            "ErrorMessage": "Nenhum evento registrado."
-                                        },
-                                        "recordId": "{recordId}",
-                                        "selectedState": "WarningCustomAttribute"
-                                    },
-                                    "size": {
-                                        "default": "12",
-                                        "isResponsive": false
-                                    },
-                                    "stateIndex": 0,
-                                    "styleObject": {
-                                        "sizeClass": "slds-size_12-of-12"
-                                    },
-                                    "type": "element"
-                                }
-                            ],
-                            "class": "slds-col ",
-                            "element": "block",
-                            "elementLabel": "Block-3",
-                            "name": "Block",
+                            "element": "outputField",
+                            "elementLabel": "Text-2",
+                            "name": "Text",
                             "property": {
                                 "card": "{card}",
-                                "collapsedByDefault": false,
-                                "collapsible": false,
-                                "data-conditions": {
-                                    "group": [
-                                        {
-                                            "field": "Session.statusCode",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-0",
-                                            "operator": "!=",
-                                            "type": "custom",
-                                            "value": "200"
-                                        },
-                                        {
-                                            "field": "Session.statusCode",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-93",
-                                            "logicalOperator": "&&",
-                                            "operator": "!=",
-                                            "type": "custom",
-                                            "value": "init"
-                                        },
-                                        {
-                                            "group": [
-                                                {
-                                                    "field": "Session.statusCode",
-                                                    "hasMergeField": false,
-                                                    "id": "state-new-condition-16",
-                                                    "operator": "==",
-                                                    "type": "custom",
-                                                    "value": "200"
-                                                },
-                                                {
-                                                    "field": "object",
-                                                    "hasMergeField": false,
-                                                    "id": "state-new-condition-52",
-                                                    "logicalOperator": "&&",
-                                                    "operator": "==",
-                                                    "type": "custom",
-                                                    "value": "undefined"
-                                                }
-                                            ],
-                                            "id": "state-new-group-17",
-                                            "logicalOperator": "||"
-                                        }
-                                    ],
-                                    "id": "state-condition-object",
-                                    "isParent": true
-                                },
-                                "data-preloadConditionalElement": false,
-                                "label": "Block",
+                                "mergeField": "%3Cdiv%3E%7Brecords%7D%3C/div%3E",
                                 "record": "{record}"
                             },
                             "size": {
@@ -435,40 +369,32 @@
                             },
                             "stateIndex": 0,
                             "styleObject": {
-                                "class": "slds-p-around_x-small",
-                                "padding": [
-                                    {
-                                        "size": "x-small",
-                                        "type": "around"
-                                    }
-                                ],
                                 "sizeClass": "slds-size_12-of-12"
                             },
-                            "type": "block"
+                            "type": "text"
                         },
                         {
                             "class": "slds-col ",
                             "element": "childCardPreview",
-                            "elementLabel": "FlexCard-4",
+                            "elementLabel": "FlexCard-1",
                             "name": "FlexCard",
                             "property": {
-                                "cardName": "FC_panEventTableResultList",
-                                "cardNode": "{records}",
+                                "cardName": "FC_panEventTableHeader",
+                                "cardNode": "{record}",
                                 "data-conditions": {
                                     "group": [
                                         {
-                                            "field": "object",
+                                            "field": "Session.statusCode",
                                             "hasMergeField": false,
-                                            "id": "state-new-condition-38",
+                                            "id": "state-new-condition-2",
                                             "operator": "!=",
                                             "type": "custom",
-                                            "value": "undefined"
+                                            "value": "init"
                                         }
                                     ],
                                     "id": "state-condition-object",
                                     "isParent": true
                                 },
-                                "data-preloadConditionalElement": false,
                                 "isChildCardTrackingEnabled": false,
                                 "recordId": "{recordId}",
                                 "selectedState": "Active"
@@ -486,20 +412,20 @@
                         {
                             "class": "slds-col ",
                             "element": "childCardPreview",
-                            "elementLabel": "FlexCard-5",
+                            "elementLabel": "FlexCard-3",
                             "name": "FlexCard",
                             "property": {
-                                "cardName": "FC_panEventPageControl",
-                                "cardNode": "{records[0]}",
+                                "cardName": "FC_panEventTableResultList",
+                                "cardNode": "{records}",
                                 "data-conditions": {
                                     "group": [
                                         {
-                                            "field": "object",
+                                            "field": "Session.statusCode",
                                             "hasMergeField": false,
-                                            "id": "state-new-condition-45",
+                                            "id": "state-new-condition-34",
                                             "operator": "!=",
                                             "type": "custom",
-                                            "value": "undefined"
+                                            "value": "init"
                                         }
                                     ],
                                     "id": "state-condition-object",
@@ -507,6 +433,10 @@
                                 },
                                 "data-preloadConditionalElement": false,
                                 "isChildCardTrackingEnabled": false,
+                                "parentAttribute": {
+                                    "invalidDate": "{Session.invalidDate}",
+                                    "noRecords": "{noRecords}"
+                                },
                                 "recordId": "{recordId}",
                                 "selectedState": "Active"
                             },
@@ -580,65 +510,15 @@
             ],
             "blankCardState": false,
             "childCards": [
-                "FC_panEventTableConsuption",
-                "FC_panEventTableHeaderError",
-                "valMessageAlert",
-                "FC_panEventTableResultListError",
-                "FC_panEventPageControl"
+                "FC_panEventTableResultListError"
             ],
             "components": {
                 "layer-0": {
                     "children": [
                         {
                             "class": "slds-col ",
-                            "element": "childCardPreview",
-                            "elementLabel": "FlexCard-0",
-                            "name": "FlexCard",
-                            "property": {
-                                "cardName": "FC_panEventTableConsuption",
-                                "cardNode": "{records[0]}",
-                                "data-conditions": {
-                                    "group": [
-                                        {
-                                            "field": "typeService",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-4",
-                                            "operator": "!=",
-                                            "type": "custom",
-                                            "value": "all"
-                                        },
-                                        {
-                                            "field": "object",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-0",
-                                            "logicalOperator": "&&",
-                                            "operator": "!=",
-                                            "type": "custom",
-                                            "value": "undefined"
-                                        }
-                                    ],
-                                    "id": "state-condition-object",
-                                    "isParent": true
-                                },
-                                "data-preloadConditionalElement": false,
-                                "isChildCardTrackingEnabled": false,
-                                "recordId": "{recordId}",
-                                "selectedState": "Active"
-                            },
-                            "size": {
-                                "default": "12",
-                                "isResponsive": false
-                            },
-                            "stateIndex": 1,
-                            "styleObject": {
-                                "sizeClass": "slds-size_12-of-12"
-                            },
-                            "type": "element"
-                        },
-                        {
-                            "class": "slds-col ",
                             "element": "outputField",
-                            "elementLabel": "Text-1",
+                            "elementLabel": "Text-0",
                             "name": "Text",
                             "property": {
                                 "card": "{card}",
@@ -753,100 +633,17 @@
                         {
                             "class": "slds-col ",
                             "element": "childCardPreview",
-                            "elementLabel": "FlexCard-2",
+                            "elementLabel": "FlexCard-1",
                             "name": "FlexCard",
                             "property": {
-                                "cardName": "FC_panEventTableHeaderError",
-                                "cardNode": "",
-                                "data-conditions": {
-                                    "group": [
-                                        {
-                                            "field": "object",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-80",
-                                            "operator": "!=",
-                                            "type": "custom",
-                                            "value": "undefined"
-                                        }
-                                    ],
-                                    "id": "state-condition-object",
-                                    "isParent": true
-                                },
-                                "data-preloadConditionalElement": false,
-                                "isChildCardTrackingEnabled": false,
-                                "recordId": "{recordId}",
-                                "selectedState": "Active"
-                            },
-                            "size": {
-                                "default": "12",
-                                "isResponsive": false
-                            },
-                            "stateIndex": 1,
-                            "styleObject": {
-                                "sizeClass": "slds-size_12-of-12"
-                            },
-                            "type": "element"
-                        },
-                        {
-                            "children": [
-                                {
-                                    "class": "slds-col ",
-                                    "element": "childCardPreview",
-                                    "elementLabel": "Block-2-FlexCard-0",
-                                    "key": "element_element_block_2_0_childCardPreview_0_0",
-                                    "name": "FlexCard",
-                                    "parentElementKey": "element_block_2_0",
-                                    "property": {
-                                        "cardName": "valMessageAlert",
-                                        "cardNode": "",
-                                        "data-conditions": {
-                                            "group": [
-                                            ],
-                                            "id": "state-condition-object",
-                                            "isParent": true
-                                        },
-                                        "data-preloadConditionalElement": false,
-                                        "isChildCardTrackingEnabled": false,
-                                        "parentAttribute": {
-                                            "ErrorMessage": "Nenhum evento registrado."
-                                        },
-                                        "recordId": "{recordId}",
-                                        "selectedState": "WarningCustomAttribute"
-                                    },
-                                    "size": {
-                                        "default": "12",
-                                        "isResponsive": false
-                                    },
-                                    "stateIndex": 0,
-                                    "styleObject": {
-                                        "sizeClass": "slds-size_12-of-12"
-                                    },
-                                    "type": "element"
-                                }
-                            ],
-                            "class": "slds-col ",
-                            "element": "block",
-                            "elementLabel": "Block-3",
-                            "name": "Block",
-                            "property": {
-                                "card": "{card}",
-                                "collapsedByDefault": false,
-                                "collapsible": false,
+                                "cardName": "FC_panEventTableResultListError",
+                                "cardNode": "{records}",
                                 "data-conditions": {
                                     "group": [
                                         {
                                             "field": "Session.statusCode",
                                             "hasMergeField": false,
-                                            "id": "state-new-condition-0",
-                                            "operator": "!=",
-                                            "type": "custom",
-                                            "value": "200"
-                                        },
-                                        {
-                                            "field": "Session.statusCode",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-93",
-                                            "logicalOperator": "&&",
+                                            "id": "state-new-condition-21",
                                             "operator": "!=",
                                             "type": "custom",
                                             "value": "init"
@@ -856,87 +653,11 @@
                                     "isParent": true
                                 },
                                 "data-preloadConditionalElement": false,
-                                "label": "Block",
-                                "record": "{record}"
-                            },
-                            "size": {
-                                "default": "12",
-                                "isResponsive": false
-                            },
-                            "stateIndex": 1,
-                            "styleObject": {
-                                "class": "slds-p-around_x-small",
-                                "padding": [
-                                    {
-                                        "size": "x-small",
-                                        "type": "around"
-                                    }
-                                ],
-                                "sizeClass": "slds-size_12-of-12"
-                            },
-                            "type": "block"
-                        },
-                        {
-                            "class": "slds-col ",
-                            "element": "childCardPreview",
-                            "elementLabel": "FlexCard-4",
-                            "name": "FlexCard",
-                            "property": {
-                                "cardName": "FC_panEventTableResultListError",
-                                "cardNode": "{records}",
-                                "data-conditions": {
-                                    "group": [
-                                        {
-                                            "field": "object",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-38",
-                                            "operator": "!=",
-                                            "type": "custom",
-                                            "value": "undefined"
-                                        }
-                                    ],
-                                    "id": "state-condition-object",
-                                    "isParent": true
-                                },
-                                "data-preloadConditionalElement": false,
                                 "isChildCardTrackingEnabled": false,
-                                "recordId": "{recordId}",
-                                "selectedState": "Active"
-                            },
-                            "size": {
-                                "default": "12",
-                                "isResponsive": false
-                            },
-                            "stateIndex": 1,
-                            "styleObject": {
-                                "sizeClass": "slds-size_12-of-12"
-                            },
-                            "type": "element"
-                        },
-                        {
-                            "class": "slds-col ",
-                            "element": "childCardPreview",
-                            "elementLabel": "FlexCard-5",
-                            "name": "FlexCard",
-                            "property": {
-                                "cardName": "FC_panEventPageControl",
-                                "cardNode": "{records[0]}",
-                                "data-conditions": {
-                                    "group": [
-                                        {
-                                            "field": "object",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-45",
-                                            "operator": "!=",
-                                            "type": "custom",
-                                            "value": "undefined"
-                                        }
-                                    ],
-                                    "id": "state-condition-object",
-                                    "isParent": true
+                                "parentAttribute": {
+                                    "invalidDate": "{Session.invalidDate}",
+                                    "noRecords": "{noRecords}"
                                 },
-                                "data-preloadConditionalElement": false,
-                                "isChildCardTrackingEnabled": false,
                                 "recordId": "{recordId}",
                                 "selectedState": "Active"
                             },

@@ -1,0 +1,82 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "IP_panPagination",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/pan/pagination/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__ParentElementId__c": {
+        "%vlocity_namespace%__OmniScriptId__c": {
+            "Name": "IP_panPagination",
+            "VlocityDataPackType": "VlocityMatchingKeyObject",
+            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/pan/pagination/Procedure",
+            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+        },
+        "Name": "LP",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/pan/pagination/Procedure/LP",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
+    },
+    "%vlocity_namespace%__ParentElementName__c": "LP",
+    "%vlocity_namespace%__ParentElementType__c": "Loop Block",
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "additionalChainableResponse": {
+        },
+        "additionalInput": {
+        },
+        "additionalOutput": {
+            "contextNumber": "%contextNumber%",
+            "destinationNumber": "=IF(%type% == MMS,'',%respDrt:destinationNumber%)",
+            "endDateTime": "=IF(%SVgetShotcutButtonStatus%,ADDDAY(TODAY(),1),ADDDAY(%SVgetDateBind:endDateTime%,1))",
+            "inputEdnDate": "=IF(%SVgetShotcutButtonStatus%,%SVgetShotcutButton:endDateTime%,%endDateBind%)",
+            "inputStartDate": "=IF(%SVgetShotcutButtonStatus%,%SVgetShotcutButton:startDateTime%,%startDateBind%)",
+            "numberOfDays": "%numberOfDays%",
+            "startDateTime": "=IF(%SVgetShotcutButtonStatus%,ADDDAY(TODAY(),SUM(%numberOfDays%,-1)*-1),ADDDAY(%SVgetDateBind:startDateTime%,1))",
+            "statusCode": "=IF(%eventError%,%HAErrorInfo:statusCode%,%HASuccessInfo:statusCode%)",
+            "summarized": "=%SVsummarizeAmount:summarized%"
+        },
+        "advancedMerge": false,
+        "advancedMergeMap": [
+        ],
+        "allowMergeNulls": true,
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "dynamicOutputFields": "",
+        "executionConditionalFormula": "",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "failureResponse": {
+        },
+        "filterListFormula": "",
+        "hasPrimary": false,
+        "label": "ListAction2",
+        "mergeFields": [
+        ],
+        "mergeListsOrder": [
+            "respDrt"
+        ],
+        "primaryListKey": "",
+        "responseJSONNode": "responseListMerge",
+        "responseJSONPath": "",
+        "returnOnlyAdditionalOutput": false,
+        "returnOnlyFailureResponse": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "sendOnlyAdditionalInput": false,
+        "show": null,
+        "sortBy": [
+        ],
+        "sortInDescendingOrder": false,
+        "updateFieldValue": {
+        },
+        "useFormulas": true
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "List Merge Action",
+    "Name": "ListAction2",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/pan/pagination/Procedure/ListAction2"
+}
