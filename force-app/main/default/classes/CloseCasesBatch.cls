@@ -12,17 +12,17 @@ global with sharing class CloseCasesBatch implements Database.Batchable<sObject>
     global Database.QueryLocator start(Database.BatchableContext BC) {
         String query;
 
-        Integer gmtCompensation = 3;
-        DateTime expirationDate = System.now().addHours(gmtCompensation).addHours(-4);
-        String expirationDatePlusCompesation = expirationDate.format('yyyy-MM-dd\'T\'HH:mm:ss');
-        expirationDatePlusCompesation += '.000Z';
+        DateTime jobStartDateTime = System.now();
+        Integer offSetUserTimeZone = UserInfo.getTimeZone().getOffset(jobStartDateTime) / (60 * 60 * 1000);
+        Integer referenceHour = (offSetUserTimeZone == -3)  ? -4 : -3;
+        String expirationDate = jobStartDateTime.addHours(referenceHour).format('yyyy-MM-dd\'T\'HH:mm:ss\'.000Z\'', 'GMT');
         String recordTypeIdFixed = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('FixedServiceQualification').getrecordTypeId();
         String recordTypeIdDispute = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('DisputeInvoiceCase').getRecordTypeId();
         
         query = 'SELECT';
         query += ' Id, CreatedDate, Status, RecordTypeId ';
         query += ' FROM Case';
-        query += ' WHERE CreatedDate <= ' + expirationDatePlusCompesation;
+        query += ' WHERE CreatedDate <= ' + expirationDate;
         query += ' AND (Status = \'Em Atendimento\' OR Status = \'InTransfer\' OR Status = \'Consulting\')';
         query += ' AND RecordTypeId IN (\'' + recordTypeIdFixed + '\', \'' + recordTypeIdDispute + '\')';
         return Database.getQueryLocator(query);

@@ -743,9 +743,13 @@
                             {
                                 "fieldName": "Session.ProductSourceSystem",
                                 "fieldValue": "''"
+                            },
+                            {
+                                "fieldName": "Session.CaseId",
+                                "fieldValue": "{action.CaseId}"
                             }
                         ],
-                        "id": "flex-action-1699537811684",
+                        "id": "flex-action-1701785599262",
                         "openUrlIn": "Current Window",
                         "type": "cardAction",
                         "vlocityIcon": "standard-default"
@@ -761,15 +765,54 @@
             "key": "event-13",
             "recordIndex": "0",
             "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1701787598489-yzfu704zt",
+                    "label": "ShowDisputeCompleteService",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.ShowDisputeCompleteService",
+                                "fieldValue": "{action.ShowDisputeCompleteService}"
+                            }
+                        ],
+                        "id": "flex-action-1701787626425",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "valServiceFlow",
+            "displayLabel": "valServiceFlow:ShowDisputeCompleteService",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "ShowDisputeCompleteService",
+            "eventtype": "pubsub",
+            "key": "event-14",
+            "recordIndex": "0",
+            "showSpinner": "false"
         }
     ],
     "globalCSS": false,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValServiceFlow_18_usPalitagemCrossRegistrarPalito",
-        "Id": "0Rb76000000L5uHCAS",
+        "DeveloperName": "cfValServiceFlow_24_usPalitagemCrossRegistrarPalito",
+        "Id": "0Rb8K0000017jNcSAI",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValServiceFlow_18_usPalitagemCrossRegistrarPalito",
+        "MasterLabel": "cfValServiceFlow_24_usPalitagemCrossRegistrarPalito",
         "NamespacePrefix": "c"
     },
     "multilanguageSupport": true,
@@ -809,6 +852,14 @@
         {
             "name": "ProductSourceSystem",
             "val": ""
+        },
+        {
+            "name": "ShowDisputeCompleteService",
+            "val": "false"
+        },
+        {
+            "name": "DisputeCompleteServiceSuccess",
+            "val": ""
         }
     ],
     "states": [
@@ -816,6 +867,7 @@
             "actions": [
             ],
             "childCards": [
+                "DisputeCloseService",
                 "valAddRelationshipTopicFrontEnd"
             ],
             "components": {
@@ -824,7 +876,7 @@
                         {
                             "class": "slds-col ",
                             "element": "outputField",
-                            "elementLabel": "Text-1",
+                            "elementLabel": "Text-0",
                             "name": "Text",
                             "property": {
                                 "card": "{card}",
@@ -1130,7 +1182,7 @@
                                         "record": "{record}"
                                     },
                                     "size": {
-                                        "default": "8",
+                                        "default": "4",
                                         "isResponsive": false
                                     },
                                     "stateIndex": 0,
@@ -1143,10 +1195,10 @@
                                             }
                                         ],
                                         "size": {
-                                            "default": "8",
+                                            "default": "4",
                                             "isResponsive": false
                                         },
-                                        "sizeClass": "slds-size_8-of-12 "
+                                        "sizeClass": "slds-size_4-of-12 "
                                     },
                                     "type": "block"
                                 },
@@ -1172,6 +1224,128 @@
                                         },
                                         "sizeClass": "slds-size_2-of-12 "
                                     },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "childCardPreview",
+                                    "elementLabel": "FlexCard-1",
+                                    "key": "element_element_block_1_0_childCardPreview_3_0",
+                                    "name": "FlexCard",
+                                    "parentElementKey": "element_block_1_0",
+                                    "property": {
+                                        "cardName": "DisputeCloseService",
+                                        "cardNode": "",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "Session.ShowDisputeCompleteService",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-2",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "true"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "isChildCardTrackingEnabled": false,
+                                        "parentAttribute": {
+                                            "CaseId": "{Session.CaseId}"
+                                        },
+                                        "recordId": "{recordId}",
+                                        "selectedState": "Active"
+                                    },
+                                    "size": {
+                                        "default": "4",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                        ],
+                                        "size": {
+                                            "default": "4",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_4-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    },
+                                    "styleObjects": [
+                                        {
+                                            "conditionString": "",
+                                            "conditions": "default",
+                                            "draggable": false,
+                                            "key": 0,
+                                            "label": "Default",
+                                            "name": "Default",
+                                            "styleObject": {
+                                                "background": {
+                                                    "color": "",
+                                                    "image": "",
+                                                    "position": "",
+                                                    "repeat": "",
+                                                    "size": ""
+                                                },
+                                                "border": {
+                                                    "color": "",
+                                                    "radius": "",
+                                                    "style": "",
+                                                    "type": "",
+                                                    "width": ""
+                                                },
+                                                "class": "",
+                                                "container": {
+                                                    "class": ""
+                                                },
+                                                "elementStyleProperties": {
+                                                },
+                                                "inlineStyle": "",
+                                                "margin": [
+                                                ],
+                                                "padding": [
+                                                ],
+                                                "size": {
+                                                    "default": "4",
+                                                    "isResponsive": false
+                                                },
+                                                "sizeClass": "slds-size_4-of-12 ",
+                                                "style": "      \n         ",
+                                                "text": {
+                                                    "align": "",
+                                                    "color": ""
+                                                }
+                                            }
+                                        }
+                                    ],
                                     "type": "element"
                                 }
                             ],
@@ -3625,9 +3799,9 @@
                                     "class": "slds-col ",
                                     "element": "childCardPreview",
                                     "elementLabel": "Block-2-FlexCard-1",
-                                    "key": "element_element_block_3_0_childCardPreview_0_0",
+                                    "key": "element_element_block_4_0_childCardPreview_0_0",
                                     "name": "FlexCard",
-                                    "parentElementKey": "element_block_3_0",
+                                    "parentElementKey": "element_block_4_0",
                                     "property": {
                                         "cardName": "valAddRelationshipTopicFrontEnd",
                                         "cardNode": "",

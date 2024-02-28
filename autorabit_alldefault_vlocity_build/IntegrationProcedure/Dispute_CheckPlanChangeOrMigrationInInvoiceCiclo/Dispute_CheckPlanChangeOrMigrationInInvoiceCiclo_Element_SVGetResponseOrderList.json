@@ -12,8 +12,12 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
+            "hasActiveLineAgainList": "=FILTER(LIST(%PostOrderListAPI:orders:orderItems%), 'status == \"DONE\" && implOrderTypeX9 == \"ES\"')",
+            "hasCancellationInInvoiceCycleList": "=FILTER(LIST(%PostOrderListAPI:orders:orderItems%), 'reasonCode != \"MOTF\" && implOrderTypeX9 == \"CE\"')",
+            "hasCancellationList": "=FILTER(LIST(%PostOrderListAPI:orders:orderItems%), 'status != \"DONE\" && implOrderTypeX9 == \"CE\"')",
             "hasPlanChangeList": "=FILTER(LIST(%PostOrderListAPI:orders:orderItems%), 'replaceOfferIndicator == \"true\" && implOrderTypeX9 == \"CH\"')",
-            "hasPlanMigrationList": "=FILTER(LIST(%PostOrderListAPI:orders:orderItems%), 'reasonCode == \"MOTF\" && implOrderTypeX9 == \"CE\" || implOrderTypeX9 == \"MF\"')"
+            "hasPlanMigrationList": "=FILTER(LIST(%PostOrderListAPI:orders:orderItems%), 'reasonCode == \"MOTF\" && implOrderTypeX9 == \"CE\" || implOrderTypeX9 == \"MF\"')",
+            "hasSubscriptionList": "=FILTER(LIST(%PostOrderListAPI:orders:orderItems%), 'status == \"DONE\" && implOrderTypeX9 == \"PR\"')"
         },
         "executionConditionalFormula": "",
         "failOnStepError": true,
