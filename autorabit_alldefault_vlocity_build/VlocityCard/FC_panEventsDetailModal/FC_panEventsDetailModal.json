@@ -3,24 +3,18 @@
         "contextVariables": [
         ],
         "orderBy": {
-            "isReverse": "",
-            "name": ""
         },
-        "type": "IntegrationProcedures",
+        "type": null,
         "value": {
-            "dsDelay": "",
-            "ipMethod": "pan_pagination",
-            "resultVar": "",
-            "vlocityAsync": false
         }
     },
     "enableLwc": true,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfFC_panEventsDetailModal_9_Telefonica",
-        "Id": "0Rb7j000000DjKzCAK",
+        "DeveloperName": "cfFC_panEventsDetailModal_12_Telefonica",
+        "Id": "0Rb8L000000D0RVSA0",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfFC_panEventsDetailModal_9_Telefonica",
+        "MasterLabel": "cfFC_panEventsDetailModal_12_Telefonica",
         "NamespacePrefix": "c"
     },
     "selectableMode": "Multi",
@@ -147,7 +141,7 @@
                                             "parentElementKey": "element_element_block_1_0_block_0_0",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "contextNumber",
+                                                "fieldName": "{Parent.dados.contextNumber}",
                                                 "label": "Linha Origem:",
                                                 "placeholder": "",
                                                 "record": "{record}",
@@ -274,13 +268,27 @@
                                         {
                                             "class": "slds-col ",
                                             "element": "outputField",
-                                            "elementLabel": "Block-1-Block-0-Field-0-clone-0",
+                                            "elementLabel": "Block-1-Block-0-Field-1-clone-0",
                                             "key": "element_element_element_block_1_0_block_0_0_outputField_1_0",
                                             "name": "Field",
                                             "parentElementKey": "element_element_block_1_0_block_0_0",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.destination.networkNumber",
+                                                "data-conditions": {
+                                                    "group": [
+                                                        {
+                                                            "field": "Parent.dados.type",
+                                                            "hasMergeField": false,
+                                                            "id": "state-new-condition-5",
+                                                            "operator": "==",
+                                                            "type": "custom",
+                                                            "value": "SMS"
+                                                        }
+                                                    ],
+                                                    "id": "state-condition-object",
+                                                    "isParent": true
+                                                },
+                                                "fieldName": "{Parent.dados.destinationNumber}",
                                                 "label": "Linha Destino:",
                                                 "placeholder": "",
                                                 "record": "{record}",
@@ -416,7 +424,7 @@
                                                 "data-conditions": {
                                                     "group": [
                                                         {
-                                                            "field": "object.bucket[0].usageUnit",
+                                                            "field": "Parent.dados.Unit",
                                                             "hasMergeField": false,
                                                             "id": "state-new-condition-0",
                                                             "operator": "==",
@@ -427,7 +435,7 @@
                                                     "id": "state-condition-object",
                                                     "isParent": true
                                                 },
-                                                "fieldName": "object.bucket[0].amount",
+                                                "fieldName": "{Parent.dados.amount}",
                                                 "label": "Valor Chamada:",
                                                 "mask": "#,##0.###",
                                                 "placeholder": "0,00",
@@ -564,7 +572,7 @@
                                                 "data-conditions": {
                                                     "group": [
                                                         {
-                                                            "field": "object.bucket[0].usageUnit",
+                                                            "field": "Parent.dados.Unit",
                                                             "hasMergeField": false,
                                                             "id": "state-new-condition-0",
                                                             "operator": "!=",
@@ -852,7 +860,7 @@
                                             "parentElementKey": "element_element_block_1_0_block_1_0",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.resource.mobileOperatorCode",
+                                                "fieldName": "{Parent.dados.csp}",
                                                 "label": "CSP:",
                                                 "placeholder": "-",
                                                 "record": "{record}",
@@ -960,19 +968,11 @@
                                                 "card": "{card}",
                                                 "data-conditions": {
                                                     "group": [
-                                                        {
-                                                            "field": "object.usageType",
-                                                            "hasMergeField": false,
-                                                            "id": "state-new-condition-3",
-                                                            "operator": "==",
-                                                            "type": "custom",
-                                                            "value": "SMS ONLINE"
-                                                        }
                                                     ],
                                                     "id": "state-condition-object",
                                                     "isParent": true
                                                 },
-                                                "fieldName": "",
+                                                "fieldName": "{Parent.dados.type}",
                                                 "label": "Tipo Tarifa:",
                                                 "placeholder": "SMS",
                                                 "record": "{record}",
@@ -1072,7 +1072,7 @@
                                         {
                                             "class": "slds-col ",
                                             "element": "outputField",
-                                            "elementLabel": "Block-1-Block-2-Field-2-clone-0",
+                                            "elementLabel": "Block-1-Field-14",
                                             "key": "element_element_element_block_1_0_block_1_0_outputField_2_0",
                                             "name": "Field",
                                             "parentElementKey": "element_element_block_1_0_block_1_0",
@@ -1081,132 +1081,12 @@
                                                 "data-conditions": {
                                                     "group": [
                                                         {
-                                                            "field": "object.usageType",
+                                                            "field": "Parent.dados.type",
                                                             "hasMergeField": false,
                                                             "id": "state-new-condition-3",
                                                             "operator": "==",
                                                             "type": "custom",
-                                                            "value": "MMS ONLINE"
-                                                        }
-                                                    ],
-                                                    "id": "state-condition-object",
-                                                    "isParent": true
-                                                },
-                                                "fieldName": "",
-                                                "label": "Tipo Tarifa:",
-                                                "placeholder": "MMS",
-                                                "record": "{record}",
-                                                "type": "text"
-                                            },
-                                            "size": {
-                                                "default": "12",
-                                                "isResponsive": false
-                                            },
-                                            "stateIndex": 0,
-                                            "styleObject": {
-                                                "background": {
-                                                    "color": "",
-                                                    "image": "",
-                                                    "position": "",
-                                                    "repeat": "",
-                                                    "size": ""
-                                                },
-                                                "border": {
-                                                    "color": "",
-                                                    "radius": "",
-                                                    "style": "",
-                                                    "type": "",
-                                                    "width": ""
-                                                },
-                                                "class": "",
-                                                "container": {
-                                                    "class": ""
-                                                },
-                                                "elementStyleProperties": {
-                                                },
-                                                "inlineStyle": "",
-                                                "margin": [
-                                                ],
-                                                "padding": [
-                                                ],
-                                                "size": {
-                                                    "default": "12",
-                                                    "isResponsive": false
-                                                },
-                                                "sizeClass": "slds-size_12-of-12 ",
-                                                "style": "      \n         ",
-                                                "text": {
-                                                    "align": "",
-                                                    "color": ""
-                                                }
-                                            },
-                                            "styleObjects": [
-                                                {
-                                                    "conditionString": "",
-                                                    "conditions": "default",
-                                                    "draggable": false,
-                                                    "key": 0,
-                                                    "label": "Default",
-                                                    "name": "Default",
-                                                    "styleObject": {
-                                                        "background": {
-                                                            "color": "",
-                                                            "image": "",
-                                                            "position": "",
-                                                            "repeat": "",
-                                                            "size": ""
-                                                        },
-                                                        "border": {
-                                                            "color": "",
-                                                            "radius": "",
-                                                            "style": "",
-                                                            "type": "",
-                                                            "width": ""
-                                                        },
-                                                        "class": "",
-                                                        "container": {
-                                                            "class": ""
-                                                        },
-                                                        "elementStyleProperties": {
-                                                        },
-                                                        "inlineStyle": "",
-                                                        "margin": [
-                                                        ],
-                                                        "padding": [
-                                                        ],
-                                                        "size": {
-                                                            "default": "12",
-                                                            "isResponsive": false
-                                                        },
-                                                        "sizeClass": "slds-size_12-of-12 ",
-                                                        "style": "      \n         ",
-                                                        "text": {
-                                                            "align": "",
-                                                            "color": ""
-                                                        }
-                                                    }
-                                                }
-                                            ],
-                                            "type": "element"
-                                        },
-                                        {
-                                            "class": "slds-col ",
-                                            "element": "outputField",
-                                            "elementLabel": "Block-1-Field-14",
-                                            "key": "element_element_element_block_1_0_block_1_0_outputField_3_0",
-                                            "name": "Field",
-                                            "parentElementKey": "element_element_block_1_0_block_1_0",
-                                            "property": {
-                                                "card": "{card}",
-                                                "data-conditions": {
-                                                    "group": [
-                                                        {
-                                                            "field": "object.usageType",
-                                                            "hasMergeField": false,
-                                                            "id": "state-new-condition-3",
-                                                            "operator": "==",
-                                                            "type": "custom",
-                                                            "value": "SMS ONLINE"
+                                                            "value": "SMS"
                                                         }
                                                     ],
                                                     "id": "state-condition-object",
@@ -1313,7 +1193,7 @@
                                             "class": "slds-col ",
                                             "element": "outputField",
                                             "elementLabel": "Block-1-Block-2-Field-0-clone-0",
-                                            "key": "element_element_element_block_1_0_block_1_0_outputField_4_0",
+                                            "key": "element_element_element_block_1_0_block_1_0_outputField_3_0",
                                             "name": "Field",
                                             "parentElementKey": "element_element_block_1_0_block_1_0",
                                             "property": {
@@ -1321,12 +1201,12 @@
                                                 "data-conditions": {
                                                     "group": [
                                                         {
-                                                            "field": "object.usageType",
+                                                            "field": "Parent.dados.type",
                                                             "hasMergeField": false,
                                                             "id": "state-new-condition-3",
                                                             "operator": "==",
                                                             "type": "custom",
-                                                            "value": "MMS ONLINE"
+                                                            "value": "MMS"
                                                         }
                                                     ],
                                                     "id": "state-condition-object",
@@ -1555,7 +1435,7 @@
                                             "parentElementKey": "element_element_block_1_0_block_2_0",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.destination.connectionType",
+                                                "fieldName": "{Parent.dados.connectionType}",
                                                 "label": "Tipo de Conexão:",
                                                 "placeholder": "-",
                                                 "record": "{record}",
@@ -1661,13 +1541,13 @@
                                             "parentElementKey": "element_element_block_1_0_block_2_0",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.consumptionPeriod.startDateTime",
-                                                "format": "DD/MM/YYYY HH:mm:ss",
+                                                "fieldName": "{Parent.dados.consumptionStart}",
+                                                "format": "",
                                                 "label": "Início do Eevento:",
                                                 "mask": "#,##0.###",
                                                 "placeholder": "",
                                                 "record": "{record}",
-                                                "type": "datetime"
+                                                "type": "text"
                                             },
                                             "size": {
                                                 "default": "12",
@@ -1769,12 +1649,12 @@
                                             "parentElementKey": "element_element_block_1_0_block_2_0",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.consumptionPeriod.endDateTime",
-                                                "format": "DD/MM/YYYY HH:mm:ss",
+                                                "fieldName": "{Parent.dados.consumptionEnd}",
+                                                "format": "",
                                                 "label": "Fim do Evento:",
                                                 "placeholder": "",
                                                 "record": "{record}",
-                                                "type": "datetime"
+                                                "type": "text"
                                             },
                                             "size": {
                                                 "default": "12",
@@ -1876,12 +1756,12 @@
                                             "parentElementKey": "element_element_block_1_0_block_2_0",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.consumptionPeriod.processingDateTime",
-                                                "format": "DD/MM/YYYY HH:mm:ss",
+                                                "fieldName": "{Parent.dados.consumptionProcessing}",
+                                                "format": "",
                                                 "label": "Data Processamento:",
                                                 "placeholder": "",
                                                 "record": "{record}",
-                                                "type": "datetime"
+                                                "type": "text"
                                             },
                                             "size": {
                                                 "default": "12",
@@ -2312,7 +2192,7 @@
                                             "parentElementKey": "element_element_block_1_0_block_3_0",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "",
+                                                "fieldName": "{Parent.dados.impState}",
                                                 "label": "Estado Impugnação:",
                                                 "placeholder": "-",
                                                 "record": "{record}",
@@ -2524,7 +2404,7 @@
                                             "parentElementKey": "element_element_block_1_0_block_3_0",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "",
+                                                "fieldName": "{Parent.dados.reason}",
                                                 "label": "Motivo:",
                                                 "placeholder": "-",
                                                 "record": "{record}",
@@ -2775,21 +2655,12 @@
             "conditions": {
                 "group": [
                     {
-                        "field": "object.usageType",
+                        "field": "Parent.dados.service",
                         "hasMergeField": false,
-                        "id": "state-new-condition-14",
+                        "id": "state-new-condition-6",
                         "operator": "==",
                         "type": "custom",
-                        "value": "SMS ONLINE"
-                    },
-                    {
-                        "field": "object.usageType",
-                        "hasMergeField": false,
-                        "id": "state-new-condition-10",
-                        "logicalOperator": "||",
-                        "operator": "==",
-                        "type": "custom",
-                        "value": "MMS ONLINE"
+                        "value": "EVENTO"
                     }
                 ],
                 "id": "state-condition-object",
@@ -2976,13 +2847,13 @@
                                         {
                                             "class": "slds-col ",
                                             "element": "outputField",
-                                            "elementLabel": "Block-1-Block-0-Field-0",
+                                            "elementLabel": "Block-1-Block-0-Field-0-clone-0",
                                             "key": "element_element_element_block_1_1_block_0_1_outputField_0_1",
                                             "name": "Field",
                                             "parentElementKey": "element_element_block_1_1_block_0_1",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "contextNumber",
+                                                "fieldName": "{Parent.dados.contextNumber}",
                                                 "label": "Linha Origem:",
                                                 "placeholder": "",
                                                 "record": "{record}",
@@ -3109,13 +2980,11 @@
                                         {
                                             "class": "slds-col ",
                                             "element": "outputField",
-                                            "elementLabel": "Block-1-Block-0-Field-1",
-                                            "key": "element_element_element_block_1_1_block_0_1_outputField_1_1",
+                                            "elementLabel": "Block-1-Block-0-Field-1-clone-0",
                                             "name": "Field",
-                                            "parentElementKey": "element_element_block_1_1_block_0_1",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.destination.networkNumber",
+                                                "fieldName": "{Parent.dados.destinationNumber}",
                                                 "label": "Linha Destino:",
                                                 "placeholder": "",
                                                 "record": "{record}",
@@ -3242,14 +3111,14 @@
                                         {
                                             "class": "slds-col ",
                                             "element": "outputField",
-                                            "elementLabel": "Block-1-Block-0-Field-2-clone-0",
-                                            "key": "element_element_element_block_1_1_block_0_1_outputField_2_1",
+                                            "elementLabel": "Block-1-Block-0-Field-1-clone-0",
+                                            "key": "element_element_element_block_1_1_block_0_1_outputField_1_1",
                                             "name": "Field",
                                             "parentElementKey": "element_element_block_1_1_block_0_1",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.consumptionPeriod.duration",
-                                                "label": "Duração Real (segundos):",
+                                                "fieldName": "{Parent.dados.duration}",
+                                                "label": "Duração Real (segundos) ",
                                                 "placeholder": "",
                                                 "record": "{record}",
                                                 "styles": {
@@ -3375,18 +3244,18 @@
                                         {
                                             "class": "slds-col ",
                                             "element": "outputField",
-                                            "elementLabel": "Block-1-Block-0-Field-2-clone-0",
-                                            "key": "element_element_element_block_1_1_block_0_1_outputField_3_1",
-                                            "name": "Field",
+                                            "elementLabel": "Block-1-Block-0-Text-2",
+                                            "key": "element_element_element_block_1_1_block_0_1_outputField_2_1",
+                                            "name": "Text",
                                             "parentElementKey": "element_element_block_1_1_block_0_1",
                                             "property": {
                                                 "card": "{card}",
                                                 "data-conditions": {
                                                     "group": [
                                                         {
-                                                            "field": "object.bucket[0].usageUnit",
+                                                            "field": "Parent.dados.Unit",
                                                             "hasMergeField": false,
-                                                            "id": "state-new-condition-0",
+                                                            "id": "state-new-condition-2",
                                                             "operator": "==",
                                                             "type": "custom",
                                                             "value": "BRL"
@@ -3395,21 +3264,8 @@
                                                     "id": "state-condition-object",
                                                     "isParent": true
                                                 },
-                                                "fieldName": "object.bucket[0].amount",
-                                                "label": "Valor Chamada:",
-                                                "mask": "#,##0.###",
-                                                "placeholder": "0,00",
-                                                "record": "{record}",
-                                                "styles": {
-                                                    "label": {
-                                                        "fontSize": "6",
-                                                        "textAlign": "left"
-                                                    },
-                                                    "value": {
-                                                        "textAlign": "left"
-                                                    }
-                                                },
-                                                "type": "number"
+                                                "mergeField": "%3Cdiv%3EValor%20Chamada:%3C/div%3E%0A%3Cdiv%3E%7BParent.dados.amount%7D%3C/div%3E",
+                                                "record": "{record}"
                                             },
                                             "size": {
                                                 "default": "12",
@@ -3417,124 +3273,25 @@
                                             },
                                             "stateIndex": 1,
                                             "styleObject": {
-                                                "background": {
-                                                    "color": "",
-                                                    "image": "",
-                                                    "position": "",
-                                                    "repeat": "",
-                                                    "size": ""
-                                                },
-                                                "border": {
-                                                    "color": "",
-                                                    "radius": "",
-                                                    "style": "",
-                                                    "type": "",
-                                                    "width": ""
-                                                },
-                                                "class": "",
-                                                "container": {
-                                                    "class": ""
-                                                },
-                                                "elementStyleProperties": {
-                                                    "styles": {
-                                                        "label": {
-                                                            "fontSize": "6",
-                                                            "textAlign": "left"
-                                                        },
-                                                        "value": {
-                                                            "textAlign": "left"
-                                                        }
-                                                    }
-                                                },
-                                                "inlineStyle": "",
-                                                "margin": [
-                                                ],
-                                                "padding": [
-                                                ],
-                                                "size": {
-                                                    "default": "12",
-                                                    "isResponsive": false
-                                                },
-                                                "sizeClass": "slds-size_12-of-12 ",
-                                                "style": "      \n         ",
-                                                "text": {
-                                                    "align": "",
-                                                    "color": ""
-                                                }
+                                                "sizeClass": "slds-size_12-of-12"
                                             },
-                                            "styleObjects": [
-                                                {
-                                                    "conditionString": "",
-                                                    "conditions": "default",
-                                                    "draggable": false,
-                                                    "key": 0,
-                                                    "label": "Default",
-                                                    "name": "Default",
-                                                    "styleObject": {
-                                                        "background": {
-                                                            "color": "",
-                                                            "image": "",
-                                                            "position": "",
-                                                            "repeat": "",
-                                                            "size": ""
-                                                        },
-                                                        "border": {
-                                                            "color": "",
-                                                            "radius": "",
-                                                            "style": "",
-                                                            "type": "",
-                                                            "width": ""
-                                                        },
-                                                        "class": "",
-                                                        "container": {
-                                                            "class": ""
-                                                        },
-                                                        "elementStyleProperties": {
-                                                            "styles": {
-                                                                "label": {
-                                                                    "fontSize": "6",
-                                                                    "textAlign": "left"
-                                                                },
-                                                                "value": {
-                                                                    "textAlign": "left"
-                                                                }
-                                                            }
-                                                        },
-                                                        "inlineStyle": "",
-                                                        "margin": [
-                                                        ],
-                                                        "padding": [
-                                                        ],
-                                                        "size": {
-                                                            "default": "12",
-                                                            "isResponsive": false
-                                                        },
-                                                        "sizeClass": "slds-size_12-of-12 ",
-                                                        "style": "      \n         ",
-                                                        "text": {
-                                                            "align": "",
-                                                            "color": ""
-                                                        }
-                                                    }
-                                                }
-                                            ],
-                                            "type": "element"
+                                            "type": "text"
                                         },
                                         {
                                             "class": "slds-col ",
                                             "element": "outputField",
-                                            "elementLabel": "Block-1-Block-0-Field-3-clone-0",
-                                            "key": "element_element_element_block_1_1_block_0_1_outputField_4_1",
-                                            "name": "Field",
+                                            "elementLabel": "Block-1-Block-0-Text-3",
+                                            "key": "element_element_element_block_1_1_block_0_1_outputField_3_1",
+                                            "name": "Text",
                                             "parentElementKey": "element_element_block_1_1_block_0_1",
                                             "property": {
                                                 "card": "{card}",
                                                 "data-conditions": {
                                                     "group": [
                                                         {
-                                                            "field": "object.bucket[0].usageUnit",
+                                                            "field": "Parent.dados.Unit",
                                                             "hasMergeField": false,
-                                                            "id": "state-new-condition-0",
+                                                            "id": "state-new-condition-2",
                                                             "operator": "!=",
                                                             "type": "custom",
                                                             "value": "BRL"
@@ -3543,21 +3300,8 @@
                                                     "id": "state-condition-object",
                                                     "isParent": true
                                                 },
-                                                "fieldName": "",
-                                                "label": "Valor Chamada:",
-                                                "mask": "#,##0.###",
-                                                "placeholder": "0,00",
-                                                "record": "{record}",
-                                                "styles": {
-                                                    "label": {
-                                                        "fontSize": "6",
-                                                        "textAlign": "left"
-                                                    },
-                                                    "value": {
-                                                        "textAlign": "left"
-                                                    }
-                                                },
-                                                "type": "number"
+                                                "mergeField": "%3Cdiv%3EValor%20Chamada:%3C/div%3E%0A%3Cdiv%3E0,00%3C/div%3E",
+                                                "record": "{record}"
                                             },
                                             "size": {
                                                 "default": "12",
@@ -3565,123 +3309,55 @@
                                             },
                                             "stateIndex": 1,
                                             "styleObject": {
-                                                "background": {
-                                                    "color": "",
-                                                    "image": "",
-                                                    "position": "",
-                                                    "repeat": "",
-                                                    "size": ""
-                                                },
-                                                "border": {
-                                                    "color": "",
-                                                    "radius": "",
-                                                    "style": "",
-                                                    "type": "",
-                                                    "width": ""
-                                                },
-                                                "class": "",
-                                                "container": {
-                                                    "class": ""
-                                                },
-                                                "elementStyleProperties": {
-                                                    "styles": {
-                                                        "label": {
-                                                            "fontSize": "6",
-                                                            "textAlign": "left"
-                                                        },
-                                                        "value": {
-                                                            "textAlign": "left"
-                                                        }
-                                                    }
-                                                },
-                                                "inlineStyle": "",
-                                                "margin": [
-                                                ],
-                                                "padding": [
-                                                ],
-                                                "size": {
-                                                    "default": "12",
-                                                    "isResponsive": false
-                                                },
-                                                "sizeClass": "slds-size_12-of-12 ",
-                                                "style": "      \n         ",
-                                                "text": {
-                                                    "align": "",
-                                                    "color": ""
-                                                }
+                                                "sizeClass": "slds-size_12-of-12"
                                             },
-                                            "styleObjects": [
-                                                {
-                                                    "conditionString": "",
-                                                    "conditions": "default",
-                                                    "draggable": false,
-                                                    "key": 0,
-                                                    "label": "Default",
-                                                    "name": "Default",
-                                                    "styleObject": {
-                                                        "background": {
-                                                            "color": "",
-                                                            "image": "",
-                                                            "position": "",
-                                                            "repeat": "",
-                                                            "size": ""
-                                                        },
-                                                        "border": {
-                                                            "color": "",
-                                                            "radius": "",
-                                                            "style": "",
-                                                            "type": "",
-                                                            "width": ""
-                                                        },
-                                                        "class": "",
-                                                        "container": {
-                                                            "class": ""
-                                                        },
-                                                        "elementStyleProperties": {
-                                                            "styles": {
-                                                                "label": {
-                                                                    "fontSize": "6",
-                                                                    "textAlign": "left"
-                                                                },
-                                                                "value": {
-                                                                    "textAlign": "left"
-                                                                }
-                                                            }
-                                                        },
-                                                        "inlineStyle": "",
-                                                        "margin": [
-                                                        ],
-                                                        "padding": [
-                                                        ],
-                                                        "size": {
-                                                            "default": "12",
-                                                            "isResponsive": false
-                                                        },
-                                                        "sizeClass": "slds-size_12-of-12 ",
-                                                        "style": "      \n         ",
-                                                        "text": {
-                                                            "align": "",
-                                                            "color": ""
-                                                        }
-                                                    }
-                                                }
-                                            ],
-                                            "type": "element"
+                                            "type": "text"
                                         },
                                         {
                                             "class": "slds-col ",
                                             "element": "outputField",
-                                            "elementLabel": "Block-1-Block-0-Field-4",
+                                            "elementLabel": "Block-1-Block-0-Text-4",
+                                            "key": "element_element_element_block_1_1_block_0_1_outputField_4_1",
+                                            "name": "Text",
+                                            "parentElementKey": "element_element_block_1_1_block_0_1",
+                                            "property": {
+                                                "card": "{card}",
+                                                "data-conditions": {
+                                                    "group": [
+                                                    ],
+                                                    "id": "state-condition-object",
+                                                    "isParent": true
+                                                },
+                                                "mergeField": "%3Cdiv%3EValor%20adicional:%3C/div%3E%0A%3Cdiv%3E0,00%3C/div%3E",
+                                                "record": "{record}"
+                                            },
+                                            "size": {
+                                                "default": "12",
+                                                "isResponsive": false
+                                            },
+                                            "stateIndex": 1,
+                                            "styleObject": {
+                                                "sizeClass": "slds-size_12-of-12"
+                                            },
+                                            "type": "text"
+                                        },
+                                        {
+                                            "class": "slds-col ",
+                                            "element": "outputField",
+                                            "elementLabel": "Block-1-Block-0-Text-5",
                                             "key": "element_element_element_block_1_1_block_0_1_outputField_5_1",
-                                            "name": "Field",
+                                            "name": "Text",
                                             "parentElementKey": "element_element_block_1_1_block_0_1",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "",
-                                                "label": "Valor Adicional:",
-                                                "placeholder": "0,00",
-                                                "record": "{record}",
-                                                "type": "text"
+                                                "data-conditions": {
+                                                    "group": [
+                                                    ],
+                                                    "id": "state-condition-object",
+                                                    "isParent": true
+                                                },
+                                                "mergeField": "%3Cdiv%3ETempo%20total%20(hh:mm:ss):%20%7BParent.dados.timeHHmmss%7D%3C/div%3E",
+                                                "record": "{record}"
                                             },
                                             "size": {
                                                 "default": "12",
@@ -3689,197 +3365,9 @@
                                             },
                                             "stateIndex": 1,
                                             "styleObject": {
-                                                "background": {
-                                                    "color": "",
-                                                    "image": "",
-                                                    "position": "",
-                                                    "repeat": "",
-                                                    "size": ""
-                                                },
-                                                "border": {
-                                                    "color": "",
-                                                    "radius": "",
-                                                    "style": "",
-                                                    "type": "",
-                                                    "width": ""
-                                                },
-                                                "class": "",
-                                                "container": {
-                                                    "class": ""
-                                                },
-                                                "elementStyleProperties": {
-                                                },
-                                                "inlineStyle": "",
-                                                "margin": [
-                                                ],
-                                                "padding": [
-                                                ],
-                                                "size": {
-                                                    "default": "12",
-                                                    "isResponsive": false
-                                                },
-                                                "sizeClass": "slds-size_12-of-12 ",
-                                                "style": "      \n         ",
-                                                "text": {
-                                                    "align": "",
-                                                    "color": ""
-                                                }
+                                                "sizeClass": "slds-size_12-of-12"
                                             },
-                                            "styleObjects": [
-                                                {
-                                                    "conditionString": "",
-                                                    "conditions": "default",
-                                                    "draggable": false,
-                                                    "key": 0,
-                                                    "label": "Default",
-                                                    "name": "Default",
-                                                    "styleObject": {
-                                                        "background": {
-                                                            "color": "",
-                                                            "image": "",
-                                                            "position": "",
-                                                            "repeat": "",
-                                                            "size": ""
-                                                        },
-                                                        "border": {
-                                                            "color": "",
-                                                            "radius": "",
-                                                            "style": "",
-                                                            "type": "",
-                                                            "width": ""
-                                                        },
-                                                        "class": "",
-                                                        "container": {
-                                                            "class": ""
-                                                        },
-                                                        "elementStyleProperties": {
-                                                        },
-                                                        "inlineStyle": "",
-                                                        "margin": [
-                                                        ],
-                                                        "padding": [
-                                                        ],
-                                                        "size": {
-                                                            "default": "12",
-                                                            "isResponsive": false
-                                                        },
-                                                        "sizeClass": "slds-size_12-of-12 ",
-                                                        "style": "      \n         ",
-                                                        "text": {
-                                                            "align": "",
-                                                            "color": ""
-                                                        }
-                                                    }
-                                                }
-                                            ],
-                                            "type": "element"
-                                        },
-                                        {
-                                            "class": "slds-col ",
-                                            "element": "outputField",
-                                            "elementLabel": "Block-1-Block-0-Field-5-clone-0",
-                                            "key": "element_element_element_block_1_1_block_0_1_outputField_6_1",
-                                            "name": "Field",
-                                            "parentElementKey": "element_element_block_1_1_block_0_1",
-                                            "property": {
-                                                "card": "{card}",
-                                                "fieldName": "timeHHMMSS",
-                                                "format": "DD/MM/YYYY HH:mm",
-                                                "label": "Tempo total (hh:mm:ss):",
-                                                "placeholder": "",
-                                                "record": "{record}",
-                                                "type": "datetime"
-                                            },
-                                            "size": {
-                                                "default": "12",
-                                                "isResponsive": false
-                                            },
-                                            "stateIndex": 1,
-                                            "styleObject": {
-                                                "background": {
-                                                    "color": "",
-                                                    "image": "",
-                                                    "position": "",
-                                                    "repeat": "",
-                                                    "size": ""
-                                                },
-                                                "border": {
-                                                    "color": "",
-                                                    "radius": "",
-                                                    "style": "",
-                                                    "type": "",
-                                                    "width": ""
-                                                },
-                                                "class": "",
-                                                "container": {
-                                                    "class": ""
-                                                },
-                                                "elementStyleProperties": {
-                                                },
-                                                "inlineStyle": "",
-                                                "margin": [
-                                                ],
-                                                "padding": [
-                                                ],
-                                                "size": {
-                                                    "default": "12",
-                                                    "isResponsive": false
-                                                },
-                                                "sizeClass": "slds-size_12-of-12 ",
-                                                "style": "      \n         ",
-                                                "text": {
-                                                    "align": "",
-                                                    "color": ""
-                                                }
-                                            },
-                                            "styleObjects": [
-                                                {
-                                                    "conditionString": "",
-                                                    "conditions": "default",
-                                                    "draggable": false,
-                                                    "key": 0,
-                                                    "label": "Default",
-                                                    "name": "Default",
-                                                    "styleObject": {
-                                                        "background": {
-                                                            "color": "",
-                                                            "image": "",
-                                                            "position": "",
-                                                            "repeat": "",
-                                                            "size": ""
-                                                        },
-                                                        "border": {
-                                                            "color": "",
-                                                            "radius": "",
-                                                            "style": "",
-                                                            "type": "",
-                                                            "width": ""
-                                                        },
-                                                        "class": "",
-                                                        "container": {
-                                                            "class": ""
-                                                        },
-                                                        "elementStyleProperties": {
-                                                        },
-                                                        "inlineStyle": "",
-                                                        "margin": [
-                                                        ],
-                                                        "padding": [
-                                                        ],
-                                                        "size": {
-                                                            "default": "12",
-                                                            "isResponsive": false
-                                                        },
-                                                        "sizeClass": "slds-size_12-of-12 ",
-                                                        "style": "      \n         ",
-                                                        "text": {
-                                                            "align": "",
-                                                            "color": ""
-                                                        }
-                                                    }
-                                                }
-                                            ],
-                                            "type": "element"
+                                            "type": "text"
                                         }
                                     ],
                                     "class": "slds-col ",
@@ -3921,17 +3409,20 @@
                                         {
                                             "class": "slds-col ",
                                             "element": "outputField",
-                                            "elementLabel": "Block-1-Block-0-Field-3-clone-0",
+                                            "elementLabel": "Block-1-Block-0-Text-3-clone-0",
                                             "key": "element_element_element_block_1_1_block_1_1_outputField_0_1",
-                                            "name": "Field",
+                                            "name": "Text",
                                             "parentElementKey": "element_element_block_1_1_block_1_1",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.resource.mobileOperatorCode",
-                                                "label": "CSP:",
-                                                "placeholder": "-",
-                                                "record": "{record}",
-                                                "type": "text"
+                                                "data-conditions": {
+                                                    "group": [
+                                                    ],
+                                                    "id": "state-condition-object",
+                                                    "isParent": true
+                                                },
+                                                "mergeField": "%3Cdiv%3ECSP:%3C/div%3E%0A%3Cdiv%3E%7BParent.dados.csp%7D%3C/div%3E",
+                                                "record": "{record}"
                                             },
                                             "size": {
                                                 "default": "12",
@@ -3939,211 +3430,27 @@
                                             },
                                             "stateIndex": 1,
                                             "styleObject": {
-                                                "background": {
-                                                    "color": "",
-                                                    "image": "",
-                                                    "position": "",
-                                                    "repeat": "",
-                                                    "size": ""
-                                                },
-                                                "border": {
-                                                    "color": "",
-                                                    "radius": "",
-                                                    "style": "",
-                                                    "type": "",
-                                                    "width": ""
-                                                },
-                                                "class": "",
-                                                "container": {
-                                                    "class": ""
-                                                },
-                                                "elementStyleProperties": {
-                                                },
-                                                "inlineStyle": "",
-                                                "margin": [
-                                                ],
-                                                "padding": [
-                                                ],
-                                                "size": {
-                                                    "default": "12",
-                                                    "isResponsive": false
-                                                },
-                                                "sizeClass": "slds-size_12-of-12 ",
-                                                "style": "      \n         ",
-                                                "text": {
-                                                    "align": "",
-                                                    "color": ""
-                                                }
+                                                "sizeClass": "slds-size_12-of-12"
                                             },
-                                            "styleObjects": [
-                                                {
-                                                    "conditionString": "",
-                                                    "conditions": "default",
-                                                    "draggable": false,
-                                                    "key": 0,
-                                                    "label": "Default",
-                                                    "name": "Default",
-                                                    "styleObject": {
-                                                        "background": {
-                                                            "color": "",
-                                                            "image": "",
-                                                            "position": "",
-                                                            "repeat": "",
-                                                            "size": ""
-                                                        },
-                                                        "border": {
-                                                            "color": "",
-                                                            "radius": "",
-                                                            "style": "",
-                                                            "type": "",
-                                                            "width": ""
-                                                        },
-                                                        "class": "",
-                                                        "container": {
-                                                            "class": ""
-                                                        },
-                                                        "elementStyleProperties": {
-                                                        },
-                                                        "inlineStyle": "",
-                                                        "margin": [
-                                                        ],
-                                                        "padding": [
-                                                        ],
-                                                        "size": {
-                                                            "default": "12",
-                                                            "isResponsive": false
-                                                        },
-                                                        "sizeClass": "slds-size_12-of-12 ",
-                                                        "style": "      \n         ",
-                                                        "text": {
-                                                            "align": "",
-                                                            "color": ""
-                                                        }
-                                                    }
-                                                }
-                                            ],
-                                            "type": "element"
+                                            "type": "text"
                                         },
                                         {
                                             "class": "slds-col ",
                                             "element": "outputField",
-                                            "elementLabel": "Block-1-Field-11",
-                                            "key": "element_element_element_block_1_1_block_1_1_outputField_1_1",
-                                            "name": "Field",
-                                            "parentElementKey": "element_element_block_1_1_block_1_1",
-                                            "property": {
-                                                "card": "{card}",
-                                                "fieldName": "connectionConsumptionType",
-                                                "label": "Tipo Chamada:",
-                                                "placeholder": "Mobile Originating Call",
-                                                "record": "{record}",
-                                                "type": "text"
-                                            },
-                                            "size": {
-                                                "default": "12",
-                                                "isResponsive": false
-                                            },
-                                            "stateIndex": 1,
-                                            "styleObject": {
-                                                "background": {
-                                                    "color": "",
-                                                    "image": "",
-                                                    "position": "",
-                                                    "repeat": "",
-                                                    "size": ""
-                                                },
-                                                "border": {
-                                                    "color": "",
-                                                    "radius": "",
-                                                    "style": "",
-                                                    "type": "",
-                                                    "width": ""
-                                                },
-                                                "class": "",
-                                                "container": {
-                                                    "class": ""
-                                                },
-                                                "elementStyleProperties": {
-                                                },
-                                                "inlineStyle": "",
-                                                "margin": [
-                                                ],
-                                                "padding": [
-                                                ],
-                                                "size": {
-                                                    "default": "12",
-                                                    "isResponsive": false
-                                                },
-                                                "sizeClass": "slds-size_12-of-12 ",
-                                                "style": "      \n         ",
-                                                "text": {
-                                                    "align": "",
-                                                    "color": ""
-                                                }
-                                            },
-                                            "styleObjects": [
-                                                {
-                                                    "conditionString": "",
-                                                    "conditions": "default",
-                                                    "draggable": false,
-                                                    "key": 0,
-                                                    "label": "Default",
-                                                    "name": "Default",
-                                                    "styleObject": {
-                                                        "background": {
-                                                            "color": "",
-                                                            "image": "",
-                                                            "position": "",
-                                                            "repeat": "",
-                                                            "size": ""
-                                                        },
-                                                        "border": {
-                                                            "color": "",
-                                                            "radius": "",
-                                                            "style": "",
-                                                            "type": "",
-                                                            "width": ""
-                                                        },
-                                                        "class": "",
-                                                        "container": {
-                                                            "class": ""
-                                                        },
-                                                        "elementStyleProperties": {
-                                                        },
-                                                        "inlineStyle": "",
-                                                        "margin": [
-                                                        ],
-                                                        "padding": [
-                                                        ],
-                                                        "size": {
-                                                            "default": "12",
-                                                            "isResponsive": false
-                                                        },
-                                                        "sizeClass": "slds-size_12-of-12 ",
-                                                        "style": "      \n         ",
-                                                        "text": {
-                                                            "align": "",
-                                                            "color": ""
-                                                        }
-                                                    }
-                                                }
-                                            ],
-                                            "type": "element"
-                                        },
-                                        {
-                                            "class": "slds-col ",
-                                            "element": "outputField",
-                                            "elementLabel": "Block-1-Field-13",
+                                            "elementLabel": "Block-1-Block-1-Text-0-clone-0",
                                             "key": "element_element_element_block_1_1_block_1_1_outputField_2_1",
-                                            "name": "Field",
+                                            "name": "Text",
                                             "parentElementKey": "element_element_block_1_1_block_1_1",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.bucket[0].productName",
-                                                "label": "Tarifado de:",
-                                                "placeholder": "",
-                                                "record": "{record}",
-                                                "type": "text"
+                                                "data-conditions": {
+                                                    "group": [
+                                                    ],
+                                                    "id": "state-condition-object",
+                                                    "isParent": true
+                                                },
+                                                "mergeField": "%3Cdiv%3ETipo%20Chamada:%3C/div%3E%0A%3Cdiv%3E%7BParent.dados.type%7D%3C/div%3E",
+                                                "record": "{record}"
                                             },
                                             "size": {
                                                 "default": "12",
@@ -4151,90 +3458,37 @@
                                             },
                                             "stateIndex": 1,
                                             "styleObject": {
-                                                "background": {
-                                                    "color": "",
-                                                    "image": "",
-                                                    "position": "",
-                                                    "repeat": "",
-                                                    "size": ""
-                                                },
-                                                "border": {
-                                                    "color": "",
-                                                    "radius": "",
-                                                    "style": "",
-                                                    "type": "",
-                                                    "width": ""
-                                                },
-                                                "class": "",
-                                                "container": {
-                                                    "class": ""
-                                                },
-                                                "elementStyleProperties": {
-                                                },
-                                                "inlineStyle": "",
-                                                "margin": [
-                                                ],
-                                                "padding": [
-                                                ],
-                                                "size": {
-                                                    "default": "12",
-                                                    "isResponsive": false
-                                                },
-                                                "sizeClass": "slds-size_12-of-12 ",
-                                                "style": "      \n         ",
-                                                "text": {
-                                                    "align": "",
-                                                    "color": ""
-                                                }
+                                                "sizeClass": "slds-size_12-of-12"
                                             },
-                                            "styleObjects": [
-                                                {
-                                                    "conditionString": "",
-                                                    "conditions": "default",
-                                                    "draggable": false,
-                                                    "key": 0,
-                                                    "label": "Default",
-                                                    "name": "Default",
-                                                    "styleObject": {
-                                                        "background": {
-                                                            "color": "",
-                                                            "image": "",
-                                                            "position": "",
-                                                            "repeat": "",
-                                                            "size": ""
-                                                        },
-                                                        "border": {
-                                                            "color": "",
-                                                            "radius": "",
-                                                            "style": "",
-                                                            "type": "",
-                                                            "width": ""
-                                                        },
-                                                        "class": "",
-                                                        "container": {
-                                                            "class": ""
-                                                        },
-                                                        "elementStyleProperties": {
-                                                        },
-                                                        "inlineStyle": "",
-                                                        "margin": [
-                                                        ],
-                                                        "padding": [
-                                                        ],
-                                                        "size": {
-                                                            "default": "12",
-                                                            "isResponsive": false
-                                                        },
-                                                        "sizeClass": "slds-size_12-of-12 ",
-                                                        "style": "      \n         ",
-                                                        "text": {
-                                                            "align": "",
-                                                            "color": ""
-                                                        }
-                                                    }
-                                                }
-                                            ],
-                                            "type": "element"
+                                            "type": "text"
+                                        },
+                                        {
+                                            "class": "slds-col ",
+                                            "element": "outputField",
+                                            "elementLabel": "Block-1-Block-1-Text-1-clone-0",
+                                            "key": "element_element_element_block_1_1_block_1_1_outputField_3_1",
+                                            "name": "Text",
+                                            "parentElementKey": "element_element_block_1_1_block_1_1",
+                                            "property": {
+                                                "card": "{card}",
+                                                "data-conditions": {
+                                                    "group": [
+                                                    ],
+                                                    "id": "state-condition-object",
+                                                    "isParent": true
+                                                },
+                                                "mergeField": "%3Cdiv%3ETarifado%20de:%3C/div%3E%0A%3Cdiv%3E%7BParent.dados.billedFrom%7D%3C/div%3E",
+                                                "record": "{record}"
+                                            },
+                                            "size": {
+                                                "default": "12",
+                                                "isResponsive": false
+                                            },
+                                            "stateIndex": 1,
+                                            "styleObject": {
+                                                "sizeClass": "slds-size_12-of-12"
+                                            },
+                                            "type": "text"
                                         }
                                     ],
                                     "class": "slds-col ",
@@ -4356,17 +3610,20 @@
                                         {
                                             "class": "slds-col ",
                                             "element": "outputField",
-                                            "elementLabel": "Block-1-Block-1-Field-2-clone-0",
+                                            "elementLabel": "Block-1-Block-1-Text-0-clone-0",
                                             "key": "element_element_element_block_1_1_block_2_1_outputField_0_1",
-                                            "name": "Field",
+                                            "name": "Text",
                                             "parentElementKey": "element_element_block_1_1_block_2_1",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.destination.connectionType",
-                                                "label": "Tipo de Conexão:",
-                                                "placeholder": "-",
-                                                "record": "{record}",
-                                                "type": "text"
+                                                "data-conditions": {
+                                                    "group": [
+                                                    ],
+                                                    "id": "state-condition-object",
+                                                    "isParent": true
+                                                },
+                                                "mergeField": "%3Cdiv%3ETipo%20de%20Conex&atilde;o:%3C/div%3E%0A%3Cdiv%3E%7BParent.dados.connectionType%7D&nbsp;%3C/div%3E",
+                                                "record": "{record}"
                                             },
                                             "size": {
                                                 "default": "12",
@@ -4374,90 +3631,9 @@
                                             },
                                             "stateIndex": 1,
                                             "styleObject": {
-                                                "background": {
-                                                    "color": "",
-                                                    "image": "",
-                                                    "position": "",
-                                                    "repeat": "",
-                                                    "size": ""
-                                                },
-                                                "border": {
-                                                    "color": "",
-                                                    "radius": "",
-                                                    "style": "",
-                                                    "type": "",
-                                                    "width": ""
-                                                },
-                                                "class": "",
-                                                "container": {
-                                                    "class": ""
-                                                },
-                                                "elementStyleProperties": {
-                                                },
-                                                "inlineStyle": "",
-                                                "margin": [
-                                                ],
-                                                "padding": [
-                                                ],
-                                                "size": {
-                                                    "default": "12",
-                                                    "isResponsive": false
-                                                },
-                                                "sizeClass": "slds-size_12-of-12 ",
-                                                "style": "      \n         ",
-                                                "text": {
-                                                    "align": "",
-                                                    "color": ""
-                                                }
+                                                "sizeClass": "slds-size_12-of-12"
                                             },
-                                            "styleObjects": [
-                                                {
-                                                    "conditionString": "",
-                                                    "conditions": "default",
-                                                    "draggable": false,
-                                                    "key": 0,
-                                                    "label": "Default",
-                                                    "name": "Default",
-                                                    "styleObject": {
-                                                        "background": {
-                                                            "color": "",
-                                                            "image": "",
-                                                            "position": "",
-                                                            "repeat": "",
-                                                            "size": ""
-                                                        },
-                                                        "border": {
-                                                            "color": "",
-                                                            "radius": "",
-                                                            "style": "",
-                                                            "type": "",
-                                                            "width": ""
-                                                        },
-                                                        "class": "",
-                                                        "container": {
-                                                            "class": ""
-                                                        },
-                                                        "elementStyleProperties": {
-                                                        },
-                                                        "inlineStyle": "",
-                                                        "margin": [
-                                                        ],
-                                                        "padding": [
-                                                        ],
-                                                        "size": {
-                                                            "default": "12",
-                                                            "isResponsive": false
-                                                        },
-                                                        "sizeClass": "slds-size_12-of-12 ",
-                                                        "style": "      \n         ",
-                                                        "text": {
-                                                            "align": "",
-                                                            "color": ""
-                                                        }
-                                                    }
-                                                }
-                                            ],
-                                            "type": "element"
+                                            "type": "text"
                                         },
                                         {
                                             "class": "slds-col ",
@@ -4468,13 +3644,13 @@
                                             "parentElementKey": "element_element_block_1_1_block_2_1",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.consumptionPeriod.startDateTime",
-                                                "format": "DD/MM/YYYY HH:mm:ss",
+                                                "fieldName": "{Parent.dados.consumptionStart}",
+                                                "format": "",
                                                 "label": "Início da Chamada:",
                                                 "mask": "#,##0.###",
                                                 "placeholder": "",
                                                 "record": "{record}",
-                                                "type": "datetime"
+                                                "type": "text"
                                             },
                                             "size": {
                                                 "default": "12",
@@ -4576,12 +3752,12 @@
                                             "parentElementKey": "element_element_block_1_1_block_2_1",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.consumptionPeriod.endDateTime",
-                                                "format": "DD/MM/YYYY HH:mm:ss",
+                                                "fieldName": "{Parent.dados.consumptionEnd}",
+                                                "format": "DD/MM/YYYY h:mm a",
                                                 "label": "Fim da Chamada:",
                                                 "placeholder": "",
                                                 "record": "{record}",
-                                                "type": "datetime"
+                                                "type": "text"
                                             },
                                             "size": {
                                                 "default": "12",
@@ -4683,12 +3859,12 @@
                                             "parentElementKey": "element_element_block_1_1_block_2_1",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.consumptionPeriod.processingDateTime",
-                                                "format": "DD/MM/YYYY HH:mm:ss",
+                                                "fieldName": "{Parent.dados.consumptionProcessing}",
+                                                "format": "MM/DD/YYYY h:mm a",
                                                 "label": "Data Processamento:",
                                                 "placeholder": "",
                                                 "record": "{record}",
-                                                "type": "datetime"
+                                                "type": "text"
                                             },
                                             "size": {
                                                 "default": "12",
@@ -4790,12 +3966,12 @@
                                             "parentElementKey": "element_element_block_1_1_block_2_1",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.summaryConsumption[0].aggregatedBalance",
+                                                "fieldName": "{Parent.dados.callDuration}",
                                                 "format": "DD/MM/YYYY HH:mm",
                                                 "label": "Tempo Tarifado (segundos):",
                                                 "placeholder": "",
                                                 "record": "{record}",
-                                                "type": "datetime"
+                                                "type": "text"
                                             },
                                             "size": {
                                                 "default": "12",
@@ -4897,12 +4073,12 @@
                                             "parentElementKey": "element_element_block_1_1_block_2_1",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "timeHHMMSS",
+                                                "fieldName": "{Parent.dados.timeHHmmss}",
                                                 "format": "DD/MM/YYYY HH:mm",
                                                 "label": "Tempo Tarifado (hh:mm:ss):",
                                                 "placeholder": "",
                                                 "record": "{record}",
-                                                "type": "datetime"
+                                                "type": "text"
                                             },
                                             "size": {
                                                 "default": "12",
@@ -5333,7 +4509,7 @@
                                             "parentElementKey": "element_element_block_1_1_block_3_1",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "",
+                                                "fieldName": "{Parent.dados.impState}",
                                                 "label": "Estado Impugnação:",
                                                 "placeholder": "-",
                                                 "record": "{record}",
@@ -5690,12 +4866,12 @@
             "conditions": {
                 "group": [
                     {
-                        "field": "object.usageType",
+                        "field": "Parent.dados.service",
                         "hasMergeField": false,
                         "id": "state-new-condition-7",
                         "operator": "==",
                         "type": "custom",
-                        "value": "VOICE ONLINE"
+                        "value": "VOZ"
                     }
                 ],
                 "id": "state-condition-object",
@@ -5883,12 +5059,12 @@
                                             "class": "slds-col ",
                                             "element": "outputField",
                                             "elementLabel": "Block-1-Field-1",
-                                            "key": "element_element_element_block_1_3_block_0_3_outputField_0_3",
+                                            "key": "element_element_element_block_1_2_block_0_2_outputField_0_2",
                                             "name": "Field",
-                                            "parentElementKey": "element_element_block_1_3_block_0_3",
+                                            "parentElementKey": "element_element_block_1_2_block_0_2",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "contextNumber",
+                                                "fieldName": "{Parent.dados.contextNumber}",
                                                 "label": "Linha:",
                                                 "placeholder": "",
                                                 "record": "{record}",
@@ -5907,7 +5083,7 @@
                                                 "default": "12",
                                                 "isResponsive": false
                                             },
-                                            "stateIndex": 3,
+                                            "stateIndex": 2,
                                             "styleObject": {
                                                 "background": {
                                                     "color": "",
@@ -6016,12 +5192,12 @@
                                             "class": "slds-col ",
                                             "element": "outputField",
                                             "elementLabel": "Block-1-Block-0-Field-1-clone-0",
-                                            "key": "element_element_element_block_1_3_block_0_3_outputField_1_3",
+                                            "key": "element_element_element_block_1_2_block_0_2_outputField_1_2",
                                             "name": "Field",
-                                            "parentElementKey": "element_element_block_1_3_block_0_3",
+                                            "parentElementKey": "element_element_block_1_2_block_0_2",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.resource.serviceIdentifier",
+                                                "fieldName": "{Parent.dados.serviceIdentifier}",
                                                 "label": "Identificador Serviço:",
                                                 "placeholder": "",
                                                 "record": "{record}",
@@ -6031,7 +5207,7 @@
                                                 "default": "12",
                                                 "isResponsive": false
                                             },
-                                            "stateIndex": 3,
+                                            "stateIndex": 2,
                                             "styleObject": {
                                                 "background": {
                                                     "color": "",
@@ -6122,12 +5298,12 @@
                                             "class": "slds-col ",
                                             "element": "outputField",
                                             "elementLabel": "Block-1-Block-0-Field-3-clone-0",
-                                            "key": "element_element_element_block_1_3_block_0_3_outputField_2_3",
+                                            "key": "element_element_element_block_1_2_block_0_2_outputField_2_2",
                                             "name": "Field",
-                                            "parentElementKey": "element_element_block_1_3_block_0_3",
+                                            "parentElementKey": "element_element_block_1_2_block_0_2",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.resource.networkTechnology",
+                                                "fieldName": "{Parent.dados.network}",
                                                 "label": "Tecnologia:",
                                                 "placeholder": "-",
                                                 "record": "{record}",
@@ -6137,7 +5313,7 @@
                                                 "default": "12",
                                                 "isResponsive": false
                                             },
-                                            "stateIndex": 3,
+                                            "stateIndex": 2,
                                             "styleObject": {
                                                 "background": {
                                                     "color": "",
@@ -6228,9 +5404,9 @@
                                             "class": "slds-col ",
                                             "element": "outputField",
                                             "elementLabel": "Block-1-Block-0-Field-5-clone-0",
-                                            "key": "element_element_element_block_1_3_block_0_3_outputField_4_3",
+                                            "key": "element_element_element_block_1_2_block_0_2_outputField_3_2",
                                             "name": "Field",
-                                            "parentElementKey": "element_element_block_1_3_block_0_3",
+                                            "parentElementKey": "element_element_block_1_2_block_0_2",
                                             "property": {
                                                 "card": "{card}",
                                                 "fieldName": "",
@@ -6243,7 +5419,7 @@
                                                 "default": "12",
                                                 "isResponsive": false
                                             },
-                                            "stateIndex": 3,
+                                            "stateIndex": 2,
                                             "styleObject": {
                                                 "background": {
                                                     "color": "",
@@ -6376,7 +5552,7 @@
                                             "parentElementKey": "element_element_block_1_2_block_1_2",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.resource.mobileOperatorCode",
+                                                "fieldName": "{Parent.dados.csp}",
                                                 "label": "CSP:",
                                                 "placeholder": "-",
                                                 "record": "{record}",
@@ -6482,7 +5658,7 @@
                                             "parentElementKey": "element_element_block_1_2_block_1_2",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.connectionConsumptionType",
+                                                "fieldName": "{Parent.dados.type}",
                                                 "label": "Tipo Chamada:",
                                                 "placeholder": "Mobile Originating Call",
                                                 "record": "{record}",
@@ -6588,7 +5764,7 @@
                                             "parentElementKey": "element_element_block_1_2_block_1_2",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.bucket[0].productName",
+                                                "fieldName": "{Parent.dados.billedFrom}",
                                                 "label": "Tarifado de:",
                                                 "placeholder": "",
                                                 "record": "{record}",
@@ -6801,7 +5977,7 @@
                                             "parentElementKey": "element_element_block_1_2_block_1_2",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "balanceKB",
+                                                "fieldName": "{Parent.dados.consumptionKb}",
                                                 "label": "Volume Consumido (Kbytes):",
                                                 "placeholder": "",
                                                 "record": "{record}",
@@ -6907,7 +6083,7 @@
                                             "parentElementKey": "element_element_block_1_2_block_1_2",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.bucket[0].amount",
+                                                "fieldName": "{Parent.dados.amount}",
                                                 "label": "Volume Tarifado (Mbytes):",
                                                 "placeholder": "",
                                                 "record": "{record}",
@@ -7013,7 +6189,7 @@
                                             "parentElementKey": "element_element_block_1_2_block_1_2",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "balanceKB",
+                                                "fieldName": "{Parent.dados.consumptionKb}",
                                                 "label": "Volume Tarifa (Kbytes):",
                                                 "placeholder": "",
                                                 "record": "{record}",
@@ -7236,7 +6412,7 @@
                                             "parentElementKey": "element_element_block_1_2_block_2_2",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.destination.connectionType",
+                                                "fieldName": "{Parent.dados.connectionType}",
                                                 "label": "Tipo de Conexão:",
                                                 "placeholder": "-",
                                                 "record": "{record}",
@@ -7342,13 +6518,13 @@
                                             "parentElementKey": "element_element_block_1_2_block_2_2",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.consumptionPeriod.startDateTime",
-                                                "format": "DD/MM/YYYY HH:mm:ss",
+                                                "fieldName": "{Parent.dados.consumptionStart}",
+                                                "format": "",
                                                 "label": "Início da Chamada:",
                                                 "mask": "#,##0.###",
                                                 "placeholder": "",
                                                 "record": "{record}",
-                                                "type": "datetime"
+                                                "type": "text"
                                             },
                                             "size": {
                                                 "default": "12",
@@ -7450,12 +6626,12 @@
                                             "parentElementKey": "element_element_block_1_2_block_2_2",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.consumptionPeriod.endDateTime",
-                                                "format": "DD/MM/YYYY HH:mm:ss",
+                                                "fieldName": "{Parent.dados.consumptionEnd}",
+                                                "format": "",
                                                 "label": "Fim da Chamada:",
                                                 "placeholder": "",
                                                 "record": "{record}",
-                                                "type": "datetime"
+                                                "type": "text"
                                             },
                                             "size": {
                                                 "default": "12",
@@ -7557,12 +6733,12 @@
                                             "parentElementKey": "element_element_block_1_2_block_2_2",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.consumptionPeriod.processingDateTime",
-                                                "format": "DD/MM/YYYY HH:mm:ss",
+                                                "fieldName": "{Parent.dados.consumptionProcessing}",
+                                                "format": "",
                                                 "label": "Data Processamento:",
                                                 "placeholder": "",
                                                 "record": "{record}",
-                                                "type": "datetime"
+                                                "type": "text"
                                             },
                                             "size": {
                                                 "default": "12",
@@ -7664,7 +6840,7 @@
                                             "parentElementKey": "element_element_block_1_2_block_2_2",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "object.resource.ipAddress",
+                                                "fieldName": "{Parent.dados.ipAddress}",
                                                 "label": "IP sessão dados:",
                                                 "placeholder": "",
                                                 "record": "{record}",
@@ -8099,7 +7275,7 @@
                                             "parentElementKey": "element_element_block_1_2_block_3_2",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "",
+                                                "fieldName": "{Parent.dados.impState}",
                                                 "label": "Estado Impugnação:",
                                                 "placeholder": "-",
                                                 "record": "{record}",
@@ -8311,7 +7487,7 @@
                                             "parentElementKey": "element_element_block_1_2_block_3_2",
                                             "property": {
                                                 "card": "{card}",
-                                                "fieldName": "",
+                                                "fieldName": "{Parent.dados.reason}",
                                                 "label": "Motivo:",
                                                 "placeholder": "-",
                                                 "record": "{record}",
@@ -8562,21 +7738,12 @@
             "conditions": {
                 "group": [
                     {
-                        "field": "object.usageType",
+                        "field": "Parent.dados.service",
                         "hasMergeField": false,
                         "id": "state-new-condition-0",
                         "operator": "==",
                         "type": "custom",
-                        "value": "GY ONLINE"
-                    },
-                    {
-                        "field": "object.usageType",
-                        "hasMergeField": false,
-                        "id": "state-new-condition-13",
-                        "logicalOperator": "||",
-                        "operator": "==",
-                        "type": "custom",
-                        "value": "PGW OFFLINE"
+                        "value": "Internet"
                     }
                 ],
                 "id": "state-condition-object",
@@ -8645,525 +7812,6 @@
                     "align": "",
                     "color": ""
                 }
-            }
-        },
-        {
-            "actions": [
-            ],
-            "blankCardState": false,
-            "childCards": [
-            ],
-            "components": {
-                "layer-0": {
-                    "children": [
-                        {
-                            "class": "slds-col ",
-                            "element": "outputField",
-                            "elementLabel": "Text-0-clone-0",
-                            "name": "Text",
-                            "property": {
-                                "card": "{card}",
-                                "mergeField": "%3Cdiv%20class=%22slds-text-heading_large%20slds-text-color_default%20slds-text-align_center%22%3E%3Cstrong%3E%3Cspan%20class=%22%22%20style=%22font-size:%2018pt;%22%3EDetalhes%20do%20Ajuste%20de%20Saldo%3C/span%3E%3C/strong%3E%3C/div%3E",
-                                "record": "{record}"
-                            },
-                            "size": {
-                                "default": "12",
-                                "isResponsive": false
-                            },
-                            "stateIndex": 3,
-                            "styleObject": {
-                                "background": {
-                                    "color": "",
-                                    "image": "",
-                                    "position": "",
-                                    "repeat": "",
-                                    "size": ""
-                                },
-                                "border": {
-                                    "color": "#cccccc",
-                                    "radius": "",
-                                    "style": "",
-                                    "type": "border_bottom",
-                                    "width": ""
-                                },
-                                "class": "slds-border_bottom ",
-                                "container": {
-                                    "class": ""
-                                },
-                                "elementStyleProperties": {
-                                },
-                                "inlineStyle": "",
-                                "margin": [
-                                ],
-                                "padding": [
-                                ],
-                                "size": {
-                                    "default": "12",
-                                    "isResponsive": false
-                                },
-                                "sizeClass": "slds-size_12-of-12 ",
-                                "style": "     border-bottom: #cccccc 1px solid; \n         ",
-                                "text": {
-                                    "align": "",
-                                    "color": ""
-                                }
-                            },
-                            "styleObjects": [
-                                {
-                                    "conditionString": "",
-                                    "conditions": "default",
-                                    "draggable": false,
-                                    "key": 0,
-                                    "label": "Default",
-                                    "name": "Default",
-                                    "styleObject": {
-                                        "background": {
-                                            "color": "",
-                                            "image": "",
-                                            "position": "",
-                                            "repeat": "",
-                                            "size": ""
-                                        },
-                                        "border": {
-                                            "color": "#cccccc",
-                                            "radius": "",
-                                            "style": "",
-                                            "type": "border_bottom",
-                                            "width": ""
-                                        },
-                                        "class": "slds-border_bottom ",
-                                        "container": {
-                                            "class": ""
-                                        },
-                                        "elementStyleProperties": {
-                                        },
-                                        "inlineStyle": "",
-                                        "margin": [
-                                        ],
-                                        "padding": [
-                                        ],
-                                        "size": {
-                                            "default": "12",
-                                            "isResponsive": false
-                                        },
-                                        "sizeClass": "slds-size_12-of-12 ",
-                                        "style": "     border-bottom: #cccccc 1px solid; \n         ",
-                                        "text": {
-                                            "align": "",
-                                            "color": ""
-                                        }
-                                    }
-                                }
-                            ],
-                            "type": "text"
-                        },
-                        {
-                            "children": [
-                                {
-                                    "children": [
-                                        {
-                                            "class": "slds-col ",
-                                            "element": "outputField",
-                                            "elementLabel": "Block-1-Block-2-Field-3-clone-0",
-                                            "key": "element_element_element_block_1_3_block_3_3_outputField_1_3",
-                                            "name": "Field",
-                                            "parentElementKey": "element_element_block_1_3_block_3_3",
-                                            "property": {
-                                                "card": "{card}",
-                                                "fieldName": "object.eventDateTime",
-                                                "format": "DD/MM/YYYY HH:mm:ss",
-                                                "label": "Data Processamento:",
-                                                "placeholder": "",
-                                                "record": "{record}",
-                                                "type": "datetime"
-                                            },
-                                            "size": {
-                                                "default": "12",
-                                                "isResponsive": false
-                                            },
-                                            "stateIndex": 3,
-                                            "styleObject": {
-                                                "background": {
-                                                    "color": "",
-                                                    "image": "",
-                                                    "position": "",
-                                                    "repeat": "",
-                                                    "size": ""
-                                                },
-                                                "border": {
-                                                    "color": "",
-                                                    "radius": "",
-                                                    "style": "",
-                                                    "type": "",
-                                                    "width": ""
-                                                },
-                                                "class": "",
-                                                "container": {
-                                                    "class": ""
-                                                },
-                                                "elementStyleProperties": {
-                                                },
-                                                "inlineStyle": "",
-                                                "margin": [
-                                                ],
-                                                "padding": [
-                                                ],
-                                                "size": {
-                                                    "default": "12",
-                                                    "isResponsive": false
-                                                },
-                                                "sizeClass": "slds-size_12-of-12 ",
-                                                "style": "      \n         ",
-                                                "text": {
-                                                    "align": "",
-                                                    "color": ""
-                                                }
-                                            },
-                                            "styleObjects": [
-                                                {
-                                                    "conditionString": "",
-                                                    "conditions": "default",
-                                                    "draggable": false,
-                                                    "key": 0,
-                                                    "label": "Default",
-                                                    "name": "Default",
-                                                    "styleObject": {
-                                                        "background": {
-                                                            "color": "",
-                                                            "image": "",
-                                                            "position": "",
-                                                            "repeat": "",
-                                                            "size": ""
-                                                        },
-                                                        "border": {
-                                                            "color": "",
-                                                            "radius": "",
-                                                            "style": "",
-                                                            "type": "",
-                                                            "width": ""
-                                                        },
-                                                        "class": "",
-                                                        "container": {
-                                                            "class": ""
-                                                        },
-                                                        "elementStyleProperties": {
-                                                        },
-                                                        "inlineStyle": "",
-                                                        "margin": [
-                                                        ],
-                                                        "padding": [
-                                                        ],
-                                                        "size": {
-                                                            "default": "12",
-                                                            "isResponsive": false
-                                                        },
-                                                        "sizeClass": "slds-size_12-of-12 ",
-                                                        "style": "      \n         ",
-                                                        "text": {
-                                                            "align": "",
-                                                            "color": ""
-                                                        }
-                                                    }
-                                                }
-                                            ],
-                                            "type": "element"
-                                        }
-                                    ],
-                                    "class": "slds-col ",
-                                    "element": "block",
-                                    "elementLabel": "Block-0-Block-2",
-                                    "key": "element_element_block_1_3_block_0_3",
-                                    "name": "Block",
-                                    "property": {
-                                        "card": "{card}",
-                                        "collapsedByDefault": false,
-                                        "collapsible": false,
-                                        "label": "Block",
-                                        "record": "{record}"
-                                    },
-                                    "size": {
-                                        "default": "3",
-                                        "isResponsive": false
-                                    },
-                                    "stateIndex": 3,
-                                    "styleObject": {
-                                        "class": "slds-p-around_x-small",
-                                        "padding": [
-                                            {
-                                                "size": "x-small",
-                                                "type": "around"
-                                            }
-                                        ],
-                                        "size": {
-                                            "default": "3",
-                                            "isResponsive": false
-                                        },
-                                        "sizeClass": "slds-size_3-of-12 "
-                                    },
-                                    "type": "block"
-                                },
-                                {
-                                    "children": [
-                                        {
-                                            "class": "slds-col ",
-                                            "element": "outputField",
-                                            "elementLabel": "Block-0-Block-0-Field-0",
-                                            "key": "element_element_element_block_1_3_block_0_3_outputField_0_3",
-                                            "name": "Field",
-                                            "property": {
-                                                "card": "{card}",
-                                                "fieldName": "object.recharge.transferType",
-                                                "label": "Tipo de Transferência",
-                                                "placeholder": "",
-                                                "record": "{record}",
-                                                "type": "text"
-                                            },
-                                            "size": {
-                                                "default": "12",
-                                                "isResponsive": false
-                                            },
-                                            "stateIndex": 3,
-                                            "styleObject": {
-                                                "sizeClass": "slds-size_12-of-12"
-                                            },
-                                            "type": "element"
-                                        }
-                                    ],
-                                    "class": "slds-col ",
-                                    "element": "block",
-                                    "elementLabel": "Block-0-Block-0",
-                                    "key": "element_element_block_1_3_block_0_3",
-                                    "name": "Block",
-                                    "parentElementKey": "element_block_1_3",
-                                    "property": {
-                                        "card": "{card}",
-                                        "collapsedByDefault": false,
-                                        "collapsible": false,
-                                        "label": "Block",
-                                        "record": "{record}"
-                                    },
-                                    "size": {
-                                        "default": "3",
-                                        "isResponsive": false
-                                    },
-                                    "stateIndex": 3,
-                                    "styleObject": {
-                                        "class": "slds-p-around_x-small",
-                                        "padding": [
-                                            {
-                                                "size": "x-small",
-                                                "type": "around"
-                                            }
-                                        ],
-                                        "size": {
-                                            "default": "3",
-                                            "isResponsive": false
-                                        },
-                                        "sizeClass": "slds-size_3-of-12 "
-                                    },
-                                    "type": "block"
-                                },
-                                {
-                                    "children": [
-                                        {
-                                            "class": "slds-col ",
-                                            "element": "outputField",
-                                            "elementLabel": "Block-0-Block-0-Field-0-clone-0",
-                                            "key": "element_element_element_block_1_3_block_1_3_outputField_1_3",
-                                            "name": "Field",
-                                            "parentElementKey": "element_element_block_1_3_block_1_3",
-                                            "property": {
-                                                "card": "{card}",
-                                                "fieldName": "object.recharge.reason",
-                                                "label": "Motivo",
-                                                "placeholder": "",
-                                                "record": "{record}",
-                                                "type": "text"
-                                            },
-                                            "size": {
-                                                "default": "12",
-                                                "isResponsive": false
-                                            },
-                                            "stateIndex": 3,
-                                            "styleObject": {
-                                                "sizeClass": "slds-size_12-of-12"
-                                            },
-                                            "type": "element"
-                                        }
-                                    ],
-                                    "class": "slds-col ",
-                                    "element": "block",
-                                    "elementLabel": "Block-0-Block-1",
-                                    "key": "element_element_block_1_3_block_1_3",
-                                    "name": "Block",
-                                    "parentElementKey": "element_block_1_3",
-                                    "property": {
-                                        "card": "{card}",
-                                        "collapsedByDefault": false,
-                                        "collapsible": false,
-                                        "label": "Block",
-                                        "record": "{record}"
-                                    },
-                                    "size": {
-                                        "default": "3",
-                                        "isResponsive": false
-                                    },
-                                    "stateIndex": 3,
-                                    "styleObject": {
-                                        "class": "slds-p-around_x-small",
-                                        "padding": [
-                                            {
-                                                "size": "x-small",
-                                                "type": "around"
-                                            }
-                                        ],
-                                        "size": {
-                                            "default": "3",
-                                            "isResponsive": false
-                                        },
-                                        "sizeClass": "slds-size_3-of-12 "
-                                    },
-                                    "type": "block"
-                                },
-                                {
-                                    "children": [
-                                        {
-                                            "class": "slds-col ",
-                                            "element": "outputField",
-                                            "elementLabel": "Block-0-Block-0-Field-1-clone-0",
-                                            "key": "element_element_element_block_1_3_block_2_3_outputField_0_3",
-                                            "name": "Field",
-                                            "property": {
-                                                "card": "{card}",
-                                                "fieldName": "object.recharge.amountDesc",
-                                                "label": "Valor",
-                                                "placeholder": "",
-                                                "record": "{record}",
-                                                "type": "text"
-                                            },
-                                            "size": {
-                                                "default": "12",
-                                                "isResponsive": false
-                                            },
-                                            "stateIndex": 3,
-                                            "styleObject": {
-                                                "sizeClass": "slds-size_12-of-12"
-                                            },
-                                            "type": "element"
-                                        }
-                                    ],
-                                    "class": "slds-col ",
-                                    "element": "block",
-                                    "elementLabel": "Block-0-Block-1-clone-0",
-                                    "key": "element_element_block_1_3_block_2_3",
-                                    "name": "Block",
-                                    "parentElementKey": "element_block_1_3",
-                                    "property": {
-                                        "card": "{card}",
-                                        "collapsedByDefault": false,
-                                        "collapsible": false,
-                                        "label": "Block",
-                                        "record": "{record}"
-                                    },
-                                    "size": {
-                                        "default": "3",
-                                        "isResponsive": false
-                                    },
-                                    "stateIndex": 3,
-                                    "styleObject": {
-                                        "class": "slds-p-around_x-small",
-                                        "padding": [
-                                            {
-                                                "size": "x-small",
-                                                "type": "around"
-                                            }
-                                        ],
-                                        "size": {
-                                            "default": "3",
-                                            "isResponsive": false
-                                        },
-                                        "sizeClass": "slds-size_3-of-12 "
-                                    },
-                                    "type": "block"
-                                }
-                            ],
-                            "class": "slds-col ",
-                            "element": "block",
-                            "elementLabel": "Block-0",
-                            "name": "Block",
-                            "property": {
-                                "card": "{card}",
-                                "collapsedByDefault": false,
-                                "collapsible": false,
-                                "label": "Block",
-                                "record": "{record}"
-                            },
-                            "size": {
-                                "default": "12",
-                                "isResponsive": false
-                            },
-                            "stateIndex": 3,
-                            "styleObject": {
-                                "class": "slds-p-around_x-small",
-                                "padding": [
-                                    {
-                                        "size": "x-small",
-                                        "type": "around"
-                                    }
-                                ],
-                                "sizeClass": "slds-size_12-of-12"
-                            },
-                            "type": "block"
-                        }
-                    ]
-                }
-            },
-            "conditions": {
-                "group": [
-                    {
-                        "field": "object.recordType",
-                        "hasMergeField": false,
-                        "id": "state-new-condition-0",
-                        "operator": "==",
-                        "type": "custom",
-                        "value": "RefillEvent"
-                    }
-                ],
-                "id": "state-condition-object",
-                "isParent": true
-            },
-            "documents": [
-            ],
-            "fields": [
-            ],
-            "isSmartAction": false,
-            "name": "Ajuste de Saldo",
-            "omniscripts": [
-            ],
-            "smartAction": {
-            },
-            "styleObject": {
-                "class": "slds-card slds-p-around_x-small slds-m-bottom_x-small",
-                "container": {
-                    "class": "slds-card"
-                },
-                "margin": [
-                    {
-                        "size": "x-small",
-                        "type": "bottom"
-                    }
-                ],
-                "padding": [
-                    {
-                        "size": "x-small",
-                        "type": "around"
-                    }
-                ],
-                "size": {
-                    "default": "12",
-                    "isResponsive": false
-                },
-                "sizeClass": "slds-size_12-of-12"
             }
         }
     ],
