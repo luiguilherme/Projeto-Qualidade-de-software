@@ -53,6 +53,18 @@ export default class PidTokenValidate extends LightningElement {
 
     connectedCallback() {
         this.registerPubSub();
+        var alreadyLoadedOnce = sessionStorage.getItem('pidTokenAlreadyLoaded');
+        var recordIsTheSameAsTheCurrentPage = sessionStorage.getItem('pidTokenAlreadyLoaded') == this.recordId;
+        if (alreadyLoadedOnce && recordIsTheSameAsTheCurrentPage) {
+            this.showPhone = true;
+            this.showTokenScreen = true;
+        } 
+        else {
+            setTimeout(()=>{
+                this.showPhone = true;
+                this.showTokenScreen = true;
+            }, 30000);
+        }
     }
 
     beginPidToken(){
@@ -76,7 +88,7 @@ export default class PidTokenValidate extends LightningElement {
 
                 } else {
                     var phoneExist = false;
-
+                    
                     this.phones = result.data.phones.map(phoneNumber => {
                         if (!phoneExist && this.phone && phoneNumber === this.phone) {
                             phoneExist = true;
@@ -102,6 +114,7 @@ export default class PidTokenValidate extends LightningElement {
                         this.isEnviar = true;
 
                     } else {
+                        this.showPhone = true;
                         this.disableAllScene();
 
                         if (result.data.tokenStatus === 'Cancelado') {
@@ -383,6 +396,7 @@ export default class PidTokenValidate extends LightningElement {
     handleEventAction(actionObj, index, event) {
         this.refreshData();
         this.showPhone = true;
+        sessionStorage.setItem('pidTokenAlreadyLoaded',this.recordId)
     }
 
     isNotEndedStatus(result) {
