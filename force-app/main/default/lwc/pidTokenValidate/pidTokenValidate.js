@@ -57,10 +57,12 @@ export default class PidTokenValidate extends LightningElement {
         var recordIsTheSameAsTheCurrentPage = sessionStorage.getItem('pidTokenAlreadyLoaded') == this.recordId;
         if (alreadyLoadedOnce && recordIsTheSameAsTheCurrentPage) {
             this.showPhone = true;
+            this.showTokenScreen = true;
         } 
         else {
             setTimeout(()=>{
                 this.showPhone = true;
+                this.showTokenScreen = true;
             }, 30000);
         }
     }
