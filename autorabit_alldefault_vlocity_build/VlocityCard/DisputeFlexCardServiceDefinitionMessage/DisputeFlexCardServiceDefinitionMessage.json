@@ -4,7 +4,7 @@
             {
                 "id": 4,
                 "name": "recordId",
-                "val": "5008K000004QRoGQAW"
+                "val": "5008K000004lnqYQAQ"
             }
         ],
         "orderBy": {
@@ -39,8 +39,8 @@
                             "targetName": "/apex"
                         },
                         "displayName": "Action",
-                        "id": "flex-action-1698075499067",
-                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"Dispute_CaseClosureDefinition\",\"vlocityAsync\":false,\"inputMap\":{\"disputedItems\":\"{records}\",\"Notes\":\"{action.Notes}\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"records\\\":\\\"{records}\\\",\\\"action.Notes\\\":\\\"{action.Notes}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"5008K000004QRoGQAW\",\"id\":4},{\"name\":\"records\",\"val\":\"\",\"id\":2},{\"name\":\"action.Notes\",\"val\":\"'teste'\",\"id\":4}]}",
+                        "id": "flex-action-1703189940039",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"Dispute_CaseClosureDefinition\",\"vlocityAsync\":false,\"inputMap\":{\"disputedItems\":\"{records}\",\"Notes\":\"{action.Notes}\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"records\\\":\\\"{records}\\\",\\\"action.Notes\\\":\\\"{action.Notes}\\\",\\\"action\\\":\\\"{action}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"5008K000004QRoGQAW\",\"id\":4},{\"name\":\"records\",\"val\":\"\",\"id\":2},{\"name\":\"action.Notes\",\"val\":\"'teste'\",\"id\":4},{\"name\":\"action\",\"val\":\"\",\"id\":4}]}",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "DataAction",
@@ -69,6 +69,30 @@
                         "type": "Event",
                         "vlocityIcon": "standard-default"
                     }
+                },
+                {
+                    "actionIndex": 2,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1702648621988-463ns8rij",
+                    "label": "SendMessageToParent",
+                    "stateAction": {
+                        "displayName": "Action",
+                        "eventName": "FeedbackUser",
+                        "extraParams": {
+                            "Error": "{feedbackUser.Error}",
+                            "Message": "{feedbackUser.Message}",
+                            "Success": "{feedbackUser.Success}"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1702649466067",
+                        "message": "ServiceDefinition",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
                 }
             ],
             "channelname": "DisputeFlexCardServiceDefinitionMessage",
@@ -80,14 +104,47 @@
             "key": "event-0",
             "recordIndex": "0",
             "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1703163222411-o6hpx4q5l",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "reload",
+                        "id": "flex-action-1703163222534",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "UserFeedback",
+            "displayLabel": "UserFeedback:ReloadChildFlexCardDisputeServiceDefinitionMessage",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "ReloadChildFlexCardDisputeServiceDefinitionMessage",
+            "eventtype": "pubsub",
+            "key": "event-1",
+            "recordIndex": "0",
+            "showSpinner": "false"
         }
     ],
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfDisputeFlexCardServiceDefinitionMessage_3_Dispute",
-        "Id": "0Rb78000000LSVwCAO",
+        "DeveloperName": "cfDisputeFlexCardServiceDefinitionMessage_5_Dispute",
+        "Id": "0Rb78000000LWG7CAO",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfDisputeFlexCardServiceDefinitionMessage_3_Dispute",
+        "MasterLabel": "cfDisputeFlexCardServiceDefinitionMessage_5_Dispute",
         "NamespacePrefix": "c"
     },
     "osSupport": true,
@@ -654,7 +711,7 @@
                                     "parentElementKey": "element_block_0_0",
                                     "property": {
                                         "card": "{card}",
-                                        "mergeField": "%3Cdiv%3E%7BAttendantMessage%7D%3Cbr%20/%3E(%7BServiceDefinitionName%7D)%3C/div%3E",
+                                        "mergeField": "%3Cdiv%3E%7BAttendantMessage%7D%3C/div%3E",
                                         "record": "{record}"
                                     },
                                     "size": {
@@ -693,10 +750,10 @@
                                             "isResponsive": false
                                         },
                                         "sizeClass": "slds-size_12-of-12 ",
-                                        "style": "      \n         font-family: 'Segoe UI Regular'; font-size: 12px; color: #3E3E3C",
+                                        "style": "      \n        color:#000000; font-family: 'Segoe UI Regular'; font-size: 12px; color: #3E3E3C",
                                         "text": {
                                             "align": "",
-                                            "color": ""
+                                            "color": "#000000"
                                         }
                                     },
                                     "styleObjects": [
@@ -738,7 +795,123 @@
                                                     "isResponsive": false
                                                 },
                                                 "sizeClass": "slds-size_12-of-12 ",
-                                                "style": "      \n         font-family: 'Segoe UI Regular'; font-size: 12px; color: #3E3E3C",
+                                                "style": "      \n        color:#000000; font-family: 'Segoe UI Regular'; font-size: 12px; color: #3E3E3C",
+                                                "text": {
+                                                    "align": "",
+                                                    "color": "#000000"
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "type": "text"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "outputField",
+                                    "elementLabel": "Block-CSS-Line-01-Field-6",
+                                    "key": "element_element_block_0_0_outputField_6_0",
+                                    "name": "Field",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "label": "({ServiceDefinitionName})",
+                                        "placeholder": "",
+                                        "record": "{record}",
+                                        "styles": {
+                                            "label": {
+                                                "color": "#000000"
+                                            }
+                                        },
+                                        "type": "text"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                            "styles": {
+                                                "label": {
+                                                    "color": "#000000"
+                                                }
+                                            }
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    },
+                                    "styleObjects": [
+                                        {
+                                            "conditionString": "",
+                                            "conditions": "default",
+                                            "draggable": false,
+                                            "key": 0,
+                                            "label": "Default",
+                                            "name": "Default",
+                                            "styleObject": {
+                                                "background": {
+                                                    "color": "",
+                                                    "image": "",
+                                                    "position": "",
+                                                    "repeat": "",
+                                                    "size": ""
+                                                },
+                                                "border": {
+                                                    "color": "",
+                                                    "radius": "",
+                                                    "style": "",
+                                                    "type": "",
+                                                    "width": ""
+                                                },
+                                                "container": {
+                                                    "class": ""
+                                                },
+                                                "elementStyleProperties": {
+                                                    "styles": {
+                                                        "label": {
+                                                            "color": "#000000"
+                                                        }
+                                                    }
+                                                },
+                                                "inlineStyle": "",
+                                                "margin": [
+                                                ],
+                                                "padding": [
+                                                ],
+                                                "size": {
+                                                    "default": "12",
+                                                    "isResponsive": false
+                                                },
+                                                "sizeClass": "slds-size_12-of-12",
                                                 "text": {
                                                     "align": "",
                                                     "color": ""
@@ -746,7 +919,7 @@
                                             }
                                         }
                                     ],
-                                    "type": "text"
+                                    "type": "element"
                                 }
                             ],
                             "class": "slds-col ",

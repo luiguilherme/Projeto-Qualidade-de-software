@@ -1,0 +1,31 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "IPRetrieveOrderListAndGetCommitment",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/Dispute/RetrieveOrderListAndGetCommitment/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "hasPlanChangeList": "=FILTER(LIST(%PostOrderListAPI:orders:orderItems%), 'replaceOfferIndicator == \"true\" && implOrderTypeX9 == \"CH\"')",
+            "orderAndLoyaltyDateComparison": "=IF(%DRTStartDateUnix:startDateUnix% == %IPPostGetCommitment:apiGetCommitment:startDate%, \"yes\", \"no\")"
+        },
+        "executionConditionalFormula": "",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues4",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVCompareLoyaltyWithOrder",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Dispute/RetrieveOrderListAndGetCommitment/Procedure/SVCompareLoyaltyWithOrder"
+}

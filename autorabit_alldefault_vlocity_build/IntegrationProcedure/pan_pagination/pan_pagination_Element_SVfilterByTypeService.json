@@ -1,5 +1,5 @@
 {
-    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__Active__c": false,
     "%vlocity_namespace%__OmniScriptId__c": {
         "Name": "IP_panPagination",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
@@ -11,7 +11,7 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "list": "=IF(SVgetList:typeService==\"data\",LIST(DREventsFilterByType:Dados),IF(SVgetList:typeService==\"call\",LIST(DREventsFilterByType:Chamadas),IF(SVgetList:typeService==\"SMS\",LIST(DREventsFilterByType:SMS),IF(SVgetList:typeService==\"refill\",LIST(DREventsFilterByType:Recarga),IF(%eventError%==true,LIST(DREventsFilterByType:Error),LIST(SVgetList:list))))))",
+            "list": "=IF(SVgetList:typeService==\"data\",LIST(FILTER(LIST(%SVgetList:list%), 'usageType == \"GY ONLINE\" OR usageType == \"PGW OFFLINE\"')), IF(SVgetList:typeService==\"call\",LIST(FILTER(LIST(%SVgetList:list%), 'usageType == \"VOICE ONLINE\"')), IF(SVgetList:typeService==\"SMS\",LIST(FILTER(LIST(%SVgetList:list%), 'usageType == \"SMS ONLINE\" OR usageType == \"MMS ONLINE\"')), IF(%eventError%==true,LIST(DREventsFilterByType:Error), LIST(SVgetList:list)))))",
             "typeService": "=IF(SVgetList:typeService==\"data\",\"Dados Efetuados\",IF(SVgetList:typeService==\"call\",\"Chamadas Efetuadas\",IF(SVgetList:typeService==\"SMS\",\"Eventos Efetuados\",IF(SVgetList:typeService==\"refill\",\"Recargas Efetuadas\",false))))"
         },
         "executionConditionalFormula": "",
