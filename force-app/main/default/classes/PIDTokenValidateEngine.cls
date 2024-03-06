@@ -1,9 +1,9 @@
 public with sharing class PIDTokenValidateEngine {
     private static final String WEB_SERVICE_RTD = 'ServiceAuthorizationPID';
-    private static final Integer SUCCESS_CODE = 200;    
-    private static final String WAITING_APPROVAL = 'Aguardando validação';    
-    private static final String SEND_ERROR = 'Falha no envio';  
-
+    private static final Integer SUCCESS_CODE = 200;
+    private static final String WAITING_APPROVAL = 'Aguardando validação';
+    private static final String SEND_ERROR = 'Falha no envio';
+    
     public static Boolean postTokenValidate(Id customerIntId, String phoneNumber) {
 
         Webservice__c wsConfig = Webservice__c.getInstance(WEB_SERVICE_RTD);
@@ -16,7 +16,7 @@ public with sharing class PIDTokenValidateEngine {
         HttpResponse response;
 
         response = client.post(wsConfig, payload);
-        
+
         ServiceAuthorizationResponse responseParsed = ServiceAuthorizationResponse.parse(response.getBody());
         Boolean successStatus = responseParsed.status == '0';
 
@@ -30,7 +30,7 @@ public with sharing class PIDTokenValidateEngine {
     private static String buildPayload(Id customerIntId, String phoneNumber) {
         final String STR_POSPAGO = 'Pós-Pago';
         final String STR_CONTROLE = 'Controle';
-        final String STR_PREPAGO = 'Pré'; 
+        final String STR_PREPAGO = 'Pré';
         ServiceAuthorization__mdt pid = ServiceAuthorization__mdt.getInstance('PID');
 
         CustomerIntWrapper thisCustomerIntWrapper = new CustomerIntWrapper();
@@ -47,11 +47,11 @@ public with sharing class PIDTokenValidateEngine {
         thisCustomerInt.Id = customerIntId;
         thisCustomerInt.TokenStatus__c = tokenStatus;
         updatePalitagem(thisCustomerInt);
-        
+
         update thisCustomerInt;
     }
 
-
+    
     public static void updatePalitagem(vlocity_cmt__CustomerInteraction__c thisCustomerInt) {
         String palitagemString = '';
 
@@ -88,70 +88,102 @@ public with sharing class PIDTokenValidateEngine {
             } else {
                 lstFromToMap = FromToMappingDAO.getLstByUserRole(currentUser.PartnerGroup__c);
             }
-            
+
             for (FromToMapping__mdt iFromToMap : lstFromToMap) {
                 if (iFromToMap.TokenPID__c) {
                     return true;
                 }
             }
-            
-            return !PermissionSetAssigmentDAO.getCurrentPSA(Userinfo.getUserId(), 'TokenSMS').isEmpty();    
+
+            return !PermissionSetAssigmentDAO.getCurrentPSA(Userinfo.getUserId(), 'TokenSMS').isEmpty();
 
         } catch (Exception e) {
             return false;
         }
     }
 
-    public static Map<String, Object> getPhoneNumbers(String accId) {
+    public static Map<String, Object> getPhoneNumbers(String accId){
         Map<String, Object> phoneNumbers = new Map<String, Object>();
-        
+
         List<String> ltPhoneNumbers;
         String phoneNumber = 'Não possui linha válida';
 
         List<Asset> lstAsset = AssetDAO.getPidAssetMobileByAccount(accId);
 
-        if (!lstAsset.isEmpty()) {
+        if (!lstAsset.isEmpty()){
             final String posPago = 'Pós-Pago';
             final String controle = 'Controle';
             final String prePago = 'Pré-Pago';
-            
-            Map<String, List<String>> mapPhoneProducts = new Map<String, List<String>>();
 
-            mapPhoneProducts.put(posPago, new List<String>());
-            mapPhoneProducts.put(controle, new List<String>());
-            mapPhoneProducts.put(prePago, new List<String>());
+            Map<String, List<String>> mapPhoneProductsMoreThan120 = new Map<String, List<String>>();
 
-            for (Asset asset : lstAsset) {
+            mapPhoneProductsMoreThan120.put(posPago, new List<String>());
+            mapPhoneProductsMoreThan120.put(controle, new List<String>());
+            mapPhoneProductsMoreThan120.put(prePago, new List<String>());
+
+            Map<String, List<String>> mapPhoneProductsLessThan120 = new Map<String, List<String>>();
+
+            mapPhoneProductsLessThan120.put(posPago, new List<String>());
+            mapPhoneProductsLessThan120.put(controle, new List<String>());
+            mapPhoneProductsLessThan120.put(prePago, new List<String>());
+
+            for (Asset asset : lstAsset){
                 String phoneType = asset.ProductType__c;
-                
-                if (phoneType == posPago || phoneType == controle || phoneType == prePago) {
-                    mapPhoneProducts.get(phoneType).add(asset.Name);
+                if (asset.StartDate__c != null && phoneType == posPago || phoneType == controle || phoneType == prePago){
+                    if (asset.StartDate__c < System.now().addDays(-120)){
+                        mapPhoneProductsMoreThan120.get(phoneType).add(asset.Name);
+                    }
+                    if (asset.StartDate__c >= System.now().addDays(-120)){
+                        mapPhoneProductsLessThan120.get(phoneType).add(asset.Name);
+                    }
                 }
             }
 
             ltPhoneNumbers = new List<String>();
 
-            if (!mapPhoneProducts.get(posPago).isEmpty()) {
-                ltPhoneNumbers.addAll(mapPhoneProducts.get(posPago));                
-            }
-            
-            if (!mapPhoneProducts.get(controle).isEmpty()) {
-                ltPhoneNumbers.addAll(mapPhoneProducts.get(controle));
-            }
+            if (!mapPhoneProductsMoreThan120.isEmpty()) {
 
-            if (ltPhoneNumbers.isEmpty() && !mapPhoneProducts.get(prePago).isEmpty()) {
-                ltPhoneNumbers.addAll(mapPhoneProducts.get(prePago));
-            }
-
-            phoneNumber = ltPhoneNumbers[0];
-        }
-
-        phoneNumbers.put('phone', phoneNumber);
-        phoneNumbers.put('phones', ltPhoneNumbers);
-
-        return (phoneNumbers);
-    }
+                if (!mapPhoneProductsMoreThan120.get(posPago).isEmpty()){
+                    ltPhoneNumbers.addAll(mapPhoneProductsMoreThan120.get(posPago));
+                }
     
+                if (!mapPhoneProductsMoreThan120.get(controle).isEmpty()){
+                    ltPhoneNumbers.addAll(mapPhoneProductsMoreThan120.get(controle));
+                }
+    
+                if (!mapPhoneProductsMoreThan120.get(prePago).isEmpty() && ltPhoneNumbers.isEmpty() && mapPhoneProductsLessThan120.get(posPago).isEmpty() && mapPhoneProductsLessThan120.get(controle).isEmpty()){
+                    ltPhoneNumbers.addAll(mapPhoneProductsMoreThan120.get(prePago));
+                }
+                
+            }
+             
+            if (!mapPhoneProductsLessThan120.isEmpty() && ltPhoneNumbers.isEmpty()) {
+
+                if (!mapPhoneProductsLessThan120.get(posPago).isEmpty()){
+                    ltPhoneNumbers.add(mapPhoneProductsLessThan120.get(posPago)[0]);
+                }
+
+                if (!mapPhoneProductsLessThan120.get(controle).isEmpty() && ltPhoneNumbers.isEmpty()){
+                    ltPhoneNumbers.add(mapPhoneProductsLessThan120.get(controle)[0]);
+                }
+
+                if (!mapPhoneProductsLessThan120.get(prePago).isEmpty() && ltPhoneNumbers.isEmpty()){
+                    ltPhoneNumbers.add(mapPhoneProductsLessThan120.get(prePago)[0]);
+                }
+            }             
+            
+            if (!ltPhoneNumbers.isEmpty()) {
+                phoneNumbers.put('phones', ltPhoneNumbers);
+                phoneNumbers.put('phone', ltPhoneNumbers[0]);
+                return phoneNumbers;
+            } 
+        }
+        
+		phoneNumbers.put('phones', ltPhoneNumbers);
+        phoneNumbers.put('phone', phoneNumber);
+        return phoneNumbers;
+    }
+
     public class CustomerIntWrapper {
         public String correlation_id {get;set;}
         public String msisdn {get;set;}

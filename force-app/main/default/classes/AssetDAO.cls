@@ -308,7 +308,8 @@ public without sharing class AssetDAO {
         return [
             SELECT 
                 Name, 
-                ProductType__c
+                ProductType__c,
+                StartDate__c
             FROM
                 Asset
             WHERE 
