@@ -5,10 +5,9 @@
         workspaceAPI.getFocusedTabInfo({
             tabId : focusedTabId
         }).then(function(response) {
-            console.log('Erick ' , response.recordId);
             if (response.recordId != component.get('v.oppenedAccount')){
                 var evt = $A.get('e.c:TabEventNotification');
-                evt.setParam('type', 'closeCanvasHybris' );
+                evt.setParam('type', 'closeCanvas' );
                 evt.setParam('sobject', component.get('v.oppenedAccount'));
                 evt.fire();
             }

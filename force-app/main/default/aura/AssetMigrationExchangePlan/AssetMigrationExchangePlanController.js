@@ -18,9 +18,11 @@
     handleComponentEvent : function (component,event, helper) {
         var selectedTypeFromEvent = event.getParam("type");
 
-        if (selectedTypeFromEvent == 'closeCanvasHybris') {
-            component.set('v.showCanvas ', false);   
-            component.set('v.showResetButton', false);
+        if (selectedTypeFromEvent == 'closeCanvas') {
+            if (interactionId != component.get('v.recordId')) {
+                component.set('v.showCanvas ', false);   
+                component.set('v.showResetButton', false);
+            }
         }
     },
 
