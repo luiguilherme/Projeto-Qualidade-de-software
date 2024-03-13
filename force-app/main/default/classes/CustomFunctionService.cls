@@ -6,8 +6,9 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
 {
     global Boolean invokeMethod(String methodName, Map<String, Object> inputs, Map<String, Object> output, Map<String, Object> options)
     {
+        System.Debug('Entrou no método');  
         List<Object> arguments = (List<Object>) inputs.get('arguments');
-
+        
         switch on methodName {
             when 'validateEmailFormat' 
             {output.put('result', validateEmailFormat(arguments));}        
@@ -23,8 +24,6 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             {output.put('result', mapKeysValues(arguments));}  
             when 'trim' 
             {output.put('result', trimValues(arguments));}   
-            when 'trimClass'
-            {output.put('result', trimClass(arguments));}
             when 'length' 
             {output.put('result', length(arguments));}               
             when 'formatDate' 
@@ -38,10 +37,10 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             when 'replaceString' 
             {output.put('result', replaceString(arguments));} 
             when 'replaceBackslashTopicName'
-	        {output.put('result', replaceBackslashTopicName(arguments));}            
+            {output.put('result', replaceBackslashTopicName(arguments));}                     
             when 'GetListRange' 
             {output.put('result', GetListRange(arguments));}
-			when 'convertByte' 
+            when 'convertByte' 
             {output.put('result', convertByte(arguments));}
             when 'getElementApiName'
             {output.put('result', getElementApiName(arguments));}
@@ -49,9 +48,9 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             {output.put('result', removeValueFromList(arguments));}   
             when 'getPathTree'
             {output.put('result', getPathTree(arguments));}
-			when 'getPath'
+            when 'getPath'
             {output.put('result', getPath(arguments));} 
-			when 'getUserRole'
+            when 'getUserRole'
             {output.put('result', getUserRole(arguments));}
             when 'getTotalChannels'
             {output.put('result', getTotalChannels(arguments));} 
@@ -69,10 +68,14 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             {output.put('result', mapAttributes(inputs));}
             when 'getUserInCommunity'
             {output.put('result', getUserInCommunity(arguments));}
-            //when 'getDependentPicklist'
-            //{output.put('result', getDependentPicklist(arguments));}
             when 'convertPicklistAPINameToLabel'
             {output.put('result', convertPicklistAPINameToLabel(arguments));}
+            when 'convertCurrencyToNumber'
+            {output.put('result', convertCurrencyToNumber(arguments));}
+            when 'listToCommaSeparatedValues'
+            {output.put('result', listToCommaSeparatedValues(arguments));}
+            when 'contains'
+            {output.put('result', contains(arguments));}
         }
         return true;
     }
@@ -93,8 +96,10 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             when 'CPFTryAgain' {return System.Label.CPFTryAgain;}
             when 'CPFIrregular' {return System.Label.CPFIrregular;}
             when 'CPFPEPThirdParty' {return System.Label.CPFPEPThirdParty;}
+            when 'CPFPEPThirdPartyLR' {return System.Label.CPFPEPThirdPartyLR;}
             when 'CPFUnderageThirdParty' {return System.Label.CPFUnderageThirdParty;}
             when 'CPFPEPFirstParty' {return System.Label.CPFPEPFirstParty;}
+            when 'CPFPEPFirstPartyLP' {return System.Label.CPFPEPFirstPartyLP;}
             when 'CPFUnderageFirstParty' {return System.Label.CPFUnderageFirstParty;}
             when 'InvalidFirstLastName' {return System.Label.InvalidFirstLastName;}
             when 'valApprovalProcessMessageHeader' {return System.Label.valApprovalProcessMessageHeader;}
@@ -107,7 +112,8 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             when 'valApprovalProcessApprovalRequested' {return System.Label.valApprovalProcessApprovalRequested;}
             when 'valApprovalProcessApprovalMessage' {return System.Label.valApprovalProcessApprovalMessage;}
             when 'valApprovalProcessSelectOneApprover' {return System.Label.valApprovalProcessSelectOneApprover;}            
-            when 'valApprovalProcessApprovalLabel' {return System.Label.valApprovalProcessApprovalLabel;}                       
+            when 'valApprovalProcessApprovalLabel' {return System.Label.valApprovalProcessApprovalLabel;}
+            when 'valApprovalProcessDonate' {return System.Label.valApprovalProcessDonate;}
             when 'valICCIDErrorCombo' {return System.Label.valICCIDErrorCombo;}
         }
         
@@ -129,7 +135,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         Matcher emailMatcher = emailPattern.matcher((String) argument[0]);
         return emailMatcher.matches();
     }
-
+    
     /*
     * Autor....: Guilherme Kaiser - Deloitte
     * Projeto..: Vivo - VALENTINA
@@ -282,7 +288,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         }
         return mapKeysValues;
     }
-
+    
     /*
     * Autor....: Guilherme Kaiser - Deloitte
     * Projeto..: Vivo - VALENTINA
@@ -293,7 +299,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     {   
         Set<Object> tempSet = new Set<Object>();
         tempSet.addAll(argument);
- 
+        
         return new List<Object>(tempSet);
     }   
     
@@ -301,16 +307,8 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         String value = (String) argument[0];  
         
         return value.replace(' ', '');       
-    }   
-    String trimClass(List<Object> argument) {
-        String value = (String) argument[0];  
-        
-        return value.trim();
-    }   
+    }     
     
-    
-
-
     Integer length(List<Object> argument) {
         String value = (String) argument[0];
         return value.length();
@@ -330,7 +328,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         system.debug(logginglevel.error,dt);		        
         return dt;
     }
-        
+    
     /*
     * Autor....: Lucas Ferreira Magalhães - Deloitte 22/04/2022
     * Modificado por: Giovani de Souza 22/04/2022
@@ -370,11 +368,11 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     }
     
     /*
-	* Autor....: Guilherme Kaiser - Deloitte
-	* Projeto..: Vivo - VALENTINA
-	* Descrição: Método para retornar o Key/Valeu de um picklist - usado no filtro de parms do palito
-	* Data.....: 10/10/2022
-	*/	     
+    * Autor....: Guilherme Kaiser - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método para retornar o Key/Valeu de um picklist - usado no filtro de parms do palito
+    * Data.....: 10/10/2022
+    */	     
     public static List<Map<String, String>> getPickListKeyValues(List<Object> argument) {
         
         String objectApiName = (String) argument[0];
@@ -437,13 +435,13 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         
         return listLabelValues;
     }  
-
+    
     /*
-	* Autor....: Guilherme Kaiser - Deloitte
-	* Projeto..: Vivo - VALENTINA
-	* Descrição: Método criado para substituir valores DE/PARA em uma string
-	* Data.....: 08/11/2021
-	*/	    
+    * Autor....: Guilherme Kaiser - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método criado para substituir valores DE/PARA em uma string
+    * Data.....: 08/11/2021
+    */	    
     public static String replaceString(List<Object> argument){
         
         String stringToReplace = (String) argument[0];
@@ -452,7 +450,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         
         return stringToReplace.replace(searchString, replacementString);
     }
-
+    
     /*
     * Autor....: Guilherme Kaiser - Deloitte
     * Projeto..: Vivo - VALENTINA
@@ -508,7 +506,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         return id.getSObjectType().getDescribe().getName();
     }
     
-        /*
+    /*
     * Autor....: Giovani de Souza - Deloitte
     * Projeto..: Vivo - VALENTINA
     * Descrição: Método para remover valor de uma lista
@@ -520,14 +518,14 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         List<Object> menus = (List<Object>) menusMap.get('VLOCITY-FORMULA-LIST');
         String valueToRemove = (String.valueOf(arguments[1]));
         List<Object> listToReturn = new List<Object>();
-
+        
         while(menus.contains(valueToRemove)){            
-			menus.remove(menus.indexOf(valueToRemove));
+            menus.remove(menus.indexOf(valueToRemove));
         }
         
         return menus;
     }
-
+    
     /*
     * Autor....: Guilherme Kaiser - Deloitte
     * Projeto..: Vivo - VALENTINA
@@ -537,19 +535,19 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     public static List<String>  getPathTree (List<Object> arguments){
         
         String recordId = (String) Id.valueOf(String.valueof(arguments[0]));
-       	String recordIdNext;
+        String recordIdNext;
         Boolean ignoreFirstId =true;
         List<String> lstNewTree = new List<String>();
         
         if(recordId != null){
             List<CustomerInteractionTopicTree__c> lstTree =[select Id, Name, ParentTopicId__c, Type__c from CustomerInteractionTopicTree__c];
             Map<Id,CustomerInteractionTopicTree__c> mapTree = new Map<Id,CustomerInteractionTopicTree__c>(lstTree);            
-			recordIdNext = recordId;                
+            recordIdNext = recordId;                
             if(mapTree.containsKey(recordIdNext)){
                 do {
                     CustomerInteractionTopicTree__c recordTree = mapTree.get(recordIdNext);
                     if(!ignoreFirstId || recordTree.get('Type__c')=='Pasta'){
-                    	lstNewTree.add((String) recordTree.get('Name'));   
+                        lstNewTree.add((String) recordTree.get('Name'));   
                     }                    
                     ignoreFirstId=false;                                            
                     recordIdNext = (String) recordTree.get('ParentTopicId__c');
@@ -570,14 +568,14 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     * Data.....: 24/10/2022
     */	    
     public static String getPath(List<Object> arguments) {
-    	String finalPath = '';
+        String finalPath = '';
         
         String recordId = (String) arguments[0];
         
         CustomerInteractionTopicTree__c topic = [SELECT Id, Name FROM CustomerInteractionTopicTree__c WHERE Id = :recordId];
-
+        
         List<String> lstPath = getPathTree(arguments);
-
+        
         if (lstPath.size() > 0) {
             finalPath = lstPath.get(0);
         }
@@ -587,8 +585,8 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         String delimiter = ' > ';
         
         for (Integer i=1; i<lstPath.size(); i++) {
-        	//finalPath += '/' + lstPath.get(i);    
-        	finalPath += delimiter + lstPath.get(i);
+            //finalPath += '/' + lstPath.get(i);    
+            finalPath += delimiter + lstPath.get(i);
         }
         //finalPath += '/' + topic.Name;    
         finalPath += delimiter + topic.Name;
@@ -596,7 +594,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         
         return finalPath;
     }   
-
+    
     /*
     * Autor....: Guilherme Kaiser - Deloitte
     * Projeto..: Vivo - VALENTINA
@@ -604,7 +602,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     * Data.....: 26/12/2022
     */
     public static String getUserRole(List<Object> arguments) {
-    
+        
         Id roleId=userinfo.getUserRoleId();
         Id userId=userinfo.getUserId();
         //
@@ -613,7 +611,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         //
         //this role is used to define when user is from community
         String userRole = PartnerGroup != null ? PartnerGroup : RoleName;
-		//
+        //
         return userRole;
     }
     
@@ -629,7 +627,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         
         List<TopicsAuto__c> lstTopicsAuto = [SELECT Id FROM TopicsAuto__c WHERE Process__c = : process AND Channel__c IN :channels AND Status__c = 'Ativo' ORDER BY LastModifiedDate DESC, Name DESC LIMIT 10 OFFSET :page];
         Integer total = lstTopicsAuto.size();
-
+        
         return total;
     }
     
@@ -653,7 +651,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         
         return result;
     }
-
+    
     /*
     * Autor....: Henrique Berdu - Deloitte
     * Projeto..: Vivo - VALENTINA
@@ -662,16 +660,16 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     */
     public static String properCase(List<Object> arguments) {
         String name = (String) arguments[0];
-    
+        
         if (name == null) {
             return name;
         }
-    
+        
         String[] words = name.split(' ');
         for (Integer i = 0; i < words.size(); i++) {
             words[i] = words[i].substring(0, 1).toUpperCase() + words[i].substring(1).toLowerCase();
         }
-    
+        
         return String.join(words, ' ');
     }
     
@@ -692,7 +690,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             return strValue;   
             
         }
-		return name;
+        return name;
     }
     
     /*
@@ -701,30 +699,32 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     * Descrição: Método criado para retornar a ORG atual.
     * Data.....: 18/08/2023
     */  
-	class SubWrapper {
-          String value;
-          String code;
-          String name;
-	}
+    class SubWrapper {
+        String value;
+        String code;
+        String name;
+    }
     class Wrapper{
         List<SubWrapper> Attribute;
     }    
     public String mapAttributes(Map<String, Object> inputMap) {
-    	
+        
         String obj1 = JSON.serialize(inputMap.get('map1'));
         String obj2 = JSON.serialize(inputMap.get('map2'));
+        System.debug('obj2 ' + obj2);
         
         Map<String, Object> map1 = (Map<String, Object>) JSON.deserializeUntyped(obj1);
         Wrapper objetoDesserializado = (Wrapper) JSON.deserialize(obj2, Wrapper.class);
-           
+        System.debug('objetoDesserializado ' + objetoDesserializado);
+        
         for(Subwrapper item : objetoDesserializado.Attribute){
             if(map1.containsKey(item.code)){
-            	item.value = String.valueOf(map1.get(item.code));
-        	}
+                item.value = String.valueOf(map1.get(item.code));
+            }
         }  
-		return JSON.Serialize(objetoDesserializado.Attribute); 
+        return JSON.Serialize(objetoDesserializado.Attribute); 
     }
-
+    
     /*
     * Autor....: Guilherme Kaiser - Deloitte
     * Projeto..: Vivo - VALENTINA
@@ -732,7 +732,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     * Data.....: 18/09/2023
     */
     public static Boolean getUserInCommunity(List<Object> arguments) {
-  		String sfdcBaseURL = URL.getCurrentRequestUrl().toExternalForm();
+        String sfdcBaseURL = URL.getCurrentRequestUrl().toExternalForm();
         String strValue = String.valueOf( sfdcBaseURL );
         system.debug('url...'+ strValue);        
         
@@ -745,75 +745,12 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     * Projeto..: Vivo - VALENTINA
     * Descrição: Método para recuperar DependentPicklist values de 1 campo específico
     * Data.....: 09/11/2023
-       
+    */
     public class MyPickListInfo {
         public String validFor;    
     }
     
-    public static List<Map<String, String>> getDependentPicklist(List<Object> arguments){
-        
-        String objectName       	= (String) arguments[0];
-        String controllingField 	= (String) arguments[1];
-        String dependentField   	= (String) arguments[2];
-		String pickListValueRequest = (String) arguments[3];
-        
-        List<Map<String, String>> listLabelValues = new List<Map<String, String>>();        
-        Map<String, String> mapItens = new Map<String, String>();
-        Map<String, List<String>> controllingInfo = new Map<String, List<String>>();
-        
-        Schema.SObjectType           objType              = Schema.getGlobalDescribe().get(objectName) ;
-        Schema.DescribeSObjectResult describeResult       = objType.getDescribe();
-        Schema.DescribeFieldResult   controllingFieldInfo = describeResult.fields.getMap().get(controllingField).getDescribe();
-        Schema.DescribeFieldResult   dependentFieldInfo   = describeResult.fields.getMap().get(dependentField).getDescribe();
-        
-        List<Schema.PicklistEntry>   controllingValues    = controllingFieldInfo.getPicklistValues();
-        List<Schema.PicklistEntry>   dependentValues      = dependentFieldInfo.getPicklistValues();
-               
-        for (Schema.PicklistEntry currControllingValue : controllingValues){
-            if(pickListValueRequest ==currControllingValue.getLabel()){
-            	controllingInfo.put(currControllingValue.getLabel(),new List<String>());
-            }
-        }
-        
-        for (Schema.PicklistEntry currDependentValue:dependentValues){
-            String  jsonString  = JSON.serialize(currDependentValue) ;
-            MyPickListInfo info = (MyPickListInfo)  JSON.deserialize(jsonString,MyPickListInfo.class) ;            
-            String  hexString   = EncodingUtil.convertToHex(EncodingUtil.base64Decode(info.validFor)).toUpperCase();            
-            Integer baseCount   =  0;
-            
-            for (Integer curr:hexString.getChars()){                
-                Integer  val  =  0;                
-                if  (curr  >=  65){
-                    val  =  curr - 65 + 10;
-                }  else  {
-                    val  =  curr - 48;                    
-                }
-                mapItens = new Map<String, String>();
-                mapItens.put('value', currDependentValue.getLabel());
-                mapItens.put('label', currDependentValue.getLabel());
-                
-                if (((val & 8)  ==  8) && (controllingValues[baseCount+0].getLabel()==pickListValueRequest))  {
-					controllingInfo.get (controllingValues[baseCount+0].getLabel()).add(currDependentValue.getLabel());  
-                    listLabelValues.add(mapItens);                    
-                }                
-                if (((val & 4)  ==  4) && (controllingValues[baseCount+1].getLabel()==pickListValueRequest))  {
-					controllingInfo.get (controllingValues[baseCount+1].getLabel()).add(currDependentValue.getLabel());                    
-                    listLabelValues.add(mapItens);
-                }                
-                if (((val & 2)  ==  2) && (controllingValues[baseCount+2].getLabel()==pickListValueRequest))  {
-					controllingInfo.get (controllingValues[baseCount+2].getLabel()).add(currDependentValue.getLabel());
-					listLabelValues.add(mapItens);
-                }                
-                if (((val & 1)  ==  1) && (controllingValues[baseCount+3].getLabel()==pickListValueRequest))  {
-                    controllingInfo.get(controllingValues[baseCount+3].getLabel()).add (currDependentValue.getLabel());
-                    listLabelValues.add(mapItens);
-                }
-                baseCount += 4;
-            }            
-        }
-        return listLabelValues;
-    }
-	*/ 
+
     
     /*
     * Autor....: Pedro Richtmann - Deloitte
@@ -823,24 +760,82 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     */ 
     
     public static String convertPicklistAPINameToLabel(List<Object> arguments) {
-  		
-		String sobjName = (String) arguments[0];
-		String objField = (String) arguments[1];
-		String fieldApiValue = (String) arguments[2];
-		
-		List < sObject > sList =Database.query('SELECT toLabel(' + objField + ') fieldLabel, ' + objField + ' FROM ' + sobjName + ' WHERE ' + objField + ' = \'' + fieldApiValue + '\' LIMIT 1' );
-		
+        
+        String sobjName = (String) arguments[0];
+        String objField = (String) arguments[1];
+        String fieldApiValue = (String) arguments[2];
+        
+        List < sObject > sList =Database.query('SELECT toLabel(' + objField + ') fieldLabel, ' + objField + ' FROM ' + sobjName + ' WHERE ' + objField + ' = \'' + fieldApiValue + '\' LIMIT 1' );
+        
         if ( !sList.isEmpty()){
             
-         	String s =  JSON.serialize(sList[0]);
-        
-			Map<String, Object> m = (Map<String, Object>) JSON.deserializeUntyped(s);
-			String result = String.valueOf(m.get('fieldLabel'));
-        
-			return result;   
+            String s =  JSON.serialize(sList[0]);
+            
+            Map<String, Object> m = (Map<String, Object>) JSON.deserializeUntyped(s);
+            String result = String.valueOf(m.get('fieldLabel'));
+            
+            return result;   
         }
         
-		return 'Valor nao encontrado';   
-	}
+        return 'Valor nao encontrado';   
+    }
+    
+    /*
+    * Autor....: Eduardo Murakami - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método para recuperar data e hora das últimas 24h
+    * Data.....: 05/01/2024
+    */
+    public static Decimal convertCurrencyToNumber(List<Object> argument) {
+        String currencyValue = (String) argument[0];
+        Decimal convertedAmount=0;
+        
+        if (currencyValue != null) {
+            // Remove o 'R$ ' da string de moeda, deixando apenas o valor numérico
+            String numericPart = currencyValue.replaceAll('[^0-9.]', '');
+            
+            convertedAmount = Decimal.valueOf(numericPart)/100;
+            System.Debug(numericPart);
+        }
+        
+        System.Debug(currencyValue);
+        System.Debug(convertedAmount);
+        return convertedAmount;
+    }
+    
+    /*
+    * Autor....: Eduardo Murakami - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método concatenar os valores de uma lista em uma String
+    * Data.....: 11/01/2024
+    */
+    public static String listToCommaSeparatedValues(List<Object> argument) {
+        
+        System.Debug('Entrou no método');  
+        
+        List<String> tmp1 = new List<String>();
+        String idString;
+        
+        for(Object obj : argument){
+            tmp1.add(String.valueOf(obj));
+        }
+        
+        idString = string.join(tmp1,',');
+        
+        System.Debug(tmp1);
+        System.Debug(idString);
+        return idString;
+        
+    }
+    
+    // Método para verificar se a string contém o valor especificado
+    public static Boolean contains(List<Object> argument) {
+        String inputString =  (String) argument[0];
+        String valueToCheck =  (String) argument[1];
+        if (inputString != null && valueToCheck != null) {
+            return inputString.contains(valueToCheck);
+        }
+        return false;
+    }
     
 }

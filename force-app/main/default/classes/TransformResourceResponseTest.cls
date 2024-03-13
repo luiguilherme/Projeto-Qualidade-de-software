@@ -12,4 +12,16 @@ private class TransformResourceResponseTest
         System.assert(result);
         Test.stopTest();
     } 
+
+    @isTest
+    static void invokeMethodEmptyTest()
+    {
+        String jsonString = '{"response":""}';
+        TransformResourceResponse TRR = new TransformResourceResponse();
+
+        Test.startTest();
+        Boolean result = TRR.invokeMethod('format', (Map<String, Object>)JSON.deserializeUntyped(jsonString), new Map<String, Object>(), new Map<String, Object>());
+        System.assert(result);
+        Test.stopTest();
+    } 
 }

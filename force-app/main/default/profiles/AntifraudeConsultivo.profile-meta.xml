@@ -5,7 +5,6 @@
         <default>false</default>
         <visible>true</visible>
     </applicationVisibilities>
-    
     <applicationVisibilities>
         <application>Industries_CPQ</application>
         <default>false</default>
@@ -296,6 +295,14 @@
     <classAccesses>
         <apexClass>BrazilianUrbanPropertyAddressTO</apexClass>
         <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>BulkReplaceFlowParameters</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CartIdJSONFilter</apexClass>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CTIServiceIntegrationController</apexClass>
@@ -1212,6 +1219,14 @@
     <classAccesses>
         <apexClass>PurgeServiceTransactionSchedule</apexClass>
         <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PicklistPopulation</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+	    <classAccesses>
+        <apexClass>ProductAssetService</apexClass>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>QuartaPlataformaRequestConfigurator</apexClass>
@@ -22392,6 +22407,10 @@
     <custom>true</custom>
     <customMetadataTypeAccesses>
         <enabled>true</enabled>
+        <name>FromToStatusRM__mdt</name>
+    </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <enabled>true</enabled>
         <name>vlocity_cmt__CpqMemberType__mdt</name>
     </customMetadataTypeAccesses>
     <customMetadataTypeAccesses>
@@ -22436,10 +22455,6 @@
     </customMetadataTypeAccesses>
     <customPermissions>
         <enabled>true</enabled>
-        <name>BloqueioDesbloqueioLinha</name>
-    </customPermissions>
-    <customPermissions>
-        <enabled>true</enabled>
         <name>Cancelamentodelinha</name>
     </customPermissions>
     <customPermissions>
@@ -22480,6 +22495,10 @@
     </customPermissions>
     <customPermissions>
         <enabled>true</enabled>
+        <name>CPQCartOperations</name>
+    </customPermissions> 
+    <customPermissions>
+        <enabled>true</enabled>
         <name>Editardetalhesdalinha</name>
     </customPermissions>
     <customPermissions>
@@ -22501,10 +22520,6 @@
     <customPermissions>
         <enabled>true</enabled>
         <name>Portabilidade</name>
-    </customPermissions>
-    <customPermissions>
-        <enabled>true</enabled>
-        <name>Reativacaodelinha</name>
     </customPermissions>
     <customPermissions>
         <enabled>true</enabled>
@@ -23762,9 +23777,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Asset.AcceptPromotion__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -27571,6 +27586,26 @@
         <field>CustomNote__c.Function__c</field>
         <readable>false</readable>
     </fieldPermissions>
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>CustomerNote__c.Description__c</field> 
+        <readable>true</readable>  
+    </fieldPermissions>
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>CustomerNote__c.InteractionNumber__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>CustomerNote__c.Priority__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>CustomerNote__c.Title__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions>  
     <fieldPermissions>
         <editable>true</editable>
         <field>Customer.CustomerStatusType</field>
@@ -31291,6 +31326,21 @@
         <field>Order.ApproverUserName__c</field>
         <readable>false</readable>
     </fieldPermissions>
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.AcceptLGPD__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+      <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.AcceptPromotion__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.Adabas__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
     <fieldPermissions>
         <editable>false</editable>
         <field>Order.BillToContactId</field>
@@ -31301,6 +31351,121 @@
         <field>Order.BillingAddress</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BOCity__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BODate__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BONumber__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>false</editable> 
+        <field>Order.BORemarks__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BOUF__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BO__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BillingAddressType__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BillingAddressType__c</field> 
+    <readable>true</readable> 
+    </fieldPermissions> 
+      <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BillingComplement1__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BillingComplement2__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BillingComplement3__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BillingComplement4__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BillingComplementType1__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BillingComplementType2__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BillingComplementType3__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BillingComplementType4__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BillingIBGECode__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BillingIBGECode__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BillingNeighborhood__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions>  
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BillingNumber__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BillingNumber__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BillingSREAddressId__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.BillingSREAddressId__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
     <fieldPermissions>
         <editable>false</editable>
         <field>Order.ChannelName__c</field>
@@ -31344,8 +31509,13 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Order.CountryCode__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.CurrentMSISDN__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
     <fieldPermissions>
         <editable>false</editable>
         <field>Order.CustomerAuthorizedById</field>
@@ -31396,6 +31566,21 @@
         <field>Order.InvoiceNumber__c</field>
         <readable>false</readable>
     </fieldPermissions>
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.LossofDocuments__c</field> 
+        <readable>true</readable> 
+      </fieldPermissions> 
+      <fieldPermissions> 
+        <editable>false</editable> 
+        <field>Order.Name</field> 
+        <readable>false</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.NumberofDays__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
     <fieldPermissions>
         <editable>false</editable>
         <field>Order.Name</field>
@@ -31436,6 +31621,16 @@
         <field>Order.PoDate</field>
         <readable>false</readable>
     </fieldPermissions>
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.PoliceStation__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.ProfileLogged__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
     <fieldPermissions>
         <editable>false</editable>
         <field>Order.PoNumber</field>
@@ -31477,9 +31672,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Order.SalesChannel__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -31487,9 +31682,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Order.SellerLogin__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -31511,6 +31706,11 @@
         <field>Order.StatusPID__c</field>
         <readable>false</readable>
     </fieldPermissions>
+    <fieldPermissions> 
+        <editable>true</editable> 
+        <field>Order.SuspendEndDate__c</field> 
+        <readable>true</readable> 
+    </fieldPermissions> 
     <fieldPermissions>
         <editable>false</editable>
         <field>Order.StoreUser__c</field>
@@ -31527,7 +31727,7 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Order.Type</field>
         <readable>true</readable>
     </fieldPermissions>
