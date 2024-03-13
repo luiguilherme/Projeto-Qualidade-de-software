@@ -10,9 +10,10 @@
         "actionMessage": "",
         "additionalInput": {
             "CancelarOrdens": "=%IPCheckPermission:UserPermission:CancelarOrdens%",
-            "IsValidForCancellation": "%IPAValidateInFlightOrder:IsValid%",
+            "IsValidForCancellation": "=IF(%IPAValidateInFlightOrder:IsValid% == true || %DRTGetOrderStatus:Order:Status% == \"Failed\", true, false)",
             "OrderId": "%OrderId%",
             "ProductCode": "PRE_RFS_SAP_001",
+            "TrocadePlanoOferta": "=%IPCheckPermission:UserPermission:TrocadePlanoOferta%",
             "VisualizarPlanodeOrquestracao": "=%IPCheckPermission:UserPermission:VisualizarPlanodeOrquestracao%",
             "orchPlanId": "%DRGetOrchestrationPlanId:orchPlan|1:Id%"
         },

@@ -10,16 +10,20 @@
         "HTMLTemplateId": "",
         "controlWidth": 12,
         "elementValueMap": {
+            "BlackListEmail": "=IF(%validationResponse:EmailBlackList%<>false, \"blackList\", \"notBlackList\")",
+            "BlackListOtherEmail": "=IF(%validationResponse:OtherEmailBlackList%<>false, \"blackList\", \"notBlackList\")",
             "ContactFieldsError": "=IF(%validationResponse:ShowErrorMessage%==false, true, false)",
-            "EmailError": "=%validationResponse:emailError%",
+            "EmailError": "=IF(%validationResponse:emailErrorMessage% != null ,true, false)",
             "EmailFormatValid": "=%validationResponse:emailFormatValid%",
-            "HaveEmail": "=IF(%StepRegistration:ContactData:PhoneSelect:ContactData:Email% == \"null\",true,false)",
+            "HaveEmail": "=IF(%StepRegister:ContactData:PhoneSelect:ContactData:Email% == \"null\",true,false)",
             "InvalidNationalityMessage": "=%validationResponse:invalidNationalityMessage%",
-            "MainAddressFieldsErrorMessage": "=%validationResponse:mainAddressFieldsErrorMessage%",
-            "ShippingAddressFieldsErrorMessage": "=%validationResponse:shippingAddressFieldsErrorMessage%",
+            "OtherEmailError": "=IF(%validationResponse:OtherEmailErrorMessage% != null ,true, false)",
+            "OtherEmailFormatValid": "%validationResponse:OtherEmailFormatValid%",
             "ShowErrorMessage": "=IF(%validationResponse:ShowErrorMessage%,true, false)",
             "ValidateNumberQuantityNumber": "=%validationResponse:ValidateNumberQuantityNumber%",
-            "emailMensageError": "%validationResponse:emailErrorMensage%"
+            "emailMensageError": "%validationResponse:emailErrorMensage%",
+            "validateEmailError": "%validationResponse:emailError%",
+            "validateOtherEmailError": "%validationResponse:OtherEmailError%"
         },
         "label": "SVShowErrorMessage",
         "message": {

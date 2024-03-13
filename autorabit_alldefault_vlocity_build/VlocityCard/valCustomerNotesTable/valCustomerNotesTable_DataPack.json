@@ -1,0 +1,102 @@
+{
+    "%vlocity_namespace%__Author__c": "Telefonica",
+    "%vlocity_namespace%__CardType__c": "flex",
+    "%vlocity_namespace%__Datasource__c": {
+        "dataSource": {
+            "contextVariables": [
+                {
+                    "id": 3,
+                    "name": "recordId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "interactionId": "{recordId}"
+                },
+                "ipMethod": "val_GetCustomerNotesDetails",
+                "jsonMap": "{\"recordId\":\"{recordId}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        },
+        "event-1_0": {
+            "contextVariables": [
+                {
+                    "id": 1,
+                    "name": "recordId",
+                    "val": ""
+                },
+                {
+                    "id": 3,
+                    "name": "action.value",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "Action": "Delete",
+                    "CustomerNoteId": "{action.value}"
+                },
+                "ipMethod": "val_customerNotesController",
+                "jsonMap": "{\"recordId\":\"{recordId}\",\"action.value\":\"{action.value}\"}",
+                "vlocityAsync": false
+            }
+        },
+        "event-1_1": {
+            "contextVariables": [
+                {
+                    "id": 6,
+                    "name": "IdToBeDeleted",
+                    "val": ""
+                },
+                {
+                    "id": 7,
+                    "name": "User.userId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "Action": "Delete",
+                    "CustomerNoteId": "{IdToBeDeleted}",
+                    "UserId": "{User.userId}"
+                },
+                "ipMethod": "val_customerNotesController",
+                "jsonMap": "{\"IdToBeDeleted\":\"{IdToBeDeleted}\",\"User.userId\":\"{User.userId}\"}",
+                "vlocityAsync": false
+            }
+        }
+    },
+    "%vlocity_namespace%__Definition__c": "valCustomerNotesTable.json",
+    "%vlocity_namespace%__Description__c": "[US-3034] - Visualizar Notas de atendimento",
+    "%vlocity_namespace%__GlobalKey__c": "valCustomerNotesTable/Telefonica/4/1701698311525",
+    "%vlocity_namespace%__IsChildCard__c": true,
+    "%vlocity_namespace%__ParentID__c": "",
+    "%vlocity_namespace%__SampleData__c": "{\"IsEmpty\":true}",
+    "%vlocity_namespace%__Styles__c": "",
+    "%vlocity_namespace%__Type__c": "",
+    "%vlocity_namespace%__Version__c": 4,
+    "Name": "valCustomerNotesTable",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityCard__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__VlocityCard__c/valCustomerNotesTable"
+}

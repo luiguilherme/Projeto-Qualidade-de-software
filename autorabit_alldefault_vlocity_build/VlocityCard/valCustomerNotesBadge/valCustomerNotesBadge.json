@@ -1,0 +1,1085 @@
+{
+    "dataSource": {
+        "contextVariables": [
+            {
+                "id": 1,
+                "name": "Parent.recordId",
+                "val": "a1c76000001bCh1AAE"
+            }
+        ],
+        "orderBy": {
+            "isReverse": "",
+            "name": ""
+        },
+        "type": "IntegrationProcedures",
+        "value": {
+            "dsDelay": "",
+            "inputMap": {
+                "CustomerInteractionId": "{Parent.recordId}"
+            },
+            "ipMethod": "val_GetCustomerNoteIconInfo",
+            "jsonMap": "{\"Parent.recordId\":\"{Parent.recordId}\"}",
+            "resultVar": "",
+            "vlocityAsync": false
+        }
+    },
+    "enableLwc": true,
+    "events": [
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1697637094585-x82h2pvi1",
+                    "label": "callValFlyout",
+                    "stateAction": {
+                        "displayName": "Action",
+                        "eventName": "valflyout",
+                        "extraParams": {
+                            "channel": "valCustomerNoteConfirmActionModal",
+                            "eventCancelName": "backEvent",
+                            "eventName": "showCustomerNotes",
+                            "labelBtnCancel": "Voltar",
+                            "labelBtnSave": "Visualizar Notas",
+                            "message": "O cliente possui nota(s) de atendimento importante(s)",
+                            "title": "Notas Importantes"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1698062648990",
+                        "message": "showFlyout",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "valCustomerNotesBadge",
+            "displayLabel": "valCustomerNotesBadge:showModal",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "showModal",
+            "eventtype": "pubsub",
+            "key": "event-0",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "contextId": "\\{Parent.ContextId}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1697638492476-zp17r45d9",
+                    "label": "NavigateToOmniScript",
+                    "stateAction": {
+                        "displayName": "Action",
+                        "extraParams": {
+                            "c__interactionId": "{Parent.recordId}",
+                            "c__interactionNumber": "{Parent.InteractionNumberResponse}"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1697638677544",
+                        "isLwcOS": true,
+                        "layoutType": "lightning",
+                        "omniType": {
+                            "Id": "a3076000000F8fhAAC",
+                            "Name": "val/valCustomerNotesDetailsPage/English",
+                            "isLwcOs": true
+                        },
+                        "openUrlIn": "New Tab/Window",
+                        "tabIcon": "{Parent.ConsoleTabIcon}",
+                        "tabLabel": "{Parent.ConsoleTabLabel}",
+                        "type": "OmniScript",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "valCustomerNoteConfirmActionModal",
+            "displayLabel": "valCustomerNoteConfirmActionModal:showCustomerNotes",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "showCustomerNotes",
+            "eventtype": "pubsub",
+            "key": "event-1",
+            "recordIndex": "0",
+            "showSpinner": "true"
+        }
+    ],
+    "globalCSS": true,
+    "isFlex": true,
+    "lwc": {
+        "DeveloperName": "cfValCustomerNotesBadge_4_TelefonicaValentina",
+        "Id": "0Rb78000000LXRzCAO",
+        "ManageableState": "unmanaged",
+        "MasterLabel": "cfValCustomerNotesBadge_4_TelefonicaValentina",
+        "NamespacePrefix": "c"
+    },
+    "selectableMode": "Multi",
+    "sessionVars": [
+    ],
+    "states": [
+        {
+            "actions": [
+            ],
+            "blankCardState": false,
+            "childCards": [
+            ],
+            "components": {
+                "layer-0": {
+                    "children": [
+                        {
+                            "class": "slds-col ",
+                            "element": "customLwc",
+                            "elementLabel": "Custom LWC-0",
+                            "name": "Custom LWC",
+                            "property": {
+                                "channel-name": "valCustomerNotesBadge",
+                                "customlwcname": "valGenericEventDispatcher",
+                                "event-name": "showModal"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "element"
+                        },
+                        {
+                            "class": "slds-col ",
+                            "element": "customLwc",
+                            "elementLabel": "Custom LWC-1",
+                            "name": "Custom LWC",
+                            "property": {
+                                "customlwcname": "valFlyout"
+                            },
+                            "size": {
+                                "default": 12,
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "size": {
+                                    "default": 12,
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "element"
+                        },
+                        {
+                            "children": [
+                            ],
+                            "class": "slds-col ",
+                            "element": "block",
+                            "elementLabel": "Block-2",
+                            "name": "Block",
+                            "property": {
+                                "card": "{card}",
+                                "collapsedByDefault": false,
+                                "collapsible": false,
+                                "label": "Block",
+                                "record": "{record}"
+                            },
+                            "size": {
+                                "default": "11",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "class": "slds-p-around_x-small",
+                                "padding": [
+                                    {
+                                        "size": "x-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "size": {
+                                    "default": "11",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_11-of-12 "
+                            },
+                            "type": "block"
+                        },
+                        {
+                            "children": [
+                                {
+                                    "class": "slds-col ",
+                                    "element": "flexIcon",
+                                    "elementLabel": "Icon-1",
+                                    "key": "element_element_block_2_0_flexIcon_0_0",
+                                    "name": "Icon",
+                                    "parentElementKey": "element_block_2_0",
+                                    "property": {
+                                        "action": {
+                                            "actionList": [
+                                                {
+                                                    "actionIndex": 0,
+                                                    "card": "{card}",
+                                                    "contextId": "\\{Parent.ContextId}",
+                                                    "draggable": false,
+                                                    "isOpen": true,
+                                                    "key": "1695931352327-1g99d7ovi",
+                                                    "label": "NavigateToOmniscript",
+                                                    "stateAction": {
+                                                        "displayName": "Action",
+                                                        "extraParams": {
+                                                            "c__interactionId": "{Parent.recordId}",
+                                                            "c__interactionNumber": "{Parent.InteractionNumberResponse}"
+                                                        },
+                                                        "hasExtraParams": true,
+                                                        "id": "flex-action-1697638309473",
+                                                        "isLwcOS": true,
+                                                        "layoutType": "lightning",
+                                                        "omniType": {
+                                                            "Id": "a3076000000F8fhAAC",
+                                                            "Name": "val/valCustomerNotesDetailsPage/English",
+                                                            "isLwcOs": true
+                                                        },
+                                                        "openUrlIn": "New Tab/Window",
+                                                        "tabIcon": "{Parent.ConsoleTabIcon}",
+                                                        "tabLabel": "{Parent.ConsoleTabLabel}",
+                                                        "type": "OmniScript",
+                                                        "vlocityIcon": "standard-default"
+                                                    }
+                                                }
+                                            ],
+                                            "eventType": "onclick",
+                                            "iconName": "standard-default",
+                                            "label": "Action",
+                                            "showSpinner": "false"
+                                        },
+                                        "card": "{card}",
+                                        "color": "#660099",
+                                        "extraclass": "slds-icon_container slds-icon__svg--default ",
+                                        "iconName": "utility:form",
+                                        "iconType": "Salesforce SVG",
+                                        "imgsrc": "",
+                                        "record": "{record}",
+                                        "size": "medium",
+                                        "variant": "default"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "serviceNotesIcon",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "customClass": "serviceNotesIcon",
+                                        "elementStyleProperties": {
+                                            "color": "#660099"
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    },
+                                    "styleObjects": [
+                                        {
+                                            "conditionString": "",
+                                            "conditions": "default",
+                                            "draggable": false,
+                                            "isSetForDesignTime": false,
+                                            "isopen": true,
+                                            "key": 0,
+                                            "label": "Default",
+                                            "name": "Default",
+                                            "styleObject": {
+                                                "background": {
+                                                    "color": "",
+                                                    "image": "",
+                                                    "position": "",
+                                                    "repeat": "",
+                                                    "size": ""
+                                                },
+                                                "border": {
+                                                    "color": "",
+                                                    "radius": "",
+                                                    "style": "",
+                                                    "type": "",
+                                                    "width": ""
+                                                },
+                                                "class": "serviceNotesIcon",
+                                                "container": {
+                                                    "class": ""
+                                                },
+                                                "customClass": "serviceNotesIcon",
+                                                "elementStyleProperties": {
+                                                    "color": "#660099"
+                                                },
+                                                "inlineStyle": "",
+                                                "margin": [
+                                                ],
+                                                "padding": [
+                                                ],
+                                                "size": {
+                                                    "default": "12",
+                                                    "isResponsive": false
+                                                },
+                                                "sizeClass": "slds-size_12-of-12 ",
+                                                "style": "      \n         ",
+                                                "text": {
+                                                    "align": "",
+                                                    "color": ""
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "outputField",
+                                    "elementLabel": "Text-2",
+                                    "key": "element_element_block_2_0_outputField_1_0",
+                                    "name": "Text",
+                                    "parentElementKey": "element_block_2_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "PriorityNumber",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-8",
+                                                    "operator": "<",
+                                                    "type": "custom",
+                                                    "value": "10"
+                                                },
+                                                {
+                                                    "field": "PriorityNumber",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-15",
+                                                    "logicalOperator": "&&",
+                                                    "operator": ">",
+                                                    "type": "custom",
+                                                    "value": "0"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "mergeField": "%3Cdiv%3E&lt;span%20style=%22position:%20absolute;top:%2010px;background-color:%20#c23934;color:%20#fff;border-radius:%2050%25;padding:%200.10rem%200.5rem;margin-left:%2013px;border:%203px%20solid%20#fff;%22&gt;%3Cstrong%3E%7BCustomerNotesNumber%7D%3C/strong%3E&lt;/span&gt;%3C/div%3E",
+                                        "record": "{record}"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 "
+                                    },
+                                    "type": "text"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "outputField",
+                                    "elementLabel": "Text-3",
+                                    "key": "element_element_block_2_0_outputField_2_0",
+                                    "name": "Text",
+                                    "parentElementKey": "element_block_2_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "PriorityNumber",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-0",
+                                                    "operator": ">=",
+                                                    "type": "custom",
+                                                    "value": "10"
+                                                },
+                                                {
+                                                    "field": "PriorityNumber",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-11",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "<",
+                                                    "type": "custom",
+                                                    "value": "100"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "mergeField": "%3Cdiv%3E&lt;span%20style=%22position:%20absolute;top:%2010px;background-color:%20#c23934;color:%20#fff;border-radius:%2050%25;padding:%200.10rem%200.3rem;margin-left:%2013px;border:%203px%20solid%20#fff;%22&gt;%3Cstrong%3E%7BCustomerNotesNumber%7D%3C/strong%3E&lt;/span&gt;%3C/div%3E",
+                                        "record": "{record}"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 "
+                                    },
+                                    "type": "text"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "outputField",
+                                    "elementLabel": "Text-4",
+                                    "key": "element_element_block_2_0_outputField_3_0",
+                                    "name": "Text",
+                                    "parentElementKey": "element_block_2_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "PriorityNumber",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-0",
+                                                    "operator": ">=",
+                                                    "type": "custom",
+                                                    "value": "100"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "mergeField": "%3Cdiv%3E&lt;span%20style=%22position:%20absolute;top:%2010px;background-color:%20#c23934;color:%20#fff;border-radius:%2050%25;padding:%200.10rem%200.1rem;margin-left:%2013px;border:%203px%20solid%20#fff;%22&gt;%3Cstrong%3E%7BCustomerNotesNumber%7D%3C/strong%3E&lt;/span&gt;%3C/div%3E",
+                                        "record": "{record}"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 "
+                                    },
+                                    "type": "text"
+                                }
+                            ],
+                            "class": "slds-col ",
+                            "element": "block",
+                            "elementLabel": "Block-3",
+                            "name": "Block",
+                            "property": {
+                                "card": "{card}",
+                                "collapsedByDefault": false,
+                                "collapsible": false,
+                                "label": "Block",
+                                "record": "{record}"
+                            },
+                            "size": {
+                                "default": "1",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "class": "slds-p-around_x-small",
+                                "padding": [
+                                    {
+                                        "size": "x-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "size": {
+                                    "default": "1",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_1-of-12 "
+                            },
+                            "type": "block"
+                        }
+                    ]
+                }
+            },
+            "conditions": {
+                "group": [
+                    {
+                        "field": "showToast",
+                        "hasMergeField": false,
+                        "id": "state-new-condition-0",
+                        "operator": "==",
+                        "type": "custom",
+                        "value": "true"
+                    }
+                ],
+                "id": "state-condition-object",
+                "isParent": true
+            },
+            "documents": [
+            ],
+            "fields": [
+            ],
+            "isSmartAction": false,
+            "name": "ShowToastState",
+            "omniscripts": [
+            ],
+            "smartAction": {
+            },
+            "styleObject": {
+                "background": {
+                    "color": "",
+                    "image": "",
+                    "position": "",
+                    "repeat": "",
+                    "size": ""
+                },
+                "border": {
+                    "color": "",
+                    "radius": "",
+                    "style": "",
+                    "type": "",
+                    "width": ""
+                },
+                "class": "",
+                "container": {
+                    "class": ""
+                },
+                "elementStyleProperties": {
+                },
+                "inlineStyle": "",
+                "margin": [
+                ],
+                "padding": [
+                ],
+                "size": {
+                    "default": "12",
+                    "isResponsive": false
+                },
+                "sizeClass": "slds-size_12-of-12 ",
+                "style": "      \n         ",
+                "text": {
+                    "align": "",
+                    "color": ""
+                }
+            }
+        },
+        {
+            "actions": [
+            ],
+            "blankCardState": false,
+            "childCards": [
+            ],
+            "components": {
+                "layer-0": {
+                    "children": [
+                        {
+                            "children": [
+                            ],
+                            "class": "slds-col ",
+                            "element": "block",
+                            "elementLabel": "Block-2",
+                            "name": "Block",
+                            "property": {
+                                "card": "{card}",
+                                "collapsedByDefault": false,
+                                "collapsible": false,
+                                "label": "Block",
+                                "record": "{record}"
+                            },
+                            "size": {
+                                "default": "11",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 1,
+                            "styleObject": {
+                                "class": "slds-p-around_x-small",
+                                "padding": [
+                                    {
+                                        "size": "x-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "size": {
+                                    "default": "11",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_11-of-12 "
+                            },
+                            "type": "block"
+                        },
+                        {
+                            "children": [
+                                {
+                                    "class": "slds-col ",
+                                    "element": "flexIcon",
+                                    "elementLabel": "Icon-1",
+                                    "key": "element_element_block_1_1_flexIcon_0_1",
+                                    "name": "Icon",
+                                    "parentElementKey": "element_block_1_1",
+                                    "property": {
+                                        "action": {
+                                            "actionList": [
+                                                {
+                                                    "actionIndex": 0,
+                                                    "card": "{card}",
+                                                    "contextId": "\\{Parent.ContextId}",
+                                                    "draggable": false,
+                                                    "isOpen": true,
+                                                    "key": "1695931352327-1g99d7ovi",
+                                                    "label": "NavigateToOmniscript",
+                                                    "stateAction": {
+                                                        "displayName": "Action",
+                                                        "extraParams": {
+                                                            "c__interactionId": "{Parent.recordId}",
+                                                            "c__interactionNumber": "{Parent.InteractionNumberResponse}"
+                                                        },
+                                                        "hasExtraParams": true,
+                                                        "id": "flex-action-1696511585568",
+                                                        "isLwcOS": true,
+                                                        "layoutType": "lightning",
+                                                        "omniType": {
+                                                            "Id": "a3076000000F8fhAAC",
+                                                            "Name": "val/valCustomerNotesDetailsPage/English",
+                                                            "isLwcOs": true
+                                                        },
+                                                        "openUrlIn": "New Tab/Window",
+                                                        "tabIcon": "{Parent.ConsoleTabIcon}",
+                                                        "tabLabel": "{Parent.ConsoleTabLabel}",
+                                                        "type": "OmniScript",
+                                                        "vlocityIcon": "standard-default"
+                                                    }
+                                                }
+                                            ],
+                                            "eventType": "onclick",
+                                            "iconName": "standard-default",
+                                            "label": "Action",
+                                            "showSpinner": "false"
+                                        },
+                                        "card": "{card}",
+                                        "color": "#660099",
+                                        "extraclass": "slds-icon_container slds-icon__svg--default ",
+                                        "iconName": "utility:form",
+                                        "iconType": "Salesforce SVG",
+                                        "imgsrc": "",
+                                        "record": "{record}",
+                                        "size": "medium",
+                                        "variant": "default"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 1,
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "serviceNotesIcon",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "customClass": "serviceNotesIcon",
+                                        "elementStyleProperties": {
+                                            "color": "#660099"
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    },
+                                    "styleObjects": [
+                                        {
+                                            "conditionString": "",
+                                            "conditions": "default",
+                                            "draggable": false,
+                                            "isSetForDesignTime": false,
+                                            "isopen": true,
+                                            "key": 0,
+                                            "label": "Default",
+                                            "name": "Default",
+                                            "styleObject": {
+                                                "background": {
+                                                    "color": "",
+                                                    "image": "",
+                                                    "position": "",
+                                                    "repeat": "",
+                                                    "size": ""
+                                                },
+                                                "border": {
+                                                    "color": "",
+                                                    "radius": "",
+                                                    "style": "",
+                                                    "type": "",
+                                                    "width": ""
+                                                },
+                                                "class": "serviceNotesIcon",
+                                                "container": {
+                                                    "class": ""
+                                                },
+                                                "customClass": "serviceNotesIcon",
+                                                "elementStyleProperties": {
+                                                    "color": "#660099"
+                                                },
+                                                "inlineStyle": "",
+                                                "margin": [
+                                                ],
+                                                "padding": [
+                                                ],
+                                                "size": {
+                                                    "default": "12",
+                                                    "isResponsive": false
+                                                },
+                                                "sizeClass": "slds-size_12-of-12 ",
+                                                "style": "      \n         ",
+                                                "text": {
+                                                    "align": "",
+                                                    "color": ""
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "outputField",
+                                    "elementLabel": "Text-2",
+                                    "key": "element_element_block_1_1_outputField_1_1",
+                                    "name": "Text",
+                                    "parentElementKey": "element_block_1_1",
+                                    "property": {
+                                        "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "PriorityNumber",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-0",
+                                                    "operator": "<",
+                                                    "type": "custom",
+                                                    "value": "10"
+                                                },
+                                                {
+                                                    "field": "PriorityNumber",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-25",
+                                                    "logicalOperator": "&&",
+                                                    "operator": ">",
+                                                    "type": "custom",
+                                                    "value": "0"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "mergeField": "%3Cdiv%3E&lt;span%20style=%22position:%20absolute;top:%2010px;background-color:%20#c23934;color:%20#fff;border-radius:%2050%25;padding:%200.10rem%200.5rem;margin-left:%2013px;border:%203px%20solid%20#fff;%22&gt;%3Cstrong%3E%7BCustomerNotesNumber%7D%3C/strong%3E&lt;/span&gt;%3C/div%3E",
+                                        "record": "{record}"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 1,
+                                    "styleObject": {
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 "
+                                    },
+                                    "type": "text"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "outputField",
+                                    "elementLabel": "Text-3",
+                                    "key": "element_element_block_1_1_outputField_2_1",
+                                    "name": "Text",
+                                    "parentElementKey": "element_block_1_1",
+                                    "property": {
+                                        "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "PriorityNumber",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-0",
+                                                    "operator": ">=",
+                                                    "type": "custom",
+                                                    "value": "10"
+                                                },
+                                                {
+                                                    "field": "PriorityNumber",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-11",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "<",
+                                                    "type": "custom",
+                                                    "value": "100"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "mergeField": "%3Cdiv%3E&lt;span%20style=%22position:%20absolute;top:%2010px;background-color:%20#c23934;color:%20#fff;border-radius:%2050%25;padding:%200.10rem%200.3rem;margin-left:%2013px;border:%203px%20solid%20#fff;%22&gt;%3Cstrong%3E%7BCustomerNotesNumber%7D%3C/strong%3E&lt;/span&gt;%3C/div%3E",
+                                        "record": "{record}"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 1,
+                                    "styleObject": {
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 "
+                                    },
+                                    "type": "text"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "outputField",
+                                    "elementLabel": "Text-4",
+                                    "key": "element_element_block_1_1_outputField_3_1",
+                                    "name": "Text",
+                                    "parentElementKey": "element_block_1_1",
+                                    "property": {
+                                        "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "PriorityNumber",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-0",
+                                                    "operator": ">=",
+                                                    "type": "custom",
+                                                    "value": "100"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "mergeField": "%3Cdiv%3E&lt;span%20style=%22position:%20absolute;top:%2010px;background-color:%20#c23934;color:%20#fff;border-radius:%2050%25;padding:%200.10rem%200.1rem;margin-left:%2013px;border:%203px%20solid%20#fff;%22&gt;%3Cstrong%3E%7BCustomerNotesNumber%7D%3C/strong%3E&lt;/span&gt;%3C/div%3E",
+                                        "record": "{record}"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 1,
+                                    "styleObject": {
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 "
+                                    },
+                                    "type": "text"
+                                }
+                            ],
+                            "class": "slds-col ",
+                            "element": "block",
+                            "elementLabel": "Block-3",
+                            "name": "Block",
+                            "property": {
+                                "card": "{card}",
+                                "collapsedByDefault": false,
+                                "collapsible": false,
+                                "label": "Block",
+                                "record": "{record}"
+                            },
+                            "size": {
+                                "default": "1",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 1,
+                            "styleObject": {
+                                "class": "slds-p-around_x-small",
+                                "padding": [
+                                    {
+                                        "size": "x-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "size": {
+                                    "default": "1",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_1-of-12 "
+                            },
+                            "type": "block"
+                        }
+                    ]
+                }
+            },
+            "conditions": {
+                "group": [
+                    {
+                        "field": "showToast",
+                        "hasMergeField": false,
+                        "id": "state-new-condition-27",
+                        "operator": "!=",
+                        "type": "custom",
+                        "value": "true"
+                    }
+                ],
+                "id": "state-condition-object",
+                "isParent": true
+            },
+            "documents": [
+            ],
+            "fields": [
+            ],
+            "isSmartAction": false,
+            "name": "Active",
+            "omniscripts": [
+            ],
+            "smartAction": {
+            },
+            "styleObject": {
+                "background": {
+                    "color": "",
+                    "image": "",
+                    "position": "",
+                    "repeat": "",
+                    "size": ""
+                },
+                "border": {
+                    "color": "",
+                    "radius": "",
+                    "style": "",
+                    "type": "",
+                    "width": ""
+                },
+                "class": "",
+                "container": {
+                    "class": ""
+                },
+                "elementStyleProperties": {
+                },
+                "inlineStyle": "",
+                "margin": [
+                ],
+                "padding": [
+                ],
+                "size": {
+                    "default": "12",
+                    "isResponsive": false
+                },
+                "sizeClass": "slds-size_12-of-12 ",
+                "style": "      \n         ",
+                "text": {
+                    "align": "",
+                    "color": ""
+                }
+            }
+        }
+    ],
+    "theme": "slds",
+    "title": "valCustomerNotesBadge",
+    "xmlJson": [
+        {
+            "@attributes": {
+                "targets": "lightning__AppPage"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "name": "debug",
+                        "type": "Boolean"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "name": "recordId",
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        {
+            "@attributes": {
+                "targets": "lightning__RecordPage"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "name": "debug",
+                        "type": "Boolean"
+                    }
+                }
+            ]
+        }
+    ],
+    "xmlObject": {
+        "masterLabel": "valCustomerNotesBadge",
+        "targetConfigs": "PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nX19BcHBQYWdlIj48cHJvcGVydHkgIG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48L3RhcmdldENvbmZpZz48dGFyZ2V0Q29uZmlnICB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPjxwcm9wZXJ0eSAgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+",
+        "targets": {
+            "target": [
+                "lightning__AppPage",
+                "lightning__RecordPage"
+            ]
+        }
+    }
+}

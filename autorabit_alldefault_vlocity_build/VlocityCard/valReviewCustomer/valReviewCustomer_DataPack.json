@@ -2,48 +2,76 @@
     "%vlocity_namespace%__Author__c": "Telefonica",
     "%vlocity_namespace%__CardType__c": "flex",
     "%vlocity_namespace%__Datasource__c": {
-        "contextVariables": [
-            {
-                "id": 1,
-                "name": "recordId",
-                "val": "a1c8D000000EczfQAC"
+        "dataSource": {
+            "contextVariables": [
+                {
+                    "id": 1,
+                    "name": "recordId",
+                    "val": "a1c8D000000EczfQAC"
+                },
+                {
+                    "id": 8,
+                    "name": "objectApiName",
+                    "val": "%vlocity_namespace%__CustomerInteraction__c"
+                },
+                {
+                    "id": 42,
+                    "name": "teste",
+                    "val": "lucas"
+                }
+            ],
+            "orderBy": {
+                "isReverse": false,
+                "name": ""
             },
-            {
-                "id": 8,
-                "name": "objectApiName",
-                "val": "%vlocity_namespace%__CustomerInteraction__c"
-            },
-            {
-                "id": 42,
-                "name": "teste",
-                "val": "lucas"
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "objectApiName": "{objectApiName}",
+                    "recordId": "{recordId}"
+                },
+                "ipMethod": "val_GetAccountData",
+                "jsonMap": "{\"recordId\":\"{recordId}\",\"objectApiName\":\"{objectApiName}\",\"teste\":\"{teste}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
             }
-        ],
-        "orderBy": {
-            "isReverse": false,
-            "name": ""
         },
-        "type": "IntegrationProcedures",
-        "value": {
-            "dsDelay": "",
-            "inputMap": {
-                "objectApiName": "{objectApiName}",
-                "recordId": "{recordId}"
+        "state0element0block_element1block_element2block_element2_0": {
+            "contextVariables": [
+                {
+                    "id": 5,
+                    "name": "ContextId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": false,
+                "name": ""
             },
-            "ipMethod": "val_GetAccountData",
-            "resultVar": "",
-            "vlocityAsync": false
+            "type": "IntegrationProcedures",
+            "value": {
+                "bundleType": "Extract",
+                "dsDelay": "",
+                "inputMap": {
+                    "InteractionId": "{ContextId}"
+                },
+                "ipMethod": "val_ValidateAccountTypeAndPlatform",
+                "jsonMap": "{\"ContextId\":\"{ContextId}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
         }
     },
     "%vlocity_namespace%__Definition__c": "valReviewCustomer.json",
-    "%vlocity_namespace%__Description__c": "Retirado o nome da Mãe (Filiação) do flexcard.",
-    "%vlocity_namespace%__GlobalKey__c": "valReviewCustomer/Telefonica/23/1695150683356",
+    "%vlocity_namespace%__Description__c": "Flex Card dinâmico que mostra principais dados do cliente.",
+    "%vlocity_namespace%__GlobalKey__c": "valReviewCustomer/Telefonica/28/1695063090429",
     "%vlocity_namespace%__IsChildCard__c": false,
     "%vlocity_namespace%__ParentID__c": "valCustomerInfo/Telefonica/1/1643033107121",
-    "%vlocity_namespace%__SampleData__c": "{\"IPResult\":{\"success\":false,\"error\":\"replaceString is not a Function or Operator\"},\"errorCode\":\"INVOKE-200\",\"error\":\"replaceString is not a Function or Operator\"}",
+    "%vlocity_namespace%__SampleData__c": "{\"PrefixId\":\"a1c\",\"permissionEnablePrepaid\":true,\"InteractionNumberResponse\":\"\",\"RealizarAlteracaoCadastral\":true,\"ProtocolOrigin\":null,\"FinalizarAtendimento\":true,\"UserInCommunity\":false,\"CustomerDetails\":{\"CustomerType\":\"\",\"TimeAsClient\":\"\",\"ShowComponent\":\"true\",\"PersonalData\":{\"Sex\":\"\",\"PersonType\":\"\",\"Occupation\":\"\",\"Naturalness\":\"\",\"Nationality\":\"\",\"MothersName\":\"\",\"MaritalStatus\":\"\",\"LastName\":\"\",\"FirstName\":\"\",\"Education\":\"\",\"CustomerName\":\"\",\"Birthdate\":\"\",\"AccountId\":\"\"},\"ParentId\":\"\",\"MotherName\":\"\",\"Documents\":{\"DocumentType\":\"\",\"DocumentNumberFormatted\":\"\",\"DocumentNumber\":\"\"},\"DigitalProfile\":\"\",\"CustomerSegment\":\"\",\"ApproverUser\":\"\",\"AgingMobile\":\"\",\"AdressDetails\":{\"Shipping\":{\"Street\":\"\",\"State\":\"\",\"PostalCode\":\"\",\"Number\":\"\",\"Neighborhood\":\"\",\"Country\":\"\",\"ComplementType4\":\"\",\"ComplementType3\":\"\",\"ComplementType2\":\"\",\"ComplementType1\":\"\",\"Complement4\":\"\",\"Complement3\":\"\",\"Complement2\":\"\",\"Complement1\":\"\",\"City\":\"\",\"AddressType\":\"\"},\"Billing\":{\"Street\":\"\",\"State\":\"\",\"PostalCode\":\"\",\"Number\":\"\",\"Neighborhood\":\"\",\"Country\":\"\",\"ComplementType4\":\"\",\"ComplementType3\":\"\",\"ComplementType2\":\"\",\"ComplementType1\":\"\",\"Complement4\":\"\",\"Complement3\":\"\",\"Complement2\":\"\",\"Complement1\":\"\",\"City\":\"\",\"AddressType\":\"\"}},\"AddressDetails\":{\"BillingIBGECode__c\":\"\"},\"%vlocity_namespace%__CustomerValue__c\":\"\",\"ContactDetails\":{\"OtherPhone\":\"Não Cadastrado\",\"OtherEmail\":\"Não Cadastrado\",\"MobilePhone\":\"Não Cadastrado\",\"HomePhone\":\"Não Cadastrado\",\"Email\":\"Não Cadastrado\",\"ContactPhone\":\"Não Cadastrado\"}},\"ShowResult\":\"0 resultados\",\"UserProfileName\":\"System Administrator\"}",
     "%vlocity_namespace%__Styles__c": "{\"customStyles\":\"\"}",
     "%vlocity_namespace%__Type__c": "",
-    "%vlocity_namespace%__Version__c": 23,
+    "%vlocity_namespace%__Version__c": 28,
     "Name": "valReviewCustomer",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityCard__c",

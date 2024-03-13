@@ -23,9 +23,9 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "AccountId": "=IF(%DREGetConsumerAccountId:Account:ParentId% != $Vlocity.NULL, %DREGetConsumerAccountId:Account:ParentId%, %DREGetConsumerAccountId:Account:Id%)",
+            "AccountId": "%DRGetOrderId:Order:ServiceAccountId%",
             "Assets": "=IF(ISNOTBLANK(%DRGetMostRecentAndOtherAssets%), %Assets%, \"\")",
-            "DREGetConsumer": "=%DRGetMostRecentAndOtherAssets%",
+            "ConsumerAccountId": "%DRGetOrderId:Order:ConsumerAccountId%",
             "RAGetAttributes": "=%RAGetAttributes%"
         },
         "additionalOutput": {

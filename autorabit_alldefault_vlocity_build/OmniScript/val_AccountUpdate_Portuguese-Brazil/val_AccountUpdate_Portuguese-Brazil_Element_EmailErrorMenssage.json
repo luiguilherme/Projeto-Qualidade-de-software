@@ -22,19 +22,19 @@
     "%vlocity_namespace%__ParentElementType__c": "Block",
     "%vlocity_namespace%__PropertySet__c": {
         "HTMLTemplateId": "",
-        "controlWidth": 7,
+        "controlWidth": 6,
         "hideLabel": true,
-        "label": "EmailErrorMenssage",
+        "label": "E-mail Principal",
         "messages": [
             {
                 "active": true,
-                "text": "%validationResponse:emailErrorMensage%",
+                "text": "%validationResponse:emailErrorMessage%",
                 "type": "Warning",
                 "value": true
             },
             {
                 "active": true,
-                "text": "%validationResponse:emailErrorMensage%",
+                "text": "%validationResponse:emailErrorMessage%",
                 "type": "Success",
                 "value": false
             }
@@ -44,12 +44,17 @@
         "toastMode": "pester",
         "validateExpression": {
             "group": {
-                "operator": "AND",
+                "operator": "OR",
                 "rules": [
                     {
                         "condition": "<>",
                         "data": "false",
                         "field": "validationResponse:emailError"
+                    },
+                    {
+                        "condition": "=",
+                        "data": "NOK",
+                        "field": "validationResponse:EmailStatusCode"
                     }
                 ]
             }

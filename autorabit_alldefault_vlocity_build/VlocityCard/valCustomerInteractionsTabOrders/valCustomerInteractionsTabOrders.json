@@ -1,6 +1,11 @@
 {
     "dataSource": {
         "contextVariables": [
+            {
+                "id": 3,
+                "name": "recordId",
+                "val": ""
+            }
         ],
         "orderBy": {
             "isReverse": false,
@@ -9,7 +14,11 @@
         "type": "IntegrationProcedures",
         "value": {
             "dsDelay": "",
+            "inputMap": {
+                "recordId": "{recordId}"
+            },
             "ipMethod": "val_GetUserPermission",
+            "jsonMap": "{\"recordId\":\"{recordId}\"}",
             "resultVar": "",
             "vlocityAsync": false
         }
@@ -49,10 +58,10 @@
     ],
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValCustomerInteractionsTabOrders_1_FelipeSilveira",
-        "Id": "0Rb78000000LHSSCA4",
+        "DeveloperName": "cfValCustomerInteractionsTabOrders_2_FelipeSilveira",
+        "Id": "0Rb78000000LXLJCA4",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValCustomerInteractionsTabOrders_1_FelipeSilveira",
+        "MasterLabel": "cfValCustomerInteractionsTabOrders_2_FelipeSilveira",
         "NamespacePrefix": "c"
     },
     "selectableMode": "Multi",
@@ -69,12 +78,17 @@
                         {
                             "class": "slds-col ",
                             "element": "childCardPreview",
-                            "elementLabel": "FlexCard-1",
+                            "elementLabel": "FlexCard-0",
                             "name": "FlexCard",
                             "property": {
                                 "cardName": "valCustomerOrders",
                                 "cardNode": "",
                                 "isChildCardTrackingEnabled": false,
+                                "parentAttribute": {
+                                    "AccountId": "{AccountId}",
+                                    "CustomerInteractionNumber": "{InteractionNumber}",
+                                    "InteractionId": "{ContextId}"
+                                },
                                 "recordId": "{recordId}",
                                 "selectedState": "Active"
                             },
@@ -264,7 +278,8 @@
     "xmlJson": [
         {
             "@attributes": {
-                "targets": "lightning__AppPage"
+                "targets": "lightning__AppPage",
+                "xmlns": "http://soap.sforce.com/2006/04/metadata"
             },
             "property": [
                 {
@@ -283,7 +298,8 @@
         },
         {
             "@attributes": {
-                "targets": "lightning__RecordPage"
+                "targets": "lightning__RecordPage",
+                "xmlns": "http://soap.sforce.com/2006/04/metadata"
             },
             "property": [
                 {
@@ -293,16 +309,36 @@
                     }
                 }
             ]
+        },
+        {
+            "@attributes": {
+                "targets": "lightningCommunity__Default",
+                "xmlns": ""
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "name": "recordId",
+                        "type": "String"
+                    }
+                }
+            ]
         }
     ],
     "xmlObject": {
+        "apiVersion": 51,
+        "isExplicitImport": false,
+        "isExposed": true,
         "masterLabel": "valCustomerInteractionsTabOrders",
-        "targetConfigs": "PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgogICAgICAgICAgICAgICAgICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgICAgICAgICAgICAgICAgICA8cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPgogICAgICAgICAgICAgICAgICA8L3RhcmdldENvbmZpZz4KICAgICAgICAgICAgICAgICAgPHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPgogICAgICAgICAgICAgICAgICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgICAgICAgICAgICAgIDwvdGFyZ2V0Q29uZmlnPg==",
+        "runtimeNamespace": "%vlocity_namespace%",
+        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgogICAgICA8cHJvcGVydHkgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iLz4KICAgICAgPHByb3BlcnR5IG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciLz4KICAgIDwvdGFyZ2V0Q29uZmlnPgogICAgPHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPgogICAgICA8cHJvcGVydHkgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iLz4KICAgIDwvdGFyZ2V0Q29uZmlnPgogICAgPHRhcmdldENvbmZpZyB4bWxucz0iIiB0YXJnZXRzPSJsaWdodG5pbmdDb21tdW5pdHlfX0RlZmF1bHQiPgogICAgICA8cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPgogICAgPC90YXJnZXRDb25maWc+",
         "targets": {
             "target": [
                 "lightning__RecordPage",
                 "lightning__AppPage",
-                "lightning__HomePage"
+                "lightning__HomePage",
+                "lightningCommunity__Page",
+                "lightningCommunity__Default"
             ]
         }
     }

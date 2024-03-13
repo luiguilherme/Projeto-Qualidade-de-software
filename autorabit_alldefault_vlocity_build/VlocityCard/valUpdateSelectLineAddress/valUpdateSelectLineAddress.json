@@ -1,0 +1,954 @@
+{
+    "dataSource": {
+        "contextVariables": [
+        ],
+        "orderBy": {
+            "isReverse": "",
+            "name": ""
+        },
+        "type": "Custom",
+        "value": {
+            "body": "{\n  \"postalCode\": \"\",\n  \"street\": \"\",\n  \"state\": \"\",\n  \"addressType\": \"\",\n  \"neighborhood\": \"\",\n  \"number\": \"\",\n  \"city\": \"\",\n  \"mailBox\": \"\",\n  \"complement1\": \"\",\n  \"complement2\": \"\",\n  \"complement3\": \"\",\n  \"complement4\": \"\",\n  \"complementType1\": \"\",\n  \"complementType2\": \"\",\n  \"complementType3\": \"\",\n  \"complementType4\": \"\"\n}",
+            "dsDelay": "",
+            "resultVar": ""
+        }
+    },
+    "enableLwc": true,
+    "events": [
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1698427672796-09ko9anv4",
+                    "label": "SetValuesFlexCard",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "postalCode",
+                                "fieldValue": "{action.postalCode}"
+                            },
+                            {
+                                "fieldName": "street",
+                                "fieldValue": "{action.street}"
+                            },
+                            {
+                                "fieldName": "state",
+                                "fieldValue": "{action.state}"
+                            },
+                            {
+                                "fieldName": "addressType",
+                                "fieldValue": "{action.addressType}"
+                            },
+                            {
+                                "fieldName": "neighborhood",
+                                "fieldValue": "{action.neighborhood}"
+                            },
+                            {
+                                "fieldName": "number",
+                                "fieldValue": "{action.number}"
+                            },
+                            {
+                                "fieldName": "city",
+                                "fieldValue": "{action.city}"
+                            },
+                            {
+                                "fieldName": "mailBox",
+                                "fieldValue": "{action.mailBox}"
+                            },
+                            {
+                                "fieldName": "complement1",
+                                "fieldValue": "{action.complement1}"
+                            },
+                            {
+                                "fieldName": "complement2",
+                                "fieldValue": "{action.complement2}"
+                            },
+                            {
+                                "fieldName": "complement3",
+                                "fieldValue": "{action.complement3}"
+                            },
+                            {
+                                "fieldName": "complement4",
+                                "fieldValue": "{action.complement4}"
+                            },
+                            {
+                                "fieldName": "complementType1",
+                                "fieldValue": "{action.complementType1}"
+                            },
+                            {
+                                "fieldName": "complementType2",
+                                "fieldValue": "{action.complementType2}"
+                            },
+                            {
+                                "fieldName": "complementType3",
+                                "fieldValue": "{action.complementType3}"
+                            },
+                            {
+                                "fieldName": "complementType4",
+                                "fieldValue": "{action.complementType4}"
+                            },
+                            {
+                                "fieldName": "userSelected",
+                                "fieldValue": "true"
+                            }
+                        ],
+                        "id": "flex-action-1699454618778",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": true,
+                    "key": "1698427815218-sp5ztic3k",
+                    "label": "UpdateOmni",
+                    "stateAction": {
+                        "displayName": "Action",
+                        "elementId": "UpdateAddressDetails",
+                        "extraParams": {
+                            "addressType": "{addressType}",
+                            "city": "{city}",
+                            "complement1": "{complement1}",
+                            "complement2": "{complement2}",
+                            "complement3": "{complement3}",
+                            "complement4": "{complement4}",
+                            "complementType1": "{complementType1}",
+                            "complementType2": "{complementType2}",
+                            "complementType3": "{complementType3}",
+                            "complementType4": "{complementType4}",
+                            "mailBox": "{mailBox}",
+                            "neighborhood": "{neighborhood}",
+                            "number": "{number}",
+                            "postalCode": "{postalCode}",
+                            "state": "{state}",
+                            "street": "{street}"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1698427947103",
+                        "openUrlIn": "Current Window",
+                        "type": "updateOmniScript",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "valSelectLineAddressData",
+            "displayLabel": "valSelectLineAddressData:ServiceAddress",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "ServiceAddress",
+            "eventtype": "pubsub",
+            "key": "event-0",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        }
+    ],
+    "isFlex": true,
+    "lwc": {
+        "DeveloperName": "cfValUpdateSelectLineAddress",
+        "Id": "0Rb78000000LXSOCA4",
+        "ManageableState": "unmanaged",
+        "MasterLabel": "cfValUpdateSelectLineAddress",
+        "NamespacePrefix": "c"
+    },
+    "multilanguageSupport": true,
+    "osSupport": true,
+    "selectableMode": "Multi",
+    "states": [
+        {
+            "actions": [
+            ],
+            "childCards": [
+                "valComplementUpdateLineAddress"
+            ],
+            "components": {
+                "layer-0": {
+                    "children": [
+                        {
+                            "children": [
+                                {
+                                    "class": "slds-col ",
+                                    "element": "baseInputElement",
+                                    "elementLabel": "Block-0-Text-0",
+                                    "key": "element_element_block_0_0_baseInputElement_0_0",
+                                    "name": "Text",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "propertyObj": {
+                                            "customProperties": [
+                                                {
+                                                    "id": 0,
+                                                    "label": "disabled",
+                                                    "value": "true"
+                                                }
+                                            ],
+                                            "fieldBinding": "{postalCode}",
+                                            "label": "CEP",
+                                            "required": true
+                                        },
+                                        "record": "{record}",
+                                        "type": "text"
+                                    },
+                                    "size": {
+                                        "default": "2",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "class": "slds-p-right_x-small",
+                                        "margin": [
+                                            {
+                                                "size": "xx-small",
+                                                "type": "bottom"
+                                            }
+                                        ],
+                                        "padding": [
+                                            {
+                                                "size": "small",
+                                                "type": "right"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "2",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_2-of-12 "
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "baseInputElement",
+                                    "elementLabel": "Block-0-Text-1",
+                                    "key": "element_element_block_0_0_baseInputElement_1_0",
+                                    "name": "Text",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "propertyObj": {
+                                            "customProperties": [
+                                                {
+                                                    "id": 0,
+                                                    "label": "disabled",
+                                                    "value": "true"
+                                                }
+                                            ],
+                                            "fieldBinding": "{addressType}",
+                                            "label": "Tipo",
+                                            "required": true
+                                        },
+                                        "record": "{record}",
+                                        "type": "text"
+                                    },
+                                    "size": {
+                                        "default": "2",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "class": "slds-p-right_x-small",
+                                        "margin": [
+                                            {
+                                                "size": "xx-small",
+                                                "type": "bottom"
+                                            }
+                                        ],
+                                        "padding": [
+                                            {
+                                                "size": "small",
+                                                "type": "right"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "2",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_2-of-12 "
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "baseInputElement",
+                                    "elementLabel": "Block-0-Text-2",
+                                    "key": "element_element_block_0_0_baseInputElement_2_0",
+                                    "name": "Text",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "propertyObj": {
+                                            "customProperties": [
+                                                {
+                                                    "id": 0,
+                                                    "label": "disabled",
+                                                    "value": "true"
+                                                }
+                                            ],
+                                            "fieldBinding": "{street}",
+                                            "label": "Logradouro",
+                                            "required": true
+                                        },
+                                        "record": "{record}",
+                                        "type": "text"
+                                    },
+                                    "size": {
+                                        "default": "4",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "class": "slds-p-right_x-small",
+                                        "margin": [
+                                            {
+                                                "size": "xx-small",
+                                                "type": "bottom"
+                                            }
+                                        ],
+                                        "padding": [
+                                            {
+                                                "size": "small",
+                                                "type": "right"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "4",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_4-of-12 "
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "baseInputElement",
+                                    "elementLabel": "Block-0-Number-3",
+                                    "key": "element_element_block_0_0_baseInputElement_3_0",
+                                    "name": "Number",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "action": {
+                                            "actionList": [
+                                                {
+                                                    "actionIndex": 0,
+                                                    "card": "{card}",
+                                                    "draggable": false,
+                                                    "isOpen": true,
+                                                    "key": "1700656388594-ydzkwvp73",
+                                                    "label": "UpdateOmni",
+                                                    "stateAction": {
+                                                        "displayName": "Action",
+                                                        "elementId": "UpdateAddressDetails",
+                                                        "extraParams": {
+                                                            "number": "{number}"
+                                                        },
+                                                        "hasExtraParams": true,
+                                                        "id": "flex-action-1700656418651",
+                                                        "openUrlIn": "Current Window",
+                                                        "type": "updateOmniScript",
+                                                        "vlocityIcon": "standard-default"
+                                                    }
+                                                }
+                                            ],
+                                            "eventType": "onchange",
+                                            "iconName": "standard-default",
+                                            "label": "Action",
+                                            "showSpinner": "false"
+                                        },
+                                        "card": "{card}",
+                                        "propertyObj": {
+                                            "action": {
+                                                "actionList": [
+                                                    {
+                                                        "actionIndex": 0,
+                                                        "card": "{card}",
+                                                        "draggable": false,
+                                                        "isOpen": true,
+                                                        "key": "1700656388594-ydzkwvp73",
+                                                        "label": "UpdateOmni",
+                                                        "stateAction": {
+                                                            "displayName": "Action",
+                                                            "elementId": "UpdateAddressDetails",
+                                                            "extraParams": {
+                                                                "number": "{number}"
+                                                            },
+                                                            "hasExtraParams": true,
+                                                            "id": "flex-action-1700656418651",
+                                                            "openUrlIn": "Current Window",
+                                                            "type": "updateOmniScript",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    }
+                                                ],
+                                                "eventType": "onchange",
+                                                "iconName": "standard-default",
+                                                "label": "Action",
+                                                "showSpinner": "false"
+                                            },
+                                            "fieldBinding": "{number}",
+                                            "label": "Número",
+                                            "required": true
+                                        },
+                                        "record": "{record}",
+                                        "type": "number"
+                                    },
+                                    "size": {
+                                        "default": "3",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "class": "slds-p-right_x-small",
+                                        "margin": [
+                                            {
+                                                "size": "xx-small",
+                                                "type": "bottom"
+                                            }
+                                        ],
+                                        "padding": [
+                                            {
+                                                "size": "small",
+                                                "type": "right"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "3",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_3-of-12 "
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "baseInputElement",
+                                    "elementLabel": "Block-0-Text-5",
+                                    "key": "element_element_block_0_0_baseInputElement_4_0",
+                                    "name": "Text",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "propertyObj": {
+                                            "customProperties": [
+                                                {
+                                                    "id": 0,
+                                                    "label": "disabled",
+                                                    "value": "true"
+                                                }
+                                            ],
+                                            "fieldBinding": "{neighborhood}",
+                                            "label": "Bairro",
+                                            "required": true
+                                        },
+                                        "record": "{record}",
+                                        "type": "text"
+                                    },
+                                    "size": {
+                                        "default": "3",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "class": "slds-p-right_x-small",
+                                        "margin": [
+                                            {
+                                                "size": "xx-small",
+                                                "type": "bottom"
+                                            }
+                                        ],
+                                        "padding": [
+                                            {
+                                                "size": "small",
+                                                "type": "right"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "3",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_3-of-12 "
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "baseInputElement",
+                                    "elementLabel": "Block-0-Text-6",
+                                    "key": "element_element_block_0_0_baseInputElement_5_0",
+                                    "name": "Text",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "propertyObj": {
+                                            "customProperties": [
+                                                {
+                                                    "id": 0,
+                                                    "label": "disabled",
+                                                    "value": "true"
+                                                }
+                                            ],
+                                            "fieldBinding": "{city}",
+                                            "label": "Cidade",
+                                            "required": true
+                                        },
+                                        "record": "{record}",
+                                        "type": "text"
+                                    },
+                                    "size": {
+                                        "default": "3",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "class": "slds-p-right_x-small",
+                                        "margin": [
+                                            {
+                                                "size": "xx-small",
+                                                "type": "bottom"
+                                            }
+                                        ],
+                                        "padding": [
+                                            {
+                                                "size": "small",
+                                                "type": "right"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "3",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_3-of-12 "
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "baseInputElement",
+                                    "elementLabel": "Block-0-Text-7",
+                                    "key": "element_element_block_0_0_baseInputElement_6_0",
+                                    "name": "Text",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "propertyObj": {
+                                            "customProperties": [
+                                                {
+                                                    "id": 0,
+                                                    "label": "disabled",
+                                                    "value": "true"
+                                                }
+                                            ],
+                                            "fieldBinding": "{state}",
+                                            "label": "Estado",
+                                            "required": true
+                                        },
+                                        "record": "{record}",
+                                        "type": "text"
+                                    },
+                                    "size": {
+                                        "default": "2",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "class": "slds-p-right_x-small",
+                                        "margin": [
+                                            {
+                                                "size": "xx-small",
+                                                "type": "bottom"
+                                            }
+                                        ],
+                                        "padding": [
+                                            {
+                                                "size": "small",
+                                                "type": "right"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "2",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_2-of-12 "
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "baseInputElement",
+                                    "elementLabel": "Block-0-Text-8",
+                                    "key": "element_element_block_0_0_baseInputElement_7_0",
+                                    "name": "Text",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "propertyObj": {
+                                            "customProperties": [
+                                                {
+                                                    "id": 0,
+                                                    "label": "disabled",
+                                                    "value": "true"
+                                                }
+                                            ],
+                                            "fieldBinding": "",
+                                            "label": "País",
+                                            "required": true,
+                                            "value": "BR"
+                                        },
+                                        "record": "{record}",
+                                        "type": "text"
+                                    },
+                                    "size": {
+                                        "default": "3",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "class": "slds-p-right_x-small",
+                                        "margin": [
+                                            {
+                                                "size": "xx-small",
+                                                "type": "bottom"
+                                            }
+                                        ],
+                                        "padding": [
+                                            {
+                                                "size": "small",
+                                                "type": "right"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "3",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_3-of-12 "
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "baseInputElement",
+                                    "elementLabel": "Block-0-Text-9",
+                                    "key": "element_element_block_0_0_baseInputElement_8_0",
+                                    "name": "Text",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "mailBox",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-0",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "true"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "propertyObj": {
+                                            "customProperties": [
+                                                {
+                                                    "id": 0,
+                                                    "label": "disabled",
+                                                    "value": "true"
+                                                }
+                                            ],
+                                            "fieldBinding": "",
+                                            "label": "Tipo de Complemento",
+                                            "required": true,
+                                            "value": "Caixa Postal"
+                                        },
+                                        "record": "{record}",
+                                        "type": "text"
+                                    },
+                                    "size": {
+                                        "default": "3",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "class": "slds-p-right_x-small",
+                                        "margin": [
+                                            {
+                                                "size": "xx-small",
+                                                "type": "bottom"
+                                            }
+                                        ],
+                                        "padding": [
+                                            {
+                                                "size": "small",
+                                                "type": "right"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "3",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_3-of-12 "
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "baseInputElement",
+                                    "elementLabel": "Block-0-Text-10",
+                                    "key": "element_element_block_0_0_baseInputElement_9_0",
+                                    "name": "Text",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "action": {
+                                            "actionList": [
+                                                {
+                                                    "actionIndex": 0,
+                                                    "card": "{card}",
+                                                    "draggable": false,
+                                                    "isOpen": true,
+                                                    "key": "1698428403935-txnj3qgww",
+                                                    "label": "updateOmni",
+                                                    "stateAction": {
+                                                        "displayName": "Action",
+                                                        "elementId": "UpdateAddressDetails",
+                                                        "extraParams": {
+                                                            "complement1": "{complement1}"
+                                                        },
+                                                        "hasExtraParams": true,
+                                                        "id": "flex-action-1698428426789",
+                                                        "openUrlIn": "Current Window",
+                                                        "type": "updateOmniScript",
+                                                        "vlocityIcon": "standard-default"
+                                                    }
+                                                }
+                                            ],
+                                            "eventType": "onchange",
+                                            "iconName": "standard-default",
+                                            "label": "Action",
+                                            "showSpinner": "false"
+                                        },
+                                        "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "mailBox",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-7",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "true"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "propertyObj": {
+                                            "action": {
+                                                "actionList": [
+                                                    {
+                                                        "actionIndex": 0,
+                                                        "card": "{card}",
+                                                        "draggable": false,
+                                                        "isOpen": true,
+                                                        "key": "1698428403935-txnj3qgww",
+                                                        "label": "updateOmni",
+                                                        "stateAction": {
+                                                            "displayName": "Action",
+                                                            "elementId": "UpdateAddressDetails",
+                                                            "extraParams": {
+                                                                "complement1": "{complement1}"
+                                                            },
+                                                            "hasExtraParams": true,
+                                                            "id": "flex-action-1698428426789",
+                                                            "openUrlIn": "Current Window",
+                                                            "type": "updateOmniScript",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    }
+                                                ],
+                                                "eventType": "onchange",
+                                                "iconName": "standard-default",
+                                                "label": "Action",
+                                                "showSpinner": "false"
+                                            },
+                                            "customProperties": [
+                                            ],
+                                            "fieldBinding": "{complement1}",
+                                            "label": "Caixa Postal",
+                                            "required": true,
+                                            "value": ""
+                                        },
+                                        "record": "{record}",
+                                        "type": "text"
+                                    },
+                                    "size": {
+                                        "default": "3",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "class": "slds-p-right_x-small",
+                                        "margin": [
+                                            {
+                                                "size": "xx-small",
+                                                "type": "bottom"
+                                            }
+                                        ],
+                                        "padding": [
+                                            {
+                                                "size": "small",
+                                                "type": "right"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "3",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_3-of-12 "
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "childCardPreview",
+                                    "elementLabel": "Block-0-FlexCard-11",
+                                    "key": "element_element_block_0_0_childCardPreview_10_0",
+                                    "name": "FlexCard",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "cardName": "valComplementUpdateLineAddress",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "mailBox",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-14",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "false"
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "isChildCardTrackingEnabled": false,
+                                        "parentAttribute": {
+                                            "ContextOmni": "Select"
+                                        },
+                                        "recordId": "{recordId}",
+                                        "selectedState": "InsertRecords"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "sizeClass": "slds-size_12-of-12"
+                                    },
+                                    "type": "element"
+                                }
+                            ],
+                            "class": "slds-col ",
+                            "element": "block",
+                            "elementLabel": "Block-0",
+                            "name": "Block",
+                            "property": {
+                                "card": "{card}",
+                                "collapsedByDefault": false,
+                                "collapsible": false,
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "userSelected",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-7",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "true"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "label": "Block",
+                                "record": "{record}"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "class": "slds-p-around_x-small",
+                                "padding": [
+                                    {
+                                        "size": "x-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "block"
+                        }
+                    ]
+                }
+            },
+            "conditions": {
+                "group": [
+                ],
+                "id": "state-condition-object",
+                "isParent": true
+            },
+            "definedActions": {
+                "actions": [
+                ]
+            },
+            "documents": [
+            ],
+            "fields": [
+            ],
+            "isSmartAction": false,
+            "name": "Active",
+            "omniscripts": [
+            ],
+            "smartAction": {
+            },
+            "styleObject": {
+                "class": "slds-card slds-p-around_x-small slds-m-bottom_x-small",
+                "container": {
+                    "class": "slds-card"
+                },
+                "margin": [
+                    {
+                        "size": "none",
+                        "type": "around"
+                    }
+                ],
+                "padding": [
+                    {
+                        "size": "x-small",
+                        "type": "around"
+                    }
+                ],
+                "size": {
+                    "default": "12",
+                    "isResponsive": false
+                },
+                "sizeClass": "slds-size_12-of-12"
+            }
+        }
+    ],
+    "theme": "slds",
+    "title": "valUpdateSelectLineAddress"
+}

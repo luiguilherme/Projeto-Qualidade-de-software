@@ -6,12 +6,27 @@
         "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ProductOrdering/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
+    "%vlocity_namespace%__ParentElementId__c": {
+        "%vlocity_namespace%__OmniScriptId__c": {
+            "Name": "valProductOrdering",
+            "VlocityDataPackType": "VlocityMatchingKeyObject",
+            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ProductOrdering/Procedure",
+            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+        },
+        "Name": "CBValidations",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ProductOrdering/Procedure/CBValidations",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
+    },
+    "%vlocity_namespace%__ParentElementName__c": "CBValidations",
+    "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
+            "returnCode": "=\"PO-ERROR-019\"",
             "returnMessage": "=\"Não é possível remover o plano da linha.\""
         },
         "disOnTplt": false,
-        "executionConditionalFormula": "IF(%orderItem:action% == \"del\" && %orderItem:productOffering:id% == %DREGetAssetDetails:productCode% && %DREGetAssetDetails:productType% == \"Plan\",true, false)",
+        "executionConditionalFormula": "IF(%orderItem:action% == \"delete\" && %orderItem:productCharacteristic|1:name% == \"Plan\",true, false)",
         "label": "ResponseAction11",
         "responseDefaultData": {
         },

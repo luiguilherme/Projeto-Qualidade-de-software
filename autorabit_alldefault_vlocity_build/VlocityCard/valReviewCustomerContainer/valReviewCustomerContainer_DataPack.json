@@ -118,6 +118,109 @@
                 "resultVar": "",
                 "vlocityAsync": false
             }
+        },
+        "state0element5_0": {
+            "contextVariables": [
+                {
+                    "id": 1,
+                    "name": "Session.LineNumber",
+                    "val": ""
+                },
+                {
+                    "id": 7,
+                    "name": "Session.InteractionNumber",
+                    "val": ""
+                },
+                {
+                    "id": 6,
+                    "name": "recordId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "LineNumber": "{Session.LineNumber}",
+                    "ProtocolNumber": "{Session.InteractionNumber}",
+                    "accountId": "{recordId}"
+                },
+                "ipMethod": "val_StartCreateRemoteCustomer",
+                "jsonMap": "{\"Session.LineNumber\":\"{Session.LineNumber}\",\"Session.InteractionNumber\":\"{Session.InteractionNumber}\",\"recordId\":\"{recordId}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        },
+        "state0element5_1": {
+            "contextVariables": [
+                {
+                    "id": 4,
+                    "name": "Session.InteractionId",
+                    "val": ""
+                },
+                {
+                    "id": 12,
+                    "name": "Session.TopicName",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "interactionId": "{Session.InteractionId}",
+                    "outcome": "Completo",
+                    "process": "Cadastro Linha Sem Cadastro",
+                    "topicName": "{Session.TopicName}"
+                },
+                "ipMethod": "val_CreateCustomerInteractionTopic",
+                "jsonMap": "{\"Session.InteractionId\":\"{Session.InteractionId}\",\"Session.TopicName\":\"{Session.TopicName}\"}",
+                "vlocityAsync": false
+            }
+        },
+        "state0element5_2": {
+            "contextVariables": [
+                {
+                    "id": 6,
+                    "name": "Session.InteractionId",
+                    "val": ""
+                },
+                {
+                    "id": 7,
+                    "name": "interactionTopicId",
+                    "val": ""
+                },
+                {
+                    "id": 6,
+                    "name": "Session.TopicName",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "interactionId": "{Session.InteractionId}",
+                    "interactionTopicId": "{interactionTopicId}",
+                    "topicName": "{Session.TopicName}"
+                },
+                "ipMethod": "val_CallOutProtocolItemVivoNet",
+                "jsonMap": "{\"Session.InteractionId\":\"{Session.InteractionId}\",\"interactionTopicId\":\"{interactionTopicId}\",\"Session.TopicName\":\"{Session.TopicName}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
         }
     },
     "%vlocity_namespace%__Definition__c": "valReviewCustomerContainer.json",
