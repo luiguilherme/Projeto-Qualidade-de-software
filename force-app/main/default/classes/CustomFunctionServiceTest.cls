@@ -147,20 +147,7 @@ public class CustomFunctionServiceTest {
         c.invokeMethod('trim', inputs, output, options);
         System.assertEquals('teste', output.get('result'));
     }
-    @isTest    
-    public static void testTrimClass(){
-        Map<String, Object> inputs = new Map<String, Object>();
-        Map<String, Object> output = new Map<String, Object>();
-        Map<String, Object> options = new Map<String, Object>();
-        
-        List<object> objectList = new List<object>();
-        objectList.add(' tes te ');
-        inputs.put('arguments',objectList);
-        
-        CustomFunctionService c = new CustomFunctionService();
-        c.invokeMethod('trimClass', inputs, output, options);
-        System.assertEquals('tes te', output.get('result'));
-    }
+
     @isTest    
     public static void testlength(){
         Map<String, Object> inputs = new Map<String, Object>();
@@ -419,7 +406,7 @@ public class CustomFunctionServiceTest {
     }   
     
     @isTest
-    static void testGetLabel() {
+    static void testGetLabel_ScheduleFound() {
         Map<String, Object> inputs = new Map<String, Object>();
         Map<String, Object> output = new Map<String, Object>();
         Map<String, Object> options = new Map<String, Object>();
@@ -434,7 +421,415 @@ public class CustomFunctionServiceTest {
         System.debug(output);
         System.assert(output.get('result') != null);
     }
-	
+    
+    @isTest
+    static void testGetLabel_InvalidCPF() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('InvalidCPF');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_ValidCPF() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('ValidCPF');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_CPFTryAgain() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('CPFTryAgain');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_CPFIrregular() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('CPFIrregular');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_CPFPEPThirdParty() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('CPFPEPThirdParty');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_CPFPEPThirdPartyLR() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('CPFPEPThirdPartyLR');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_CPFUnderageThirdParty() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('CPFUnderageThirdParty');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_CPFPEPFirstParty() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('CPFPEPFirstParty');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_CPFPEPFirstPartyLP() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('CPFPEPFirstPartyLP');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_CPFUnderageFirstParty() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('CPFUnderageFirstParty');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_valApprovalProcessApprovalClientWithRestriction() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('valApprovalProcessApprovalClientWithRestriction');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_valApprovalProcessMinorAge() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('valApprovalProcessMinorAge');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_valApprovalProcessNameWithDifference() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('valApprovalProcessNameWithDifference');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_valApprovalProcessLimitQtyMonth() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('valApprovalProcessLimitQtyMonth');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_valApprovalProcessTotalLimit() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('valApprovalProcessTotalLimit');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_valApprovalProcessApprovalRequested() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('valApprovalProcessApprovalRequested');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_valApprovalProcessApprovalMessage() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('valApprovalProcessApprovalMessage');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_valApprovalProcessSelectOneApprover() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('valApprovalProcessSelectOneApprover');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_valApprovalProcessApprovalLabel() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('valApprovalProcessApprovalLabel');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_valApprovalProcessDonate() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('valApprovalProcessDonate');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_valICCIDErrorCombo() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('valICCIDErrorCombo');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_InvalidFirstLastName() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('InvalidFirstLastName');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_valApprovalProcessMessageHeader() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('valApprovalProcessMessageHeader');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
+    @isTest
+    static void testGetLabel_valApprovalProcessMessageFooter() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('valApprovalProcessMessageFooter');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getLabel', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') != null);
+    }
+    
 	@isTest
     static void testproperCase() {
         Map<String, Object> inputs = new Map<String, Object>();
@@ -463,27 +858,6 @@ public class CustomFunctionServiceTest {
         System.assert(output.get('result') != null);
     }
     
-    /*
-    @isTest
-    public static void testgetDependentPicklist(){
-        Map<String, Object> inputs = new Map<String, Object>();
-        Map<String, Object> output = new Map<String, Object>();
-        Map<String, Object> options = new Map<String, Object>();
-
-        List<object> objectList = new List<object>();
-        objectList.add('CustomerInteractionTopicTree__c');
-        objectList.add('CaseHandling__c');
-        objectList.add('SLA__c');
-        objectList.add('Grupo de Atendimento - Ouvidoria');
-
-        inputs.put('arguments', objectList);
-        
-        CustomFunctionService c = new CustomFunctionService();
-        c.invokeMethod('getDependentPicklist', inputs, output, options);
-        System.debug(output);
-        System.assertEquals('({label=10, value=10})', String.valueOf(output.get('result')));
-    }
-	*/	
 	
     @isTest
     public  static void testconvertPicklistAPINameToLabel(){
@@ -499,5 +873,43 @@ public class CustomFunctionServiceTest {
         CustomFunctionService c = new CustomFunctionService();
         c.invokeMethod('convertPicklistAPINameToLabel', inputs, output, options);
         System.debug(output);
-    } 
+    }
+    
+    @isTest
+    static void testListToCommaSeparatedValues() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+        // Crie alguns dados de teste para a lista
+        List<Object> testList = new List<Object>{'Value1', 'Value2', 'Value3'};
+        
+        inputs.put('arguments',testList);
+
+        // Chame o método que você deseja testar
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('listToCommaSeparatedValues', inputs, output, options);
+        System.debug(output);
+
+        // Verifique se o resultado está correto
+        System.assertEquals('Value1,Value2,Value3', String.valueOf(output.get('result')));
+    }
+
+    @isTest
+    static void testConvertCurrencyToNumber() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+        // Crie alguns dados de teste para o método
+        List<Object> testArguments = new List<Object>{'R$ 123,45'};
+        inputs.put('arguments',testArguments);
+
+        // Chame o método que você deseja testar
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('convertCurrencyToNumber', inputs, output, options);
+        System.debug(output);
+
+        // Verifique se o resultado está correto
+        System.assertEquals('123.45', String.valueOf(output.get('result')));
+    }
+
 }

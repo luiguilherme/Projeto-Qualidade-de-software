@@ -11,8 +11,10 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "MSN": "=IF(%Email% ==  || %RAValidateEmailFormat:result% == false,\"Formato de e-mail inválido.\",\"Formato de e-mail válido.\")",
-            "isvalid": "=%RAValidateEmailFormat:result%"
+            "MSNEmail": "=IF(ISNOTBLANK(%email%) && %RAValidateEmailFormat:result% == false,\"Formato do e-mail principal inválido.\", IF(ISBLANK(%email%), null, \"Formato do e-mail principal válido.\")",
+            "MSNOtherEmail": "=IF(ISNOTBLANK(%otherEmail%) && %RAValidateOtherEmailFormat:result% == false,\"Formato do e-mail alternativo inválido.\", IF(ISBLANK(%otherEmail%), null, \"Formato do e-mail alternativo válido.\"))",
+            "isvalidEmail": "=%RAValidateEmailFormat:result%",
+            "isvalidOtherEmail": "=%RAValidateOtherEmailFormat:result%"
         },
         "executionConditionalFormula": "",
         "failOnStepError": false,

@@ -1,0 +1,41 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valByPassValidateEmail",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ByPassValidateEmail/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "additionalOutput": {
+            "httpStatusCodeEmail": "%HTTPByPassValidateEmailInfo:statusCode%",
+            "httpStatusCodeOtherEmail": "%HTTPByPassValidateOtherEmailInfo:statusCode%",
+            "request": "%SVRequest%",
+            "responseBypassEmail": "%HTTPByPassValidateEmail%",
+            "responseBypassOtherEmail": "%HTTPByPassValidateOtherEmail%"
+        },
+        "disOnTplt": false,
+        "executionConditionalFormula": "(%HTTPByPassValidateEmailInfo:statusCode% >= 200 && %HTTPByPassValidateEmailInfo:statusCode% <= 299) && (%HTTPByPassValidateOtherEmailInfo:statusCode% >= 200 && %HTTPByPassValidateOtherEmailInfo:statusCode% <= 299)",
+        "label": "ResponseAction1",
+        "responseDefaultData": {
+        },
+        "responseFormat": "JSON",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "returnFullDataJSON": false,
+        "returnOnlyAdditionalOutput": true,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "show": null,
+        "useFormulas": true,
+        "vlcResponseHeaders": {
+            "statusCode": 200
+        }
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Response Action",
+    "Name": "ResponseAction",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ByPassValidateEmail/Procedure/ResponseAction"
+}

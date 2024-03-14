@@ -11,7 +11,8 @@
             "error": "=%HTTPRegistration:message%",
             "errorCode": "=%HTTPRegistrationInfo:statusCode%",
             "request": "=%RegistrationRequest%",
-            "response": "=%HTTPRegistration%"
+            "response": "=IF(ISBLANK(%HTTPRegistration%), %SuccessHTTPCode%, %HTTPRegistration%)",
+            "status": "=IF(%HTTPRegistrationInfo:statusCode% == 200, true, false)"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",

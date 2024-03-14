@@ -6,12 +6,27 @@
         "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ProductOrdering/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
+    "%vlocity_namespace%__ParentElementId__c": {
+        "%vlocity_namespace%__OmniScriptId__c": {
+            "Name": "valProductOrdering",
+            "VlocityDataPackType": "VlocityMatchingKeyObject",
+            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ProductOrdering/Procedure",
+            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+        },
+        "Name": "CBValidations",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ProductOrdering/Procedure/CBValidations",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
+    },
+    "%vlocity_namespace%__ParentElementName__c": "CBValidations",
+    "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "returnMessage": "=\"Pedido Inexistente.\""
+            "returnCode": "=\"PO-ERROR-000\"",
+            "returnMessage": "=\"Pedido não encontrado.\""
         },
         "disOnTplt": false,
-        "executionConditionalFormula": "IF(ISBLANK(%DREGetAssetDetails:orderId%), true, false)",
+        "executionConditionalFormula": "IF(ISBLANK(%GetAssets:asset|1:%vlocity_namespace%__OrderProductId__r%) && ISBLANK(%GetPromotion:asset|1:%vlocity_namespace%__OrderProductId__r%), true, false)",
         "label": "ResponseAction5",
         "responseDefaultData": {
         },

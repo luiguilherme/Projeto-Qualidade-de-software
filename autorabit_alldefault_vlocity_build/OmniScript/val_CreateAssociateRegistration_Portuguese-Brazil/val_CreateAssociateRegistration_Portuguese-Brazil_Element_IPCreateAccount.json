@@ -19,9 +19,14 @@
             "default": null
         },
         "extraPayload": {
+            "OrderId": " %StepRegister:OptinOptout:ReviewPermission:optin:OrderId%",
+            "SObject": "Account",
+            "acceptContact": "%StepRegister:OptinOptout:ReviewPermission:optin:acceptContact%",
+            "acceptDataUse": "%StepRegister:OptinOptout:ReviewPermission:optin:acceptDataUse%",
             "accountId": "%customerInteractionValues:resultValueMap:idAccount%",
             "contactId": "%customerInteractionValues:resultValueMap:idContact%",
             "isBlocked": "%isBlocked%",
+            "mainAddress": "%AddressOptinResult%",
             "mainIdSRE": "%MainIdSRE%",
             "shippingIdSRE": "%ShippingIdSRE%"
         },
@@ -55,7 +60,7 @@
         "responseJSONNode": "CreatedAccount",
         "responseJSONPath": "",
         "sendJSONNode": "",
-        "sendJSONPath": "StepRegistration",
+        "sendJSONPath": "StepRegister",
         "show": {
             "group": {
                 "operator": "AND",
@@ -69,6 +74,16 @@
                         "condition": "<>",
                         "data": "true",
                         "field": "ShowValidate"
+                    },
+                    {
+                        "condition": "=",
+                        "data": "false",
+                        "field": "BlackList"
+                    },
+                    {
+                        "condition": "=",
+                        "data": "true",
+                        "field": "showOmniNextStepGenericButton"
                     }
                 ]
             }

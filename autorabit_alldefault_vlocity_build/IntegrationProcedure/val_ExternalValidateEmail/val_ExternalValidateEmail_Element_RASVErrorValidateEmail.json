@@ -6,26 +6,10 @@
         "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ExternalValidateEmail/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
-    "%vlocity_namespace%__ParentElementId__c": {
-        "%vlocity_namespace%__OmniScriptId__c": {
-            "Name": "valExternalValidateEmail",
-            "VlocityDataPackType": "VlocityMatchingKeyObject",
-            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ExternalValidateEmail/Procedure",
-            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
-        },
-        "Name": "ConditionalBlock2",
-        "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ExternalValidateEmail/Procedure/ConditionalBlock2",
-        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
-    },
-    "%vlocity_namespace%__ParentElementName__c": "ConditionalBlock2",
-    "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "MSN": "=%SVResponseHTTP:message%",
-            "ValidateEmail": "=IF(%SVResponseHTTP:emailError%== false, \"success\", \"warning\")",
-            "errorEmail": "=IF(%SVResponseHTTP:emailError%== true, true, false)",
-            "statusCode": "%HTTPValidateEmail:statusCode%"
+            "ReturnMSNEmail": "=IF(%HTTPValidateEmail:statusDescription% LIKE \"Sistema temporariamente indisponível\" || %HTTPValidateEmail:returnCode% == \"18\", %HTTPValidateEmail%, IF(ISNOTBLANK(%SVReturnMSNEmail%), %SVReturnMSNEmail%, \"Formato do e-mail principal válido.\"))",
+            "ReturnMSNOtherEmail": "=IF(%HTTPValidateOtherEmail:statusDescription% LIKE \"Sistema temporariamente indisponível\" || %HTTPValidateOtherEmail:returnCode% == \"18\", %HTTPValidateOtherEmail%, IF(ISNOTBLANK(%SVReturnMSNOtherEmail%), %SVReturnMSNOtherEmail%, \"Formato do e-mail alternativo válido.\"))"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",

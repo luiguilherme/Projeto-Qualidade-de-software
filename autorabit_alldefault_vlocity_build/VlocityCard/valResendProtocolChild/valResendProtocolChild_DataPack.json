@@ -1,0 +1,250 @@
+{
+    "%vlocity_namespace%__Author__c": "Telefonica",
+    "%vlocity_namespace%__CardType__c": "flex",
+    "%vlocity_namespace%__Datasource__c": {
+        "dataSource": {
+            "contextVariables": [
+                {
+                    "id": 25,
+                    "name": "Parent.protocolNumber",
+                    "val": "20230197662831"
+                },
+                {
+                    "id": 26,
+                    "name": "Parent.accountId",
+                    "val": "0017600000XcL23AAF"
+                },
+                {
+                    "id": 48,
+                    "name": "Parent.openingDate",
+                    "val": "2023-11-22T14:17:43.358Z"
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "DataRaptor",
+            "value": {
+                "bundle": "valGetAccountAndCustomerInteraction",
+                "bundleType": "",
+                "dsDelay": "",
+                "inputMap": {
+                    "AccountId": "{Parent.accountId}",
+                    "InteractionNumber": "{Parent.protocolNumber}",
+                    "OpeningDate": "{Parent.openingDate}"
+                },
+                "jsonMap": "{\"Parent.protocolNumber\":\"{Parent.protocolNumber}\",\"Parent.accountId\":\"{Parent.accountId}\",\"Parent.openingDate\":\"{Parent.openingDate}\"}",
+                "resultVar": ""
+            }
+        },
+        "state0element1block_element1block_element1block_element2_1": {
+            "contextVariables": [
+                {
+                    "id": 8,
+                    "name": "Parent.protocolNumber",
+                    "val": ""
+                },
+                {
+                    "id": 10,
+                    "name": "Parent.openingDate",
+                    "val": ""
+                },
+                {
+                    "id": 11,
+                    "name": "userAdabas",
+                    "val": ""
+                },
+                {
+                    "id": 8,
+                    "name": "CreatedDateIntegration",
+                    "val": ""
+                },
+                {
+                    "id": 9,
+                    "name": "Email",
+                    "val": ""
+                },
+                {
+                    "id": 17,
+                    "name": "ProtocolNumber",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "ProtocolNumber": "{Parent.protocolNumber}",
+                    "StartDateTime": "{CreatedDateIntegration}",
+                    "email": "{Email}",
+                    "userAdabas": "{userAdabas}"
+                },
+                "ipMethod": "val_ResendProtocolByEmails",
+                "jsonMap": "{\"Parent.protocolNumber\":\"{Parent.protocolNumber}\",\"Parent.openingDate\":\"{Parent.openingDate}\",\"userAdabas\":\"{userAdabas}\",\"CreatedDateIntegration\":\"{CreatedDateIntegration}\",\"Email\":\"{Email}\",\"ProtocolNumber\":\"{ProtocolNumber}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        },
+        "state0element1block_element1block_element1block_element2_2": {
+            "contextVariables": [
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "TopicName": "Reenvio Protocolo"
+                },
+                "ipMethod": "val_GetInteractionTopicNameFromTopicsAuto",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        },
+        "state0element1block_element1block_element1block_element2_3": {
+            "contextVariables": [
+                {
+                    "id": 30,
+                    "name": "recordId",
+                    "val": "a1c760000014ykkAAA"
+                },
+                {
+                    "id": 6,
+                    "name": "InteractionNumber",
+                    "val": "20230197665619"
+                },
+                {
+                    "id": 7,
+                    "name": "topicName",
+                    "val": "Início > Vivo Móvel Pré-Pago > Solicitação > Atendimento > Reenvio Protocolo"
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "InteractionId": "{recordId}",
+                    "interactionNumber": "{InteractionNumber}",
+                    "processName": "Reenvio Protocolo",
+                    "topicName": "{topicName}"
+                },
+                "ipMethod": "val_CreateCustomerInteractionAndTopic",
+                "jsonMap": "{\"recordId\":\"{recordId}\",\"InteractionNumber\":\"{InteractionNumber}\",\"topicName\":\"{topicName}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        },
+        "state0element1block_element1block_element1block_element2_4": {
+            "contextVariables": [
+                {
+                    "id": 30,
+                    "name": "recordId",
+                    "val": "a1c760000014ykkAAA"
+                },
+                {
+                    "id": 4,
+                    "name": "topicName",
+                    "val": "Início > Vivo Móvel Pré-Pago > Solicitação > Atendimento > Reenvio Protocolo"
+                },
+                {
+                    "id": 6,
+                    "name": "interactionTopicId",
+                    "val": "a1b76000000gJN6AAM"
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "interactionId": "{recordId}",
+                    "interactionTopicId": "{interactionTopicId}",
+                    "topicName": "{topicName}"
+                },
+                "ipMethod": "val_CallOutProtocolItemVivoNet",
+                "jsonMap": "{\"recordId\":\"{recordId}\",\"topicName\":\"{topicName}\",\"interactionTopicId\":\"{interactionTopicId}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        },
+        "state0element1block_element1block_element1block_element3_1": {
+            "contextVariables": [
+                {
+                    "id": 8,
+                    "name": "Parent.protocolNumber",
+                    "val": ""
+                },
+                {
+                    "id": 10,
+                    "name": "Parent.openingDate",
+                    "val": ""
+                },
+                {
+                    "id": 11,
+                    "name": "userAdabas",
+                    "val": ""
+                },
+                {
+                    "id": 8,
+                    "name": "CreatedDateIntegration",
+                    "val": ""
+                },
+                {
+                    "id": 9,
+                    "name": "Email",
+                    "val": ""
+                },
+                {
+                    "id": 8,
+                    "name": "ProtocolNumber",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "ProtocolNumber": "{Parent.protocolNumber}",
+                    "StartDateTime": "{CreatedDateIntegration}",
+                    "email": "{Email}",
+                    "userAdabas": "{userAdabas}"
+                },
+                "ipMethod": "val_ResendProtocolByEmails",
+                "jsonMap": "{\"Parent.protocolNumber\":\"{Parent.protocolNumber}\",\"Parent.openingDate\":\"{Parent.openingDate}\",\"userAdabas\":\"{userAdabas}\",\"CreatedDateIntegration\":\"{CreatedDateIntegration}\",\"Email\":\"{Email}\",\"ProtocolNumber\":\"{ProtocolNumber}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        }
+    },
+    "%vlocity_namespace%__Definition__c": "valResendProtocolChild.json",
+    "%vlocity_namespace%__Description__c": "Bloco 6 - Correção Bug #1010009 Octane Vivo:[PTI2283-3029-BLOCO6-ESTEIRA1] - Fraseologia campo Email sendo exibido fora de padrão (Daniel Saraiva)",
+    "%vlocity_namespace%__GlobalKey__c": "valResendProtocolChild/Telefonica/8/1702929192466",
+    "%vlocity_namespace%__IsChildCard__c": true,
+    "%vlocity_namespace%__ParentID__c": "valResendProtocoloChild/Telefonica/1/1699540205504",
+    "%vlocity_namespace%__SampleData__c": "[{\"userAdabas\":\"\",\"show\":\"false\",\"variant\":\"\",\"message\":\"\",\"Email\":\"\",\"CreatedDateIntegration\":\"2023-11-22 14:17:43\",\"createdDateProtocol\":\"22/11/2023 14:17\",\"StartDateTime\":\"2023-12-28T19:26:39.628Z\",\"Status\":\"Em Progresso\",\"InteractionNumber\":\"20230197662831\"}]",
+    "%vlocity_namespace%__Styles__c": "{\"customStyles\":\"button2 {\\r\\ndisplay: block;\\r\\nwidth: 100%;\\r\\npadding: 12px;\\r\\nfont-family: Salesforce sans;\\r\\nfont-size: 12px;\\r\\nfont-weight: bold;\\r\\ncolor: 792BA4;\\r\\nbackground-color: #792BA4;\\r\\nborder: none;\\r\\nborder-radius: 4px;\\r\\n}\\r\\nbutton2:hover {\\r\\nbackground-color: #591E79;\\r\\n}\\r\\n\\r\\n@media only screen and (max-width: 600px) {\\r\\nbutton {\\r\\nfont-size: 16px;\\r\\n}\\r\\n}\"}",
+    "%vlocity_namespace%__Type__c": "",
+    "%vlocity_namespace%__Version__c": 8,
+    "Name": "valResendProtocolChild",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityCard__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__VlocityCard__c/valResendProtocolChild"
+}

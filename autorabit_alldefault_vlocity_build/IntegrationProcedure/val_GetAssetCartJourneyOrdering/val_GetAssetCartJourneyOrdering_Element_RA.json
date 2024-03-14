@@ -1,0 +1,60 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "GetAssetCartJourneyOrdering",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/GetAssetCartJourneyOrdering/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "additionalOutput": {
+            "AccountId": "%DREGetLineDetails:AccountId%",
+            "Acquisition": "%DREGetLineDetails:Acquisition%",
+            "CreatedOrder": "%IPAssetToOrder%",
+            "DDD": "%DREGetLineDetails:DDD%",
+            "LineDetails": "%DREGetLineDetails%",
+            "LineNumber": "%DREGetLineDetails:ServiceIdentifier%",
+            "OrderId": "=IF(%Functionality%=='AdditionalPackage'||%Functionality%=='ServiceManagement'||(%Functionality%=='Promotion' && %ProcessReason%=='ChangePlan'), %IPAssetToOrder:cartId%, IF(%Functionality%=='Promotion' && %ProcessReason%=='ChangePlanPromotion',%IPStartBulkCreateGroups:cartId%,null))",
+            "PriceBookId": "%DREGetPriceListId:PriceBookId%",
+            "PriceListCode": "%SVDefault:PriceListCode%",
+            "PriceListId": "%DREGetPriceListId:PriceListId%",
+            "ProductCode": "%SVDefault:ProductCode%",
+            "ServiceIdentifier": "%DREGetLineDetails:ServiceIdentifier%",
+            "accountId": "%DREGetLineDetails:AccountId%",
+            "actionTranslated": "=IF(%Functionality%=='AdditionalPackage','Pacote Adicional',IF(%Functionality%=='Promotion','Promoção',IF(%Functionality%=='ServiceManagement','Gestão de Serviços','')))",
+            "assetIds": "%SVAssetIds:GroupAssetIds%",
+            "cartId": "=IF(%Functionality%=='AdditionalPackage'||%Functionality%=='ServiceManagement'||(%Functionality%=='Promotion' && %ProcessReason%=='ChangePlan'), %IPAssetToOrder:cartId%, IF(%Functionality%=='Promotion' && %ProcessReason%=='ChangePlanPromotion',%IPStartBulkCreateGroups:cartId%,null))",
+            "catalogId": "%DREGetCatalogByOrderType:catalogArray|1:catalogId%",
+            "channel": "%DRTAGetChannel:Channel|1:ChannelName__c%",
+            "groupCartId": "=IF(%Functionality%=='Promotion' && %ProcessReason%=='ChangePlanPromotion',%IPStartBulkCreateGroups:groupsData:result|1:groupInfo:groupCartId%,\"\")",
+            "hasChannel": "%IPGetTopicsAuto:hasChannel%",
+            "hasDDD": "=(%DREGetLineDetails:DDD%>' ')",
+            "hasPromotion": "%SVPromotion:hasPromotion%",
+            "hasTopicName": "%IPGetTopicsAuto:hasTopicName%",
+            "hasTopicName2": "%IPGetTopicsAuto:hasTopicName2%",
+            "orderType": "=IF(%Functionality%=='Promotion','Change',%Functionality%)"
+        },
+        "disOnTplt": false,
+        "executionConditionalFormula": "",
+        "label": "ResponseAction1",
+        "responseDefaultData": {
+        },
+        "responseFormat": "JSON",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "returnFullDataJSON": false,
+        "returnOnlyAdditionalOutput": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "IPStartBulkCreateGroups",
+        "show": null,
+        "useFormulas": true,
+        "vlcResponseHeaders": {
+        }
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Response Action",
+    "Name": "RA",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetAssetCartJourneyOrdering/Procedure/RA"
+}

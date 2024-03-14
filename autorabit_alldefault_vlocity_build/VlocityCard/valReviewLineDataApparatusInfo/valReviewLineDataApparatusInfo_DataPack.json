@@ -1,0 +1,183 @@
+{
+    "%vlocity_namespace%__Author__c": "dalvino",
+    "%vlocity_namespace%__CardType__c": "flex",
+    "%vlocity_namespace%__Datasource__c": {
+        "dataSource": {
+            "contextVariables": [
+                {
+                    "id": 3,
+                    "name": "Parent.recordId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "recordId": "{Parent.recordId}"
+                },
+                "ipMethod": "val_ApparatusInfo",
+                "jsonMap": "{\"Parent.recordId\":\"{Parent.recordId}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        },
+        "state0element0block_element1block_element0_0": {
+            "contextVariables": [
+                {
+                    "id": 4,
+                    "name": "Parent.interactionId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "TopicName": "Consulta PUK",
+                    "interactionId": "{Parent.interactionId}"
+                },
+                "ipMethod": "val_GetTopicIdAndTopicName",
+                "jsonMap": "{\"Parent.interactionId\":\"{Parent.interactionId}\"}",
+                "vlocityAsync": false
+            }
+        },
+        "state0element0block_element1block_element0_1": {
+            "contextVariables": [
+                {
+                    "id": 14,
+                    "name": "TopicNameComplete.topicName",
+                    "val": ""
+                },
+                {
+                    "id": 15,
+                    "name": "Parent.interactionId",
+                    "val": ""
+                },
+                {
+                    "id": 16,
+                    "name": "TopicNameComplete.channelName",
+                    "val": ""
+                },
+                {
+                    "id": 17,
+                    "name": "Parent.accountId",
+                    "val": ""
+                },
+                {
+                    "id": 18,
+                    "name": "Parent.interactionNumber",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "AccountId": "{Parent.accountId}",
+                    "InteractionId": "{Parent.interactionId}",
+                    "channelName": "{TopicNameComplete.channelName}",
+                    "interactionNumber": "{Parent.interactionNumber}",
+                    "processName": "Consulta PUK",
+                    "topicName": "{TopicNameComplete.topicName}"
+                },
+                "ipMethod": "val_CreateCustomerInteractionAndTopic",
+                "vlocityAsync": false
+            }
+        },
+        "state0element0block_element1block_element0_2": {
+            "contextVariables": [
+                {
+                    "id": 9,
+                    "name": "TopicNameComplete.topicName",
+                    "val": ""
+                },
+                {
+                    "id": 10,
+                    "name": "interactionId",
+                    "val": ""
+                },
+                {
+                    "id": 11,
+                    "name": "interactionTopicId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "interactionId": "{interactionId}",
+                    "interactionTopicId": "{interactionTopicId}",
+                    "topicName": "{TopicNameComplete.topicName}"
+                },
+                "ipMethod": "val_CallOutProtocolItemVivoNet",
+                "vlocityAsync": false
+            }
+        },
+        "state0element0block_element1block_element0_3": {
+            "contextVariables": [
+                {
+                    "id": 13,
+                    "name": "ServiceIdentifier",
+                    "val": ""
+                },
+                {
+                    "id": 6,
+                    "name": "Parent.interactionId",
+                    "val": ""
+                },
+                {
+                    "id": 8,
+                    "name": "Parent.accountId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "CustomerInteractionId": "{Parent.interactionId}",
+                    "accountId": "{Parent.accountId}",
+                    "msisdn": "{ServiceIdentifier}"
+                },
+                "ipMethod": "val_CalloutGetPUK",
+                "jsonMap": "{\"ServiceIdentifier\":\"{ServiceIdentifier}\",\"Parent.interactionId\":\"{Parent.interactionId}\",\"Parent.accountId\":\"{Parent.accountId}\"}",
+                "vlocityAsync": false
+            }
+        }
+    },
+    "%vlocity_namespace%__Definition__c": "valReviewLineDataApparatusInfo.json",
+    "%vlocity_namespace%__Description__c": "Bug #2142302 Octane Vivo: [PTI2283-2986-BLOCO6-PREPROD] - Detalhes da Linha - Informações do Aparelho não Carrega [Dalvino]",
+    "%vlocity_namespace%__GlobalKey__c": "valReviewLineDataApparatusInfo/Dalvino/3/1701798086186",
+    "%vlocity_namespace%__IsChildCard__c": true,
+    "%vlocity_namespace%__ParentID__c": "",
+    "%vlocity_namespace%__SampleData__c": "{\"ICCID\":\"---\",\"IMEI\":\"---\",\"Model\":\"---\",\"Vendor\":\"---\",\"Device\":\"---\"}",
+    "%vlocity_namespace%__Styles__c": "",
+    "%vlocity_namespace%__Type__c": "",
+    "%vlocity_namespace%__Version__c": 3,
+    "Name": "valReviewLineDataApparatusInfo",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityCard__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__VlocityCard__c/valReviewLineDataApparatusInfo"
+}

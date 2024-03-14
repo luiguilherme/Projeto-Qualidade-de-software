@@ -22,10 +22,11 @@
     "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "returnMessage": "=\r\nIF(%DREGetAssetDetails:productType% == \"Promotion\" && %orderItem:action% == \"add\", \"Saldo insuficiente! Ativação de pacote não realizada.\", IF(%DREGetAssetDetails:productType% == \"Package\" && %orderItem:action% == \"add\",\r\n\"Saldo insuficiente! Ativação de promoção não realizada.\", IF(%DREGetAssetDetails:productType% == \"Service\" && %orderItem:action% == \"modify\"\r\n\"Saldo insuficiente! Ativação de serviço não realizada.\", false)))"
+            "returnCode": "=\"PO-ERROR-007\"",
+            "returnMessage": "=\"Saldo insuficiente! Ativação de pacote não realizada.\""
         },
         "disOnTplt": false,
-        "executionConditionalFormula": "IF( %SVBalanceSUM:SUM% <= 0, true, false)",
+        "executionConditionalFormula": "IF(%SVBalanceSUM:SUM% < %RAGetPriceDetails% && %Subtype|1:%vlocity_namespace%__SubType__c% == \"Package\" && %orderItem:action% == \"add\", true, false)",
         "label": "ResponseAction11",
         "responseDefaultData": {
         },

@@ -22,7 +22,8 @@
     "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "returnMessage": "=\"Linha recém ativada no pré-pago não permite realizar ativação de pacote.\""
+            "returnCode": "=\"PO-ERROR-005\"",
+            "returnMessage": "=IF(%GetAssets:asset:Product2:%vlocity_namespace%__SubType__c% == \"Package\" && %orderItem:action% == \"add\" || %orderItem:action% == \"delete\", \"Linha recém ativada no pré-pago não permite realizar ativação de pacote.\")"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "IF(%HTTPGetProductBalanceAndStatus:subscription:activationDate% <  LAST_30_DAYS, true, false)",
