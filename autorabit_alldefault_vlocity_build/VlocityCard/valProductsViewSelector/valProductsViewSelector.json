@@ -1,20 +1,27 @@
 {
     "dataSource": {
         "contextVariables": [
+            {
+                "id": 1,
+                "name": "recordId",
+                "val": "a1c76000001lSKOAA2"
+            }
         ],
         "orderBy": {
             "isReverse": false,
             "name": ""
         },
-        "type": "Custom",
+        "type": "DataRaptor",
         "value": {
-            "body": "[\n\t{\n\t\t\"phase\": \"browse\",\n\t\t\"isListViewSelected\": \"true\",\n\t\t\"isTileViewSelected\": \"false\"\n\t}\n]",
+            "bundle": "valGetViewSelector",
+            "bundleType": "",
             "dsDelay": "",
+            "inputMap": {
+                "recordId": "{recordId}"
+            },
+            "jsonMap": "{\"recordId\":\"{recordId}\"}",
             "resultVar": ""
         }
-    },
-    "dynamicCanvasWidth": {
-        "type": "mobile"
     },
     "enableLwc": true,
     "events": [
@@ -134,21 +141,18 @@
     ],
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValProductsViewSelector_9_GiovaniSouza",
-        "Id": "0Rb78000000LP2cCAG",
+        "DeveloperName": "cfValProductsViewSelector_10_GiovaniSouza",
+        "Id": "0Rb78000000LXMfCAO",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValProductsViewSelector_9_GiovaniSouza",
+        "MasterLabel": "cfValProductsViewSelector_10_GiovaniSouza",
         "NamespacePrefix": "c"
     },
     "selectableMode": "Multi",
     "sessionVars": [
         {
-            "name": "isListViewSelected",
-            "val": "true"
-        },
-        {
-            "name": "isTileViewSelected",
-            "val": "false"
+            "isApi": true,
+            "name": "InteractionNumber",
+            "val": ""
         }
     ],
     "states": [
@@ -170,7 +174,7 @@
                                 {
                                     "class": "slds-col ",
                                     "element": "childCardPreview",
-                                    "elementLabel": "Block-0-FlexCard-2",
+                                    "elementLabel": "Block-0-FlexCard-0",
                                     "key": "element_element_block_0_0_childCardPreview_0_0",
                                     "name": "FlexCard",
                                     "parentElementKey": "element_block_0_0",
@@ -537,7 +541,7 @@
                                     "class": "slds-col ",
                                     "element": "block",
                                     "elementLabel": "Block-0-Block-1",
-                                    "key": "element_element_block_0_0_block_2_0",
+                                    "key": "element_element_block_0_0_block_1_0",
                                     "name": "Block",
                                     "parentElementKey": "element_block_0_0",
                                     "property": {
@@ -674,7 +678,6 @@
                                                     "id": "state-condition-object",
                                                     "isParent": true
                                                 },
-                                                "data-preloadConditionalElement": false,
                                                 "isChildCardTrackingEnabled": false,
                                                 "recordId": "{recordId}",
                                                 "selectedState": "Active"
@@ -902,9 +905,9 @@
                                             "class": "slds-col ",
                                             "element": "childCardPreview",
                                             "elementLabel": "Block-0-Block-5-FlexCard-0",
-                                            "key": "element_element_element_block_0_0_block_4_0_childCardPreview_0_0",
+                                            "key": "element_element_element_block_0_0_block_3_0_childCardPreview_0_0",
                                             "name": "FlexCard",
-                                            "parentElementKey": "element_element_block_0_0_block_4_0",
+                                            "parentElementKey": "element_element_block_0_0_block_3_0",
                                             "property": {
                                                 "cardName": "valProductTableView",
                                                 "cardNode": "",
@@ -922,8 +925,10 @@
                                                     "id": "state-condition-object",
                                                     "isParent": true
                                                 },
-                                                "data-preloadConditionalElement": false,
                                                 "isChildCardTrackingEnabled": false,
+                                                "parentAttribute": {
+                                                    "customerId": "{recordId}"
+                                                },
                                                 "recordId": "{recordId}",
                                                 "selectedState": "Active"
                                             },
@@ -1021,7 +1026,7 @@
                                     ],
                                     "class": "slds-col ",
                                     "element": "block",
-                                    "elementLabel": "Block-0-Block-5",
+                                    "elementLabel": "Block-0-Block-4",
                                     "key": "element_element_block_0_0_block_4_0",
                                     "name": "Block",
                                     "parentElementKey": "element_block_0_0",
@@ -1358,8 +1363,7 @@
     "xmlJson": [
         {
             "@attributes": {
-                "targets": "lightning__AppPage",
-                "xmlns": "http://soap.sforce.com/2006/04/metadata"
+                "targets": "lightning__AppPage"
             },
             "property": [
                 {
@@ -1373,19 +1377,32 @@
                         "name": "recordId",
                         "type": "String"
                     }
+                },
+                {
+                    "@attributes": {
+                        "label": " InteractionNumber",
+                        "name": "cfInteractionNumber",
+                        "type": "String"
+                    }
                 }
             ]
         },
         {
             "@attributes": {
-                "targets": "lightning__RecordPage",
-                "xmlns": "http://soap.sforce.com/2006/04/metadata"
+                "targets": "lightning__RecordPage"
             },
             "property": [
                 {
                     "@attributes": {
                         "name": "debug",
                         "type": "Boolean"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "label": " InteractionNumber",
+                        "name": "cfInteractionNumber",
+                        "type": "String"
                     }
                 }
             ],
@@ -1406,8 +1423,7 @@
         },
         {
             "@attributes": {
-                "targets": "lightningCommunity__Default",
-                "xmlns": "http://soap.sforce.com/2006/04/metadata"
+                "targets": "lightningCommunity__Default"
             },
             "property": [
                 {
@@ -1417,15 +1433,29 @@
                     }
                 }
             ]
+        },
+        {
+            "@attributes": {
+                "targets": "lightning__HomePage"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "label": " InteractionNumber",
+                        "name": "cfInteractionNumber",
+                        "type": "String"
+                    }
+                }
+            ]
         }
     ],
     "xmlObject": {
         "apiVersion": 51,
+        "id": "0Rb760000004UbpCAE",
         "isExplicitImport": false,
         "isExposed": true,
         "masterLabel": "valProductsViewSelector",
-        "runtimeNamespace": "%vlocity_namespace%",
-        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgoJCQk8cHJvcGVydHkgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iLz4KCQkJPHByb3BlcnR5IG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciLz4KCQk8L3RhcmdldENvbmZpZz4KCQk8dGFyZ2V0Q29uZmlnIHhtbG5zPSJodHRwOi8vc29hcC5zZm9yY2UuY29tLzIwMDYvMDQvbWV0YWRhdGEiIHRhcmdldHM9ImxpZ2h0bmluZ19fUmVjb3JkUGFnZSI+CgkJCTxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiIvPgoJCQk8c3VwcG9ydGVkRm9ybUZhY3RvcnM+CgkJCQk8c3VwcG9ydGVkRm9ybUZhY3RvciB0eXBlPSJTbWFsbCIvPgoJCQkJPHN1cHBvcnRlZEZvcm1GYWN0b3IgdHlwZT0iTGFyZ2UiLz4KCQkJPC9zdXBwb3J0ZWRGb3JtRmFjdG9ycz4KCQk8L3RhcmdldENvbmZpZz4KCQk8dGFyZ2V0Q29uZmlnIHhtbG5zPSJodHRwOi8vc29hcC5zZm9yY2UuY29tLzIwMDYvMDQvbWV0YWRhdGEiIHRhcmdldHM9ImxpZ2h0bmluZ0NvbW11bml0eV9fRGVmYXVsdCI+CgkJCTxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIi8+CgkJPC90YXJnZXRDb25maWc+",
+        "targetConfigs": "PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiI+PC9wcm9wZXJ0eT48cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48cHJvcGVydHkgbmFtZT0iY2ZJbnRlcmFjdGlvbk51bWJlciIgbGFiZWw9IiBJbnRlcmFjdGlvbk51bWJlciIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5PjwvdGFyZ2V0Q29uZmlnPjx0YXJnZXRDb25maWcgdGFyZ2V0cz0ibGlnaHRuaW5nX19SZWNvcmRQYWdlIj48cHJvcGVydHkgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iPjwvcHJvcGVydHk+PHByb3BlcnR5IG5hbWU9ImNmSW50ZXJhY3Rpb25OdW1iZXIiIGxhYmVsPSIgSW50ZXJhY3Rpb25OdW1iZXIiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48c3VwcG9ydGVkRm9ybUZhY3RvcnM+PHN1cHBvcnRlZEZvcm1GYWN0b3IgdHlwZT0iU21hbGwiPjwvc3VwcG9ydGVkRm9ybUZhY3Rvcj48c3VwcG9ydGVkRm9ybUZhY3RvciB0eXBlPSJMYXJnZSI+PC9zdXBwb3J0ZWRGb3JtRmFjdG9yPjwvc3VwcG9ydGVkRm9ybUZhY3RvcnM+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdDb21tdW5pdHlfX0RlZmF1bHQiPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5PjwvdGFyZ2V0Q29uZmlnPjx0YXJnZXRDb25maWcgdGFyZ2V0cz0ibGlnaHRuaW5nX19Ib21lUGFnZSI+PHByb3BlcnR5IG5hbWU9ImNmSW50ZXJhY3Rpb25OdW1iZXIiIGxhYmVsPSIgSW50ZXJhY3Rpb25OdW1iZXIiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48L3RhcmdldENvbmZpZz4=",
         "targets": {
             "target": [
                 "lightning__RecordPage",

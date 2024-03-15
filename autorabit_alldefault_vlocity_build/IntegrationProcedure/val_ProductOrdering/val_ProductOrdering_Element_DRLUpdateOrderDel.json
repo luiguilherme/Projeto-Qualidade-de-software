@@ -13,23 +13,19 @@
             "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ProductOrdering/Procedure",
             "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
         },
-        "Name": "CBDelete",
+        "Name": "CBPromotion",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ProductOrdering/Procedure/CBDelete",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ProductOrdering/Procedure/CBPromotion",
         "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
     },
-    "%vlocity_namespace%__ParentElementName__c": "CBDelete",
+    "%vlocity_namespace%__ParentElementName__c": "CBPromotion",
     "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "attributes": "%DREGetAssetDetails:attributes%",
-            "cartId": "=%assetToOrder:records|1:cartId%",
-            "channelId": "%channel:id%",
+            "cartId": "=%IPAPromotionGetAssetCartJourney:cartId%",
             "channelName": "%channel:name%",
-            "productId": "%DREGetAssetDetails:productId%",
-            "requestId": "%channel:requestId%",
-            "type": "=IF(%orderItem:action% == \"add\" && %DREGetAssetDetails:productType% == \"Package\", \"AdditionalPackage\", IF(%orderItem:action% == \"add\" && %DREGetAssetDetails:productType% == \"Promotion\", \"Promotion\", \"\"))"
+            "type": "=\"Change\""
         },
         "additionalOutput": {
         },

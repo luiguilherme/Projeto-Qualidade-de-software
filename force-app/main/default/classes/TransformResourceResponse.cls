@@ -11,20 +11,26 @@ global class TransformResourceResponse implements vlocity_cmt.VlocityOpenInterfa
     Map<String, Object> formatResponse(Map<String, Object> inputs)
     {
         Map<String, Object> result = new Map<String, Object>();
-        List<Object> resourceCharacteristic = (List<Object>) inputs.get('response');
-
-        for(Object currentObj : resourceCharacteristic)
-        {
-            Map<String, Object> tempMap = (Map<String, Object>) currentObj;
-            if((String) tempMap.get('name') == 'MODEL')
+        try {
+            List<Object> resourceCharacteristic = (List<Object>) inputs.get('response');
+            for(Object currentObj : resourceCharacteristic)
             {
-                String model = (String) tempMap.get('value');
-                result.put('MODEL', model.substringAfterLast(' ').remove('(').remove(')'));
-                result.put('DEVICE', model.substringBeforeLast(' '));
-            } else
-                result.put((String) tempMap.get('name'), tempMap.get('value'));
+                Map<String, Object> tempMap = (Map<String, Object>) currentObj;
+                if((String) tempMap.get('name') == 'MODEL')
+                {
+                    String model = (String) tempMap.get('value');
+                    result.put('MODEL', model.substringAfter('(').substringBeforeLast(')'));
+                    result.put('DEVICE', model.substringBefore('('));
+                } else
+                    result.put((String) tempMap.get('name'), tempMap.get('value'));
+            }
+        } catch (Exception e) {
+            result.put('MODEL', '---');
+            result.put('DEVICE', '---');
+            result.put('VENDOR', '---');
+            result.put('IMEI', '---');
+            return result;
         }
-
         return result;
     }
 }

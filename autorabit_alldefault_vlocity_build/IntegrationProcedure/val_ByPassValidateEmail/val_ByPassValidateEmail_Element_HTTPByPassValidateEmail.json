@@ -1,0 +1,67 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valByPassValidateEmail",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ByPassValidateEmail/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "additionalInput": {
+            "attendant-code": "%userAdabas%",
+            "attendant-name": "%userName%",
+            "channel": "=IF(%userChannel% == 2, \"valentina-sfa-lp\", IF(%userChannel% == 1262, \"valentina-sfa-lr\", IF(%userChannel% == 1, \"valentina-sfa-cc\", false)))",
+            "document-number": "%docNumber%",
+            "operationId": "%operationIdEmail%",
+            "phone-number": "%lineNumber%",
+            "protocol": "%protocolNumber%",
+            "system": "SALESFORCE"
+        },
+        "additionalOutput": {
+        },
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "executionConditionalFormula": "ISNOTBLANK(%email%)",
+        "failOnStepError": false,
+        "failureConditionalFormula": "",
+        "failureResponse": {
+        },
+        "label": "HTTPAction1",
+        "namedCredential": "APITelefonica",
+        "postActionLogging": "",
+        "preActionLogging": "%endpoint%",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "restMethod": "POST",
+        "restOptions": {
+            "clientCertificateName": "",
+            "headers": {
+                "Content-Type": "application/json; charset=utf-8",
+                "Ocp-Apim-Subscription-Key": "3c60031d5df741e1b5a54fde1e75fae5"
+            },
+            "isCompressed": false,
+            "params": {
+            },
+            "sendBody": true,
+            "timeout": 30000,
+            "xmlEscapeResponse": false
+        },
+        "restPath": "/4p/availability/offeringQualificationManagement/v2/bypass/%email%",
+        "retryCount": 0,
+        "returnOnlyAdditionalOutput": false,
+        "returnOnlyFailureResponse": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "sendOnlyAdditionalInput": true,
+        "show": null,
+        "type": "Integration",
+        "useFormulas": true
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Rest Action",
+    "Name": "HTTPByPassValidateEmail",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ByPassValidateEmail/Procedure/HTTPByPassValidateEmail"
+}

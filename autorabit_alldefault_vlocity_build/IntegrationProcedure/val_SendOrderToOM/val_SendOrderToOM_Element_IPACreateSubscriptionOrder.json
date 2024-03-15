@@ -9,14 +9,14 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "OrderId": "%OrderId%"
+            "OrderId": "%params:GetOrderId%"
         },
         "additionalOutput": {
         },
         "chainOnStep": true,
         "disOnTplt": false,
         "disableChainable": false,
-        "executionConditionalFormula": "%DRGetOrderType:Order|1:Type% != \"Change\"",
+        "executionConditionalFormula": "%DRGetOrderType:Order|1:Type% == \"Habilitação Pré\" || %DRGetOrderType:Order|1:Type% == \"PrepaidRemoteActivation\"||%DRGetOrderType:Order|1:Type% == \"ControlMigration\"||%DRGetOrderType:Order|1:Type% == \"PostPaidMigration\"",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {

@@ -4,7 +4,7 @@
             {
                 "id": 3,
                 "name": "recordId",
-                "val": "80176000000IN5jAAG"
+                "val": "80176000001t21NAAQ"
             }
         ],
         "orderBy": {
@@ -55,20 +55,66 @@
             "key": "event-0",
             "recordIndex": "0",
             "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1691428390700-3jkskhale",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "reload",
+                        "id": "flex-action-1691428390803",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "valOrderDetails",
+            "displayLabel": "valOrderDetails:reload_page",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "reload_page",
+            "eventtype": "pubsub",
+            "key": "event-1",
+            "recordIndex": "0",
+            "showSpinner": "false"
         }
     ],
     "globalCSS": true,
     "isFlex": true,
+    "isRepeatable": true,
     "lwc": {
-        "DeveloperName": "cfValOrderDetails_3_Deloitte_GiovaniSouza",
-        "Id": "0Rb760000000QY5CAM",
+        "DeveloperName": "cfValOrderDetails_5_Deloitte_GiovaniSouza",
+        "Id": "0Rb78000000LXWQCA4",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValOrderDetails_3_Deloitte_GiovaniSouza",
+        "MasterLabel": "cfValOrderDetails_5_Deloitte_GiovaniSouza",
         "NamespacePrefix": "c"
     },
     "multilanguageSupport": true,
     "osSupport": true,
     "selectableMode": "Multi",
+    "sessionVars": [
+        {
+            "isApi": true,
+            "name": "InteractionId",
+            "val": ""
+        },
+        {
+            "isApi": true,
+            "name": "InteractionNumber",
+            "val": ""
+        }
+    ],
     "states": [
         {
             "actions": [
@@ -77,6 +123,7 @@
                 "valHeader",
                 "valOrderDetailsStatus",
                 "valOrderDetailsAccount",
+                "valReviewOrderLineAddress",
                 "valOrderDetailsProducts",
                 "valOrderDetailsChannel",
                 "valOrderDetailsContact"
@@ -91,7 +138,7 @@
                             "name": "Text",
                             "property": {
                                 "card": "{card}",
-                                "mergeField": "%3Cdiv%3E%7B%vlocity_namespace%__CustomerInteraction__c%7D%3C/div%3E%0A%3Cdiv%3E%7BContextId%7D%3C/div%3E%0A%3Cdiv%3E%7B%vlocity_namespace%__CustomerInteraction__c%7D%3C/div%3E",
+                                "mergeField": "%3Cdiv%3E&nbsp;%3C/div%3E%0A%3Cdiv%3E&nbsp;%3C/div%3E",
                                 "record": "{record}"
                             },
                             "size": {
@@ -110,9 +157,9 @@
                                     "class": "slds-col ",
                                     "element": "childCardPreview",
                                     "elementLabel": "Block-0-FlexCard-0",
-                                    "key": "element_element_block_0_0_childCardPreview_0_0",
+                                    "key": "element_element_block_1_0_childCardPreview_0_0",
                                     "name": "FlexCard",
-                                    "parentElementKey": "element_block_0_0",
+                                    "parentElementKey": "element_block_1_0",
                                     "property": {
                                         "cardName": "valHeader",
                                         "cardNode": "",
@@ -395,7 +442,139 @@
                         {
                             "class": "slds-col ",
                             "element": "childCardPreview",
-                            "elementLabel": "FlexCard-4",
+                            "elementLabel": "FlexCard-5",
+                            "name": "FlexCard",
+                            "property": {
+                                "cardName": "valReviewOrderLineAddress",
+                                "cardNode": "",
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "OrderStatus.OrderType",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-1",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "Habilitação Pré pago"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "isChildCardTrackingEnabled": false,
+                                "parentAttribute": {
+                                    "InteractionNumber": "{Session.InteractionNumber}",
+                                    "customerInteractionId": "{Session.InteractionId}",
+                                    "serviceIdentifier": "{Account.LineNumber}"
+                                },
+                                "recordId": "{recordId}",
+                                "selectedState": "Active"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "background": {
+                                    "color": "",
+                                    "image": "",
+                                    "position": "",
+                                    "repeat": "",
+                                    "size": ""
+                                },
+                                "border": {
+                                    "color": "",
+                                    "radius": "",
+                                    "style": "",
+                                    "type": "",
+                                    "width": ""
+                                },
+                                "class": "slds-p-around_xx-small ",
+                                "container": {
+                                    "class": ""
+                                },
+                                "elementStyleProperties": {
+                                },
+                                "inlineStyle": "",
+                                "margin": [
+                                ],
+                                "padding": [
+                                    {
+                                        "label": "around:xx-small",
+                                        "size": "xx-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "size": {
+                                    "default": "12",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_12-of-12 ",
+                                "style": "      \n         ",
+                                "text": {
+                                    "align": "",
+                                    "color": ""
+                                }
+                            },
+                            "styleObjects": [
+                                {
+                                    "conditionString": "",
+                                    "conditions": "default",
+                                    "draggable": false,
+                                    "key": 0,
+                                    "label": "Default",
+                                    "name": "Default",
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "slds-p-around_xx-small ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                            {
+                                                "label": "around:xx-small",
+                                                "size": "xx-small",
+                                                "type": "around"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    }
+                                }
+                            ],
+                            "type": "element"
+                        },
+                        {
+                            "class": "slds-col ",
+                            "element": "childCardPreview",
+                            "elementLabel": "FlexCard-6",
                             "name": "FlexCard",
                             "property": {
                                 "cardName": "valOrderDetailsProducts",
@@ -508,7 +687,7 @@
                         {
                             "class": "slds-col ",
                             "element": "childCardPreview",
-                            "elementLabel": "FlexCard-5",
+                            "elementLabel": "FlexCard-7",
                             "name": "FlexCard",
                             "property": {
                                 "cardName": "valOrderDetailsChannel",
@@ -621,12 +800,16 @@
                         {
                             "class": "slds-col ",
                             "element": "childCardPreview",
-                            "elementLabel": "FlexCard-6",
+                            "elementLabel": "FlexCard-8",
                             "name": "FlexCard",
                             "property": {
                                 "cardName": "valOrderDetailsContact",
-                                "cardNode": "{record.Contact}",
+                                "cardNode": "",
                                 "isChildCardTrackingEnabled": false,
+                                "parentAttribute": {
+                                    "ContactPermission": "{OrderContactPermission}",
+                                    "LGPDPermission": "{OrderLGPDPermission}"
+                                },
                                 "recordId": "{recordId}",
                                 "selectedState": "Active"
                             },
@@ -636,105 +819,14 @@
                             },
                             "stateIndex": 0,
                             "styleObject": {
-                                "background": {
-                                    "color": "",
-                                    "image": "",
-                                    "position": "",
-                                    "repeat": "",
-                                    "size": ""
-                                },
-                                "border": {
-                                    "color": "",
-                                    "radius": "",
-                                    "style": "",
-                                    "type": "",
-                                    "width": ""
-                                },
-                                "class": "slds-p-around_xx-small ",
-                                "container": {
-                                    "class": ""
-                                },
-                                "elementStyleProperties": {
-                                },
-                                "inlineStyle": "",
-                                "margin": [
-                                ],
-                                "padding": [
-                                    {
-                                        "label": "around:xx-small",
-                                        "size": "xx-small",
-                                        "type": "around"
-                                    }
-                                ],
-                                "size": {
-                                    "default": "12",
-                                    "isResponsive": false
-                                },
-                                "sizeClass": "slds-size_12-of-12 ",
-                                "style": "      \n         ",
-                                "text": {
-                                    "align": "",
-                                    "color": ""
-                                }
+                                "sizeClass": "slds-size_12-of-12"
                             },
-                            "styleObjects": [
-                                {
-                                    "conditionString": "",
-                                    "conditions": "default",
-                                    "draggable": false,
-                                    "key": 0,
-                                    "label": "Default",
-                                    "name": "Default",
-                                    "styleObject": {
-                                        "background": {
-                                            "color": "",
-                                            "image": "",
-                                            "position": "",
-                                            "repeat": "",
-                                            "size": ""
-                                        },
-                                        "border": {
-                                            "color": "",
-                                            "radius": "",
-                                            "style": "",
-                                            "type": "",
-                                            "width": ""
-                                        },
-                                        "class": "slds-p-around_xx-small ",
-                                        "container": {
-                                            "class": ""
-                                        },
-                                        "elementStyleProperties": {
-                                        },
-                                        "inlineStyle": "",
-                                        "margin": [
-                                        ],
-                                        "padding": [
-                                            {
-                                                "label": "around:xx-small",
-                                                "size": "xx-small",
-                                                "type": "around"
-                                            }
-                                        ],
-                                        "size": {
-                                            "default": "12",
-                                            "isResponsive": false
-                                        },
-                                        "sizeClass": "slds-size_12-of-12 ",
-                                        "style": "      \n         ",
-                                        "text": {
-                                            "align": "",
-                                            "color": ""
-                                        }
-                                    }
-                                }
-                            ],
                             "type": "element"
                         },
                         {
                             "class": "slds-col ",
                             "element": "baseInputElement",
-                            "elementLabel": "Text Area-7",
+                            "elementLabel": "Text Area-9",
                             "name": "Text Area",
                             "property": {
                                 "card": "{card}",
@@ -947,6 +1039,20 @@
                         "name": "recordId",
                         "type": "String"
                     }
+                },
+                {
+                    "@attributes": {
+                        "label": "InteractionNumber",
+                        "name": "cfInteractionNumber",
+                        "type": "String"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "label": "InteractionId",
+                        "name": "cfInteractionId",
+                        "type": "String"
+                    }
                 }
             ]
         },
@@ -961,6 +1067,69 @@
                         "name": "debug",
                         "type": "Boolean"
                     }
+                },
+                {
+                    "@attributes": {
+                        "label": "InteractionNumber",
+                        "name": "cfInteractionNumber",
+                        "type": "String"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "label": "InteractionId",
+                        "name": "cfInteractionId",
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        {
+            "@attributes": {
+                "targets": "lightning__HomePage",
+                "xmlns": "http://soap.sforce.com/2006/04/metadata"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "label": "InteractionNumber",
+                        "name": "cfInteractionNumber",
+                        "type": "String"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "label": "InteractionId",
+                        "name": "cfInteractionId",
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        {
+            "@attributes": {
+                "targets": "lightningCommunity__Default"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "label": "InteractionId",
+                        "name": "cfInteractionId",
+                        "type": "String"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "label": "InteractionNumber",
+                        "name": "cfInteractionNumber",
+                        "type": "String"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "name": "recordId",
+                        "type": "String"
+                    }
                 }
             ]
         }
@@ -971,12 +1140,14 @@
         "isExposed": true,
         "masterLabel": "valOrderDetails",
         "runtimeNamespace": "%vlocity_namespace%",
-        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiIvPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIi8+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiIvPjwvdGFyZ2V0Q29uZmlnPg==",
+        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgogICAgICA8cHJvcGVydHkgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iLz4KICAgICAgPHByb3BlcnR5IG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciLz4KICAgICAgPHByb3BlcnR5IG5hbWU9ImNmSW50ZXJhY3Rpb25OdW1iZXIiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkludGVyYWN0aW9uTnVtYmVyIi8+CiAgICAgIDxwcm9wZXJ0eSBuYW1lPSJjZkludGVyYWN0aW9uSWQiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkludGVyYWN0aW9uSWQiLz4KICAgIDwvdGFyZ2V0Q29uZmlnPgogICAgPHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPgogICAgICA8cHJvcGVydHkgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iLz4KICAgICAgPHByb3BlcnR5IG5hbWU9ImNmSW50ZXJhY3Rpb25OdW1iZXIiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkludGVyYWN0aW9uTnVtYmVyIi8+CiAgICAgIDxwcm9wZXJ0eSBuYW1lPSJjZkludGVyYWN0aW9uSWQiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkludGVyYWN0aW9uSWQiLz4KICAgIDwvdGFyZ2V0Q29uZmlnPgogICAgPHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0hvbWVQYWdlIj4KICAgICAgPHByb3BlcnR5IG5hbWU9ImNmSW50ZXJhY3Rpb25OdW1iZXIiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkludGVyYWN0aW9uTnVtYmVyIi8+CiAgICAgIDxwcm9wZXJ0eSBuYW1lPSJjZkludGVyYWN0aW9uSWQiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkludGVyYWN0aW9uSWQiLz4KICAgIDwvdGFyZ2V0Q29uZmlnPgogICAgPHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdDb21tdW5pdHlfX0RlZmF1bHQiPgogICAgICA8cHJvcGVydHkgbmFtZT0iY2ZJbnRlcmFjdGlvbklkIiB0eXBlPSJTdHJpbmciIGxhYmVsPSJJbnRlcmFjdGlvbklkIi8+CiAgICAgIDxwcm9wZXJ0eSBuYW1lPSJjZkludGVyYWN0aW9uTnVtYmVyIiB0eXBlPSJTdHJpbmciIGxhYmVsPSJJbnRlcmFjdGlvbk51bWJlciIvPgogICAgICA8cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPgogICAgPC90YXJnZXRDb25maWc+",
         "targets": {
             "target": [
                 "lightning__RecordPage",
                 "lightning__AppPage",
-                "lightning__HomePage"
+                "lightning__HomePage",
+                "lightningCommunity__Default",
+                "lightningCommunity__Page"
             ]
         }
     }

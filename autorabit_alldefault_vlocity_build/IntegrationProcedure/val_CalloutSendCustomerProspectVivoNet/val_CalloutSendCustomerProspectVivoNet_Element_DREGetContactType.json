@@ -10,7 +10,10 @@
         "actionMessage": "",
         "additionalInput": {
             "DataType": "TIPO CONTATO",
-            "SourceValue": "%DREGetAccountContactVivoNet:contact:contactType%",
+            "SourceValue": "=IF(ISNOTBLANK(%DREGetAccountContactVivoNet:contact:descriptionMobile%), \"CELULAR\", \"\")",
+            "SourceValue2": "=IF(ISNOTBLANK(%DREGetAccountContactVivoNet:contact:descriptionHome%), \"RESIDENCIAL\", \"\")",
+            "SourceValue3": "=IF(ISNOTBLANK(%DREGetAccountContactVivoNet:contact:descriptionComercial%), \"TELEFONE COMERCIAL\", \"\")",
+            "SourceValue4": "=IF(ISNOTBLANK(%DREGetAccountContactVivoNet:contact:descriptionEmail%) || ISNOTBLANK(%DREGetAccountContactVivoNet:contact:descriptionOtherEmail%), \"E-MAIL PARTICULAR\", \"\")",
             "TargetSystem": "VIVONET"
         },
         "additionalOutput": {

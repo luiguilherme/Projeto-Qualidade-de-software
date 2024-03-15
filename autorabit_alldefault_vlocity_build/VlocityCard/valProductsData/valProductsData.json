@@ -16,19 +16,13 @@
     "enableLwc": true,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValProductsData_13_Telefonica",
-        "Id": "0Rb760000008zcPCAQ",
+        "DeveloperName": "cfValProductTableView_10_Telefonica",
+        "Id": "0Rb760000000droCAA",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValProductsData_13_Telefonica",
+        "MasterLabel": "cfValProductTableView_10_Telefonica",
         "NamespacePrefix": "c"
     },
     "selectableMode": "Multi",
-    "sessionVars": [
-        {
-            "name": "ParmAssetId",
-            "val": ""
-        }
-    ],
     "states": [
         {
             "actions": [
@@ -74,7 +68,7 @@
                                 "data-conditions": {
                                     "group": [
                                         {
-                                            "field": "ErrorType",
+                                            "field": "Parent.ErrorType",
                                             "hasMergeField": false,
                                             "id": "state-new-condition-0",
                                             "operator": "==",
@@ -108,7 +102,7 @@
                                 "data-conditions": {
                                     "group": [
                                         {
-                                            "field": "ErrorType",
+                                            "field": "Parent.ErrorType",
                                             "hasMergeField": false,
                                             "id": "state-new-condition-7",
                                             "operator": "==",
@@ -138,12 +132,12 @@
             "conditions": {
                 "group": [
                     {
-                        "field": "ErrorType",
+                        "field": "Parent.ErrorType",
                         "hasMergeField": false,
                         "id": "state-new-condition-9",
                         "operator": "!=",
                         "type": "custom",
-                        "value": "undefined"
+                        "value": "false"
                     }
                 ],
                 "id": "state-condition-object",
@@ -194,10 +188,548 @@
                         {
                             "children": [
                                 {
+                                    "children": [
+                                        {
+                                            "class": "slds-col ",
+                                            "element": "flexMenu",
+                                            "elementLabel": "Block-0-Block-0-Menu-0",
+                                            "key": "element_element_element_block_0_1_block_0_1_flexMenu_0_1",
+                                            "name": "Menu",
+                                            "parentElementKey": "element_element_block_0_1_block_0_1",
+                                            "property": {
+                                                "card": "{card}",
+                                                "data-conditions": {
+                                                    "group": [
+                                                        {
+                                                            "field": "Platform",
+                                                            "hasMergeField": false,
+                                                            "id": "state-new-condition-0",
+                                                            "operator": "==",
+                                                            "type": "custom",
+                                                            "value": "Prepaid"
+                                                        }
+                                                    ],
+                                                    "id": "state-condition-object",
+                                                    "isParent": true
+                                                },
+                                                "iconName": "utility:down",
+                                                "iconOnly": true,
+                                                "iconPosition": "",
+                                                "iconSize": "xx-small",
+                                                "menuItems": [
+                                                    {
+                                                        "actionConditions": {
+                                                            "group": [
+                                                                {
+                                                                    "field": " SubscriptionStatus",
+                                                                    "hasMergeField": false,
+                                                                    "id": "state-new-condition-5",
+                                                                    "operator": "!=",
+                                                                    "type": "custom",
+                                                                    "value": "Cancelado"
+                                                                }
+                                                            ],
+                                                            "id": "state-condition-object",
+                                                            "isParent": true
+                                                        },
+                                                        "actionList": [
+                                                            {
+                                                                "actionIndex": 0,
+                                                                "card": "{card}",
+                                                                "draggable": true,
+                                                                "isOpen": false,
+                                                                "key": "1703679089013-roh4qdwyl",
+                                                                "label": "PortabilityInProgress",
+                                                                "stateAction": {
+                                                                    "actionConditions": {
+                                                                        "group": [
+                                                                            {
+                                                                                "field": "PortabilityInProgress",
+                                                                                "hasMergeField": false,
+                                                                                "id": "state-new-condition-7",
+                                                                                "operator": "==",
+                                                                                "type": "custom",
+                                                                                "value": "true"
+                                                                            }
+                                                                        ],
+                                                                        "id": "state-condition-object",
+                                                                        "isParent": true
+                                                                    },
+                                                                    "displayName": "Action",
+                                                                    "eventName": "valToast",
+                                                                    "extraParams": {
+                                                                        "message": "Cliente com portabilidade em andamento com a Vivo. Verifique o histórico do pedido de portabilidade e informe ao cliente sobre o andamento.",
+                                                                        "variant": "warning"
+                                                                    },
+                                                                    "hasExtraParams": true,
+                                                                    "id": "flex-action-1703681111587",
+                                                                    "message": "showToast",
+                                                                    "openUrlIn": "Current Window",
+                                                                    "subType": "PubSub",
+                                                                    "type": "Event",
+                                                                    "vlocityIcon": "standard-default"
+                                                                }
+                                                            },
+                                                            {
+                                                                "actionIndex": 1,
+                                                                "card": "{card}",
+                                                                "draggable": false,
+                                                                "isOpen": true,
+                                                                "key": "1703679170084-7lguvgikz",
+                                                                "label": "Flyout",
+                                                                "reRenderFlyout": true,
+                                                                "stateAction": {
+                                                                    "actionConditions": {
+                                                                        "group": [
+                                                                            {
+                                                                                "field": "PortabilityInProgress",
+                                                                                "hasMergeField": false,
+                                                                                "id": "state-new-condition-14",
+                                                                                "operator": "!=",
+                                                                                "type": "custom",
+                                                                                "value": "true"
+                                                                            }
+                                                                        ],
+                                                                        "id": "state-condition-object",
+                                                                        "isParent": true
+                                                                    },
+                                                                    "channelName": "close_modal",
+                                                                    "displayName": "Action",
+                                                                    "flyoutContainerClass": "slds-text-align_left",
+                                                                    "flyoutLwc": "val-cancel-line-english",
+                                                                    "flyoutParams": {
+                                                                        "ContextId": "{AssetId}",
+                                                                        "EntryPoint": "v360",
+                                                                        "InteractionId": "{recordId}"
+                                                                    },
+                                                                    "flyoutType": "OmniScripts",
+                                                                    "hasExtraParams": true,
+                                                                    "id": "flex-action-1705326328910",
+                                                                    "layoutType": "lightning",
+                                                                    "openFlyoutIn": "Modal",
+                                                                    "openUrlIn": "Current Window",
+                                                                    "osName": "val/CancelLine/English",
+                                                                    "type": "Flyout",
+                                                                    "vlocityIcon": "standard-default"
+                                                                }
+                                                            }
+                                                        ],
+                                                        "iconName": "",
+                                                        "iconPosition": "",
+                                                        "label": "Cancelar Linha",
+                                                        "name": "menu-item-1703679088995-1",
+                                                        "showSpinner": "false",
+                                                        "status": ""
+                                                    },
+                                                    {
+                                                        "actionList": [
+                                                            {
+                                                                "actionIndex": 0,
+                                                                "card": "{card}",
+                                                                "draggable": true,
+                                                                "isOpen": false,
+                                                                "key": "1703679730741-rh38bpxh0",
+                                                                "label": "PortabilityInProgressToast",
+                                                                "stateAction": {
+                                                                    "actionConditions": {
+                                                                        "group": [
+                                                                            {
+                                                                                "field": "PortabilityInProgress",
+                                                                                "hasMergeField": false,
+                                                                                "id": "state-new-condition-21",
+                                                                                "operator": "==",
+                                                                                "type": "custom",
+                                                                                "value": "true"
+                                                                            }
+                                                                        ],
+                                                                        "id": "state-condition-object",
+                                                                        "isParent": true
+                                                                    },
+                                                                    "displayName": "Action",
+                                                                    "eventName": "valToast",
+                                                                    "extraParams": {
+                                                                        "message": "Cliente com portabilidade em andamento com a Vivo. Verifique o histórico do pedido de portabilidade e informe ao cliente sobre o andamento.",
+                                                                        "variant": "warning"
+                                                                    },
+                                                                    "hasExtraParams": true,
+                                                                    "id": "flex-action-1703681122762",
+                                                                    "message": "showToast",
+                                                                    "openUrlIn": "Current Window",
+                                                                    "subType": "PubSub",
+                                                                    "type": "Event",
+                                                                    "vlocityIcon": "standard-default"
+                                                                }
+                                                            },
+                                                            {
+                                                                "actionIndex": 1,
+                                                                "card": "{card}",
+                                                                "contextId": "\\{AssetId}",
+                                                                "draggable": false,
+                                                                "isOpen": true,
+                                                                "key": "1703679807388-uz48anvho",
+                                                                "label": "Flyout",
+                                                                "reRenderFlyout": true,
+                                                                "stateAction": {
+                                                                    "actionConditions": {
+                                                                        "group": [
+                                                                            {
+                                                                                "field": "PortabilityInProgress",
+                                                                                "hasMergeField": false,
+                                                                                "id": "state-new-condition-28",
+                                                                                "operator": "!=",
+                                                                                "type": "custom",
+                                                                                "value": "true"
+                                                                            }
+                                                                        ],
+                                                                        "id": "state-condition-object",
+                                                                        "isParent": true
+                                                                    },
+                                                                    "channelName": "close_modal",
+                                                                    "displayName": "Action",
+                                                                    "flyoutContainerClass": "slds-text-align_left",
+                                                                    "flyoutLwc": "val-deactivate-line-english",
+                                                                    "flyoutParams": {
+                                                                        "ContextId": "{AssetId}",
+                                                                        "EntryPoint": "v360",
+                                                                        "InteractionId": "{recordId}"
+                                                                    },
+                                                                    "flyoutType": "OmniScripts",
+                                                                    "hasExtraParams": true,
+                                                                    "id": "flex-action-1705326351854",
+                                                                    "layoutType": "lightning",
+                                                                    "openFlyoutIn": "Modal",
+                                                                    "openUrlIn": "Current Window",
+                                                                    "osName": "val/DeactivateLine/English",
+                                                                    "type": "Flyout",
+                                                                    "vlocityIcon": "standard-default"
+                                                                }
+                                                            }
+                                                        ],
+                                                        "iconName": "",
+                                                        "label": "Desprogramar Linha",
+                                                        "name": "menu-item-1703679730729-1",
+                                                        "showSpinner": "false"
+                                                    },
+                                                    {
+                                                        "actionConditions": {
+                                                            "group": [
+                                                                {
+                                                                    "field": "SubscriptionStatus",
+                                                                    "hasMergeField": false,
+                                                                    "id": "state-new-condition-0",
+                                                                    "operator": "==",
+                                                                    "type": "custom",
+                                                                    "value": "Cancelado"
+                                                                }
+                                                            ],
+                                                            "id": "state-condition-object",
+                                                            "isParent": true
+                                                        },
+                                                        "actionList": [
+                                                            {
+                                                                "actionIndex": 0,
+                                                                "card": "{card}",
+                                                                "draggable": true,
+                                                                "isOpen": false,
+                                                                "key": "1704731396540-iouv2lfdr",
+                                                                "label": "PortabilityInProgress",
+                                                                "stateAction": {
+                                                                    "actionConditions": {
+                                                                        "group": [
+                                                                            {
+                                                                                "field": " PortabilityInProgress",
+                                                                                "hasMergeField": false,
+                                                                                "id": "state-new-condition-7",
+                                                                                "operator": "==",
+                                                                                "type": "custom",
+                                                                                "value": "true"
+                                                                            }
+                                                                        ],
+                                                                        "id": "state-condition-object",
+                                                                        "isParent": true
+                                                                    },
+                                                                    "displayName": "Action",
+                                                                    "eventName": "valToast",
+                                                                    "extraParams": {
+                                                                        "message": "Cliente com portabilidade em andamento com a Vivo. Verifique o histórico do pedido de portabilidade e informe ao cliente sobre o andamento.",
+                                                                        "variant": "warning"
+                                                                    },
+                                                                    "hasExtraParams": true,
+                                                                    "id": "flex-action-1704732950741",
+                                                                    "message": "showToast",
+                                                                    "openUrlIn": "Current Window",
+                                                                    "subType": "PubSub",
+                                                                    "type": "Event",
+                                                                    "vlocityIcon": "standard-default"
+                                                                }
+                                                            },
+                                                            {
+                                                                "actionIndex": 1,
+                                                                "card": "{card}",
+                                                                "draggable": false,
+                                                                "isOpen": true,
+                                                                "key": "1704730974701-do7ek6521",
+                                                                "label": "Flyout de Reativação",
+                                                                "reRenderFlyout": true,
+                                                                "stateAction": {
+                                                                    "actionConditions": {
+                                                                        "group": [
+                                                                            {
+                                                                                "field": "PortabilityInProgress",
+                                                                                "hasMergeField": false,
+                                                                                "id": "state-new-condition-0",
+                                                                                "operator": "!=",
+                                                                                "type": "custom",
+                                                                                "value": "true"
+                                                                            }
+                                                                        ],
+                                                                        "id": "state-condition-object",
+                                                                        "isParent": true
+                                                                    },
+                                                                    "channelName": "close_modal",
+                                                                    "displayName": "Action",
+                                                                    "flyoutContainerClass": "slds-text-align_left",
+                                                                    "flyoutLwc": "val-reactivation-line-english",
+                                                                    "flyoutParams": {
+                                                                        "AccountId": "{AccountId}",
+                                                                        "AssetId": "{AssetId}",
+                                                                        "ContextId": "{AssetId}",
+                                                                        "EntryPoint": "v360",
+                                                                        "InteractionId": "{recordId}",
+                                                                        "InteractionNumber": "{InteractionNumber}",
+                                                                        "LineNumber": "{LineNumber}",
+                                                                        "SubscriptionId": "{SubscriptionId}"
+                                                                    },
+                                                                    "flyoutType": "OmniScripts",
+                                                                    "hasExtraParams": true,
+                                                                    "id": "flex-action-1705326374705",
+                                                                    "layoutType": "lightning",
+                                                                    "openFlyoutIn": "Modal",
+                                                                    "openUrlIn": "Current Window",
+                                                                    "osName": "val/ReactivationLine/English",
+                                                                    "type": "Flyout",
+                                                                    "vlocityIcon": "standard-default"
+                                                                }
+                                                            }
+                                                        ],
+                                                        "iconName": "",
+                                                        "iconPosition": "",
+                                                        "label": "Reativar Linha",
+                                                        "name": "menu-item-1704730974683-1",
+                                                        "showSpinner": "false",
+                                                        "status": ""
+                                                    }
+                                                ],
+                                                "overflow": true,
+                                                "position": "left",
+                                                "record": "{record}",
+                                                "size": "",
+                                                "type": "action",
+                                                "variant": ""
+                                            },
+                                            "size": {
+                                                "default": "12",
+                                                "isResponsive": false
+                                            },
+                                            "stateIndex": 1,
+                                            "styleObject": {
+                                                "background": {
+                                                    "color": "",
+                                                    "image": "",
+                                                    "position": "",
+                                                    "repeat": "",
+                                                    "size": ""
+                                                },
+                                                "border": {
+                                                    "color": "",
+                                                    "radius": "",
+                                                    "style": "",
+                                                    "type": "",
+                                                    "width": ""
+                                                },
+                                                "class": "slds-text-align_center slds-align_absolute-center ",
+                                                "container": {
+                                                    "class": "slds-align_absolute-center"
+                                                },
+                                                "elementStyleProperties": {
+                                                },
+                                                "inlineStyle": "",
+                                                "margin": [
+                                                ],
+                                                "maxHeight": "2em",
+                                                "padding": [
+                                                ],
+                                                "size": {
+                                                    "default": "12",
+                                                    "isResponsive": false
+                                                },
+                                                "sizeClass": "slds-size_12-of-12 ",
+                                                "style": "      \n       max-height:2em;  ",
+                                                "text": {
+                                                    "align": "center",
+                                                    "color": ""
+                                                }
+                                            },
+                                            "styleObjects": [
+                                                {
+                                                    "conditionString": "",
+                                                    "conditions": "default",
+                                                    "draggable": false,
+                                                    "key": 0,
+                                                    "label": "Default",
+                                                    "name": "Default",
+                                                    "styleObject": {
+                                                        "background": {
+                                                            "color": "",
+                                                            "image": "",
+                                                            "position": "",
+                                                            "repeat": "",
+                                                            "size": ""
+                                                        },
+                                                        "border": {
+                                                            "color": "",
+                                                            "radius": "",
+                                                            "style": "",
+                                                            "type": "",
+                                                            "width": ""
+                                                        },
+                                                        "class": "slds-text-align_center slds-align_absolute-center ",
+                                                        "container": {
+                                                            "class": "slds-align_absolute-center"
+                                                        },
+                                                        "elementStyleProperties": {
+                                                        },
+                                                        "inlineStyle": "",
+                                                        "margin": [
+                                                        ],
+                                                        "maxHeight": "2em",
+                                                        "padding": [
+                                                        ],
+                                                        "size": {
+                                                            "default": "12",
+                                                            "isResponsive": false
+                                                        },
+                                                        "sizeClass": "slds-size_12-of-12 ",
+                                                        "style": "      \n       max-height:2em;  ",
+                                                        "text": {
+                                                            "align": "center",
+                                                            "color": ""
+                                                        }
+                                                    }
+                                                }
+                                            ],
+                                            "type": "element"
+                                        }
+                                    ],
+                                    "class": "slds-col ",
+                                    "element": "block",
+                                    "elementLabel": "Block-0-Block-0",
+                                    "key": "element_element_block_0_1_block_0_1",
+                                    "name": "Block",
+                                    "parentElementKey": "element_block_0_1",
+                                    "property": {
+                                        "card": "{card}",
+                                        "collapsedByDefault": false,
+                                        "collapsible": false,
+                                        "label": "Block",
+                                        "record": "{record}"
+                                    },
+                                    "size": {
+                                        "default": "1",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 1,
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                        ],
+                                        "size": {
+                                            "default": "1",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_1-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    },
+                                    "styleObjects": [
+                                        {
+                                            "conditionString": "",
+                                            "conditions": "default",
+                                            "draggable": false,
+                                            "key": 0,
+                                            "label": "Default",
+                                            "name": "Default",
+                                            "styleObject": {
+                                                "background": {
+                                                    "color": "",
+                                                    "image": "",
+                                                    "position": "",
+                                                    "repeat": "",
+                                                    "size": ""
+                                                },
+                                                "border": {
+                                                    "color": "",
+                                                    "radius": "",
+                                                    "style": "",
+                                                    "type": "",
+                                                    "width": ""
+                                                },
+                                                "class": "",
+                                                "container": {
+                                                    "class": ""
+                                                },
+                                                "elementStyleProperties": {
+                                                },
+                                                "inlineStyle": "",
+                                                "margin": [
+                                                ],
+                                                "padding": [
+                                                ],
+                                                "size": {
+                                                    "default": "1",
+                                                    "isResponsive": false
+                                                },
+                                                "sizeClass": "slds-size_1-of-12 ",
+                                                "style": "      \n         ",
+                                                "text": {
+                                                    "align": "",
+                                                    "color": ""
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "type": "block"
+                                },
+                                {
                                     "class": "slds-col ",
                                     "element": "action",
-                                    "elementLabel": "Block-0-Action-0",
-                                    "key": "element_element_block_0_1_action_0_1",
+                                    "elementLabel": "Block-0-Action-2",
+                                    "key": "element_element_block_0_1_action_1_1",
                                     "name": "Action",
                                     "parentElementKey": "element_block_0_1",
                                     "property": {
@@ -399,8 +931,8 @@
                                 {
                                     "class": "slds-col ",
                                     "element": "outputField",
-                                    "elementLabel": "Block-0-Text-1",
-                                    "key": "element_element_block_0_1_outputField_1_1",
+                                    "elementLabel": "Block-0-Text-3",
+                                    "key": "element_element_block_0_1_outputField_2_1",
                                     "name": "Text",
                                     "parentElementKey": "element_block_0_1",
                                     "property": {
@@ -531,8 +1063,8 @@
                                 {
                                     "class": "slds-col ",
                                     "element": "outputField",
-                                    "elementLabel": "Block-0-Text-2",
-                                    "key": "element_element_block_0_1_outputField_2_1",
+                                    "elementLabel": "Block-0-Text-4",
+                                    "key": "element_element_block_0_1_outputField_3_1",
                                     "name": "Text",
                                     "parentElementKey": "element_block_0_1",
                                     "property": {
@@ -569,7 +1101,7 @@
                                         },
                                         "elementStyleProperties": {
                                         },
-                                        "inlineStyle": "width:146px;",
+                                        "inlineStyle": "width:96px;",
                                         "margin": [
                                         ],
                                         "padding": [
@@ -592,7 +1124,7 @@
                                             "small": "1"
                                         },
                                         "sizeClass": "slds-large-size_1-of-12 slds-medium-size_1-of-12 slds-small-size_1-of-12 slds-size_1-of-12 ",
-                                        "style": "      \n         width:146px;",
+                                        "style": "      \n         width:96px;",
                                         "text": {
                                             "align": "",
                                             "color": ""
@@ -627,7 +1159,7 @@
                                                 },
                                                 "elementStyleProperties": {
                                                 },
-                                                "inlineStyle": "width:146px;",
+                                                "inlineStyle": "width:96px;",
                                                 "margin": [
                                                 ],
                                                 "padding": [
@@ -650,7 +1182,7 @@
                                                     "small": "1"
                                                 },
                                                 "sizeClass": "slds-large-size_1-of-12 slds-medium-size_1-of-12 slds-small-size_1-of-12 slds-size_1-of-12 ",
-                                                "style": "      \n         width:146px;",
+                                                "style": "      \n         width:96px;",
                                                 "text": {
                                                     "align": "",
                                                     "color": ""
@@ -663,8 +1195,8 @@
                                 {
                                     "class": "slds-col ",
                                     "element": "outputField",
-                                    "elementLabel": "Block-0-Text-3",
-                                    "key": "element_element_block_0_1_outputField_3_1",
+                                    "elementLabel": "Block-0-Text-5",
+                                    "key": "element_element_block_0_1_outputField_4_1",
                                     "name": "Text",
                                     "parentElementKey": "element_block_0_1",
                                     "property": {
@@ -795,8 +1327,8 @@
                                 {
                                     "class": "slds-col ",
                                     "element": "outputField",
-                                    "elementLabel": "Block-0-Text-4",
-                                    "key": "element_element_block_0_1_outputField_4_1",
+                                    "elementLabel": "Block-0-Text-6",
+                                    "key": "element_element_block_0_1_outputField_5_1",
                                     "name": "Text",
                                     "parentElementKey": "element_block_0_1",
                                     "property": {
@@ -833,7 +1365,7 @@
                                         },
                                         "elementStyleProperties": {
                                         },
-                                        "inlineStyle": "width:146px;",
+                                        "inlineStyle": "width:96px;",
                                         "margin": [
                                         ],
                                         "padding": [
@@ -856,7 +1388,7 @@
                                             "small": "1"
                                         },
                                         "sizeClass": "slds-large-size_1-of-12 slds-medium-size_1-of-12 slds-small-size_1-of-12 slds-size_1-of-12 ",
-                                        "style": "      \n         width:146px;",
+                                        "style": "      \n         width:96px;",
                                         "text": {
                                             "align": "",
                                             "color": ""
@@ -891,7 +1423,7 @@
                                                 },
                                                 "elementStyleProperties": {
                                                 },
-                                                "inlineStyle": "width:146px;",
+                                                "inlineStyle": "width:96px;",
                                                 "margin": [
                                                 ],
                                                 "padding": [
@@ -914,7 +1446,7 @@
                                                     "small": "1"
                                                 },
                                                 "sizeClass": "slds-large-size_1-of-12 slds-medium-size_1-of-12 slds-small-size_1-of-12 slds-size_1-of-12 ",
-                                                "style": "      \n         width:146px;",
+                                                "style": "      \n         width:96px;",
                                                 "text": {
                                                     "align": "",
                                                     "color": ""
@@ -927,8 +1459,8 @@
                                 {
                                     "class": "slds-col ",
                                     "element": "outputField",
-                                    "elementLabel": "Block-0-Text-5",
-                                    "key": "element_element_block_0_1_outputField_5_1",
+                                    "elementLabel": "Block-0-Text-7",
+                                    "key": "element_element_block_0_1_outputField_6_1",
                                     "name": "Text",
                                     "parentElementKey": "element_block_0_1",
                                     "property": {
@@ -965,7 +1497,7 @@
                                         },
                                         "elementStyleProperties": {
                                         },
-                                        "inlineStyle": "width:146px;",
+                                        "inlineStyle": "width:96px;",
                                         "margin": [
                                         ],
                                         "padding": [
@@ -988,7 +1520,7 @@
                                             "small": "1"
                                         },
                                         "sizeClass": "slds-large-size_1-of-12 slds-medium-size_1-of-12 slds-small-size_1-of-12 slds-size_1-of-12 ",
-                                        "style": "      \n         width:146px;",
+                                        "style": "      \n         width:96px;",
                                         "text": {
                                             "align": "",
                                             "color": ""
@@ -1023,7 +1555,7 @@
                                                 },
                                                 "elementStyleProperties": {
                                                 },
-                                                "inlineStyle": "width:146px;",
+                                                "inlineStyle": "width:96px;",
                                                 "margin": [
                                                 ],
                                                 "padding": [
@@ -1046,7 +1578,7 @@
                                                     "small": "1"
                                                 },
                                                 "sizeClass": "slds-large-size_1-of-12 slds-medium-size_1-of-12 slds-small-size_1-of-12 slds-size_1-of-12 ",
-                                                "style": "      \n         width:146px;",
+                                                "style": "      \n         width:96px;",
                                                 "text": {
                                                     "align": "",
                                                     "color": ""
@@ -1059,8 +1591,8 @@
                                 {
                                     "class": "slds-col ",
                                     "element": "outputField",
-                                    "elementLabel": "Block-0-Text-5-clone-0",
-                                    "key": "element_element_block_0_1_outputField_6_1",
+                                    "elementLabel": "Block-0-Text-8",
+                                    "key": "element_element_block_0_1_outputField_7_1",
                                     "name": "Text",
                                     "parentElementKey": "element_block_0_1",
                                     "property": {
@@ -1191,8 +1723,8 @@
                                 {
                                     "class": "slds-col ",
                                     "element": "outputField",
-                                    "elementLabel": "Block-0-Text-6",
-                                    "key": "element_element_block_0_1_outputField_7_1",
+                                    "elementLabel": "Block-0-Text-9",
+                                    "key": "element_element_block_0_1_outputField_8_1",
                                     "name": "Text",
                                     "parentElementKey": "element_block_0_1",
                                     "property": {
@@ -1323,8 +1855,8 @@
                                 {
                                     "class": "slds-col ",
                                     "element": "outputField",
-                                    "elementLabel": "Block-0-Text-7",
-                                    "key": "element_element_block_0_1_outputField_8_1",
+                                    "elementLabel": "Block-0-Text-10",
+                                    "key": "element_element_block_0_1_outputField_9_1",
                                     "name": "Text",
                                     "parentElementKey": "element_block_0_1",
                                     "property": {
@@ -1494,7 +2026,7 @@
                                 "customClass": "",
                                 "elementStyleProperties": {
                                 },
-                                "inlineStyle": "width:1320px;",
+                                "inlineStyle": "width:1320px",
                                 "margin": [
                                 ],
                                 "padding": [
@@ -1507,7 +2039,7 @@
                                     "small": 12
                                 },
                                 "sizeClass": "slds-size_12-of-12 ",
-                                "style": "     border-bottom: #cccccc 1px solid; \n         width:1320px;",
+                                "style": "     border-bottom: #cccccc 1px solid; \n         width:1320px",
                                 "text": {
                                     "align": "",
                                     "color": ""
@@ -1544,7 +2076,7 @@
                                         "customClass": "",
                                         "elementStyleProperties": {
                                         },
-                                        "inlineStyle": "width:1320px;",
+                                        "inlineStyle": "width:1320px",
                                         "margin": [
                                         ],
                                         "padding": [
@@ -1557,7 +2089,7 @@
                                             "small": 12
                                         },
                                         "sizeClass": "slds-size_12-of-12 ",
-                                        "style": "     border-bottom: #cccccc 1px solid; \n         width:1320px;",
+                                        "style": "     border-bottom: #cccccc 1px solid; \n         width:1320px",
                                         "text": {
                                             "align": "",
                                             "color": ""
@@ -1615,11 +2147,11 @@
                     ],
                     "width": ""
                 },
-                "class": "slds-theme_default  slds-text-longform",
+                "class": "slds-theme_default  ",
                 "container": {
                     "class": ""
                 },
-                "customClass": "slds-text-longform",
+                "customClass": "",
                 "elementStyleProperties": {
                 },
                 "inlineStyle": "",
@@ -1663,6 +2195,8 @@
                                             "property": {
                                                 "card": "{card}",
                                                 "fieldName": "{Status}",
+                                                "labelclass": {
+                                                },
                                                 "placeholder": "{Status}",
                                                 "record": "{record}",
                                                 "styles": {
@@ -1672,7 +2206,9 @@
                                                         "fontSize": "9pt"
                                                     }
                                                 },
-                                                "type": "text"
+                                                "type": "text",
+                                                "valueclass": {
+                                                }
                                             },
                                             "size": {
                                                 "default": "12",
@@ -1945,91 +2481,6 @@
                                                     }
                                                 },
                                                 {
-                                                    "conditionString": "Status == Cancelado || (Status == Cancelled)",
-                                                    "conditions": {
-                                                        "group": [
-                                                            {
-                                                                "field": "Status",
-                                                                "hasMergeField": false,
-                                                                "id": "state-new-condition-42",
-                                                                "operator": "==",
-                                                                "type": "custom",
-                                                                "value": "Cancelado"
-                                                            },
-                                                            {
-                                                                "group": [
-                                                                    {
-                                                                        "field": "Status",
-                                                                        "hasMergeField": false,
-                                                                        "id": "state-new-condition-0",
-                                                                        "operator": "==",
-                                                                        "type": "custom",
-                                                                        "value": "Cancelled"
-                                                                    }
-                                                                ],
-                                                                "id": "state-new-group-1",
-                                                                "logicalOperator": "||"
-                                                            }
-                                                        ],
-                                                        "id": "state-condition-object",
-                                                        "isParent": true
-                                                    },
-                                                    "draggable": true,
-                                                    "isSetForDesignTime": false,
-                                                    "isopen": true,
-                                                    "key": 3,
-                                                    "label": "Cancelado",
-                                                    "name": "Cancelado",
-                                                    "styleObject": {
-                                                        "background": {
-                                                            "color": "#C23934",
-                                                            "image": "",
-                                                            "position": "",
-                                                            "repeat": "",
-                                                            "size": ""
-                                                        },
-                                                        "border": {
-                                                            "color": "#cccccc",
-                                                            "radius": "3px",
-                                                            "style": "",
-                                                            "type": "",
-                                                            "width": ""
-                                                        },
-                                                        "class": "slds-text-align_center ",
-                                                        "container": {
-                                                            "class": ""
-                                                        },
-                                                        "elementStyleProperties": {
-                                                            "styles": {
-                                                                "label": {
-                                                                    "fontFamily": "",
-                                                                    "fontSize": ""
-                                                                },
-                                                                "value": {
-                                                                    "color": "#FFF",
-                                                                    "fontFamily": "var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol');",
-                                                                    "fontSize": "9pt"
-                                                                }
-                                                            }
-                                                        },
-                                                        "inlineStyle": "font-weight: bold;",
-                                                        "margin": [
-                                                        ],
-                                                        "padding": [
-                                                        ],
-                                                        "size": {
-                                                            "default": "12",
-                                                            "isResponsive": false
-                                                        },
-                                                        "sizeClass": "slds-size_12-of-12 ",
-                                                        "style": "background-color:#C23934;      \n    border-radius:3px;     font-weight: bold;",
-                                                        "text": {
-                                                            "align": "center",
-                                                            "color": ""
-                                                        }
-                                                    }
-                                                },
-                                                {
                                                     "conditionString": "Status == Suspenso || (Status == Suspended)",
                                                     "conditions": {
                                                         "group": [
@@ -2062,7 +2513,7 @@
                                                     "draggable": true,
                                                     "isSetForDesignTime": false,
                                                     "isopen": true,
-                                                    "key": 4,
+                                                    "key": 3,
                                                     "label": "Suspenso",
                                                     "name": "Suspenso",
                                                     "styleObject": {
@@ -2104,6 +2555,370 @@
                                                         },
                                                         "sizeClass": "slds-size_12-of-12 ",
                                                         "style": "background-color:#DFD105;      \n    border-radius:3px;     font-weight: bold;",
+                                                        "text": {
+                                                            "align": "center",
+                                                            "color": ""
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "conditionString": "Status == Cancelado || (Status == Cancelled)",
+                                                    "conditions": {
+                                                        "group": [
+                                                            {
+                                                                "field": "Status",
+                                                                "hasMergeField": false,
+                                                                "id": "state-new-condition-42",
+                                                                "operator": "==",
+                                                                "type": "custom",
+                                                                "value": "Cancelado"
+                                                            },
+                                                            {
+                                                                "group": [
+                                                                    {
+                                                                        "field": "Status",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-0",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "Cancelled"
+                                                                    }
+                                                                ],
+                                                                "id": "state-new-group-1",
+                                                                "logicalOperator": "||"
+                                                            }
+                                                        ],
+                                                        "id": "state-condition-object",
+                                                        "isParent": true
+                                                    },
+                                                    "draggable": true,
+                                                    "isSetForDesignTime": false,
+                                                    "isopen": true,
+                                                    "key": 4,
+                                                    "label": "Cancelado",
+                                                    "name": "Cancelado",
+                                                    "styleObject": {
+                                                        "background": {
+                                                            "color": "#E40A0A",
+                                                            "image": "",
+                                                            "position": "",
+                                                            "repeat": "",
+                                                            "size": ""
+                                                        },
+                                                        "border": {
+                                                            "color": "#cccccc",
+                                                            "radius": "3px",
+                                                            "style": "",
+                                                            "type": "",
+                                                            "width": ""
+                                                        },
+                                                        "class": "slds-text-align_center ",
+                                                        "container": {
+                                                            "class": ""
+                                                        },
+                                                        "elementStyleProperties": {
+                                                            "styles": {
+                                                                "label": {
+                                                                    "fontFamily": "",
+                                                                    "fontSize": ""
+                                                                },
+                                                                "value": {
+                                                                    "color": "#FFF",
+                                                                    "fontFamily": "var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol');",
+                                                                    "fontSize": "9pt"
+                                                                }
+                                                            }
+                                                        },
+                                                        "inlineStyle": "font-weight: bold;",
+                                                        "margin": [
+                                                        ],
+                                                        "padding": [
+                                                        ],
+                                                        "size": {
+                                                            "default": "12",
+                                                            "isResponsive": false
+                                                        },
+                                                        "sizeClass": "slds-size_12-of-12 ",
+                                                        "style": "background-color:#E40A0A;      \n    border-radius:3px;     font-weight: bold;",
+                                                        "text": {
+                                                            "align": "center",
+                                                            "color": ""
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "conditionString": "Status == Recém Portado",
+                                                    "conditions": {
+                                                        "group": [
+                                                            {
+                                                                "field": "Status",
+                                                                "hasMergeField": false,
+                                                                "id": "state-new-condition-9",
+                                                                "operator": "==",
+                                                                "type": "custom",
+                                                                "value": "Recém Portado"
+                                                            }
+                                                        ],
+                                                        "id": "state-condition-object",
+                                                        "isParent": true
+                                                    },
+                                                    "draggable": true,
+                                                    "isSetForDesignTime": false,
+                                                    "isopen": true,
+                                                    "key": 5,
+                                                    "label": "Recém Portado",
+                                                    "name": "Recém Portado",
+                                                    "styleObject": {
+                                                        "background": {
+                                                            "color": "#9D9595",
+                                                            "image": "",
+                                                            "position": "",
+                                                            "repeat": "",
+                                                            "size": ""
+                                                        },
+                                                        "border": {
+                                                            "color": "#cccccc",
+                                                            "radius": "3px",
+                                                            "style": "",
+                                                            "type": "",
+                                                            "width": ""
+                                                        },
+                                                        "class": "slds-text-align_center ",
+                                                        "container": {
+                                                            "class": ""
+                                                        },
+                                                        "elementStyleProperties": {
+                                                            "labelclass": "",
+                                                            "styles": {
+                                                                "label": {
+                                                                    "color": "",
+                                                                    "fontFamily": "",
+                                                                    "fontSize": "",
+                                                                    "textAlign": ""
+                                                                },
+                                                                "value": {
+                                                                    "color": "#FFF",
+                                                                    "fontFamily": "var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol');",
+                                                                    "fontSize": "7pt"
+                                                                }
+                                                            },
+                                                            "valueclass": ""
+                                                        },
+                                                        "inlineStyle": "font-weight: bold",
+                                                        "margin": [
+                                                        ],
+                                                        "padding": [
+                                                        ],
+                                                        "size": {
+                                                            "default": "12",
+                                                            "isResponsive": false
+                                                        },
+                                                        "sizeClass": "slds-size_12-of-12 ",
+                                                        "style": "background-color:#9D9595;      \n    border-radius:3px;     font-weight: bold",
+                                                        "text": {
+                                                            "align": "center",
+                                                            "color": ""
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "conditionString": "Status == Terminado",
+                                                    "conditions": {
+                                                        "group": [
+                                                            {
+                                                                "field": "Status",
+                                                                "hasMergeField": false,
+                                                                "id": "state-new-condition-16",
+                                                                "operator": "==",
+                                                                "type": "custom",
+                                                                "value": "Terminado"
+                                                            }
+                                                        ],
+                                                        "id": "state-condition-object",
+                                                        "isParent": true
+                                                    },
+                                                    "draggable": true,
+                                                    "isSetForDesignTime": false,
+                                                    "isopen": true,
+                                                    "key": 6,
+                                                    "label": "Terminado",
+                                                    "name": "Terminado",
+                                                    "styleObject": {
+                                                        "background": {
+                                                            "color": "#000000",
+                                                            "image": "",
+                                                            "position": "",
+                                                            "repeat": "",
+                                                            "size": ""
+                                                        },
+                                                        "border": {
+                                                            "color": "#cccccc",
+                                                            "radius": "3px",
+                                                            "style": "",
+                                                            "type": "",
+                                                            "width": ""
+                                                        },
+                                                        "class": "slds-text-align_center ",
+                                                        "container": {
+                                                            "class": ""
+                                                        },
+                                                        "elementStyleProperties": {
+                                                            "styles": {
+                                                                "label": {
+                                                                    "fontFamily": ""
+                                                                },
+                                                                "value": {
+                                                                    "color": "#FFF",
+                                                                    "fontFamily": "var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol');",
+                                                                    "fontSize": "9pt"
+                                                                }
+                                                            }
+                                                        },
+                                                        "inlineStyle": "font-weight: bold;",
+                                                        "margin": [
+                                                        ],
+                                                        "padding": [
+                                                        ],
+                                                        "size": {
+                                                            "default": "12",
+                                                            "isResponsive": false
+                                                        },
+                                                        "sizeClass": "slds-size_12-of-12 ",
+                                                        "style": "background-color:#000000;      \n    border-radius:3px;     font-weight: bold;",
+                                                        "text": {
+                                                            "align": "center",
+                                                            "color": ""
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "conditionString": "Status == Desativado",
+                                                    "conditions": {
+                                                        "group": [
+                                                            {
+                                                                "field": "Status",
+                                                                "hasMergeField": false,
+                                                                "id": "state-new-condition-36",
+                                                                "operator": "==",
+                                                                "type": "custom",
+                                                                "value": "Desativado"
+                                                            }
+                                                        ],
+                                                        "id": "state-condition-object",
+                                                        "isParent": true
+                                                    },
+                                                    "draggable": true,
+                                                    "isSetForDesignTime": false,
+                                                    "isopen": true,
+                                                    "key": 7,
+                                                    "label": "Desativado",
+                                                    "name": "Desativado",
+                                                    "styleObject": {
+                                                        "background": {
+                                                            "color": "#A5AD04",
+                                                            "image": "",
+                                                            "position": "",
+                                                            "repeat": "",
+                                                            "size": ""
+                                                        },
+                                                        "border": {
+                                                            "color": "#cccccc",
+                                                            "radius": "3px",
+                                                            "style": "",
+                                                            "type": "",
+                                                            "width": ""
+                                                        },
+                                                        "class": "slds-text-align_center ",
+                                                        "container": {
+                                                            "class": ""
+                                                        },
+                                                        "elementStyleProperties": {
+                                                            "styles": {
+                                                                "value": {
+                                                                    "color": "#FFF",
+                                                                    "fontFamily": "var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol');",
+                                                                    "fontSize": "9pt"
+                                                                }
+                                                            }
+                                                        },
+                                                        "inlineStyle": "font-weight: bold;",
+                                                        "margin": [
+                                                        ],
+                                                        "padding": [
+                                                        ],
+                                                        "size": {
+                                                            "default": "12",
+                                                            "isResponsive": false
+                                                        },
+                                                        "sizeClass": "slds-size_12-of-12 ",
+                                                        "style": "background-color:#A5AD04;      \n    border-radius:3px;     font-weight: bold;",
+                                                        "text": {
+                                                            "align": "center",
+                                                            "color": ""
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "conditionString": "Status == Migrado",
+                                                    "conditions": {
+                                                        "group": [
+                                                            {
+                                                                "field": "Status",
+                                                                "hasMergeField": false,
+                                                                "id": "state-new-condition-0",
+                                                                "operator": "==",
+                                                                "type": "custom",
+                                                                "value": "Migrado"
+                                                            }
+                                                        ],
+                                                        "id": "state-condition-object",
+                                                        "isParent": true
+                                                    },
+                                                    "draggable": true,
+                                                    "isSetForDesignTime": false,
+                                                    "isopen": true,
+                                                    "key": 8,
+                                                    "label": "Migrado",
+                                                    "name": "Migrado",
+                                                    "styleObject": {
+                                                        "background": {
+                                                            "color": "#25C130",
+                                                            "image": "",
+                                                            "position": "",
+                                                            "repeat": "",
+                                                            "size": ""
+                                                        },
+                                                        "border": {
+                                                            "color": "#cccccc",
+                                                            "radius": "3px",
+                                                            "style": "",
+                                                            "type": "",
+                                                            "width": ""
+                                                        },
+                                                        "class": "slds-text-align_center ",
+                                                        "container": {
+                                                            "class": ""
+                                                        },
+                                                        "elementStyleProperties": {
+                                                            "styles": {
+                                                                "value": {
+                                                                    "color": "#FFF",
+                                                                    "fontFamily": "var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol');",
+                                                                    "fontSize": "9pt"
+                                                                }
+                                                            }
+                                                        },
+                                                        "inlineStyle": "font-weight: bold;",
+                                                        "margin": [
+                                                        ],
+                                                        "padding": [
+                                                        ],
+                                                        "size": {
+                                                            "default": "12",
+                                                            "isResponsive": false
+                                                        },
+                                                        "sizeClass": "slds-size_12-of-12 ",
+                                                        "style": "background-color:#25C130;      \n    border-radius:3px;     font-weight: bold;",
                                                         "text": {
                                                             "align": "center",
                                                             "color": ""
