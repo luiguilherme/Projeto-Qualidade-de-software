@@ -20,6 +20,8 @@ public with sharing class StoreServiceManagerEngine {
     private static final String CUSTOMER_SEGMENT = 'CustomerSegment';
     private static final String SEGMENT_NOT_CUSTOMER_ID = '3';
 
+    private static final String CUSTOM_SETTING_NAME = 'SSMUseServiceTicketObject';
+
     private static final Integer ERROR_LOADING_USER_INFORMATION = 602;
     private static final Integer ERROR_USER_NOT_RELATED_TO_STORE = 610;
     private static final Integer ERROR_POSITIONS_LIST_IS_EMPTY = 611;
@@ -164,6 +166,7 @@ public with sharing class StoreServiceManagerEngine {
 
     public static Map<String, Object> fetchInformationAttendance() {
 		Map<String, Object> mapResponse = new Map<String, Object>();
+        Boolean isNewSolution = FeatureFlagEngine.applicationIsActive(CUSTOM_SETTING_NAME);
 
         try {
 			Map<String, Object> mapResponseCallout = QueueInformationAttendanceCallout.execute();
@@ -180,16 +183,19 @@ public with sharing class StoreServiceManagerEngine {
                     ltInformationAttendance[0].O_TP_STATUS != null
                 ) {
                     if (ltInformationAttendance[0].O_TP_STATUS == '2' && ltInformationAttendance[0].O_ST_SENHA != null) {
+                        ServiceTicket__c ticket;
                         // Get the object's ticket record ID
-                        User attendant = UserDAO.getById(UserInfo.getUserId());
+                        if(isNewSolution){
+                            User attendant = UserDAO.getById(UserInfo.getUserId());
 
-                        ServiceTicket__c ticket = ServiceTicketDAO.getGSSInServiceByStoreLoginAndTicketId(
+                            ticket = ServiceTicketDAO.getGSSInServiceByStoreLoginAndTicketId(
                             attendant.StoreCode__c, attendant.Login__c, ltInformationAttendance[0].O_ST_SENHA
-                        );
+                            );
+                        }
 
-                        if (ticket != null) {
-                            informationAttendance.Id = ticket.Id;
-                            informationAttendance.createdDateTime = (DateTime.valueOf(ticket.CreatedDate)).formatGmt('YYYY-MM-dd HH:mm:ss');
+                        if (!isNewSolution || ticket != null) {
+                            informationAttendance.Id = isNewSolution ? ticket.Id : null;
+                            informationAttendance.createdDateTime = isNewSolution ? (DateTime.valueOf(ticket.CreatedDate)).formatGmt('YYYY-MM-dd HH:mm:ss') : null;
 
                             informationAttendance.statusAttendance = ltInformationAttendance[0].O_TP_STATUS;
                             informationAttendance.ticketId = ltInformationAttendance[0].O_ST_SENHA;
@@ -249,7 +255,9 @@ public with sharing class StoreServiceManagerEngine {
                                 : ''
                             );
                         
-                            if (ticket.ServiceStart__c == null) {
+                            if(!isNewSolution){
+                                informationAttendance.startTime = calculateStartTime(informationAttendance.duration);
+                            }else if (ticket.ServiceStart__c == null) {
                                 informationAttendance.startTime = (DateTime.now()).formatGmt('YYYY-MM-dd HH:mm:ss');
 
                             } else {

@@ -29,7 +29,9 @@ public with sharing class ChatIAController {
             fullChat.chat = chat;
             ChatIAHistoryVO.CreateNewChatResponse retorno = ChatIAInterfaceAPI.CreateNewChat(fullChat, token);
             System.debug(' retorno' + retorno );
-
+            if(retorno == null){
+                retorno = createNewHistory(chatList);
+            }
             return retorno;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());

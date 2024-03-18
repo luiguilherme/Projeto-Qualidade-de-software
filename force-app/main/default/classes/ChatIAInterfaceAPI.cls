@@ -83,7 +83,6 @@ public with sharing class ChatIAInterfaceAPI {
             bodyToSend = bodyToSend.replace('x_id', '_id');
             ChatIAHistoryVO.CreateNewChatResponse retorno = new ChatIAHistoryVO.CreateNewChatResponse();
             ChatIASubscriptionId__c subscription = ChatIASubscriptionId__c.getValues('SubscriptionId');
-            system.debug( UserInfo.getUserId());
             HttpRequest req = new HttpRequest();
             req.setEndpoint('https://ai-br-pro.telefonicabigdata.com/flow/chat/12345');
             req.setHeader('Content-Type', 'application/json');
@@ -106,9 +105,13 @@ public with sharing class ChatIAInterfaceAPI {
                 String response = res.getBody();
                 response = response.replace('_id', 'x_id');
                 response = response.replace('date', 'x_date');
-
-                retorno = (ChatIAHistoryVO.CreateNewChatResponse)  System.JSON.deserialize(response, ChatIAHistoryVO.CreateNewChatResponse.class);
                 System.debug('retorno => '+ retorno);
+                retorno = (ChatIAHistoryVO.CreateNewChatResponse)  System.JSON.deserialize(response, ChatIAHistoryVO.CreateNewChatResponse.class);
+            }
+            else {
+                if(res.getBody().contains('CHAT_DOESNT_EXISTS')){
+                    return null;
+                }
             }
             return retorno;
         } catch(JSONException ex) {
@@ -255,13 +258,14 @@ public with sharing class ChatIAInterfaceAPI {
             req.setHeader('session_id', '123456');
             req.setHeader('subscription_id', subscription.SubscriptionId__c);
             req.setHeader('flow_id', '12345');
+            System.debug('chatId ' + chatId);
             req.setHeader('_id', chatId);
             req.setHeader('User-Agent', 'Mozilla');
             req.setMethod('GET');
             req.setTimeout(120000);
             Http http = new Http();
             HTTPResponse res = new Http().send(req);
-            
+            System.debug('request => ' + req);
             System.debug('response => ' + res.getBody());
 
             if(res.getStatusCode() >= 200 && res.getStatusCode() <= 202){

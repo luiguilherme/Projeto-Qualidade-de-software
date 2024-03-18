@@ -17,7 +17,7 @@
                 let startTime = returnValue["success"];
 
                 if (startTime) {
-                    serviceTicket.startTime = startTime;
+                    serviceTicket.startTime = returnValue["startTime"] ? returnValue["startTime"] : startTime;
 
                     component.set("v.serviceTicket", serviceTicket);
 

@@ -8,18 +8,22 @@
 */
 public with sharing class SSMAttendanceOperationsEngine {
     private static final Integer GENERIC_ERROR_MESSAGE = 699;
+    private static final String CUSTOM_SETTING_NAME = 'SSMUseServiceTicketObject';
 
     public static Map<String, Object> recallTicket(StoreServiceManagerTO.ServiceTicket serviceTicket) {
         Map<String, Object> mapResponse = new Map<String, Object>();
 
         try {
+            serviceTicket.status = ServiceTicketDAO.GSS_STATUS_IN_SERVICE;
             serviceTicket.startTime = (DateTime.now()).formatGmt('YYYY-MM-dd HH:mm:ss');
             serviceTicket.waitTime = StoreServiceManagerService.calculateElapsedTime(serviceTicket.createdDateTime, serviceTicket.startTime);
 
             mapResponse = PointOfServiceAttendanceCallout.execute(serviceTicket, 'Recall');
 
             if (mapResponse.get('success') != null) {
-                updateServiceTicket(serviceTicket);
+                if(FeatureFlagEngine.applicationIsActive(CUSTOM_SETTING_NAME)){
+                    updateServiceTicket(serviceTicket);
+                }
 
                 mapResponse.clear();
                 
@@ -53,7 +57,7 @@ public with sharing class SSMAttendanceOperationsEngine {
 
             mapResponse = PointOfServiceAttendanceCallout.execute(serviceTicket, 'Return');
 
-            if (mapResponse.get('success') != null) {
+            if (mapResponse.get('success') != null && FeatureFlagEngine.applicationIsActive(CUSTOM_SETTING_NAME)){
                 updateServiceTicket(serviceTicket);
             }
 
@@ -82,7 +86,9 @@ public with sharing class SSMAttendanceOperationsEngine {
             mapResponse = PointOfServiceAttendanceCallout.execute(serviceTicket, 'Canceled');
 
             if (mapResponse.get('success') != null) {
-                updateServiceTicket(serviceTicket);
+                if(FeatureFlagEngine.applicationIsActive(CUSTOM_SETTING_NAME)){
+                    updateServiceTicket(serviceTicket);
+                }
             
                 if (!String.isBlank(serviceTicket.customerId)) {
                     Map<String, Object> mapCase = createAttendanceCase(serviceTicket);
@@ -119,7 +125,9 @@ public with sharing class SSMAttendanceOperationsEngine {
             mapResponse = PointOfServiceAttendanceCallout.execute(serviceTicket, 'Closed');
 
             if (mapResponse.get('success') != null) {
-                updateServiceTicket(serviceTicket);
+                if(FeatureFlagEngine.applicationIsActive(CUSTOM_SETTING_NAME)){
+                    updateServiceTicket(serviceTicket);
+                }
 
                 if (!String.isBlank(serviceTicket.customerId)) {
                     Map<String, Object> mapCase = createAttendanceCase(serviceTicket);

@@ -8,6 +8,7 @@
 */
 public with sharing class SSMManualServiceDialogEngine {
     private static final String MANUAL_ATTENDANCE = 'MANUAL';
+    private static final String CUSTOM_SETTING_NAME = 'SSMUseServiceTicketObject';
 
     private static final Integer GENERIC_ERROR_MESSAGE = 699;
 
@@ -74,10 +75,10 @@ public with sharing class SSMManualServiceDialogEngine {
                 serviceTicket.activities = '';
                 serviceTicket.notes = '';
 
-                Id newTicketId = registerServiceTicket(serviceTicket);
-
-                serviceTicket.Id = newTicketId;
-
+                if(FeatureFlagEngine.applicationIsActive(CUSTOM_SETTING_NAME)){
+                    Id newTicketId = registerServiceTicket(serviceTicket);
+                    serviceTicket.Id = newTicketId;
+                }
                 mapResponse.put('success', serviceTicket);
 
             } else {

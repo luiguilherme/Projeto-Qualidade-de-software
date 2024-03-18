@@ -32,6 +32,14 @@ public with sharing class StoreServiceManagerControllerTest {
         Database.insert(userTest);
 
         System.runAs(userTest) {
+            
+            FeatureFlag__c featureFlagObj = new FeatureFlag__c();
+            featureFlagObj.Name = 'SSMUseServiceTicketObject';
+            featureFlagObj.Application__c = 'SSMUseServiceTicketObject';
+            featureFlagObj.Active__c = true;
+
+            insert featureFlagObj;
+
             GeneralParam__c generalParamTest = new GeneralParam__c(
                 ViewFieldServiceStoreService__c = true,
                 TimeAutomaticTicketCall__c = 15
