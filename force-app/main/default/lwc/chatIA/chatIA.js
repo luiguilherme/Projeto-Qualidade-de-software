@@ -55,7 +55,7 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
     @track roleARIA = '';
 
     
-    styleCSS = '<p style=\"align-items: flex-start; background-color: var(--colorIA, #660099); color: #ffffff; margin-left: -40px\; border-radius: 1.15rem; line-height: 1.25; max-width: 75%; padding: 0.5rem .875rem; position: relative; word-wrap: break-word">'
+    styleCSS = '<p style=\"align-items: flex-start; background-color: var(--colorIA, #5C169D); color: #ffffff; margin-left: -40px\; border-radius: 1.15rem; line-height: 1.25; max-width: 75%; padding: 0.5rem .875rem; position: relative; word-wrap: break-word">'
 
     connectedCallback(){
         let size = (window.screen.height *0.7) -110;
@@ -159,11 +159,11 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
                     }
                     if(hist.feedback === 'positive'){
                         mensagemUser.disableDislike = 'true';
-                        mensagemUser.css = '--slds-c-icon-color-foreground: #660099;margin-left: -20px;';
+                        mensagemUser.css = '--slds-c-icon-color-foreground: #5C169D;margin-left: -20px;';
                     }
                     if(hist.feedback === 'negative'){
                         mensagemUser.disableLike = 'true';
-                        mensagemUser.css = '--slds-c-icon-color-foreground: #660099;margin-left: -20px;';
+                        mensagemUser.css = '--slds-c-icon-color-foreground: #5C169D;margin-left: -20px;';
                     }
 
             
@@ -227,9 +227,10 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
                     urlDocument += '<br><i><a href="' + snippets.document.url + '"><font color=#80CEF9>'+ snippets.document.name +'.</a></i><br>';
                     firstUrl = false;
                 });
+                let mensagem = data.content.replace(/\n/g, "<br>");
                 let mensagemIA = {
                     mensagemUsuario: false,
-                    conteudoMensagem: this.styleCSS + data.content + urlDocument,
+                    conteudoMensagem: this.styleCSS + mensagem + urlDocument,
                     correlator: data.correlator,
                     disableLike: false,
                     disableDislike: false,
@@ -389,7 +390,7 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
     likeButton(event){
         this.conversaCompleta.forEach(mensagem =>{
             if(mensagem.correlator === event.target.value && mensagem.css == ''){
-                mensagem.css = '--slds-c-icon-color-foreground: #660099;margin-left: -20px;';
+                mensagem.css = '--slds-c-icon-color-foreground: #5C169D;margin-left: -20px;';
                 this.correlator = event.target.value;
                 mensagem.disableDislike = true;
                 this.feedbackIsOpen = true;
@@ -402,7 +403,7 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
     dislikeButton(event){
         this.conversaCompleta.forEach(mensagem =>{
             if(mensagem.correlator === event.target.value && mensagem.css == ''){
-                mensagem.css = '--slds-c-icon-color-foreground: #660099;margin-left: -20px;';
+                mensagem.css = '--slds-c-icon-color-foreground: #5C169D;margin-left: -20px;';
                 this.correlator = event.target.value;
                 mensagem.disableLike = true;
                 this.feedbackIsOpen = true;
