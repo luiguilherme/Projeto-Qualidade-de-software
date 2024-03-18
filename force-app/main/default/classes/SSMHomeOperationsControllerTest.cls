@@ -32,6 +32,13 @@ public with sharing class SSMHomeOperationsControllerTest {
         Database.insert(userTest);
 
         System.runAs(userTest) {
+            FeatureFlag__c featureFlagObj = new FeatureFlag__c();
+            featureFlagObj.Name = 'SSMUseServiceTicketObject';
+            featureFlagObj.Application__c = 'SSMUseServiceTicketObject';
+            featureFlagObj.Active__c = true;
+    
+            insert featureFlagObj;
+            
             List<Webservice__c> ltWebservicesSSM = new List<Webservice__c>();
 
             ltWebservicesSSM.add(
@@ -117,7 +124,7 @@ public with sharing class SSMHomeOperationsControllerTest {
     }
 
     @IsTest
-    public static void  startAttendanceTest() {
+    public static void  startAttendanceTestNew() {
         User userTest = [
             SELECT id 
             FROM User 
@@ -140,6 +147,39 @@ public with sharing class SSMHomeOperationsControllerTest {
             Test.stopTest();
 
             System.assertEquals('T98', serviceTicketTest.ticketId);
+        }
+    }
+
+    @IsTest
+    public static void  startAttendanceTestOld() {
+        FeatureFlag__c featureFlagObj = FeatureFlag__c.getValues('SSMUseServiceTicketObject');
+        featureFlagObj.Active__c = false;
+        
+        upsert featureFlagObj;
+
+        User userTest = [
+            SELECT id 
+            FROM User 
+            WHERE UserName = 'ssmgssvssf@ssmgssvssf.com' 
+            LIMIT 1
+        ];
+
+        System.runAs(userTest) {
+            StoreServiceManagerTO.ServiceTicket serviceTicket = new StoreServiceManagerTO.ServiceTicket();
+                    
+            serviceTicket.ticketId = 'T98';
+            serviceTicket.workPositionId = '01';
+            serviceTicket.displayAlert = true;
+            
+            Test.startTest();
+                Test.setMock(HttpCalloutMock.class, new PointOfServiceAttendanceCalloutMock());
+
+                Map<String, Object> mapTest = SSMHomeOperationsController.startAttendance(serviceTicket);
+            Test.stopTest();
+            
+            StoreServiceManagerTO.ServiceTicket serviceTicketTest = (StoreServiceManagerTO.ServiceTicket)mapTest.get('success');
+
+            System.assertEquals('In Service', serviceTicketTest.status);
         }
     }
 }

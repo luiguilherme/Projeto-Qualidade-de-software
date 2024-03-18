@@ -30,6 +30,15 @@ public with sharing class StoreServiceManagerRequestTest {
         );
 
         Database.insert(userTest);
+
+        System.runAs(userTest) {
+            FeatureFlag__c featureFlagObj = new FeatureFlag__c();
+            featureFlagObj.Name = 'SSMUseServiceTicketObject';
+            featureFlagObj.Application__c = 'SSMUseServiceTicketObject';
+            featureFlagObj.Active__c = true;
+
+            insert featureFlagObj;
+        }
     }
 
     @IsTest

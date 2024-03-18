@@ -64,10 +64,78 @@ public with sharing class SSMTicketsControllerTest {
 
             Database.insert(ticketTest);
         }
+
+        System.runAs(userTest) {
+            List<Webservice__c> ltWebservicesSSM = new List<Webservice__c>();
+        
+            ltWebservicesSSM.add(
+                new Webservice__c(
+                    Name = 'PointOfServiceCallout',
+                    switchedOn__c = true,
+                    Endpoint__c = 'https://api-hml.telefonica.com.br/pointServiceQueueManagement/v1/pointOfServices?attendantId={attendantId}',
+                    SubscriptionKey__c = '36cfd2713668489bb3f7d23d042be3a3'
+                )
+            );
+        
+            ltWebservicesSSM.add(
+                new Webservice__c(
+                    Name = 'OperationalInformationsCallout',
+                    switchedOn__c = true,
+                    Endpoint__c = 'https://api-hml.telefonica.com.br/channelSalesManagement/v1/pointOfServices/operationalInformations/',
+                    SubscriptionKey__c = '36cfd2713668489bb3f7d23d042be3a3'
+                )
+            );          
+        
+            ltWebservicesSSM.add(
+                new Webservice__c(
+                    Name = 'UpdateWorkPositionCallout',
+                    switchedOn__c = true,
+                    Endpoint__c = 'https://api-hml.telefonica.com.br/pointOfServices/{pointOfServiceId}/workPositions/{workPositionId}',
+                    SubscriptionKey__c = '36cfd2713668489bb3f7d23d042be3a3'
+                )
+            );
+        
+            ltWebservicesSSM.add(
+                new Webservice__c(
+                    Name = 'PointOfServiceAttendantCallout',
+                    switchedOn__c = true,
+                    Endpoint__c = 'https://api-hml.telefonica.com.br//pointOfServices/{pointOfServiceId}/attendants/{attendantId}',
+                    SubscriptionKey__c = '36cfd2713668489bb3f7d23d042be3a3'
+                )
+            );
+        
+            ltWebservicesSSM.add(
+                new Webservice__c(
+                    Name = 'PointOfServiceAttendanceCallout',
+                    switchedOn__c = true,
+                    Endpoint__c = 'https://api-hml.telefonica.com.br/pointOfServices/{pointOfServiceId}/attendants/{attendantId}/attendances',
+                    SubscriptionKey__c = '36cfd2713668489bb3f7d23d042be3a3'
+                )
+            );
+        
+            ltWebservicesSSM.add(
+                new Webservice__c(
+                    Name = 'PointOfServiceTicketsCallout',
+                    switchedOn__c = true,
+                    Endpoint__c = 'https://api-hml.telefonica.com.br/pointOfServices/{pointOfServiceId}/tickets',
+                    SubscriptionKey__c = '36cfd2713668489bb3f7d23d042be3a3'
+                )
+            );
+        
+            Database.insert(ltWebservicesSSM);
+        }
     }
     
     @IsTest
-    public static void getPointOfServiceTitcketsTest() {
+    public static void getNewPointOfServiceTitcketsTest() {
+
+        FeatureFlag__c featureFlagObj = new FeatureFlag__c();
+        featureFlagObj.Name = 'SSMUseServiceTicketObject';
+        featureFlagObj.Application__c = 'SSMUseServiceTicketObject';
+        featureFlagObj.Active__c = true;
+
+        insert featureFlagObj;
+
         User userTest = [
             SELECT id 
             FROM User 
@@ -82,6 +150,37 @@ public with sharing class SSMTicketsControllerTest {
                 (List<StoreServiceManagerTO.ServiceTicket>) mapServiceTicketsTest.get('success');
 
             System.assertEquals('B0001', ltServiceTickets[0].ticketId);
+        }
+    }
+
+    @IsTest
+    public static void getOldPointOfServiceTitcketsTest() {
+
+        FeatureFlag__c featureFlagObj = new FeatureFlag__c();
+        featureFlagObj.Name = 'SSMUseServiceTicketObject';
+        featureFlagObj.Application__c = 'SSMUseServiceTicketObject';
+        featureFlagObj.Active__c = false;
+        
+        insert featureFlagObj;
+
+        User userTest = [
+            SELECT id 
+            FROM User 
+            WHERE UserName = 'ssmgssvssf@ssmgssvssf.com' 
+            LIMIT 1
+        ];
+
+        System.runAs(userTest) {
+            Test.startTest();
+                Test.setMock(HttpCalloutMock.class, new PointOfServiceTicketsCalloutMock());
+
+                Map<String, Object> mapServiceTicketsTest = SSMTicketsController.getPointOfServiceTitckets();
+            Test.stopTest();
+
+            List<StoreServiceManagerTO.ServiceTicket> ltServiceTickets = 
+                (List<StoreServiceManagerTO.ServiceTicket>) mapServiceTicketsTest.get('success');
+
+            System.assertNotEquals(0, ltServiceTickets.size());
         }
     }
 }

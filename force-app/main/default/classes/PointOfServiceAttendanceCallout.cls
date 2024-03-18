@@ -1,6 +1,6 @@
 public with sharing class PointOfServiceAttendanceCallout {
     private static final Boolean API_INTEGRATION = true;
-
+    private static final String CUSTOM_SETTING_NAME = 'SSMUseServiceTicketObject';
     private static final String WEBSERVICE_NAME = 'PointOfServiceAttendanceCallout';
     private static final Integer CODE_HTTP_SUCCESS = 200;
     
@@ -40,6 +40,9 @@ public with sharing class PointOfServiceAttendanceCallout {
 
                 if (response.getStatusCode() == CODE_HTTP_SUCCESS) {
                     mapResult.put('success', response.getBody());
+                    if(!FeatureFlagEngine.applicationIsActive(CUSTOM_SETTING_NAME)){
+                        mapResult.put('startTime', (DateTime.now()).formatGmt('dd/MM/YYYY HH:mm:ss'));
+                    }
 
                 } else {
                     String jsonError = response.getBody();
@@ -85,6 +88,9 @@ public with sharing class PointOfServiceAttendanceCallout {
                 String response = '{"ticket": {"id": "T98"}, "status": "OPEN"}';
 
                 mapResult.put('success', response);
+                if(!FeatureFlagEngine.applicationIsActive(CUSTOM_SETTING_NAME)){
+                    mapResult.put('startTime', (DateTime.now()).formatGmt('dd/MM/YYYY HH:mm:ss'));
+                }
             }
         }
 
@@ -122,7 +128,9 @@ public with sharing class PointOfServiceAttendanceCallout {
 
                 if (response.getStatusCode() == CODE_HTTP_SUCCESS) {
                     mapResult.put('success', response.getStatusCode());
-                    
+                    if (status.equals('Recall') && !FeatureFlagEngine.applicationIsActive(CUSTOM_SETTING_NAME)) {
+                        mapResult.put('startTime', (DateTime.now()).formatGmt('dd/MM/YYYY HH:mm:ss'));
+                    }
                 } else {
                     String jsonError = response.getBody();
                     String errorMessage = '';
@@ -165,6 +173,9 @@ public with sharing class PointOfServiceAttendanceCallout {
 
             } else {
                 mapResult.put('success', CODE_HTTP_SUCCESS);
+                if (status.equals('Recall') && !FeatureFlagEngine.applicationIsActive(CUSTOM_SETTING_NAME)) {
+                    mapResult.put('startTime', (DateTime.now()).formatGmt('dd/MM/YYYY HH:mm:ss'));
+                }
             }
         }
 
