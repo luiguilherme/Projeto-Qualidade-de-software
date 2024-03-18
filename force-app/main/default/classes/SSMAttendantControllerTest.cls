@@ -31,7 +31,14 @@ public with sharing class SSMAttendantControllerTest {
         
         Database.insert(userTest);
 
-        System.runAs(userTest) {
+        System.runAs(userTest) {           
+            FeatureFlag__c featureFlagObj = new FeatureFlag__c();
+            featureFlagObj.Name = 'SSMUseServiceTicketObject';
+            featureFlagObj.Application__c = 'SSMUseServiceTicketObject';
+            featureFlagObj.Active__c = true;
+
+            insert featureFlagObj;
+
             List<Webservice__c> ltWebservicesSSM = new List<Webservice__c>();
 
             ltWebservicesSSM.add(

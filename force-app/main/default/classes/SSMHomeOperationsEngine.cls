@@ -8,6 +8,7 @@
 */
 public with sharing class SSMHomeOperationsEngine {
     private static final Integer GENERIC_ERROR_MESSAGE = 699;
+    private static final String CUSTOM_SETTING_NAME = 'SSMUseServiceTicketObject';
 
     public static Map<String, Object> startAttendance(StoreServiceManagerTO.ServiceTicket serviceTicket) {
         Map<String, Object> mapResponse = new Map<String, Object>();
@@ -23,7 +24,9 @@ public with sharing class SSMHomeOperationsEngine {
                 serviceTicket.startTime = (DateTime.now()).formatGmt('YYYY-MM-dd HH:mm:ss');
                 serviceTicket.waitTime = StoreServiceManagerService.calculateElapsedTime(serviceTicket.createdDateTime, serviceTicket.startTime);
 
-                updateServiceTicket(serviceTicket);
+                if(FeatureFlagEngine.applicationIsActive(CUSTOM_SETTING_NAME)){
+                    updateServiceTicket(serviceTicket);
+                }
 
                 mapResponse.clear();
 

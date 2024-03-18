@@ -57,6 +57,9 @@
                 let serviceTicketUpdated = returnValue["success"];
 
 				if (serviceTicketUpdated) {
+                    if(returnValue["startTime"]){
+                        serviceTicketUpdated.startTime = returnValue["startTime"];
+                    } 
                     component.set("v.serviceTicket", serviceTicketUpdated);
                     
                     this.posAttendance(component);
