@@ -7,6 +7,10 @@ global class CustomerInteractionController implements vlocity_cmt.VlocityOpenInt
 
     global Boolean invokeMethod(String methodName, Map<String, Object> inputMap, Map<String, Object> outputMap, Map<String, Object> optionMap) {
 
+        System.debug('methodName: ' + methodName);
+		System.debug('inputMap: ' + json.serialize(inputMap));
+		System.debug('outputMap: ' + json.serialize(outputMap));
+		System.debug('optionMap: ' + json.serialize(optionMap));
 
         Boolean success = true;
         String errors;
