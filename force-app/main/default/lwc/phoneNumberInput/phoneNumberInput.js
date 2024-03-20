@@ -19,7 +19,11 @@ export default class PhoneNumberInput extends LightningElement {
         }
     }
     handleblur() {
-        pubsub.fire("PhoneNumberInput",this.eventName, { number: this.telefone });
+        if (parseInt(this.telefone) > 0) {
+            pubsub.fire("PhoneNumberInput",this.eventName, { number: this.telefone });
+        }else{
+            pubsub.fire("PhoneNumberInput",this.eventName, { number: "" });
+        }
     }
 
     handlePhone(event) 
