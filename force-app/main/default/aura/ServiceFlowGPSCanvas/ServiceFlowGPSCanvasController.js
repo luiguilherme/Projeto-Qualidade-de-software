@@ -96,5 +96,13 @@
 
     handleCanvasLoad : function(component){
         component.set("v.isLoading", false);
+    },
+
+    handleComponentEvent : function (component, event, helper){
+        var selectedTypeFromEvent = event.getParam("type");
+
+        if (selectedTypeFromEvent == 'closeCanvas'){
+            component.set('v.canOpenCanvas ', false);
+        }
     }
 })
