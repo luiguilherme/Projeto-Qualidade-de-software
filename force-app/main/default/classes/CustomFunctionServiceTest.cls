@@ -912,4 +912,43 @@ public class CustomFunctionServiceTest {
         System.assertEquals('123.45', String.valueOf(output.get('result')));
     }
 
+    @isTest
+    static void testBase64Decode() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        String base64Encoded = EncodingUtil.base64Encode(Blob.valueOf('Test String')).toString();
+
+        List<object> objectList = new List<object>();
+        objectList.add(base64Encoded);
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('base64Decode', inputs, output, options);
+        System.debug(output);
+        System.assert(output.get('result') == 'Test String');
+    }
+
+    @isTest
+    public static void testgetDependentPicklist(){
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('CustomerInteractionTopicTree__c');
+        objectList.add('ProductType__c');
+        objectList.add('Instance__c');
+        objectList.add('Pós/Controle');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getDependentPicklist', inputs, output, options);
+        System.debug(output);
+        System.assertEquals('({Key=CONTROLE, Value=CONTROLE, label=CONTROLE, value=CONTROLE}, {Key=PÓS-PAGO, Value=PÓS-PAGO, label=PÓS-PAGO, value=PÓS-PAGO})', String.valueOf(output.get('result')));
+    }
+
 }

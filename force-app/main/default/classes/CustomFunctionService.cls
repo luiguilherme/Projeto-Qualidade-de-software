@@ -76,6 +76,10 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             {output.put('result', listToCommaSeparatedValues(arguments));}
             when 'contains'
             {output.put('result', contains(arguments));}
+            when 'getDependentPicklist'
+            {output.put('result', getDependentPicklist(arguments));}
+            when 'base64Decode'
+            {output.put('result', base64Decode(arguments));}
         }
         return true;
     }
@@ -837,5 +841,95 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         }
         return false;
     }
+
+    /*
+    * Autor....: Guilherme Kaiser - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método para recuperar DependentPicklist values de 1 campo específico
+    * Data.....: 09/11/2023
+    */
+    public class MyPickListInfo {
+        public String validFor;    
+    }
+
+    public static List<Map<String, String>> getDependentPicklist(List<Object> arguments){
+        String objectName       	= (String) arguments[0];
+        String controllingField 	= (String) arguments[1];
+        String dependentField   	= (String) arguments[2];
+        String pickListValueRequest = (String) arguments[3];
+        
+        List<Map<String, String>> listLabelValues = new List<Map<String, String>>();        
+        Map<String, String> mapItens = new Map<String, String>();
+        Map<String, List<String>> controllingInfo = new Map<String, List<String>>();
+        
+        Schema.SObjectType           objType              = Schema.getGlobalDescribe().get(objectName) ;
+        Schema.DescribeSObjectResult describeResult       = objType.getDescribe();
+        Schema.DescribeFieldResult   controllingFieldInfo = describeResult.fields.getMap().get(controllingField).getDescribe();
+        Schema.DescribeFieldResult   dependentFieldInfo   = describeResult.fields.getMap().get(dependentField).getDescribe();
+        
+        List<Schema.PicklistEntry>   controllingValues    = controllingFieldInfo.getPicklistValues();
+        List<Schema.PicklistEntry>   dependentValues      = dependentFieldInfo.getPicklistValues();
+        
+        for (Schema.PicklistEntry currControllingValue : controllingValues){
+            if(pickListValueRequest ==currControllingValue.getLabel()){
+                controllingInfo.put(currControllingValue.getLabel(),new List<String>());
+            }
+        }
+
+        for (Schema.PicklistEntry currDependentValue:dependentValues){
+            String  jsonString  = JSON.serialize(currDependentValue) ;
+            MyPickListInfo info = (MyPickListInfo)  JSON.deserialize(jsonString,MyPickListInfo.class) ;            
+            String  hexString   = EncodingUtil.convertToHex(EncodingUtil.base64Decode(info.validFor)).toUpperCase();            
+            Integer baseCount   =  0;
+            
+            for (Integer curr:hexString.getChars()){                
+                Integer  val  =  0;                
+                if  (curr  >=  65){
+                    val  =  curr - 65 + 10;
+                }  else  {
+                    val  =  curr - 48;                    
+                }
+                mapItens = new Map<String, String>();
+                //PickList
+                mapItens.put('value', currDependentValue.getLabel());
+                mapItens.put('label', currDependentValue.getLabel());
+                //MultiSelectPickList
+				mapItens.put('Key', currDependentValue.getLabel());
+                mapItens.put('Value', currDependentValue.getLabel());
+                
+                if (((val & 8)  ==  8) && (controllingValues[baseCount+0].getLabel()==pickListValueRequest))  {
+                    controllingInfo.get (controllingValues[baseCount+0].getLabel()).add(currDependentValue.getLabel());  
+                    listLabelValues.add(mapItens);                    
+                }                
+                if (((val & 4)  ==  4) && (controllingValues[baseCount+1].getLabel()==pickListValueRequest))  {
+                    controllingInfo.get (controllingValues[baseCount+1].getLabel()).add(currDependentValue.getLabel());                    
+                    listLabelValues.add(mapItens);
+                }                
+                if (((val & 2)  ==  2) && (controllingValues[baseCount+2].getLabel()==pickListValueRequest))  {
+                    controllingInfo.get (controllingValues[baseCount+2].getLabel()).add(currDependentValue.getLabel());
+                    listLabelValues.add(mapItens);
+                }                
+                if (((val & 1)  ==  1) && (controllingValues[baseCount+3].getLabel()==pickListValueRequest))  {
+                    controllingInfo.get(controllingValues[baseCount+3].getLabel()).add (currDependentValue.getLabel());
+                    listLabelValues.add(mapItens);
+                }
+                baseCount += 4;
+            }            
+        }
+        return listLabelValues;
+    }
     
+    /*
+    * Autor....: Leonardo Vendrame
+    * Projeto..: Contestação Faturas-NTT
+    * Descrição: Método para decodificar base64
+    * Data.....: 21/03/2024
+    */    
+    String base64Decode(List<Object> argument) {
+        String base64Encoded = (String) argument[0];
+        Blob decodedBlob = EncodingUtil.base64Decode(base64Encoded);
+        
+        return decodedBlob.toString();
+    }
+
 }

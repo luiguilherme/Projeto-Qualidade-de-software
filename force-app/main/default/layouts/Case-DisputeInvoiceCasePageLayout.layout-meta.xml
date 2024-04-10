@@ -29,20 +29,8 @@
                 <field>ProtocolURA__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>CallerDDD__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>CallerPhone__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>ContactId</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>AccountId</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -50,19 +38,19 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>CreatedDate</field>
+                <field>RelatedInteraction__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>AccountId</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ContactId</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>CreatedById</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>CaseNumberLegacySystem__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>RelatedInteraction__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -72,23 +60,19 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>ServiceReason__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Priority</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
                 <field>Origin</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>ClosedDate</field>
+                <field>RecordTypeId</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>OwnerId</field>
+                <field>CreatedDate</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ClosedDate</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -97,22 +81,65 @@
         <customLabel>true</customLabel>
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
-        <label>Detalhes da Palitagem</label>
+        <label>Observações</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
+                <field>RequestObservation__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <layoutColumns/>
+        <style>TwoColumnsLeftToRight</style>
+    </layoutSections>
+    <layoutSections>
+        <customLabel>true</customLabel>
+        <detailHeading>true</detailHeading>
+        <editHeading>true</editHeading>
+        <label>Detalhe do Atendimento</label>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ComplainedAsset__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Protocol__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>CaseNumberLegacySystem__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>Product__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>CustomerServiceReason__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ServiceReason__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>ServiceQualificationTree__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>CustomerServiceReason__c</field>
+                <behavior>Readonly</behavior>
+                <field>Priority</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>OwnerId</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>LastModifiedById</field>
             </layoutItems>
         </layoutColumns>
-        <layoutColumns/>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
@@ -123,23 +150,15 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>ClosureMapping__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>RequestObservation__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
                 <field>ClosureLegacySystem__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>ServiceDefinitionId__c</field>
+                <field>InteractionProtocolLegacySystem__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Context__c</field>
+                <field>ClosureMapping__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -147,7 +166,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>InteractionProtocolLegacySystem__c</field>
+                <field>Context__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -175,12 +194,7 @@
                 <field>SuppliedEmail</field>
             </layoutItems>
         </layoutColumns>
-        <layoutColumns>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>LastModifiedById</field>
-            </layoutItems>
-        </layoutColumns>
+        <layoutColumns/>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
@@ -218,8 +232,11 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>InstanceProduct__c</fields>
+        <fields>TotalAmount__c</fields>
+        <fields>Adjustments__c</fields>
+        <fields>AvailableAmount__c</fields>
         <fields>Status__c</fields>
-        <fields>ServiceDefinitionId__c</fields>
         <relatedList>DisputedItem__c.CaseId__c</relatedList>
     </relatedLists>
     <relatedObjects>ContactId</relatedObjects>

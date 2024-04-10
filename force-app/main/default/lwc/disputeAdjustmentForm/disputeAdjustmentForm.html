@@ -40,26 +40,38 @@
               disabled
               data-item-id={item.id}
             ></lightning-combobox>
-            <lightning-input
-              class="font-item-row wide-input slds-col slds-size_1-of-12"
-              type="text"
-              placeholder="R$0.00"
-              pattern="\d*[,\.]?\d{0,2}"
-              value={item.valorAjuste}
-              data-item-id={item.id}
-              onchange={handleAdjustmentChange}
-              oninput={handleInput}
-              onfocus={handleInputFocus}
-              oninvalid={handleInvalidInput}
-            ></lightning-input>
+            <template if:true={item.isEvent}>
+                <lightning-input
+                    class="font-item-row wide-input slds-col slds-size_1-of-12"
+                    type="text"
+                    value={item.valor}
+                    data-item-id={item.id}
+                    readonly
+                ></lightning-input>
+            </template>
+            <template if:false={item.isEvent}>
+              <lightning-input
+                class="font-item-row wide-input slds-col slds-size_1-of-12"
+                type="text"
+                placeholder="R$0.00"
+                pattern="\d*[,\.]?\d{0,2}"
+                value={item.valorAjuste}
+                data-item-id={item.id}
+                onchange={handleAdjustmentChange}
+                oninput={handleInput}
+                onfocus={handleInputFocus}
+                oninvalid={handleInvalidInput}
+                disabled={isDisabled}
+              ></lightning-input>
+            </template>
             <lightning-combobox
               class="font-item-row wide-combobox slds-col slds-size_1-of-12"
               name="modalidade"
               value={item.modalidade}
-              placeholder="Selecione a Modalidade"
+              placeholder="Selecione a modalidade"
               options={item.modalidades}
               data-item-id={item.id}
-              disabled={item.isModalidadeDisabled}
+              disabled={isDisabled}
               onchange={handleModalidadesChange}
             ></lightning-combobox>
             <lightning-combobox
@@ -67,8 +79,9 @@
               class="font-item-row wide-combobox slds-col slds-size_1-of-12"
               name="motivoCredito"
               value={item.motivoCredito}
-              placeholder="Selecione um motivo"
+              placeholder="Selecione o motivo"
               options={item.motivoCreditoOptions}
+              disabled={isDisabled}
               onchange={handleCreditReasonChange}
             ></lightning-combobox>
             <lightning-input class="font-item-row wide-input slds-col slds-size_1-of-12" type="text" value={item.valorPagar} readonly></lightning-input>
