@@ -1,0 +1,34 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "PrepareCreateCaseAmdocs",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/Dispute/PrepareCreateCaseAmdocs/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "billingInvoiceNumber": "=IF(%SVInitParams:FeedbackCreditAmdocs:ConcessionError% == true, %SVInitParams:FeedbackCreditAmdocs:RequestBodyConcession:billingInvoiceNumber%, %SVInitParams:FeedbackCreditAmdocs:RequestBodyApproved:billingInvoiceNumber%)",
+            "caseNumber": "%DRGetCaseData:CaseNumber%",
+            "externalId": "=%SVInitParams:CustomerIds:accountHref%",
+            "name": "=IF(%SVInitParams:Modality% == \"Reembolso\", \"Título de Caso BKO Reembolso\", \"Título de Demais Caso BKO\")",
+            "protocolNumber": "%DRGetCaseData:ProtocolNumber%"
+        },
+        "executionConditionalFormula": "",
+        "failOnStepError": false,
+        "failureConditionalFormula": "",
+        "label": "SetValues4",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVPrepareRequestCase",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Dispute/PrepareCreateCaseAmdocs/Procedure/SVPrepareRequestCase"
+}

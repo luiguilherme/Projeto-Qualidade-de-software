@@ -1,5 +1,5 @@
 {
-    "%vlocity_namespace%__Active__c": false,
+    "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
         "Name": "IPCreateCreditForChargeAndEvent",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
@@ -15,13 +15,14 @@
             "billingSystem": "=TOSTRING(%PrepareRequest:ConcessionList|1:billingSystem%)",
             "charges": "%PrepareRequest:ConcessionList|1:charges%",
             "creditType": "=TOSTRING(%PrepareRequest:ConcessionList|1:creditType%)",
-            "cycleCloseDate": "=TOSTRING(%PrepareRequest:ConcessionList|1:invoiceDetails:cycleCloseDate%)",
-            "cycleStartDate": "=TOSTRING(%PrepareRequest:ConcessionList|1:invoiceDetails:cycleStartDate%)",
-            "documentId": "=TOSTRING(%PrepareRequest:ConcessionList|1:billingAccountId%)",
+            "cycleCloseDate": "=replaceString(TOSTRING(%PrepareRequest:ConcessionList|1:invoiceDetails:cycleCloseDate%),\"Z\",\"-00:00\")",
+            "cycleStartDate": "=replaceString(TOSTRING(%PrepareRequest:ConcessionList|1:invoiceDetails:cycleStartDate%),\"Z\",\"-00:00\")",
+            "documentId": "=TOSTRING(%PrepareRequest:ConcessionList|1:invoiceDetails:documentId%)",
             "financialAccountId": "=TOSTRING(%PrepareRequest:ConcessionList|1:financialAccountId%)",
-            "flagToCreateCase": "=TOSTRING(%PrepareRequest:ConcessionList|1:flagToCreateCase%)",
+            "flagToCreateCase": "%PrepareRequest:ConcessionList|1:flagToCreateCase%",
             "invoiceId": "=TOSTRING(%PrepareRequest:ConcessionList|1:invoiceDetails:invoiceId%)",
             "notes": "=TOSTRING(%PrepareRequest:ConcessionList|1:notes%)",
+            "subscriberId": "%PrepareRequest:ConcessionList|1:subscriberId%",
             "userId": "=TOSTRING(%PrepareRequest:UserLogin%)"
         },
         "executionConditionalFormula": "ISNOTBLANK(%PrepareRequest:ConcessionList|1:charges%) && ISBLANK(%PrepareRequest:ConcessionList|1:events%)",

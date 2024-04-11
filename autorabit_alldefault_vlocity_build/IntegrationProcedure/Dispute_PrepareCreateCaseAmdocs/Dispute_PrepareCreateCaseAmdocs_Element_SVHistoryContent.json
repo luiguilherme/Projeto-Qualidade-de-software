@@ -1,0 +1,32 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__InternalNotes__c": "Define o conteúdo das notas do Caso Amdocs, campo history.",
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "PrepareCreateCaseAmdocs",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/Dispute/PrepareCreateCaseAmdocs/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "NotesDefault": "=CONCAT(\"Número da fatura: \",TOSTRING(%SVPrepareRequestCase:billingInvoiceNumber%),\"\n\nValor Total do Crédito: R$ \",TOSTRING(%SVInitParams:FeedbackCreditAmdocs:TotalAdjustmentAmount%),\"\n\nItens Contestados:\n\",TOSTRING(%SVPrepareNotes:SelectedNote%),\"\n\nObservações: \",TOSTRING(%SVInitParams:Notes%))",
+            "NotesRefund": "=CONCAT(\"Informações Bancárias:\n\", \"Banco: \",TOSTRING(%SVInitParams:FeedbackCreditAmdocs:Bank%), \"\nAgência: \",TOSTRING(%SVInitParams:FeedbackCreditAmdocs:Agency%), \"\nConta Corrente: \",TOSTRING(%SVInitParams:FeedbackCreditAmdocs:CC%), \"\n\nNúmero da fatura: \",TOSTRING(%SVPrepareRequestCase:billingInvoiceNumber%),\"\n\nValor Total do Crédito: R$ \",TOSTRING(%SVInitParams:FeedbackCreditAmdocs:TotalAdjustmentAmount%),\"\n\nItens Contestados:\n\",TOSTRING(%SVPrepareNotes:SelectedNote%),\"\n\nObservações: \",TOSTRING(%SVInitParams:Notes%))"
+        },
+        "executionConditionalFormula": "",
+        "failOnStepError": false,
+        "failureConditionalFormula": "",
+        "label": "SetValues3",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVHistoryContent",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Dispute/PrepareCreateCaseAmdocs/Procedure/SVHistoryContent"
+}

@@ -12,8 +12,7 @@
         "disOnTplt": false,
         "elementValueMap": {
             "AccountIdString": "=IF(ISNOTBLANK(%CustomerIds:customerAccountId%),TOSTRING(%CustomerIds:customerAccountId%), NULL)",
-            "maxOrderCreationDateUnix": "=IF(ISNOTBLANK(%selectedInvoice|1:l9CycleCloseDate%),TOSTRING(DATETIMETOUNIX(FORMATDATETIME(%selectedInvoice|1:l9CycleCloseDate% +\" 23:59\", \"dd/MM/YYYY HH:mm:ss\", \"Etc/GMT-3\"))), NULL)",
-            "minOrderCreationDateUnix": "=IF(ISNOTBLANK(%selectedInvoice|1:l9CycleStartDate%),TOSTRING(DATETIMETOUNIX(FORMATDATETIME(%selectedInvoice|1:l9CycleStartDate% +\" 23:59\", \"dd/MM/YYYY HH:mm:ss\", \"Etc/GMT-3\"))), NULL)"
+            "minOrderCreationDateUnix": "=IF(ISNOTBLANK(%apiGetCommitment|1:startDate%),TOSTRING(DATETIMETOUNIX(FORMATDATETIME(%apiGetCommitment|1:startDate%, \"dd/MM/YYYY HH:mm:ss\", \"Etc/GMT-3\"))), NULL)"
         },
         "executionConditionalFormula": "",
         "failOnStepError": false,
