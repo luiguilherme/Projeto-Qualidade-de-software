@@ -742,18 +742,6 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         
         return strValue.Contains('my.site.com');
     }        
-    
-    
-    /*
-    * Autor....: Guilherme Kaiser - Deloitte
-    * Projeto..: Vivo - VALENTINA
-    * Descrição: Método para recuperar DependentPicklist values de 1 campo específico
-    * Data.....: 09/11/2023
-    */
-    public class MyPickListInfo {
-        public String validFor;    
-    }
-    
 
     
     /*
