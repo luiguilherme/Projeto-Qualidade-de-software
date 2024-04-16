@@ -8,7 +8,7 @@
         },
         "type": "Custom",
         "value": {
-            "body": "{\"notes\":\"\",\"HideRegisterButton\":\"\",\"accountId\":\"\",\"attendantMessage\":\"\",\"caseId\":\"\",\"hasAutoDebit\":\"\",\"invoiceNumber\":\"\",\"invoiceStatus\":\"\",\"isLastItem\":\"\",\"serviceDefinitionName\":\"\",\"withinAdjustmentPeriod\":\"\",\"responseUpsertSuccess\":{},\"selectedInvoice\":[]}",
+            "body": "{\"notes\":\"\",\"HideRegisterButton\":\"\",\"accountId\":\"\",\"attendantMessage\":\"\",\"caseId\":\"\",\"hasAutoDebit\":\"\",\"invoiceNumber\":\"\",\"invoiceStatus\":\"\",\"isLastItem\":\"\",\"serviceDefinitionName\":\"\",\"withinAdjustmentPeriod\":\"\",\"responseUpsertSuccess\":{},\"selectedInvoice\":[],\"CustomerIds\":\"\",\"InteractionId\":\"\",\"InteractionTopicId\":\"\"}",
             "dsDelay": "",
             "resultVar": ""
         }
@@ -22,7 +22,7 @@
                     "card": "{card}",
                     "draggable": false,
                     "isOpen": true,
-                    "key": "1703166509953-jh4tnx0lo",
+                    "key": "1706020043858-wf1g2bvxw",
                     "label": "GetInformation",
                     "stateAction": {
                         "Web Page": {
@@ -54,9 +54,37 @@
                             {
                                 "fieldName": "Session.HideRegisterButton",
                                 "fieldValue": "true"
+                            },
+                            {
+                                "fieldName": "totalAdjustmentAmount",
+                                "fieldValue": "{Session.totalAdjustmentAmount}"
+                            },
+                            {
+                                "fieldName": "bank",
+                                "fieldValue": "{Session.bank}"
+                            },
+                            {
+                                "fieldName": "agency",
+                                "fieldValue": "{Session.agency}"
+                            },
+                            {
+                                "fieldName": "cc",
+                                "fieldValue": "{Session.cc}"
+                            },
+                            {
+                                "fieldName": "ConvertNotesToStringBoth",
+                                "fieldValue": "{action.ConvertNotesToStringBoth}"
+                            },
+                            {
+                                "fieldName": "ConvertNotesToStringConcession",
+                                "fieldValue": "{action.ConvertNotesToStringConcession}"
+                            },
+                            {
+                                "fieldName": "ConvertNotesToStringApproved",
+                                "fieldValue": "{action.ConvertNotesToStringApproved}"
                             }
                         ],
-                        "id": "flex-action-1703260745326",
+                        "id": "flex-action-1710528501179",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "cardAction",
@@ -68,15 +96,15 @@
                     "card": "{card}",
                     "draggable": true,
                     "isOpen": false,
-                    "key": "1703166765924-g4avexh4b",
+                    "key": "1706021731795-kxg5mrqof",
                     "label": "CreateCredit",
                     "stateAction": {
                         "Web Page": {
                             "targetName": "/apex"
                         },
                         "displayName": "Action",
-                        "id": "flex-action-1703251182070",
-                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"Dispute_CreateCreditForChargeAndEvent\",\"vlocityAsync\":false,\"inputMap\":{\"filteredAdjustmentItems\":\"{action.Items}\",\"CaseId\":\"{caseId}\",\"Modality\":\"{modality}\",\"Email\":\"{email}\",\"OtherEmail\":\"{otherEmail}\",\"ShouldSendBill\":\"{ShouldSendBill}\"},\"jsonMap\":\"{\\\"isLastItem\\\":\\\"{isLastItem}\\\",\\\"serviceDefinitionName\\\":\\\"{serviceDefinitionName}\\\",\\\"attendantMessage\\\":\\\"{attendantMessage}\\\",\\\"Parent.DisputeCloseService\\\":\\\"{Parent.DisputeCloseService}\\\",\\\"action\\\":\\\"{action}\\\",\\\"caseId\\\":\\\"{caseId}\\\",\\\"modality\\\":\\\"{modality}\\\",\\\"email\\\":\\\"{email}\\\",\\\"otherEmail\\\":\\\"{otherEmail}\\\",\\\"ShouldSendBill\\\":\\\"{ShouldSendBill}\\\",\\\"action.requests\\\":\\\"{action.requests}\\\",\\\"action.Items\\\":\\\"{action.Items}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"isLastItem\",\"val\":\"yes\",\"id\":0},{\"name\":\"serviceDefinitionName\",\"val\":\"Teste Nome\",\"id\":1},{\"name\":\"attendantMessage\",\"val\":\"mensagem\",\"id\":2},{\"name\":\"Parent.DisputeCloseService\",\"val\":\"false\",\"id\":0},{\"name\":\"action\",\"val\":\"\",\"id\":1},{\"name\":\"caseId\",\"val\":\"\",\"id\":3},{\"name\":\"modality\",\"val\":\"\",\"id\":5},{\"name\":\"email\",\"val\":\"\",\"id\":7},{\"name\":\"otherEmail\",\"val\":\"\",\"id\":9},{\"name\":\"ShouldSendBill\",\"val\":\"\",\"id\":11},{\"name\":\"action.requests\",\"val\":\"\",\"id\":12},{\"name\":\"action.Items\",\"val\":\"\",\"id\":12}]}",
+                        "id": "flex-action-1710512710767",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"Dispute_CreateCreditForChargeAndEvent\",\"vlocityAsync\":false,\"inputMap\":{\"filteredAdjustmentItems\":\"{action.Items}\",\"CaseId\":\"{caseId}\",\"Modality\":\"{modality}\",\"Email\":\"{email}\",\"OtherEmail\":\"{otherEmail}\",\"ShouldSendBill\":\"{ShouldSendBill}\",\"CustomerIds\":\"{action.CustomerIds}\",\"selectedInvoice\":\"{action.selectedInvoice}\",\"totalAdjustmentAmount\":\"{totalAdjustmentAmount}\",\"bank\":\"{bank}\",\"agency\":\"{agency}\",\"cc\":\"{cc}\"},\"jsonMap\":\"{\\\"action.Items\\\":\\\"{action.Items}\\\",\\\"caseId\\\":\\\"{caseId}\\\",\\\"modality\\\":\\\"{modality}\\\",\\\"email\\\":\\\"{email}\\\",\\\"otherEmail\\\":\\\"{otherEmail}\\\",\\\"ShouldSendBill\\\":\\\"{ShouldSendBill}\\\",\\\"CustomerIds\\\":\\\"{CustomerIds}\\\",\\\"selectedInvoice\\\":\\\"{selectedInvoice}\\\",\\\"action.CustomerIds\\\":\\\"{action.CustomerIds}\\\",\\\"action.selectedInvoice\\\":\\\"{action.selectedInvoice}\\\",\\\"bank\\\":\\\"{bank}\\\",\\\"totalAdjustmentAmount\\\":\\\"{totalAdjustmentAmount}\\\",\\\"agency\\\":\\\"{agency}\\\",\\\"cc\\\":\\\"{cc}\\\",\\\"ConvertNotesToString\\\":\\\"{ConvertNotesToString}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"action.Items\",\"val\":\"\",\"id\":1},{\"name\":\"caseId\",\"val\":\"\",\"id\":3},{\"name\":\"modality\",\"val\":\"\",\"id\":5},{\"name\":\"email\",\"val\":\"\",\"id\":7},{\"name\":\"otherEmail\",\"val\":\"\",\"id\":9},{\"name\":\"ShouldSendBill\",\"val\":\"\",\"id\":11},{\"name\":\"CustomerIds\",\"val\":\"\",\"id\":13},{\"name\":\"selectedInvoice\",\"val\":\"\",\"id\":15},{\"name\":\"action.CustomerIds\",\"val\":\"\",\"id\":16},{\"name\":\"action.selectedInvoice\",\"val\":\"\",\"id\":17},{\"name\":\"bank\",\"val\":\"\",\"id\":17},{\"name\":\"totalAdjustmentAmount\",\"val\":\"\",\"id\":19},{\"name\":\"agency\",\"val\":\"\",\"id\":21},{\"name\":\"cc\",\"val\":\"\",\"id\":23},{\"name\":\"ConvertNotesToString\",\"val\":\"\",\"id\":25}]}",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "DataAction",
@@ -88,7 +116,7 @@
                     "card": "{card}",
                     "draggable": true,
                     "isOpen": false,
-                    "key": "1703166861809-mr1sgiwnr",
+                    "key": "1706021842751-bt4lbj6tg",
                     "label": "SendMessageToLWC",
                     "stateAction": {
                         "displayName": "Action",
@@ -99,7 +127,7 @@
                             "Success": "{Success}"
                         },
                         "hasExtraParams": true,
-                        "id": "flex-action-1703166918345",
+                        "id": "flex-action-1706021884613",
                         "message": "Message",
                         "openUrlIn": "Current Window",
                         "subType": "PubSub",
@@ -112,12 +140,12 @@
                     "card": "{card}",
                     "draggable": true,
                     "isOpen": false,
-                    "key": "1703166941858-cjdqvy5nl",
+                    "key": "1706021901463-q2603ft3x",
                     "label": "ReloadChildFlexCardDisputeServiceDefinitionMessage",
                     "stateAction": {
                         "displayName": "Action",
                         "eventName": "UserFeedback",
-                        "id": "flex-action-1703166941958",
+                        "id": "flex-action-1706021901580",
                         "message": "ReloadChildFlexCardDisputeServiceDefinitionMessage",
                         "openUrlIn": "Current Window",
                         "subType": "PubSub",
@@ -128,18 +156,26 @@
                 {
                     "actionIndex": 4,
                     "card": "{card}",
-                    "draggable": true,
-                    "isOpen": false,
-                    "key": "1703181204381-zlpvz6nl2",
-                    "label": "Action",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1706021923284-t26azdy5n",
+                    "label": "DisputeFlexCardServiceDefinitionMessage",
                     "stateAction": {
                         "displayName": "Action",
                         "eventName": "DisputeFlexCardServiceDefinitionMessage",
                         "extraParams": {
-                            "Notes": "{Notes}"
+                            "CaseId": "{action.CaseId}",
+                            "ConvertNotesToStringApproved": "{ConvertNotesToStringApproved}",
+                            "ConvertNotesToStringBoth": "{ConvertNotesToStringBoth}",
+                            "ConvertNotesToStringConcession": "{ConvertNotesToStringConcession}",
+                            "CustomerIds": "{action.CustomerIds}",
+                            "FeedbackCreditAmdocs": "{feedbackCreditAmdocs}",
+                            "InteractionId": "{action.InteractionId}",
+                            "InteractionTopicId": "{action.InteractionTopicId}",
+                            "Notes": "{action.Notes}"
                         },
                         "hasExtraParams": true,
-                        "id": "flex-action-1703191877077",
+                        "id": "flex-action-1710528540650",
                         "message": "CaseClosureDefinition",
                         "openUrlIn": "Current Window",
                         "subType": "PubSub",
@@ -343,9 +379,13 @@
                             {
                                 "fieldName": "feedbackCase",
                                 "fieldValue": "{action}"
+                            },
+                            {
+                                "fieldName": "Session.HideRegisterButton",
+                                "fieldValue": "true"
                             }
                         ],
-                        "id": "flex-action-1702993463884",
+                        "id": "flex-action-1706618877475",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "cardAction",
@@ -362,14 +402,193 @@
             "key": "event-5",
             "recordIndex": "0",
             "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1706618392249-myriv7dj1",
+                    "label": "SetValueFeedbackUserInteraction",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "feedbackUserInteraction",
+                                "fieldValue": "{action}"
+                            },
+                            {
+                                "fieldName": "Session.HideRegisterButton",
+                                "fieldValue": "true"
+                            }
+                        ],
+                        "id": "flex-action-1709902111608",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "isTrackingDisabled": false,
+                    "key": "1709909294827-7sv43842v",
+                    "label": "ActionGetCaseInfo",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "id": "flex-action-1712085551235",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"Dispute_GetCaseInfoAndAssociatedDisputedItemsByCaseId\",\"vlocityAsync\":false,\"inputMap\":{\"CaseId\":\"{caseId}\"},\"jsonMap\":\"{\\\"caseId\\\":\\\"{caseId}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"caseId\",\"val\":\"50078000005b7KBAAY\",\"id\":1}]}",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "DataAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 2,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1709898522258-qrxjid48b",
+                    "label": "ActionCallPopUp",
+                    "stateAction": {
+                        "cardName": "DisputeConclusionFlyoutInfo",
+                        "cardNode": "{records}",
+                        "channelName": "close_modal",
+                        "displayName": "Action",
+                        "flyoutLwc": "DisputeConclusionFlyoutInfo",
+                        "flyoutType": "childCard",
+                        "id": "flex-action-1710269240583",
+                        "openFlyoutIn": "Modal",
+                        "openUrlIn": "Current Window",
+                        "type": "Flyout",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "FeedbackUserInteraction",
+            "displayLabel": "FeedbackUserInteraction:ServiceDefinition",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "ServiceDefinition",
+            "eventtype": "pubsub",
+            "key": "event-6",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1709909515165-258pu035b",
+                    "label": "ActionGetCaseInfo",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "id": "flex-action-1712085652798",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"Dispute_GetCaseInfoAndAssociatedDisputedItemsByCaseId\",\"vlocityAsync\":false,\"inputMap\":{\"CaseId\":\"{caseId}\"},\"jsonMap\":\"{\\\"caseId\\\":\\\"{caseId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"caseId\",\"val\":\"50078000005b7KBAAY\",\"id\":1}]}",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "DataAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1709909671696-kuzf7mnhp",
+                    "label": "ActionCallPopUp",
+                    "stateAction": {
+                        "cardName": "DisputeConclusionFlyoutInfo",
+                        "cardNode": "{records}",
+                        "channelName": "close_modal",
+                        "displayName": "Action",
+                        "flyoutLwc": "DisputeConclusionFlyoutInfo",
+                        "flyoutType": "childCard",
+                        "id": "flex-action-1710269260001",
+                        "openFlyoutIn": "Modal",
+                        "openUrlIn": "Current Window",
+                        "type": "Flyout",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "OpenModal",
+            "displayLabel": "OpenModal:Popup",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "Popup",
+            "eventtype": "pubsub",
+            "key": "event-7",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1710876354343-r170vipra",
+                    "label": "SetValueFeedbackCaseAmdocs",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "feedbackCaseAmdocs",
+                                "fieldValue": "{action}"
+                            }
+                        ],
+                        "id": "flex-action-1710876507560",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "FeedbackCaseAmdocs",
+            "displayLabel": "FeedbackCaseAmdocs:ServiceDefinition",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "ServiceDefinition",
+            "eventtype": "pubsub",
+            "key": "event-8",
+            "recordIndex": "0",
+            "showSpinner": "false"
         }
     ],
+    "globalCSS": true,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfDisputeFlexCardServiceDefinition_15_Dispute",
-        "Id": "0Rb78000000LWG2CAO",
+        "DeveloperName": "cfDisputeFlexCardServiceDefinition_34_Dispute",
+        "Id": "0Rb78000000La9oCAC",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfDisputeFlexCardServiceDefinition_15_Dispute",
+        "MasterLabel": "cfDisputeFlexCardServiceDefinition_34_Dispute",
         "NamespacePrefix": "c"
     },
     "osSupport": true,
@@ -417,7 +636,7 @@
         },
         {
             "name": "ShouldSendBill",
-            "val": "true"
+            "val": "false"
         },
         {
             "name": "feedbackCase",
@@ -434,6 +653,9 @@
             ],
             "childCards": [
                 "DisputeFlexCardCreateCreditFeedbackResponse",
+                "DisputeFlexCardCreateCreditFeedbackResponse",
+                "DisputeFlexCardCreateCreditFeedbackResponse",
+                "DisputeFlexCardCreateCreditFeedbackResponse",
                 "DisputeFlexCardCreateCreditFeedbackResponse"
             ],
             "components": {
@@ -442,17 +664,17 @@
                         {
                             "class": "slds-col ",
                             "element": "childCardPreview",
-                            "elementLabel": "FlexCard-0-clone-0",
+                            "elementLabel": "FlexCard-4",
                             "name": "FlexCard",
                             "property": {
                                 "cardName": "DisputeFlexCardCreateCreditFeedbackResponse",
-                                "cardNode": "{record.feedbackCredit}",
+                                "cardNode": "{record.feedbackUserInteraction}",
                                 "data-conditions": {
                                     "group": [
                                         {
-                                            "field": "feedbackCredit.Message",
+                                            "field": "feedbackUserInteraction.Message",
                                             "hasMergeField": false,
-                                            "id": "state-new-condition-19",
+                                            "id": "state-new-condition-14",
                                             "operator": "!=",
                                             "type": "custom",
                                             "value": "Null"
@@ -472,14 +694,233 @@
                             },
                             "stateIndex": 0,
                             "styleObject": {
-                                "sizeClass": "slds-size_12-of-12"
+                                "background": {
+                                    "color": "",
+                                    "image": "",
+                                    "position": "",
+                                    "repeat": "",
+                                    "size": ""
+                                },
+                                "border": {
+                                    "color": "",
+                                    "radius": "",
+                                    "style": "",
+                                    "type": "",
+                                    "width": ""
+                                },
+                                "class": "slds-p-around_xxx-small ",
+                                "container": {
+                                    "class": ""
+                                },
+                                "elementStyleProperties": {
+                                },
+                                "inlineStyle": "",
+                                "margin": [
+                                ],
+                                "padding": [
+                                    {
+                                        "label": "around:xxx-small",
+                                        "size": "xxx-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "size": {
+                                    "default": "12",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_12-of-12 ",
+                                "style": "      \n         ",
+                                "text": {
+                                    "align": "",
+                                    "color": ""
+                                }
                             },
+                            "styleObjects": [
+                                {
+                                    "conditionString": "",
+                                    "conditions": "default",
+                                    "draggable": false,
+                                    "key": 0,
+                                    "label": "Default",
+                                    "name": "Default",
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "slds-p-around_xxx-small ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                            {
+                                                "label": "around:xxx-small",
+                                                "size": "xxx-small",
+                                                "type": "around"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    }
+                                }
+                            ],
                             "type": "element"
                         },
                         {
                             "class": "slds-col ",
                             "element": "childCardPreview",
-                            "elementLabel": "FlexCard-0",
+                            "elementLabel": "FlexCard-0-clone-0",
+                            "name": "FlexCard",
+                            "property": {
+                                "cardName": "DisputeFlexCardCreateCreditFeedbackResponse",
+                                "cardNode": "{record.feedbackCaseAmdocs}",
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "feedbackUserInteraction.Message",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-14",
+                                            "operator": "!=",
+                                            "type": "custom",
+                                            "value": "Null"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "data-preloadConditionalElement": false,
+                                "isChildCardTrackingEnabled": false,
+                                "recordId": "{recordId}",
+                                "selectedState": "Active"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "background": {
+                                    "color": "",
+                                    "image": "",
+                                    "position": "",
+                                    "repeat": "",
+                                    "size": ""
+                                },
+                                "border": {
+                                    "color": "",
+                                    "radius": "",
+                                    "style": "",
+                                    "type": "",
+                                    "width": ""
+                                },
+                                "class": "slds-p-around_xxx-small ",
+                                "container": {
+                                    "class": ""
+                                },
+                                "elementStyleProperties": {
+                                },
+                                "inlineStyle": "",
+                                "margin": [
+                                ],
+                                "padding": [
+                                    {
+                                        "label": "around:xxx-small",
+                                        "size": "xxx-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "size": {
+                                    "default": "12",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_12-of-12 ",
+                                "style": "      \n         ",
+                                "text": {
+                                    "align": "",
+                                    "color": ""
+                                }
+                            },
+                            "styleObjects": [
+                                {
+                                    "conditionString": "",
+                                    "conditions": "default",
+                                    "draggable": false,
+                                    "key": 0,
+                                    "label": "Default",
+                                    "name": "Default",
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "slds-p-around_xxx-small ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                            {
+                                                "label": "around:xxx-small",
+                                                "size": "xxx-small",
+                                                "type": "around"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    }
+                                }
+                            ],
+                            "type": "element"
+                        },
+                        {
+                            "class": "slds-col ",
+                            "element": "childCardPreview",
+                            "elementLabel": "FlexCard-2",
                             "name": "FlexCard",
                             "property": {
                                 "cardName": "DisputeFlexCardCreateCreditFeedbackResponse",
@@ -509,14 +950,360 @@
                             },
                             "stateIndex": 0,
                             "styleObject": {
-                                "sizeClass": "slds-size_12-of-12"
+                                "background": {
+                                    "color": "",
+                                    "image": "",
+                                    "position": "",
+                                    "repeat": "",
+                                    "size": ""
+                                },
+                                "border": {
+                                    "color": "",
+                                    "radius": "",
+                                    "style": "",
+                                    "type": "",
+                                    "width": ""
+                                },
+                                "class": "slds-p-around_xxx-small ",
+                                "container": {
+                                    "class": ""
+                                },
+                                "elementStyleProperties": {
+                                },
+                                "inlineStyle": "",
+                                "margin": [
+                                ],
+                                "padding": [
+                                    {
+                                        "label": "around:xxx-small",
+                                        "size": "xxx-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "size": {
+                                    "default": "12",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_12-of-12 ",
+                                "style": "      \n         ",
+                                "text": {
+                                    "align": "",
+                                    "color": ""
+                                }
                             },
+                            "styleObjects": [
+                                {
+                                    "conditionString": "",
+                                    "conditions": "default",
+                                    "draggable": false,
+                                    "key": 0,
+                                    "label": "Default",
+                                    "name": "Default",
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "slds-p-around_xxx-small ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                            {
+                                                "label": "around:xxx-small",
+                                                "size": "xxx-small",
+                                                "type": "around"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    }
+                                }
+                            ],
+                            "type": "element"
+                        },
+                        {
+                            "class": "slds-col ",
+                            "element": "childCardPreview",
+                            "elementLabel": "FlexCard-1",
+                            "name": "FlexCard",
+                            "property": {
+                                "cardName": "DisputeFlexCardCreateCreditFeedbackResponse",
+                                "cardNode": "{record.feedbackCredit}",
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "feedbackCredit.Message",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-0",
+                                            "operator": "!=",
+                                            "type": "custom",
+                                            "value": "Null"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "isChildCardTrackingEnabled": false,
+                                "recordId": "{recordId}",
+                                "selectedState": "Active"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "background": {
+                                    "color": "",
+                                    "image": "",
+                                    "position": "",
+                                    "repeat": "",
+                                    "size": ""
+                                },
+                                "border": {
+                                    "color": "#cccccc",
+                                    "radius": "",
+                                    "style": "",
+                                    "type": "",
+                                    "width": ""
+                                },
+                                "class": "slds-p-around_xxx-small ",
+                                "container": {
+                                    "class": ""
+                                },
+                                "elementStyleProperties": {
+                                },
+                                "inlineStyle": "",
+                                "margin": [
+                                ],
+                                "padding": [
+                                    {
+                                        "label": "around:xxx-small",
+                                        "size": "xxx-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "size": {
+                                    "default": "12",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_12-of-12 ",
+                                "style": "      \n         ",
+                                "text": {
+                                    "align": "",
+                                    "color": ""
+                                }
+                            },
+                            "styleObjects": [
+                                {
+                                    "conditionString": "",
+                                    "conditions": "default",
+                                    "draggable": false,
+                                    "key": 0,
+                                    "label": "Default",
+                                    "name": "Default",
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "#cccccc",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "slds-p-around_xxx-small ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                            {
+                                                "label": "around:xxx-small",
+                                                "size": "xxx-small",
+                                                "type": "around"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    }
+                                }
+                            ],
+                            "type": "element"
+                        },
+                        {
+                            "class": "slds-col ",
+                            "element": "childCardPreview",
+                            "elementLabel": "FlexCard-3",
+                            "name": "FlexCard",
+                            "property": {
+                                "cardName": "DisputeFlexCardCreateCreditFeedbackResponse",
+                                "cardNode": "{record.feedbackBill}",
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "feedbackBill.Message",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-14",
+                                            "operator": "!=",
+                                            "type": "custom",
+                                            "value": "Null"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "data-preloadConditionalElement": false,
+                                "isChildCardTrackingEnabled": false,
+                                "recordId": "{recordId}",
+                                "selectedState": "Active"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "background": {
+                                    "color": "",
+                                    "image": "",
+                                    "position": "",
+                                    "repeat": "",
+                                    "size": ""
+                                },
+                                "border": {
+                                    "color": "",
+                                    "radius": "",
+                                    "style": "",
+                                    "type": "",
+                                    "width": ""
+                                },
+                                "class": "slds-p-around_xxx-small ",
+                                "container": {
+                                    "class": ""
+                                },
+                                "elementStyleProperties": {
+                                },
+                                "inlineStyle": "",
+                                "margin": [
+                                ],
+                                "padding": [
+                                    {
+                                        "label": "around:xxx-small",
+                                        "size": "xxx-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "size": {
+                                    "default": "12",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_12-of-12 ",
+                                "style": "      \n         ",
+                                "text": {
+                                    "align": "",
+                                    "color": ""
+                                }
+                            },
+                            "styleObjects": [
+                                {
+                                    "conditionString": "",
+                                    "conditions": "default",
+                                    "draggable": false,
+                                    "key": 0,
+                                    "label": "Default",
+                                    "name": "Default",
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "slds-p-around_xxx-small ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                            {
+                                                "label": "around:xxx-small",
+                                                "size": "xxx-small",
+                                                "type": "around"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    }
+                                }
+                            ],
                             "type": "element"
                         },
                         {
                             "class": "slds-col ",
                             "element": "outputField",
-                            "elementLabel": "Text-3",
+                            "elementLabel": "Text-5",
                             "name": "Text",
                             "property": {
                                 "card": "{card}",
@@ -620,9 +1407,9 @@
                                     "class": "slds-col ",
                                     "element": "outputField",
                                     "elementLabel": "Text-1",
-                                    "key": "element_element_block_1_0_outputField_0_0",
+                                    "key": "element_element_block_5_0_outputField_0_0",
                                     "name": "Text",
-                                    "parentElementKey": "element_block_1_0",
+                                    "parentElementKey": "element_block_5_0",
                                     "property": {
                                         "card": "{card}",
                                         "data-conditions": {
@@ -729,9 +1516,9 @@
                                     "class": "slds-col ",
                                     "element": "outputField",
                                     "elementLabel": "Field-2",
-                                    "key": "element_element_block_1_0_outputField_1_0",
+                                    "key": "element_element_block_5_0_outputField_1_0",
                                     "name": "Field",
-                                    "parentElementKey": "element_block_1_0",
+                                    "parentElementKey": "element_block_5_0",
                                     "property": {
                                         "card": "{card}",
                                         "data-conditions": {
@@ -850,7 +1637,7 @@
                             ],
                             "class": "slds-col ",
                             "element": "block",
-                            "elementLabel": "Block-4",
+                            "elementLabel": "Block-6",
                             "name": "Block",
                             "property": {
                                 "card": "{card}",
@@ -905,9 +1692,9 @@
                                     "class": "slds-col ",
                                     "element": "outputField",
                                     "elementLabel": "Text-1-clone-0",
-                                    "key": "element_element_block_4_0_outputField_0_0",
+                                    "key": "element_element_block_6_0_outputField_0_0",
                                     "name": "Text",
-                                    "parentElementKey": "element_block_4_0",
+                                    "parentElementKey": "element_block_6_0",
                                     "property": {
                                         "card": "{card}",
                                         "data-conditions": {
@@ -1014,9 +1801,9 @@
                                     "class": "slds-col ",
                                     "element": "outputField",
                                     "elementLabel": "Field-2-clone-0",
-                                    "key": "element_element_block_4_0_outputField_1_0",
+                                    "key": "element_element_block_6_0_outputField_1_0",
                                     "name": "Field",
-                                    "parentElementKey": "element_block_4_0",
+                                    "parentElementKey": "element_block_6_0",
                                     "property": {
                                         "card": "{card}",
                                         "data-conditions": {
@@ -1136,7 +1923,7 @@
                             ],
                             "class": "slds-col ",
                             "element": "block",
-                            "elementLabel": "Block-5",
+                            "elementLabel": "Block-7",
                             "name": "Block",
                             "property": {
                                 "card": "{card}",
@@ -1179,7 +1966,7 @@
                         {
                             "class": "slds-col ",
                             "element": "customLwc",
-                            "elementLabel": "Custom LWC-6",
+                            "elementLabel": "Custom LWC-8",
                             "name": "Custom LWC",
                             "property": {
                                 "customlwcname": "cfDisputeFlexCardServiceDefinitionMessage",
@@ -1650,7 +2437,7 @@
                             ],
                             "class": "slds-col ",
                             "element": "block",
-                            "elementLabel": "Block-8",
+                            "elementLabel": "Block-10",
                             "name": "Block",
                             "property": {
                                 "card": "{card}",
@@ -1976,9 +2763,9 @@
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
                                     "elementLabel": "Block-Notes-Text",
-                                    "key": "element_element_block_9_0_baseInputElement_0_0",
+                                    "key": "element_element_block_11_0_baseInputElement_0_0",
                                     "name": "Text Area",
-                                    "parentElementKey": "element_block_9_0",
+                                    "parentElementKey": "element_block_11_0",
                                     "property": {
                                         "card": "{card}",
                                         "data-conditions": {
@@ -1990,6 +2777,11 @@
                                         "propertyObj": {
                                             "action": null,
                                             "customProperties": [
+                                                {
+                                                    "id": 0,
+                                                    "label": "disabled",
+                                                    "value": "{Session.HideRegisterButton}"
+                                                }
                                             ],
                                             "fieldBinding": "{notes}",
                                             "label": "Observação",
@@ -2167,7 +2959,7 @@
                         {
                             "class": "slds-col ",
                             "element": "action",
-                            "elementLabel": "Action-11",
+                            "elementLabel": "Action-13",
                             "name": "Action",
                             "property": {
                                 "actionList": [
@@ -2175,7 +2967,7 @@
                                         "actionIndex": 0,
                                         "card": "{card}",
                                         "draggable": true,
-                                        "isOpen": true,
+                                        "isOpen": false,
                                         "key": "1701972304498-mh3s95lu3",
                                         "label": "UpdateSalesforceCase",
                                         "stateAction": {
@@ -2202,7 +2994,7 @@
                                         }
                                     }
                                 ],
-                                "ariaLabel": "Registrar Atendimento Teste",
+                                "ariaLabel": "Registrar Atendimento Default",
                                 "buttonVariant": "brand",
                                 "card": "{card}",
                                 "data-conditions": {
@@ -2210,7 +3002,7 @@
                                         {
                                             "field": "isLastItem",
                                             "hasMergeField": false,
-                                            "id": "state-new-condition-14",
+                                            "id": "state-new-condition-0",
                                             "operator": "==",
                                             "type": "custom",
                                             "value": "yes"
@@ -2218,7 +3010,7 @@
                                         {
                                             "field": "Session.HideRegisterButton",
                                             "hasMergeField": false,
-                                            "id": "state-new-condition-3",
+                                            "id": "state-new-condition-5",
                                             "logicalOperator": "&&",
                                             "operator": "==",
                                             "type": "custom",
@@ -2361,7 +3153,7 @@
                         {
                             "class": "slds-col ",
                             "element": "action",
-                            "elementLabel": "Action-10-clone-0",
+                            "elementLabel": "Action-14",
                             "name": "Action",
                             "property": {
                                 "actionList": [
@@ -2370,23 +3162,45 @@
                                         "card": "{card}",
                                         "draggable": true,
                                         "isOpen": true,
-                                        "key": "1703270093875-dt7zw3ox5",
-                                        "label": "Action",
+                                        "key": "1709908989274-f043v4kx1",
+                                        "label": "ActionGetCaseInfo",
                                         "stateAction": {
                                             "Web Page": {
                                                 "targetName": "/apex"
                                             },
                                             "displayName": "Action",
-                                            "eventName": "setValues",
-                                            "id": "flex-action-1703270117442",
+                                            "id": "flex-action-1712085620673",
+                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"Dispute_GetCaseInfoAndAssociatedDisputedItemsByCaseId\",\"vlocityAsync\":false,\"inputMap\":{\"CaseId\":\"{caseId}\"},\"jsonMap\":\"{\\\"caseId\\\":\\\"{caseId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"caseId\",\"val\":\"50078000005b7KBAAY\",\"id\":1}]}",
                                             "openUrlIn": "Current Window",
                                             "targetType": "Web Page",
-                                            "type": "cardAction",
+                                            "type": "DataAction",
+                                            "vlocityIcon": "standard-default"
+                                        }
+                                    },
+                                    {
+                                        "actionIndex": 1,
+                                        "card": "{card}",
+                                        "draggable": true,
+                                        "isOpen": false,
+                                        "key": "1703270093875-dt7zw3ox5",
+                                        "label": "ActionCallPopUp",
+                                        "reRenderFlyout": true,
+                                        "stateAction": {
+                                            "cardName": "DisputeConclusionFlyoutInfo",
+                                            "cardNode": "{records}",
+                                            "channelName": "close_modal",
+                                            "displayName": "Action",
+                                            "flyoutLwc": "DisputeConclusionFlyoutInfo",
+                                            "flyoutType": "childCard",
+                                            "id": "flex-action-1710269219876",
+                                            "openFlyoutIn": "Modal",
+                                            "openUrlIn": "Current Window",
+                                            "type": "Flyout",
                                             "vlocityIcon": "standard-default"
                                         }
                                     }
                                 ],
-                                "ariaLabel": "Registrar Atendimento Teste",
+                                "ariaLabel": "Registrar Atendimento After",
                                 "buttonVariant": "brand",
                                 "card": "{card}",
                                 "data-conditions": {
@@ -2394,7 +3208,7 @@
                                         {
                                             "field": "isLastItem",
                                             "hasMergeField": false,
-                                            "id": "state-new-condition-14",
+                                            "id": "state-new-condition-20",
                                             "operator": "==",
                                             "type": "custom",
                                             "value": "yes"
@@ -2402,25 +3216,50 @@
                                         {
                                             "field": "Session.HideRegisterButton",
                                             "hasMergeField": false,
-                                            "id": "state-new-condition-3",
+                                            "id": "state-new-condition-27",
                                             "logicalOperator": "&&",
                                             "operator": "==",
                                             "type": "custom",
                                             "value": "true"
+                                        },
+                                        {
+                                            "group": [
+                                                {
+                                                    "field": "Parent.DisputeCloseService",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-40",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "true"
+                                                },
+                                                {
+                                                    "field": "Session.HideRegisterButton",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-67",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "true"
+                                                }
+                                            ],
+                                            "id": "state-new-group-41",
+                                            "logicalOperator": "||"
                                         }
                                     ],
                                     "id": "state-condition-object",
                                     "isParent": true
                                 },
-                                "disabled": "true",
+                                "disabled": "false",
                                 "displayAsButton": true,
                                 "flyoutChannel": "close_modal",
                                 "flyoutDetails": {
+                                    "openFlyoutIn": "Modal"
                                 },
                                 "hideActionIcon": true,
                                 "iconColor": "#FFFFFF",
                                 "iconName": "standard-default",
                                 "label": "Registrar Atendimento",
+                                "reRenderFlyout": true,
                                 "record": "{record}",
                                 "showSpinner": "false",
                                 "stateObj": "{record}",
@@ -2545,14 +3384,14 @@
                         {
                             "class": "slds-col ",
                             "element": "action",
-                            "elementLabel": "Action-12",
+                            "elementLabel": "Action-15",
                             "name": "Action",
                             "property": {
                                 "actionList": [
                                     {
                                         "actionIndex": 0,
                                         "draggable": true,
-                                        "isOpen": true,
+                                        "isOpen": false,
                                         "key": "1701970374830-8kdejquoe",
                                         "label": "UpdateNotesFromCloseService",
                                         "stateAction": {
@@ -2573,70 +3412,20 @@
                                                 "id": "state-condition-object",
                                                 "isParent": true
                                             },
-                                            "id": "flex-action-1703267752438",
+                                            "id": "flex-action-1707326488102",
                                             "ignoreResponse": false,
-                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"resultVar\":\"['SVInfos']\",\"ipMethod\":\"Dispute_DisputeUpdateCase\",\"vlocityAsync\":false,\"inputMap\":{\"CaseId\":\"{Parent.CaseId}\",\"SendedNotesLegacySystem__c\":\"{notes}\",\"Status\":\"Closed\"},\"jsonMap\":\"{\\\"CaseId\\\":\\\"{CaseId}\\\",\\\"SendedNotesLegacySystem__c\\\":\\\"{SendedNotesLegacySystem__c}\\\",\\\"Parent.CaseId\\\":\\\"{Parent.CaseId}\\\",\\\"Session.notes\\\":\\\"{Session.notes}\\\",\\\"notas\\\":\\\"{notas}\\\",\\\"notes\\\":\\\"{notes}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"CaseId\",\"val\":\"5008K000004lnqYQAQ\",\"id\":4},{\"name\":\"SendedNotesLegacySystem__c\",\"val\":\"TESTEE\",\"id\":6},{\"name\":\"Parent.CaseId\",\"val\":\"5008K000004lnqYQAQ\",\"id\":4},{\"name\":\"Session.notes\",\"val\":\"\",\"id\":5},{\"name\":\"notas\",\"val\":\"\",\"id\":6},{\"name\":\"notes\",\"val\":\"\",\"id\":6}]}",
+                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"resultVar\":\"['SVInfos']\",\"ipMethod\":\"Dispute_DisputeUpdateCase\",\"vlocityAsync\":false,\"inputMap\":{\"CaseId\":\"{Parent.CaseId}\",\"SendedNotesLegacySystem__c\":\"{notes}\",\"Status\":\"Closed\",\"InteractionId\":\"{Parent.InteractionId}\",\"InteractionTopicId\":\"{Parent.InteractionTopicId}\",\"customerAccountId\":\"{Parent.customerAccountId}\",\"serviceId\":\"{Parent.serviceId}\",\"faId\":\"{Parent.faId}\",\"documentNumber\":\"{Parent.documentNumber}\",\"barId\":\"{Parent.barId}\",\"accountHref\":\"{Parent.accountHref}\",\"inputName\":\"Verificar Outra Instância\"},\"jsonMap\":\"{\\\"CaseId\\\":\\\"{CaseId}\\\",\\\"SendedNotesLegacySystem__c\\\":\\\"{SendedNotesLegacySystem__c}\\\",\\\"Parent.CaseId\\\":\\\"{Parent.CaseId}\\\",\\\"Session.notes\\\":\\\"{Session.notes}\\\",\\\"notas\\\":\\\"{notas}\\\",\\\"notes\\\":\\\"{notes}\\\",\\\"Parent.InteractionId\\\":\\\"{Parent.InteractionId}\\\",\\\"Parent.InteractionTopicId\\\":\\\"{Parent.InteractionTopicId}\\\",\\\"Parent.customerAccountId\\\":\\\"{Parent.customerAccountId}\\\",\\\"Parent.serviceId\\\":\\\"{Parent.serviceId}\\\",\\\"Parent.faId\\\":\\\"{Parent.faId}\\\",\\\"Parent.documentNumber\\\":\\\"{Parent.documentNumber}\\\",\\\"Parent.barId\\\":\\\"{Parent.barId}\\\",\\\"Parent.accountHref\\\":\\\"{Parent.accountHref}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"CaseId\",\"val\":\"5008K000004lnqYQAQ\",\"id\":4},{\"name\":\"SendedNotesLegacySystem__c\",\"val\":\"TESTEE\",\"id\":6},{\"name\":\"Parent.CaseId\",\"val\":\"5008K000004lnqYQAQ\",\"id\":4},{\"name\":\"Session.notes\",\"val\":\"\",\"id\":5},{\"name\":\"notas\",\"val\":\"\",\"id\":6},{\"name\":\"notes\",\"val\":\"\",\"id\":6},{\"name\":\"Parent.InteractionId\",\"val\":\"\",\"id\":7},{\"name\":\"Parent.InteractionTopicId\",\"val\":\"\",\"id\":9},{\"name\":\"Parent.customerAccountId\",\"val\":\"\",\"id\":24},{\"name\":\"Parent.serviceId\",\"val\":\"\",\"id\":31},{\"name\":\"Parent.faId\",\"val\":\"\",\"id\":32},{\"name\":\"Parent.documentNumber\",\"val\":\"\",\"id\":33},{\"name\":\"Parent.barId\",\"val\":\"\",\"id\":34},{\"name\":\"Parent.accountHref\",\"val\":\"\",\"id\":35}]}",
                                             "openUrlIn": "Current Window",
-                                            "responseNode": "responseUpsertSuccess",
+                                            "responseNode": "",
                                             "targetType": "Web Page",
                                             "type": "DataAction"
-                                        }
-                                    },
-                                    {
-                                        "actionIndex": 1,
-                                        "card": "{card}",
-                                        "draggable": true,
-                                        "isOpen": true,
-                                        "key": "1701979765958-bj47xkuc1",
-                                        "label": "SucessNotes",
-                                        "stateAction": {
-                                            "actionConditions": {
-                                                "group": [
-                                                    {
-                                                        "field": "responseUpsertSuccess.UpsertSuccess",
-                                                        "hasMergeField": false,
-                                                        "id": "state-new-condition-0",
-                                                        "operator": "==",
-                                                        "type": "custom",
-                                                        "value": "true"
-                                                    },
-                                                    {
-                                                        "group": [
-                                                            {
-                                                                "field": "notes",
-                                                                "hasMergeField": false,
-                                                                "id": "state-new-condition-43",
-                                                                "operator": "!=",
-                                                                "type": "custom",
-                                                                "value": ""
-                                                            }
-                                                        ],
-                                                        "id": "state-new-group-44",
-                                                        "logicalOperator": "&&"
-                                                    }
-                                                ],
-                                                "id": "state-condition-object",
-                                                "isParent": true
-                                            },
-                                            "displayName": "Action",
-                                            "eventName": "FeedbackUser",
-                                            "extraParams": {
-                                                "Success": "true"
-                                            },
-                                            "hasExtraParams": true,
-                                            "id": "flex-action-1703268820323",
-                                            "message": "Message",
-                                            "openUrlIn": "Current Window",
-                                            "subType": "PubSub",
-                                            "type": "Event",
-                                            "vlocityIcon": "standard-default"
                                         }
                                     },
                                     {
                                         "actionIndex": 2,
                                         "card": "{card}",
                                         "draggable": true,
-                                        "isOpen": true,
+                                        "isOpen": false,
                                         "key": "1701980143967-b151wvyp6",
                                         "label": "AlertNotesEmpty",
                                         "stateAction": {
@@ -2670,52 +3459,98 @@
                                         }
                                     },
                                     {
-                                        "actionIndex": 3,
+                                        "actionIndex": 2,
                                         "card": "{card}",
                                         "draggable": true,
-                                        "isOpen": true,
-                                        "key": "1703268874082-ayv9nvscn",
-                                        "label": "AlertErrorUpdateCase",
+                                        "isOpen": false,
+                                        "key": "1709904683094-htwzffcww",
+                                        "label": "ActionCallPopUp",
+                                        "preloadFlyout": true,
                                         "stateAction": {
                                             "actionConditions": {
                                                 "group": [
                                                     {
-                                                        "field": "responseUpsertSuccess.UpsertSuccess",
+                                                        "field": "notes",
                                                         "hasMergeField": false,
-                                                        "id": "state-new-condition-59",
-                                                        "operator": "==",
+                                                        "id": "state-new-condition-7",
+                                                        "operator": "!=",
                                                         "type": "custom",
-                                                        "value": "false"
+                                                        "value": ""
                                                     }
                                                 ],
                                                 "id": "state-condition-object",
                                                 "isParent": true
                                             },
                                             "displayName": "Action",
-                                            "eventName": "FeedbackUser",
-                                            "extraParams": {
-                                                "Error": "true",
-                                                "Message": "Falha ao atualizar registro de Caso!"
-                                            },
-                                            "hasExtraParams": true,
-                                            "id": "flex-action-1703268920175",
-                                            "message": "Message",
+                                            "eventName": "OpenModal",
+                                            "hasExtraParams": false,
+                                            "id": "flex-action-1709906623295",
+                                            "message": "Popup",
                                             "openUrlIn": "Current Window",
                                             "subType": "PubSub",
                                             "type": "Event",
                                             "vlocityIcon": "standard-default"
                                         }
+                                    },
+                                    {
+                                        "actionIndex": 2,
+                                        "card": "{card}",
+                                        "draggable": true,
+                                        "isOpen": false,
+                                        "key": "1709898590919-4zd8vq8dp",
+                                        "label": "ActionSetHideRegisterButton",
+                                        "stateAction": {
+                                            "Web Page": {
+                                                "targetName": "/apex"
+                                            },
+                                            "actionConditions": {
+                                                "group": [
+                                                    {
+                                                        "field": "notes",
+                                                        "hasMergeField": false,
+                                                        "id": "state-new-condition-10",
+                                                        "operator": "!=",
+                                                        "type": "custom",
+                                                        "value": ""
+                                                    }
+                                                ],
+                                                "id": "state-condition-object",
+                                                "isParent": true
+                                            },
+                                            "displayName": "Action",
+                                            "eventName": "setValues",
+                                            "fieldValues": [
+                                                {
+                                                    "fieldName": "Session.HideRegisterButton",
+                                                    "fieldValue": "true"
+                                                }
+                                            ],
+                                            "id": "flex-action-1709901309714",
+                                            "openUrlIn": "Current Window",
+                                            "targetType": "Web Page",
+                                            "type": "cardAction",
+                                            "vlocityIcon": "standard-default"
+                                        }
                                     }
                                 ],
-                                "ariaLabel": "Registrar Atendimento Teste",
+                                "ariaLabel": "Registrar Atendimento EmptyInvoice",
                                 "buttonVariant": "brand",
                                 "card": "{card}",
                                 "data-conditions": {
                                     "group": [
                                         {
+                                            "field": "Session.HideRegisterButton",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-9",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "false"
+                                        },
+                                        {
                                             "field": "Parent.DisputeCloseService",
                                             "hasMergeField": false,
-                                            "id": "state-new-condition-12",
+                                            "id": "state-new-condition-16",
+                                            "logicalOperator": "&&",
                                             "operator": "==",
                                             "type": "custom",
                                             "value": "true"
@@ -2724,7 +3559,7 @@
                                     "id": "state-condition-object",
                                     "isParent": true
                                 },
-                                "data-preloadConditionalElement": false,
+                                "data-preloadConditionalElement": true,
                                 "disabled": "",
                                 "displayAsButton": true,
                                 "flyoutChannel": "close_modal",
@@ -2734,6 +3569,7 @@
                                 "iconColor": "#FFFFFF",
                                 "iconName": "standard-default",
                                 "label": "Registrar Atendimento",
+                                "preloadFlyout": true,
                                 "record": "{record}",
                                 "showSpinner": "false",
                                 "stateObj": "{record}",

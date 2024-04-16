@@ -1,5 +1,6 @@
 {
     "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__InternalNotes__c": "A flag hasHiringAdditionalLooseService vem do PLANO012.1 do fluxo de Aumento Valor Fatura.",
     "%vlocity_namespace%__OmniScriptId__c": {
         "Name": "DisputeDuplicateBilling",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
@@ -8,12 +9,12 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "HTMLTemplateId": "",
-        "allowSaveForLater": true,
+        "allowSaveForLater": false,
         "businessCategory": "",
         "businessEvent": "",
         "cancelLabel": "Cancel",
         "cancelMessage": "Are you sure?",
-        "chartLabel": "M) Contesta recebimento de duas faturas",
+        "chartLabel": "M) Verificar se cliente contesta pois está recebendo duas faturas",
         "completeLabel": "Complete",
         "completeMessage": "Are you sure you want to complete the script?",
         "conditionType": "Hide if False",
@@ -47,7 +48,18 @@
         "remoteTimeout": 30000,
         "saveLabel": "",
         "saveMessage": "",
-        "show": null,
+        "show": {
+            "group": {
+                "operator": "AND",
+                "rules": [
+                    {
+                        "condition": "<>",
+                        "data": "true",
+                        "field": "hasHiringAdditionalLooseService"
+                    }
+                ]
+            }
+        },
         "showPersistentComponent": [
             true,
             false

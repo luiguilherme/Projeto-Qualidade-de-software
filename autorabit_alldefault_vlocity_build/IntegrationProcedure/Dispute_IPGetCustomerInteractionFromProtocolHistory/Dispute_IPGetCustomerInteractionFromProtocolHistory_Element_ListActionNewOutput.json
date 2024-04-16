@@ -1,0 +1,79 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "IPGetCustomerInteractionFromProtocolHistory",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/Dispute/IPGetCustomerInteractionFromProtocolHistory/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__ParentElementId__c": {
+        "%vlocity_namespace%__OmniScriptId__c": {
+            "Name": "IPGetCustomerInteractionFromProtocolHistory",
+            "VlocityDataPackType": "VlocityMatchingKeyObject",
+            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/Dispute/IPGetCustomerInteractionFromProtocolHistory/Procedure",
+            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+        },
+        "Name": "LoopBlock1",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Dispute/IPGetCustomerInteractionFromProtocolHistory/Procedure/LoopBlock1",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
+    },
+    "%vlocity_namespace%__ParentElementName__c": "LoopBlock1",
+    "%vlocity_namespace%__ParentElementType__c": "Loop Block",
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "additionalChainableResponse": {
+        },
+        "additionalInput": {
+        },
+        "additionalOutput": {
+            "Data": "=FORMATDATETIME(%HTTPGetCustomerInteraction:protocolItems:creationDate%, \"dd/MM/yyyy\", \"Etc/GMT-3\")",
+            "Instância": "=%DRDisputeGetCartItemInAnalisys:instance%",
+            "Notas": "=%HTTPGetCustomerInteraction:protocolItems:notesX9%",
+            "Protocolo": "=%HTTPGetCustomerInteraction:protocolItems:protocolId%"
+        },
+        "advancedMerge": false,
+        "advancedMergeMap": [
+        ],
+        "allowMergeNulls": true,
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "dynamicOutputFields": "",
+        "executionConditionalFormula": "",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "failureResponse": {
+        },
+        "filterListFormula": "",
+        "hasPrimary": false,
+        "label": "ListAction1",
+        "mergeFields": [
+            null
+        ],
+        "mergeListsOrder": [
+            "HTTPGetCustomerInteraction:protocolItems:items"
+        ],
+        "primaryListKey": "",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "returnOnlyAdditionalOutput": false,
+        "returnOnlyFailureResponse": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "sendOnlyAdditionalInput": false,
+        "show": null,
+        "sortBy": [
+        ],
+        "sortInDescendingOrder": true,
+        "updateFieldValue": {
+            "Palito": "=%reasonLevel1% + \" > \" + %reasonLevel2% + \" > \" + %result%"
+        },
+        "useFormulas": true
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "List Merge Action",
+    "Name": "ListActionNewOutput",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Dispute/IPGetCustomerInteractionFromProtocolHistory/Procedure/ListActionNewOutput"
+}

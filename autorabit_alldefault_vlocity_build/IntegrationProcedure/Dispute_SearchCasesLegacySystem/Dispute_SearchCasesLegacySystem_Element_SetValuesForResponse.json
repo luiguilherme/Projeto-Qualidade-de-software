@@ -1,0 +1,36 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "SearchCasesLegacySystem",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/Dispute/SearchCasesLegacySystem/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "LegacyCaseCreatedDate": "=FORMATDATETIME(%SearchCustomerProblem:LegacyCaseInfo:problems|1:creationDate%,\"dd/MM/yyyy HH:mm\",\"America/Sao_Paulo\")",
+            "LegacyCaseId": "%SearchCustomerProblem:LegacyCaseInfo:problems|1:reference%",
+            "LegacyCaseLastModifiedDate": "=FORMATDATETIME(%SearchCustomerProblem:LegacyCaseInfo:problems|1:lastModificationDate%,\"dd/MM/yyyy HH:mm\",\"America/Sao_Paulo\")",
+            "LegacyCaseName": "%SearchCustomerProblem:LegacyCaseInfo:problems|1:name%",
+            "LegacyCaseNotes": "=BASE64DECODE(%SearchCustomerProblem:LegacyCaseInfo:problems|2:noteDetails:content%)",
+            "LegacyCaseSalesforce": "=VALUELOOKUP(FILTER(LIST(%SearchCustomerProblem:LegacyCaseInfo:problems|1:flexAttributes%), 'name == \"x_9_ID_Caso_Externo\"'), 'value')",
+            "LegacyCaseStatus": "%SearchCustomerProblem:LegacyCaseInfo:problems|1:status%"
+        },
+        "executionConditionalFormula": "",
+        "failOnStepError": false,
+        "failureConditionalFormula": "",
+        "label": "SetValues1",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SetValuesForResponse",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Dispute/SearchCasesLegacySystem/Procedure/SetValuesForResponse"
+}

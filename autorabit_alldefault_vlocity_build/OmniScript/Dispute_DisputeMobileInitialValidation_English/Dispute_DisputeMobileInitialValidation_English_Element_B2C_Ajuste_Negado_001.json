@@ -14,7 +14,7 @@
         "businessEvent": "",
         "cancelLabel": "Cancel",
         "cancelMessage": "Are you sure?",
-        "chartLabel": "A) Validação de Casos anteriores",
+        "chartLabel": "A) Validar Casos anteriores",
         "completeLabel": "Complete",
         "completeMessage": "Are you sure you want to complete the script?",
         "conditionType": "Hide if False",
@@ -48,7 +48,18 @@
         "remoteTimeout": 30000,
         "saveLabel": "",
         "saveMessage": "",
-        "show": null,
+        "show": {
+            "group": {
+                "operator": "AND",
+                "rules": [
+                    {
+                        "condition": "<>",
+                        "data": "true",
+                        "field": "RADisputeDeniedError"
+                    }
+                ]
+            }
+        },
         "showPersistentComponent": [
             true,
             false

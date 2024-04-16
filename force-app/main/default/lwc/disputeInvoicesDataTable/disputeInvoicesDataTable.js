@@ -331,8 +331,11 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
         const offerMapping = {};
 
         return charges.map(charge => {
+            if (!charge) {
+                return charge;
+            }
             if (charge.offerId && charge.offerType) {
-                offerMapping[charge.subscriberId] = { offerId: charge.offerId, offerType: charge.offerType };
+                offerMapping[charge.subscriberId] = { offerType: charge.offerType };
                 return charge;
             }
             const offerDetails = offerMapping[charge.subscriberId];

@@ -24,14 +24,17 @@
         "actionMessage": "",
         "additionalInput": {
             "CaseId": "%SVFilterList:ConcessionList|1:CaseId%",
+            "CaseNumberLegacySystem": "%IPAPrepareCreateCaseAmdocs:caseNumberAmdocs%",
             "Closure": "%SVFilterList:ConcessionList|1:Closure%",
             "ClosureMapping": "%SVFilterList:ConcessionList|1:ClosureMapping%",
             "Context": "%SVFilterList:ConcessionList|1:Context%",
+            "InteractionProtocolLegacySystem": "%IPAIPCreateInteractionAmdocsConcession:protocolNumber%",
             "LegacySystem": "%SVFilterList:ConcessionList|1:LegacySystem%",
             "Notes": "- Nome: %SVFilterList:ConcessionList|1:ServiceDefinitionName%\n- Código do Step: %SVFilterList:ConcessionList|1:StepCode%\n- Descrição: %SVFilterList:ConcessionList|1:Description%\n- Mensagem para o Atendente: %SVFilterList:ConcessionList|1:AttendantMessage%\n- Status: %SVFilterList:ConcessionList|1:StatusItem%\n- Contexto: %SVFilterList:ConcessionList|1:Context%\n- Encerramento: %SVFilterList:ConcessionList|1:Closure%\n- Mapeamento de Encerramento: %SVFilterList:ConcessionList|1:ClosureMapping%\n- Sistema Legado: %SVFilterList:ConcessionList|1:LegacySystem%\n- Notas do Atendimento: %Notes%",
             "RequestObservation": "%Notes%",
             "ServiceDefinitionId": "%SVFilterList:ConcessionList|1:ServiceDefinitionId%",
-            "Status": "%SVFilterList:ConcessionList|1:Status%"
+            "Status": "%SVFilterList:ConcessionList|1:Status%",
+            "StatusOld": "=IF(%FeedbackCreditAmdocs:Error% == true, \"ClosedAssigned\", %SVFilterList:ConcessionList|1:Status%)"
         },
         "additionalOutput": {
         },

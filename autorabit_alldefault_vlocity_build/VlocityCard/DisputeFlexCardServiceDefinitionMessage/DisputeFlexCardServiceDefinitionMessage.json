@@ -4,7 +4,7 @@
             {
                 "id": 4,
                 "name": "recordId",
-                "val": "5008K000004lnqYQAQ"
+                "val": "5008K000005G3uUQAS"
             }
         ],
         "orderBy": {
@@ -30,8 +30,8 @@
                 {
                     "actionIndex": 0,
                     "card": "{card}",
-                    "draggable": false,
-                    "isOpen": true,
+                    "draggable": true,
+                    "isOpen": false,
                     "key": "1697895316338-6ibmj33xs",
                     "label": "IPCaseClosureDefinition",
                     "stateAction": {
@@ -39,8 +39,8 @@
                             "targetName": "/apex"
                         },
                         "displayName": "Action",
-                        "id": "flex-action-1703189940039",
-                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"Dispute_CaseClosureDefinition\",\"vlocityAsync\":false,\"inputMap\":{\"disputedItems\":\"{records}\",\"Notes\":\"{action.Notes}\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"records\\\":\\\"{records}\\\",\\\"action.Notes\\\":\\\"{action.Notes}\\\",\\\"action\\\":\\\"{action}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"5008K000004QRoGQAW\",\"id\":4},{\"name\":\"records\",\"val\":\"\",\"id\":2},{\"name\":\"action.Notes\",\"val\":\"'teste'\",\"id\":4},{\"name\":\"action\",\"val\":\"\",\"id\":4}]}",
+                        "id": "flex-action-1710528863458",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"Dispute_CaseClosureDefinition\",\"vlocityAsync\":false,\"inputMap\":{\"disputedItems\":\"{records}\",\"Notes\":\"{action.Notes}\",\"CustomerIds\":\"{action.CustomerIds}\",\"InteractionId\":\"{action.InteractionId}\",\"InteractionTopicId\":\"{action.InteractionTopicId}\",\"CaseId\":\"{action.CaseId}\",\"FeedbackCreditAmdocs\":\"{action.FeedbackCreditAmdocs}\",\"ConvertNotesToStringBoth\":\"{action.ConvertNotesToStringBoth}\",\"ConvertNotesToStringApproved\":\"{action.ConvertNotesToStringApproved}\",\"ConvertNotesToStringConcession\":\"{action.ConvertNotesToStringConcession}\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"records\\\":\\\"{records}\\\",\\\"action.Notes\\\":\\\"{action.Notes}\\\",\\\"action\\\":\\\"{action}\\\",\\\"action.CustomerIds\\\":\\\"{action.CustomerIds}\\\",\\\"action.InteractionId\\\":\\\"{action.InteractionId}\\\",\\\"action.InteractionTopicId\\\":\\\"{action.InteractionTopicId}\\\",\\\"action.CaseId\\\":\\\"{action.CaseId}\\\",\\\"action.FeedbackCreditAmdocs\\\":\\\"{action.FeedbackCreditAmdocs}\\\",\\\"action.ConvertNotesToString\\\":\\\"{action.ConvertNotesToString}\\\",\\\"action.ConvertNotesToStringBoth\\\":\\\"{action.ConvertNotesToStringBoth}\\\",\\\"action.ConvertNotesToStringApproved\\\":\\\"{action.ConvertNotesToStringApproved}\\\",\\\"action.ConvertNotesToStringConcession\\\":\\\"{action.ConvertNotesToStringConcession}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"5008K000004QRoGQAW\",\"id\":4},{\"name\":\"records\",\"val\":\"\",\"id\":2},{\"name\":\"action.Notes\",\"val\":\"'teste'\",\"id\":4},{\"name\":\"action\",\"val\":\"\",\"id\":4},{\"name\":\"action.CustomerIds\",\"val\":\"\",\"id\":6},{\"name\":\"action.InteractionId\",\"val\":\"\",\"id\":9},{\"name\":\"action.InteractionTopicId\",\"val\":\"\",\"id\":11},{\"name\":\"action.CaseId\",\"val\":\"\",\"id\":13},{\"name\":\"action.FeedbackCreditAmdocs\",\"val\":\"\",\"id\":13},{\"name\":\"action.ConvertNotesToString\",\"val\":\"\",\"id\":15},{\"name\":\"action.ConvertNotesToStringBoth\",\"val\":\"\",\"id\":16},{\"name\":\"action.ConvertNotesToStringApproved\",\"val\":\"\",\"id\":18},{\"name\":\"action.ConvertNotesToStringConcession\",\"val\":\"\",\"id\":20}]}",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "DataAction",
@@ -51,7 +51,7 @@
                     "actionIndex": 1,
                     "card": "{card}",
                     "draggable": true,
-                    "isOpen": true,
+                    "isOpen": false,
                     "key": "1698073680787-y5rep7zu0",
                     "label": "SendMessageToLWC",
                     "stateAction": {
@@ -73,10 +73,10 @@
                 {
                     "actionIndex": 2,
                     "card": "{card}",
-                    "draggable": false,
-                    "isOpen": true,
+                    "draggable": true,
+                    "isOpen": false,
                     "key": "1702648621988-463ns8rij",
-                    "label": "SendMessageToParent",
+                    "label": "SendMessageToParentCase",
                     "stateAction": {
                         "displayName": "Action",
                         "eventName": "FeedbackUser",
@@ -86,7 +86,55 @@
                             "Success": "{feedbackUser.Success}"
                         },
                         "hasExtraParams": true,
-                        "id": "flex-action-1702649466067",
+                        "id": "flex-action-1706618252074",
+                        "message": "ServiceDefinition",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 3,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1706618186736-v2xud5mkf",
+                    "label": "SendMessageToParentInteraction",
+                    "stateAction": {
+                        "displayName": "Action",
+                        "eventName": "FeedbackUserInteraction",
+                        "extraParams": {
+                            "Error": "{feedbackUserInteraction.Error}",
+                            "Message": "{feedbackUserInteraction.Message}",
+                            "Success": "{feedbackUserInteraction.Success}"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1710876179942",
+                        "message": "ServiceDefinition",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 4,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1710876053193-51jscmjoj",
+                    "label": "SendMessageToParentAmdocsCase",
+                    "stateAction": {
+                        "displayName": "Action",
+                        "eventName": "FeedbackCaseAmdocs",
+                        "extraParams": {
+                            "Error": "{feedbackCaseAmdocs.Error}",
+                            "Message": "{feedbackCaseAmdocs.Message}",
+                            "Success": "{feedbackCaseAmdocs.Success}"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1710876250014",
                         "message": "ServiceDefinition",
                         "openUrlIn": "Current Window",
                         "subType": "PubSub",
@@ -141,10 +189,10 @@
     ],
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfDisputeFlexCardServiceDefinitionMessage_5_Dispute",
-        "Id": "0Rb78000000LWG7CAO",
+        "DeveloperName": "cfDisputeFlexCardServiceDefinitionMessage_10_Dispute",
+        "Id": "0Rb78000000LaA3CAK",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfDisputeFlexCardServiceDefinitionMessage_5_Dispute",
+        "MasterLabel": "cfDisputeFlexCardServiceDefinitionMessage_10_Dispute",
         "NamespacePrefix": "c"
     },
     "osSupport": true,
@@ -560,7 +608,7 @@
                                     "parentElementKey": "element_block_0_0",
                                     "property": {
                                         "card": "{card}",
-                                        "mergeField": "%3Cdiv%3E%7BStatusItem%7D%3C/div%3E",
+                                        "mergeField": "%3Cdiv%3E%7BStatusDisputedItem%7D%3C/div%3E",
                                         "record": "{record}"
                                     },
                                     "size": {
