@@ -1,5 +1,5 @@
 {
-    "%vlocity_namespace%__Active__c": false,
+    "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
         "Name": "IPCreateCreditForChargeAndEvent",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
@@ -14,14 +14,15 @@
             "billingInvoiceNumber": "=TOSTRING(%PrepareRequest:ApprovedList|1:invoiceDetails:billingInvoiceNumber%)",
             "billingSystem": "=TOSTRING(%PrepareRequest:ApprovedList|1:billingSystem%)",
             "creditType": "=TOSTRING(%PrepareRequest:ApprovedList|1:creditType%)",
-            "cycleCloseDate": "=TOSTRING(%PrepareRequest:ApprovedList|1:invoiceDetails:cycleCloseDate%)",
-            "cycleStartDate": "=TOSTRING(%PrepareRequest:ApprovedList|1:invoiceDetails:cycleStartDate%)",
-            "documentId": "=TOSTRING(%PrepareRequest:ApprovedList|1:billingAccountId%)",
+            "cycleCloseDate": "=replaceString(TOSTRING(%PrepareRequest:ApprovedList|1:invoiceDetails:cycleCloseDate%),\"Z\",\"-00:00\")",
+            "cycleStartDate": "=replaceString(TOSTRING(%PrepareRequest:ApprovedList|1:invoiceDetails:cycleStartDate%),\"Z\",\"-00:00\")",
+            "documentId": "=TOSTRING(%PrepareRequest:ApprovedList|1:invoiceDetails:documentId%)",
             "events": "%PrepareRequest:ApprovedList|1:events%",
             "financialAccountId": "=TOSTRING(%PrepareRequest:ApprovedList|1:financialAccountId%)",
-            "flagToCreateCase": "=TOSTRING(%PrepareRequest:ApprovedList|1:flagToCreateCase%)",
+            "flagToCreateCase": "%PrepareRequest:ApprovedList|1:flagToCreateCase%",
             "invoiceId": "=TOSTRING(%PrepareRequest:ApprovedList|1:invoiceDetails:invoiceId%)",
             "notes": "=TOSTRING(%PrepareRequest:ApprovedList|1:notes%)",
+            "subscriberId": "%PrepareRequest:ApprovedList|1:subscriberId%",
             "userId": "=TOSTRING(%PrepareRequest:UserLogin%)"
         },
         "executionConditionalFormula": "ISBLANK(%PrepareRequest:ApprovedList|1:charges%) && ISNOTBLANK(%PrepareRequest:ApprovedList|1:events%)",

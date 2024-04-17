@@ -25,7 +25,13 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "Email": "=IF(%Email% == 'Outro', %OtherEmail%, %Email%)"
+            "barId": "=TOSTRING(%CustomerIds:barId%)",
+            "customerId": "=TOSTRING(%CustomerIds:accountHref%)",
+            "documentId": "=TOSTRING(%selectedInvoice|1:billNo%)",
+            "email": "=IF(%Email% == 'Outro', %OtherEmail%, %Email%)",
+            "financialAccountId": "=TOSTRING(%CustomerIds:faId%)",
+            "invoiceNumber": "=TOSTRING(%selectedInvoice|1:invoiceNumber%)",
+            "oldInvoiceBalance": "=TOSTRING(%selectedInvoice|1:balance%)"
         },
         "executionConditionalFormula": "",
         "failOnStepError": false,

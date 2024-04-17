@@ -49,7 +49,6 @@ export default class DisputeCartItemsDataTable extends OmniscriptBaseMixin(Light
         this.subscribeToEvent('omniscript_action', 'data', this.handleReload.bind(this));
     }
 
-
     disconnectedCallback(){
         this.unsubscribeFromAllEvents();
     }
@@ -112,9 +111,25 @@ export default class DisputeCartItemsDataTable extends OmniscriptBaseMixin(Light
         };
         this._actionUtil.executeAction(params, null, this, null, null)
             .then((response) => {
+                const BRL = new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                });
+                const fieldsToFormat = new Set(['AvailableAmount__c', 'Discounts__c', 'TotalAmount__c'])
                 console.log('update');
-                this.cartItems = Array.isArray(response.result.IPResult.cartItems) ? response.result.IPResult.cartItems : [response.result.IPResult.cartItems];
-                this.cartItems = [...this.cartItems];
+                console.log('cartItems: ' + JSON.stringify(this.cartItems));
+                const temp = Array.isArray(response.result.IPResult.cartItems) ? response.result.IPResult.cartItems : [response.result.IPResult.cartItems];
+                this.cartItems = temp.map(billItem => {
+                    for(const key in billItem){
+                        if(billItem[key] === null || billItem[key] === ''){
+                            billItem[key] = "-"
+                        }
+                        if(fieldsToFormat.has(key)){
+                            billItem[key] = BRL.format(billItem[key]);
+                        }
+                    }
+                    return billItem;
+                });
                 this.isSuccess = response.result.IPResult.isSuccess;
                 this.tableVisible = false; // Forçar a re-renderização 
                 this.tableVisible = true;
@@ -123,12 +138,12 @@ export default class DisputeCartItemsDataTable extends OmniscriptBaseMixin(Light
                 console.error(error);
             });
     }
-    
+
     handleRowAction(event){
         const action = event.detail.action;
         const row = event.detail.row;
         if (action.name === 'delete') {
-            if(row.StatusPt == "Não iniciado" || row.StatusPt == "Em análise"){
+            if(row.StatusPt == "Não iniciado"){
             this.deleteItemsFromId = { disputedItemId: row.Id };
             this.handleDelete();
             }
@@ -141,7 +156,7 @@ export default class DisputeCartItemsDataTable extends OmniscriptBaseMixin(Light
     async openAlertModal(){
 		const result = await LightningAlert.open({
 			label: 'Alerta',
-			message: 'O item não pode ser deletado, pois o item já foi analisado.',
+			message: 'O item não pode ser deletado, pois já foi analisado ou está em análise.',
             theme: 'error'
 		});
 	}

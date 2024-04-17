@@ -20,8 +20,8 @@
                 {
                     "actionIndex": 0,
                     "card": "{card}",
-                    "draggable": false,
-                    "isOpen": true,
+                    "draggable": true,
+                    "isOpen": false,
                     "key": "1686063921015-dg2pbzd3m",
                     "label": "SetSessionOpenDispute",
                     "stateAction": {
@@ -113,15 +113,74 @@
             "key": "event-1",
             "recordIndex": "0",
             "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1706558455107-wvihptdql",
+                    "label": "GetCustomerId",
+                    "stateAction": {
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "CustomerIds",
+                                "fieldValue": "{action}"
+                            },
+                            {
+                                "fieldName": "Session.customerAccountId",
+                                "fieldValue": "{action.customerAccountId}"
+                            },
+                            {
+                                "fieldName": "Session.serviceId",
+                                "fieldValue": "{action.serviceId}"
+                            },
+                            {
+                                "fieldName": "Session.faId",
+                                "fieldValue": "{action.faId}"
+                            },
+                            {
+                                "fieldName": "Session.documentNumber",
+                                "fieldValue": "{action.documentNumber}"
+                            },
+                            {
+                                "fieldName": "Session.barId",
+                                "fieldValue": "{action.barId}"
+                            },
+                            {
+                                "fieldName": "Session.accountHref",
+                                "fieldValue": "{action.accountHref}"
+                            }
+                        ],
+                        "id": "flex-action-1706562033978",
+                        "openUrlIn": "Current Window",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "DisputeFlexCardWrapper",
+            "displayLabel": "DisputeFlexCardWrapper:GetCustomerIds",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "GetCustomerIds",
+            "eventtype": "pubsub",
+            "key": "event-2",
+            "recordIndex": "0",
+            "showSpinner": "false"
         }
     ],
     "globalCSS": true,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfDisputeFlexCardWrapper_12_Dispute",
-        "Id": "0Rb78000000LWGHCA4",
+        "DeveloperName": "cfValAddRelationshipTopicFrontEnd",
+        "Id": "0Rb78000000La6BCAS",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfDisputeFlexCardWrapper_12_Dispute",
+        "MasterLabel": "cfValAddRelationshipTopicFrontEnd",
         "NamespacePrefix": "c"
     },
     "selectableMode": "Multi",
@@ -148,6 +207,30 @@
         },
         {
             "name": "CaseId",
+            "val": ""
+        },
+        {
+            "name": "customerAccountId",
+            "val": ""
+        },
+        {
+            "name": "serviceId",
+            "val": ""
+        },
+        {
+            "name": "faId",
+            "val": ""
+        },
+        {
+            "name": "documentNumber",
+            "val": ""
+        },
+        {
+            "name": "barId",
+            "val": ""
+        },
+        {
+            "name": "accountHref",
             "val": ""
         }
     ],
@@ -208,7 +291,7 @@
                             ],
                             "class": "slds-col ",
                             "element": "block",
-                            "elementLabel": "Block-0",
+                            "elementLabel": "Block-1",
                             "name": "Block",
                             "property": {
                                 "card": "{card}",
@@ -264,8 +347,16 @@
                                         "parentAttribute": {
                                             "CaseId": "{Session.CaseId}",
                                             "DisputeCloseService": "{Session.DisputeCloseService}",
+                                            "InteractionId": "{InteractionId}",
+                                            "InteractionTopicId": "{InteractionTopicId}",
+                                            "accountHref": "{Session.accountHref}",
                                             "attendantMessage": "{Session.attendantMessage}",
-                                            "serviceDefinitionName": "{Session.serviceDefinitionName}"
+                                            "barId": "{Session.barId}",
+                                            "customerAccountId": "{Session.customerAccountId}",
+                                            "documentNumber": "{Session.documentNumber}",
+                                            "faId": "{Session.faId}",
+                                            "serviceDefinitionName": "{Session.serviceDefinitionName}",
+                                            "serviceId": "{Session.serviceId}"
                                         },
                                         "recordId": "{recordId}",
                                         "selectedState": "Active"

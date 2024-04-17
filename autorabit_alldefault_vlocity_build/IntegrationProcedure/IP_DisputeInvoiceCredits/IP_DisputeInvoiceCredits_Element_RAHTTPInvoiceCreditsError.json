@@ -23,10 +23,10 @@
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
             "HTTPInvoiceCredits:error": "=true",
-            "HTTPInvoiceCredits:errorMessage": "Erro no serviço invoiceCredits (searchCredit)"
+            "HTTPInvoiceCredits:errorMessage": "=\"Erro no serviço InvoiceCredits.\" + \" \" +%HTTPInvoiceCreditsInfo:statusCode% + \" \" + %HTTPInvoiceCreditsInfo:status%"
         },
         "disOnTplt": false,
-        "executionConditionalFormula": "ISBLANK(%HTTPInvoiceCredits:invoiceCredits%)",
+        "executionConditionalFormula": "%HTTPInvoiceCreditsStatus% == false && %HTTPInvoiceCreditsInfo:statusCode% != 404 && %HTTPInvoiceCredits:code% != 900201",
         "label": "ResponseAction4",
         "responseDefaultData": {
         },

@@ -6,6 +6,20 @@
         "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/IP/DisputeSearchPreviousInvoiceCharges/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
+    "%vlocity_namespace%__ParentElementId__c": {
+        "%vlocity_namespace%__OmniScriptId__c": {
+            "Name": "IPDisputeSearchPreviousInvoiceCharges",
+            "VlocityDataPackType": "VlocityMatchingKeyObject",
+            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/IP/DisputeSearchPreviousInvoiceCharges/Procedure",
+            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+        },
+        "Name": "ConditionalBlockRC",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/IP/DisputeSearchPreviousInvoiceCharges/Procedure/ConditionalBlockRC",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
+    },
+    "%vlocity_namespace%__ParentElementName__c": "ConditionalBlockRC",
+    "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalChainableResponse": {
@@ -26,7 +40,7 @@
         "failureConditionalFormula": "",
         "failureResponse": {
         },
-        "filterListFormula": "type == \"RC\" && datediffstart <= %filterFields:invoiceEndDate% && datediffstart >= %filterFields:invoiceEndDate45%",
+        "filterListFormula": "=type == \"RC\" && frontEndCode == \"PCTAD\" && datediffstart <= %filterFields:invoiceEndDate% && datediffstart >= %filterFields:invoiceEndDate45%",
         "hasPrimary": false,
         "label": "ListAction3",
         "mergeFields": [
@@ -45,8 +59,9 @@
         "sendOnlyAdditionalInput": false,
         "show": null,
         "sortBy": [
+            "totalAmount"
         ],
-        "sortInDescendingOrder": false,
+        "sortInDescendingOrder": true,
         "updateFieldValue": {
             "datediffend": "=DATEDIFF(TODAY(),SUBSTRING(endDate ,0,10))",
             "datediffstart": "=DATEDIFF(TODAY(),SUBSTRING(startDate,0,10))"

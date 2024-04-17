@@ -41,6 +41,7 @@ class ServiceFlowGPSControllerTest {
             Active__c = true,
             GPSId__c = '',
             OperatorSegment__c = 'Gold',
+            ProductType__c = 'Fixed',
             Instance__c = 'Banda Larga;TV',
 			Type__c = 'Palito'            
         );        

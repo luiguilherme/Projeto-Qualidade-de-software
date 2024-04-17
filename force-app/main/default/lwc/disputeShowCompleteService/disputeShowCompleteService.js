@@ -1,4 +1,4 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, api} from 'lwc';
 import { OmniscriptBaseMixin } from 'vlocity_cmt/omniscriptBaseMixin';
 import pubsub from 'vlocity_cmt/pubsub';
 import { interpolateWithRegex } from 'vlocity_cmt/flexCardUtility';
@@ -10,8 +10,24 @@ export default class DisputeShowCompleteService extends OmniscriptBaseMixin(Ligh
     _actionUtil;
     _regexPattern = /\{([a-zA-Z.0-9_]+)\}/g;
 
+    @api accountHref;
+    @api barId;
+    @api documentNumber;
+    @api faId;
+    @api serviceId;
+    @api customerAccountId;
+
     connectedCallback(){
         this._actionUtil = new OmniscriptActionCommonUtil();
+        const obj = {
+            accountHref: this.accountHref,   
+            barId: this.barId,   
+            documentNumber: this.documentNumber,   
+            faId: this.faId,   
+            serviceId: this.serviceId,    
+            customerAccountId: this.customerAccountId
+        }
+        pubsub.fire('DisputeFlexCardWrapper', 'GetCustomerIds', obj);
         pubsub.fire('valServiceFlow', 'ShowDisputeCompleteService', { ShowDisputeCompleteService: true});
     }
 

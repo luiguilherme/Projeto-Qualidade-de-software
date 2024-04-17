@@ -1,0 +1,40 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "IPGetBiometryHistory",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/Dispute/IPGetBiometryHistory/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "additionalOutput": {
+            "OrderListError:ErrorParam": "=%PostOrderListAPI:RAErrorParam:error%",
+            "OrderListError:HTTPError": "=%PostOrderListAPI:RAHTTPError:error%",
+            "OrderListError:HTTPErrorMessage": "=%PostOrderListAPI:RAHTTPError:errorMessage%",
+            "OrderListError:ParamErrorMessage": "=%PostOrderListAPI:RAErrorParam:errorMessage%",
+            "OrderListError:ParamErrorMessages": "=\"Erro no serviço PostOrderListAPI\""
+        },
+        "disOnTplt": false,
+        "executionConditionalFormula": "ISBLANK(%SVConvertNumberToStringAndUnixDate:AccountIdString%) || ISBLANK(%body%) || ISBLANK(%SVreturnOrderListReferenceNumber:orderReferenceNumber%) || %PostOrderListAPI:RAHTTPError:error%",
+        "label": "ResponseAction1",
+        "responseDefaultData": {
+        },
+        "responseFormat": "JSON",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "returnFullDataJSON": false,
+        "returnOnlyAdditionalOutput": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "show": null,
+        "useFormulas": true,
+        "vlcResponseHeaders": {
+        }
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Response Action",
+    "Name": "RAErrorPostOrderListAPI",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Dispute/IPGetBiometryHistory/Procedure/RAErrorPostOrderListAPI"
+}

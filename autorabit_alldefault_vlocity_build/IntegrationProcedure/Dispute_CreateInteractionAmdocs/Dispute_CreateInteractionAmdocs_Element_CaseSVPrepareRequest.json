@@ -1,0 +1,51 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "IPCreateInteractionAmdocs",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/Dispute/CreateInteractionAmdocs/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "channelDetail": {
+                "id": "%SVDefinition:channelId%"
+            },
+            "direction": "%DRgetUserDetail:direction%",
+            "endDate": "=replaceString(FORMATDATETIME(NOW(),\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\",\"America/Sao_Paulo\"),\"0300\",\"03:00\")",
+            "externalSystem": "%SVDefinition:externalSystem%",
+            "individual": {
+                "externalId": "%SVDefinition:accountHref%"
+            },
+            "items": "=LIST(%Item%)",
+            "name": "%SVDefinition:name%",
+            "notes": "%notes%",
+            "parentCustomerInteraction": {
+                "protocolId": "%SVDefinition:parentProtocolId%"
+            },
+            "protocolId": "%SVDefinition:protocolId%",
+            "session": {
+                "user": {
+                    "name": "%DRDisputeGetUserLogin:HandledLogin%"
+                }
+            },
+            "startDate": "=replaceString(FORMATDATETIME(%DRgetCustomerInteractionAndTopicDetails:Topic:CreatedDate%,\"yyyy-MM-dd'T'HH:mm:ss.SSSZ\",\"America/Sao_Paulo\"),\"0300\",\"03:00\")"
+        },
+        "executionConditionalFormula": "ISBLANK(%IPAGetAllServiceDefinitionFromCaseId%)",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues20",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "CaseSVPrepareRequest",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Dispute/CreateInteractionAmdocs/Procedure/CaseSVPrepareRequest"
+}

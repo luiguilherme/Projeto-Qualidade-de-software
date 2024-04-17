@@ -14,7 +14,8 @@
             "ClosureMapping__c": "=%DREgetServiceDefinition:ClosureMapping__c%",
             "Closure__c": "=%DREgetServiceDefinition:Closure__c%",
             "Context__c": "=%DREgetServiceDefinition:Context__c%",
-            "InteractionProtocolLegacySystem__c": "=%InteractionProtocolLegacySystem__c%",
+            "InteractionProtocolLegacySystem__c": "=IF(ISBLANK(%InteractionProtocolLegacySystem__c%),%IPAIPCreateInteractionAmdocs:protocolNumber%,%InteractionProtocolLegacySystem__c%)",
+            "LegacySystem": "NEXT",
             "RequestObservation__c": "=%DREgetServiceDefinition:AttendantMessage__c%",
             "SendedNotesLegacySystem__c": "=%SendedNotesLegacySystem__c%",
             "ServiceDefinitionId": "=%DREgetServiceDefinition:Id%",
@@ -26,7 +27,7 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "executionConditionalFormula": "",
-        "failOnStepError": true,
+        "failOnStepError": false,
         "failureConditionalFormula": "",
         "failureResponse": {
         },
@@ -37,7 +38,7 @@
         "returnOnlyFailureResponse": false,
         "sendJSONNode": "",
         "sendJSONPath": "",
-        "sendOnlyAdditionalInput": false,
+        "sendOnlyAdditionalInput": true,
         "show": null,
         "useFormulas": true
     },

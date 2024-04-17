@@ -16,23 +16,36 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
     _regexPattern = /\{([a-zA-Z.0-9_]+)\}/g;
     pubsubEvents = {};
 
-    beforeTransformationCartItems
+    // Variaveis
+    selectedInvoice;
+    CustomerIds;
+    creditReasonDescriptionMapping;
+    beforeTransformationCartItems;
+    isPaid;
+    invoiceNumber;
+    caseId;
+    interactionId;
+    interactionTopicId;
+    accountId;
+    isLastItem;
+    shouldSendBill; 
+    invoiceStatus;
+    hasAutoDebit;
+    withinAdjustmentPeriod;
 
     // Valores Rastreados
+    @api param;
     @track adjustmentItems = {};
     @track adjustmentItemsFormated = {};
     @track cartItems;
-
-    //Futuramente pode vir via @API este valor
-    @track totalAdjustmentAmount = 'R$0,00'; // Para manter o valor total do ajuste para todos os itens
+    @track totalAdjustmentAmount = 'R$0,00';
     @track totalAdjustmentAmountInitial;
-
     @track showPage = false;
     @track showLoading = true;
     @track receivedFromAdjusment = false;
-
-    creditReasonDescriptionMapping;
-
+    @track sessionFields = false;
+    @track sessionNotes;
+    @track isDisabled = false;;
 
     // Variáveis Estáticas
     static MODALIDADES = {
@@ -40,21 +53,6 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
         CONTA_FUTURA: 'Crédito em conta futura',
         REEMBOLSO: 'Reembolso'
     };
-
-    // Premissas: (@api)
-    @api param;
-    selectedInvoice;
-
-    isPaid;        // Paga ou Nao Paga (true/false)
-    invoiceNumber;
-    caseId;
-    accountId;
-    isLastItem;
-    shouldSendBill; 
-    invoiceStatus; // Aberta ou Fechada
-    hasAutoDebit;  // Sim ou Nao (yes/no)
-    withinAdjustmentPeriod; //até 10 dias antes da programação do débito automático
-
 
     // Opções Pré-definidas 01
     optionsTipoAjuste = [
@@ -75,7 +73,6 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
         'S': 'Concessão'
     };
 
-
     connectedCallback() {
         // Adiciona Listener
          this._actionUtil = new OmniscriptActionCommonUtil();
@@ -95,7 +92,6 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
             this.handleGetItems();
         } else {
             this.showLoading = false;
-            console.log('Não passou pelo Fluxo de Ajuste ou isLastItem != yes -> Renderizar apenas as Definições de Atendimento');
         }
     }
 
@@ -103,7 +99,6 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
         const isSuccess = (Success === 'true' || Success === true);
         const isError = (Error === 'true' || Error === true);
 
-        
         if(!Message) {
             if(isSuccess){
                 return this.openAlertModal('Sucesso', 'Registro de caso atualizado com sucesso!', 'success');
@@ -121,7 +116,6 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
         }
     }
     
-
     disconnectedCallback(){
         this.unsubscribeFromAllEvents();
     }
@@ -158,12 +152,14 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
             }
         }
         
-        const { caseId, hasAutoDebit, invoiceStatus, invoiceNumber, withinAdjustmentPeriod, isLastItem, accountId, selectedInvoice  } = forceParamObject;
-
+        const { caseId, hasAutoDebit, invoiceStatus, invoiceNumber, withinAdjustmentPeriod, isLastItem, accountId, selectedInvoice, CustomerIds, InteractionId, InteractionTopicId } = forceParamObject;  
         this.caseId = (caseId !== undefined && caseId !== "") ? caseId : null;
+        this.interactionId = (InteractionId !== undefined && InteractionId !== "") ? InteractionId : null;
+        this.interactionTopicId = (InteractionTopicId !== undefined && InteractionTopicId !== "") ? InteractionTopicId : null;
         this.invoiceNumber = (invoiceNumber !== undefined && invoiceNumber !== "") ? invoiceNumber : null;
         this.isLastItem = (isLastItem !== undefined && isLastItem !== "") ? isLastItem : null;
         this.selectedInvoice = (selectedInvoice !== undefined && selectedInvoice !== "") ? selectedInvoice : null;
+        this.CustomerIds = (CustomerIds !== undefined && CustomerIds !== "") ? CustomerIds : null;
         this.hasAutoDebit = (hasAutoDebit !== undefined && hasAutoDebit !== "") ? hasAutoDebit : null;
         this.invoiceStatus = (invoiceStatus !== undefined && invoiceStatus !== "") ? invoiceStatus : null;
         this.withinAdjustmentPeriod = (withinAdjustmentPeriod !== undefined && withinAdjustmentPeriod !== "") ? withinAdjustmentPeriod : null;
@@ -226,8 +222,6 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
                     name: "Outro",
                     label: "Outro"
                 });
-
-                //Options e-mail
                 pubsub.fire('ServiceDefinition', 'GetOptions', resultOptions);
             })
             .catch((error) => {
@@ -322,24 +316,18 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
             let valorAtual = parseFloat(adjustmentItem.valorAtual);
             let difference = valorAtual - adjustmentValue;
             let decimalPart = (adjustmentValueStr.split('.')[1] || '').length;
-            if(adjustmentValue < 0){
+            if (adjustmentValue < 0) {
                 return this.openAlertModal('Valor inválido', 'Favor fornecer um número positivo', 'error');
-                adjustmentValue = 0;
-                adjustmentItem.valorAjuste = 0;
             }
-            if(decimalPart > 2){
+            if (decimalPart > 2) {
                 return this.openAlertModal('Valor inválido', 'Favor fornecer um número com no máximo duas casas decimais', 'error');
-                adjustmentValue = 0;
-                adjustmentItem.valorAjuste = 0;
             }
             if (adjustmentValue > valorAtual || difference < 0) {
                 return this.openAlertModal('Valor inválido', 'Não há como gerar crédito para item de fatura maior do que o valor disponível', 'error');
-                adjustmentValue = 0;
-                adjustmentItem.valorAjuste = 0;
             }
-            if(adjustmentValue == 0) {
+            if (adjustmentValue == 0) {
                 adjustmentItem.valorAjuste = '';
-            }else {
+            } else {
                 adjustmentItem.valorAjuste = adjustmentValue;
             }
             if (this.adjustmentItems && this.adjustmentItems.length) {
@@ -351,10 +339,9 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
             }
             adjustmentItem.valorPagar = (valorAtual - adjustmentValue).toFixed(2);
             this.adjustmentItemsFormated = this.formatNumberForHtml(this.adjustmentItems);
-            //Valor a ser ressarcido
             pubsub.fire('ServiceDefinition', 'GetTotalAdjustmentAmount', parseFloat(this.totalAdjustmentAmount.replace(/\D/g, '').replace(',', '.')) / 100);
 
-            if(parseFloat(this.totalAdjustmentAmount.replace(/\D/g, '').replace(',', '.')) / 100 == parseFloat(this.totalAdjustmentAmountInitial.replace(/\D/g, '').replace(',', '.')) / 100){
+            if (parseFloat(this.totalAdjustmentAmount.replace(/\D/g, '').replace(',', '.')) / 100 == parseFloat(this.totalAdjustmentAmountInitial.replace(/\D/g, '').replace(',', '.')) / 100){
                 this.shouldSendBill = false;
                 pubsub.fire('ServiceDefinition', 'ShouldSendBill', false);
             } else {
@@ -366,7 +353,6 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
             console.error('Item not found: ', itemId);
         }
     }
-
 
     // Mudança no Valor Ajuste (input para o usuário)
     handleInputFocus(event) {
@@ -437,57 +423,47 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
         pubsub.fire('ServiceDefinition', 'GetModality', newModalidade);
     }
 
-    @track sessionFields = false;
-    @track sessionNotes;
     // Método para validar os campos baseado na modalidade
     validateSessionFields({ Session, Notes} ) {
-    const {
-        modality,
-        email,
-        otherEmail,
-        bank,
-        agency,
-        cc
-    } = Session;
-    const notes = Notes;
-    
-    // Validação para a modalidade 'Boleto'.
-    if (modality === 'Boleto' && this.shouldSendBill == true ) {
-        if (!email || (email === 'Outro' && !otherEmail)) {
-            this.openAlertModal('Campos Obrigatórios!', 'Favor preencher o campo ' + (!email ? 'E-mail' : 'Outro e-mail'), 'error');
+        const { modality, email, otherEmail, bank, agency, cc } = Session;
+        const notes = Notes;
+        
+        // Validação para a modalidade 'Boleto'.
+        if (modality === 'Boleto' && this.shouldSendBill == true ) {
+            if (!email || (email === 'Outro' && !otherEmail)) {
+                this.openAlertModal('Campos Obrigatórios!', 'Favor preencher o campo ' + (!email ? 'E-mail' : 'Outro e-mail'), 'error');
+                return false;
+            }
+        }
+        // Validação para a modalidade 'Reembolso'.
+        else if (modality === 'Reembolso') {
+            if (!bank || !agency || !cc) {
+                const missingField = !bank ? 'Banco' : (!agency ? 'Agência' : 'Conta Corrente');
+                this.openAlertModal('Campos Obrigatórios!', 'Favor preencher o campo ' + missingField, 'error');
+                return false;
+            }
+        }
+        // Validação para 'Email'.
+        if(email === 'Outro' && !this.isValidEmail(otherEmail)){
+            this.openAlertModal('Erro E-mail', 'Formato de e-mail inválido!', 'error');
             return false;
         }
-    }
-    // Validação para a modalidade 'Reembolso'.
-    else if (modality === 'Reembolso') {
-        if (!bank || !agency || !cc) {
-            const missingField = !bank ? 'Banco' : (!agency ? 'Agência' : 'Conta Corrente');
-            this.openAlertModal('Campos Obrigatórios!', 'Favor preencher o campo ' + missingField, 'error');
+
+        // Validação para 'Notes' que é um campo obrigatório em todos os casos.
+        if (!notes || notes == '{notes}') {
+            this.openAlertModal('Campos Obrigatórios!', 'Favor preencher o campo Observações', 'error');
             return false;
         }
-    }
 
-    if(email === 'Outro' && !this.isValidEmail(otherEmail)){
-        this.openAlertModal('Erro E-mail', 'Formato de e-mail inválido!', 'error');
-        return false;
-    }
-
-    // Validação para 'notes' que é um campo obrigatório em todos os casos.
-    if (!notes || notes == '{notes}') {
-        this.openAlertModal('Campos Obrigatórios!', 'Favor preencher o campo Observações', 'error');
-        return false;
-    }
-
-    this.sessionNotes = notes;
-    this.sessionFields = true;
-    return true;
+        this.sessionNotes = notes;
+        this.sessionFields = true;
+        return true;
     }
 
 
     handleSave(evt) {
-        console.log("handle save");
         if (!this.validateSessionFields(evt)) {
-        return;
+            return;
         }
         if(this.showPage){
             const filteredAdjustmentItems = this.adjustmentItems.map(item => {
@@ -500,7 +476,9 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
                     valorAtual: item.valorAtual,
                     tipoAjuste: item.tipoAjuste,
                     valorAjuste: item.valorAjuste,
-                    
+
+                    isEvent: item.isEvent,
+
                     modalidadeSelecionada: item.modalidadeSelecionada,
                     motivoCreditoSelecionado: item.motivoCreditoSelecionado,
                     motivoCreditoCode: item.motivoCreditoCode
@@ -509,11 +487,11 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
             let allItemsValid = true;
             let nonAdjustmentValue = true;
             for (const item of filteredAdjustmentItems) {
-                if (!item.id || !item.fatura || !item.descricao || !item.valor || item.descontos === undefined || !item.valorAtual || !item.tipoAjuste || item.valorAjuste === undefined || !item.modalidadeSelecionada || !item.motivoCreditoSelecionado || !item.motivoCreditoCode) {
+                if (!item.tipoAjuste || item.valorAjuste === undefined || !item.modalidadeSelecionada || !item.motivoCreditoSelecionado || !item.motivoCreditoCode) {
                     allItemsValid = false;
                     break;
                 }
-                if(item.valorAjuste == '' || item.valorAjuste == 0){
+                if(!item.isEvent && (item.valorAjuste == '' || item.valorAjuste == 0)){
                     nonAdjustmentValue = false;
                     break;
                 }
@@ -529,7 +507,6 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
                 };
 
                 const subscriber = this.adjustmentItems[0].SubscriberId__c;
-                console.log(subscriber);
                 const createRequestObject = (creditType, subscriber) => ({
                     billingSystem: "AMDOCS",
                     countryCode: "BRA",
@@ -542,9 +519,9 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
                     userId: '',
                     subscriberId : subscriber,
                     invoiceDetails: {
-                        invoiceId: this.selectedInvoice[0].invoiceNumber,
-                        billingInvoiceNumber: this.selectedInvoice[0].billNo,
-                        documentId: this.selectedInvoice[0].documentId,
+                        invoiceId: this.selectedInvoice[0].imageNo,
+                        billingInvoiceNumber: this.selectedInvoice[0].invoiceNumber,
+                        documentId: this.selectedInvoice[0].billNo,
                         cycleStartDate: formatDateToISO(this.selectedInvoice[0].l9CycleStartDate),
                         cycleCloseDate: formatDateToISO(this.selectedInvoice[0].l9CycleCloseDate),
                         amount: this.selectedInvoice[0].amount,
@@ -557,7 +534,9 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
 
                 const procedenteRequest = createRequestObject("C", subscriber);
                 const concessaoRequest = createRequestObject("S", subscriber);
-        
+
+                const prepareNotesRequestArray = [];
+                
                 this.adjustmentItems.forEach(item => {
                     const isEvent = !isNaN(item.FrontEndCode__c);
                     const eventOrCharge = isEvent ? {
@@ -568,14 +547,31 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
                         creditReason: item.motivoCreditoCode,
                         amount: item.valorAjuste
                     };
-
-                    if (item.StatusPt === 'Procedente') { //também conhecido como  Retificação = C
+                    const prepareNotesRequest = isEvent ? { 
+                        //Evento:
+                        name: item.Description__c,
+                        value: item.valor,
+                        creditReason: item.motivoCreditoSelecionado,
+                        status: item.StatusPt, 
+                        modality: item.modalidade                  
+                    } : {
+                        //Charge:
+                        name: item.Description__c,
+                        value: item.valorAjuste,
+                        creditReason: item.motivoCreditoSelecionado,
+                        status: item.StatusPt,
+                        modality: item.modalidade
+                    };
+                    prepareNotesRequestArray.push(prepareNotesRequest);
+                    // Procedente = Retificação = C
+                    if (item.StatusPt === 'Procedente') { 
                         if (isEvent) {
                             procedenteRequest.events.push(eventOrCharge);
                         } else {
                             procedenteRequest.charges.push(eventOrCharge);
                         }
-                    } else if (item.StatusPt === 'Concessão') { //também conhecido como  Concessão = S
+                    // Concessão = S
+                    } else if (item.StatusPt === 'Concessão') { 
                         if (isEvent) {
                             concessaoRequest.events.push(eventOrCharge);
                         } else {
@@ -583,18 +579,50 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
                         }
                     }
                 });
+               const convertNotesToStringBoth = prepareNotesRequestArray.map( e => {
+                    return `Nome do Item: ${e.name}CHAR_ESPValor do Crédito: R$ ${e.value}CHAR_ESPTipo de Ajuste: ${e.status}CHAR_ESPMotivo de Crédito: ${e.creditReason}CHAR_ESPModalidade: ${e.modality}`;
+                }).toString().replaceAll('\n','CHAR_ESP');	
+
+                const convertNotesToStringConcession = prepareNotesRequestArray.filter(e => e.status == 'Concessão').map( e => {
+                    return `Nome do Item: ${e.name}CHAR_ESPValor do Crédito: R$ ${e.value}CHAR_ESPTipo de Ajuste: ${e.status}CHAR_ESPMotivo de Crédito: ${e.creditReason}CHAR_ESPModalidade: ${e.modality}`;
+                }).toString().replaceAll('\n','CHAR_ESP');	
+
+                const convertNotesToStringApproved = prepareNotesRequestArray.filter(e => e.status == 'Procedente').map( e => {
+                    return `Nome do Item: ${e.name}CHAR_ESPValor do Crédito: R$ ${e.value}CHAR_ESPTipo de Ajuste: ${e.status}CHAR_ESPMotivo de Crédito: ${e.creditReason}CHAR_ESPModalidade: ${e.modality}`;
+                }).toString().replaceAll('\n','CHAR_ESP');	
+                
                 const requests = {
                     procedente: procedenteRequest.charges.length > 0 || procedenteRequest.events.length > 0 ? [procedenteRequest] : [],
                     concessao: concessaoRequest.charges.length > 0 || concessaoRequest.events.length > 0 ? [concessaoRequest] : []
                 };
                 let notesFix = this.sessionNotes;
-                const obj = { Items:requests, Notes:notesFix.replaceAll('\n',' ')};
-                pubsub.fire('ServiceDefinition', 'SendRequestGetInformationAndCreateCredit', obj); //Esta action seta o valor de Session.filteredAdjustmentItems
+                const obj = {
+                    Items: requests,
+                    Notes: notesFix.replaceAll('\n',' '),
+                    selectedInvoice: this.selectedInvoice,
+                    CustomerIds: this.CustomerIds,
+                    CaseId: this.caseId,
+                    InteractionId: this.interactionId,
+                    InteractionTopicId: this.interactionTopicId,
+                    ConvertNotesToStringBoth: convertNotesToStringBoth,
+                    ConvertNotesToStringApproved: convertNotesToStringApproved,
+                    ConvertNotesToStringConcession: convertNotesToStringConcession 
+                };
+                pubsub.fire('ServiceDefinition', 'SendRequestGetInformationAndCreateCredit', obj);
+                this.isDisabled = true;               
             }
         } else if (this.sessionFields){
             let notesFix = this.sessionNotes;
-            const obj = { Items:'', Notes:notesFix.replaceAll('\n',' ')};   
+            const obj = { 
+                Items:'',
+                Notes:notesFix.replaceAll('\n',' '),
+                CustomerIds: this.CustomerIds,
+                CaseId: this.caseId,
+                InteractionId: this.interactionId,
+                InteractionTopicId: this.interactionTopicId
+            };            
             pubsub.fire('DisputeFlexCardServiceDefinitionMessage', 'CaseClosureDefinition', obj);
+            this.isDisabled = true;
         }
     }
 
@@ -610,12 +638,11 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
         };
         this._actionUtil.executeAction(params, null, this, null, null)
             .then((response) => {
-                //Garante ser array
                 let responseIp = Array.isArray(response.result.IPResult.cartItems) ? response.result.IPResult.cartItems : [response.result.IPResult.cartItems];
-               
                 // Transformação dos dados recebidos para se adequar ao formato esperado
                 this.cartItems = responseIp.map(item => ({
                     _Id: item.Id,
+                    isEvent: !isNaN(item.FrontEndCode__c),
                     invoiceNumber: this.invoiceNumber,
                     Description__c: item.Description__c,
                     TotalAmount__c: item.TotalAmount__c,
@@ -642,22 +669,20 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
                         .filter(item => item.StatusPt === 'Procedente' || item.StatusPt === 'Concessão') // Separar apenas os Status 'Procedente' e 'Concessão'
                         .map(item => {
                             let adjustmentType = item.StatusPt === 'Procedente' ? 'Retificação' : 'Concessão';
+                            const isEvent = !isNaN(item.FrontEndCode__c);
                             let adjustmentItem = {
                                 id: item._Id,
                                 fatura: item.invoiceNumber,
                                 descricao: item.Description__c,
-                
                                 valor: this.convertToFloat(item.TotalAmount__c),
                                 descontos: this.convertToFloat(item.Discounts__c),
                                 valorAtual: this.convertToFloat(item.AvailableAmount__c),
-                                valorPagar: this.convertToFloat(item.AvailableAmount__c),
-                
-                                valorAjuste: '',
+                                valorPagar: isEvent ? this.convertToFloat(item.AvailableAmount__c) - this.convertToFloat(item.TotalAmount__c) : this.convertToFloat(item.AvailableAmount__c),
+                                valorAjuste: isEvent ? this.convertToFloat(item.TotalAmount__c) : '',
+                                isEvent: isEvent,
                                 tipoAjuste: adjustmentType,
-                
                                 modalidades: this.getModalidadesOptions(),
                                 motivoCreditoOptions: this.getCreditReasonOptions(adjustmentType),
-
                                 ItemId__c: item.ItemId__c,
                                 FrontEndCode__c: item.FrontEndCode__c,
                                 StartTime__c: item.StartTime__c,
@@ -673,6 +698,16 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
                             return adjustmentItem;
                         });
                     // Prepara Objeto que Renderiza em Tela (front-end)
+
+                    //Calcula inicialmente o valor de Ajuste Total:
+                    if (this.adjustmentItems && this.adjustmentItems.length) {
+                        this.totalAdjustmentAmount = this.adjustmentItems.reduce((total, item) => total + (item.valorAjuste || 0), 0).toFixed(2);
+                        this.totalAdjustmentAmountInitial = this.adjustmentItems.reduce((total, item) => total + (item.valorAtual || 0), 0).toFixed(2);
+                        this.totalAdjustmentAmount = parseFloat(this.totalAdjustmentAmount) ? parseFloat(this.totalAdjustmentAmount).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : "R$0,00";
+                    } else {
+                        this.totalAdjustmentAmount = "R$0.00";
+                    }
+
                     this.adjustmentItemsFormated = this.formatNumberForHtml(this.adjustmentItems);
                     this.showPage = true;
                     this.showLoading = false;
