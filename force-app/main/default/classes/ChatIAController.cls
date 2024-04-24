@@ -147,7 +147,6 @@ public with sharing class ChatIAController {
             throw new AuraHandledException(e.getMessage());
         }
     }
-
     @AuraEnabled(cacheable=true)
     public static Boolean deleteChatById(String backupChat){
         try {
@@ -174,20 +173,6 @@ public with sharing class ChatIAController {
             throw new AuraHandledException(e.getMessage());
         }
     }
-
-    @AuraEnabled(cacheable=true)
-    public static ChatIAQNAAnswerVO.BodyToReceive getQNAAnswer(String question){
-        try {
-            ChatIAAuthenticationVO.BodyToReceive authentication = ChatIAInterfaceAPI.getAuthentication();
-            String token = authentication.token;
-            ChatIAQNAAnswerVO.BodyToReceive answerQNA = ChatIAInterfaceAPI.getQNAAnswer(question, token);
-
-            return answerQNA;
-        } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
-        }
-    }
-
     @AuraEnabled(cacheable=false)
     public static InfoChatIA getSessionId(){
         InfoChatIA info = new InfoChatIA();
@@ -217,6 +202,31 @@ public with sharing class ChatIAController {
             info.history = 'null';
         }
         return info;
+    }   
+    @AuraEnabled(cacheable=false)
+    public static InfoQNA getIntegracaoQNA(){
+        InfoQNA infoIntegracao = new InfoQNA();
+        ChatIAAuthenticationVO.BodyToReceive authentication = ChatIAInterfaceAPI.getAuthentication();
+        String token = authentication.token;
+        User user = ChatIASelector.getInstance().getUser(UserInfo.getUserId());
+        ChatIASubscriptionId__c subscription = ChatIASubscriptionId__c.getValues('SubscriptionId');
+        String login = user.Login__c != null ? user.Login__c : user.Id;
+        String email = user.Email != null ? user.Email : '';
+        String name = user.Name != null ? user.Name : '';
+        String profile = user.Profile.Name != null? user.Profile.Name : '';
+        infoIntegracao.header_subscriptionId = subscription.SubscriptionId__c;
+        infoIntegracao.header_token = token;
+        infoIntegracao.header_userId = login;
+        infoIntegracao.header_userEmail = email;
+        infoIntegracao.header_userName = name;
+        infoIntegracao.header_userProfile = profile;
+        infoIntegracao.header_Origin = 'SFA';
+        infoIntegracao.header_UserAgent = 'Mozilla';
+        infoIntegracao.header_service = 'QNA_MOBILE_PRODUCTS';
+        infoIntegracao.header_ContentType = 'application/json';
+        infoIntegracao.header_sessionId = '123456';
+        infoIntegracao.endpoint_qna = 'https://ai-br-pro.telefonicabigdata.com/qna/stream/';
+        return infoIntegracao;
     }   
 
     @AuraEnabled(cacheable=true)
@@ -259,5 +269,19 @@ public with sharing class ChatIAController {
         @AuraEnabled public String history;
         @AuraEnabled public String backupChat; 
         @AuraEnabled public String recordFound;
+    }
+    public class InfoQNA {
+        @AuraEnabled public String endpoint_qna;
+        @AuraEnabled public String header_userId;
+        @AuraEnabled public String header_token;
+        @AuraEnabled public String header_subscriptionId; 
+        @AuraEnabled public String header_userName;
+        @AuraEnabled public String header_userEmail; 
+        @AuraEnabled public String header_service;
+        @AuraEnabled public String header_sessionId;
+        @AuraEnabled public String header_userProfile;
+        @AuraEnabled public String header_UserAgent;
+        @AuraEnabled public String header_Origin;
+        @AuraEnabled public String header_ContentType;
     }
 }
