@@ -109,15 +109,15 @@ private class ChatIAControllerTest{
         System.assertEquals(expectedValue, res.token);
     }
 
-	@isTest static void getQNAAnswerTest() {
+	@isTest static void getIntegracaoQNATest() {
 
         Test.setMock(HttpCalloutMock.class, new ChatIAInterfaceAPIMock());
 		Test.startTest();
-        ChatIAQNAAnswerVO.BodyToReceive res = ChatIAController.getQNAAnswer('TESTE');
+        ChatIAController.InfoQNA info = ChatIAController.getIntegracaoQNA();
 		Test.stopTest();
 
-        String expectedValue = 'Desculpe, não temos a resposta neste momento. Por favor, entre em contato com seu supervisor.';
-        System.assertEquals(expectedValue, res.content);
+        String expectedValue = 'https://ai-br-pro.telefonicabigdata.com/qna/stream/';
+        System.assertEquals(expectedValue, info.endpoint_qna);
     }
 
 	@isTest static void createNewChatTest() {

@@ -23,6 +23,6 @@ public with sharing class ChatIASelector {
     }
     public User getUser(String userId) {
         //para B2B usar BI_BR_Login_de_rede__c
-        return [SELECT Id, Name, Email, Login__c FROM User WHERE Id =: userId];
+        return [SELECT Id, Name, Email, Login__c, Profile.Name FROM User WHERE Id =: userId];
     }
 }
