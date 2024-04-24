@@ -23,7 +23,7 @@
                             <template for:each={questionSuggestions} for:item="suggestion"><br key={suggestion}><br
                                     key={suggestion}>
                                 <lightning-button key={suggestion} variant="brand-outline" value={suggestion.question}
-                                    label={suggestion.question} onclick={armazenarMensagem}
+                                    label={suggestion.question} onclick={sendMessage}
                                     class="slds-text-align_center"></lightning-button>
                             </template>
                             <br>
@@ -40,8 +40,9 @@
                                 <img class="avatar" src={logoChat}>
                             </div>
                             <div class="slds-col slds-size_10-of-12 from-them">
-                                <lightning-formatted-rich-text
-                                    value={mensagem.conteudoMensagem}></lightning-formatted-rich-text>
+                                <lightning-formatted-rich-text value={mensagem.conteudoMensagem}>
+                                    
+                                </lightning-formatted-rich-text>
                                 <template if:false={mensagem.disableLike}>
                                     <lightning-button-icon class="upvoteLike" value={mensagem.correlator}
                                         icon-name="utility:like" size="large" alternative-text="Like" variant="bare"
@@ -87,7 +88,7 @@
                 </div>
                 <div class="slds-col slds-size_1-of-12 slds-m-top_large">
                     <lightning-button-icon icon-name="utility:send" size="large" alternative-text="Enviar Mensagem"
-                        variant="bare" onclick={armazenarMensagem} disabled={buttomDisabled}><label>Enviar
+                        variant="bare" onclick={sendMessage} disabled={buttomDisabled}><label>Enviar
                             Mensagem</label></lightning-button-icon>
                 </div>
             </div>
