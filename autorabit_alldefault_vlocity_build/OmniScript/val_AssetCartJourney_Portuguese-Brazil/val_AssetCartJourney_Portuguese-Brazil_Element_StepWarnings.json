@@ -1,7 +1,7 @@
 {
     "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "Asset Cart Journey",
+        "Name": "AssetCartJourney",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
         "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/AssetCartJourney/Portuguese (Brazil)",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
@@ -53,9 +53,82 @@
                 "operator": "OR",
                 "rules": [
                     {
-                        "condition": "=",
-                        "data": "true",
-                        "field": "ValidateOrderByAsset:OrderExists"
+                        "group": {
+                            "operator": "OR",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "true",
+                                    "field": "ValidateOrderByAsset:OrderExists"
+                                },
+                                {
+                                    "group": {
+                                        "operator": "AND",
+                                        "rules": [
+                                            {
+                                                "condition": "=",
+                                                "data": "AdditionalPackage",
+                                                "field": "Functionality"
+                                            },
+                                            {
+                                                "group": {
+                                                    "operator": "OR",
+                                                    "rules": [
+                                                        {
+                                                            "condition": "=",
+                                                            "data": "false",
+                                                            "field": "OLIStatus:HasPlanActive"
+                                                        },
+                                                        {
+                                                            "condition": "=",
+                                                            "data": "false",
+                                                            "field": "OLIStatus:HasSimCardActive"
+                                                        },
+                                                        {
+                                                            "condition": "=",
+                                                            "data": "false",
+                                                            "field": "OLIStatus:HasBundleActive"
+                                                        },
+                                                        {
+                                                            "condition": "=",
+                                                            "data": "true",
+                                                            "field": "hasInsufficientFunds"
+                                                        },
+                                                        {
+                                                            "condition": "=",
+                                                            "data": "true",
+                                                            "field": "HasMoreThanOneItem"
+                                                        },
+                                                        {
+                                                            "condition": "=",
+                                                            "data": "true",
+                                                            "field": "NoHasItem"
+                                                        },
+                                                        {
+                                                            "group": {
+                                                                "operator": "AND",
+                                                                "rules": [
+                                                                    {
+                                                                        "condition": "=",
+                                                                        "data": "false",
+                                                                        "field": "OLIStatus:HasDeleteItem"
+                                                                    },
+                                                                    {
+                                                                        "condition": "=",
+                                                                        "data": "false",
+                                                                        "field": "OLIStatus:HasAddItem"
+                                                                    }
+                                                                ]
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
                     },
                     {
                         "group": {
@@ -63,62 +136,18 @@
                             "rules": [
                                 {
                                     "condition": "=",
-                                    "data": "AdditionalPackage",
+                                    "data": "Promotion",
                                     "field": "Functionality"
                                 },
                                 {
-                                    "group": {
-                                        "operator": "OR",
-                                        "rules": [
-                                            {
-                                                "condition": "=",
-                                                "data": "false",
-                                                "field": "OLIStatus:HasPlanActive"
-                                            },
-                                            {
-                                                "condition": "=",
-                                                "data": "false",
-                                                "field": "OLIStatus:HasSimCardActive"
-                                            },
-                                            {
-                                                "condition": "=",
-                                                "data": "false",
-                                                "field": "OLIStatus:HasBundleActive"
-                                            },
-                                            {
-                                                "condition": "<>",
-                                                "data": ".",
-                                                "field": "NotBalanceLineAvailable"
-                                            },
-                                            {
-                                                "condition": "=",
-                                                "data": "true",
-                                                "field": "HasMoreThanOneItem"
-                                            },
-                                            {
-                                                "condition": "=",
-                                                "data": "true",
-                                                "field": "NoHasItem"
-                                            },
-                                            {
-                                                "group": {
-                                                    "operator": "AND",
-                                                    "rules": [
-                                                        {
-                                                            "condition": "=",
-                                                            "data": "false",
-                                                            "field": "OLIStatus:HasDeleteItem"
-                                                        },
-                                                        {
-                                                            "condition": "=",
-                                                            "data": "false",
-                                                            "field": "OLIStatus:HasAddItem"
-                                                        }
-                                                    ]
-                                                }
-                                            }
-                                        ]
-                                    }
+                                    "condition": "=",
+                                    "data": "true",
+                                    "field": "NoHasItem"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "ChangePlan",
+                                    "field": "StepSelectProcess:ProcessReason"
                                 }
                             ]
                         }

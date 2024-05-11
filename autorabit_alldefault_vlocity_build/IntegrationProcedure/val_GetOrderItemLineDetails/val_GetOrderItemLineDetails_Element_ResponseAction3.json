@@ -22,9 +22,11 @@
     "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "Plan": "=IF(%DRGetProductsPromotionPlan2:OrderType% == \"Change\", %DRGetProductsPromotionPlan2:Plan|1:Name%, %DRGetProductsPromotionPlan2:Plan:Name%)",
+            "NewPlan": "%DRGetProductsPromotionPlan2:NewPlan:Name%",
+            "NewPromotion": "=IF(ISNOTBLANK(%DRGetProductsPromotionPlan2:NewPromotion:Name%),%DRGetProductsPromotionPlan2:NewPromotion:Name%,%DRGetProductsPromotionPlan2:Promotion:Name%)",
+            "Plan": "=%DRGetProductsPromotionPlan2:Plan|1:Name%",
             "Platform": "%DRGetLineDetails2:Platform%",
-            "Promotion": "=IF(%DRGetProductsPromotionPlan2:OrderType% == \"Change\", %DRGetProductsPromotionPlan2:Promotion|1:Name%, %DRGetProductsPromotionPlan2:Promotion:Name%)",
+            "Promotion": "=%DRGetProductsPromotionPlan2:Promotion|1:Name%",
             "serviceIdentifier": "%DRGetLineDetails2:ServiceIdentifier%"
         },
         "disOnTplt": false,

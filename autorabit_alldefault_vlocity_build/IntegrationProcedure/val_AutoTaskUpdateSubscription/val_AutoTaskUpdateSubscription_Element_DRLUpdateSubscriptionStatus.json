@@ -9,8 +9,21 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
+            "ActiveBlock": "%RAGetAttributes:ATT_RT_BLOCK_ACTIVE%",
+            "DeviceBlock": "%RAGetAttributes:ATT_RT_BLOCK_DEVICE%",
+            "NumberofDaysAdmSuspension": "%DRESuspendBlock:NumberofDaysAdmSuspension%",
+            "NumberofDaysLossTheft": "%DRESuspendBlock:NumberofDaysLossTheft%",
+            "NumberofDaysbyRequest": "%DRESuspendBlock:NumberofDaysbyRequest%",
+            "ReasonforOperation": "=IF(%DRESuspendBlock:ReasonforOperation% == \"Fraude\" || %DRESuspendBlock:ReasonforOperation% == \"Procedimento interno\", %DRESuspendBlock:ReasonforOperation%, \"Nenhum\")",
             "Status": "Pré Ativo",
-            "SubscriptionId": "%RAGetAttributes:ATT_DC_SUBSCRIPTION_NUMBER%"
+            "StatusRM": "%RAGetAttributes:ATT_DC_NEW_RM_STATUS%",
+            "SubscriptionId": "%RAGetAttributes:ATT_DC_SUBSCRIPTION_NUMBER%",
+            "SuspendDateAdmSuspension": "%DRESuspendBlock:SuspendDateAdmSuspension%",
+            "SuspendDateLossTheft": "%DRESuspendBlock:SuspendDateLossTheft%",
+            "SuspendDatebyRequest": "%DRESuspendBlock:SuspendDatebyRequest%",
+            "SuspendEndDateAdmSuspension": "%DRESuspendBlock:SuspendEndDateAdmSuspension%",
+            "SuspendEndDateLossTheft": "%DRESuspendBlock:SuspendEndDateLossTheft%",
+            "SuspendEndDatebyRequest": "%DRESuspendBlock:SuspendEndDatebyRequest%"
         },
         "additionalOutput": {
         },
@@ -29,7 +42,7 @@
         "returnOnlyFailureResponse": false,
         "sendJSONNode": "",
         "sendJSONPath": "",
-        "sendOnlyAdditionalInput": true,
+        "sendOnlyAdditionalInput": false,
         "show": null,
         "useFormulas": true
     },
