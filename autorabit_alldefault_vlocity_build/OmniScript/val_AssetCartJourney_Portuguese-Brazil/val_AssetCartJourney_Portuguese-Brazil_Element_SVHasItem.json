@@ -1,7 +1,7 @@
 {
-    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__Active__c": false,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "Asset Cart Journey",
+        "Name": "AssetCartJourney",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
         "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/AssetCartJourney/Portuguese (Brazil)",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
@@ -18,7 +18,86 @@
         "message": {
         },
         "pubsub": false,
-        "show": null,
+        "show": {
+            "group": {
+                "operator": "OR",
+                "rules": [
+                    {
+                        "group": {
+                            "operator": "OR",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "AdditionalPackage",
+                                    "field": "Functionality"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "ServiceManagement",
+                                    "field": "Functionality"
+                                },
+                                {
+                                    "group": {
+                                        "operator": "AND",
+                                        "rules": [
+                                            {
+                                                "condition": "=",
+                                                "data": "Promotion",
+                                                "field": "Functionality"
+                                            },
+                                            {
+                                                "condition": "=",
+                                                "data": "ChangePlan",
+                                                "field": "StepSelectProcess:ProcessReason"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "<>",
+                                    "data": null,
+                                    "field": "groupCartId"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "Promotion",
+                                    "field": "Functionality"
+                                },
+                                {
+                                    "condition": "<>",
+                                    "data": null,
+                                    "field": "targetOfferId"
+                                },
+                                {
+                                    "group": {
+                                        "operator": "OR",
+                                        "rules": [
+                                            {
+                                                "condition": "=",
+                                                "data": "ChangePlanPromotion",
+                                                "field": "StepSelectProcess:ProcessReason"
+                                            },
+                                            {
+                                                "condition": "=",
+                                                "data": "ChangePromotion",
+                                                "field": "StepSelectProcess:ProcessReason"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
         "showPersistentComponent": [
             true,
             false
