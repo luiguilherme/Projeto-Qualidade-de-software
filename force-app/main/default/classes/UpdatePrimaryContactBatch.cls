@@ -15,7 +15,6 @@ public without sharing class UpdatePrimaryContactBatch implements Database.Batch
 
     public void execute(Database.BatchableContext bc, List<Account> scope) {
         List<Account> accounts = new List<Account>(); 
-
         for (Account acc : scope) {
             if (acc.Contacts.size() > 0) {
                 acc.vlocity_cmt__PrimaryContactId__c = acc.Contacts[0].Id;
@@ -32,10 +31,15 @@ public without sharing class UpdatePrimaryContactBatch implements Database.Batch
     private String getContacts() {
 
         return 'SELECT Id, vlocity_cmt__PrimaryContactId__c, (SELECT Id FROM Contacts) Contacts ' +
-               'FROM Account ' +
-               'WHERE RecordTypeId = :consumerRT ' +
-                  'AND vlocity_cmt__PrimaryContactId__c = null ' + 
-                  'AND LastModifiedDate >= :startDate ' +
-                'LIMIT :recordsUpdated ';
+                'FROM Account ' + 
+                'WHERE Id in (SELECT AccountId  ' +
+                             'FROM Contact ' +
+                             'WHERE Account.CreatedDate >= :startDate ' +
+                              'AND Account.vlocity_cmt__PrimaryContactId__c = null ' +
+                              'AND Account.RecordTypeId = :consumerRT ' +
+                              'AND AccountId <> null) ' +
+                'LIMIT :recordsUpdated';
+
     }
+
 }
