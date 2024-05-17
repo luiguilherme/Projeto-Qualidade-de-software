@@ -1,0 +1,33 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valDateUtilitiesOneMonth",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/DateUtilitiesOneMonth/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "errorDate": "=IF(%SVValidate:negativeDate% || %SVValidate:days90% || %SVValidate:dateNotBetween5years% || (%IsImeiHistory% && (%SVValidate:dateNotLast3years% || %SVValidate:irregularFinalDate%|| ISBLANK(LineNumber) ||  LineNumber == \"null\" || %LineNumber% == \"{Session.ServiceIdentifier}\" || %SVValidate:searchImeiValidLenght% != 11)), true, false)",
+            "errorMessage": "=IF(%IsImeiHistory% && %SVValidate:searchImeiValidLenght% != 11, \"Preencher DDD+Número completamente\",IF(%IsImeiHistory% && (%LineNumber% == \"null\" || ISBLANK(%LineNumber%)|| %LineNumber% == \"{Session.ServiceIdentifier}\" || %SVNotNull:dateIsNull%), \"É necessário informar campos DDD+Número, Data Inicial e Data Final\",IF(%IsImeiHistory% &&  %SVValidate:irregularFinalDate%, \"Não é possível buscar data superior ao dia de hoje\",IF(%IsImeiHistory% && %SVValidate:dateNotLast3years%, \"Não é possível buscar Imei há mais de 3 anos\",IF(%SVValidate:negativeDate%, \"Data inicial não pode ser maior que data final\",IF(%SVValidate:days90%,\"Intervalo de consulta deve ser de até 3 meses\",IF(%SVValidate:dateNotBetween5years%, \"Datas de pesquisa não podem exceder 5 anos de diferença da data de hoje.\", null)))))))",
+            "finalDate": "=%InputFinalDate%",
+            "startDate": "=%InputInitialDate%"
+        },
+        "executionConditionalFormula": "",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues5",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVReturn",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/DateUtilitiesOneMonth/Procedure/SVReturn"
+}

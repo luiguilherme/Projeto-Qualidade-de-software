@@ -28,20 +28,12 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
                   }
               @track record;
               @track _sessionApiVars = {};
-        @api set cfInteractionId(val) {
-          if(typeof val !== "undefined") {
-            this._sessionApiVars["InteractionId"] = val;
-          }
-        } get cfInteractionId() {
-          return this._sessionApiVars["InteractionId"] || "undefined";
-        }
-      
         @api set cfSourceComponent(val) {
           if(typeof val !== "undefined") {
             this._sessionApiVars["SourceComponent"] = val;
           }
         } get cfSourceComponent() {
-          return this._sessionApiVars["SourceComponent"] || "undefined";
+          return this._sessionApiVars["SourceComponent"] || "";
         }
       
         @api set cfAccountId(val) {
@@ -49,7 +41,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
             this._sessionApiVars["AccountId"] = val;
           }
         } get cfAccountId() {
-          return this._sessionApiVars["AccountId"] || "undefined";
+          return this._sessionApiVars["AccountId"] || "";
         }
       
         @api set cfInteractionNumber(val) {
@@ -57,7 +49,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
             this._sessionApiVars["InteractionNumber"] = val;
           }
         } get cfInteractionNumber() {
-          return this._sessionApiVars["InteractionNumber"] || "undefined";
+          return this._sessionApiVars["InteractionNumber"] || "";
         }
       
         @api set cfCustomerId(val) {
@@ -65,7 +57,23 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
             this._sessionApiVars["CustomerId"] = val;
           }
         } get cfCustomerId() {
-          return this._sessionApiVars["CustomerId"] || "undefined";
+          return this._sessionApiVars["CustomerId"] || "";
+        }
+      
+        @api set cfInteractionId(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["InteractionId"] = val;
+          }
+        } get cfInteractionId() {
+          return this._sessionApiVars["InteractionId"] || "";
+        }
+      
+        @api set cfSearchSubscription(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["SearchSubscription"] = val;
+          }
+        } get cfSearchSubscription() {
+          return this._sessionApiVars["SearchSubscription"] || "";
         }
       
               
@@ -97,15 +105,48 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               registerEvents() {
                 
         this.pubsubEvent[0] = {
-          [interpolateWithRegex(`Reload`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[0],0)
+          [interpolateWithRegex(`Reload`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[0],0),
+[interpolateWithRegex(`updateState_{recordId}`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[1],1),
+[interpolateWithRegex(`returnState_{recordId}`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[2],2),
+[interpolateWithRegex(`skipAddress`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[7],7)
         };
         this.pubsubChannel0 = interpolateWithRegex(`valPrePaidAssetDetails`,this._allMergeFields,this._regexPattern,"noparse");
         pubsub.register(this.pubsubChannel0,this.pubsubEvent[0]);
 
+        this.pubsubEvent[1] = {
+          [interpolateWithRegex(`{recordId}`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[3],3)
+        };
+        this.pubsubChannel1 = interpolateWithRegex(`valUpdateLineAddress`,this._allMergeFields,this._regexPattern,"noparse");
+        pubsub.register(this.pubsubChannel1,this.pubsubEvent[1]);
+
+        this.pubsubEvent[2] = {
+          [interpolateWithRegex(`data`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[6],6)
+        };
+        this.pubsubChannel2 = interpolateWithRegex(`omniscript_action`,this._allMergeFields,this._regexPattern,"noparse");
+        pubsub.register(this.pubsubChannel2,this.pubsubEvent[2]);
+
+            this.customEventName0 = interpolateWithRegex(`SetOptInOptOut`,this._allMergeFields,this._regexPattern,"noparse");
+            this.customEvent[0] = this.handleEventAction.bind(this, data.events[4],4);
+
+            this.template.addEventListener(this.customEventName0,this.customEvent[0]);
+
+          
+            this.customEventName1 = interpolateWithRegex(`valUpdateAcceptPromotion`,this._allMergeFields,this._regexPattern,"noparse");
+            this.customEvent[1] = this.handleEventAction.bind(this, data.events[5],5);
+
+            this.template.addEventListener(this.customEventName1,this.customEvent[1]);
+
+          
               }
 
               unregisterEvents(){
                 pubsub.unregister(this.pubsubChannel0,this.pubsubEvent[0]);
+pubsub.unregister(this.pubsubChannel1,this.pubsubEvent[1]);
+pubsub.unregister(this.pubsubChannel2,this.pubsubEvent[2]);
+
+            this.template.removeEventListener(this.customEventName0,this.customEvent[0]);
+
+            this.template.removeEventListener(this.customEventName1,this.customEvent[1]);
 
               }
             

@@ -1,0 +1,64 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valCalloutPortabilityWindows",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CalloutPortabilityWindows/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "additionalChainableResponse": {
+        },
+        "additionalInput": {
+        },
+        "additionalOutput": {
+        },
+        "advancedMerge": false,
+        "advancedMergeMap": [
+        ],
+        "allowMergeNulls": true,
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "dynamicOutputFields": "",
+        "executionConditionalFormula": "",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "failureResponse": {
+        },
+        "filterListFormula": "=date < ADDDAY(TODAY(), 32)",
+        "hasPrimary": false,
+        "label": "ListAction1",
+        "mergeFields": [
+            "dateNextWindow"
+        ],
+        "mergeListsOrder": [
+            "PortWindows:portabilityWindow"
+        ],
+        "primaryListKey": "",
+        "responseJSONNode": "valuesToFilter",
+        "responseJSONPath": "",
+        "returnOnlyAdditionalOutput": false,
+        "returnOnlyFailureResponse": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "sendOnlyAdditionalInput": false,
+        "show": null,
+        "sortBy": [
+        ],
+        "sortInDescendingOrder": false,
+        "updateFieldValue": {
+            "date": "=SUBSTRING(TOSTRING(%dateNextWindow%), 0, 10)",
+            "hour": "=SUBSTRING(TOSTRING(%dateNextWindow%), 11, 16)",
+            "label": "=dateNextWindow",
+            "value": "=FORMATDATETIMEGMT(%dateNextWindow%)"
+        },
+        "useFormulas": true
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "List Merge Action",
+    "Name": "LaSetValues",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CalloutPortabilityWindows/Procedure/LaSetValues"
+}

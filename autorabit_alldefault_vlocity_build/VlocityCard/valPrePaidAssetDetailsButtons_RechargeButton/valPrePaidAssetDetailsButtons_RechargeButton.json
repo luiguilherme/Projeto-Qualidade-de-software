@@ -22,16 +22,14 @@
     "globalCSS": false,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValPrePaidAssetDetailsButtons_RechargeButton_1_Telefonica",
-        "Id": "0Rb78000000LXT7CAO",
+        "DeveloperName": "cfValPrePaidAssetDetailsButtons_RechargeButton_2_Telefonica",
+        "Id": "0Rb7600000052POCAY",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValPrePaidAssetDetailsButtons_RechargeButton_1_Telefonica",
+        "MasterLabel": "cfValPrePaidAssetDetailsButtons_RechargeButton_2_Telefonica",
         "NamespacePrefix": "c"
     },
     "multilanguageSupport": true,
     "osSupport": true,
-    "sessionVars": [
-    ],
     "states": [
         {
             "actions": [
@@ -53,15 +51,16 @@
                                         "card": "{card}",
                                         "draggable": true,
                                         "isOpen": true,
-                                        "key": "1697747290042-ry25y0xdy",
-                                        "label": "ActionIP",
+                                        "key": "1708349447592-sczrz8qhw",
+                                        "label": "CheckBiometric",
                                         "stateAction": {
                                             "Web Page": {
                                                 "targetName": "/apex"
                                             },
                                             "displayName": "Action",
-                                            "id": "flex-action-1697747314019",
-                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_CalloutCustomerOrderEligibility\",\"vlocityAsync\":false,\"inputMap\":{\"rechargeType\":\"3\",\"requestId\":\"{Products.OrderNumber}\",\"accountId\":\"{Products.AccountId}\",\"networkNumber\":\"{Products.LineNumber}\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"Products.OrderNumber\\\":\\\"{Products.OrderNumber}\\\",\\\"Products.AccountId\\\":\\\"{Products.AccountId}\\\",\\\"Products.LineNumber\\\":\\\"{Products.LineNumber}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":false},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"\",\"id\":2},{\"name\":\"Products.OrderNumber\",\"val\":\"\",\"id\":4},{\"name\":\"Products.AccountId\",\"val\":\"\",\"id\":6},{\"name\":\"Products.LineNumber\",\"val\":\"\",\"id\":8}]}",
+                                            "eventName": "updatedatasource",
+                                            "id": "flex-action-1712167039757",
+                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateAllJourneys\",\"vlocityAsync\":false,\"inputMap\":{\"serviceType\":\"503\",\"InteractionId\":\"{Parent.InteractionId}\",\"AccountId\":\"{Parent.AccountId}\",\"AssetId\":\"{Parent.AssetId}\",\"PreSetValues\":\"true\",\"CheckBiometric\":\"true\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"Parent.InteractionId\\\":\\\"{Parent.InteractionId}\\\",\\\"Parent.AccountId\\\":\\\"{Parent.AccountId}\\\",\\\"Parent.AssetId\\\":\\\"{Parent.AssetId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"02i76000009Pdg3AAC\",\"id\":4},{\"name\":\"Parent.InteractionId\",\"val\":\"\",\"id\":3},{\"name\":\"Parent.AccountId\",\"val\":\"\",\"id\":5},{\"name\":\"Parent.AssetId\",\"val\":\"\",\"id\":7}]}",
                                             "openUrlIn": "Current Window",
                                             "targetType": "Web Page",
                                             "type": "DataAction",
@@ -70,6 +69,77 @@
                                     },
                                     {
                                         "actionIndex": 1,
+                                        "card": "{card}",
+                                        "draggable": true,
+                                        "isOpen": true,
+                                        "key": "1708349760387-oohcu6u91",
+                                        "label": "valToast",
+                                        "stateAction": {
+                                            "actionConditions": {
+                                                "group": [
+                                                    {
+                                                        "field": "blockJourney",
+                                                        "hasMergeField": false,
+                                                        "id": "state-new-condition-0",
+                                                        "operator": "==",
+                                                        "type": "custom",
+                                                        "value": "true"
+                                                    }
+                                                ],
+                                                "id": "state-condition-object",
+                                                "isParent": true
+                                            },
+                                            "displayName": "Action",
+                                            "eventName": "valToast",
+                                            "extraParams": {
+                                                "message": "{message}",
+                                                "variant": "{variant}"
+                                            },
+                                            "hasExtraParams": true,
+                                            "id": "flex-action-1712010519014",
+                                            "message": "showToast",
+                                            "openUrlIn": "Current Window",
+                                            "subType": "PubSub",
+                                            "type": "Event",
+                                            "vlocityIcon": "standard-default"
+                                        }
+                                    },
+                                    {
+                                        "actionIndex": 2,
+                                        "card": "{card}",
+                                        "draggable": true,
+                                        "isOpen": true,
+                                        "key": "1697747290042-ry25y0xdy",
+                                        "label": "ActionIP",
+                                        "stateAction": {
+                                            "Web Page": {
+                                                "targetName": "/apex"
+                                            },
+                                            "actionConditions": {
+                                                "group": [
+                                                    {
+                                                        "field": "blockJourney",
+                                                        "hasMergeField": false,
+                                                        "id": "state-new-condition-11",
+                                                        "operator": "==",
+                                                        "type": "custom",
+                                                        "value": "false"
+                                                    }
+                                                ],
+                                                "id": "state-condition-object",
+                                                "isParent": true
+                                            },
+                                            "displayName": "Action",
+                                            "id": "flex-action-1712010572826",
+                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_CalloutCustomerOrderEligibility\",\"vlocityAsync\":false,\"inputMap\":{\"rechargeType\":\"3\",\"requestId\":\"{Products.OrderNumber}\",\"accountId\":\"{Products.AccountId}\",\"networkNumber\":\"{Products.LineNumber}\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"Products.OrderNumber\\\":\\\"{Products.OrderNumber}\\\",\\\"Products.AccountId\\\":\\\"{Products.AccountId}\\\",\\\"Products.LineNumber\\\":\\\"{Products.LineNumber}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":false},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"\",\"id\":2},{\"name\":\"Products.OrderNumber\",\"val\":\"\",\"id\":4},{\"name\":\"Products.AccountId\",\"val\":\"\",\"id\":6},{\"name\":\"Products.LineNumber\",\"val\":\"\",\"id\":8}]}",
+                                            "openUrlIn": "Current Window",
+                                            "targetType": "Web Page",
+                                            "type": "DataAction",
+                                            "vlocityIcon": "standard-default"
+                                        }
+                                    },
+                                    {
+                                        "actionIndex": 3,
                                         "card": "{card}",
                                         "contextId": "\\{Parent.AssetId}",
                                         "draggable": true,
@@ -86,6 +156,15 @@
                                                         "operator": "==",
                                                         "type": "custom",
                                                         "value": "true"
+                                                    },
+                                                    {
+                                                        "field": "blockJourney",
+                                                        "hasMergeField": false,
+                                                        "id": "state-new-condition-20",
+                                                        "logicalOperator": "&&",
+                                                        "operator": "==",
+                                                        "type": "custom",
+                                                        "value": "false"
                                                     }
                                                 ],
                                                 "id": "state-condition-object",
@@ -101,7 +180,7 @@
                                                 "c__lineNumber": "{Products.LineNumber}"
                                             },
                                             "hasExtraParams": true,
-                                            "id": "flex-action-1702658214028",
+                                            "id": "flex-action-1712010590448",
                                             "isLwcOS": true,
                                             "layoutType": "lightning",
                                             "omniType": {
@@ -117,10 +196,10 @@
                                         }
                                     },
                                     {
-                                        "actionIndex": 2,
+                                        "actionIndex": 4,
                                         "contextId": "\\{Products.AssetId}",
                                         "draggable": true,
-                                        "isOpen": false,
+                                        "isOpen": true,
                                         "key": "1697746324017-1vjoshcv8",
                                         "label": "ActionShowToastNoAccessToRecharge",
                                         "stateAction": {
@@ -130,6 +209,15 @@
                                                         "field": "RechargeEligibility",
                                                         "hasMergeField": false,
                                                         "id": "state-new-condition-163",
+                                                        "operator": "==",
+                                                        "type": "custom",
+                                                        "value": "false"
+                                                    },
+                                                    {
+                                                        "field": "blockJourney",
+                                                        "hasMergeField": false,
+                                                        "id": "state-new-condition-30",
+                                                        "logicalOperator": "&&",
                                                         "operator": "==",
                                                         "type": "custom",
                                                         "value": "false"
@@ -144,11 +232,59 @@
                                                 "variant": "warning"
                                             },
                                             "hasExtraParams": true,
-                                            "id": "flex-action-1699382104980",
+                                            "id": "flex-action-1712010639701",
                                             "message": "showToast",
                                             "openUrlIn": "New Tab/Window",
                                             "subType": "PubSub",
                                             "type": "Event"
+                                        }
+                                    },
+                                    {
+                                        "actionIndex": 5,
+                                        "card": "{card}",
+                                        "contextId": "\\{Parent.InteractionId}",
+                                        "draggable": true,
+                                        "isOpen": false,
+                                        "key": "1708535090968-ux6cfr7s6",
+                                        "label": "PalitagemManual",
+                                        "stateAction": {
+                                            "actionConditions": {
+                                                "group": [
+                                                    {
+                                                        "field": "palitagem",
+                                                        "hasMergeField": false,
+                                                        "id": "state-new-condition-14",
+                                                        "operator": "==",
+                                                        "type": "custom",
+                                                        "value": "true"
+                                                    }
+                                                ],
+                                                "id": "state-condition-object",
+                                                "isParent": true
+                                            },
+                                            "displayName": "Action",
+                                            "extraParams": {
+                                                "c__AccountId": "{Parent.AccountId}",
+                                                "c__AssetId": "{Parent.AssetId}",
+                                                "c__CustomerInteractionId": "{Parent.InteractionId}",
+                                                "c__InteractionNumber": "{Parent.InteractionNumber}",
+                                                "c__SourceCalled": "SalesJourney",
+                                                "c__lineNumber": "{Products.LineNumber}"
+                                            },
+                                            "hasExtraParams": true,
+                                            "id": "flex-action-1708535250092",
+                                            "isLwcOS": true,
+                                            "layoutType": "lightning",
+                                            "omniType": {
+                                                "Id": "a3076000000PNwjAAG",
+                                                "Name": "val/AddRelationShipTopic/English",
+                                                "isLwcOs": true
+                                            },
+                                            "openUrlIn": "Current Window",
+                                            "tabIcon": "standard:cancel_checkout",
+                                            "tabLabel": "Palitar",
+                                            "type": "OmniScript",
+                                            "vlocityIcon": "standard-default"
                                         }
                                     }
                                 ],
@@ -365,8 +501,7 @@
     "xmlJson": [
         {
             "@attributes": {
-                "targets": "lightning__AppPage",
-                "xmlns": "http://soap.sforce.com/2006/04/metadata"
+                "targets": "lightning__AppPage"
             },
             "property": [
                 {
@@ -379,8 +514,7 @@
         },
         {
             "@attributes": {
-                "targets": "lightningCommunity__Default",
-                "xmlns": ""
+                "targets": "lightningCommunity__Default"
             },
             "property": [
                 {
@@ -407,17 +541,16 @@
     ],
     "xmlObject": {
         "apiVersion": 51,
+        "id": "0Rb760000000cdgCAA",
         "isExplicitImport": false,
         "isExposed": true,
         "masterLabel": "valPrePaidAssetDetailsButtons_RechargeButton",
-        "runtimeNamespace": "%vlocity_namespace%",
-        "targetConfigs": "PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nX19BcHBQYWdlIiB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIj48cHJvcGVydHkgIG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nQ29tbXVuaXR5X19EZWZhdWx0IiB4bWxucz0iIj48cHJvcGVydHkgIG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nX19Ib21lUGFnZSI+PHByb3BlcnR5ICBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5PjwvdGFyZ2V0Q29uZmlnPg==",
+        "targetConfigs": "PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5PjwvdGFyZ2V0Q29uZmlnPjx0YXJnZXRDb25maWcgdGFyZ2V0cz0ibGlnaHRuaW5nQ29tbXVuaXR5X19EZWZhdWx0Ij48cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48L3RhcmdldENvbmZpZz48dGFyZ2V0Q29uZmlnIHRhcmdldHM9ImxpZ2h0bmluZ19fSG9tZVBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5PjwvdGFyZ2V0Q29uZmlnPg==",
         "targets": {
             "target": [
                 "lightning__AppPage",
                 "lightningCommunity__Default",
-                "lightning__HomePage",
-                "lightning__RecordPage"
+                "lightning__HomePage"
             ]
         }
     }
