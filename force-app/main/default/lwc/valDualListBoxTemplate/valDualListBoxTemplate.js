@@ -67,12 +67,14 @@ export default class ValDualListBoxTemplate extends FlexCardMixin(OmniscriptBase
     }
 
     handleSuccessallOptions() {
-        this.allOptions.forEach(element => {
-            this.lstallOptions.push({
-                label: element.Key,
-                value: element.Value
+        if(this.allOptions!=null && this.allOptions!= undefined){
+            Array.prototype.forEach.call(this.allOptions, element => {
+                this.lstallOptions.push({
+                    label: element.Key,
+                    value: element.Value
+                });
             });
-        });
+        }
     }
      
     handleChangeItems(event) {

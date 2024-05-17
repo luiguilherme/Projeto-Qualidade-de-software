@@ -4,6 +4,7 @@ global class ValentinaCustomVIPImplementation extends vlocity_cmt.DefaultSystemI
     public class IntegrationProcedureUnrecoverableException extends Exception {}
      
 
+    
     global ValentinaCustomVIPImplementation() {
         super();
     }
@@ -56,7 +57,8 @@ global class ValentinaCustomVIPImplementation extends vlocity_cmt.DefaultSystemI
  
      */
     global virtual void processResponse(vlocity_cmt__OrchestrationItem__c item, Map<String, Object> ipInput, Object ipOutput) {
- 
+ 		Decimal errorCode;
+            
         // Do nothing by default
         System.debug('JOE - IP Output -> ' + JSON.serialize(ipOutput));
         
@@ -76,8 +78,10 @@ global class ValentinaCustomVIPImplementation extends vlocity_cmt.DefaultSystemI
             }            
         }
 
-        if (ipOutputMap != null) {       
-            Decimal errorCode = (Decimal) ipOutputMap.get('errorCode');          
+        if (ipOutputMap != null) { 
+            if (!String.isBlank(String.ValueOf(ipOutputMap.get('errorCode')))) {
+                errorCode = (Decimal) ipOutputMap.get('errorCode');           
+            }
             
             // For debugging, store the Request in the Orchestration Item SObject
             item.StatusCode__c = errorCode;
@@ -99,9 +103,8 @@ global class ValentinaCustomVIPImplementation extends vlocity_cmt.DefaultSystemI
             System.debug('ipOutputMap:'+ipOutputMap);
             
             this.checkCriticalError(ipOutputMap, item, errorCode);
-            if(errorCode > 299 || errorCode == null)  {
+            if(errorCode > 299 || errorCode == null)
                 throw new vlocity_cmt__.XOMOrchestrationInterfaces.SystemInterfaceRecoverableException((string)ipOutputMap.get('error'));
-            }         
         }  
     }
     
@@ -111,7 +114,7 @@ global class ValentinaCustomVIPImplementation extends vlocity_cmt.DefaultSystemI
      * @param url   base URL for the batch
      * @param path  path for the batch
      */
-    global override void endBatch(String url, String path) {}
+	global override void endBatch(String url, String path) {}
     
     
     /**
