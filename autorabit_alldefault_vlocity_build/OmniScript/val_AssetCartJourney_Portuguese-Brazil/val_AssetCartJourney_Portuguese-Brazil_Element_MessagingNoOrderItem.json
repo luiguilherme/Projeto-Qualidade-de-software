@@ -1,14 +1,14 @@
 {
     "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "Asset Cart Journey",
+        "Name": "AssetCartJourney",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
         "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/AssetCartJourney/Portuguese (Brazil)",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
     "%vlocity_namespace%__ParentElementId__c": {
         "%vlocity_namespace%__OmniScriptId__c": {
-            "Name": "Asset Cart Journey",
+            "Name": "AssetCartJourney",
             "VlocityDataPackType": "VlocityMatchingKeyObject",
             "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/AssetCartJourney/Portuguese (Brazil)",
             "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
@@ -42,17 +42,24 @@
         "show": null,
         "validateExpression": {
             "group": {
-                "operator": "AND",
+                "operator": "OR",
                 "rules": [
                     {
-                        "condition": "=",
-                        "data": "true",
-                        "field": "NoHasItem"
-                    },
-                    {
-                        "condition": "=",
-                        "data": "AdditionalPackage",
-                        "field": "Functionality"
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "AdditionalPackage",
+                                    "field": "Functionality"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "true",
+                                    "field": "NoHasItem"
+                                }
+                            ]
+                        }
                     }
                 ]
             }

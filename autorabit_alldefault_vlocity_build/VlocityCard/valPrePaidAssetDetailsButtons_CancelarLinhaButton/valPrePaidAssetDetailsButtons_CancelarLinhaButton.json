@@ -22,16 +22,14 @@
     "globalCSS": false,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValPrePaidAssetDetailsButtons_Conteiner_9_Telefonica",
-        "Id": "0Rb78000000LXSnCAO",
+        "DeveloperName": "cfValPrePaidAssetDetailsButtons_CancelarLinhaButton_4_Telefonica",
+        "Id": "0Rb76000000DQXrCAO",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValPrePaidAssetDetailsButtons_Conteiner_9_Telefonica",
+        "MasterLabel": "cfValPrePaidAssetDetailsButtons_CancelarLinhaButton_4_Telefonica",
         "NamespacePrefix": "c"
     },
     "multilanguageSupport": true,
     "osSupport": true,
-    "sessionVars": [
-    ],
     "states": [
         {
             "actions": [
@@ -51,26 +49,37 @@
                                     {
                                         "actionIndex": 0,
                                         "card": "{card}",
-                                        "draggable": true,
-                                        "isOpen": false,
-                                        "key": "1700164705093-y26bt8hv4",
-                                        "label": "PortabilityInProgressToast",
+                                        "draggable": false,
+                                        "isOpen": true,
+                                        "key": "1708350605895-whi752vkg",
+                                        "label": "CheckBiometric",
+                                        "stateAction": {
+                                            "Web Page": {
+                                                "targetName": "/apex"
+                                            },
+                                            "displayName": "Action",
+                                            "id": "flex-action-1712707220152",
+                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateAllJourneys\",\"vlocityAsync\":false,\"inputMap\":{\"serviceType\":\"511\",\"InteractionId\":\"{Parent.InteractionId}\",\"AccountId\":\"{Parent.AccountId}\",\"AssetId\":\"{Parent.AssetId}\",\"Functionality\":\"CancelLine\",\"PreSetValues\":\"true\",\"CheckBiometric\":\"true\",\"ValidatePortability\":\"false\",\"ValidateOrder\":\"true\"},\"jsonMap\":\"{\\\"Parent.InteractionId\\\":\\\"{Parent.InteractionId}\\\",\\\"Parent.AccountId\\\":\\\"{Parent.AccountId}\\\",\\\"Parent.AssetId\\\":\\\"{Parent.AssetId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"Parent.InteractionId\",\"val\":\"\",\"id\":4},{\"name\":\"Parent.AccountId\",\"val\":\"\",\"id\":5},{\"name\":\"Parent.AssetId\",\"val\":\"\",\"id\":7}]}",
+                                            "openUrlIn": "Current Window",
+                                            "targetType": "Web Page",
+                                            "type": "DataAction",
+                                            "vlocityIcon": "standard-default"
+                                        }
+                                    },
+                                    {
+                                        "actionIndex": 1,
+                                        "card": "{card}",
+                                        "draggable": false,
+                                        "isOpen": true,
+                                        "key": "1708354236501-n86aaq1b6",
+                                        "label": "valToast",
                                         "stateAction": {
                                             "actionConditions": {
                                                 "group": [
                                                     {
-                                                        "field": "showToast",
+                                                        "field": "blockJourney",
                                                         "hasMergeField": false,
-                                                        "id": "state-new-condition-18",
-                                                        "operator": "==",
-                                                        "type": "custom",
-                                                        "value": "true"
-                                                    },
-                                                    {
-                                                        "field": "HaveProvisionalNumber",
-                                                        "hasMergeField": false,
-                                                        "id": "state-new-condition-32",
-                                                        "logicalOperator": "||",
+                                                        "id": "state-new-condition-47",
                                                         "operator": "==",
                                                         "type": "custom",
                                                         "value": "true"
@@ -86,7 +95,7 @@
                                                 "variant": "{variant}"
                                             },
                                             "hasExtraParams": true,
-                                            "id": "flex-action-1703859651781",
+                                            "id": "flex-action-1712150261790",
                                             "message": "showToast",
                                             "openUrlIn": "Current Window",
                                             "subType": "PubSub",
@@ -95,11 +104,11 @@
                                         }
                                     },
                                     {
-                                        "actionIndex": 1,
+                                        "actionIndex": 2,
                                         "card": "{card}",
                                         "contextId": "\\{Parent.AssetId}",
                                         "draggable": true,
-                                        "isOpen": true,
+                                        "isOpen": false,
                                         "key": "1703615840030-xeu79vook",
                                         "label": "Flyout",
                                         "reRenderFlyout": true,
@@ -107,21 +116,12 @@
                                             "actionConditions": {
                                                 "group": [
                                                     {
-                                                        "field": "HaveProvisionalNumber",
+                                                        "field": "blockJourney",
                                                         "hasMergeField": false,
-                                                        "id": "state-new-condition-0",
-                                                        "operator": "==",
+                                                        "id": "state-new-condition-17",
+                                                        "operator": "!=",
                                                         "type": "custom",
-                                                        "value": "false"
-                                                    },
-                                                    {
-                                                        "field": "showToast",
-                                                        "hasMergeField": false,
-                                                        "id": "state-new-condition-9",
-                                                        "logicalOperator": "&&",
-                                                        "operator": "==",
-                                                        "type": "custom",
-                                                        "value": "false"
+                                                        "value": "true"
                                                     }
                                                 ],
                                                 "id": "state-condition-object",
@@ -138,12 +138,60 @@
                                             },
                                             "flyoutType": "OmniScripts",
                                             "hasExtraParams": true,
-                                            "id": "flex-action-1705325963847",
+                                            "id": "flex-action-1712150271449",
                                             "layoutType": "lightning",
                                             "openFlyoutIn": "Modal",
                                             "openUrlIn": "Current Window",
                                             "osName": "val/CancelLine/English",
                                             "type": "Flyout",
+                                            "vlocityIcon": "standard-default"
+                                        }
+                                    },
+                                    {
+                                        "actionIndex": 4,
+                                        "card": "{card}",
+                                        "contextId": "\\{Parent.InteractionId}",
+                                        "draggable": true,
+                                        "isOpen": false,
+                                        "key": "1708537420405-fqmq6f8bd",
+                                        "label": "PalitagemManual",
+                                        "stateAction": {
+                                            "actionConditions": {
+                                                "group": [
+                                                    {
+                                                        "field": "palitagem",
+                                                        "hasMergeField": false,
+                                                        "id": "state-new-condition-35",
+                                                        "operator": "==",
+                                                        "type": "custom",
+                                                        "value": "true"
+                                                    }
+                                                ],
+                                                "id": "state-condition-object",
+                                                "isParent": true
+                                            },
+                                            "displayName": "Action",
+                                            "extraParams": {
+                                                "c__AccountId": "{Parent.AccountId}",
+                                                "c__AssetId": "{Parent.AssetId}",
+                                                "c__CustomerInteractionId": "{Parent.InteractionId}",
+                                                "c__InteractionNumber": "{Parent.InteractionNumber}",
+                                                "c__SourceCalled": "SalesJourney",
+                                                "c__lineNumber": "{Products.LineNumber}"
+                                            },
+                                            "hasExtraParams": true,
+                                            "id": "flex-action-1708537595158",
+                                            "isLwcOS": true,
+                                            "layoutType": "lightning",
+                                            "omniType": {
+                                                "Id": "a3076000000PNwjAAG",
+                                                "Name": "val/AddRelationShipTopic/English",
+                                                "isLwcOs": true
+                                            },
+                                            "openUrlIn": "Current Window",
+                                            "tabIcon": "standard:cancel_checkout",
+                                            "tabLabel": "Palitar",
+                                            "type": "OmniScript",
                                             "vlocityIcon": "standard-default"
                                         }
                                     }
@@ -364,8 +412,7 @@
     "xmlJson": [
         {
             "@attributes": {
-                "targets": "lightning__AppPage",
-                "xmlns": "http://soap.sforce.com/2006/04/metadata"
+                "targets": "lightning__AppPage"
             },
             "property": [
                 {
@@ -378,8 +425,7 @@
         },
         {
             "@attributes": {
-                "targets": "lightningCommunity__Default",
-                "xmlns": ""
+                "targets": "lightningCommunity__Default"
             },
             "property": [
                 {
@@ -406,17 +452,16 @@
     ],
     "xmlObject": {
         "apiVersion": 51,
+        "id": "0Rb760000000cdMCAQ",
         "isExplicitImport": false,
         "isExposed": true,
         "masterLabel": "valPrePaidAssetDetailsButtons_CancelarLinhaButton",
-        "runtimeNamespace": "%vlocity_namespace%",
-        "targetConfigs": "PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nX19BcHBQYWdlIiB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIj48cHJvcGVydHkgIG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nQ29tbXVuaXR5X19EZWZhdWx0IiB4bWxucz0iIj48cHJvcGVydHkgIG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nX19Ib21lUGFnZSI+PHByb3BlcnR5ICBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5PjwvdGFyZ2V0Q29uZmlnPg==",
+        "targetConfigs": "PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5PjwvdGFyZ2V0Q29uZmlnPjx0YXJnZXRDb25maWcgdGFyZ2V0cz0ibGlnaHRuaW5nQ29tbXVuaXR5X19EZWZhdWx0Ij48cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48L3RhcmdldENvbmZpZz48dGFyZ2V0Q29uZmlnIHRhcmdldHM9ImxpZ2h0bmluZ19fSG9tZVBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5PjwvdGFyZ2V0Q29uZmlnPg==",
         "targets": {
             "target": [
                 "lightning__AppPage",
                 "lightningCommunity__Default",
-                "lightning__HomePage",
-                "lightning__RecordPage"
+                "lightning__HomePage"
             ]
         }
     }

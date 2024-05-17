@@ -1,0 +1,38 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valCaseActionsPageValidate",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CaseActionsPageValidate/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "additionalOutput": {
+            "errorMessage": "=IF(%function%='Alterar Proprietário','Não é possível alterar o proprietário, pois somente o próprio proprietário do caso pode realizar a alteração', 'Somente o proprietário do caso pode encerrar o tratamento')",
+            "status": "Erro",
+            "variant": "warning"
+        },
+        "disOnTplt": false,
+        "executionConditionalFormula": "(%DREGetCaseData:ownerId%!=$Vlocity.UserId && SUBSTRING(%DREGetCaseData:ownerId%,0,3)=='005' && %function%=='Alterar Proprietário') || (%DREGetCaseData:ownerId%!=$Vlocity.UserId && %function%=='Encerrar Tratamento') ",
+        "label": "ResponseAction2",
+        "responseDefaultData": {
+        },
+        "responseFormat": "JSON",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "returnFullDataJSON": false,
+        "returnOnlyAdditionalOutput": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "show": null,
+        "useFormulas": true,
+        "vlcResponseHeaders": {
+        }
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Response Action",
+    "Name": "RAOwnerNotEqual",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CaseActionsPageValidate/Procedure/RAOwnerNotEqual"
+}

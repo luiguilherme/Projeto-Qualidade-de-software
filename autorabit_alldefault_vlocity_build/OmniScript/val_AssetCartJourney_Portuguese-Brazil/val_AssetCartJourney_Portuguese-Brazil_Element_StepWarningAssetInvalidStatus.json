@@ -1,7 +1,7 @@
 {
     "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "Asset Cart Journey",
+        "Name": "AssetCartJourney",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
         "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/AssetCartJourney/Portuguese (Brazil)",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
@@ -50,35 +50,8 @@
         "saveMessage": "Are you sure you want to save it for later?",
         "show": {
             "group": {
-                "operator": "OR",
+                "operator": "AND",
                 "rules": [
-                    {
-                        "group": {
-                            "operator": "AND",
-                            "rules": [
-                                {
-                                    "condition": "<>",
-                                    "data": "Ativo",
-                                    "field": "ProductStatus:networkNumberStatus"
-                                },
-                                {
-                                    "condition": "<>",
-                                    "data": "Barrado",
-                                    "field": "ProductStatus:networkNumberStatus"
-                                },
-                                {
-                                    "condition": "<>",
-                                    "data": "BarradoTotal",
-                                    "field": "ProductStatus:networkNumberStatus"
-                                },
-                                {
-                                    "condition": "=",
-                                    "data": "Promotion",
-                                    "field": "Functionality"
-                                }
-                            ]
-                        }
-                    },
                     {
                         "group": {
                             "operator": "AND",
@@ -123,6 +96,11 @@
                                 {
                                     "condition": "<>",
                                     "data": "Barrado",
+                                    "field": "ProductStatus:networkNumberStatus"
+                                },
+                                {
+                                    "condition": "<>",
+                                    "data": "BarradoTotal",
                                     "field": "ProductStatus:networkNumberStatus"
                                 }
                             ]
