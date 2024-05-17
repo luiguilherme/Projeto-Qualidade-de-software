@@ -13,7 +13,7 @@
             "Instance": "%SVRelationshipTopic:Instance%",
             "OperatorSegment": "=%SVRelationshipTopic:OperatorSegment%",
             "ProductType": "=IF((ISNOTBLANK(%SVRelationshipTopic:AssetType%),%SVRelationshipTopic:AssetType%, %ProductType%)",
-            "ServiceTree": "=%SVRelationshipTopic:ServiceTree%",
+            "ServiceTree": "=%ServiceTree%",
             "VisibleTo": "=%VisibleTo%"
         },
         "additionalOutput": {
@@ -23,7 +23,7 @@
         "dataRaptor Input Parameters": [
         ],
         "disOnTplt": false,
-        "executionConditionalFormula": "(%SelectedFunction% == 'RelationshipTopic' || %SelectedFunction% == 'RelationshipTopicFront')  && \r\n((ISNOTBLANK(%SVRelationshipTopic:AssetType%) && (%SVRelationshipTopic:AssetType% == 'Mobile' || %SVRelationshipTopic:AssetType% == 'Fixed' )) || (ISBLANK(%SVRelationshipTopic:AssetType%) && ( %ProductType% == 'Mobile' ||  %ProductType% == 'Fixed' )) && %SVRelationshipTopic:ShowTopicsCaseOpening%==false)\r\n",
+        "executionConditionalFormula": "(%SelectedFunction% == 'RelationshipTopic' || %SelectedFunction% == 'RelationshipTopicFront')  && ((ISNOTBLANK(%SVRelationshipTopic:AssetType%) && (%SVRelationshipTopic:AssetType% == 'Mobile' || %SVRelationshipTopic:AssetType% == 'Fixed' )) || (ISBLANK(%SVRelationshipTopic:AssetType%) && ( %ProductType% == 'Mobile' ||  %ProductType% == 'Fixed' )))\r\n",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {

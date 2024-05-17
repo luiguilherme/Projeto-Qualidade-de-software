@@ -1,14 +1,14 @@
 {
     "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "AssetCartJourney",
+        "Name": "Asset Cart Journey",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
         "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/AssetCartJourney/Portuguese (Brazil)",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
     "%vlocity_namespace%__ParentElementId__c": {
         "%vlocity_namespace%__OmniScriptId__c": {
-            "Name": "AssetCartJourney",
+            "Name": "Asset Cart Journey",
             "VlocityDataPackType": "VlocityMatchingKeyObject",
             "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/AssetCartJourney/Portuguese (Brazil)",
             "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
@@ -28,7 +28,7 @@
         "messages": [
             {
                 "active": true,
-                "text": "O seu pedido foi processado com sucesso. Prossiga para a geração da ordem.",
+                "text": "O seu pedido foi processado com sucesso. Prossiga para a geração da ordem",
                 "type": "Success",
                 "value": true
             },
@@ -42,12 +42,17 @@
         "show": null,
         "validateExpression": {
             "group": {
-                "operator": "OR",
+                "operator": "AND",
                 "rules": [
                     {
                         "condition": "=",
                         "data": "SUCCESS",
                         "field": "StatusAsyncJobPromotion:JobBulkReplaceStatus"
+                    },
+                    {
+                        "condition": "=",
+                        "data": "SUCCESS",
+                        "field": "StatusAsyncJobPromotion:JobAddMembersStatus"
                     }
                 ]
             }

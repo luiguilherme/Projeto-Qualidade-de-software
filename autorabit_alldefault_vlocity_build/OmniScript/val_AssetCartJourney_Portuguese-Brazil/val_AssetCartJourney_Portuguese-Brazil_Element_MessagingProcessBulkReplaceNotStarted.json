@@ -1,14 +1,14 @@
 {
     "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "AssetCartJourney",
+        "Name": "Asset Cart Journey",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
         "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/AssetCartJourney/Portuguese (Brazil)",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
     "%vlocity_namespace%__ParentElementId__c": {
         "%vlocity_namespace%__OmniScriptId__c": {
-            "Name": "AssetCartJourney",
+            "Name": "Asset Cart Journey",
             "VlocityDataPackType": "VlocityMatchingKeyObject",
             "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/AssetCartJourney/Portuguese (Brazil)",
             "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
@@ -28,7 +28,7 @@
         "messages": [
             {
                 "active": true,
-                "text": "Seu pedido está sendo processado, aguarde a conclusão no sino de notificações e realize uma consulta no botão abaixo.",
+                "text": "Seu pedido está sendo processado, aguarde a conclusão no sino de notificações  e realize uma consulta no botão abaixo.",
                 "type": "Warning",
                 "value": true
             },
@@ -39,15 +39,31 @@
                 "value": false
             }
         ],
-        "show": null,
+        "show": {
+            "group": {
+                "operator": "AND",
+                "rules": [
+                    {
+                        "condition": "=",
+                        "data": "2",
+                        "field": "1"
+                    }
+                ]
+            }
+        },
         "validateExpression": {
             "group": {
-                "operator": "OR",
+                "operator": "AND",
                 "rules": [
                     {
                         "condition": "=",
                         "data": null,
                         "field": "StatusAsyncJobPromotion:JobBulkReplaceStatus"
+                    },
+                    {
+                        "condition": "=",
+                        "data": "SUCCESS",
+                        "field": "StatusAsyncJobPromotion:JobAddMembersStatus"
                     }
                 ]
             }

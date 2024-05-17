@@ -13,17 +13,16 @@
             "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ProcessRollback/Procedure",
             "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
         },
-        "Name": "CBCancelOrderHabRemota",
+        "Name": "CBHabRemotaProcessRollback",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ProcessRollback/Procedure/CBCancelOrderHabRemota",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ProcessRollback/Procedure/CBHabRemotaProcessRollback",
         "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
     },
-    "%vlocity_namespace%__ParentElementName__c": "CBCancelOrderHabRemota",
+    "%vlocity_namespace%__ParentElementName__c": "CBHabRemotaProcessRollback",
     "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalChainableResponse": {
-            "": ""
         },
         "additionalInput": {
             "cartId": "%DRERequestOrchestration:OrderId%",
@@ -33,8 +32,8 @@
         },
         "chainOnStep": false,
         "disOnTplt": false,
-        "executionConditionalFormula": "",
-        "failOnStepError": false,
+        "executionConditionalFormula": "%RAPrevalidate:records|1:didAnyOrderItemReachPONR% == false",
+        "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {
         },

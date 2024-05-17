@@ -12,7 +12,7 @@
             "UpdateAccountoptInOut": "%DRLUpdateSubscriptionOptInOut%",
             "request": "=%lineNumber%",
             "responseLGPD": "=IF(%HTTPOptinOptoutLGPD:authorization% == 0, \"No\", IF(%HTTPOptinOptoutLGPD:authorization% == 1, \"Yes\", \"NoAnswer\"))",
-            "responseOptinOptout": "=IF(%HTTPOptinOptoutLGPD:pushAuthorizations:promotions% == \"0\", \"No\", IF(%HTTPOptinOptoutLGPD:pushAuthorizations:promotions% == \"1\", \"Yes\", \"NoAnswer\"))"
+            "responseOptinOptout": "=IF(%HTTPOptinOptoutLGPD:pushAuthorizations:promotions% == 0 ||%HTTPOptinOptoutLGPD:pushAuthorizations:protocols% == 0 ||%HTTPOptinOptoutLGPD:pushAuthorizations:services% == 0 || %HTTPOptinOptoutLGPD:pushAuthorizations:partners% == 0 ||%HTTPOptinOptoutLGPD:pushAuthorizations:telemarketing% == 0 || %HTTPOptinOptoutLGPD:pushAuthorizations:procon% == 0, \"No\", IF(%HTTPOptinOptoutLGPD:pushAuthorizations:promotions% == 1 ||%HTTPOptinOptoutLGPD:pushAuthorizations:protocols% == 1 ||%HTTPOptinOptoutLGPD:pushAuthorizations:services% == 1 || %HTTPOptinOptoutLGPD:pushAuthorizations:partners% == 1 ||%HTTPOptinOptoutLGPD:pushAuthorizations:telemarketing% == 1 || %HTTPOptinOptoutLGPD:pushAuthorizations:procon% == 1, \"Yes\", \"NoAnswer\"))"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",

@@ -36,10 +36,6 @@
             {
                 "name": "cf-order-type",
                 "source": "%orderType%"
-            },
-            {
-                "name": "cf-change-plan",
-                "source": "%ChangePlan%"
             }
         ],
         "hide": false,
@@ -47,29 +43,12 @@
         "lwcName": "cfValCartSummaryContainer",
         "show": {
             "group": {
-                "operator": "OR",
+                "operator": "AND",
                 "rules": [
                     {
                         "condition": "=",
                         "data": "ServiceManagement",
                         "field": "Functionality"
-                    },
-                    {
-                        "group": {
-                            "operator": "AND",
-                            "rules": [
-                                {
-                                    "condition": "=",
-                                    "data": "Promotion",
-                                    "field": "Functionality"
-                                },
-                                {
-                                    "condition": "=",
-                                    "data": "ChangePlan",
-                                    "field": "ProcessReason"
-                                }
-                            ]
-                        }
                     }
                 ]
             }

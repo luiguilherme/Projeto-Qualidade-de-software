@@ -1,33 +1,44 @@
 {
     "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "AssetCartJourney",
+        "Name": "Asset Cart Journey",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
         "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/AssetCartJourney/Portuguese (Brazil)",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
     "%vlocity_namespace%__ParentElementId__c": {
         "%vlocity_namespace%__OmniScriptId__c": {
-            "Name": "AssetCartJourney",
+            "Name": "Asset Cart Journey",
             "VlocityDataPackType": "VlocityMatchingKeyObject",
             "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/AssetCartJourney/Portuguese (Brazil)",
             "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
         },
-        "Name": "Step1",
+        "Name": "Block1",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/AssetCartJourney/Portuguese (Brazil)/Step1",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/AssetCartJourney/Portuguese (Brazil)/Block1",
         "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
     },
-    "%vlocity_namespace%__ParentElementName__c": "Step1",
-    "%vlocity_namespace%__ParentElementType__c": "Step",
+    "%vlocity_namespace%__ParentElementName__c": "Block1",
+    "%vlocity_namespace%__ParentElementType__c": "Block",
     "%vlocity_namespace%__PropertySet__c": {
         "HTMLTemplateId": "",
         "controlWidth": 12,
         "dataJSON": false,
         "label": "TextBlock1",
         "sanitize": false,
-        "show": null,
-        "text": "<p>%cartId%</p>\n<p>%groupCartId%</p>",
+        "show": {
+            "group": {
+                "operator": "AND",
+                "rules": [
+                    {
+                        "condition": "<>",
+                        "data": null,
+                        "field": "StatusAsyncJobPromotion:JobBulkReplaceStepError:technicalMessage"
+                    }
+                ]
+            }
+        },
+        "text": "<p><strong>C&oacute;digo</strong> : %StatusAsyncJobPromotion:JobBulkReplaceStepError:statusCode%</p>\n<p><strong>Erro</strong> : %StatusAsyncJobPromotion:JobBulkReplaceStepError:technicalMessage%</p>\n<p></p>",
         "textKey": ""
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,

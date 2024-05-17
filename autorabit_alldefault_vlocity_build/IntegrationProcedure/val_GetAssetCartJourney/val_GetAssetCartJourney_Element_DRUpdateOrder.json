@@ -13,10 +13,9 @@
             "Acquisition": "%DREGetLineDetails:Acquisition%",
             "CustomerInteractionId": "%CustomerInteractionId%",
             "DDD": "%DREGetLineDetails:DDD%",
-            "OrderId": "=IF(%Functionality%=='AdditionalPackage'||%Functionality%=='ServiceManagement'||(%Functionality%=='Promotion' && %ProcessReason%=='ChangePlan'), %IPAssetToOrder:cartId%, IF(%Functionality%=='Promotion' && (%ProcessReason%=='ChangePlanPromotion'||%ProcessReason%=='ChangePromotion'),%IPStartBulkCreateGroups:cartId%,null))",
+            "OrderId": "=IF(%Functionality%=='AdditionalPackage'||%Functionality%=='ServiceManagement'||(%Functionality%=='Promotion' && %ProcessReason%=='ChangePlan'), %IPAssetToOrder:cartId%, IF(%Functionality%=='Promotion' && %ProcessReason%=='ChangePlanPromotion',%IPStartBulkCreateGroups:cartId%,null))",
             "PriceBook2Id": "%DREGetPriceListId:PriceBookId%",
             "PriceListid": "%DREGetPriceListId:PriceListId%",
-            "ServiceAccount": "%ServiceAccount%",
             "channel": "%DRTAGetChannel:Channel|1:ChannelName__c%",
             "orderType": "=IF(%Functionality%=='Promotion','Change',%Functionality%)"
         },
