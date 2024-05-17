@@ -16,46 +16,72 @@
             "value": {
             }
         },
-        "state0element0_0": {
+        "state0element1_2": {
             "contextVariables": [
                 {
                     "id": 4,
                     "name": "recordId",
-                    "val": "02i76000009Pdg3AAC"
+                    "val": "02i76000000IOYaAAO"
                 },
                 {
-                    "id": 2,
-                    "name": "Parent.InteractionId",
-                    "val": ""
-                },
-                {
-                    "id": 5,
-                    "name": "Parent.AccountId",
-                    "val": ""
-                },
-                {
-                    "id": 7,
-                    "name": "Parent.AssetId",
+                    "id": 3,
+                    "name": "Products.ServiceAccountId",
                     "val": ""
                 }
             ],
             "orderBy": {
-                "isReverse": "",
+                "isReverse": false,
                 "name": ""
             },
             "type": "IntegrationProcedures",
             "value": {
                 "dsDelay": "",
                 "inputMap": {
-                    "AccountId": "{Parent.AccountId}",
-                    "AssetId": "{Parent.AssetId}",
-                    "CheckBiometric": "true",
-                    "InteractionId": "{Parent.InteractionId}",
-                    "PreSetValues": "true",
-                    "serviceType": "501"
+                    "AccountId": "{Products.ServiceAccountId}",
+                    "AssetId": "{recordId}"
                 },
-                "ipMethod": "val_ValidateAllJourneys",
-                "jsonMap": "{\"recordId\":\"{recordId}\",\"Parent.InteractionId\":\"{Parent.InteractionId}\",\"Parent.AccountId\":\"{Parent.AccountId}\",\"Parent.AssetId\":\"{Parent.AssetId}\"}",
+                "ipMethod": "val_ValidateCrossOrderByAsset",
+                "jsonMap": "{\"recordId\":\"{recordId}\",\"Products.ServiceAccountId\":\"{Products.ServiceAccountId}\"}",
+                "vlocityAsync": false
+            }
+        },
+        "state0element1_3": {
+            "contextVariables": [
+                {
+                    "id": 4,
+                    "name": "recordId",
+                    "val": "02i76000000IOYaAAO"
+                },
+                {
+                    "id": 4,
+                    "name": "Products.LineNumber",
+                    "val": ""
+                },
+                {
+                    "id": 5,
+                    "name": "Products.ProductCode",
+                    "val": ""
+                },
+                {
+                    "id": 6,
+                    "name": "Products.Attributes.ATT_DC_RM_PROMO_PO_1",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": false,
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "PriceAttribute": "{Products.Attributes.ATT_DC_RM_PROMO_PO_1}",
+                    "ProductCode": "{Products.ProductCode}",
+                    "networkNumber": "{Products.LineNumber}"
+                },
+                "ipMethod": "val_ValidateBalanceLine",
+                "jsonMap": "{\"recordId\":\"{recordId}\",\"Products.LineNumber\":\"{Products.LineNumber}\",\"Products.ProductCode\":\"{Products.ProductCode}\",\"Products.Attributes.ATT_DC_RM_PROMO_PO_1\":\"{Products.Attributes.ATT_DC_RM_PROMO_PO_1}\"}",
                 "vlocityAsync": false
             }
         },
@@ -230,14 +256,14 @@
         }
     },
     "%vlocity_namespace%__Definition__c": "valPrePaidAssetDetailsButtons_EditButton.json",
-    "%vlocity_namespace%__Description__c": "[NÃO ALTERAR] - VERSÃO FINAL PARA RELEASE MAIO",
-    "%vlocity_namespace%__GlobalKey__c": "valPrePaidAssetDetailsButtons_EditButton/Telefonica/4/1703857234517",
+    "%vlocity_namespace%__Description__c": "[Copy DetailsButton] Conteiner utilizado para agregar todos os botões da da tela details do Asset.",
+    "%vlocity_namespace%__GlobalKey__c": "valPrePaidAssetDetailsButtons_EditButton/Telefonica/1/1702577549951",
     "%vlocity_namespace%__IsChildCard__c": true,
     "%vlocity_namespace%__ParentID__c": "",
     "%vlocity_namespace%__SampleData__c": "",
     "%vlocity_namespace%__Styles__c": "{\"styleObjects\":{\"statusColor\":{\"sizeClass\":\"slds-size_2-of-12 \",\"size\":{\"isResponsive\":false,\"default\":\"2\"},\"padding\":[],\"margin\":[],\"background\":{\"color\":\"#DFD105\",\"image\":\"\",\"size\":\"\",\"repeat\":\"\",\"position\":\"\"},\"container\":{\"class\":\"\"},\"border\":{\"type\":\"\",\"width\":\"\",\"color\":\"#cccccc\",\"radius\":\"3px\",\"style\":\"\"},\"elementStyleProperties\":{\"styles\":{\"value\":{\"color\":\"#FFF\"}}},\"text\":{\"align\":\"center\",\"color\":\"\"},\"inlineStyle\":\"margin-top: 3.2px;\\nfont-weight: bold;\",\"class\":\"slds-text-align_center \",\"style\":\"background-color:#DFD105;      \\n    border-radius:3px;     margin-top: 3.2px;\\nfont-weight: bold;\",\"selectedStyles\":\"statusColor\",\"element\":\"outputField\"}},\"customStyles\":\".editButton {\\r\\n    background-color: #fff;\\r\\n}\\r\\n\\r\\n.editButton:hover {\\r\\n    background-color:  #660099;\\r\\n}\\r\\n\\r\\n.extratoIcon:hover{\\r\\n   filter: invert(100%) brightness(105000%) contrast(106%);\\r\\n}\\r\\n\\r\\n.iconButtonExtrato{\\r\\n    max-width: 35px;\\r\\n    border-style: solid;\\r\\n    border-width: 1px;\\r\\n}\\r\\n\\r\\n.iconButtonExtrato:hover{\\r\\n    background-color: #660099;\\r\\n  \\r\\n}\\r\\n\"}",
     "%vlocity_namespace%__Type__c": "",
-    "%vlocity_namespace%__Version__c": 4,
+    "%vlocity_namespace%__Version__c": 1,
     "Name": "valPrePaidAssetDetailsButtons_EditButton",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityCard__c",

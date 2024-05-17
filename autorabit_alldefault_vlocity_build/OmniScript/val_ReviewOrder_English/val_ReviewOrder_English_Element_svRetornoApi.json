@@ -10,7 +10,7 @@
         "HTMLTemplateId": "",
         "controlWidth": 12,
         "elementValueMap": {
-            "statusMessage": "Erro no Bloqueio do Aparelho"
+            "statusMessage": "=IF(%statusCodeSICS% == 200 || %statusCodeSICS% == 201, \"Aparelho Bloqueado\", \"Erro no Bloqueio do Aparelho\")"
         },
         "label": "SetValues1",
         "message": {
@@ -18,22 +18,29 @@
         "pubsub": false,
         "show": {
             "group": {
-                "operator": "AND",
+                "operator": "OR",
                 "rules": [
                     {
-                        "condition": "<>",
-                        "data": "200",
-                        "field": "statusCodeSICS"
+                        "condition": "=",
+                        "data": "DeviceBlockJourney",
+                        "field": "Functionality"
                     },
                     {
-                        "condition": "<>",
-                        "data": "201",
-                        "field": "statusCodeSICS"
-                    },
-                    {
-                        "condition": "<>",
-                        "data": null,
-                        "field": "statusCodeSICS"
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "LineBlockingJourney",
+                                    "field": "Functionality"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "yes",
+                                    "field": "DevideLock"
+                                }
+                            ]
+                        }
                     }
                 ]
             }
