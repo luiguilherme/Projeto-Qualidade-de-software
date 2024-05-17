@@ -128,6 +128,31 @@
         "state0element0block_element1block_element0_0": {
             "contextVariables": [
                 {
+                    "id": 4,
+                    "name": "recordId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": false,
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "CheckBiometric": "true",
+                    "InteractionId": "{recordId}",
+                    "serviceType": "500"
+                },
+                "ipMethod": "val_ValidateAllJourneys",
+                "jsonMap": "{\"recordId\":\"{recordId}\"}",
+                "vlocityAsync": false
+            }
+        },
+        "state0element0block_element1block_element0_2": {
+            "contextVariables": [
+                {
                     "id": 5,
                     "name": "User.userId",
                     "val": "00576000001Zf7mAAC"
@@ -173,7 +198,7 @@
                 "vlocityAsync": false
             }
         },
-        "state0element0block_element1block_element0_3": {
+        "state0element0block_element1block_element0_5": {
             "contextVariables": [
                 {
                     "id": 17,
@@ -196,17 +221,77 @@
                 "resultVar": "",
                 "vlocityAsync": false
             }
+        },
+        "state0element0block_element1block_element0_8": {
+            "contextVariables": [
+                {
+                    "id": 8,
+                    "name": "CustomerDetails.ContactDetails.OtherEmail",
+                    "val": ""
+                },
+                {
+                    "id": 9,
+                    "name": "CustomerDetails.ContactDetails.Email",
+                    "val": ""
+                },
+                {
+                    "id": 16,
+                    "name": "Session.InteractionNumber",
+                    "val": ""
+                },
+                {
+                    "id": 17,
+                    "name": "User.userName",
+                    "val": ""
+                },
+                {
+                    "id": 16,
+                    "name": "userAdabas",
+                    "val": ""
+                },
+                {
+                    "id": 17,
+                    "name": "userChannel",
+                    "val": ""
+                },
+                {
+                    "id": 18,
+                    "name": "CustomerDetails.Documents.DocumentNumberRaw",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": false,
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "attendentCode": "{userAdabas}",
+                    "attendentName": "{User.userName}",
+                    "channel": "{userChannel}",
+                    "cpf": "{CustomerDetails.Documents.DocumentNumberRaw}",
+                    "email": "{CustomerDetails.ContactDetails.Email}",
+                    "otherEmail": "{CustomerDetails.ContactDetails.OtherEmail}",
+                    "protocol": "{Session.InteractionNumber}",
+                    "system": "SALESFORCE"
+                },
+                "ipMethod": "val_ExternalValidateEmail",
+                "jsonMap": "{\"CustomerDetails.ContactDetails.OtherEmail\":\"{CustomerDetails.ContactDetails.OtherEmail}\",\"CustomerDetails.ContactDetails.Email\":\"{CustomerDetails.ContactDetails.Email}\",\"Session.InteractionNumber\":\"{Session.InteractionNumber}\",\"User.userName\":\"{User.userName}\",\"userAdabas\":\"{userAdabas}\",\"userChannel\":\"{userChannel}\",\"CustomerDetails.Documents.DocumentNumberRaw\":\"{CustomerDetails.Documents.DocumentNumberRaw}\"}",
+                "vlocityAsync": false
+            }
         }
     },
     "%vlocity_namespace%__Definition__c": "valChildReviewCustomerDetailButtons.json",
-    "%vlocity_namespace%__Description__c": "Ajuste para Comunidade - [INC4-Copy V14][ US-334-BL2] Validar Alçada + Light + Refresh [Guilherme Kaiser]",
-    "%vlocity_namespace%__GlobalKey__c": "valChildReviewCustomerDetailButtons/Telefonica/8/1699362796149",
+    "%vlocity_namespace%__Description__c": "[copy v9] BLOCO 13 - Jornada 27 - Biometria - Inclusão de nova solução para validações - Erik Leal",
+    "%vlocity_namespace%__GlobalKey__c": "valChildReviewCustomerDetailButtons/Telefonica/9/1701865448928",
     "%vlocity_namespace%__IsChildCard__c": true,
     "%vlocity_namespace%__ParentID__c": "valChildReviewCustomerDetail/Telefonica/1/1693574068113",
-    "%vlocity_namespace%__SampleData__c": "{\"PrefixId\":\"001\",\"permissionEnablePrepaid\":true,\"InteractionNumberResponse\":\"\",\"RealizarAlteracaoCadastral\":true,\"ProtocolOrigin\":null,\"FinalizarAtendimento\":true,\"CustomerDetails\":{\"ShowComponent\":\"true\",\"ParentId\":\"\",\"MotherName\":\"\",\"DigitalProfile\":\"\",\"CustomerType\":\"\",\"CustomerSegment\":\"\",\"ApproverUser\":\"\",\"AdressDetails\":{\"Shipping\":{\"Street\":\"\",\"State\":\"\",\"PostalCode\":\"\",\"Number\":\"\",\"Neighborhood\":\"\",\"Country\":\"\",\"ComplementType4\":\"\",\"ComplementType3\":\"\",\"ComplementType2\":\"\",\"ComplementType1\":\"\",\"Complement4\":\"\",\"Complement3\":\"\",\"Complement2\":\"\",\"Complement1\":\"\",\"City\":\"\",\"AddressType\":\"\"},\"Billing\":{\"Street\":\"\",\"State\":\"\",\"PostalCode\":\"\",\"Number\":\"\",\"Neighborhood\":\"\",\"Country\":\"\",\"ComplementType4\":\"\",\"ComplementType3\":\"\",\"ComplementType2\":\"\",\"ComplementType1\":\"\",\"Complement4\":\"\",\"Complement3\":\"\",\"Complement2\":\"\",\"Complement1\":\"\",\"City\":\"\",\"AddressType\":\"\"}},\"AddressDetails\":{\"BillingIBGECode__c\":\"\"},\"%vlocity_namespace%__CustomerValue__c\":\"\",\"ContactDetails\":{\"OtherPhone\":\"Não Cadastrado\",\"OtherEmail\":\"Não Cadastrado\",\"MobilePhone\":\"Não Cadastrado\",\"HomePhone\":\"Não Cadastrado\",\"Email\":\"Não Cadastrado\",\"ContactPhone\":\"Não Cadastrado\"},\"PersonalData\":{\"Sex\":\"\",\"Occupation\":\"\",\"Naturalness\":\"\",\"Nationality\":\"\",\"MothersName\":\"\",\"MaritalStatus\":\"\",\"LastName\":\"\",\"FirstName\":\"\",\"Education\":\"\",\"Birthdate\":\"\",\"PersonType\":\"Pessoa Física\",\"CustomerName\":\"conta teste protocolo\",\"AccountId\":\"0017600000NxNmrAAF\"},\"Documents\":{\"DocumentNumberRaw\":\"08641735470\",\"DocumentType\":\"CPF\",\"DocumentNumberFormatted\":\"086.417.354-70\",\"DocumentNumber\":\"086.417.354-70\"},\"TimeAsClient\":\"0 Mês\",\"AgingMobile\":\"0 Mês\"},\"ShowResult\":\"1 resultado\",\"UserProfileName\":\"Administrador do sistema\"}",
+    "%vlocity_namespace%__SampleData__c": "{\"PrefixId\":\"001\",\"permissionEnablePrepaid\":true,\"InteractionNumberResponse\":\"\",\"RealizarAlteracaoCadastral\":true,\"ProtocolOrigin\":null,\"FinalizarAtendimento\":true,\"userAdabas\":\"\",\"CustomerDetails\":{\"ConsentDetails\":{\"AcceptPromotion\":\"\",\"AcceptLGPD\":\"\"},\"CustomerType\":\"\",\"ShowComponent\":\"true\",\"ParentId\":\"\",\"MotherName\":\"\",\"DigitalProfile\":\"\",\"CustomerSegment\":\"\",\"ApproverUser\":\"\",\"AdressDetails\":{\"Shipping\":{\"Street\":\"\",\"State\":\"\",\"PostalCode\":\"\",\"Number\":\"\",\"Neighborhood\":\"\",\"Country\":\"\",\"ComplementType4\":\"\",\"ComplementType3\":\"\",\"ComplementType2\":\"\",\"ComplementType1\":\"\",\"Complement4\":\"\",\"Complement3\":\"\",\"Complement2\":\"\",\"Complement1\":\"\",\"City\":\"\",\"AddressType\":\"\"},\"Billing\":{\"Street\":\"\",\"State\":\"\",\"PostalCode\":\"\",\"Number\":\"\",\"Neighborhood\":\"\",\"Country\":\"\",\"ComplementType4\":\"\",\"ComplementType3\":\"\",\"ComplementType2\":\"\",\"ComplementType1\":\"\",\"Complement4\":\"\",\"Complement3\":\"\",\"Complement2\":\"\",\"Complement1\":\"\",\"City\":\"\",\"AddressType\":\"\"}},\"AddressDetails\":{\"BillingIBGECode__c\":\"\"},\"%vlocity_namespace%__CustomerValue__c\":\"\",\"ContactDetails\":{\"OtherPhone\":\"Não Cadastrado\",\"OtherEmail\":\"Não Cadastrado\",\"MobilePhone\":\"Não Cadastrado\",\"HomePhone\":\"Não Cadastrado\",\"Email\":\"Não Cadastrado\",\"ContactPhone\":\"Não Cadastrado\"},\"PersonalData\":{\"Sex\":\"\",\"MothersName\":\"\",\"LastName\":\"\",\"FirstName\":\"\",\"Birthdate\":\"\",\"PersonType\":\"Pessoa Física\",\"CustomerName\":\"conta teste protocolo\",\"AccountId\":\"0017600000NxNmrAAF\"},\"Documents\":{\"DocumentNumberRaw\":\"08641735470\",\"DocumentType\":\"CPF\",\"DocumentNumberFormatted\":\"086.417.354-70\",\"DocumentNumber\":\"086.417.354-70\"},\"TimeAsClient\":\"0 Mês\",\"AgingMobile\":\"0 Mês\"},\"ShowResult\":\"1 resultado\",\"userChannel\":\"Lojas Proprias\",\"UserProfileName\":\"Administrador do sistema\"}",
     "%vlocity_namespace%__Styles__c": "{\"customStyles\":\"\"}",
     "%vlocity_namespace%__Type__c": "",
-    "%vlocity_namespace%__Version__c": 8,
+    "%vlocity_namespace%__Version__c": 10,
     "Name": "valChildReviewCustomerDetailButtons",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityCard__c",

@@ -10,13 +10,25 @@
         "HTMLTemplateId": "",
         "controlWidth": 12,
         "elementValueMap": {
+            "approverProcessName": "Cancelado",
             "status": "Canceled"
         },
         "label": "SVOrderStatus",
         "message": {
         },
         "pubsub": false,
-        "show": null,
+        "show": {
+            "group": {
+                "operator": "AND",
+                "rules": [
+                    {
+                        "condition": "=",
+                        "data": "false",
+                        "field": "isCheckoutSubmitted"
+                    }
+                ]
+            }
+        },
         "showPersistentComponent": [
             true,
             false

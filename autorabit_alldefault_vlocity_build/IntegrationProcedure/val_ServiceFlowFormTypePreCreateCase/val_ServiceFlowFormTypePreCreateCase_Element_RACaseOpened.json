@@ -1,0 +1,62 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valServiceFlowFormTypePreCreateCase",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ServiceFlowFormTypePreCreateCase/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__ParentElementId__c": {
+        "%vlocity_namespace%__OmniScriptId__c": {
+            "Name": "valServiceFlowFormTypePreCreateCase",
+            "VlocityDataPackType": "VlocityMatchingKeyObject",
+            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ServiceFlowFormTypePreCreateCase/Procedure",
+            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+        },
+        "Name": "CBCase",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ServiceFlowFormTypePreCreateCase/Procedure/CBCase",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
+    },
+    "%vlocity_namespace%__ParentElementName__c": "CBCase",
+    "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
+    "%vlocity_namespace%__PropertySet__c": {
+        "additionalOutput": {
+            "AccountId": "%DRTAGetOpenCase:CaseOpen|1:AccountId%",
+            "CaseId": "%DRTAGetOpenCase:CaseOpen|1:Id%",
+            "CaseNumber": "%DRTAGetOpenCase:CaseOpen|1:CaseNumber%",
+            "CreatedDate": "=FORMATDATETIME(%DRTAGetOpenCase:CaseOpen|1:CreatedDate%,\"dd/MM/yyyy HH:mm\")",
+            "ErrorMessage": "=CONCAT(\"Caso já existente para o motivo : \",%IPGetTopicDetails:Name%)",
+            "FormType": "Caso em Duplicidade",
+            "HasCaseOpened": true,
+            "LastModifiedDate": "=FORMATDATETIME(%DRTAGetOpenCase:CaseOpen|1:LastModifiedDate%,\"dd/MM/yyyy HH:mm\")",
+            "LineNumber": "%DRTAGetOpenCase:CaseOpen|1:LineNumber__c%",
+            "RecordTypeId": "%DRTAGetOpenCase:CaseOpen|1:RecordTypeId%",
+            "Status": "%DRTAGetOpenCase:StatusTranslated:CaseStatusValue%",
+            "TopicName": "=SUBSTRING(%IPGetTopicDetails:TopicPath%,9,length(%IPGetTopicDetails:TopicPath%))",
+            "Variant": "error"
+        },
+        "disOnTplt": false,
+        "executionConditionalFormula": "(%DRTAGetOpenCase:CaseOpen|1:AccountId%!=null &&  (%IPGetTopicDetails:FormType__c%=='Portabilidade' || (%IPGetTopicDetails:FormType__c%=='Processo e Retorno ao Cliente' && STRINGINDEXOF(%DRTAGetOpenCase:CaseOpen|1:CaseAssociatedPhone__c%, ';')==-1)))",
+        "label": "ResponseAction3",
+        "responseDefaultData": {
+        },
+        "responseFormat": "JSON",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "returnFullDataJSON": false,
+        "returnOnlyAdditionalOutput": true,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "show": null,
+        "useFormulas": true,
+        "vlcResponseHeaders": {
+        }
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Response Action",
+    "Name": "RACaseOpened",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ServiceFlowFormTypePreCreateCase/Procedure/RACaseOpened"
+}
