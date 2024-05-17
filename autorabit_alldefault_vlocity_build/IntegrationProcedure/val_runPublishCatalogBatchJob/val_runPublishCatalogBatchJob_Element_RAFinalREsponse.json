@@ -1,29 +1,27 @@
 {
     "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "valPublishCatalogData",
+        "Name": "val_RunPublishCatalogBatchJob",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/PublishCatalogData/Procedure",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/runPublishCatalogBatchJob/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "request": "=%DRTTransformAdditionalFields%",
-            "response": "%HTTPCatalogSync4pMOCK%",
-            "statusCode": "=%HTTPCatalogSync4pMOCKInfo:statusCode%"
+            "errorMessage": "=IF(vlcObjectList|1:ProductCode == NULL, \"Erro, nenhum produto disponível para replicação.\",\"\")"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",
-        "label": "ResponseAction2",
+        "label": "ResponseAction1",
         "responseDefaultData": {
         },
         "responseFormat": "JSON",
         "responseJSONNode": "",
         "responseJSONPath": "",
         "returnFullDataJSON": false,
-        "returnOnlyAdditionalOutput": true,
+        "returnOnlyAdditionalOutput": false,
         "sendJSONNode": "",
-        "sendJSONPath": "",
+        "sendJSONPath": "BAPublishCatalog",
         "show": null,
         "useFormulas": true,
         "vlcResponseHeaders": {
@@ -31,8 +29,8 @@
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
     "%vlocity_namespace%__Type__c": "Response Action",
-    "Name": "RAFinalResponse",
+    "Name": "RAFinalREsponse",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/PublishCatalogData/Procedure/RAFinalResponse"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/runPublishCatalogBatchJob/Procedure/RAFinalREsponse"
 }
