@@ -1,23 +1,20 @@
 {
-    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__Active__c": false,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "valCalloutRechargeInvoice",
+        "Name": "valPublishCatalogData",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CalloutRechargeInvoice/Procedure",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/PublishCatalogData/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
+        "additionalChainableResponse": {
+        },
         "additionalInput": {
-            "Account": "%DREGetAccountSAP%",
-            "Attributes": "%RAGetAttributes%",
-            "Center": "%DRTCenterDetails:Center|1%",
-            "Order": "%DREGetOrderItemSAP%",
-            "orchestrationItemId": "=%orchestration_item_id%"
+            "methods": "=LIST(\"startProductHierarchyJob\", \"clearPlatformCache\", \"refreshPriceBook\")"
         },
         "additionalOutput": {
         },
-        "bundle": "valTRSAPRecharge",
         "chainOnStep": false,
         "disOnTplt": false,
         "executionConditionalFormula": "",
@@ -25,9 +22,12 @@
         "failureConditionalFormula": "",
         "failureResponse": {
         },
-        "ignoreCache": false,
-        "label": "DataRaptorTransformAction1",
-        "responseJSONNode": "Request",
+        "label": "RemoteAction2",
+        "remoteClass": "MaintenanceJobsController",
+        "remoteMethod": "executeJobs",
+        "remoteOptions": {
+        },
+        "responseJSONNode": "",
         "responseJSONPath": "",
         "returnOnlyAdditionalOutput": false,
         "returnOnlyFailureResponse": false,
@@ -38,9 +38,9 @@
         "useFormulas": true
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
-    "%vlocity_namespace%__Type__c": "DataRaptor Transform Action",
-    "Name": "DRTSAPRequest",
+    "%vlocity_namespace%__Type__c": "Remote Action",
+    "Name": "RARunCacheJobs",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CalloutRechargeInvoice/Procedure/DRTSAPRequest"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/PublishCatalogData/Procedure/RARunCacheJobs"
 }
