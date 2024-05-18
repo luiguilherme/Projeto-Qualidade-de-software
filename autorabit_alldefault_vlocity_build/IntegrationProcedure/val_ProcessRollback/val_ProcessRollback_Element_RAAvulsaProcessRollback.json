@@ -12,8 +12,15 @@
             "RACheckout": "%RACheckoutAvulsa:messages|1:message%",
             "RAPreValidate": "%RAPreValidateAvulsa:messages|1:message%",
             "RAUnfreeze": "%RAUnfreezeOrderAvulsa:messages|1:message%",
-            "message": "=IF(%RAPreValidateAvulsaStatus% == true && %RACancelOrderAvulsaStatus% == true && %RACheckoutAvulsaStatus% == true , \"Cancelamento solicitado com sucesso.\", \"Cancelamento Rejeitado. Verifique o estado do Pedido antes de solicitar o cancelamento.\")",
-            "variant": "=IF(%RAPreValidateAvulsaStatus% == true && %RACancelOrderAvulsaStatus% == true && %RACheckoutAvulsaStatus% == true , \"success\", \"warning\")"
+            "accountId": "%DRTGetOrderByOrderId:order:AccountId%",
+            "assetId": "%DRTGetOrderItemByOrderId:orderItem:%vlocity_namespace%__AssetId__c%",
+            "customerInteractionId": "%DRTGetCustomerInteraction:customerInteraction:Id%",
+            "interactionNumber": "%DRTGetCustomerInteraction:customerInteraction:InteractionNumber__c%",
+            "lineNumber": "%DRTGetOrderItemByOrderId:orderItem:%vlocity_namespace%__ServiceIdentifier__c%",
+            "message": "=IF(%RAPreValidateAvulsaStatus% == true && %RACancelOrderAvulsaStatus% == true , \"Cancelamento solicitado com sucesso.\", \"Cancelamento Rejeitado. Verifique o estado do Pedido antes de solicitar o cancelamento.\")",
+            "orderId": "%DRTGetOrderItemByOrderId:orderItem:OrderId%",
+            "orderNumber": "%DRTGetOrderByOrderId:order:OrderNumber%",
+            "variant": "=IF(%RAPreValidateAvulsaStatus% == true && %RACancelOrderAvulsaStatus% == true , \"success\", \"warning\")"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",

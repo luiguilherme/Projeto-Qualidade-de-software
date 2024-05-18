@@ -9,7 +9,8 @@
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
             "ChannelName": "%DRTAGetChannel:Channel|1:ChannelName__c%",
-            "HaveCase": "=IF(%IPGetCaseNumberAndLineNumber:TicketNumber% == \"---\",false,true)",
+            "HasSyncFullActive": "=ISNOTBLANK(%DRTA_getCustomerInteractionTopicSyncLast24Hours:topic|1:Id%)",
+            "HaveCase": "=IF(%valGetCaseByLineNumber:TicketNumber% == \"---\",false,true)",
             "HaveProvisionalNumber": "=ISNOTBLANK(%Asset:PortabilityNumber%)",
             "HaveReasonforOperation": "=IF(%DRGetAssetFields:ReasonforOperation% == \"Roubo/Furto\" && %Asset:PortabilityInProgress% == true, true, IF(%DRGetAssetFields:ReasonforOperation% != \"Roubo/Furto\" && %Asset:PortabilityInProgress% == true, false, IF(%DRGetAssetFields:ReasonforOperation% != \"Roubo/Furto\" && %DRGetOrderInProgressByAsset:OrderExists% == \"Yes\", false, NULL)))",
             "Products": "%Asset%",
@@ -17,7 +18,7 @@
             "displayConditions": "%SvConditionButtons%",
             "message": "=IF (ISNOTBLANK(%Asset:PortabilityNumber%), \"Este número é provisório. Verifique o histórico do pedido de portabilidade e informe ao cliente sobre o andamento.\", IF(%Asset:PortabilityInProgress% == true, \"Cliente com portabilidade em andamento com a Vivo. Verifique o histórico do pedido de portabilidade e informe ao cliente sobre o andamento.\", IF(%DRGetOrderInProgressByAsset:OrderExists% == \"Yes\" , \"O cadastro do cliente possui uma ordem no Salesforce não concluida. Aguarde finalizar o processamento da Ordem\", false )))",
             "showToast": "=IF(%Asset:PortabilityInProgress% == true, true, IF(%DRGetOrderInProgressByAsset:OrderExists% == \"Yes\" , true, false))",
-            "variant": "=IF (ISNOTBLANK(%Asset:PortabilityNumber%), \"warning\", IF(%Asset:PortabilityInProgress% == true, \"warning\", IF(%DRGetOrderInProgressByAsset:OrderExists% == \"Yes\" , \"warning\", \"\" )))"
+            "variant": "=IF(ISNOTBLANK(%Asset:PortabilityNumber%), \"warning\", IF(%Asset:PortabilityInProgress% == true, \"warning\", IF(%DRGetOrderInProgressByAsset:OrderExists% == \"Yes\" , \"warning\", \"\" )))"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",

@@ -43,12 +43,29 @@
         "lwcName": "cfCpqBrowsePhaseContainer",
         "show": {
             "group": {
-                "operator": "AND",
+                "operator": "OR",
                 "rules": [
                     {
-                        "condition": "<>",
-                        "data": "ServiceManagement",
+                        "condition": "=",
+                        "data": "AdditionalPackage",
                         "field": "Functionality"
+                    },
+                    {
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "Promotion",
+                                    "field": "Functionality"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "ChangePlanPromotion",
+                                    "field": "ProcessReason"
+                                }
+                            ]
+                        }
                     }
                 ]
             }
