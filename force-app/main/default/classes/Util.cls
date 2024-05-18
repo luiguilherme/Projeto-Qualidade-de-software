@@ -33,7 +33,15 @@ public with sharing class Util {
         Matcher objMatcher = objPattern.matcher(stringValue);
 
         return objMatcher.find() ? objMatcher.group(1) : '';
-    }    
+    }
+
+    public static String getEnvironmentName() {
+        String baseUrl = URL.getOrgDomainURL().toExternalForm();
+        
+        return baseUrl.contains('--')
+            ? '.' + baseUrl.substringAfterLast('--').substringBefore('.') 
+            : '';
+    }
 
 
 }

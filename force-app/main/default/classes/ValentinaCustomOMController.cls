@@ -10,7 +10,19 @@ global with sharing class ValentinaCustomOMController implements vlocity_cmt.Vlo
                 }
                 when 'getHistoryStatus' {
                     getHistoryStatus(inputMap, outMap, options); 
-                }                
+                }
+                /*when 'getHistoryStatusSuspension'{
+                    System.debug('inputMap' + inputMap);
+                    System.debug('outMap' + outMap);
+                    System.debug('options' + options);
+                    getHistoryStatusSuspension(inputMap, outMap, options);
+                }*/
+                when 'getLastActiveStatus' {
+                    getLastActiveStatus(inputMap, outMap, options); 
+                }   
+                when 'getStatusBeforePortout' {
+                    getStatusBeforePortout(inputMap, outMap, options); 
+                }                                            
             }
 
         } catch(Exception e) {
@@ -51,6 +63,29 @@ global with sharing class ValentinaCustomOMController implements vlocity_cmt.Vlo
         frlController.invokeMethod('setAttribute', frlInputMap, frlOutputMap, options);
     }
 
+    public void getStatusBeforePortout(Map<String,Object> inputMap, Map<String,Object> outputMap, Map<String,Object> options) {
+        String status, portoutStatus;
+        List<Object> listStatusHistory = (List<Object>) inputMap.get('statusHistory');            
+        
+        if (listStatusHistory != null) {
+            Integer historySize = listStatusHistory.size();
+
+            for(Integer i=historySize; i>0; i--) {
+                Map<String,Object> statusHistory = (Map<String,Object>) listStatusHistory.get(i-1);
+                portoutStatus = (String) statusHistory.get('status');
+
+                if (portoutStatus == 'RecemPortado') {
+                    statusHistory = (Map<String,Object>) listStatusHistory.get(i-2);
+                    if (statusHistory != null) {
+                        status = (String) statusHistory.get('status');                    
+                    }
+                }
+            }
+        }
+
+        outputMap.put('status', status);
+    }   
+
     public void getHistoryStatus(Map<String,Object> inputMap, Map<String,Object> outputMap, Map<String,Object> options) {
         String actualStatus, lastStatus;
         List<Object> listStatusHistory = (List<Object>) inputMap.get('statusHistory');
@@ -69,5 +104,80 @@ global with sharing class ValentinaCustomOMController implements vlocity_cmt.Vlo
 
         outputMap.put('actualStatus', actualStatus);
         outputMap.put('lastStatus', lastStatus);
-    }    
+    } 
+
+    /*public void getHistoryStatusSuspension(Map<String,Object> inputMap, Map<String,Object> outputMap, Map<String,Object> options){
+        List<Object> listStatusHistory = (List<Object>) inputMap.get('statusHistory');
+        String StatusSF = (String)inputMap.get('StatusSF');
+        String actualStatus, newStatus;  
+        
+        if (listStatusHistory != null) {
+
+            Map<String,Object> StatusHistory = (Map<String,Object>) listStatusHistory.get(listStatusHistory.size()-1);
+   	
+        	if (StatusSF == StatusHistory.get('status')){
+                    For(integer i = listStatusHistory.size()-2;i >= 0; i--){
+                        StatusHistory = (Map<String,Object>) listStatusHistory.get(i);
+                        	if(StatusHistory.get('status') == 'SuspAFraude' || 
+                               StatusHistory.get('status') == 'SuspAPedido' || 
+                               StatusHistory.get('status') == 'SuspARoubo'){ 
+                                   if(StatusSF == 'SuspAFraude' && StatusHistory.get('status') != 'SuspAfraude'){
+                                      Map<String,Object> validFor = (Map<String,Object>) StatusHistory.get('validFor');
+                                       String endDateTimeString = (String) validFor.get('endDateTime'); 
+                                       String endDateString = endDateTimeString.substring(0,10);
+                                       Date endDateTimeWithoutTime = Date.valueOf(endDateString);
+                                       	Date currentDate = Date.today(); 
+                                       		if(endDateTimeWithoutTime >= currentDate){ 
+                                               newStatus = (String) StatusHistory.get('status');
+                                               	break;
+                                           } 
+                                   }
+                                   if(StatusSF == 'SuspARoubo' && StatusHistory.get('status') != 'SuspAfraude' || StatusHistory.get('status') != 'SuspAfraude'){ 
+                                      Map<String,Object> validFor = (Map<String,Object>) StatusHistory.get('validFor');
+                                       String endDateTimeString = (String) validFor.get('endDateTime'); 
+                                       String endDateString = endDateTimeString.substring(0,10);
+                                       Date endDateTimeWithoutTime = Date.valueOf(endDateString);
+                                       	Date currentDate = Date.today(); 
+                                       		if(endDateTimeWithoutTime >= currentDate){ 
+                                               newStatus = (String) StatusHistory.get('status');
+                                               	break;
+                                            } 
+                                   }  
+                            }
+                        	else{newStatus = (String) StatusHistory.get('status');
+								break;
+                                }
+                    }
+                }
+            else{actualStatus = (String) StatusHistory.get('status');
+			 }
+        }
+        outputMap.put('actualStatus', actualStatus);
+        outputMap.put('newStatus', newStatus);
+    }*/
+    
+    public void getLastActiveStatus(Map<String,Object> inputMap, Map<String,Object> outputMap, Map<String,Object> options){
+        List<Object> listStatusHistory = (List<Object>) inputMap.get('statusHistory');
+        String newStatus;  
+        
+        if (listStatusHistory != null) {
+            Map<String,Object> StatusHistory = (Map<String,Object>) listStatusHistory.get(listStatusHistory.size()-1);
+                    For(integer i = listStatusHistory.size()-2;i >= 0; i--){
+                        StatusHistory = (Map<String,Object>) listStatusHistory.get(i);
+                        	if(StatusHistory.get('status') != 'SuspAFraude' && 
+                               StatusHistory.get('status') != 'SuspAPedido' && 
+                               StatusHistory.get('status') != 'SuspARoubo')
+                               { 
+                                newStatus = (String) StatusHistory.get('status');
+								break;                                
+                               }
+                    }
+        } 
+        
+        else {
+            newStatus = (String) 'Sem Status declarado';
+        }
+           
+        outputMap.put('newStatus', newStatus);
+    }
 }

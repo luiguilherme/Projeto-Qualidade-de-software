@@ -5,19 +5,24 @@ export default class ValBreadcrumbs extends LightningElement {
     menuName="";    
     menuPathName= "";
     menus = [];
+    menusIds = [];    
     productType="";
     serviceTree="";
     parmActive="";
     assetId="";
     otherProduct="";
     visibleTo="";
+    showOnlyAutomaticAndManual="";
+    showTopicsCaseOpening=""; 
 
     @api get menusbyname(){
         return this.menus;
     }
     set menusbyname(value){
+        //console.log('set.menusbyname: '+value);
         if(value != '' && value.length > 0){
             this.menus = value;
+            //console.log('set.menusbyname: (IF) '+value);
         }
     }
 
@@ -80,10 +85,35 @@ export default class ValBreadcrumbs extends LightningElement {
     }
     set visibleto(value){
         this.visibleTo = value;
+    }  
+    
+    @api get showonlyautomaticandmanual(){        
+        return this.showOnlyAutomaticAndManual;
+    }
+    set showonlyautomaticandmanual(value){
+        this.showOnlyAutomaticAndManual = value;
     }    
+    
+    @api get showtopicscaseopening(){        
+        return this.showTopicsCaseOpening;
+    }
+    set showtopicscaseopening(value){
+        this.showTopicsCaseOpening = value;
+    }        
 
     menuClick(event){
-        pubsub.fire("topicSearch","baseinputvaluechange",{"value":event.target.name,"producttype":this.productType,"servicetree":this.serviceTree,"parmactive":this.parmActive,"assetid":this.assetId,"otherproduct":this.otherProduct,"visibleto":this.visibleTo});   
+        pubsub.fire("topicSearch","baseinputvaluechange",{"value":event.target.name,"producttype":this.productType,"servicetree":this.serviceTree,"parmactive":this.parmActive,"assetid":this.assetId,"otherproduct":this.otherProduct,"visibleto":this.visibleTo,"showonlyautomaticandmanual":this.showOnlyAutomaticAndManual,"showtopicscaseopening":this.showTopicsCaseOpening});
+       
+        console.log('-----------------------------');
+        console.log(this.productType);
+        console.log(this.serviceTree);
+        console.log(this.parmActive);
+        console.log(this.assetId);
+        console.log(this.otherProduct);
+        console.log(this.visibleTo);
+        console.log(this.showOnlyAutomaticAndManual);
+        console.log(this.showtopicscaseopening);
+        console.log('-----------------------------');        
     }
 
     renderedCallback(){

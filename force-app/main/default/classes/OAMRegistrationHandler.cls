@@ -199,6 +199,9 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             userRecord.LocaleSidKey         = 'pt_BR';
             userRecord.EmailEncodingKey     = 'UTF-8';
             
+            //Recuperar CNPJ atravês do código Adabas
+            userRecord.AdabasAssignedDocument__c = getAdabasAssignedDocumentByAdabasCode(userRecord.ChannelName__c, userRecord.Site__c, userRecord.Adabas__c);
+            
             if (userRecord.Id == null) {
                 insert userRecord;
             } else{
@@ -465,5 +468,45 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
         }
 
         return center;
+    }
+    
+    public String getAdabasAssignedDocumentByAdabasCode(string varChannelName, String varSite, String varAdabas)
+    {
+        system.debug('OAMRegistrationHandler.getAdabasAssignedDocumentByAdabasCode varChannelName: ' + varChannelName);
+        system.debug('OAMRegistrationHandler.getAdabasAssignedDocumentByAdabasCode varSite: ' + varSite);
+        system.debug('OAMRegistrationHandler.getAdabasAssignedDocumentByAdabasCode varAdabas: ' + varAdabas);
+        
+        string queryAdabasSite;
+        AdabasSite__c sobjectAdabasSite;
+        
+        //J110 incluir campo Status__c n consulta adabas caso necessário por conta da Carga DO Power Center      
+        if(String.isNotEmpty(varChannelName) && String.isNotEmpty(varSite) && String.isNotEmpty(varAdabas))
+        {
+            switch on varChannelName 
+            {
+                when 'Call Center', 'Lojas Proprias' 
+                {
+                    queryAdabasSite = ' SELECT Name, AdabasCode__c, CNPJ__c FROM AdabasSite__c WHERE AdabasCode__c =: varSite';                
+                }
+                
+                when 'Lojas Revendas'
+                {                
+                    queryAdabasSite = ' SELECT Name, AdabasCode__c, CNPJ__c FROM AdabasSite__c WHERE AdabasCode__c =: varAdabas';                 
+                }            
+            }
+            
+            queryAdabasSite = queryAdabasSite + ' LIMIT 1';
+        }
+        
+        System.debug('OAMRegistrationHandler.getAdabasAssignedDocumentByAdabasCode queryAdabasSite: ' + queryAdabasSite); 
+        
+        if(queryAdabasSite != null)
+        {             
+            sobjectAdabasSite = Database.query(queryAdabasSite);            
+        }
+        
+        system.debug('OAMRegistrationHandler.getAdabasAssignedDocumentByAdabasCode sobjectAdabasSite: ' + sobjectAdabasSite);
+        
+        return (sobjectAdabasSite?.CNPJ__c != null) ? sobjectAdabasSite?.CNPJ__c : '';
     }
 }

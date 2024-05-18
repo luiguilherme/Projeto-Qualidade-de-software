@@ -6,7 +6,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
 {
     global Boolean invokeMethod(String methodName, Map<String, Object> inputs, Map<String, Object> output, Map<String, Object> options)
     {
-        System.Debug('Entrou no método');  
+        System.Debug('Entrou no CustomFunctionService');  
         List<Object> arguments = (List<Object>) inputs.get('arguments');
         
         switch on methodName {
@@ -22,8 +22,12 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             {output.put('result', validateCNPJ(arguments));}
             when 'mapKeysValues' 
             {output.put('result', mapKeysValues(arguments));}  
+            when 'mapKeysValuesSmart' 
+            {output.put('result', mapKeysValuesSmart(arguments));}              
             when 'trim' 
             {output.put('result', trimValues(arguments));}   
+            when 'trimClass'
+            {output.put('result', trimClass(arguments));}
             when 'length' 
             {output.put('result', length(arguments));}               
             when 'formatDate' 
@@ -37,7 +41,9 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             when 'replaceString' 
             {output.put('result', replaceString(arguments));} 
             when 'replaceBackslashTopicName'
-            {output.put('result', replaceBackslashTopicName(arguments));}                     
+            {output.put('result', replaceBackslashTopicName(arguments));}            
+            when 'replacePhoneCaracters'
+            {output.put('result', replacePhoneCaracters(arguments));}            
             when 'GetListRange' 
             {output.put('result', GetListRange(arguments));}
             when 'convertByte' 
@@ -68,6 +74,12 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             {output.put('result', mapAttributes(inputs));}
             when 'getUserInCommunity'
             {output.put('result', getUserInCommunity(arguments));}
+            when 'getDependentPicklist'
+            {output.put('result', getDependentPicklist(arguments));}
+            when 'getDatetimeLast24Hours'
+            {output.put('result', getDatetimeLast24Hours(arguments));}
+            when 'getCalcDateCase'
+            {output.put('result', getCalcDateCase(arguments));}
             when 'convertPicklistAPINameToLabel'
             {output.put('result', convertPicklistAPINameToLabel(arguments));}
             when 'convertCurrencyToNumber'
@@ -76,10 +88,10 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             {output.put('result', listToCommaSeparatedValues(arguments));}
             when 'contains'
             {output.put('result', contains(arguments));}
-            when 'getDependentPicklist'
-            {output.put('result', getDependentPicklist(arguments));}
             when 'base64Decode'
-            {output.put('result', base64Decode(arguments));}
+            {output.put('result', base64Decode(arguments));}            
+            when 'convertObjectToList'
+            {output.put('result', convertObjectToList(arguments));}                        
         }
         return true;
     }
@@ -202,10 +214,8 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         else dig11 = r;
         
         if (dig10 == Integer.valueOf(cpfString[9]) && dig11 == Integer.ValueOf(cpfString[10])){
-            system.debug('Kaiser -> :'+true);
             return true;
         }else{
-            system.debug('Kaiser -> :'+false);
             return false;
         }
     }    
@@ -286,9 +296,24 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         //Saída do método é um mapa de string,string formado por chaves de names e valores de values.
         Map<String,String> mapKeysValues = new Map<String,String>();
         Map<String,Object> argumentMap = new Map<String,Object>();
-        for(Object obj : argument) {
-            argumentMap = (Map<String,Object>) obj;
-            mapKeysValues.put((String) argumentMap.get('name'),(String) argumentMap.get('value'));
+
+            for(Object obj : argument) {
+                argumentMap = (Map<String,Object>) obj;
+                mapKeysValues.put((String) argumentMap.get('name'),(String) argumentMap.get('value'));
+        }
+        return mapKeysValues;
+    }
+
+    Map<String,String> mapKeysValuesSmart(List<Object> argument)
+    {
+        //Entrada do método é uma lista de objetos. Cada objeto deve conter uma chave name e uma chave value.
+        //Saída do método é um mapa de string,string formado por chaves de names e valores de values.
+        Map<String,String> mapKeysValues = new Map<String,String>();
+        Map<String,Object> argumentMap = new Map<String,Object>();
+
+            for(Object obj : argument) {
+                argumentMap = (Map<String,Object>) obj;
+                mapKeysValues.put((String) argumentMap.get('id'),(String) argumentMap.get('status'));
         }
         return mapKeysValues;
     }
@@ -311,7 +336,12 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         String value = (String) argument[0];  
         
         return value.replace(' ', '');       
-    }     
+    }   
+    String trimClass(List<Object> argument) {
+        String value = (String) argument[0];  
+        
+        return value.trim();
+    }   
     
     Integer length(List<Object> argument) {
         String value = (String) argument[0];
@@ -469,7 +499,19 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         
         return stringToReplace.replace(searchString, replacementString);
     }    
+    
+    /*
+	* Autor....: Guilherme Kaiser - Deloitte
+	* Projeto..: Vivo - VALENTINA
+	* Descrição: Método criado para remover máscara de telefone
+	* Data.....: 16/01/2024
+	*/	    
+    public static String replacePhoneCaracters(List<Object> argument){
+        
+        String stringToReplace = (String) argument[0];
 
+        return stringToReplace.replaceAll('[^0-9]', '');
+    }
     
     public static List<Object> GetListRange(List<Object> arguments){
         try{
@@ -738,98 +780,12 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     public static Boolean getUserInCommunity(List<Object> arguments) {
         String sfdcBaseURL = URL.getCurrentRequestUrl().toExternalForm();
         String strValue = String.valueOf( sfdcBaseURL );
-        system.debug('url...'+ strValue);        
+        //system.debug('url...'+ strValue);        
         
         return strValue.Contains('my.site.com');
     }        
-
     
-    /*
-    * Autor....: Pedro Richtmann - Deloitte
-    * Projeto..: Vivo - VALENTINA
-    * Descrição: Método para picklis entry API Value para Lable
-    * Data.....: 24/11/2023
-    */ 
     
-    public static String convertPicklistAPINameToLabel(List<Object> arguments) {
-        
-        String sobjName = (String) arguments[0];
-        String objField = (String) arguments[1];
-        String fieldApiValue = (String) arguments[2];
-        
-        List < sObject > sList =Database.query('SELECT toLabel(' + objField + ') fieldLabel, ' + objField + ' FROM ' + sobjName + ' WHERE ' + objField + ' = \'' + fieldApiValue + '\' LIMIT 1' );
-        
-        if ( !sList.isEmpty()){
-            
-            String s =  JSON.serialize(sList[0]);
-            
-            Map<String, Object> m = (Map<String, Object>) JSON.deserializeUntyped(s);
-            String result = String.valueOf(m.get('fieldLabel'));
-            
-            return result;   
-        }
-        
-        return 'Valor nao encontrado';   
-    }
-    
-    /*
-    * Autor....: Eduardo Murakami - Deloitte
-    * Projeto..: Vivo - VALENTINA
-    * Descrição: Método para recuperar data e hora das últimas 24h
-    * Data.....: 05/01/2024
-    */
-    public static Decimal convertCurrencyToNumber(List<Object> argument) {
-        String currencyValue = (String) argument[0];
-        Decimal convertedAmount=0;
-        
-        if (currencyValue != null) {
-            // Remove o 'R$ ' da string de moeda, deixando apenas o valor numérico
-            String numericPart = currencyValue.replaceAll('[^0-9.]', '');
-            
-            convertedAmount = Decimal.valueOf(numericPart)/100;
-            System.Debug(numericPart);
-        }
-        
-        System.Debug(currencyValue);
-        System.Debug(convertedAmount);
-        return convertedAmount;
-    }
-    
-    /*
-    * Autor....: Eduardo Murakami - Deloitte
-    * Projeto..: Vivo - VALENTINA
-    * Descrição: Método concatenar os valores de uma lista em uma String
-    * Data.....: 11/01/2024
-    */
-    public static String listToCommaSeparatedValues(List<Object> argument) {
-        
-        System.Debug('Entrou no método');  
-        
-        List<String> tmp1 = new List<String>();
-        String idString;
-        
-        for(Object obj : argument){
-            tmp1.add(String.valueOf(obj));
-        }
-        
-        idString = string.join(tmp1,',');
-        
-        System.Debug(tmp1);
-        System.Debug(idString);
-        return idString;
-        
-    }
-    
-    // Método para verificar se a string contém o valor especificado
-    public static Boolean contains(List<Object> argument) {
-        String inputString =  (String) argument[0];
-        String valueToCheck =  (String) argument[1];
-        if (inputString != null && valueToCheck != null) {
-            return inputString.contains(valueToCheck);
-        }
-        return false;
-    }
-
     /*
     * Autor....: Guilherme Kaiser - Deloitte
     * Projeto..: Vivo - VALENTINA
@@ -839,8 +795,9 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     public class MyPickListInfo {
         public String validFor;    
     }
-
+    
     public static List<Map<String, String>> getDependentPicklist(List<Object> arguments){
+        
         String objectName       	= (String) arguments[0];
         String controllingField 	= (String) arguments[1];
         String dependentField   	= (String) arguments[2];
@@ -863,7 +820,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
                 controllingInfo.put(currControllingValue.getLabel(),new List<String>());
             }
         }
-
+        
         for (Schema.PicklistEntry currDependentValue:dependentValues){
             String  jsonString  = JSON.serialize(currDependentValue) ;
             MyPickListInfo info = (MyPickListInfo)  JSON.deserialize(jsonString,MyPickListInfo.class) ;            
@@ -908,6 +865,164 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     }
     
     /*
+    * Autor....: Guilherme Kaiser - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método para recuperar data e hora das últimas 24h
+    * Data.....: 09/11/2023
+    */
+    public static Datetime getDatetimeLast24Hours(List<Object> arguments) {  
+        Integer  qtyHours	= (Integer.valueOf(arguments[0])!=null ? Integer.valueOf(arguments[0]) : 24);
+        Datetime d 			= datetime.now().addhours(-qtyHours);
+        return d;
+    }
+    
+    /*
+    * Autor....: Guilherme Kaiser - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método para Calcular a data de início e término do Caso
+    * Data.....: 12/12/2023
+    */    
+    public static DateTime getCalcDateCase(List<Object> arguments){
+        
+        Date    startDate			= Date.valueOf(arguments[0]);
+        Integer  qtyDays		 	= Integer.valueOf(arguments[1]);
+        String  func     		 	= String.valueOf(arguments[2]);
+        Date    endDate;
+        
+        //if(func=='EndDate'){
+        //            qtyDays--;
+        //      }
+        
+        endDate = startDate.addDays(qtyDays);
+        //System.debug('startDate.: '+startDate);        
+        //System.debug('endDate  .: '+endDate);
+        //System.debug('func     .: '+func);        
+        
+        Map<Integer, Set<Date>> holidaysMap = new Map<Integer, Set<Date>>();
+        
+        for (Holiday currHoliday : [SELECT ActivityDate FROM Holiday]) {
+            Integer holidayMonth = currHoliday.ActivityDate.month();
+            if (!holidaysMap.containsKey(holidayMonth)) {
+                holidaysMap.put(holidayMonth, new Set<Date>());
+            }
+            holidaysMap.get(holidayMonth).add(currHoliday.ActivityDate);
+        }
+        
+        Set<Date> holidaysSet = holidaysMap.containsKey(startDate.month()) ?
+            holidaysMap.get(startDate.month()) : new Set<Date>();
+        
+        if((endDate.month()>startDate.month()) && holidaysMap.containsKey(endDate.month()+1)){
+            holidaysSet.AddAll(holidaysMap.get(endDate.month()+1));
+        }
+        
+        System.debug('-----------------------------------------------');
+        for (Date dt = startDate; dt <= endDate; dt = dt.addDays(1)) {
+            DateTime currDate = DateTime.newInstance(dt.year(), dt.month(), dt.day());
+            String weekDay = currDate.format('EEEE');
+            
+            if (func == 'SegSex' && (weekDay == 'Saturday' || weekDay == 'Sunday' || holidaysSet.contains(dt))) {
+                endDate = endDate.AddDays(1);
+            } else if (func == 'SegSab' && (weekDay == 'Sunday' || holidaysSet.contains(dt))) {
+                endDate = endDate.AddDays(1);
+            } else if (func == 'SegDom' && (holidaysSet.contains(dt))) {
+                endDate = endDate.AddDays(1);
+            }
+            
+            //system.debug('weekDay.: '+ weekDay);    
+            //system.debug('dt.: '+ dt);
+            //system.debug('holidaySet .: '+holidaysSet.contains(dt) );
+            //system.debug('endDate .: '+ endDate);
+        }
+        return DateTime.newInstance(endDate.year(), endDate.month(), endDate.day(),0,0,0);
+    }
+    
+    /*
+    * Autor....: Pedro Richtmann - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método para picklis entry API Value para Lable
+    * Data.....: 24/11/2023
+    */ 
+    
+    public static String convertPicklistAPINameToLabel(List<Object> arguments) {
+        
+        String sobjName = (String) arguments[0];
+        String objField = (String) arguments[1];
+        String fieldApiValue = (String) arguments[2];
+        
+        List < sObject > sList =Database.query('SELECT toLabel(' + objField + ') fieldLabel, ' + objField + ' FROM ' + sobjName + ' WHERE ' + objField + ' = \'' + fieldApiValue + '\' LIMIT 1' );
+        
+        if ( !sList.isEmpty()){
+            
+            String s =  JSON.serialize(sList[0]);
+            
+            Map<String, Object> m = (Map<String, Object>) JSON.deserializeUntyped(s);
+            String result = String.valueOf(m.get('fieldLabel'));
+            
+            return result;   
+        }
+        
+        return 'Valor nao encontrado';   
+    }
+    
+    /*
+    * Autor....: Eduardo Murakami - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método para recuperar data e hora das últimas 24h
+    * Data.....: 05/01/2024
+    */
+    public static Decimal convertCurrencyToNumber(List<Object> argument) {
+        String currencyValue = (String) argument[0];
+        Decimal convertedAmount=0;
+        
+        if (currencyValue != null) {
+            // Remove o 'R$ ' da string de moeda, deixando apenas o valor numérico
+            String numericPart = currencyValue.replaceAll('[^0-9.]', '');
+            
+            convertedAmount = Decimal.valueOf(numericPart)/100;
+            //System.Debug(numericPart);
+        }
+        
+        //System.Debug(currencyValue);
+        //System.Debug(convertedAmount);
+        return convertedAmount;
+    }
+    
+    /*
+    * Autor....: Eduardo Murakami - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método concatenar os valores de uma lista em uma String
+    * Data.....: 11/01/2024
+    */
+    public static String listToCommaSeparatedValues(List<Object> argument) {
+        
+        System.Debug('Entrou no método');  
+        
+        List<String> tmp1 = new List<String>();
+        String idString;
+        
+        for(Object obj : argument){
+            tmp1.add(String.valueOf(obj));
+        }
+        
+        idString = string.join(tmp1,',');
+        
+        System.Debug(tmp1);
+        System.Debug(idString);
+        return idString;
+        
+    }
+    
+    // Método para verificar se a string contém o valor especificado
+    public static Boolean contains(List<Object> argument) {
+        String inputString =  (String) argument[0];
+        String valueToCheck =  (String) argument[1];
+        if (inputString != null && valueToCheck != null) {
+            return inputString.contains(valueToCheck);
+        }
+        return false;
+    }
+
+    /*
     * Autor....: Leonardo Vendrame
     * Projeto..: Contestação Faturas-NTT
     * Descrição: Método para decodificar base64
@@ -920,4 +1035,25 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         return decodedBlob.toString();
     }
 
+	/*
+    * Autor....: Alexandre Galante
+    * Projeto..: Valentina
+    * Descrição: Converter Object para Lista
+    * Data.....: 12/04/2024
+    */        
+	public static LIST<Map<String, Object>> convertObjectToList(List<Object> arguments)
+    {
+        try{
+            LIST<Map<String, Object>> result = new LIST<Map<String, Object>>();
+            Map<String,Object> inputlist = (Map<String,Object>)arguments[0];
+            String key = (String)arguments[1];
+            List<Object> listofElements = (List<Object>)inputlist.get('VLOCITY-FORMULA-LIST');
+            for(Object str : listofElements){
+                result.add(new Map<String,Object>{key => str});
+            }
+            return result;
+        }catch(Exception e){
+            return new LIST<Map<String, Object>>();
+        }    
+    }
 }

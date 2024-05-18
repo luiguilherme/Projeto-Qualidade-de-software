@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <SObjectType>Case</SObjectType>
+    <active>true</active>
+    <businessHours>SegSex</businessHours>
+    <entryStartDateField>Case.SlaStartDateHandling__c</entryStartDateField>
+    <exitCriteriaBooleanFilter>1 OR 2</exitCriteriaBooleanFilter>
+    <exitCriteriaFilterItems>
+        <field>Case.Status</field>
+        <operation>equals</operation>
+        <value>On Return</value>
+    </exitCriteriaFilterItems>
+    <exitCriteriaFilterItems>
+        <field>Case.Status</field>
+        <operation>equals</operation>
+        <value>Closed</value>
+    </exitCriteriaFilterItems>
+    <milestones>
+        <businessHours>SegSex</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.SlaCaseHandling__c</field>
+            <operation>equals</operation>
+            <value>Grupo de Atendimento - Fraude</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.SlaDueDate__c</field>
+            <operation>equals</operation>
+            <value>2 dias úteis</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Tempo de resolução</milestoneName>
+        <minutesToComplete>2880</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>FinalHoursAlertFraude</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-24</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>OutOfTimeAlertFraude</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>SegSex</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.SlaCaseHandling__c</field>
+            <operation>equals</operation>
+            <value>Grupo de Atendimento - Fraude</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.SlaDueDate__c</field>
+            <operation>equals</operation>
+            <value>5 dias úteis</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Tempo de resolução</milestoneName>
+        <minutesToComplete>7200</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>OutOfTimeAlertFraude2</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>FinalHoursAlertFraude2</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-24</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+</EntitlementProcess>
