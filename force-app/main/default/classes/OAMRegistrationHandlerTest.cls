@@ -31,11 +31,6 @@ private class OAMRegistrationHandlerTest {
 
         insert lContact2;
         
-        AdabasSite__c sobjectAdabasSite = new AdabasSite__c();
-        sobjectAdabasSite.AdabasCode__c = '1';
-        sobjectAdabasSite.CNPJ__c = '123123123000122';
-        sobjectAdabasSite.Name = 'Loja Morumbi';
-        insert sobjectAdabasSite;       
     }
     
     //INTERNO
@@ -55,9 +50,9 @@ private class OAMRegistrationHandlerTest {
                                                          'active' => '1',
                                                          'role' => 'TelefonicaBrasil',
                                                          'sub' => 'teste@salesforce.com.br',
-                                                         'adabas' => '1',
-                                                         'canal_atendimento' => 'Call Center',
-                                                         'site' => '1',
+                                                         'adabas' => 'teste',
+                                                         'canal_atendimento' => 'teste',
+                                                         'site' => 'teste',
                                                          'escritorio_vendas' => 'L111-MORUMBI',
                                                          'permission_sets' => ''});
         User u = handler.createUser(null, sampleData);
@@ -76,9 +71,9 @@ private class OAMRegistrationHandlerTest {
                                            'active' => '1',
                                            'role' => 'TelefonicaBrasil',
                                            'sub' => 'teste@salesforce.com.br',
-                                           'adabas' => '1',
-                                           'canal_atendimento' => 'Call Center',
-                                           'site' => '1',
+                                           'adabas' => 'teste',
+                                           'canal_atendimento' => 'teste',
+                                           'site' => 'teste',
                                            'escritorio_vendas' => 'L111-MORUMBI',
                                            'permission_sets' => ''});
         
@@ -114,9 +109,9 @@ private class OAMRegistrationHandlerTest {
                                                              'CNPJ' => '112233445566',
                                                              'active' => '1',
                                                              'role' => 'VendasAliado',
-                                                             'adabas' => '1',
-                                                             'canal_atendimento' => 'Call Center',
-                                                             'site' => '1',
+                                                             'adabas' => 'teste',
+                                                             'canal_atendimento' => 'teste',
+                                                             'site' => 'teste',
                                                              'escritorio_vendas' => 'L111-MORUMBI',
                                                              'sub' => 'teste@salesforce.com.br',
                                                              'permission_sets' => ''});
@@ -136,9 +131,9 @@ private class OAMRegistrationHandlerTest {
                                                'active' => '1',
                                                'role' => 'VendasAliado',
                                                'sub' => 'teste@salesforce.com.br',
-                                               'adabas' => '1',
-                                               'canal_atendimento' => 'Lojas Revendas',
-                                               'site' => '1',
+                                               'adabas' => 'teste',
+                                               'canal_atendimento' => 'teste',
+                                               'site' => 'teste',
                                                'escritorio_vendas' => 'L111-MORUMBI',
                                                'permission_sets' => ''});
             handler.updateUser(uid.id, null, sampleData);
@@ -176,9 +171,9 @@ private class OAMRegistrationHandlerTest {
                                                              'CNPJ' => '112233445566',
                                                              'active' => '1',
                                                              'role' => 'MasterTelefonicaBrasil',
-                                                             'adabas' => '1',
-                                                             'canal_atendimento' => 'Loja Revendas',
-                                                             'site' => '1',
+                                                             'adabas' => 'teste',
+                                                             'canal_atendimento' => 'teste',
+                                                             'site' => 'teste',
                                                              'escritorio_vendas' => 'L111-MORUMBI',
                                                              'sub' => '',
                                                              'permission_sets' => ''});
@@ -262,9 +257,9 @@ private class OAMRegistrationHandlerTest {
                                                          'active' => '1',
                                                          'role' => 'TelefonicaBrasil',
                                                          'sub' => 'teste@salesforce.com.br',
-                                                         'adabas' => '1',
-                                                         'canal_atendimento' => 'Call Center',
-                                                         'site' => '1',
+                                                         'adabas' => 'teste',
+                                                         'canal_atendimento' => 'teste',
+                                                         'site' => 'teste',
                                                          'escritorio_vendas' => 'L111-MORUMBI',
                                                          'permission_sets' => ''});
         User u = handler.createUser(null, sampleData);
@@ -283,9 +278,9 @@ private class OAMRegistrationHandlerTest {
                                            'active' => '1',
                                            'role' => 'TelefonicaBrasil',
                                            'sub' => 'teste@salesforce.com.br',
-                                           'adabas' => '1',
-                                           'canal_atendimento' => 'Call Center',
-                                           'site' => '1',
+                                           'adabas' => 'teste',
+                                           'canal_atendimento' => 'teste',
+                                           'site' => 'teste',
                                            'escritorio_vendas' => '0',
                                            'permission_sets' => ''});
         
