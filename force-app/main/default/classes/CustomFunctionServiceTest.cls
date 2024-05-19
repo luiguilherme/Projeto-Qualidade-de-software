@@ -131,7 +131,24 @@ public class CustomFunctionServiceTest {
         CustomFunctionService c = new CustomFunctionService();
         c.invokeMethod('mapKeysValues', inputs, output, options);
         System.debug(output);
-    }   
+    }  
+    
+    @isTest    
+    public static void mapKeysValuesSmart(){
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+        Map<String, String> obj = new Map<String, String>();
+        obj.put('id','id');
+        obj.put('status','status');
+        List<object> objectList = new List<object>();
+        objectList.add((Object) obj);
+        inputs.put('arguments',objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('mapKeysValuesSmart', inputs, output, options);
+        System.debug(output);
+    }      
     
     @isTest
     public static void testTrim(){
@@ -147,7 +164,20 @@ public class CustomFunctionServiceTest {
         c.invokeMethod('trim', inputs, output, options);
         System.assertEquals('teste', output.get('result'));
     }
-
+    @isTest    
+    public static void testTrimClass(){
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+        
+        List<object> objectList = new List<object>();
+        objectList.add(' tes te ');
+        inputs.put('arguments',objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('trimClass', inputs, output, options);
+        System.assertEquals('tes te', output.get('result'));
+    }
     @isTest    
     public static void testlength(){
         Map<String, Object> inputs = new Map<String, Object>();
@@ -858,6 +888,31 @@ public class CustomFunctionServiceTest {
         System.assert(output.get('result') != null);
     }
     
+    
+    @isTest
+    public static void testgetDependentPicklist(){
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<object> objectList = new List<object>();
+        objectList.add('CustomerInteractionTopicTree__c');
+        //objectList.add('CaseHandling__c');
+        //objectList.add('SLA__c');
+        //objectList.add('Grupo de Atendimento - Ouvidoria');
+        objectList.add('ProductType__c');
+        objectList.add('Instance__c');
+        objectList.add('Pós/Controle');
+
+        inputs.put('arguments', objectList);
+        
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getDependentPicklist', inputs, output, options);
+        System.debug(output);
+        //System.assertEquals('({Key=10 dias corridos, Value=10 dias corridos, label=10 dias corridos, value=10 dias corridos})', String.valueOf(output.get('result')));
+        System.assertEquals('({Key=CONTROLE, Value=CONTROLE, label=CONTROLE, value=CONTROLE}, {Key=PÓS-PAGO, Value=PÓS-PAGO, label=PÓS-PAGO, value=PÓS-PAGO})', String.valueOf(output.get('result')));
+    }
+	
 	
     @isTest
     public  static void testconvertPicklistAPINameToLabel(){
@@ -930,25 +985,23 @@ public class CustomFunctionServiceTest {
         System.debug(output);
         System.assert(output.get('result') == 'Test String');
     }
-
-    @isTest
-    public static void testgetDependentPicklist(){
+ 
+/*    @isTest
+    static void testConvertObjectToList() {    
         Map<String, Object> inputs = new Map<String, Object>();
         Map<String, Object> output = new Map<String, Object>();
         Map<String, Object> options = new Map<String, Object>();
 
-        List<object> objectList = new List<object>();
-        objectList.add('CustomerInteractionTopicTree__c');
-        objectList.add('ProductType__c');
-        objectList.add('Instance__c');
-        objectList.add('Pós/Controle');
-
-        inputs.put('arguments', objectList);
+        List<Object> testList = new List<Object>{'21', '22', '23'};
+        
+        inputs.put('arguments',testList);
+        inputs.put('arguments','DDD');
         
         CustomFunctionService c = new CustomFunctionService();
-        c.invokeMethod('getDependentPicklist', inputs, output, options);
-        System.debug(output);
-        System.assertEquals('({Key=CONTROLE, Value=CONTROLE, label=CONTROLE, value=CONTROLE}, {Key=PÓS-PAGO, Value=PÓS-PAGO, label=PÓS-PAGO, value=PÓS-PAGO})', String.valueOf(output.get('result')));
-    }
-
+        c.invokeMethod('convertObjectToList', inputs, output, options);
+        System.debug(output);      
+        System.assertEquals('({DDD=21},{DDD=22},{DDD=23})', String.valueOf(output.get('result')));
+        
+    }    
+*/
 }

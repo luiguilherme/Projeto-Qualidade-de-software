@@ -113,12 +113,175 @@
 		inputMap.put('statusHistory', listHistory);      
 
         Test.startTest();
-        
         controller.invokeMethod('getHistoryStatus', inputMap, outputMap, options); 
-
         System.assertEquals('Ativo', outputMap.get('actualStatus'));
         System.assertEquals('PreAtivo', outputMap.get('lastStatus'));
-
         Test.stopTest();
     }    
+
+    /*@isTest static void testGetHistoryStatusSuspension(){
+        ValentinaCustomOMController controller = new ValentinaCustomOMController();
+        
+        Map<String,Object> inputMap = new Map<String,Object>();
+        Map<String,Object> outputMap  = new Map<String,Object>();
+        Map<String,Object> options  = new Map<String,Object>();
+          
+        Map<String,Object> mapHistory1 = new Map<String,Object>();
+        mapHistory1.put('status', 'Ativo');
+
+        Map<String,Object> mapHistory2 = new Map<String,Object>();
+        mapHistory2.put('status', 'SuspARoubo');
+        mapHistory2.put('validFor', new Map<String,Object>{'endDateTime' => '2023-12-12T01:59:59.999Z'} );
+        
+        Map<String,Object> mapHistory3 = new Map<String,Object>();
+        mapHistory3.put('status', 'SuspARoubo');
+        mapHistory3.put('validFor', new Map<String,Object>{'endDateTime' => '2023-11-11T04:09:00.999Z'} );
+        
+        List<Object> listHistory = new List<Object>();
+        listHistory.add(mapHistory1);
+        listHistory.add(mapHistory2);
+        listHistory.add(mapHistory3);
+
+		inputMap.put('statusHistory', listHistory);
+        inputMap.put('StatusSF', 'SuspARoubo');
+
+        Test.startTest();
+        
+        controller.invokeMethod('getHistoryStatusSuspension', inputMap, outputMap, options); 
+
+        System.assertEquals(null, outputMap.get('actualStatus'));
+        System.assertEquals('SuspARoubo', outputMap.get('newStatus'));
+
+        Test.stopTest();
+    }*/    
+    
+    /*@isTest static void testGetHistoryStatusSuspensionAtivo(){
+        ValentinaCustomOMController controller = new ValentinaCustomOMController();
+        
+        Map<String,Object> inputMap = new Map<String,Object>();
+        Map<String,Object> outputMap  = new Map<String,Object>();
+        Map<String,Object> options  = new Map<String,Object>();
+          
+        Map<String,Object> mapHistory1 = new Map<String,Object>();
+        mapHistory1.put('status', 'SuspARoubo');
+        mapHistory1.put('validFor', new Map<String,Object>{'endDateTime' => '2023-12-12T01:59:59.999Z'} );
+
+        Map<String,Object> mapHistory2 = new Map<String,Object>();
+        mapHistory2.put('status', 'Ativo');
+        
+        List<Object> listHistory = new List<Object>();
+        listHistory.add(mapHistory1);
+        listHistory.add(mapHistory2);
+
+		inputMap.put('statusHistory', listHistory);
+        inputMap.put('StatusSF', 'SuspARoubo');
+
+        Test.startTest();
+        
+        controller.invokeMethod('getHistoryStatusSuspension', inputMap, outputMap, options); 
+
+        System.assertEquals('Ativo', outputMap.get('actualStatus'));
+        System.assertEquals(null, outputMap.get('newStatus'));
+
+        Test.stopTest();
+    }*/  
+    
+    /*@isTest static void testGetHistoryStatusSuspensionFraude(){
+        ValentinaCustomOMController controller = new ValentinaCustomOMController();
+        
+        Map<String,Object> inputMap = new Map<String,Object>();
+        Map<String,Object> outputMap  = new Map<String,Object>();
+        Map<String,Object> options  = new Map<String,Object>();
+          
+        Map<String,Object> mapHistory1 = new Map<String,Object>();
+        mapHistory1.put('status', 'Ativo');
+
+        Map<String,Object> mapHistory2 = new Map<String,Object>();
+        mapHistory2.put('status', 'SuspARoubo');
+        mapHistory2.put('validFor', new Map<String,Object>{'endDateTime' => '2023-12-12T01:59:59.999Z'} );
+        
+        Map<String,Object> mapHistory3 = new Map<String,Object>();
+        mapHistory3.put('status', 'SuspAFraude');
+        mapHistory3.put('validFor', new Map<String,Object>{'endDateTime' => '2023-11-11T04:09:00.999Z'} );
+        
+        List<Object> listHistory = new List<Object>();
+        listHistory.add(mapHistory1);
+        listHistory.add(mapHistory2);
+        listHistory.add(mapHistory3);
+
+		inputMap.put('statusHistory', listHistory);
+        inputMap.put('StatusSF', 'SuspAFraude');
+
+        Test.startTest();
+        
+        controller.invokeMethod('getHistoryStatusSuspension', inputMap, outputMap, options); 
+
+        System.assertEquals(null, outputMap.get('actualStatus'));
+        System.assertEquals('SuspARoubo', outputMap.get('newStatus'));
+
+        Test.stopTest();
+    }*/  	
+
+    @isTest static void testGetLastActiveStatus(){
+        ValentinaCustomOMController controller = new ValentinaCustomOMController();
+        
+        Map<String,Object> inputMap = new Map<String,Object>();
+        Map<String,Object> outputMap  = new Map<String,Object>();
+        Map<String,Object> options  = new Map<String,Object>();
+          
+        Map<String,Object> mapHistory1 = new Map<String,Object>();
+        mapHistory1.put('status', 'PreAtivo');  
+        
+        Map<String,Object> mapHistory2 = new Map<String,Object>();
+        mapHistory2.put('status', 'Ativo'); 
+        
+        Map<String,Object> mapHistory3 = new Map<String,Object>();
+        mapHistory3.put('status', 'SuspAPedido');         
+        
+        List<Object> listHistory = new List<Object>();
+        listHistory.add(mapHistory1);
+        listHistory.add(mapHistory2);
+        listHistory.add(mapHistory3);
+
+		inputMap.put('statusHistory', listHistory);      
+
+        Test.startTest();
+        controller.invokeMethod('getLastActiveStatus', inputMap, outputMap, options); 
+        System.assertEquals('Ativo', outputMap.get('newStatus'));
+        Test.stopTest();
+    }  
+
+   
+    @isTest static void testGetStatusBeforePortout(){
+        ValentinaCustomOMController controller = new ValentinaCustomOMController();
+        
+        Map<String,Object> inputMap = new Map<String,Object>();
+        Map<String,Object> outputMap  = new Map<String,Object>();
+        Map<String,Object> options  = new Map<String,Object>();
+          
+        Map<String,Object> mapHistory1 = new Map<String,Object>();
+        mapHistory1.put('status', 'PreAtivo');
+
+        Map<String,Object> mapHistory2 = new Map<String,Object>();
+        mapHistory2.put('status', 'Ativo');   
+        
+        Map<String,Object> mapHistory3 = new Map<String,Object>();
+        mapHistory3.put('status', 'RecemPortado'); 
+
+        Map<String,Object> mapHistory4 = new Map<String,Object>();
+        mapHistory4.put('status', 'Desativado');         
+        
+        List<Object> listHistory = new List<Object>();
+        listHistory.add(mapHistory1);
+        listHistory.add(mapHistory2);
+        listHistory.add(mapHistory3);
+        listHistory.add(mapHistory4);
+
+		inputMap.put('statusHistory', listHistory);      
+
+        Test.startTest();
+        controller.invokeMethod('getStatusBeforePortout', inputMap, outputMap, options); 
+        System.assertEquals('Ativo', outputMap.get('status'));
+        Test.stopTest();
+    }      	
 }
