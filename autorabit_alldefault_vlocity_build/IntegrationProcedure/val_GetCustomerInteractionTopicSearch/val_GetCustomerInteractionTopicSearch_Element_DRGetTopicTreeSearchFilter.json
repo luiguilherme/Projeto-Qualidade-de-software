@@ -15,8 +15,7 @@
             "LineType": "=%SVRelationshipTopic:LineType%",
             "ProductType": "=IF((ISNOTBLANK(%SVRelationshipTopic:AssetType%),%SVRelationshipTopic:AssetType%, %ProductType%)",
             "Segmentation": "=%SVRelationshipTopic:CustomerSegment%",
-            "ServiceTree": "=%SVRelationshipTopic:ServiceTree%",
-            "VisibleTo": "=%SVRelationshipTopic:VisibleTo%"
+            "ServiceTree": "=%ServiceTree%"
         },
         "additionalOutput": {
         },
@@ -25,7 +24,7 @@
         "dataRaptor Input Parameters": [
         ],
         "disOnTplt": false,
-        "executionConditionalFormula": "(%SelectedFunction% == 'RelationshipTopic' || %SelectedFunction% == 'RelationshipTopicFront')  && ((ISNOTBLANK(%SVRelationshipTopic:AssetType%) && (%SVRelationshipTopic:AssetType% == 'Pre')) || (ISBLANK(%SVRelationshipTopic:AssetType%) && ( %ProductType% == 'Pre')) && %SVRelationshipTopic:ShowOnlyAutomaticAndManual%==false && %SVRelationshipTopic:ShowTopicsCaseOpening%==false)",
+        "executionConditionalFormula": "(%SelectedFunction% == 'RelationshipTopic' || %SelectedFunction% == 'RelationshipTopicFront')  && ((ISNOTBLANK(%SVRelationshipTopic:AssetType%) && (%SVRelationshipTopic:AssetType% == 'Pre')) || (ISBLANK(%SVRelationshipTopic:AssetType%) && ( %ProductType% == 'Pre')))",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {
