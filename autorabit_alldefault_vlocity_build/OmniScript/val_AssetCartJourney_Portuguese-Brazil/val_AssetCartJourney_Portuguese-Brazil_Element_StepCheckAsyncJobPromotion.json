@@ -1,7 +1,7 @@
 {
     "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "Asset Cart Journey",
+        "Name": "AssetCartJourney",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
         "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/AssetCartJourney/Portuguese (Brazil)",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
@@ -37,7 +37,7 @@
         },
         "nextLabel": "Consultar Processamento",
         "nextWidth": "5",
-        "previousLabel": "",
+        "previousLabel": "Voltar",
         "previousWidth": "0",
         "pubsub": false,
         "remoteClass": "",
@@ -57,14 +57,31 @@
                         "field": "Functionality"
                     },
                     {
-                        "condition": "=",
-                        "data": "true",
-                        "field": "hasPromotion"
+                        "condition": "<>",
+                        "data": null,
+                        "field": "groupCartId"
                     },
                     {
-                        "condition": "=",
-                        "data": "false",
-                        "field": "StatusAsyncJobPromotion:Status"
+                        "condition": "<>",
+                        "data": null,
+                        "field": "targetOfferId"
+                    },
+                    {
+                        "group": {
+                            "operator": "OR",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "ChangePlanPromotion",
+                                    "field": "StepSelectProcess:ProcessReason"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "ChangePromotion",
+                                    "field": "StepSelectProcess:ProcessReason"
+                                }
+                            ]
+                        }
                     }
                 ]
             }

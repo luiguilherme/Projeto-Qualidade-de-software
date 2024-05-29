@@ -13,13 +13,25 @@
             "ReplaceOrKeepOption": {
                 "Keep": "true",
                 "Replace": "false"
-            }
+            },
+            "userIntent": "=IF(%StepSelectProcess:ProcessReason%==\"ChangePlanPromotion\",\"Replace\",IF(%StepSelectProcess:ProcessReason%==\"ChangePromotion\",\"Keep\",\"\"))"
         },
         "label": "SVBypassConfigure",
         "message": {
         },
         "pubsub": false,
-        "show": null,
+        "show": {
+            "group": {
+                "operator": "AND",
+                "rules": [
+                    {
+                        "condition": "<>",
+                        "data": null,
+                        "field": "groupCartId"
+                    }
+                ]
+            }
+        },
         "showPersistentComponent": [
             true,
             false

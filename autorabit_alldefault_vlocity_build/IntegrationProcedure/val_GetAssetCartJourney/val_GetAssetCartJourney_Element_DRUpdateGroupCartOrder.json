@@ -16,6 +16,7 @@
             "OrderId": "%IPStartBulkCreateGroups:groupsData:result|1:groupInfo:groupCartId%",
             "PriceBook2Id": "%DREGetPriceListId:PriceBookId%",
             "PriceListid": "%DREGetPriceListId:PriceListId%",
+            "ServiceAccount": "%ServiceAccount%",
             "channel": "%DRTAGetChannel:Channel|1:ChannelName__c%",
             "orderType": "=IF(%Functionality%=='Promotion','Change',%Functionality%)"
         },
@@ -24,7 +25,7 @@
         "bundle": "valCreateOrder",
         "chainOnStep": false,
         "disOnTplt": false,
-        "executionConditionalFormula": "%Functionality%=='Promotion' && %ProcessReason%=='ChangePlanPromotion' && %IPStartBulkCreateGroups:groupsData:result|1:groupInfo:groupCartId%!= null",
+        "executionConditionalFormula": "%Functionality%=='Promotion' && (%ProcessReason%=='ChangePlanPromotion'||%ProcessReason%=='ChangePromotion') && %IPStartBulkCreateGroups:groupsData:result|1:groupInfo:groupCartId%!= null",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {

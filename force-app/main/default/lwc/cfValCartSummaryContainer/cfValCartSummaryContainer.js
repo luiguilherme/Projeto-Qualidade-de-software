@@ -22,14 +22,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               
               @track record;
               @track _sessionApiVars = {};
-              @track Label={CPQCatalogPreview:"Catalog Preview",
-        close:"Fechar",
-        CPQAddToCart:"Adicionar",
-        CPQConfigure:"Configurar",
-        Cart:"Cart",
-        CPQAddProducts:"Add Products",
-        CPQDelete:"Remover"
-        };
+              
               pubsubEvent = [];
               customEvent = [];
               
@@ -40,10 +33,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
                 data.Session = {} //reinitialize on reload
                 
                 
-                this.customLabels = this.Label;
-                      
-                          this.fetchUpdatedCustomLabels();
-                      
+                
                 this.setDefinition(data);
  this.registerEvents();
                 

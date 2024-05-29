@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <SObjectType>Case</SObjectType>
+    <active>true</active>
+    <businessHours>SegDom</businessHours>
+    <entryStartDateField>Case.SlaStartDateHandling__c</entryStartDateField>
+    <exitCriteriaBooleanFilter>1 OR 2</exitCriteriaBooleanFilter>
+    <exitCriteriaFilterItems>
+        <field>Case.Status</field>
+        <operation>equals</operation>
+        <value>On Return</value>
+    </exitCriteriaFilterItems>
+    <exitCriteriaFilterItems>
+        <field>Case.Status</field>
+        <operation>equals</operation>
+        <value>Closed</value>
+    </exitCriteriaFilterItems>
+    <milestones>
+        <businessHours>SegDom</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.SlaCaseHandling__c</field>
+            <operation>equals</operation>
+            <value>Grupo de Atendimento - Ouvidoria</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.SlaDueDate__c</field>
+            <operation>equals</operation>
+            <value>10 dias corridos</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Tempo de resolução</milestoneName>
+        <minutesToComplete>14400</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>OutOfTimeAlertOuvidoria</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>FinalHoursAlertOuvidoria</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-24</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>SegDom</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.SlaCaseHandling__c</field>
+            <operation>equals</operation>
+            <value>Grupo de Atendimento - Resgate Gravação</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.SlaDueDate__c</field>
+            <operation>equals</operation>
+            <value>10 dias corridos</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Tempo de resolução</milestoneName>
+        <minutesToComplete>14400</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>FinalHoursAlertResgateGravacao</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-24</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>OutOfTimeAlertResgateGravacao</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+</EntitlementProcess>
