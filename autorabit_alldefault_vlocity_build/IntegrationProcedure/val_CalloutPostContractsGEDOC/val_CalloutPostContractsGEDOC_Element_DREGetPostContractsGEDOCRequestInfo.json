@@ -10,7 +10,7 @@
         "actionMessage": "",
         "additionalInput": {
             "PortabilityTicket": "%DREGetPortabilityTicket%",
-            "activationType": "=IF(%DREGetOrderChannel:hasPortability% == \"Sim\", \"SPO\", IF(%DREGetOrderChannel:orderType% == \"PrepaidRemoteActivation\" && %DREGetOrderChannel:channelCode% == \"SF\", \"SPR\", IF(%DREGetOrderChannel:orderType% == \"Change\", \"STR\", IF(%DREGetOrderChannel:orderType% == \"PostPaidMigration\" || %DREGetOrderChannel:orderType% == \"ControlMigration\", \"SMG\", IF(%DREGetOrderChannel:orderType% == \"Habilitação Pré\", \"SPR\", IF(%DREGetOrderChannel:orderType% == \"PrepaidRemoteActivation\", \"HPRS\", \"SPR\"))))))"
+            "activationType": "=IF(%DRGetOrderChannel:hasPortability% == \"Sim\", \"SPO\", IF(%DRGetOrderChannel:orderType% == \"PrepaidRemoteActivation\" AND %DREGetOrderChannel:channelCode% == \"SF\", \"SPR\", IF(%DRGetOrderChannel:orderType% == \"Change\", \"STR\", IF(%DRGetOrderChannel:orderType% == \"PostPaidMigration\" OR %DRGetOrderChannel:orderType% == \"ControlMigration\", \"SMG\", IF(%DRGetOrderChannel:orderType% == \"Habilitação Pré\", \"SPR\", IF(%DRGetOrderChannel:orderType% == \"PrepaidRemoteActivation\", \"HPRS\", \"SPR\"))))))"
         },
         "additionalOutput": {
         },

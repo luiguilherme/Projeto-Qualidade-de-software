@@ -9,9 +9,9 @@
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
             "error": "=IF(ISBLANK(%HTTPUnsuspendRM:code%), \"OK\", %HTTPUnsuspendRM:message%)",
-            "errorCode": "=IF(%HTTPUnsuspendRMInfo:statusCode% != NULL, %HTTPUnsuspendRMInfo:statusCode%, NULL)",
-            "request": "%DRTUnsuspendRM%",
-            "response": "%HTTPUnsuspendRM%"
+            "errorCode": "=IF(%HTTPUnsuspendRMInfo:statusCode% != NULL, %HTTPUnsuspendRMInfo:statusCode%, IF(ISBLANK(%IPGetStatusRM:actualStatus%), 200, NULL))",
+            "request": "=IF(ISNOTBLANK(%DRTUnsuspendRM%), %DRTUnsuspendRM%, null)",
+            "response": "=IF(ISNOTBLANK(%HTTPUnsuspendRM%), %HTTPUnsuspendRM%, null)"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",

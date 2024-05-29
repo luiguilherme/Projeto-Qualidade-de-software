@@ -4,7 +4,7 @@
             {
                 "id": 3,
                 "name": "recordId",
-                "val": "80176000002HBxxAAG"
+                "val": "80176000002HFPkAAO"
             }
         ],
         "orderBy": {
@@ -95,7 +95,7 @@
     "isRepeatable": true,
     "lwc": {
         "DeveloperName": "cfValOrderDetails_16_Deloitte_GiovaniSouza",
-        "Id": "0Rb76000000DR8TCAW",
+        "Id": "0Rb76000000L6DnCAK",
         "ManageableState": "unmanaged",
         "MasterLabel": "cfValOrderDetails_16_Deloitte_GiovaniSouza",
         "NamespacePrefix": "c"
@@ -129,6 +129,7 @@
                 "valHeader",
                 "valOrderDetailsStatus",
                 "valOrderDetailsAccount",
+                "valPortabilityDetails",
                 "valReviewOrderLineAddress",
                 "valOrderDetailsProducts",
                 "valOrderDetailsChannel",
@@ -444,6 +445,42 @@
                                     }
                                 }
                             ],
+                            "type": "element"
+                        },
+                        {
+                            "class": "slds-col ",
+                            "element": "childCardPreview",
+                            "elementLabel": "FlexCard-6",
+                            "name": "FlexCard",
+                            "property": {
+                                "cardName": "valPortabilityDetails",
+                                "cardNode": "{record.PortabilityDetails}",
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "OrderStatus.hasPortability",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-1",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "Sim"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "isChildCardTrackingEnabled": false,
+                                "recordId": "{recordId}",
+                                "selectedState": "Active"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "sizeClass": "slds-size_12-of-12"
+                            },
                             "type": "element"
                         },
                         {

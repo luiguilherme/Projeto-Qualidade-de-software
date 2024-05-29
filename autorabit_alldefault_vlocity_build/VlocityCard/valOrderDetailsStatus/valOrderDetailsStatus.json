@@ -1,11 +1,6 @@
 {
     "dataSource": {
         "contextVariables": [
-            {
-                "id": 2,
-                "name": "recordId",
-                "val": "801760000011szwAAA"
-            }
         ],
         "orderBy": {
         },
@@ -250,10 +245,10 @@
     ],
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValOrderDetailsStatus_26_Deloitte_GiovaniSouza",
-        "Id": "0Rb7600000055aZCAQ",
+        "DeveloperName": "cfValOrderDetailsStatus_27_Deloitte_GiovaniSouza",
+        "Id": "0Rb76000000L6iCCAS",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValOrderDetailsStatus_26_Deloitte_GiovaniSouza",
+        "MasterLabel": "cfValOrderDetailsStatus_27_Deloitte_GiovaniSouza",
         "NamespacePrefix": "c"
     },
     "multilanguageSupport": true,
@@ -1500,8 +1495,65 @@
                                             {
                                                 "actionIndex": 0,
                                                 "card": "{card}",
-                                                "draggable": false,
+                                                "draggable": true,
                                                 "isOpen": true,
+                                                "key": "1715979306724-paiddwzgw",
+                                                "label": "ValidateProvisionalNumber",
+                                                "stateAction": {
+                                                    "Web Page": {
+                                                        "targetName": "/apex"
+                                                    },
+                                                    "displayName": "Action",
+                                                    "id": "flex-action-1715979371330",
+                                                    "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_PortabilityBlockProvisionalNumber\",\"vlocityAsync\":false,\"inputMap\":{\"OrderId\":\"{Parent.OrderId}\"},\"jsonMap\":\"{\\\"OrderId\\\":\\\"{OrderId}\\\",\\\"Parent.OrderId\\\":\\\"{Parent.OrderId}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"OrderId\",\"val\":\"\",\"id\":2},{\"name\":\"Parent.OrderId\",\"val\":\"\",\"id\":16}]}",
+                                                    "openUrlIn": "Current Window",
+                                                    "targetType": "Web Page",
+                                                    "type": "DataAction",
+                                                    "vlocityIcon": "standard-default"
+                                                }
+                                            },
+                                            {
+                                                "actionIndex": 1,
+                                                "card": "{card}",
+                                                "draggable": true,
+                                                "isOpen": true,
+                                                "key": "1715975108499-n3qz6zdqg",
+                                                "label": "BlockProvisionalNumber",
+                                                "stateAction": {
+                                                    "actionConditions": {
+                                                        "group": [
+                                                            {
+                                                                "field": "hasProvisonalNumber",
+                                                                "hasMergeField": false,
+                                                                "id": "state-new-condition-0",
+                                                                "operator": "==",
+                                                                "type": "custom",
+                                                                "value": "true"
+                                                            }
+                                                        ],
+                                                        "id": "state-condition-object",
+                                                        "isParent": true
+                                                    },
+                                                    "displayName": "Action",
+                                                    "eventName": "valToast",
+                                                    "extraParams": {
+                                                        "message": "A ordem não pode ser cancelada, pois existe número provisório associado. Necessário cancelar somente a portabilidade através do bilhete",
+                                                        "variant": "error"
+                                                    },
+                                                    "hasExtraParams": true,
+                                                    "id": "flex-action-1715979768645",
+                                                    "message": "showToast",
+                                                    "openUrlIn": "Current Window",
+                                                    "subType": "PubSub",
+                                                    "type": "Event",
+                                                    "vlocityIcon": "standard-default"
+                                                }
+                                            },
+                                            {
+                                                "actionIndex": 1,
+                                                "card": "{card}",
+                                                "draggable": true,
+                                                "isOpen": false,
                                                 "key": "1691429092889-6bqeupiqu",
                                                 "label": "OpenModal",
                                                 "stateAction": {
@@ -1514,6 +1566,15 @@
                                                                 "operator": "!=",
                                                                 "type": "custom",
                                                                 "value": "Sim"
+                                                            },
+                                                            {
+                                                                "field": "hasProvisonalNumber",
+                                                                "hasMergeField": false,
+                                                                "id": "state-new-condition-7",
+                                                                "logicalOperator": "&&",
+                                                                "operator": "==",
+                                                                "type": "custom",
+                                                                "value": "false"
                                                             }
                                                         ],
                                                         "id": "state-condition-object",
@@ -1531,7 +1592,7 @@
                                                         "title": "Confirmação de Exclusão"
                                                     },
                                                     "hasExtraParams": true,
-                                                    "id": "flex-action-1710260885309",
+                                                    "id": "flex-action-1715976823836",
                                                     "message": "showFlyout",
                                                     "openUrlIn": "Current Window",
                                                     "subType": "PubSub",
@@ -1540,10 +1601,10 @@
                                                 }
                                             },
                                             {
-                                                "actionIndex": 1,
+                                                "actionIndex": 2,
                                                 "card": "{card}",
                                                 "draggable": true,
-                                                "isOpen": true,
+                                                "isOpen": false,
                                                 "key": "1707217935445-snhh5ofgu",
                                                 "label": "OpenTicketPortab",
                                                 "stateAction": {
@@ -1556,6 +1617,15 @@
                                                                 "operator": "==",
                                                                 "type": "custom",
                                                                 "value": "Sim"
+                                                            },
+                                                            {
+                                                                "field": "hasProvisonalNumber",
+                                                                "hasMergeField": false,
+                                                                "id": "state-new-condition-17",
+                                                                "logicalOperator": "&&",
+                                                                "operator": "==",
+                                                                "type": "custom",
+                                                                "value": "false"
                                                             }
                                                         ],
                                                         "id": "state-condition-object",
@@ -1574,7 +1644,7 @@
                                                         "title": "Confirmação de Exclusão"
                                                     },
                                                     "hasExtraParams": true,
-                                                    "id": "flex-action-1710260735937",
+                                                    "id": "flex-action-1715976870104",
                                                     "message": "showFlyout",
                                                     "openUrlIn": "Current Window",
                                                     "subType": "PubSub",
@@ -2597,6 +2667,15 @@
                                                     "hasMergeField": false,
                                                     "id": "state-new-condition-137",
                                                     "operator": "!=",
+                                                    "type": "custom",
+                                                    "value": "true"
+                                                },
+                                                {
+                                                    "field": "VisualizarPlanodeOrquestracao",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-3",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "==",
                                                     "type": "custom",
                                                     "value": "true"
                                                 }
@@ -4268,6 +4347,15 @@
                                                     "hasMergeField": false,
                                                     "id": "state-new-condition-197",
                                                     "operator": "!=",
+                                                    "type": "custom",
+                                                    "value": "true"
+                                                },
+                                                {
+                                                    "field": "VisualizarPlanodeOrquestracao",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-20",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "==",
                                                     "type": "custom",
                                                     "value": "true"
                                                 }
