@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PortabilityInProgress__c</fullName>
+    <externalId>false</externalId>
+    <formula>AND(CONTAINS(TEXT(StatusEA__c), &quot;pending&quot;) ||
+				CONTAINS(TEXT(StatusEA__c), &quot;conflict&quot;) ||
+				CONTAINS(TEXT(StatusEA__c), &quot;cancel-pending&quot;) ||
+				CONTAINS(TEXT(StatusEA__c), &quot;suspended&quot;), NOT(ISBLANK(TEXT(StatusEA__c))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Portabilidade em Andamento</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
