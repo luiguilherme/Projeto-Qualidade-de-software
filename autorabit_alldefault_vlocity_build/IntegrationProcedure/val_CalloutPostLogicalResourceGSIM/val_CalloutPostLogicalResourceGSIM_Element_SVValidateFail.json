@@ -8,35 +8,23 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
-        "additionalInput": {
-            "orderId": "%DREGetFRLId:OrderId%"
-        },
-        "additionalOutput": {
-        },
         "chainOnStep": false,
         "disOnTplt": false,
-        "disableChainable": false,
-        "executionConditionalFormula": "%SVValidateFail:fail%==true",
+        "elementValueMap": {
+            "fail": "=%HTTPPostLogicalResourceGSIMInfo:statusCode%==\"406\" &&\r\n%HTTPPostLogicalResourceGSIM:statusCode%==\"PROC-RIGSIM-113\"||\r\n%HTTPPostLogicalResourceGSIMInfo:statusCode%==\"406\" &&\r\n%HTTPPostLogicalResourceGSIM:statusCode%==\"PROC-RIGSIM-27\""
+        },
+        "executionConditionalFormula": "%HTTPPostLogicalResourceGSIMInfo:statusCode% > 399",
         "failOnStepError": true,
         "failureConditionalFormula": "",
-        "failureResponse": {
-        },
-        "integrationProcedureKey": "val_CancelOrder",
-        "label": "IntegrationProcedureAction1",
-        "remoteOptions": {
-        },
+        "label": "SetValues2",
         "responseJSONNode": "",
         "responseJSONPath": "",
-        "returnOnlyAdditionalOutput": false,
-        "returnOnlyFailureResponse": false,
-        "sendOnlyAdditionalInput": true,
-        "show": null,
-        "useFormulas": true
+        "show": null
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
-    "%vlocity_namespace%__Type__c": "Integration Procedure Action",
-    "Name": "IPCancelOrder",
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVValidateFail",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CalloutPostLogicalResourceGSIM/Procedure/IPCancelOrder"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CalloutPostLogicalResourceGSIM/Procedure/SVValidateFail"
 }

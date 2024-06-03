@@ -1,9 +1,9 @@
 {
     "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "valCalloutRegistration",
+        "Name": "valCalloutReserveNumberSIGAN",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CalloutRegistration/Procedure",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CalloutReserveNumberSIGAN/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
     "%vlocity_namespace%__PropertySet__c": {
@@ -11,9 +11,9 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "fail": "=(%HTTPRegistrationInfo:statusCode%==\"550\" &&\r\n(40000 < SUBSTRING(%HTTPRegistration:errors|1:reason%, 7, 12) || SUBSTRING(%HTTPRegistration:errors|1:reason%, 7, 12) < 79999))||\r\n%HTTPRegistrationInfo:statusCode%==\"400\"||\r\n%HTTPRegistrationInfo:statusCode%==\"401\"||\r\n%HTTPRegistrationInfo:statusCode%==\"403\""
+            "fail": "=%HTTPReserveNumberSIGANInfo:statusCode%==\"406\" &&\r\n%HTTPReserveNumberSIGAN:code%==\"NISIGAN-NOK\""
         },
-        "executionConditionalFormula": "%HTTPRegistrationInfo:statusCode% > 399",
+        "executionConditionalFormula": "%HTTPReserveNumberSIGANInfo:statusCode% > 399",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "label": "SetValues2",
@@ -26,5 +26,5 @@
     "Name": "SVValidateFail",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CalloutRegistration/Procedure/SVValidateFail"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CalloutReserveNumberSIGAN/Procedure/SVValidateFail"
 }
