@@ -13,7 +13,7 @@
         "elementValueMap": {
             "fail": "=(%HTTPRegistrationInfo:statusCode%==\"550\" &&\r\n(40000 < SUBSTRING(%HTTPRegistration:errors|1:reason%, 7, 12) || SUBSTRING(%HTTPRegistration:errors|1:reason%, 7, 12) < 79999))||\r\n%HTTPRegistrationInfo:statusCode%==\"400\"||\r\n%HTTPRegistrationInfo:statusCode%==\"401\"||\r\n%HTTPRegistrationInfo:statusCode%==\"403\""
         },
-        "executionConditionalFormula": "",
+        "executionConditionalFormula": "%HTTPRegistrationInfo:statusCode% > 399",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "label": "SetValues2",
