@@ -13,7 +13,7 @@
         "elementValueMap": {
             "fail": "=(%HTTPServiceActivationAndConfigurationSmartSIMInfo:statusCode%==\"550\" && (40000 < SUBSTRING(%HTTPServiceActivationAndConfigurationSmartSIM:errors:reason%, 7, 12) ||SUBSTRING(%HTTPServiceActivationAndConfigurationSmartSIM:errors:reason%, 7, 12)< 79999)) ||\r\n%HTTPServiceActivationAndConfigurationSmartSIMInfo:statusCode%==\"400\"||\r\n%HTTPServiceActivationAndConfigurationSmartSIMInfo:statusCode%==\"401\"||\r\n%HTTPServiceActivationAndConfigurationSmartSIMInfo:statusCode%==\"403\""
         },
-        "executionConditionalFormula": "%SVFailReason:FailReason%== \"true\"",
+        "executionConditionalFormula": " %HTTPServiceActivationAndConfigurationSmartSIMInfo:statusCode% > 399",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "label": "SetValues2",
