@@ -11,9 +11,9 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "fail": "=(%HTTPServiceActivationAndConfigurationSmartSIMInfo:statusCode%==\"550\" && (40000 < SUBSTRING(%HTTPServiceActivationAndConfigurationSmartSIM:errors:reason%, 7, 12) ||SUBSTRING(%HTTPServiceActivationAndConfigurationSmartSIM:errors:reason%, 7, 12)< 79999)) ||\r\n%HTTPServiceActivationAndConfigurationSmartSIMInfo:statusCode%==\"400\"||\r\n%HTTPServiceActivationAndConfigurationSmartSIMInfo:statusCode%==\"401\"||\r\n%HTTPServiceActivationAndConfigurationSmartSIMInfo:statusCode%==\"403\""
+            "fail": "=%HTTPServicesInfo:statusCode%==\"550\" && 40000 < SUBSTRING(%HTTPServices:errors|1:reason%, 7, 12)|| SUBSTRING(%HTTPServices:errors|1:reason%, 7, 12) < 79999 || %HTTPServicesInfo:statusCode%==\"550\" && %HTTPServices:errors:reason%==\"SMTSIM_90003\"|| %HTTPServicesInfo:statusCode%==\"550\" && %HTTPServices:errors:reason%==\"SMTSIM_20013\"|| %HTTPServicesInfo:statusCode%==\"550\" && %HTTPServices:errors:reason%==\"SMTSIM_20014\"|| %HTTPServicesInfo:statusCode%==\"550\" && %HTTPServices:errors:reason%==\"SMTSIM_20015\"|| %HTTPServicesInfo:statusCode%==\"400\" || %HTTPServicesInfo:statusCode%==\"401\" ||  %HTTPServicesInfo:statusCode%==\"403\""
         },
-        "executionConditionalFormula": "%SVFailReason:FailReason%== \"true\"",
+        "executionConditionalFormula": " %HTTPServiceActivationAndConfigurationSmartSIMInfo:statusCode% > 399",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "label": "SetValues2",

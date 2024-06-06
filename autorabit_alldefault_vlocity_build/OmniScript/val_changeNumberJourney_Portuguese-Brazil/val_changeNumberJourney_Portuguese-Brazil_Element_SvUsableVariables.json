@@ -18,6 +18,7 @@
             "TopicName": "=IF(%realizaPortabilidade% == \"Sim\", \"Troca de Número com Portabilidade\", \"Troca de Número\")",
             "UsableDDD": "%DDD%",
             "extendedDate": "%extendedDate%",
+            "idPesquisa": "=IF(%StepConfigureLine:selectedNumber:idPesquisa% != NULL, %StepConfigureLine:selectedNumber:idPesquisa%, IF(%StepConfigureLine:selectedLine:idPesquisa% != NULL, %StepConfigureLine:selectedLine:idPesquisa%, NULL))",
             "newNumber": "=IF(%reusoNumero% == \"Sim\", %numeroSelecao:getNumberRadio:selectedNumber%, IF(%reusoNumero% == \"Nao\" && %realizaPortabilidade% == \"Sim\", %portabilidadeBuscar%, IF(%reusoNumero% == \"Nao\" && %numEspecifico% == \"Sim\", %partialNum%, IF(%reusoNumero% == \"Nao\" && %numEspecifico% == \"Não\", %randomNum%))))",
             "oldNumber": "%ServiceIdentifier%"
         },
