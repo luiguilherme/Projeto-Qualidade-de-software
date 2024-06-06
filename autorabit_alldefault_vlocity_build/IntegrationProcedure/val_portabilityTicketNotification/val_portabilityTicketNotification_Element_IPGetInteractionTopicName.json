@@ -9,14 +9,14 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "TopicName": "=IF(%SVConditions:PortoutRequest%, \"Solicitação de Port-out\",  IF(%SVConditions:PortoutCancel%, \"Solicitação de Cancelamento de Port-out\",  IF(%SVConditions:PortoutSuspend%, \"Solicitação de Suspensão de Port-out\",  IF(%SVConditions:PortoutReschedule%, \"Solicitação de Reagendamento de Port-out\",  IF(%SVConditions:PortinChargebackRequest%, \"Solicitação de Estorno de Port-in\", null)))))"
+            "TopicName": "=IF(%SVConditions:PortoutRequest%, \"Solicitação de Port-out\",  IF(%SVConditions:PortoutCancel%, \"Solicitação de Cancelamento de Port-out\",  IF(%SVConditions:PortoutSuspend%, \"Solicitação de Suspensão de Port-out\",  IF(%SVConditions:PortoutReschedule%, \"Solicitação de Reagendamento de Port-out\",  IF(%SVConditions:PortinChargebackRequest%, \"Solicitação de Estorno de Port-in\", IF(%SVConditions:PortinRemoveSuspend%, \"Solicitação de Remoção de Suspensão\", IF(%SVConditions:PortinSuspend%,\"Solicitação de suspensão de Port-In\", null)))))))"
         },
         "additionalOutput": {
         },
         "chainOnStep": false,
         "disOnTplt": false,
         "disableChainable": false,
-        "executionConditionalFormula": "%SVConditions:PortoutRequest% OR %SVConditions:PortoutCancel% OR %SVConditions:PortoutSuspend% OR %SVConditions:PortoutReschedule% OR %SVConditions:PortinChargebackRequest%",
+        "executionConditionalFormula": "%SVConditions:PortoutRequest% OR %SVConditions:PortoutCancel% OR %SVConditions:PortoutSuspend% OR %SVConditions:PortoutReschedule% OR %SVConditions:PortinChargebackRequest% OR %SVConditions:PortinRemoveSuspend% OR %SVConditions:PortinSuspend%",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {
