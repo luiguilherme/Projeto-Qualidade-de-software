@@ -804,6 +804,65 @@
             "key": "event-14",
             "recordIndex": "0",
             "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1713397659838-3azfhmjqe",
+                    "label": "Dispute Opened",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.OpenedDispute",
+                                "fieldValue": "{action.OpenedDispute}"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipLegacySystem",
+                                "fieldValue": "''"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipParentName",
+                                "fieldValue": "''"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipTargetFlow",
+                                "fieldValue": "''"
+                            },
+                            {
+                                "fieldName": "Session.ProductSourceSystem",
+                                "fieldValue": "''"
+                            },
+                            {
+                                "fieldName": "Session.CaseId",
+                                "fieldValue": "{action.CaseId}"
+                            }
+                        ],
+                        "id": "flex-action-1713397752746",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "FixedDispute",
+            "displayLabel": "FixedDispute:openFlow",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "openFlow",
+            "eventtype": "pubsub",
+            "key": "event-15",
+            "recordIndex": "0",
+            "showSpinner": "false"
         }
     ],
     "globalCSS": false,
@@ -3885,13 +3944,36 @@
                                                     "value": "Fixed"
                                                 },
                                                 {
-                                                    "field": "SourceSystem",
-                                                    "hasMergeField": false,
-                                                    "id": "state-new-condition-114",
-                                                    "logicalOperator": "&&",
-                                                    "operator": "==",
-                                                    "type": "custom",
-                                                    "value": "Siebel"
+                                                    "group": [
+                                                        {
+                                                            "field": "SourceSystem",
+                                                            "hasMergeField": false,
+                                                            "id": "state-new-condition-21",
+                                                            "operator": "==",
+                                                            "type": "custom",
+                                                            "value": "Siebel"
+                                                        },
+                                                        {
+                                                            "field": "SourceSystem",
+                                                            "hasMergeField": false,
+                                                            "id": "state-new-condition-145",
+                                                            "logicalOperator": "||",
+                                                            "operator": "==",
+                                                            "type": "custom",
+                                                            "value": "NEXT"
+                                                        },
+                                                        {
+                                                            "field": "SourceSystem",
+                                                            "hasMergeField": false,
+                                                            "id": "state-new-condition-294",
+                                                            "logicalOperator": "||",
+                                                            "operator": "==",
+                                                            "type": "custom",
+                                                            "value": "Next"
+                                                        }
+                                                    ],
+                                                    "id": "state-new-group-22",
+                                                    "logicalOperator": "&&"
                                                 },
                                                 {
                                                     "field": "Session.ShowTree",
