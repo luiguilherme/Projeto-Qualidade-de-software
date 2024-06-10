@@ -20,8 +20,8 @@
                 {
                     "actionIndex": 0,
                     "card": "{card}",
-                    "draggable": true,
-                    "isOpen": false,
+                    "draggable": false,
+                    "isOpen": true,
                     "key": "1667925291158-08zth8hs7",
                     "label": "Action",
                     "stateAction": {
@@ -66,6 +66,30 @@
                             {
                                 "fieldName": "Session.SelectedRelationshipTargetFlow",
                                 "fieldValue": "{action.TargetFlow}"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipRelationshipType",
+                                "fieldValue": "{action.RelationshipType}"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipSLA",
+                                "fieldValue": "{action.SLA}"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipCaseOpening",
+                                "fieldValue": "{action.CaseOpening}"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipCaseHandling",
+                                "fieldValue": "{action.CaseHandling}"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipCaseReturn",
+                                "fieldValue": "{action.CaseReturn}"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipFormType",
+                                "fieldValue": "{action.FormType}"
                             }
                         ],
                         "id": "flex-action-1699540508917",
@@ -143,6 +167,30 @@
                             {
                                 "fieldName": "Session.SelectedRelationshipTargetFlow",
                                 "fieldValue": "{action.TargetFlow}"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipRelationshipType",
+                                "fieldValue": "{action.RelationshipType}"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipSLA",
+                                "fieldValue": "{action.SLA}"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipCaseOpening",
+                                "fieldValue": "{action.CaseOpening}"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipCaseHandling",
+                                "fieldValue": "{action.CaseHandling}"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipCaseReturn",
+                                "fieldValue": "{action.CaseReturn}"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipFormType",
+                                "fieldValue": "{action.FormType}"
                             }
                         ],
                         "hasExtraParams": true,
@@ -247,10 +295,10 @@
     "globalCSS": false,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValAddRelationshipTopicFrontEnd_15_Deloitte_GuilhermeKaiser",
-        "Id": "0Rb78000000LXWVCA4",
+        "DeveloperName": "cfValAddRelationshipTopicFrontEnd_19_Deloitte_GuilhermeKaiser",
+        "Id": "0Rb76000000978hCAA",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValAddRelationshipTopicFrontEnd_15_Deloitte_GuilhermeKaiser",
+        "MasterLabel": "cfValAddRelationshipTopicFrontEnd_19_Deloitte_GuilhermeKaiser",
         "NamespacePrefix": "c"
     },
     "multilanguageSupport": true,
@@ -287,6 +335,30 @@
         {
             "name": "Processing",
             "val": "false"
+        },
+        {
+            "name": "SelectedRelationshipRelationshipType",
+            "val": ""
+        },
+        {
+            "name": "SelectedRelationshipSLA",
+            "val": ""
+        },
+        {
+            "name": "SelectedRelationshipCaseOpening",
+            "val": ""
+        },
+        {
+            "name": "SelectedRelationshipCaseHandling",
+            "val": ""
+        },
+        {
+            "name": "SelectedRelationshipCaseReturn",
+            "val": ""
+        },
+        {
+            "name": "SelectedRelationshipFormType",
+            "val": ""
         }
     ],
     "states": [
@@ -1149,7 +1221,7 @@
                                         {
                                             "class": "slds-col ",
                                             "element": "action",
-                                            "elementLabel": "Block-3-Block-1-Action-1",
+                                            "elementLabel": "RegisterButtonEnabled",
                                             "key": "element_element_element_block_4_0_block_1_0_action_0_0",
                                             "name": "Action",
                                             "parentElementKey": "element_element_block_4_0_block_1_0",
@@ -1159,10 +1231,67 @@
                                                         "actionIndex": 0,
                                                         "card": "{card}",
                                                         "draggable": true,
-                                                        "isOpen": true,
+                                                        "isOpen": false,
+                                                        "key": "1708728943973-mwicalczr",
+                                                        "label": "ActionOpenCaseProcessFormPre",
+                                                        "preloadFlyout": false,
+                                                        "reRenderFlyout": true,
+                                                        "stateAction": {
+                                                            "actionConditions": {
+                                                                "group": [
+                                                                    {
+                                                                        "field": "Session.SelectedRelationshipRelationshipType",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-0",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "Caso/Processo"
+                                                                    }
+                                                                ],
+                                                                "id": "state-condition-object",
+                                                                "isParent": true
+                                                            },
+                                                            "cardName": "valServiceFlowFormTypePre",
+                                                            "channelName": "close_OpenCaseProcessFormPre",
+                                                            "displayName": "Action",
+                                                            "flyoutLwc": "valServiceFlowFormTypePre",
+                                                            "flyoutParams": {
+                                                                "AssetId": "{Session.SelectedRelationshipAssetId}",
+                                                                "ProductType": "{Session.SelectedRelationshipProductType}",
+                                                                "ServiceTree": "{Session.SelectedRelationshipServiceTree}",
+                                                                "TopicId": "{Session.SelectedRelationshipTopicId}"
+                                                            },
+                                                            "flyoutType": "childCard",
+                                                            "hasExtraParams": true,
+                                                            "id": "flex-action-1710166993755",
+                                                            "openFlyoutIn": "Modal",
+                                                            "openUrlIn": "Current Window",
+                                                            "type": "Flyout",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    },
+                                                    {
+                                                        "actionIndex": 1,
+                                                        "card": "{card}",
+                                                        "draggable": true,
+                                                        "isOpen": false,
                                                         "key": "1673442059548-11g2zokxb",
                                                         "label": "ActionShowProcessing",
                                                         "stateAction": {
+                                                            "actionConditions": {
+                                                                "group": [
+                                                                    {
+                                                                        "field": "Session.SelectedRelationshipRelationshipType",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-0",
+                                                                        "operator": "!=",
+                                                                        "type": "custom",
+                                                                        "value": "Caso/Processo"
+                                                                    }
+                                                                ],
+                                                                "id": "state-condition-object",
+                                                                "isParent": true
+                                                            },
                                                             "displayName": "Action",
                                                             "eventName": "setValues",
                                                             "fieldValues": [
@@ -1171,7 +1300,7 @@
                                                                     "fieldValue": "true"
                                                                 }
                                                             ],
-                                                            "id": "flex-action-1673445207899",
+                                                            "id": "flex-action-1710167243541",
                                                             "message": "showprocessing",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -1180,9 +1309,9 @@
                                                         }
                                                     },
                                                     {
-                                                        "actionIndex": 1,
+                                                        "actionIndex": 2,
                                                         "draggable": true,
-                                                        "isOpen": true,
+                                                        "isOpen": false,
                                                         "isTrackingDisabled": true,
                                                         "key": "1667933698937-ze7usjv38",
                                                         "label": "ActionCreateTopic",
@@ -1190,15 +1319,29 @@
                                                             "Web Page": {
                                                                 "targetName": "/apex"
                                                             },
-                                                            "id": "flex-action-1699554136608",
-                                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_CreateManualCustomerInteractionTopic\",\"vlocityAsync\":false,\"inputMap\":{\"interactionId\":\"{recordId}\",\"remarkup\":\"{remarkup__c}\",\"userId\":\"{User.userId}\",\"topicId\":\"{Session.SelectedRelationshipTopicId}\",\"ProductType\":\"{Session.SelectedRelationshipProductType}\",\"ServiceTree\":\"{Session.SelectedRelationshipServiceTree}\",\"AssetId\":\"{Session.SelectedRelationshipAssetId}\",\"OtherProduct\":\"{Session.SelectedRelationshipOtherProduct}\",\"FolderName\":\"{Session.SelectedRelationshipFolderName}\",\"ProductSourceSystem\":\"{Parent.ProductSourceSystem}\",\"SelectedRelationshipLegacySystem\":\"{Session.SelectedRelationshipLegacySystem}\",\"SelectedRelationshipTargetFlow\":\"{Session.SelectedRelationshipTargetFlow}\"},\"jsonMap\":\"{\\\"Session.SelectedRelationshipTopicId\\\":\\\"{Session.SelectedRelationshipTopicId}\\\",\\\"User.userId\\\":\\\"{User.userId}\\\",\\\"remarkup__c\\\":\\\"{remarkup__c}\\\",\\\"recordId\\\":\\\"{recordId}\\\",\\\"Session.SelectedRelationshipProductType\\\":\\\"{Session.SelectedRelationshipProductType}\\\",\\\"Session.SelectedRelationshipServiceTree\\\":\\\"{Session.SelectedRelationshipServiceTree}\\\",\\\"Session.SelectedRelationshipAssetId\\\":\\\"{Session.SelectedRelationshipAssetId}\\\",\\\"Session.SelectedRelationshipOtherProduct\\\":\\\"{Session.SelectedRelationshipOtherProduct}\\\",\\\"Session.SelectedRelationshipFolderName\\\":\\\"{Session.SelectedRelationshipFolderName}\\\",\\\"Parent.Restart\\\":\\\"{Parent.Restart}\\\",\\\"Parent.ProductSourceSystem\\\":\\\"{Parent.ProductSourceSystem}\\\",\\\"Session.SelectedRelationshipTargetFlow\\\":\\\"{Session.SelectedRelationshipTargetFlow}\\\",\\\"Session.SelectedRelationshipLegacySystem\\\":\\\"{Session.SelectedRelationshipLegacySystem}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"Session.SelectedRelationshipTopicId\",\"val\":\"\",\"id\":20},{\"name\":\"User.userId\",\"val\":\"\",\"id\":8},{\"name\":\"remarkup__c\",\"val\":\"\",\"id\":8},{\"name\":\"recordId\",\"val\":\"\",\"id\":8},{\"name\":\"Session.SelectedRelationshipProductType\",\"val\":\"\",\"id\":31},{\"name\":\"Session.SelectedRelationshipServiceTree\",\"val\":\"\",\"id\":32},{\"name\":\"Session.SelectedRelationshipAssetId\",\"val\":\"\",\"id\":33},{\"name\":\"Session.SelectedRelationshipOtherProduct\",\"val\":\"\",\"id\":16},{\"name\":\"Session.SelectedRelationshipFolderName\",\"val\":\"\",\"id\":36},{\"name\":\"Parent.Restart\",\"val\":\"\",\"id\":28},{\"name\":\"Parent.ProductSourceSystem\",\"val\":\"\",\"id\":36},{\"name\":\"Session.SelectedRelationshipTargetFlow\",\"val\":\"\",\"id\":23},{\"name\":\"Session.SelectedRelationshipLegacySystem\",\"val\":\"\",\"id\":24}]}",
+                                                            "actionConditions": {
+                                                                "group": [
+                                                                    {
+                                                                        "field": "Session.SelectedRelationshipRelationshipType",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-7",
+                                                                        "operator": "!=",
+                                                                        "type": "custom",
+                                                                        "value": "Caso/Processo"
+                                                                    }
+                                                                ],
+                                                                "id": "state-condition-object",
+                                                                "isParent": true
+                                                            },
+                                                            "id": "flex-action-1714497170833",
+                                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_CreateManualCustomerInteractionTopic\",\"vlocityAsync\":false,\"inputMap\":{\"interactionId\":\"{recordId}\",\"remarkup\":\"{remarkup__c}\",\"userId\":\"{User.userId}\",\"topicId\":\"{Session.SelectedRelationshipTopicId}\",\"ProductType\":\"{Session.SelectedRelationshipProductType}\",\"ServiceTree\":\"{Session.SelectedRelationshipServiceTree}\",\"AssetId\":\"{Session.SelectedRelationshipAssetId}\",\"OtherProduct\":\"{Session.SelectedRelationshipOtherProduct}\",\"FolderName\":\"{Session.SelectedRelationshipFolderName}\",\"ProductSourceSystem\":\"{Parent.ProductSourceSystem}\",\"SelectedRelationshipLegacySystem\":\"{Session.SelectedRelationshipLegacySystem}\",\"SelectedRelationshipTargetFlow\":\"{Session.SelectedRelationshipTargetFlow}\",\"RelationshipType\":\"{Session.SelectedRelationshipRelationshipType}\"},\"jsonMap\":\"{\\\"Session.SelectedRelationshipTopicId\\\":\\\"{Session.SelectedRelationshipTopicId}\\\",\\\"User.userId\\\":\\\"{User.userId}\\\",\\\"remarkup__c\\\":\\\"{remarkup__c}\\\",\\\"recordId\\\":\\\"{recordId}\\\",\\\"Session.SelectedRelationshipProductType\\\":\\\"{Session.SelectedRelationshipProductType}\\\",\\\"Session.SelectedRelationshipServiceTree\\\":\\\"{Session.SelectedRelationshipServiceTree}\\\",\\\"Session.SelectedRelationshipAssetId\\\":\\\"{Session.SelectedRelationshipAssetId}\\\",\\\"Session.SelectedRelationshipOtherProduct\\\":\\\"{Session.SelectedRelationshipOtherProduct}\\\",\\\"Session.SelectedRelationshipFolderName\\\":\\\"{Session.SelectedRelationshipFolderName}\\\",\\\"Parent.Restart\\\":\\\"{Parent.Restart}\\\",\\\"Parent.ProductSourceSystem\\\":\\\"{Parent.ProductSourceSystem}\\\",\\\"Session.SelectedRelationshipTargetFlow\\\":\\\"{Session.SelectedRelationshipTargetFlow}\\\",\\\"Session.SelectedRelationshipLegacySystem\\\":\\\"{Session.SelectedRelationshipLegacySystem}\\\",\\\"Session.SelectedRelationshipRelationshipType\\\":\\\"{Session.SelectedRelationshipRelationshipType}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"Session.SelectedRelationshipTopicId\",\"val\":\"\",\"id\":20},{\"name\":\"User.userId\",\"val\":\"\",\"id\":8},{\"name\":\"remarkup__c\",\"val\":\"\",\"id\":8},{\"name\":\"recordId\",\"val\":\"\",\"id\":8},{\"name\":\"Session.SelectedRelationshipProductType\",\"val\":\"\",\"id\":31},{\"name\":\"Session.SelectedRelationshipServiceTree\",\"val\":\"\",\"id\":32},{\"name\":\"Session.SelectedRelationshipAssetId\",\"val\":\"\",\"id\":33},{\"name\":\"Session.SelectedRelationshipOtherProduct\",\"val\":\"\",\"id\":16},{\"name\":\"Session.SelectedRelationshipFolderName\",\"val\":\"\",\"id\":36},{\"name\":\"Parent.Restart\",\"val\":\"\",\"id\":28},{\"name\":\"Parent.ProductSourceSystem\",\"val\":\"\",\"id\":36},{\"name\":\"Session.SelectedRelationshipTargetFlow\",\"val\":\"\",\"id\":23},{\"name\":\"Session.SelectedRelationshipLegacySystem\",\"val\":\"\",\"id\":24},{\"name\":\"Session.SelectedRelationshipRelationshipType\",\"val\":\"\",\"id\":37}]}",
                                                             "openUrlIn": "Current Window",
                                                             "targetType": "Web Page",
                                                             "type": "DataAction"
                                                         }
                                                     },
                                                     {
-                                                        "actionIndex": 1,
+                                                        "actionIndex": 3,
                                                         "card": "{card}",
                                                         "draggable": true,
                                                         "isOpen": false,
@@ -1226,6 +1369,15 @@
                                                                         "operator": "==",
                                                                         "type": "custom",
                                                                         "value": "Pre"
+                                                                    },
+                                                                    {
+                                                                        "field": "Session.SelectedRelationshipRelationshipType",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-31",
+                                                                        "logicalOperator": "&&",
+                                                                        "operator": "!=",
+                                                                        "type": "custom",
+                                                                        "value": "Caso/Processo"
                                                                     }
                                                                 ],
                                                                 "id": "state-condition-object",
@@ -1241,10 +1393,10 @@
                                                         }
                                                     },
                                                     {
-                                                        "actionIndex": 3,
+                                                        "actionIndex": 4,
                                                         "card": "{card}",
-                                                        "draggable": false,
-                                                        "isOpen": true,
+                                                        "draggable": true,
+                                                        "isOpen": false,
                                                         "key": "1668703827712-ca426yh6v",
                                                         "label": "ActionToastTopicCreated",
                                                         "stateAction": {
@@ -1257,6 +1409,15 @@
                                                                         "operator": "!=",
                                                                         "type": "custom",
                                                                         "value": ""
+                                                                    },
+                                                                    {
+                                                                        "field": "Session.SelectedRelationshipRelationshipType",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-14",
+                                                                        "logicalOperator": "&&",
+                                                                        "operator": "!=",
+                                                                        "type": "custom",
+                                                                        "value": "Caso/Processo"
                                                                     }
                                                                 ],
                                                                 "id": "state-condition-object",
@@ -1269,7 +1430,7 @@
                                                                 "variant": "success"
                                                             },
                                                             "hasExtraParams": true,
-                                                            "id": "flex-action-1699382912317",
+                                                            "id": "flex-action-1710167354835",
                                                             "message": "showToast",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -1278,22 +1439,22 @@
                                                         }
                                                     },
                                                     {
-                                                        "actionIndex": 3,
+                                                        "actionIndex": 5,
                                                         "card": "{card}",
                                                         "draggable": true,
-                                                        "isOpen": false,
+                                                        "isOpen": true,
                                                         "key": "1668704892424-de3am6vyj",
                                                         "label": "ActionToastTopicVivoNetError",
                                                         "stateAction": {
                                                             "actionConditions": {
                                                                 "group": [
                                                                     {
-                                                                        "field": "status",
+                                                                        "field": "idAtendimento",
                                                                         "hasMergeField": false,
                                                                         "id": "state-new-condition-0",
-                                                                        "operator": "!=",
+                                                                        "operator": "==",
                                                                         "type": "custom",
-                                                                        "value": "Created"
+                                                                        "value": ""
                                                                     },
                                                                     {
                                                                         "field": "Session.SelectedRelationshipProductType",
@@ -1303,6 +1464,24 @@
                                                                         "operator": "==",
                                                                         "type": "custom",
                                                                         "value": "Pre"
+                                                                    },
+                                                                    {
+                                                                        "field": "Session.SelectedRelationshipRelationshipType",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-24",
+                                                                        "logicalOperator": "&&",
+                                                                        "operator": "!=",
+                                                                        "type": "custom",
+                                                                        "value": "Caso/Processo"
+                                                                    },
+                                                                    {
+                                                                        "field": "message",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-6",
+                                                                        "logicalOperator": "&&",
+                                                                        "operator": "!=",
+                                                                        "type": "custom",
+                                                                        "value": ""
                                                                     }
                                                                 ],
                                                                 "id": "state-condition-object",
@@ -1315,7 +1494,7 @@
                                                                 "variant": "error"
                                                             },
                                                             "hasExtraParams": true,
-                                                            "id": "flex-action-1671808685626",
+                                                            "id": "flex-action-1718037614443",
                                                             "message": "showToast",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -1324,7 +1503,7 @@
                                                         }
                                                     },
                                                     {
-                                                        "actionIndex": 5,
+                                                        "actionIndex": 6,
                                                         "card": "{card}",
                                                         "draggable": true,
                                                         "isOpen": false,
@@ -1340,6 +1519,15 @@
                                                                         "operator": "==",
                                                                         "type": "custom",
                                                                         "value": "Created"
+                                                                    },
+                                                                    {
+                                                                        "field": "Session.SelectedRelationshipRelationshipType",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-37",
+                                                                        "logicalOperator": "&&",
+                                                                        "operator": "!=",
+                                                                        "type": "custom",
+                                                                        "value": "Caso/Processo"
                                                                     }
                                                                 ],
                                                                 "id": "state-condition-object",
@@ -1352,7 +1540,7 @@
                                                                 "variant": "success"
                                                             },
                                                             "hasExtraParams": true,
-                                                            "id": "flex-action-1669054262556",
+                                                            "id": "flex-action-1710167461897",
                                                             "message": "showToast",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -1364,7 +1552,7 @@
                                                         "actionIndex": 6,
                                                         "card": "{card}",
                                                         "draggable": true,
-                                                        "isOpen": true,
+                                                        "isOpen": false,
                                                         "key": "1672246035871-5x7992ebw",
                                                         "label": "ActionHIdeTree",
                                                         "stateAction": {
@@ -1569,7 +1757,7 @@
                                                         }
                                                     },
                                                     {
-                                                        "actionIndex": 13,
+                                                        "actionIndex": 14,
                                                         "card": "{card}",
                                                         "draggable": true,
                                                         "isOpen": false,
@@ -1581,10 +1769,33 @@
                                                                     {
                                                                         "field": "Session.SelectedRelationshipProductType",
                                                                         "hasMergeField": false,
-                                                                        "id": "state-new-condition-0",
+                                                                        "id": "state-new-condition-12",
                                                                         "operator": "==",
                                                                         "type": "custom",
                                                                         "value": "Fixed"
+                                                                    },
+                                                                    {
+                                                                        "group": [
+                                                                            {
+                                                                                "field": "Session.SelectedRelationshipRelationshipType",
+                                                                                "hasMergeField": false,
+                                                                                "id": "state-new-condition-0",
+                                                                                "operator": "==",
+                                                                                "type": "custom",
+                                                                                "value": "GPS"
+                                                                            },
+                                                                            {
+                                                                                "field": "Session.SelectedRelationshipProductType",
+                                                                                "hasMergeField": false,
+                                                                                "id": "state-new-condition-32",
+                                                                                "logicalOperator": "&&",
+                                                                                "operator": "==",
+                                                                                "type": "custom",
+                                                                                "value": "Pre"
+                                                                            }
+                                                                        ],
+                                                                        "id": "state-new-group-1",
+                                                                        "logicalOperator": "||"
                                                                     }
                                                                 ],
                                                                 "id": "state-condition-object",
@@ -1601,7 +1812,7 @@
                                                                 "TopicTreeId": "{Session.SelectedRelationshipTopicId}"
                                                             },
                                                             "hasExtraParams": true,
-                                                            "id": "flex-action-1686006137585",
+                                                            "id": "flex-action-1714496343712",
                                                             "message": "opencanvas",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -1610,7 +1821,7 @@
                                                         }
                                                     },
                                                     {
-                                                        "actionIndex": 14,
+                                                        "actionIndex": 15,
                                                         "card": "{card}",
                                                         "draggable": true,
                                                         "isOpen": false,
@@ -1626,6 +1837,29 @@
                                                                         "operator": "==",
                                                                         "type": "custom",
                                                                         "value": "Fixed"
+                                                                    },
+                                                                    {
+                                                                        "group": [
+                                                                            {
+                                                                                "field": "Session.SelectedRelationshipProductType",
+                                                                                "hasMergeField": false,
+                                                                                "id": "state-new-condition-72",
+                                                                                "operator": "==",
+                                                                                "type": "custom",
+                                                                                "value": "Pre"
+                                                                            },
+                                                                            {
+                                                                                "field": "Session.SelectedRelationshipRelationshipType",
+                                                                                "hasMergeField": false,
+                                                                                "id": "state-new-condition-104",
+                                                                                "logicalOperator": "&&",
+                                                                                "operator": "==",
+                                                                                "type": "custom",
+                                                                                "value": "GPS"
+                                                                            }
+                                                                        ],
+                                                                        "id": "state-new-group-73",
+                                                                        "logicalOperator": "||"
                                                                     }
                                                                 ],
                                                                 "id": "state-condition-object",
@@ -1637,7 +1871,7 @@
                                                                 "openedcanvas": "true"
                                                             },
                                                             "hasExtraParams": true,
-                                                            "id": "flex-action-1685392711830",
+                                                            "id": "flex-action-1714496308954",
                                                             "message": "openedcanvas",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -1646,7 +1880,7 @@
                                                         }
                                                     },
                                                     {
-                                                        "actionIndex": 15,
+                                                        "actionIndex": 16,
                                                         "card": "{card}",
                                                         "draggable": true,
                                                         "isOpen": false,
@@ -1662,6 +1896,29 @@
                                                                         "operator": "==",
                                                                         "type": "custom",
                                                                         "value": "Fixed"
+                                                                    },
+                                                                    {
+                                                                        "group": [
+                                                                            {
+                                                                                "field": "Session.SelectedRelationshipProductType",
+                                                                                "hasMergeField": false,
+                                                                                "id": "state-new-condition-147",
+                                                                                "operator": "==",
+                                                                                "type": "custom",
+                                                                                "value": "Pre"
+                                                                            },
+                                                                            {
+                                                                                "field": "Session.SelectedRelationshipRelationshipType",
+                                                                                "hasMergeField": false,
+                                                                                "id": "state-new-condition-187",
+                                                                                "logicalOperator": "&&",
+                                                                                "operator": "==",
+                                                                                "type": "custom",
+                                                                                "value": "GPS"
+                                                                            }
+                                                                        ],
+                                                                        "id": "state-new-group-148",
+                                                                        "logicalOperator": "||"
                                                                     }
                                                                 ],
                                                                 "id": "state-condition-object",
@@ -1678,7 +1935,7 @@
                                                                 "selectedTopicTreeId": "{Session.SelectedRelationshipTopicId}"
                                                             },
                                                             "hasExtraParams": true,
-                                                            "id": "flex-action-1686006128705",
+                                                            "id": "flex-action-1714497654774",
                                                             "message": "recoveryids",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -1845,7 +2102,7 @@
                                                                 "OpenedDispute": "true"
                                                             },
                                                             "hasExtraParams": true,
-                                                            "id": "flex-action-1699383976809",
+                                                            "id": "flex-action-1701784148990",
                                                             "message": "OpenedDispute",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -1927,23 +2184,27 @@
                                                     "isParent": true
                                                 },
                                                 "displayAsButton": true,
+                                                "flyoutChannel": "close_OpenCaseProcessFormPre",
                                                 "flyoutDetails": {
+                                                    "openFlyoutIn": "Modal"
                                                 },
                                                 "hideActionIcon": true,
                                                 "iconName": "standard-default",
                                                 "label": "Registrar",
+                                                "preloadFlyout": false,
+                                                "reRenderFlyout": true,
                                                 "record": "{record}",
-                                                "showSpinner": "false",
+                                                "showSpinner": "true",
                                                 "stateObj": "{record}",
                                                 "styles": {
                                                     "label": {
-                                                        "fontSize": "13px;",
+                                                        "fontSize": "13px",
                                                         "textAlign": "center"
                                                     }
                                                 }
                                             },
                                             "size": {
-                                                "default": "12",
+                                                "default": "8",
                                                 "isResponsive": false
                                             },
                                             "stateIndex": 0,
@@ -1962,34 +2223,29 @@
                                                     "type": "",
                                                     "width": ""
                                                 },
-                                                "class": "slds-p-around_xx-small ",
+                                                "class": "",
                                                 "container": {
                                                     "class": ""
                                                 },
                                                 "elementStyleProperties": {
                                                     "styles": {
                                                         "label": {
-                                                            "fontSize": "13px;",
+                                                            "fontSize": "13px",
                                                             "textAlign": "center"
                                                         }
                                                     }
                                                 },
-                                                "inlineStyle": "",
+                                                "inlineStyle": "width: 5.5rem; height:2rem;",
                                                 "margin": [
                                                 ],
                                                 "padding": [
-                                                    {
-                                                        "label": "around:xx-small",
-                                                        "size": "xx-small",
-                                                        "type": "around"
-                                                    }
                                                 ],
                                                 "size": {
-                                                    "default": "12",
+                                                    "default": "8",
                                                     "isResponsive": false
                                                 },
-                                                "sizeClass": "slds-size_12-of-12 ",
-                                                "style": "      \n    border-radius:3px;     ",
+                                                "sizeClass": "slds-size_8-of-12 ",
+                                                "style": "      \n    border-radius:3px;     width: 5.5rem; height:2rem;",
                                                 "text": {
                                                     "align": "",
                                                     "color": ""
@@ -2018,34 +2274,29 @@
                                                             "type": "",
                                                             "width": ""
                                                         },
-                                                        "class": "slds-p-around_xx-small ",
+                                                        "class": "",
                                                         "container": {
                                                             "class": ""
                                                         },
                                                         "elementStyleProperties": {
                                                             "styles": {
                                                                 "label": {
-                                                                    "fontSize": "13px;",
+                                                                    "fontSize": "13px",
                                                                     "textAlign": "center"
                                                                 }
                                                             }
                                                         },
-                                                        "inlineStyle": "",
+                                                        "inlineStyle": "width: 5.5rem; height:2rem;",
                                                         "margin": [
                                                         ],
                                                         "padding": [
-                                                            {
-                                                                "label": "around:xx-small",
-                                                                "size": "xx-small",
-                                                                "type": "around"
-                                                            }
                                                         ],
                                                         "size": {
-                                                            "default": "12",
+                                                            "default": "8",
                                                             "isResponsive": false
                                                         },
-                                                        "sizeClass": "slds-size_12-of-12 ",
-                                                        "style": "      \n    border-radius:3px;     ",
+                                                        "sizeClass": "slds-size_8-of-12 ",
+                                                        "style": "      \n    border-radius:3px;     width: 5.5rem; height:2rem;",
                                                         "text": {
                                                             "align": "",
                                                             "color": ""
@@ -2053,14 +2304,15 @@
                                                     }
                                                 }
                                             ],
-                                            "type": "element"
+                                            "type": "element",
+                                            "userUpdatedElementLabel": true
                                         },
                                         {
                                             "class": "slds-col ",
-                                            "element": "outputField",
-                                            "elementLabel": "Block-3-Block-1-Field-2",
-                                            "key": "element_element_element_block_4_0_block_1_0_outputField_1_0",
-                                            "name": "Field",
+                                            "element": "action",
+                                            "elementLabel": "RegisterButtonDisabled",
+                                            "key": "element_element_element_block_4_0_block_1_0_action_1_0",
+                                            "name": "Action",
                                             "parentElementKey": "element_element_block_4_0_block_1_0",
                                             "property": {
                                                 "card": "{card}",
@@ -2110,9 +2362,19 @@
                                                     "id": "state-condition-object",
                                                     "isParent": true
                                                 },
+                                                "disabled": "true",
+                                                "displayAsButton": true,
+                                                "flyoutChannel": "close_modalformtype",
+                                                "flyoutDetails": {
+                                                },
+                                                "hideActionIcon": true,
+                                                "iconName": "standard-default",
                                                 "label": "Registrar",
-                                                "placeholder": "",
+                                                "preloadFlyout": true,
+                                                "reRenderFlyout": true,
                                                 "record": "{record}",
+                                                "showSpinner": "true",
+                                                "stateObj": "{record}",
                                                 "styles": {
                                                     "label": {
                                                         "color": "#FFFFFF",
@@ -2142,11 +2404,10 @@
                                                     "type": "",
                                                     "width": ""
                                                 },
-                                                "class": "slds-p-around_xx-small moveButtonDisable1",
+                                                "class": "",
                                                 "container": {
                                                     "class": ""
                                                 },
-                                                "customClass": "moveButtonDisable1",
                                                 "elementStyleProperties": {
                                                     "styles": {
                                                         "label": {
@@ -2156,22 +2417,17 @@
                                                         }
                                                     }
                                                 },
-                                                "inlineStyle": "",
+                                                "inlineStyle": "width: 5.5rem; height:2rem;",
                                                 "margin": [
                                                 ],
                                                 "padding": [
-                                                    {
-                                                        "label": "around:xx-small",
-                                                        "size": "xx-small",
-                                                        "type": "around"
-                                                    }
                                                 ],
                                                 "size": {
                                                     "default": "8",
                                                     "isResponsive": false
                                                 },
                                                 "sizeClass": "slds-size_8-of-12 ",
-                                                "style": "background-color:#CDCDCD;      \n    border-radius:3px;     ",
+                                                "style": "      \n    border-radius:3px;     width: 5.5rem; height:2rem;",
                                                 "text": {
                                                     "align": "",
                                                     "color": ""
@@ -2187,49 +2443,42 @@
                                                     "name": "Default",
                                                     "styleObject": {
                                                         "background": {
-                                                            "color": "#CDCDCD",
+                                                            "color": "",
                                                             "image": "",
                                                             "position": "",
                                                             "repeat": "",
                                                             "size": ""
                                                         },
                                                         "border": {
-                                                            "color": "#cccccc",
+                                                            "color": "",
                                                             "radius": "3px",
                                                             "style": "",
                                                             "type": "",
                                                             "width": ""
                                                         },
-                                                        "class": "slds-p-around_xx-small moveButtonDisable1",
+                                                        "class": "",
                                                         "container": {
                                                             "class": ""
                                                         },
-                                                        "customClass": "moveButtonDisable1",
                                                         "elementStyleProperties": {
                                                             "styles": {
                                                                 "label": {
-                                                                    "color": "#FFFFFF",
-                                                                    "fontSize": "13px;",
+                                                                    "fontSize": "13px",
                                                                     "textAlign": "center"
                                                                 }
                                                             }
                                                         },
-                                                        "inlineStyle": "",
+                                                        "inlineStyle": "width: 5.5rem; height:2rem;",
                                                         "margin": [
                                                         ],
                                                         "padding": [
-                                                            {
-                                                                "label": "around:xx-small",
-                                                                "size": "xx-small",
-                                                                "type": "around"
-                                                            }
                                                         ],
                                                         "size": {
                                                             "default": "8",
                                                             "isResponsive": false
                                                         },
                                                         "sizeClass": "slds-size_8-of-12 ",
-                                                        "style": "background-color:#CDCDCD;      \n    border-radius:3px;     ",
+                                                        "style": "      \n    border-radius:3px;     width: 5.5rem; height:2rem;",
                                                         "text": {
                                                             "align": "",
                                                             "color": ""
@@ -2237,12 +2486,13 @@
                                                     }
                                                 }
                                             ],
-                                            "type": "element"
+                                            "type": "element",
+                                            "userUpdatedElementLabel": true
                                         }
                                     ],
                                     "class": "slds-col ",
                                     "element": "block",
-                                    "elementLabel": "Block-3-Block-1",
+                                    "elementLabel": "ButtonContainer",
                                     "key": "element_element_block_4_0_block_1_0",
                                     "name": "Block",
                                     "parentElementKey": "element_block_4_0",
@@ -2342,7 +2592,8 @@
                                             }
                                         }
                                     ],
-                                    "type": "block"
+                                    "type": "block",
+                                    "userUpdatedElementLabel": true
                                 }
                             ],
                             "class": "slds-col ",
