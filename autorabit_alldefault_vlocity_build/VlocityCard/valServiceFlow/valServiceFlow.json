@@ -80,8 +80,8 @@
                             "targetName": "/apex"
                         },
                         "displayName": "Action",
-                        "id": "flex-action-1673982374664",
-                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_getServiceFlowAddressProduct\",\"vlocityAsync\":false,\"inputMap\":{\"RecordId\":\"{recordId}\",\"Line\":\"{Line}\",\"ProductType\":\"{ProductType}\",\"ProfileName\":\"{User.userProfileName}\",\"Address\":\"{Address}\",\"FirstRead\":\"{FirstRead}\"}},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"\",\"id\":0},{\"name\":\"ProductType\",\"val\":\"\",\"id\":3},{\"name\":\"Line\",\"val\":\"\",\"id\":9},{\"name\":\"ServiceTree\",\"val\":\"\",\"id\":55},{\"name\":\"Address\",\"val\":\"\",\"id\":17},{\"name\":\"FirstRead\",\"val\":\"\",\"id\":11},{\"name\":\"User.userProfileName\",\"val\":\"\",\"id\":14}]}",
+                        "id": "flex-action-1710161390855",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_getServiceFlowAddressProduct\",\"vlocityAsync\":false,\"inputMap\":{\"RecordId\":\"{recordId}\",\"Line\":\"{Line}\",\"ProductType\":\"{ProductType}\",\"ProfileName\":\"{User.userProfileName}\",\"Address\":\"{Address}\",\"FirstRead\":\"{FirstRead}\",\"VisibleTo\":\"{Session.PageReference}\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"ProductType\\\":\\\"{ProductType}\\\",\\\"Line\\\":\\\"{Line}\\\",\\\"ServiceTree\\\":\\\"{ServiceTree}\\\",\\\"Address\\\":\\\"{Address}\\\",\\\"FirstRead\\\":\\\"{FirstRead}\\\",\\\"User.userProfileName\\\":\\\"{User.userProfileName}\\\",\\\"Session.PageReference\\\":\\\"{Session.PageReference}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"\",\"id\":0},{\"name\":\"ProductType\",\"val\":\"\",\"id\":3},{\"name\":\"Line\",\"val\":\"\",\"id\":9},{\"name\":\"ServiceTree\",\"val\":\"\",\"id\":55},{\"name\":\"Address\",\"val\":\"\",\"id\":17},{\"name\":\"FirstRead\",\"val\":\"\",\"id\":11},{\"name\":\"User.userProfileName\",\"val\":\"\",\"id\":14},{\"name\":\"Session.PageReference\",\"val\":\"\",\"id\":13}]}",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "DataAction",
@@ -109,8 +109,8 @@
                 {
                     "actionIndex": 2,
                     "card": "{card}",
-                    "draggable": false,
-                    "isOpen": true,
+                    "draggable": true,
+                    "isOpen": false,
                     "key": "1699463985351-zxtuisbj5",
                     "label": "SetSessionProductSourceSystem",
                     "stateAction": {
@@ -804,15 +804,195 @@
             "key": "event-14",
             "recordIndex": "0",
             "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1715884572929-jgzbdr9v3",
+                    "label": "Dispute Opened",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.OpenedDispute",
+                                "fieldValue": "{action.OpenedDispute}"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipLegacySystem",
+                                "fieldValue": "''"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipParentName",
+                                "fieldValue": "''"
+                            },
+                            {
+                                "fieldName": "Session.SelectedRelationshipTargetFlow",
+                                "fieldValue": "''"
+                            },
+                            {
+                                "fieldName": "Session.ProductSourceSystem",
+                                "fieldValue": "''"
+                            },
+                            {
+                                "fieldName": "Session.CaseId",
+                                "fieldValue": "{action.CaseId}"
+                            }
+                        ],
+                        "id": "flex-action-1715884694964",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "FixedDispute",
+            "displayLabel": "FixedDispute:openFlow",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "openFlow",
+            "eventtype": "pubsub",
+            "key": "event-15",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1715887019106-s889adbmt",
+                    "label": "ActionGetServiceFlowAddressProduct",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "id": "flex-action-1715889011522",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_getServiceFlowAddressProduct\",\"vlocityAsync\":false,\"inputMap\":{\"Address\":\"{Address}\",\"FirstRead\":\"{FirstRead}\",\"Line\":\"{Line}\",\"ProductType\":\"{ProductType}\",\"ProfileName\":\"{User.userProfileName}\",\"RecordId\":\"{recordId}\",\"VisibleTo\":\"{Session.PageReference}\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"ProductType\\\":\\\"{ProductType}\\\",\\\"Line\\\":\\\"{Line}\\\",\\\"ServiceTree\\\":\\\"{ServiceTree}\\\",\\\"User.userProfileName\\\":\\\"{User.userProfileName}\\\",\\\"Address\\\":\\\"{Address}\\\",\\\"FirstRead\\\":\\\"{FirstRead}\\\",\\\"Session.PageReference\\\":\\\"{Session.PageReference}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"id\":0,\"name\":\"recordId\",\"val\":\"\"},{\"id\":3,\"name\":\"ProductType\",\"val\":\"\"},{\"id\":9,\"name\":\"Line\",\"val\":\"\"},{\"id\":55,\"name\":\"ServiceTree\",\"val\":\"\"},{\"id\":44,\"name\":\"User.userProfileName\",\"val\":\"\"},{\"id\":17,\"name\":\"Address\",\"val\":\"\"},{\"id\":21,\"name\":\"FirstRead\",\"val\":\"\"},{\"id\":57,\"name\":\"Session.PageReference\",\"val\":\"\"}]}",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "DataAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1715887242439-a7jhea4z6",
+                    "label": "ActionHideSpinner",
+                    "stateAction": {
+                        "displayName": "Action",
+                        "eventName": "valServiceFlow",
+                        "id": "flex-action-1715887262982",
+                        "message": "hidespinner",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 2,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1715887306398-79631hq2o",
+                    "label": "ActionSetSessionProductSourceSystem",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Session.ProductSourceSystem",
+                                "fieldValue": "{SourceSystem}"
+                            }
+                        ],
+                        "id": "flex-action-1715887312330",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 3,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1715887339470-b22odofcw",
+                    "label": "ActionNavigatetreeUpdate",
+                    "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "Line",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-485",
+                                    "operator": "!=",
+                                    "type": "custom",
+                                    "value": "Outros"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "navigationtree",
+                        "extraParams": {
+                            "Active": "Active",
+                            "AssetId": "{Line}",
+                            "CustomerInteractionId": "{recordId}",
+                            "OtherProduct": "{OtherProduct}",
+                            "ProductType": "{ProductType}",
+                            "SelectedFunction": "RelationshipTopicFront",
+                            "ServiceTree": "{ServiceTree}",
+                            "ShowTopicsCaseOpening": "{ShowTopicsCaseOpening}",
+                            "VisibleTo": "{Session.PageReference}"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1715887789146",
+                        "message": "update",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "valServiceFlow",
+            "displayLabel": "valServiceFlow:updateFromLine",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "updateFromLine",
+            "eventtype": "pubsub",
+            "key": "event-16",
+            "recordIndex": "0",
+            "showSpinner": "true"
         }
     ],
     "globalCSS": false,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValServiceFlow_24_usPalitagemCrossRegistrarPalito",
-        "Id": "0Rb8K0000017jNcSAI",
+        "DeveloperName": "cfValServiceFlow_28_usPalitagemCrossRegistrarPalito",
+        "Id": "0Rb76000000L6h9CAC",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValServiceFlow_24_usPalitagemCrossRegistrarPalito",
+        "MasterLabel": "cfValServiceFlow_28_usPalitagemCrossRegistrarPalito",
         "NamespacePrefix": "c"
     },
     "multilanguageSupport": true,
@@ -859,6 +1039,26 @@
         },
         {
             "name": "DisputeCompleteServiceSuccess",
+            "val": ""
+        },
+        {
+            "name": "SLA",
+            "val": ""
+        },
+        {
+            "name": "FormType",
+            "val": ""
+        },
+        {
+            "name": "RelationshipType",
+            "val": ""
+        },
+        {
+            "name": "CaseHandling",
+            "val": ""
+        },
+        {
+            "name": "CaseReturn",
             "val": ""
         }
     ],
@@ -998,9 +1198,9 @@
                                     "class": "slds-col ",
                                     "element": "action",
                                     "elementLabel": "Block-0-Action-1",
-                                    "key": "element_element_block_1_0_action_0_0",
+                                    "key": "element_element_block_0_0_action_0_0",
                                     "name": "Action",
-                                    "parentElementKey": "element_block_1_0",
+                                    "parentElementKey": "element_block_0_0",
                                     "property": {
                                         "actionList": [
                                             {
@@ -1092,8 +1292,8 @@
                                             {
                                                 "actionIndex": 4,
                                                 "card": "{card}",
-                                                "draggable": false,
-                                                "isOpen": true,
+                                                "draggable": true,
+                                                "isOpen": false,
                                                 "isTrackingDisabled": true,
                                                 "key": "1685654732328-4ttob2wb8",
                                                 "label": "ActionSetSessionOpenedDispute",
@@ -1107,9 +1307,13 @@
                                                         {
                                                             "fieldName": "Session.OpenedDispute",
                                                             "fieldValue": "false"
+                                                        },
+                                                        {
+                                                            "fieldName": "Session.ShowDisputeCompleteService",
+                                                            "fieldValue": "false"
                                                         }
                                                     ],
-                                                    "id": "flex-action-1687464443247",
+                                                    "id": "flex-action-1707328329461",
                                                     "openUrlIn": "Current Window",
                                                     "targetType": "Web Page",
                                                     "type": "cardAction",
@@ -1127,11 +1331,64 @@
                                                     "displayName": "Action",
                                                     "eventName": "Dispute",
                                                     "extraParams": {
-                                                        "OpenDispute": "false"
+                                                        "AccountId": "",
+                                                        "AssetId": "",
+                                                        "CaseId": "",
+                                                        "ContactId": "",
+                                                        "InteractionId": "",
+                                                        "InteractionTopicId": "",
+                                                        "LegacySystemTopicTree": "",
+                                                        "OpenDispute": "false",
+                                                        "ServiceIdentifier": ""
                                                     },
                                                     "hasExtraParams": true,
-                                                    "id": "flex-action-1685654906277",
+                                                    "id": "flex-action-1707328291178",
                                                     "message": "Open",
+                                                    "openUrlIn": "Current Window",
+                                                    "subType": "PubSub",
+                                                    "type": "Event",
+                                                    "vlocityIcon": "standard-default"
+                                                }
+                                            },
+                                            {
+                                                "actionIndex": 6,
+                                                "card": "{card}",
+                                                "draggable": true,
+                                                "isOpen": false,
+                                                "key": "1707328844137-o8ogysvpg",
+                                                "label": "ActionResetShowCompleteService",
+                                                "stateAction": {
+                                                    "displayName": "Action",
+                                                    "eventName": "Dispute",
+                                                    "extraParams": {
+                                                        "CaseId": "",
+                                                        "DisputeCloseService": "",
+                                                        "ShowServiceDefinition": "false",
+                                                        "UpsertSuccess": "",
+                                                        "attendantMessage": "",
+                                                        "serviceDefinitionName": ""
+                                                    },
+                                                    "hasExtraParams": true,
+                                                    "id": "flex-action-1707329203783",
+                                                    "message": "DisputeCompleteService",
+                                                    "openUrlIn": "Current Window",
+                                                    "subType": "PubSub",
+                                                    "type": "Event",
+                                                    "vlocityIcon": "standard-default"
+                                                }
+                                            },
+                                            {
+                                                "actionIndex": 7,
+                                                "card": "{card}",
+                                                "draggable": true,
+                                                "isOpen": true,
+                                                "key": "1715883663018-h4crr7bw0",
+                                                "label": "ActionCloseFixedDisputeFlow",
+                                                "stateAction": {
+                                                    "displayName": "Action",
+                                                    "eventName": "FixedDispute",
+                                                    "id": "flex-action-1715883669903",
+                                                    "message": "closeFlow",
                                                     "openUrlIn": "Current Window",
                                                     "subType": "PubSub",
                                                     "type": "Event",
@@ -1171,9 +1428,9 @@
                                     "class": "slds-col ",
                                     "element": "block",
                                     "elementLabel": "Block-0-Block-2",
-                                    "key": "element_element_block_1_0_block_1_0",
+                                    "key": "element_element_block_0_0_block_1_0",
                                     "name": "Block",
-                                    "parentElementKey": "element_block_1_0",
+                                    "parentElementKey": "element_block_0_0",
                                     "property": {
                                         "card": "{card}",
                                         "collapsedByDefault": false,
@@ -1206,9 +1463,9 @@
                                     "class": "slds-col ",
                                     "element": "customLwc",
                                     "elementLabel": "Block-0-Custom LWC-4",
-                                    "key": "element_element_block_1_0_customLwc_2_0",
+                                    "key": "element_element_block_0_0_customLwc_2_0",
                                     "name": "Custom LWC",
-                                    "parentElementKey": "element_block_1_0",
+                                    "parentElementKey": "element_block_0_0",
                                     "property": {
                                         "customlwcname": "ctiCallDroppedButtonNotification"
                                     },
@@ -1230,9 +1487,9 @@
                                     "class": "slds-col ",
                                     "element": "childCardPreview",
                                     "elementLabel": "FlexCard-1",
-                                    "key": "element_element_block_1_0_childCardPreview_3_0",
+                                    "key": "element_element_block_0_0_childCardPreview_3_0",
                                     "name": "FlexCard",
-                                    "parentElementKey": "element_block_1_0",
+                                    "parentElementKey": "element_block_0_0",
                                     "property": {
                                         "cardName": "DisputeCloseService",
                                         "cardNode": "",
@@ -1406,23 +1663,37 @@
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
                                     "elementLabel": "Block-0-Select-1",
-                                    "key": "element_element_block_2_0_baseInputElement_0_0",
+                                    "key": "element_element_block_1_0_baseInputElement_0_0",
                                     "name": "Select",
-                                    "parentElementKey": "element_block_2_0",
+                                    "parentElementKey": "element_block_1_0",
                                     "property": {
                                         "action": {
                                             "actionList": [
                                                 {
                                                     "actionIndex": 0,
                                                     "card": "{card}",
-                                                    "draggable": true,
-                                                    "isOpen": false,
+                                                    "draggable": false,
+                                                    "isOpen": true,
                                                     "key": "1672853723832-g020xngn6",
                                                     "label": "ActionShowSpinner",
                                                     "stateAction": {
+                                                        "actionConditions": {
+                                                            "group": [
+                                                                {
+                                                                    "field": "1",
+                                                                    "hasMergeField": false,
+                                                                    "id": "state-new-condition-0",
+                                                                    "operator": "==",
+                                                                    "type": "custom",
+                                                                    "value": "2"
+                                                                }
+                                                            ],
+                                                            "id": "state-condition-object",
+                                                            "isParent": true
+                                                        },
                                                         "displayName": "Action",
                                                         "eventName": "valServiceFlow",
-                                                        "id": "flex-action-1672859521509",
+                                                        "id": "flex-action-1710161989791",
                                                         "message": "showspinner",
                                                         "openUrlIn": "Current Window",
                                                         "subType": "PubSub",
@@ -1481,8 +1752,8 @@
                                                 {
                                                     "actionIndex": 2,
                                                     "card": "{card}",
-                                                    "draggable": false,
-                                                    "isOpen": true,
+                                                    "draggable": true,
+                                                    "isOpen": false,
                                                     "key": "1671585634594-h2zcmhxxe",
                                                     "label": "ActionUpdate",
                                                     "stateAction": {
@@ -1512,7 +1783,7 @@
                                                     "actionIndex": 4,
                                                     "card": "{card}",
                                                     "draggable": true,
-                                                    "isOpen": true,
+                                                    "isOpen": false,
                                                     "key": "1673037042951-02shhfg9w",
                                                     "label": "Action",
                                                     "stateAction": {
@@ -1548,14 +1819,28 @@
                                                     {
                                                         "actionIndex": 0,
                                                         "card": "{card}",
-                                                        "draggable": true,
-                                                        "isOpen": false,
+                                                        "draggable": false,
+                                                        "isOpen": true,
                                                         "key": "1672853723832-g020xngn6",
                                                         "label": "ActionShowSpinner",
                                                         "stateAction": {
+                                                            "actionConditions": {
+                                                                "group": [
+                                                                    {
+                                                                        "field": "1",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-0",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "2"
+                                                                    }
+                                                                ],
+                                                                "id": "state-condition-object",
+                                                                "isParent": true
+                                                            },
                                                             "displayName": "Action",
                                                             "eventName": "valServiceFlow",
-                                                            "id": "flex-action-1672859521509",
+                                                            "id": "flex-action-1710161989791",
                                                             "message": "showspinner",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -1614,8 +1899,8 @@
                                                     {
                                                         "actionIndex": 2,
                                                         "card": "{card}",
-                                                        "draggable": false,
-                                                        "isOpen": true,
+                                                        "draggable": true,
+                                                        "isOpen": false,
                                                         "key": "1671585634594-h2zcmhxxe",
                                                         "label": "ActionUpdate",
                                                         "stateAction": {
@@ -1645,7 +1930,7 @@
                                                         "actionIndex": 4,
                                                         "card": "{card}",
                                                         "draggable": true,
-                                                        "isOpen": true,
+                                                        "isOpen": false,
                                                         "key": "1673037042951-02shhfg9w",
                                                         "label": "Action",
                                                         "stateAction": {
@@ -1678,7 +1963,7 @@
                                                 {
                                                     "id": 0,
                                                     "label": "messageWhenValueMissing",
-                                                    "value": "Este campo é obrigatório."
+                                                    "value": "Produto é obrigatório."
                                                 }
                                             ],
                                             "fieldBinding": "{ProductType}",
@@ -1824,9 +2109,9 @@
                                     "class": "slds-col ",
                                     "element": "block",
                                     "elementLabel": "Block-0-Block-2",
-                                    "key": "element_element_block_2_0_block_1_0",
+                                    "key": "element_element_block_1_0_block_1_0",
                                     "name": "Block",
-                                    "parentElementKey": "element_block_2_0",
+                                    "parentElementKey": "element_block_1_0",
                                     "property": {
                                         "card": "{card}",
                                         "collapsedByDefault": false,
@@ -1859,9 +2144,9 @@
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
                                     "elementLabel": "Typeahead",
-                                    "key": "element_element_block_2_0_baseInputElement_2_0",
+                                    "key": "element_element_block_1_0_baseInputElement_2_0",
                                     "name": "Typeahead",
-                                    "parentElementKey": "element_block_2_0",
+                                    "parentElementKey": "element_block_1_0",
                                     "property": {
                                         "action": {
                                             "actionList": [
@@ -2253,22 +2538,37 @@
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
                                     "elementLabel": "Block-0-Select-5",
-                                    "key": "element_element_block_2_0_baseInputElement_3_0",
+                                    "key": "element_element_block_1_0_baseInputElement_3_0",
                                     "name": "Select",
+                                    "parentElementKey": "element_block_1_0",
                                     "property": {
                                         "action": {
                                             "actionList": [
                                                 {
-                                                    "actionIndex": 3,
+                                                    "actionIndex": 0,
                                                     "card": "{card}",
                                                     "draggable": true,
                                                     "isOpen": false,
                                                     "key": "1672859784730-v0cd98n34",
                                                     "label": "ActionShowSpinner",
                                                     "stateAction": {
+                                                        "actionConditions": {
+                                                            "group": [
+                                                                {
+                                                                    "field": "1",
+                                                                    "hasMergeField": false,
+                                                                    "id": "state-new-condition-14",
+                                                                    "operator": "==",
+                                                                    "type": "custom",
+                                                                    "value": "2"
+                                                                }
+                                                            ],
+                                                            "id": "state-condition-object",
+                                                            "isParent": true
+                                                        },
                                                         "displayName": "Action",
                                                         "eventName": "valServiceFlow",
-                                                        "id": "flex-action-1672859784811",
+                                                        "id": "flex-action-1710162210157",
                                                         "message": "showspinner",
                                                         "openUrlIn": "Current Window",
                                                         "subType": "PubSub",
@@ -2279,15 +2579,15 @@
                                                 {
                                                     "actionIndex": 1,
                                                     "card": "{card}",
-                                                    "draggable": false,
+                                                    "draggable": true,
                                                     "isOpen": true,
                                                     "key": "1673019245448-4xexkbf2z",
                                                     "label": "ActionServiceFlowUpdate",
                                                     "stateAction": {
                                                         "displayName": "Action",
                                                         "eventName": "valServiceFlow",
-                                                        "id": "flex-action-1673620785898",
-                                                        "message": "update",
+                                                        "id": "flex-action-1715887727741",
+                                                        "message": "updateFromLine",
                                                         "openUrlIn": "Current Window",
                                                         "subType": "PubSub",
                                                         "type": "Event",
@@ -2360,6 +2660,15 @@
                                                                     "operator": "!=",
                                                                     "type": "custom",
                                                                     "value": "Outros"
+                                                                },
+                                                                {
+                                                                    "field": "1",
+                                                                    "hasMergeField": false,
+                                                                    "id": "state-new-condition-475",
+                                                                    "logicalOperator": "&&",
+                                                                    "operator": "==",
+                                                                    "type": "custom",
+                                                                    "value": "2"
                                                                 }
                                                             ],
                                                             "id": "state-condition-object",
@@ -2375,10 +2684,11 @@
                                                             "ProductType": "{ProductType}",
                                                             "SelectedFunction": "RelationshipTopicFront",
                                                             "ServiceTree": "{ServiceTree}",
+                                                            "ShowTopicsCaseOpening": "{ShowTopicsCaseOpening}",
                                                             "VisibleTo": "{Session.PageReference}"
                                                         },
                                                         "hasExtraParams": true,
-                                                        "id": "flex-action-1673619160472",
+                                                        "id": "flex-action-1715887749889",
                                                         "message": "update",
                                                         "openUrlIn": "Current Window",
                                                         "subType": "PubSub",
@@ -2471,8 +2781,8 @@
                                                 {
                                                     "actionIndex": 7,
                                                     "card": "{card}",
-                                                    "draggable": true,
-                                                    "isOpen": false,
+                                                    "draggable": false,
+                                                    "isOpen": true,
                                                     "key": "1673037082702-bkfhw1cp3",
                                                     "label": "Action",
                                                     "stateAction": {
@@ -2575,16 +2885,30 @@
                                             "action": {
                                                 "actionList": [
                                                     {
-                                                        "actionIndex": 3,
+                                                        "actionIndex": 0,
                                                         "card": "{card}",
                                                         "draggable": true,
                                                         "isOpen": false,
                                                         "key": "1672859784730-v0cd98n34",
                                                         "label": "ActionShowSpinner",
                                                         "stateAction": {
+                                                            "actionConditions": {
+                                                                "group": [
+                                                                    {
+                                                                        "field": "1",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-14",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "2"
+                                                                    }
+                                                                ],
+                                                                "id": "state-condition-object",
+                                                                "isParent": true
+                                                            },
                                                             "displayName": "Action",
                                                             "eventName": "valServiceFlow",
-                                                            "id": "flex-action-1672859784811",
+                                                            "id": "flex-action-1710162210157",
                                                             "message": "showspinner",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -2595,15 +2919,15 @@
                                                     {
                                                         "actionIndex": 1,
                                                         "card": "{card}",
-                                                        "draggable": false,
+                                                        "draggable": true,
                                                         "isOpen": true,
                                                         "key": "1673019245448-4xexkbf2z",
                                                         "label": "ActionServiceFlowUpdate",
                                                         "stateAction": {
                                                             "displayName": "Action",
                                                             "eventName": "valServiceFlow",
-                                                            "id": "flex-action-1673620785898",
-                                                            "message": "update",
+                                                            "id": "flex-action-1715887727741",
+                                                            "message": "updateFromLine",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
                                                             "type": "Event",
@@ -2676,6 +3000,15 @@
                                                                         "operator": "!=",
                                                                         "type": "custom",
                                                                         "value": "Outros"
+                                                                    },
+                                                                    {
+                                                                        "field": "1",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-475",
+                                                                        "logicalOperator": "&&",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "2"
                                                                     }
                                                                 ],
                                                                 "id": "state-condition-object",
@@ -2691,10 +3024,11 @@
                                                                 "ProductType": "{ProductType}",
                                                                 "SelectedFunction": "RelationshipTopicFront",
                                                                 "ServiceTree": "{ServiceTree}",
+                                                                "ShowTopicsCaseOpening": "{ShowTopicsCaseOpening}",
                                                                 "VisibleTo": "{Session.PageReference}"
                                                             },
                                                             "hasExtraParams": true,
-                                                            "id": "flex-action-1673619160472",
+                                                            "id": "flex-action-1715887749889",
                                                             "message": "update",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -2787,8 +3121,8 @@
                                                     {
                                                         "actionIndex": 7,
                                                         "card": "{card}",
-                                                        "draggable": true,
-                                                        "isOpen": false,
+                                                        "draggable": false,
+                                                        "isOpen": true,
                                                         "key": "1673037082702-bkfhw1cp3",
                                                         "label": "Action",
                                                         "stateAction": {
@@ -2826,7 +3160,7 @@
                                                 {
                                                     "id": 1,
                                                     "label": "messageWhenValueMissing",
-                                                    "value": "Este campo é obrigatório."
+                                                    "value": "Linha ou Instância é obrigatório."
                                                 }
                                             ],
                                             "fieldBinding": "{Line}",
@@ -2872,23 +3206,37 @@
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
                                     "elementLabel": "Select",
-                                    "key": "element_element_block_2_0_baseInputElement_3_0",
+                                    "key": "element_element_block_1_0_baseInputElement_4_0",
                                     "name": "Select",
-                                    "parentElementKey": "element_block_2_0",
+                                    "parentElementKey": "element_block_1_0",
                                     "property": {
                                         "action": {
                                             "actionList": [
                                                 {
-                                                    "actionIndex": 1,
+                                                    "actionIndex": 0,
                                                     "card": "{card}",
-                                                    "draggable": true,
-                                                    "isOpen": false,
+                                                    "draggable": false,
+                                                    "isOpen": true,
                                                     "key": "1672859565713-j7ortbiz8",
                                                     "label": "ActionShowSpinner",
                                                     "stateAction": {
+                                                        "actionConditions": {
+                                                            "group": [
+                                                                {
+                                                                    "field": "1",
+                                                                    "hasMergeField": false,
+                                                                    "id": "state-new-condition-7",
+                                                                    "operator": "==",
+                                                                    "type": "custom",
+                                                                    "value": "2"
+                                                                }
+                                                            ],
+                                                            "id": "state-condition-object",
+                                                            "isParent": true
+                                                        },
                                                         "displayName": "Action",
                                                         "eventName": "valServiceFlow",
-                                                        "id": "flex-action-1672859586573",
+                                                        "id": "flex-action-1710162067876",
                                                         "message": "showspinner",
                                                         "openUrlIn": "Current Window",
                                                         "subType": "PubSub",
@@ -2961,8 +3309,8 @@
                                                 {
                                                     "actionIndex": 4,
                                                     "card": "{card}",
-                                                    "draggable": false,
-                                                    "isOpen": true,
+                                                    "draggable": true,
+                                                    "isOpen": false,
                                                     "key": "1673037198813-mezhfq1te",
                                                     "label": "Action",
                                                     "stateAction": {
@@ -3037,16 +3385,30 @@
                                             "action": {
                                                 "actionList": [
                                                     {
-                                                        "actionIndex": 1,
+                                                        "actionIndex": 0,
                                                         "card": "{card}",
-                                                        "draggable": true,
-                                                        "isOpen": false,
+                                                        "draggable": false,
+                                                        "isOpen": true,
                                                         "key": "1672859565713-j7ortbiz8",
                                                         "label": "ActionShowSpinner",
                                                         "stateAction": {
+                                                            "actionConditions": {
+                                                                "group": [
+                                                                    {
+                                                                        "field": "1",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-7",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "2"
+                                                                    }
+                                                                ],
+                                                                "id": "state-condition-object",
+                                                                "isParent": true
+                                                            },
                                                             "displayName": "Action",
                                                             "eventName": "valServiceFlow",
-                                                            "id": "flex-action-1672859586573",
+                                                            "id": "flex-action-1710162067876",
                                                             "message": "showspinner",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -3119,8 +3481,8 @@
                                                     {
                                                         "actionIndex": 4,
                                                         "card": "{card}",
-                                                        "draggable": false,
-                                                        "isOpen": true,
+                                                        "draggable": true,
+                                                        "isOpen": false,
                                                         "key": "1673037198813-mezhfq1te",
                                                         "label": "Action",
                                                         "stateAction": {
@@ -3206,9 +3568,9 @@
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
                                     "elementLabel": "Block-0-Text-6",
-                                    "key": "element_element_block_2_0_baseInputElement_5_0",
+                                    "key": "element_element_block_1_0_baseInputElement_5_0",
                                     "name": "Text",
-                                    "parentElementKey": "element_block_2_0",
+                                    "parentElementKey": "element_block_1_0",
                                     "property": {
                                         "action": {
                                             "actionList": [
@@ -3412,7 +3774,7 @@
                                                 {
                                                     "id": 0,
                                                     "label": "messageWhenValueMissing",
-                                                    "value": "Este campo é obrigatório."
+                                                    "value": "Especifique o Produto é obrigatório."
                                                 }
                                             ],
                                             "fieldBinding": "{Session.OtherProduct}",
@@ -3454,9 +3816,9 @@
                                     "class": "slds-col ",
                                     "element": "outputField",
                                     "elementLabel": "Block-0-Text-7",
-                                    "key": "element_element_block_2_0_outputField_6_0",
+                                    "key": "element_element_block_1_0_outputField_6_0",
                                     "name": "Text",
-                                    "parentElementKey": "element_block_2_0",
+                                    "parentElementKey": "element_block_1_0",
                                     "property": {
                                         "card": "{card}",
                                         "data-conditions": {
@@ -3608,9 +3970,9 @@
                                     "class": "slds-col ",
                                     "element": "flexImg",
                                     "elementLabel": "Block-0-Image-8",
-                                    "key": "element_element_block_2_0_flexImg_7_0",
+                                    "key": "element_element_block_1_0_flexImg_7_0",
                                     "name": "Image",
-                                    "parentElementKey": "element_block_2_0",
+                                    "parentElementKey": "element_block_1_0",
                                     "property": {
                                         "card": "{card}",
                                         "data-conditions": {
@@ -3798,9 +4160,9 @@
                                     "class": "slds-col ",
                                     "element": "childCardPreview",
                                     "elementLabel": "Block-2-FlexCard-1",
-                                    "key": "element_element_block_4_0_childCardPreview_0_0",
+                                    "key": "element_element_block_2_0_childCardPreview_0_0",
                                     "name": "FlexCard",
-                                    "parentElementKey": "element_block_4_0",
+                                    "parentElementKey": "element_block_2_0",
                                     "property": {
                                         "cardName": "valAddRelationshipTopicFrontEnd",
                                         "cardNode": "",
@@ -3816,7 +4178,8 @@
                                             "ProductSourceSystem": "{Session.ProductSourceSystem}",
                                             "Restart": "{Session.Restart}",
                                             "SelectedFunction": "RelationshipTopicFront",
-                                            "ServiceIdentifier": "{ServiceIdentifier}"
+                                            "ServiceIdentifier": "{ServiceIdentifier}",
+                                            "ShowTopicsCaseOpening": "{ShowTopicsCaseOpening}"
                                         },
                                         "parentRecords": "",
                                         "recordId": "{recordId}",
@@ -3885,15 +4248,6 @@
                                                     "value": "Fixed"
                                                 },
                                                 {
-                                                    "field": "SourceSystem",
-                                                    "hasMergeField": false,
-                                                    "id": "state-new-condition-114",
-                                                    "logicalOperator": "&&",
-                                                    "operator": "==",
-                                                    "type": "custom",
-                                                    "value": "Siebel"
-                                                },
-                                                {
                                                     "field": "Session.ShowTree",
                                                     "hasMergeField": false,
                                                     "id": "state-new-condition-40",
@@ -3910,6 +4264,38 @@
                                                     "operator": "==",
                                                     "type": "custom",
                                                     "value": "false"
+                                                },
+                                                {
+                                                    "group": [
+                                                        {
+                                                            "field": "SourceSystem",
+                                                            "hasMergeField": false,
+                                                            "id": "state-new-condition-5",
+                                                            "operator": "==",
+                                                            "type": "custom",
+                                                            "value": "Siebel"
+                                                        },
+                                                        {
+                                                            "field": "SourceSystem",
+                                                            "hasMergeField": false,
+                                                            "id": "state-new-condition-114",
+                                                            "logicalOperator": "||",
+                                                            "operator": "==",
+                                                            "type": "custom",
+                                                            "value": "Next"
+                                                        },
+                                                        {
+                                                            "field": "SourceSystem",
+                                                            "hasMergeField": false,
+                                                            "id": "state-new-condition-186",
+                                                            "logicalOperator": "||",
+                                                            "operator": "==",
+                                                            "type": "custom",
+                                                            "value": "NEXT"
+                                                        }
+                                                    ],
+                                                    "id": "state-new-group-6",
+                                                    "logicalOperator": "&&"
                                                 }
                                             ],
                                             "id": "state-new-group-76",
@@ -4071,6 +4457,15 @@
                                             "operator": "==",
                                             "type": "custom",
                                             "value": "Outros"
+                                        },
+                                        {
+                                            "field": "1",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-0",
+                                            "logicalOperator": "&&",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "2"
                                         }
                                     ],
                                     "id": "state-condition-object",
@@ -4237,6 +4632,15 @@
                                             "operator": "==",
                                             "type": "custom",
                                             "value": "Next"
+                                        },
+                                        {
+                                            "field": "1",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-13",
+                                            "logicalOperator": "&&",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "2"
                                         }
                                     ],
                                     "id": "state-condition-object",
