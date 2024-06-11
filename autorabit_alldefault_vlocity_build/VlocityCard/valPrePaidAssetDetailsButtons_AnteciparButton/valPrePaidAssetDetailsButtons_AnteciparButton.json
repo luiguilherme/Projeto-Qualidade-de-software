@@ -18,327 +18,6 @@
     },
     "enableLwc": true,
     "events": [
-        {
-            "actionList": [
-                {
-                    "actionIndex": 0,
-                    "card": "{card}",
-                    "draggable": true,
-                    "isOpen": false,
-                    "key": "1717676721423-45y3dr2b6",
-                    "label": "CheckValidations",
-                    "stateAction": {
-                        "Web Page": {
-                            "targetName": "/apex"
-                        },
-                        "displayName": "Action",
-                        "id": "flex-action-1717682684405",
-                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateAllJourneys\",\"vlocityAsync\":false,\"inputMap\":{\"AssetId\":\"{Parent.AssetId}\",\"Functionality\":\"ChangeServiceIdentifier\",\"ValidatePortability\":\"true\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"Parent.AssetId\\\":\\\"{Parent.AssetId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"02i76000009Pdg3AAC\",\"id\":4},{\"name\":\"Parent.AssetId\",\"val\":\"\",\"id\":3}]}",
-                        "openUrlIn": "Current Window",
-                        "targetType": "Web Page",
-                        "type": "DataAction",
-                        "vlocityIcon": "standard-default"
-                    }
-                },
-                {
-                    "actionIndex": 1,
-                    "card": "{card}",
-                    "draggable": true,
-                    "isOpen": false,
-                    "key": "1717682762133-9fym8k7ug",
-                    "label": "showToastError",
-                    "stateAction": {
-                        "actionConditions": {
-                            "group": [
-                                {
-                                    "field": " blockJourney",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-390",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "true"
-                                }
-                            ],
-                            "id": "state-condition-object",
-                            "isParent": true
-                        },
-                        "displayName": "Action",
-                        "eventName": "valToast",
-                        "extraParams": {
-                            "message": "{Message}",
-                            "variant": "{variant}"
-                        },
-                        "hasExtraParams": true,
-                        "id": "flex-action-1717683864829",
-                        "message": "showToast",
-                        "openUrlIn": "Current Window",
-                        "subType": "PubSub",
-                        "type": "Event",
-                        "vlocityIcon": "standard-default"
-                    }
-                },
-                {
-                    "actionIndex": 2,
-                    "card": "{card}",
-                    "draggable": true,
-                    "isOpen": false,
-                    "key": "1717682829350-on0bgtrwd",
-                    "label": "LineStateOtherThanActive",
-                    "stateAction": {
-                        "actionConditions": {
-                            "group": [
-                                {
-                                    "field": " Products.SubscriptionStatus",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-323",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "Ativo"
-                                },
-                                {
-                                    "field": " Products.SubscriptionStatus",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-326",
-                                    "logicalOperator": "&&",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "Barrado"
-                                },
-                                {
-                                    "field": " Products.SubscriptionStatus",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-327",
-                                    "logicalOperator": "&&",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "Barrado Total"
-                                },
-                                {
-                                    "field": " showToast",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-328",
-                                    "logicalOperator": "&&",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "false"
-                                },
-                                {
-                                    "field": " blockJourney",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-343",
-                                    "logicalOperator": "&&",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "false"
-                                }
-                            ],
-                            "id": "state-condition-object",
-                            "isParent": true
-                        },
-                        "displayName": "Action",
-                        "eventName": "valToast",
-                        "extraParams": {
-                            "message": "Estado da linha não permite realizar a antecipação da promoção.",
-                            "variant": "warning"
-                        },
-                        "hasExtraParams": true,
-                        "id": "flex-action-1717683725679",
-                        "message": "showToast",
-                        "openUrlIn": "Current Window",
-                        "subType": "PubSub",
-                        "type": "Event",
-                        "vlocityIcon": "standard-default"
-                    }
-                },
-                {
-                    "actionIndex": 3,
-                    "card": "{card}",
-                    "draggable": true,
-                    "isOpen": false,
-                    "key": "1717682938315-hm5izyshe",
-                    "label": "ValidateAvailableLineBalance",
-                    "stateAction": {
-                        "Web Page": {
-                            "targetName": "/apex"
-                        },
-                        "actionConditions": {
-                            "group": [
-                                {
-                                    "field": " showToast",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-306",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "false"
-                                },
-                                {
-                                    "field": " blockJourney",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-307",
-                                    "logicalOperator": "&&",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "false"
-                                }
-                            ],
-                            "id": "state-condition-object",
-                            "isParent": true
-                        },
-                        "displayName": "Action",
-                        "id": "flex-action-1717683679522",
-                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateBalanceLine\",\"vlocityAsync\":false,\"inputMap\":{\"PriceAttribute\":\"{Products.Attributes.ATT_DC_RM_PROMO_PO_1}\",\"ProductCode\":\"{Products.ProductCode}\",\"networkNumber\":\"{Products.LineNumber}\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"Products.Attributes.ATT_DC_RM_PROMO_PO_1\\\":\\\"{Products.Attributes.ATT_DC_RM_PROMO_PO_1}\\\",\\\"Products.ProductCode\\\":\\\"{Products.ProductCode}\\\",\\\"Products.LineNumber\\\":\\\"{Products.LineNumber}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"02i76000009Pdg3AAC\",\"id\":4},{\"name\":\"Products.Attributes.ATT_DC_RM_PROMO_PO_1\",\"val\":\"\",\"id\":3},{\"name\":\"Products.ProductCode\",\"val\":\"\",\"id\":4},{\"name\":\"Products.LineNumber\",\"val\":\"\",\"id\":5}]}",
-                        "openUrlIn": "Current Window",
-                        "targetType": "Web Page",
-                        "type": "DataAction",
-                        "vlocityIcon": "standard-default"
-                    }
-                },
-                {
-                    "actionIndex": 4,
-                    "card": "{card}",
-                    "draggable": true,
-                    "isOpen": false,
-                    "key": "1717683049394-veic0qs9x",
-                    "label": "ShowToastResult",
-                    "stateAction": {
-                        "actionConditions": {
-                            "group": [
-                                {
-                                    "field": "InsufficientBallance",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-135",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "true"
-                                },
-                                {
-                                    "group": [
-                                        {
-                                            "field": "Products.SubscriptionStatus",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-136",
-                                            "operator": "==",
-                                            "type": "custom",
-                                            "value": "Ativo"
-                                        },
-                                        {
-                                            "field": "Products.SubscriptionStatus",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-141",
-                                            "logicalOperator": "||",
-                                            "operator": "==",
-                                            "type": "custom",
-                                            "value": "Barrado"
-                                        },
-                                        {
-                                            "field": "Products.SubscriptionStatus",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-155",
-                                            "logicalOperator": "||",
-                                            "operator": "==",
-                                            "type": "custom",
-                                            "value": "Barrado Total"
-                                        }
-                                    ],
-                                    "id": "state-new-group-137",
-                                    "logicalOperator": "&&"
-                                },
-                                {
-                                    "field": " blockJourney",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-138",
-                                    "logicalOperator": "&&",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "false"
-                                }
-                            ],
-                            "id": "state-condition-object",
-                            "isParent": true
-                        },
-                        "displayName": "Action",
-                        "eventName": "valToast",
-                        "extraParams": {
-                            "message": "{message}",
-                            "variant": "{variant}"
-                        },
-                        "hasExtraParams": true,
-                        "id": "flex-action-1717683593716",
-                        "message": "showToast",
-                        "openUrlIn": "Current Window",
-                        "subType": "PubSub",
-                        "type": "Event",
-                        "vlocityIcon": "standard-default"
-                    }
-                },
-                {
-                    "actionIndex": 6,
-                    "card": "{card}",
-                    "contextId": "\\{Parent.InteractionId}",
-                    "draggable": true,
-                    "isOpen": false,
-                    "key": "1717683266389-oajooo2dq",
-                    "label": "Palitagem Manual",
-                    "stateAction": {
-                        "actionConditions": {
-                            "group": [
-                                {
-                                    "field": " palitagem",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-0",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "true"
-                                },
-                                {
-                                    "field": " blockJourney",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-1",
-                                    "logicalOperator": "&&",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "false"
-                                }
-                            ],
-                            "id": "state-condition-object",
-                            "isParent": true
-                        },
-                        "displayName": "Action",
-                        "extraParams": {
-                            "c__AccountId": "{Parent.AccountId}",
-                            "c__AssetId": "{Parent.AssetId}",
-                            "c__CustomerInteractionId": "{Parent.InteractionId}",
-                            "c__InteractionNumber": "{Parent.InteractionNumber}",
-                            "c__SourceCalled": "SalesJourney",
-                            "c__lineNumber": "{Products.LineNumber}"
-                        },
-                        "hasExtraParams": true,
-                        "id": "flex-action-1717683419207",
-                        "isLwcOS": true,
-                        "layoutType": "lightning",
-                        "omniType": {
-                            "Id": "a3076000000AsWyAAK",
-                            "Name": "val/AddRelationShipTopic/English",
-                            "isLwcOs": true
-                        },
-                        "openUrlIn": "Current Window",
-                        "tabIcon": "standard:cancel_checkout",
-                        "tabLabel": "Palitar",
-                        "type": "OmniScript",
-                        "vlocityIcon": "standard-default"
-                    }
-                }
-            ],
-            "channelname": "valPrePaidAssetDetailsButtons_ChannelNameButtons",
-            "displayLabel": "valPrePaidAssetDetailsButtons_ChannelNameButtons:Antecipar Promoção",
-            "element": "action",
-            "eventLabel": "pubsub",
-            "eventname": "Antecipar Promoção",
-            "eventtype": "pubsub",
-            "key": "event-0",
-            "recordIndex": "0",
-            "showSpinner": "true"
-        }
     ],
     "globalCSS": false,
     "isFlex": true,
@@ -373,15 +52,234 @@
                                         "draggable": true,
                                         "isOpen": true,
                                         "key": "1708365720389-b7xroa5aa",
-                                        "label": "event",
+                                        "label": "CheckBiometric",
                                         "stateAction": {
+                                            "Web Page": {
+                                                "targetName": "/apex"
+                                            },
                                             "displayName": "Action",
-                                            "eventName": "valPrePaidAssetDetailsButtons_ChannelNameButtons",
-                                            "id": "flex-action-1717676801356",
-                                            "message": "Antecipar promoção",
+                                            "eventName": "reload",
+                                            "id": "flex-action-1714493479533",
+                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateAllJourneys\",\"vlocityAsync\":false,\"inputMap\":{\"InteractionId\":\"{Parent.InteractionId}\",\"AccountId\":\"{Parent.AccountId}\",\"AssetId\":\"{Parent.AssetId}\",\"Functionality\":\"AntecipateButton\",\"ValidatePortability\":\"true\",\"ValidateOrder\":\"true\",\"PreSetValues\":\"true\",\"CheckBiometric\":\"true\"},\"jsonMap\":\"{\\\"Parent.InteractionId\\\":\\\"{Parent.InteractionId}\\\",\\\"Parent.AccountId\\\":\\\"{Parent.AccountId}\\\",\\\"Parent.AssetId\\\":\\\"{Parent.AssetId}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"Parent.InteractionId\",\"val\":\"\",\"id\":3},{\"name\":\"Parent.AccountId\",\"val\":\"\",\"id\":5},{\"name\":\"Parent.AssetId\",\"val\":\"\",\"id\":7}]}",
+                                            "openUrlIn": "Current Window",
+                                            "targetType": "Web Page",
+                                            "type": "DataAction",
+                                            "vlocityIcon": "standard-default"
+                                        }
+                                    },
+                                    {
+                                        "actionIndex": 1,
+                                        "card": "{card}",
+                                        "draggable": true,
+                                        "isOpen": false,
+                                        "key": "1708365943501-1imdxhcim",
+                                        "label": "valToast",
+                                        "stateAction": {
+                                            "actionConditions": {
+                                                "group": [
+                                                    {
+                                                        "field": "blockJourney",
+                                                        "hasMergeField": false,
+                                                        "id": "state-new-condition-0",
+                                                        "operator": "==",
+                                                        "type": "custom",
+                                                        "value": "true"
+                                                    }
+                                                ],
+                                                "id": "state-condition-object",
+                                                "isParent": true
+                                            },
+                                            "displayName": "Action",
+                                            "eventName": "valToast",
+                                            "extraParams": {
+                                                "message": "{message}",
+                                                "variant": "{variant}"
+                                            },
+                                            "hasExtraParams": true,
+                                            "id": "flex-action-1711389320807",
+                                            "message": "showToast",
                                             "openUrlIn": "Current Window",
                                             "subType": "PubSub",
                                             "type": "Event",
+                                            "vlocityIcon": "standard-default"
+                                        }
+                                    },
+                                    {
+                                        "actionIndex": 2,
+                                        "card": "{card}",
+                                        "draggable": true,
+                                        "isOpen": false,
+                                        "key": "1697749170371-teen2t8ev",
+                                        "label": "ValidateAvailableLineBalance",
+                                        "stateAction": {
+                                            "Web Page": {
+                                                "targetName": "/apex"
+                                            },
+                                            "actionConditions": {
+                                                "group": [
+                                                    {
+                                                        "field": "blockJourney",
+                                                        "hasMergeField": false,
+                                                        "id": "state-new-condition-36",
+                                                        "operator": "==",
+                                                        "type": "custom",
+                                                        "value": "false"
+                                                    }
+                                                ],
+                                                "id": "state-condition-object",
+                                                "isParent": true
+                                            },
+                                            "displayName": "Action",
+                                            "id": "flex-action-1712256602290",
+                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateBalanceLine\",\"vlocityAsync\":false,\"inputMap\":{\"networkNumber\":\"{Products.LineNumber}\",\"ProductCode\":\"{Products.ProductCode}\",\"PriceAttribute\":\"{Products.Attributes.ATT_DC_RM_PROMO_PO_1}\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"Products.LineNumber\\\":\\\"{Products.LineNumber}\\\",\\\"Products.ProductCode\\\":\\\"{Products.ProductCode}\\\",\\\"Products.Attributes.ATT_DC_RM_PROMO_PO_1\\\":\\\"{Products.Attributes.ATT_DC_RM_PROMO_PO_1}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":false},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"02i76000000IOYaAAO\",\"id\":4},{\"name\":\"Products.LineNumber\",\"val\":\"\",\"id\":4},{\"name\":\"Products.ProductCode\",\"val\":\"\",\"id\":5},{\"name\":\"Products.Attributes.ATT_DC_RM_PROMO_PO_1\",\"val\":\"\",\"id\":6}]}",
+                                            "openUrlIn": "Current Window",
+                                            "targetType": "Web Page",
+                                            "type": "DataAction",
+                                            "vlocityIcon": "standard-default"
+                                        }
+                                    },
+                                    {
+                                        "actionIndex": 3,
+                                        "card": "{card}",
+                                        "draggable": true,
+                                        "isOpen": false,
+                                        "key": "1697749342656-7qu4713zo",
+                                        "label": "ShowToastResult",
+                                        "stateAction": {
+                                            "actionConditions": {
+                                                "group": [
+                                                    {
+                                                        "field": "InsufficientBallance",
+                                                        "hasMergeField": false,
+                                                        "id": "state-new-condition-51",
+                                                        "operator": "==",
+                                                        "type": "custom",
+                                                        "value": "true"
+                                                    },
+                                                    {
+                                                        "field": "blockJourney",
+                                                        "hasMergeField": false,
+                                                        "id": "state-new-condition-46",
+                                                        "logicalOperator": "&&",
+                                                        "operator": "==",
+                                                        "type": "custom",
+                                                        "value": "false"
+                                                    }
+                                                ],
+                                                "id": "state-condition-object",
+                                                "isParent": true
+                                            },
+                                            "displayName": "Action",
+                                            "eventName": "valToast",
+                                            "extraParams": {
+                                                "message": "{message}",
+                                                "variant": "{variant}"
+                                            },
+                                            "hasExtraParams": true,
+                                            "id": "flex-action-1712243520055",
+                                            "message": "showToast",
+                                            "openUrlIn": "Current Window",
+                                            "subType": "PubSub",
+                                            "type": "Event",
+                                            "vlocityIcon": "standard-default"
+                                        }
+                                    },
+                                    {
+                                        "actionIndex": 4,
+                                        "card": "{card}",
+                                        "draggable": true,
+                                        "isOpen": false,
+                                        "key": "1697749588301-hji6it118",
+                                        "label": "ConfirmModal",
+                                        "stateAction": {
+                                            "actionConditions": {
+                                                "group": [
+                                                    {
+                                                        "field": "InsufficientBallance",
+                                                        "hasMergeField": false,
+                                                        "id": "state-new-condition-2",
+                                                        "operator": "==",
+                                                        "type": "custom",
+                                                        "value": "false"
+                                                    },
+                                                    {
+                                                        "field": "blockJourney",
+                                                        "hasMergeField": false,
+                                                        "id": "state-new-condition-68",
+                                                        "logicalOperator": "&&",
+                                                        "operator": "==",
+                                                        "type": "custom",
+                                                        "value": "false"
+                                                    }
+                                                ],
+                                                "id": "state-condition-object",
+                                                "isParent": true
+                                            },
+                                            "cardName": "valAntecipatePromotionFlyout",
+                                            "channelName": "close_modal",
+                                            "displayName": "Action",
+                                            "flyoutLwc": "valAntecipatePromotionFlyout",
+                                            "flyoutParams": {
+                                                "AccountId": "{Products.AccountId}",
+                                                "InteractionId": "{Parent.InteractionId}",
+                                                "InteractionNumber": "{Parent.InteractionNumber}",
+                                                "LineNumber": "{Products.LineNumber}",
+                                                "PO": "{Products.Attributes.ATT_DC_RM_PROMO_PO_1}"
+                                            },
+                                            "flyoutType": "childCard",
+                                            "hasExtraParams": true,
+                                            "id": "flex-action-1712243567577",
+                                            "openFlyoutIn": "Modal",
+                                            "openUrlIn": "Current Window",
+                                            "type": "Flyout",
+                                            "vlocityIcon": "standard-default"
+                                        }
+                                    },
+                                    {
+                                        "actionIndex": 7,
+                                        "card": "{card}",
+                                        "contextId": "\\{Parent.InteractionId}",
+                                        "draggable": true,
+                                        "isOpen": false,
+                                        "key": "1708538471208-zmrt90n81",
+                                        "label": "PalitagemManual",
+                                        "stateAction": {
+                                            "actionConditions": {
+                                                "group": [
+                                                    {
+                                                        "field": "palitagem",
+                                                        "hasMergeField": false,
+                                                        "id": "state-new-condition-7",
+                                                        "operator": "==",
+                                                        "type": "custom",
+                                                        "value": "true"
+                                                    }
+                                                ],
+                                                "id": "state-condition-object",
+                                                "isParent": true
+                                            },
+                                            "displayName": "Action",
+                                            "extraParams": {
+                                                "c__AccountId": "{Parent.AccountId}",
+                                                "c__AssetId": "{Parent.AssetId}",
+                                                "c__CustomerInteractionId": "{Parent.InteractionId}",
+                                                "c__InteractionNumber": "{Parent.InteractionNumber}",
+                                                "c__SourceCalled": "SalesJourney",
+                                                "c__lineNumber": "{Products.LineNumber}"
+                                            },
+                                            "hasExtraParams": true,
+                                            "id": "flex-action-1708538598097",
+                                            "isLwcOS": true,
+                                            "layoutType": "lightning",
+                                            "omniType": {
+                                                "Id": "a3076000000PNwjAAG",
+                                                "Name": "val/AddRelationShipTopic/English",
+                                                "isLwcOs": true
+                                            },
+                                            "openUrlIn": "Current Window",
+                                            "tabIcon": "standard:cancel_checkout",
+                                            "tabLabel": "Palitar",
+                                            "type": "OmniScript",
                                             "vlocityIcon": "standard-default"
                                         }
                                     }
@@ -393,25 +291,18 @@
                                     "id": "state-condition-object",
                                     "isParent": true
                                 },
-                                "displayAsButton": false,
                                 "flyoutChannel": "close_modal",
                                 "flyoutDetails": {
+                                    "openFlyoutIn": "Modal"
                                 },
-                                "hideActionIcon": false,
-                                "iconColor": "#792BA4",
+                                "iconColor": "#dddbda",
                                 "iconName": "utility:push",
-                                "iconOnly": false,
+                                "iconOnly": true,
                                 "iconSize": "small",
                                 "label": "Antecipar promoção",
                                 "record": "{record}",
                                 "showSpinner": "true",
-                                "stateObj": "{record}",
-                                "styles": {
-                                    "label": {
-                                        "color": "#792BA4",
-                                        "fontSize": "12px"
-                                    }
-                                }
+                                "stateObj": "{record}"
                             },
                             "size": {
                                 "default": "12",
@@ -427,8 +318,8 @@
                                     "size": ""
                                 },
                                 "border": {
-                                    "color": "#DDDDDD",
-                                    "radius": "4",
+                                    "color": "#cccccc",
+                                    "radius": "5px",
                                     "style": "",
                                     "type": [
                                         "border_top",
@@ -438,33 +329,27 @@
                                     ],
                                     "width": "1"
                                 },
-                                "class": "slds-text-align_left slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-left_small slds-p-top_small ",
+                                "class": "slds-text-align_center slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-top_xx-small slds-m-right_x-small editButton",
                                 "container": {
-                                    "class": "slds-card"
+                                    "class": ""
                                 },
-                                "customClass": "",
+                                "customClass": "editButton",
                                 "elementStyleProperties": {
-                                    "iconColor": "#792BA4",
-                                    "iconSize": "small",
-                                    "styles": {
-                                        "label": {
-                                            "color": "#792BA4",
-                                            "fontSize": "12px"
-                                        }
-                                    }
+                                    "iconColor": "#dddbda",
+                                    "iconSize": "small"
                                 },
-                                "inlineStyle": "height: 55px;",
+                                "inlineStyle": "width: 35px;",
                                 "margin": [
+                                    {
+                                        "label": "right:x-small",
+                                        "size": "x-small",
+                                        "type": "right"
+                                    }
                                 ],
                                 "padding": [
                                     {
-                                        "label": "left:small",
-                                        "size": "small",
-                                        "type": "left"
-                                    },
-                                    {
-                                        "label": "top:small",
-                                        "size": "small",
+                                        "label": "top:xx-small",
+                                        "size": "xx-small",
                                         "type": "top"
                                     }
                                 ],
@@ -473,9 +358,9 @@
                                     "isResponsive": false
                                 },
                                 "sizeClass": "slds-size_12-of-12 ",
-                                "style": "     border-top: #DDDDDD 1px solid;border-right: #DDDDDD 1px solid;border-bottom: #DDDDDD 1px solid;border-left: #DDDDDD 1px solid; \n    border-radius:4;     height: 55px;",
+                                "style": "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5px;     width: 35px;",
                                 "text": {
-                                    "align": "left",
+                                    "align": "center",
                                     "color": ""
                                 }
                             },
@@ -496,8 +381,8 @@
                                             "size": ""
                                         },
                                         "border": {
-                                            "color": "#DDDDDD",
-                                            "radius": "4",
+                                            "color": "#cccccc",
+                                            "radius": "5px",
                                             "style": "",
                                             "type": [
                                                 "border_top",
@@ -507,33 +392,27 @@
                                             ],
                                             "width": "1"
                                         },
-                                        "class": "slds-text-align_left slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-left_small slds-p-top_small ",
+                                        "class": "slds-text-align_center slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-top_xx-small slds-m-right_x-small editButton",
                                         "container": {
-                                            "class": "slds-card"
+                                            "class": ""
                                         },
-                                        "customClass": "",
+                                        "customClass": "editButton",
                                         "elementStyleProperties": {
-                                            "iconColor": "#792BA4",
-                                            "iconSize": "small",
-                                            "styles": {
-                                                "label": {
-                                                    "color": "#792BA4",
-                                                    "fontSize": "12px"
-                                                }
-                                            }
+                                            "iconColor": "#dddbda",
+                                            "iconSize": "small"
                                         },
-                                        "inlineStyle": "height: 55px;",
+                                        "inlineStyle": "width: 35px;",
                                         "margin": [
+                                            {
+                                                "label": "right:x-small",
+                                                "size": "x-small",
+                                                "type": "right"
+                                            }
                                         ],
                                         "padding": [
                                             {
-                                                "label": "left:small",
-                                                "size": "small",
-                                                "type": "left"
-                                            },
-                                            {
-                                                "label": "top:small",
-                                                "size": "small",
+                                                "label": "top:xx-small",
+                                                "size": "xx-small",
                                                 "type": "top"
                                             }
                                         ],
@@ -542,9 +421,9 @@
                                             "isResponsive": false
                                         },
                                         "sizeClass": "slds-size_12-of-12 ",
-                                        "style": "     border-top: #DDDDDD 1px solid;border-right: #DDDDDD 1px solid;border-bottom: #DDDDDD 1px solid;border-left: #DDDDDD 1px solid; \n    border-radius:4;     height: 55px;",
+                                        "style": "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5px;     width: 35px;",
                                         "text": {
-                                            "align": "left",
+                                            "align": "center",
                                             "color": ""
                                         }
                                     }
