@@ -3,7 +3,7 @@ public class DisputeFixedFlowControllerTest {
     @isTest
     public static void DisputeCheckScopeTest() {
         UserRole userR = [SELECT Id FROM UserRole WHERE DeveloperName ='AtendimentoGoldOperadorFixa'];
-        Profile p = [SELECT Id FROM Profile WHERE Name='Administrador do sistema'];
+        Profile p = [SELECT Id FROM Profile WHERE Name='AdministracaoSistema'];
         
         User u = new User(Alias = 'SysAdmin', Email='stdstdteste@teste.com',
                           EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US',
