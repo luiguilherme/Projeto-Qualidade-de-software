@@ -14,6 +14,7 @@
             "HaveProvisionalNumber": "=ISNOTBLANK(%Asset:PortabilityNumber%)",
             "HaveReasonforOperation": "=IF(%DRGetAssetFields:ReasonforOperation% == \"Roubo/Furto\" && %Asset:PortabilityInProgress% == true, true, IF(%DRGetAssetFields:ReasonforOperation% != \"Roubo/Furto\" && %Asset:PortabilityInProgress% == true, false, IF(%DRGetAssetFields:ReasonforOperation% != \"Roubo/Furto\" && %DRGetOrderInProgressByAsset:OrderExists% == \"Yes\", false, NULL)))",
             "Products": "%Asset%",
+            "RecemPortadoValidate": "=IF(%valGetCaseByLineNumber:SubscriptionStatus% == \"Recém Portado\" || %valGetCaseByLineNumber:StatusEA% == \"active\" , true, false)",
             "State": "=IF(ISBLANK(%State%), \"ProductDetails\", \"ProductUpdate\")",
             "displayConditions": "%SvConditionButtons%",
             "message": "=IF (ISNOTBLANK(%Asset:PortabilityNumber%), \"Este número é provisório. Verifique o histórico do pedido de portabilidade e informe ao cliente sobre o andamento.\", IF(%Asset:PortabilityInProgress% == true, \"Cliente com portabilidade em andamento com a Vivo. Verifique o histórico do pedido de portabilidade e informe ao cliente sobre o andamento.\", IF(%DRGetOrderInProgressByAsset:OrderExists% == \"Yes\" , \"O cadastro do cliente possui uma ordem no Salesforce não concluida. Aguarde finalizar o processamento da Ordem\", false )))",
