@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel>Atendimento - Geral - Definição de {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Atendimento - Geral - Definição de Atendimento</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <screens>
+        <name>scServiceDefinition</name>
+        <label>Definição de Atendimento</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <backButtonLabel>Voltar</backButtonLabel>
+        <fields>
+            <name>dtServiceDefinitionScreenTitle</name>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;Definição de Atendimento&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>dtServiceDefinitionTitleDetail</name>
+            <fieldText>&lt;p&gt;&lt;strong&gt;Desfecho para o atendimento&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>dtServiceDefinitionInformation</name>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;color: rgb(194, 57, 52);&quot;&gt;Informações esclarecidas durante o atendimento:&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>dtMessage</name>
+            <fieldText>&lt;p&gt;{!definicaoAtendimento.AttendantMessage__c}&lt;/p&gt;&lt;p&gt;({!definicaoAtendimento.StepCode__c})&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <nextOrFinishButtonLabel>Avançar</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>scServiceDefinition</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>definicaoAtendimento</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>ServiceDefinition__c</objectType>
+    </variables>
+</Flow>
