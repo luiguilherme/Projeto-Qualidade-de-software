@@ -6,6 +6,20 @@
         "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/TransformTransactions/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
+    "%vlocity_namespace%__ParentElementId__c": {
+        "%vlocity_namespace%__OmniScriptId__c": {
+            "Name": "valTransformTransactions",
+            "VlocityDataPackType": "VlocityMatchingKeyObject",
+            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/TransformTransactions/Procedure",
+            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+        },
+        "Name": "LBScoreCredit",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/TransformTransactions/Procedure/LBScoreCredit",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
+    },
+    "%vlocity_namespace%__ParentElementName__c": "LBScoreCredit",
+    "%vlocity_namespace%__ParentElementType__c": "Loop Block",
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalChainableResponse": {
@@ -16,11 +30,6 @@
         },
         "advancedMerge": false,
         "advancedMergeMap": [
-            {
-                "listKey": "LBRevalidation",
-                "matchingPath": "unit",
-                "normalizeKey": "1"
-            }
         ],
         "allowMergeNulls": true,
         "chainOnStep": false,
@@ -33,26 +42,14 @@
         },
         "filterListFormula": "",
         "hasPrimary": false,
-        "label": "ListAction1",
+        "label": "ListAction3",
         "mergeFields": [
         ],
         "mergeListsOrder": [
-            "LBChangeClientState",
-            "LBChangeNumber",
-            "LBChangeOffer",
-            "RespChangeService",
-            "LBRecharge",
-            "LBRevalidation",
-            "LBBalanceSharing",
-            "LBNotificationSMS",
-            "LBPurchaseEvent",
-            "LBScoreCredit",
-            "LBLoanDebt",
-            "LBLoanFee",
-            "LBLoanAllDebts"
+            "scoreCredit:balances"
         ],
         "primaryListKey": "",
-        "responseJSONNode": "respList",
+        "responseJSONNode": "",
         "responseJSONPath": "",
         "returnOnlyAdditionalOutput": false,
         "returnOnlyFailureResponse": false,
@@ -61,17 +58,17 @@
         "sendOnlyAdditionalInput": false,
         "show": null,
         "sortBy": [
-            "timeStamp"
         ],
-        "sortInDescendingOrder": true,
+        "sortInDescendingOrder": false,
         "updateFieldValue": {
+            "balanceTypeId": "=IF(%balanceTypeId%==\"CAC\",\"Saldo Disponivel para Uso CAC\",IF(%balanceTypeId%==\"DCA\",\"Valor Total da Dívida DCA\",IF(%balanceTypeId%==\"CAT\",\"Taxa Pendente de Pagamento CAT\",\"-\")))"
         },
         "useFormulas": true
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
     "%vlocity_namespace%__Type__c": "List Merge Action",
-    "Name": "LAMerge",
+    "Name": "LABalancesScoreCredit",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/TransformTransactions/Procedure/LAMerge"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/TransformTransactions/Procedure/LABalancesScoreCredit"
 }

@@ -1,0 +1,40 @@
+{
+    "%vlocity_namespace%__Active__c": false,
+    "%vlocity_namespace%__InternalNotes__c": "demanda j73e",
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valTransformTransactions",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/TransformTransactions/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "disOnTplt": false,
+        "executionConditionalFormula": "",
+        "label": "LoopBlock4",
+        "loopList": "loanFee",
+        "loopOutput": {
+            "accountNumber": "%SubcriptionNumber%",
+            "amount": "=IF(%loanFee:balances|1:description%==\"TaxaRemanescente\",CONCAT(%loanFee:balances|1:amount%),IF(%loanFee:balances|2:description%==\"TaxaRemanescente\",CONCAT(%loanFee:balances|2:amount%),\"0\"))",
+            "balances": "=%LABalancesLoanFee%",
+            "channel": "=%loanFee:channelId%",
+            "clientCategory": "=%loanFee:networkNumberType%",
+            "csp": "",
+            "inpugnation": "",
+            "line": "=%networkNumber%",
+            "reason": "",
+            "systemUserId": "=%loanFee:accountId%",
+            "timeStamp": "=IF(ISNOTBLANK(%loanFee:eventDateTime%),FORMATDATETIME(SUBSTRING(%loanFee:eventDateTime%, 0, 23), \"dd/MM/YYYY HH:mm\", \"Etc/GMT\"),NULL)",
+            "transactionType": "=\"Débito de Taxa de Contratação do Crédito Antecipado\"",
+            "type": "=\"loanFee\"",
+            "unit": "=IF(%loanFee:balances|1:description%==\"TaxaRemanescente\",%loanFee:balances|1:unit%,IF(%loanFee:balances|2:description%==\"TaxaRemanescente\",%loanFee:balances|2:unit%,\"0\"))",
+            "userLogin": "=%loanFee:userLogin%"
+        },
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Loop Block",
+    "Name": "LBLoanFee",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/TransformTransactions/Procedure/LBLoanFee"
+}
