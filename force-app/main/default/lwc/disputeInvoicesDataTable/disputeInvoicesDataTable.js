@@ -5,8 +5,8 @@ import { OmniscriptActionCommonUtil } from "vlocity_cmt/omniscriptActionUtils";
 
 const columns1 = [
     { label: 'Número', fieldName: 'invoiceNumber', type: 'text', initialWidth: 130 },
-    { label: 'Conta Pós Paga', fieldName: 'billingAccountId', type: 'text', initialWidth: 150 }, //Exibe o valor de billingAccountId
-    { label: 'Período do Ciclo', fieldName: 'period', type: 'text', initialWidth: 175 },
+    { label: 'Conta Cobrança', fieldName: 'billingAccountId', type: 'text', initialWidth: 150 }, //Exibe o valor de billingAccountId
+    { label: 'Período Apuração', fieldName: 'period', type: 'text', initialWidth: 175 },
     { label: 'Data de Vencimento', fieldName: 'paymentDueDate', type: 'text', initialWidth: 175 },
     { label: 'Baixa', fieldName: 'l9InvoiceCloseDate', type: 'text', initialWidth: 130 },
     { label: 'Valor', fieldName: 'amount', type: 'currency', initialWidth: 130 },
@@ -171,6 +171,14 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
                 new Date(invoice.paymentDueDate.split('/').reverse().join('-')).getMonth() + 1 == this.selectedMonth
             );
         }
+        
+         
+        filtered.filter(invoice => invoice.l9InvoiceCloseDate == '' || invoice.l9InvoiceCloseDate == 'null').forEach(invoice => invoice.l9InvoiceCloseDate = '---');
+        filtered.filter(invoice => invoice.amount == '' || invoice.amount == 'null').forEach(invoice => invoice.amount = '0');
+        filtered.filter(invoice => invoice.totalAmount == 'null' || invoice.totalAmount == '').forEach(invoice => invoice.totalAmount = '0');
+        filtered.filter(invoice => invoice.paymentAmount == '' || invoice.paymentAmount == 'null').forEach(invoice => invoice.paymentAmount = '0');
+        filtered.filter(invoice => invoice.balance == '' || invoice.balance == 'null').forEach(invoice => invoice.balance = '0');
+                
 
         this.filteredInvoices = filtered;
         this.currentPage = 1;
@@ -293,7 +301,12 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
                         if (!this.productListByType[type]) {
                             this.productListByType[type] = []; 
                         }
-                        this.productListByType[type].push(product)
+                        if (!product.totalAmount) product.totalAmount = '0';
+                        if (!product.amountCredits) product.amountCredits = '0';
+                        if (!product.discount) product.discount = '0';
+                        if (!product.availableAmount) product.availableAmount = '0';
+                        if (!product.startTime) product.startTime = '---';
+                        this.productListByType[type].push(product);
                         if (!types.includes(type)) {
                             types.push(type);
                         };
