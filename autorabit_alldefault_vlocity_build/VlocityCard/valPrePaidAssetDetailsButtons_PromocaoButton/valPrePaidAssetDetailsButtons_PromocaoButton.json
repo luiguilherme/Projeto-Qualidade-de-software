@@ -18,213 +18,24 @@
     },
     "enableLwc": true,
     "events": [
-        {
-            "actionList": [
-                {
-                    "actionIndex": 0,
-                    "card": "{card}",
-                    "draggable": true,
-                    "isOpen": true,
-                    "key": "1717677745680-jdfo1rz9n",
-                    "label": "ValidateSubscriptionStatus",
-                    "stateAction": {
-                        "Web Page": {
-                            "targetName": "/apex"
-                        },
-                        "displayName": "Action",
-                        "id": "flex-action-1717699946431",
-                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateSubscriptionStatus\",\"vlocityAsync\":false,\"inputMap\":{\"Functionality\":\"Promotion\",\"AssetId\":\"{Parent.AssetId}\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"Parent.AssetId\\\":\\\"{Parent.AssetId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"id\":4,\"name\":\"recordId\",\"val\":\"02i76000009Pdg3AAC\"},{\"name\":\"Parent.AssetId\",\"val\":\"\",\"id\":2}]}",
-                        "openUrlIn": "Current Window",
-                        "targetType": "Web Page",
-                        "type": "DataAction",
-                        "vlocityIcon": "standard-default"
-                    }
-                },
-                {
-                    "actionIndex": 1,
-                    "card": "{card}",
-                    "draggable": true,
-                    "isOpen": true,
-                    "key": "1717700037208-skuooux7z",
-                    "label": "CheckBiometric",
-                    "stateAction": {
-                        "Web Page": {
-                            "targetName": "/apex"
-                        },
-                        "displayName": "Action",
-                        "id": "flex-action-1717700055641",
-                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateAllJourneys\",\"vlocityAsync\":false,\"inputMap\":{\"AssetId\":\"{Parent.AssetId}\",\"Functionality\":\"Promotion\",\"ValidateOrder\":\"true\",\"CheckBiometric\":\"true\",\"serviceType\":\"513\",\"InteractionId\":\"{Parent.InteractionId}\",\"AccountId\":\"{Parent.AccountId}\",\"PreSetValues\":\"true\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"Parent.AssetId\\\":\\\"{Parent.AssetId}\\\",\\\"Parent.InteractionId\\\":\\\"{Parent.InteractionId}\\\",\\\"Parent.AccountId\\\":\\\"{Parent.AccountId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"id\":4,\"name\":\"recordId\",\"val\":\"02i76000009Pdg3AAC\"},{\"name\":\"Parent.AssetId\",\"val\":\"02i76000009PhToAAK\",\"id\":1},{\"name\":\"Parent.InteractionId\",\"val\":\"\",\"id\":7},{\"name\":\"Parent.AccountId\",\"val\":\"\",\"id\":9}]}",
-                        "openUrlIn": "Current Window",
-                        "targetType": "Web Page",
-                        "type": "DataAction",
-                        "vlocityIcon": "standard-default"
-                    }
-                },
-                {
-                    "actionIndex": 2,
-                    "card": "{card}",
-                    "draggable": true,
-                    "isOpen": true,
-                    "key": "1717700178937-rnkjv81d1",
-                    "label": "valToast",
-                    "stateAction": {
-                        "actionConditions": {
-                            "group": [
-                                {
-                                    "field": "blockJourney",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-21",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "true"
-                                },
-                                {
-                                    "field": "nextStep",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-28",
-                                    "logicalOperator": "||",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "false"
-                                }
-                            ],
-                            "id": "state-condition-object",
-                            "isParent": true
-                        },
-                        "displayName": "Action",
-                        "eventName": "valToast",
-                        "extraParams": {
-                            "message": "{message}",
-                            "variant": "{variant}"
-                        },
-                        "hasExtraParams": true,
-                        "id": "flex-action-1717700232410",
-                        "message": "showToast",
-                        "openUrlIn": "Current Window",
-                        "subType": "PubSub",
-                        "type": "Event",
-                        "vlocityIcon": "standard-default"
-                    }
-                },
-                {
-                    "actionIndex": 3,
-                    "card": "{card}",
-                    "contextId": "\\{Parent.InteractionId}",
-                    "draggable": true,
-                    "isOpen": true,
-                    "key": "1717700283480-qlhjhc43p",
-                    "label": "ActionOS",
-                    "stateAction": {
-                        "actionConditions": {
-                            "group": [
-                                {
-                                    "field": "blockJourney",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-41",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "false"
-                                }
-                            ],
-                            "id": "state-condition-object",
-                            "isParent": true
-                        },
-                        "displayName": "Action",
-                        "extraParams": {
-                            "c__AccountId": "{Parent.AccountId}",
-                            "c__AssetId": "{Parent.AssetId}",
-                            "c__Functionality": "Promotion",
-                            "c__InteractionNumber": "{Parent.InteractionNumber}",
-                            "c__LineNumber": "{Products.LineNumber}",
-                            "c__cartType": "Order"
-                        },
-                        "hasExtraParams": true,
-                        "id": "flex-action-1717700393238",
-                        "isLwcOS": true,
-                        "layoutType": "lightning",
-                        "omniType": {
-                            "Id": "a3076000000HRoHAAW",
-                            "Name": "val/AssetCartJourney/Portuguese (Brazil)",
-                            "isLwcOs": true
-                        },
-                        "openUrlIn": "New Tab/Window",
-                        "tabIcon": "utility:promotions",
-                        "tabLabel": "Gestão de Promoções",
-                        "type": "OmniScript",
-                        "vlocityIcon": "standard-default"
-                    }
-                },
-                {
-                    "actionIndex": 4,
-                    "card": "{card}",
-                    "contextId": "\\{Parent.InteractionId}",
-                    "draggable": false,
-                    "isOpen": true,
-                    "key": "1717700415751-w9wqfol78",
-                    "label": "PalitagemManual",
-                    "stateAction": {
-                        "actionConditions": {
-                            "group": [
-                                {
-                                    "field": "palitagem",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-48",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "true"
-                                }
-                            ],
-                            "id": "state-condition-object",
-                            "isParent": true
-                        },
-                        "displayName": "Action",
-                        "extraParams": {
-                            "c__AccountId": "{Parent.AccountId}",
-                            "c__AssetId": "{Parent.AssetId}",
-                            "c__CustomerInteractionId": "{Parent.InteractionId}",
-                            "c__InteractionNumber": "{Parent.InteractionNumber}",
-                            "c__SourceCalled": "SalesJourney",
-                            "c__lineNumber": "{Products.LineNumber}"
-                        },
-                        "hasExtraParams": true,
-                        "id": "flex-action-1717700532513",
-                        "isLwcOS": true,
-                        "layoutType": "lightning",
-                        "omniType": {
-                            "Id": "a3076000000AsWyAAK",
-                            "Name": "val/AddRelationShipTopic/English",
-                            "isLwcOs": true
-                        },
-                        "openUrlIn": "Current Window",
-                        "tabIcon": "standard:cancel_checkout",
-                        "tabLabel": "Palitar",
-                        "type": "OmniScript",
-                        "vlocityIcon": "standard-default"
-                    }
-                }
-            ],
-            "channelname": "valPrePaidAssetDetailsButtons_ChannelNameButtons",
-            "displayLabel": "valPrePaidAssetDetailsButtons_ChannelNameButtons:Gestão de Promoções",
-            "element": "action",
-            "eventLabel": "pubsub",
-            "eventname": "Gestão de Promoções",
-            "eventtype": "pubsub",
-            "key": "event-0",
-            "recordIndex": "0",
-            "showSpinner": "true"
-        }
     ],
     "globalCSS": false,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValPrePaidAssetDetailsButtons_PromocaoButton_4_Telefonica",
-        "Id": "0Rb760000000fakCAA",
+        "DeveloperName": "cfValPrePaidAssetDetailsButtons_Conteiner_1_Telefonica",
+        "Id": "0Rb76000000511LCAQ",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValPrePaidAssetDetailsButtons_PromocaoButton_4_Telefonica",
+        "MasterLabel": "cfValPrePaidAssetDetailsButtons_Conteiner_1_Telefonica",
         "NamespacePrefix": "c"
     },
     "multilanguageSupport": true,
     "osSupport": true,
+    "sessionVars": [
+        {
+            "isApi": true,
+            "name": "AssetId"
+        }
+    ],
     "states": [
         {
             "actions": [
@@ -244,18 +55,153 @@
                                     {
                                         "actionIndex": 0,
                                         "card": "{card}",
-                                        "draggable": true,
+                                        "draggable": false,
                                         "isOpen": true,
-                                        "key": "1717503518541-d9xtl5i6b",
-                                        "label": "event",
+                                        "key": "1711371304839-pw199ze3f",
+                                        "label": "CheckBiometric",
                                         "stateAction": {
+                                            "Web Page": {
+                                                "targetName": "/apex"
+                                            },
                                             "displayName": "Action",
-                                            "eventName": "valPrePaidAssetDetailsButtons_ChannelNameButtons",
-                                            "id": "flex-action-1717677769686",
-                                            "message": "Gestão de Promoções",
+                                            "id": "flex-action-1712681871189",
+                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateAllJourneys\",\"vlocityAsync\":false,\"inputMap\":{\"AssetId\":\"{Parent.AssetId}\",\"Functionality\":\"Promotion\",\"ValidateOrder\":\"true\",\"ValidatePortability\":\"true\",\"CheckBiometric\":\"true\",\"serviceType\":\"513\",\"InteractionId\":\"{Parent.InteractionId}\",\"AccountId\":\"{Parent.AccountId}\",\"PreSetValues\":\"true\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"Parent.AssetId\\\":\\\"{Parent.AssetId}\\\",\\\"Parent.InteractionId\\\":\\\"{Parent.InteractionId}\\\",\\\"Parent.AccountId\\\":\\\"{Parent.AccountId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"id\":4,\"name\":\"recordId\",\"val\":\"02i76000009Pdg3AAC\"},{\"name\":\"Parent.AssetId\",\"val\":\"02i76000009PhToAAK\",\"id\":1},{\"name\":\"Parent.InteractionId\",\"val\":\"\",\"id\":12},{\"name\":\"Parent.AccountId\",\"val\":\"\",\"id\":14}]}",
+                                            "openUrlIn": "Current Window",
+                                            "targetType": "Web Page",
+                                            "type": "DataAction",
+                                            "vlocityIcon": "standard-default"
+                                        }
+                                    },
+                                    {
+                                        "actionIndex": 1,
+                                        "card": "{card}",
+                                        "draggable": true,
+                                        "isOpen": false,
+                                        "key": "1711380201511-egwsjbviu",
+                                        "label": "valToast",
+                                        "stateAction": {
+                                            "actionConditions": {
+                                                "group": [
+                                                    {
+                                                        "field": "blockJourney",
+                                                        "hasMergeField": false,
+                                                        "id": "state-new-condition-38",
+                                                        "operator": "==",
+                                                        "type": "custom",
+                                                        "value": "true"
+                                                    }
+                                                ],
+                                                "id": "state-condition-object",
+                                                "isParent": true
+                                            },
+                                            "displayName": "Action",
+                                            "eventName": "valToast",
+                                            "extraParams": {
+                                                "message": "{message}",
+                                                "variant": "{variant}"
+                                            },
+                                            "hasExtraParams": true,
+                                            "id": "flex-action-1711391639264",
+                                            "message": "showToast",
                                             "openUrlIn": "Current Window",
                                             "subType": "PubSub",
                                             "type": "Event",
+                                            "vlocityIcon": "standard-default"
+                                        }
+                                    },
+                                    {
+                                        "actionIndex": 2,
+                                        "card": "{card}",
+                                        "contextId": "\\{Parent.InteractionId}",
+                                        "draggable": true,
+                                        "isOpen": false,
+                                        "key": "1711387657216-lcyzh3xa6",
+                                        "label": "ActionOS",
+                                        "stateAction": {
+                                            "actionConditions": {
+                                                "group": [
+                                                    {
+                                                        "field": "blockJourney",
+                                                        "hasMergeField": false,
+                                                        "id": "state-new-condition-2",
+                                                        "operator": "==",
+                                                        "type": "custom",
+                                                        "value": "false"
+                                                    }
+                                                ],
+                                                "id": "state-condition-object",
+                                                "isParent": true
+                                            },
+                                            "displayName": "Action",
+                                            "extraParams": {
+                                                "c__AccountId": "{Parent.AccountId}",
+                                                "c__AssetId": "{Parent.AssetId}",
+                                                "c__Functionality": "Promotion",
+                                                "c__InteractionNumber": "{Parent.InteractionNumber}",
+                                                "c__LineNumber": "{Products.LineNumber}",
+                                                "c__cartType": "Order"
+                                            },
+                                            "hasExtraParams": true,
+                                            "id": "flex-action-1711387926325",
+                                            "isLwcOS": true,
+                                            "layoutType": "lightning",
+                                            "omniType": {
+                                                "Id": "a3076000000PT6kAAG",
+                                                "Name": "val/AssetCartJourney/Portuguese (Brazil)",
+                                                "isLwcOs": true
+                                            },
+                                            "openUrlIn": "New Tab/Window",
+                                            "tabIcon": "utility:promotions",
+                                            "tabLabel": "Gestão de Promoções",
+                                            "type": "OmniScript",
+                                            "vlocityIcon": "standard-default"
+                                        }
+                                    },
+                                    {
+                                        "actionIndex": 3,
+                                        "card": "{card}",
+                                        "contextId": "\\{Parent.InteractionId}",
+                                        "draggable": true,
+                                        "isOpen": false,
+                                        "key": "1712330371147-2zoczq6a6",
+                                        "label": "PalitagemManual",
+                                        "stateAction": {
+                                            "actionConditions": {
+                                                "group": [
+                                                    {
+                                                        "field": "palitagem",
+                                                        "hasMergeField": false,
+                                                        "id": "state-new-condition-0",
+                                                        "operator": "==",
+                                                        "type": "custom",
+                                                        "value": "true"
+                                                    }
+                                                ],
+                                                "id": "state-condition-object",
+                                                "isParent": true
+                                            },
+                                            "displayName": "Action",
+                                            "extraParams": {
+                                                "c__AccountId": "{Parent.AccountId}",
+                                                "c__AssetId": "{Parent.AssetId}",
+                                                "c__CustomerInteractionId": "{Parent.InteractionId}",
+                                                "c__InteractionNumber": "{Parent.InteractionNumber}",
+                                                "c__SourceCalled": "SalesJourney",
+                                                "c__lineNumber": "{Products.LineNumber}"
+                                            },
+                                            "hasExtraParams": true,
+                                            "id": "flex-action-1712330622194",
+                                            "isLwcOS": true,
+                                            "layoutType": "lightning",
+                                            "omniType": {
+                                                "Id": "a3076000000PSs4AAG",
+                                                "Name": "val/AddRelationShipTopic/English",
+                                                "isLwcOs": true
+                                            },
+                                            "openUrlIn": "Current Window",
+                                            "tabIcon": "standard:cancel_checkout",
+                                            "tabLabel": "Palitar",
+                                            "type": "OmniScript",
                                             "vlocityIcon": "standard-default"
                                         }
                                     }
@@ -271,20 +217,14 @@
                                 "flyoutDetails": {
                                 },
                                 "hideActionIcon": false,
-                                "iconColor": "#792BA4",
+                                "iconColor": "#dddbda",
                                 "iconName": "utility:promotions_workspace",
-                                "iconOnly": false,
+                                "iconOnly": true,
                                 "iconSize": "small",
                                 "label": "Gestão de Promoções",
                                 "record": "{record}",
                                 "showSpinner": "true",
-                                "stateObj": "{record}",
-                                "styles": {
-                                    "label": {
-                                        "color": "#792BA4",
-                                        "fontSize": "12px"
-                                    }
-                                }
+                                "stateObj": "{record}"
                             },
                             "size": {
                                 "default": "12",
@@ -311,33 +251,27 @@
                                     ],
                                     "width": "1"
                                 },
-                                "class": "slds-text-align_left slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-left_small slds-p-top_small ",
+                                "class": "slds-text-align_center slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-top_xx-small slds-m-right_x-small editButton",
                                 "container": {
                                     "class": ""
                                 },
-                                "customClass": "",
+                                "customClass": "editButton",
                                 "elementStyleProperties": {
-                                    "iconColor": "#792BA4",
-                                    "iconSize": "small",
-                                    "styles": {
-                                        "label": {
-                                            "color": "#792BA4",
-                                            "fontSize": "12px"
-                                        }
-                                    }
+                                    "iconColor": "#dddbda",
+                                    "iconSize": "small"
                                 },
-                                "inlineStyle": "height: 55px;",
+                                "inlineStyle": "width: 35px;",
                                 "margin": [
+                                    {
+                                        "label": "right:x-small",
+                                        "size": "x-small",
+                                        "type": "right"
+                                    }
                                 ],
                                 "padding": [
                                     {
-                                        "label": "left:small",
-                                        "size": "small",
-                                        "type": "left"
-                                    },
-                                    {
-                                        "label": "top:small",
-                                        "size": "small",
+                                        "label": "top:xx-small",
+                                        "size": "xx-small",
                                         "type": "top"
                                     }
                                 ],
@@ -346,9 +280,9 @@
                                     "isResponsive": false
                                 },
                                 "sizeClass": "slds-size_12-of-12 ",
-                                "style": "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5px;     height: 55px;",
+                                "style": "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5px;     width: 35px;",
                                 "text": {
-                                    "align": "left",
+                                    "align": "center",
                                     "color": ""
                                 }
                             },
@@ -380,33 +314,27 @@
                                             ],
                                             "width": "1"
                                         },
-                                        "class": "slds-text-align_left slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-left_small slds-p-top_small ",
+                                        "class": "slds-text-align_center slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-top_xx-small slds-m-right_x-small editButton",
                                         "container": {
                                             "class": ""
                                         },
-                                        "customClass": "",
+                                        "customClass": "editButton",
                                         "elementStyleProperties": {
-                                            "iconColor": "#792BA4",
-                                            "iconSize": "small",
-                                            "styles": {
-                                                "label": {
-                                                    "color": "#792BA4",
-                                                    "fontSize": "12px"
-                                                }
-                                            }
+                                            "iconColor": "#dddbda",
+                                            "iconSize": "small"
                                         },
-                                        "inlineStyle": "height: 55px;",
+                                        "inlineStyle": "width: 35px;",
                                         "margin": [
+                                            {
+                                                "label": "right:x-small",
+                                                "size": "x-small",
+                                                "type": "right"
+                                            }
                                         ],
                                         "padding": [
                                             {
-                                                "label": "left:small",
-                                                "size": "small",
-                                                "type": "left"
-                                            },
-                                            {
-                                                "label": "top:small",
-                                                "size": "small",
+                                                "label": "top:xx-small",
+                                                "size": "xx-small",
                                                 "type": "top"
                                             }
                                         ],
@@ -415,9 +343,9 @@
                                             "isResponsive": false
                                         },
                                         "sizeClass": "slds-size_12-of-12 ",
-                                        "style": "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5px;     height: 55px;",
+                                        "style": "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5px;     width: 35px;",
                                         "text": {
-                                            "align": "left",
+                                            "align": "center",
                                             "color": ""
                                         }
                                     }
@@ -502,6 +430,13 @@
                         "name": "recordId",
                         "type": "String"
                     }
+                },
+                {
+                    "@attributes": {
+                        "label": "AssetId",
+                        "name": "cfAssetId",
+                        "type": "String"
+                    }
                 }
             ]
         },
@@ -539,13 +474,12 @@
         "isExposed": true,
         "masterLabel": "valPrePaidAssetDetailsButtons_PromocaoButton",
         "runtimeNamespace": "%vlocity_namespace%",
-        "targetConfigs": "PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nX19BcHBQYWdlIiB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIj48cHJvcGVydHkgIG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nQ29tbXVuaXR5X19EZWZhdWx0IiB4bWxucz0iIj48cHJvcGVydHkgIG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nX19SZWNvcmRQYWdlIj48cHJvcGVydHkgIG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+",
+        "targetConfigs": "PHRhcmdldENvbmZpZyAgeG1sbnM9Imh0dHA6Ly9zb2FwLnNmb3JjZS5jb20vMjAwNi8wNC9tZXRhZGF0YSIgdGFyZ2V0cz0ibGlnaHRuaW5nX19BcHBQYWdlIj48cHJvcGVydHkgIG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyAgeG1sbnM9IiIgdGFyZ2V0cz0ibGlnaHRuaW5nQ29tbXVuaXR5X19EZWZhdWx0Ij48cHJvcGVydHkgIG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nX19SZWNvcmRQYWdlIj48cHJvcGVydHkgIG5hbWU9ImNmQXNzZXRJZCIgbGFiZWw9IkFzc2V0SWQiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48L3RhcmdldENvbmZpZz4=",
         "targets": {
             "target": [
                 "lightning__AppPage",
                 "lightningCommunity__Default",
-                "lightning__RecordPage",
-                "lightning__HomePage"
+                "lightning__RecordPage"
             ]
         }
     }
