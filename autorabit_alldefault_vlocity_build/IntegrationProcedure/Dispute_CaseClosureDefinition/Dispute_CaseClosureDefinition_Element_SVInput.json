@@ -32,11 +32,11 @@
             "Context": "%SVProcedure:DisputedItemsList:Context%",
             "InteractionProtocolLegacySystem": "%IPAIPCreateInteractionAmdocsSingle:protocolNumber%",
             "LegacySystem": "%SVProcedure:DisputedItemsList:LegacySystem%",
-            "Notes": "- Nome: %SVProcedure:DisputedItemsList:ServiceDefinitionName%\n- Código do Step: %SVProcedure:DisputedItemsList:StepCode%\n- Descrição: %SVProcedure:DisputedItemsList:Description%\n- Mensagem para o Atendente: %SVProcedure:DisputedItemsList:AttendantMessage%\n- Status: %SVProcedure:DisputedItemsList:StatusItem%\n- Contexto: %SVProcedure:DisputedItemsList:Context%\n- Encerramento: %SVProcedure:DisputedItemsList:Closure%\n- Mapeamento de Encerramento: %SVProcedure:DisputedItemsList:ClosureMapping%\n- Sistema Legado: %SVProcedure:DisputedItemsList:LegacySystem%\n- Notas do Atendimento: %Notes%",
+            "Notes": "- Código da Definição de Atendimento: %SVProcedure:DisputedItemsList:ServiceDefinitionName%\n- Código do Step: %SVProcedure:DisputedItemsList:StepCode%\n- Descrição: %SVProcedure:DisputedItemsList:Description%\n- Mensagem para o Atendente: %SVProcedure:DisputedItemsList:AttendantMessage%\n- Status: %SVProcedure:DisputedItemsList:StatusItem%\n- Contexto: %SVProcedure:DisputedItemsList:Context%\n- Fechamento Salesforce: %SVProcedure:DisputedItemsList:Closure%\n- Interação Sistema Origem: %SVProcedure:DisputedItemsList:ClosureMapping%\n- Sistema Legado: %SVProcedure:DisputedItemsList:LegacySystem%\n- Observação do Atendimento: %Notes%",
             "RequestObservation": "%Notes%",
             "ServiceDefinitionId": "%SVProcedure:DisputedItemsList:ServiceDefinitionId%",
-            "Status": "%SVProcedure:DisputedItemsList:Status%",
-            "StatusOld": "=IF(%FeedbackCreditAmdocs:Error% == true, \"ClosedAssigned\", %SVProcedure:DisputedItemsList:Status%)"
+            "Status": "=IF(%IPAPrepareCreateCaseAmdocs:feedbackCaseAmdocs:Success% == true, \"Fechado/Atribuído\", %SVProcedure:DisputedItemsList:Status%)",
+            "StatusOld": "%SVProcedure:DisputedItemsList:Status%"
         },
         "executionConditionalFormula": "",
         "failOnStepError": true,
