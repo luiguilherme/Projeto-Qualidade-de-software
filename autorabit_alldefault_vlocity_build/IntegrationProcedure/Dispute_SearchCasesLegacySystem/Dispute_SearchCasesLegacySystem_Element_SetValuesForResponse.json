@@ -12,18 +12,18 @@
         "disOnTplt": false,
         "elementValueMap": {
             "LegacyCaseCreatedDate": "=FORMATDATETIME(%SearchCustomerProblem:LegacyCaseInfo:problems|1:creationDate%,\"dd/MM/yyyy HH:mm\",\"America/Sao_Paulo\")",
-            "LegacyCaseId": "%SearchCustomerProblem:LegacyCaseInfo:problems|1:reference%",
+            "LegacyCaseId": "=%SearchCustomerProblem:LegacyCaseInfo:problems|1:reference%",
             "LegacyCaseLastModifiedDate": "=FORMATDATETIME(%SearchCustomerProblem:LegacyCaseInfo:problems|1:lastModificationDate%,\"dd/MM/yyyy HH:mm\",\"America/Sao_Paulo\")",
-            "LegacyCaseName": "%SearchCustomerProblem:LegacyCaseInfo:problems|1:name%",
-            "LegacyCaseNotes": "=BASE64DECODE(%SearchCustomerProblem:LegacyCaseInfo:problems|2:noteDetails:content%)",
+            "LegacyCaseName": "=%SearchCustomerProblem:LegacyCaseInfo:problems|1:name%",
+            "LegacyCaseNotes": "=%SearchCustomerProblem:LegacyCaseInfo:problems|1:noteDetails:content%",
             "LegacyCaseSalesforce": "=VALUELOOKUP(FILTER(LIST(%SearchCustomerProblem:LegacyCaseInfo:problems|1:flexAttributes%), 'name == \"x_9_ID_Caso_Externo\"'), 'value')",
-            "LegacyCaseStatus": "%SearchCustomerProblem:LegacyCaseInfo:problems|1:status%"
+            "LegacyCaseStatus": "=%SearchCustomerProblem:LegacyCaseInfo:problems|1:status%"
         },
-        "executionConditionalFormula": "",
+        "executionConditionalFormula": "ISNOTBLANK(%SearchCustomerProblem:LegacyCaseInfo:problems|1:flexAttributes%)",
         "failOnStepError": false,
         "failureConditionalFormula": "",
         "label": "SetValues1",
-        "responseJSONNode": "",
+        "responseJSONNode": "ResponseLegacyCaseInfo",
         "responseJSONPath": "",
         "show": null
     },
