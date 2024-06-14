@@ -22,11 +22,51 @@
                     "card": "{card}",
                     "draggable": false,
                     "isOpen": true,
+                    "key": "1713986539084-5e8q7gjcg",
+                    "label": "SetValue",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "IdFromEvent",
+                                "fieldValue": "{action.WrapperContextId}"
+                            }
+                        ],
+                        "id": "flex-action-1713987047910",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
                     "key": "1706020043858-wf1g2bvxw",
                     "label": "GetInformation",
                     "stateAction": {
                         "Web Page": {
                             "targetName": "/apex"
+                        },
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "InteractionId",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-2",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "{IdFromEvent}"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
                         },
                         "displayName": "Action",
                         "eventName": "setValues",
@@ -82,9 +122,13 @@
                             {
                                 "fieldName": "ConvertNotesToStringApproved",
                                 "fieldValue": "{action.ConvertNotesToStringApproved}"
+                            },
+                            {
+                                "fieldName": "WrapperContextId",
+                                "fieldValue": "{action.WrapperContextId}"
                             }
                         ],
-                        "id": "flex-action-1710528501179",
+                        "id": "flex-action-1713986581031",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "cardAction",
@@ -92,7 +136,7 @@
                     }
                 },
                 {
-                    "actionIndex": 1,
+                    "actionIndex": 2,
                     "card": "{card}",
                     "draggable": true,
                     "isOpen": false,
@@ -102,8 +146,22 @@
                         "Web Page": {
                             "targetName": "/apex"
                         },
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "InteractionId",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-0",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "{IdFromEvent}"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
                         "displayName": "Action",
-                        "id": "flex-action-1710512710767",
+                        "id": "flex-action-1713986676161",
                         "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"Dispute_CreateCreditForChargeAndEvent\",\"vlocityAsync\":false,\"inputMap\":{\"filteredAdjustmentItems\":\"{action.Items}\",\"CaseId\":\"{caseId}\",\"Modality\":\"{modality}\",\"Email\":\"{email}\",\"OtherEmail\":\"{otherEmail}\",\"ShouldSendBill\":\"{ShouldSendBill}\",\"CustomerIds\":\"{action.CustomerIds}\",\"selectedInvoice\":\"{action.selectedInvoice}\",\"totalAdjustmentAmount\":\"{totalAdjustmentAmount}\",\"bank\":\"{bank}\",\"agency\":\"{agency}\",\"cc\":\"{cc}\"},\"jsonMap\":\"{\\\"action.Items\\\":\\\"{action.Items}\\\",\\\"caseId\\\":\\\"{caseId}\\\",\\\"modality\\\":\\\"{modality}\\\",\\\"email\\\":\\\"{email}\\\",\\\"otherEmail\\\":\\\"{otherEmail}\\\",\\\"ShouldSendBill\\\":\\\"{ShouldSendBill}\\\",\\\"CustomerIds\\\":\\\"{CustomerIds}\\\",\\\"selectedInvoice\\\":\\\"{selectedInvoice}\\\",\\\"action.CustomerIds\\\":\\\"{action.CustomerIds}\\\",\\\"action.selectedInvoice\\\":\\\"{action.selectedInvoice}\\\",\\\"bank\\\":\\\"{bank}\\\",\\\"totalAdjustmentAmount\\\":\\\"{totalAdjustmentAmount}\\\",\\\"agency\\\":\\\"{agency}\\\",\\\"cc\\\":\\\"{cc}\\\",\\\"ConvertNotesToString\\\":\\\"{ConvertNotesToString}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"action.Items\",\"val\":\"\",\"id\":1},{\"name\":\"caseId\",\"val\":\"\",\"id\":3},{\"name\":\"modality\",\"val\":\"\",\"id\":5},{\"name\":\"email\",\"val\":\"\",\"id\":7},{\"name\":\"otherEmail\",\"val\":\"\",\"id\":9},{\"name\":\"ShouldSendBill\",\"val\":\"\",\"id\":11},{\"name\":\"CustomerIds\",\"val\":\"\",\"id\":13},{\"name\":\"selectedInvoice\",\"val\":\"\",\"id\":15},{\"name\":\"action.CustomerIds\",\"val\":\"\",\"id\":16},{\"name\":\"action.selectedInvoice\",\"val\":\"\",\"id\":17},{\"name\":\"bank\",\"val\":\"\",\"id\":17},{\"name\":\"totalAdjustmentAmount\",\"val\":\"\",\"id\":19},{\"name\":\"agency\",\"val\":\"\",\"id\":21},{\"name\":\"cc\",\"val\":\"\",\"id\":23},{\"name\":\"ConvertNotesToString\",\"val\":\"\",\"id\":25}]}",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
@@ -112,41 +170,35 @@
                     }
                 },
                 {
-                    "actionIndex": 2,
-                    "card": "{card}",
-                    "draggable": true,
-                    "isOpen": false,
-                    "key": "1706021842751-bt4lbj6tg",
-                    "label": "SendMessageToLWC",
-                    "stateAction": {
-                        "displayName": "Action",
-                        "eventName": "FeedbackUser",
-                        "extraParams": {
-                            "Error": "{Error}",
-                            "Message": "{Message}",
-                            "Success": "{Success}"
-                        },
-                        "hasExtraParams": true,
-                        "id": "flex-action-1706021884613",
-                        "message": "Message",
-                        "openUrlIn": "Current Window",
-                        "subType": "PubSub",
-                        "type": "Event",
-                        "vlocityIcon": "standard-default"
-                    }
-                },
-                {
                     "actionIndex": 3,
                     "card": "{card}",
                     "draggable": true,
                     "isOpen": false,
-                    "key": "1706021901463-q2603ft3x",
-                    "label": "ReloadChildFlexCardDisputeServiceDefinitionMessage",
+                    "key": "1706021842751-bt4lbj6tg",
+                    "label": "UpdateCartItemsDataTable",
                     "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "InteractionId",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-7",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "{IdFromEvent}"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
                         "displayName": "Action",
-                        "eventName": "UserFeedback",
-                        "id": "flex-action-1706021901580",
-                        "message": "ReloadChildFlexCardDisputeServiceDefinitionMessage",
+                        "eventName": "omniscript_action",
+                        "extraParams": {
+                            "CaseId": "{caseId}"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1715795272741",
+                        "message": "data",
                         "openUrlIn": "Current Window",
                         "subType": "PubSub",
                         "type": "Event",
@@ -156,11 +208,57 @@
                 {
                     "actionIndex": 4,
                     "card": "{card}",
-                    "draggable": false,
-                    "isOpen": true,
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1706021901463-q2603ft3x",
+                    "label": "ReloadChildFlexCardDisputeServiceDefinitionMessage",
+                    "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "InteractionId",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-14",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "{IdFromEvent}"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "UserFeedback",
+                        "id": "flex-action-1713986690432",
+                        "message": "ReloadChildFlexCardDisputeServiceDefinitionMessage",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 5,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
                     "key": "1706021923284-t26azdy5n",
                     "label": "DisputeFlexCardServiceDefinitionMessage",
                     "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "InteractionId",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-21",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "{IdFromEvent}"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
                         "displayName": "Action",
                         "eventName": "DisputeFlexCardServiceDefinitionMessage",
                         "extraParams": {
@@ -172,10 +270,11 @@
                             "FeedbackCreditAmdocs": "{feedbackCreditAmdocs}",
                             "InteractionId": "{action.InteractionId}",
                             "InteractionTopicId": "{action.InteractionTopicId}",
-                            "Notes": "{action.Notes}"
+                            "Notes": "{action.Notes}",
+                            "WrapperContextId": "{WrapperContextId}"
                         },
                         "hasExtraParams": true,
-                        "id": "flex-action-1710528540650",
+                        "id": "flex-action-1713986697980",
                         "message": "CaseClosureDefinition",
                         "openUrlIn": "Current Window",
                         "subType": "PubSub",
@@ -204,6 +303,12 @@
                     "key": "1692017590202-upzj3kcrr",
                     "label": "GetModality",
                     "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
                         "displayName": "Action",
                         "eventName": "setValues",
                         "fieldValues": [
@@ -216,7 +321,7 @@
                                 "fieldValue": "{action}"
                             }
                         ],
-                        "id": "flex-action-1703092045887",
+                        "id": "flex-action-1714057012821",
                         "openUrlIn": "Current Window",
                         "subType": "PubSub",
                         "type": "cardAction",
@@ -247,6 +352,12 @@
                         "Web Page": {
                             "targetName": "/apex"
                         },
+                        "actionConditions": {
+                            "group": [
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
                         "displayName": "Action",
                         "eventName": "setValues",
                         "fieldValues": [
@@ -255,7 +366,7 @@
                                 "fieldValue": "{action}"
                             }
                         ],
-                        "id": "flex-action-1692019470296",
+                        "id": "flex-action-1714057020198",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "cardAction",
@@ -286,6 +397,12 @@
                         "Web Page": {
                             "targetName": "/apex"
                         },
+                        "actionConditions": {
+                            "group": [
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
                         "displayName": "Action",
                         "eventName": "setValues",
                         "fieldValues": [
@@ -294,7 +411,7 @@
                                 "fieldValue": "{action}"
                             }
                         ],
-                        "id": "flex-action-1692228041676",
+                        "id": "flex-action-1714057043324",
                         "message": "{\"type\":\"Custom\",\"value\":{\"dsDelay\":\"\",\"body\":\"{\\n\\\"Options\\\":\\\"{action}\\\"\\n}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[]}",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
@@ -326,6 +443,12 @@
                         "Web Page": {
                             "targetName": "/apex"
                         },
+                        "actionConditions": {
+                            "group": [
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
                         "displayName": "Action",
                         "eventName": "setValues",
                         "fieldValues": [
@@ -338,7 +461,7 @@
                                 "fieldValue": "{action}"
                             }
                         ],
-                        "id": "flex-action-1703249863902",
+                        "id": "flex-action-1714057094247",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "cardAction",
@@ -369,6 +492,20 @@
                         "Web Page": {
                             "targetName": "/apex"
                         },
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "InteractionId",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-9",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "{IdFromEvent}"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
                         "displayName": "Action",
                         "eventName": "setValues",
                         "fieldValues": [
@@ -385,7 +522,7 @@
                                 "fieldValue": "true"
                             }
                         ],
-                        "id": "flex-action-1706618877475",
+                        "id": "flex-action-1713987922927",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "cardAction",
@@ -409,12 +546,26 @@
                     "actionIndex": 0,
                     "card": "{card}",
                     "draggable": true,
-                    "isOpen": false,
+                    "isOpen": true,
                     "key": "1706618392249-myriv7dj1",
                     "label": "SetValueFeedbackUserInteraction",
                     "stateAction": {
                         "Web Page": {
                             "targetName": "/apex"
+                        },
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "InteractionId",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-16",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "{IdFromEvent}"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
                         },
                         "displayName": "Action",
                         "eventName": "setValues",
@@ -428,7 +579,7 @@
                                 "fieldValue": "true"
                             }
                         ],
-                        "id": "flex-action-1709902111608",
+                        "id": "flex-action-1713987949607",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "cardAction",
@@ -438,7 +589,7 @@
                 {
                     "actionIndex": 1,
                     "card": "{card}",
-                    "draggable": false,
+                    "draggable": true,
                     "isOpen": true,
                     "isTrackingDisabled": false,
                     "key": "1709909294827-7sv43842v",
@@ -447,9 +598,23 @@
                         "Web Page": {
                             "targetName": "/apex"
                         },
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "InteractionId",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-23",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "{IdFromEvent}"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
                         "displayName": "Action",
-                        "id": "flex-action-1712085551235",
-                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"Dispute_GetCaseInfoAndAssociatedDisputedItemsByCaseId\",\"vlocityAsync\":false,\"inputMap\":{\"CaseId\":\"{caseId}\"},\"jsonMap\":\"{\\\"caseId\\\":\\\"{caseId}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"caseId\",\"val\":\"50078000005b7KBAAY\",\"id\":1}]}",
+                        "id": "flex-action-1713987961592",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"Dispute_GetCaseInfoAndAssociatedDisputedItemsByCaseId\",\"vlocityAsync\":false,\"inputMap\":{\"CaseId\":\"{caseId}\"},\"jsonMap\":\"{\\\"caseId\\\":\\\"{caseId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"caseId\",\"val\":\"5008K000005DPqfQAG\",\"id\":1}]}",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "DataAction",
@@ -459,18 +624,32 @@
                 {
                     "actionIndex": 2,
                     "card": "{card}",
-                    "draggable": true,
-                    "isOpen": false,
+                    "draggable": false,
+                    "isOpen": true,
                     "key": "1709898522258-qrxjid48b",
                     "label": "ActionCallPopUp",
                     "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "InteractionId",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-30",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "{IdFromEvent}"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
                         "cardName": "DisputeConclusionFlyoutInfo",
                         "cardNode": "{records}",
                         "channelName": "close_modal",
                         "displayName": "Action",
                         "flyoutLwc": "DisputeConclusionFlyoutInfo",
                         "flyoutType": "childCard",
-                        "id": "flex-action-1710269240583",
+                        "id": "flex-action-1713987975470",
                         "openFlyoutIn": "Modal",
                         "openUrlIn": "Current Window",
                         "type": "Flyout",
@@ -501,9 +680,23 @@
                         "Web Page": {
                             "targetName": "/apex"
                         },
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "InteractionId",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-37",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "{IdFromEvent}"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
                         "displayName": "Action",
-                        "id": "flex-action-1712085652798",
-                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"Dispute_GetCaseInfoAndAssociatedDisputedItemsByCaseId\",\"vlocityAsync\":false,\"inputMap\":{\"CaseId\":\"{caseId}\"},\"jsonMap\":\"{\\\"caseId\\\":\\\"{caseId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"caseId\",\"val\":\"50078000005b7KBAAY\",\"id\":1}]}",
+                        "id": "flex-action-1713988007026",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"Dispute_GetCaseInfoAndAssociatedDisputedItemsByCaseId\",\"vlocityAsync\":false,\"inputMap\":{\"CaseId\":\"{caseId}\"},\"jsonMap\":\"{\\\"caseId\\\":\\\"{caseId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"caseId\",\"val\":\"5008K000005DPqfQAG\",\"id\":1}]}",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "DataAction",
@@ -513,18 +706,32 @@
                 {
                     "actionIndex": 1,
                     "card": "{card}",
-                    "draggable": true,
-                    "isOpen": false,
+                    "draggable": false,
+                    "isOpen": true,
                     "key": "1709909671696-kuzf7mnhp",
                     "label": "ActionCallPopUp",
                     "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "InteractionId",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-44",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "{IdFromEvent}"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
                         "cardName": "DisputeConclusionFlyoutInfo",
                         "cardNode": "{records}",
                         "channelName": "close_modal",
                         "displayName": "Action",
                         "flyoutLwc": "DisputeConclusionFlyoutInfo",
                         "flyoutType": "childCard",
-                        "id": "flex-action-1710269260001",
+                        "id": "flex-action-1713988016034",
                         "openFlyoutIn": "Modal",
                         "openUrlIn": "Current Window",
                         "type": "Flyout",
@@ -555,6 +762,20 @@
                         "Web Page": {
                             "targetName": "/apex"
                         },
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "InteractionId",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-51",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "{IdFromEvent}"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
                         "displayName": "Action",
                         "eventName": "setValues",
                         "fieldValues": [
@@ -563,7 +784,7 @@
                                 "fieldValue": "{action}"
                             }
                         ],
-                        "id": "flex-action-1710876507560",
+                        "id": "flex-action-1713988033485",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "cardAction",
@@ -580,15 +801,106 @@
             "key": "event-8",
             "recordIndex": "0",
             "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": true,
+                    "key": "1713891095079-5ubtyf9fq",
+                    "label": "ActionGetCaseInfo",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "id": "flex-action-1713891192358",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"Dispute_GetCaseInfoAndAssociatedDisputedItemsByCaseId\",\"vlocityAsync\":false,\"inputMap\":{\"CaseId\":\"{caseId}\"},\"jsonMap\":\"{\\\"caseId\\\":\\\"{caseId}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"caseId\",\"val\":\"5008K000005DPqfQAG\",\"id\":1}]}",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "DataAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1713891202670-qsb829r6t",
+                    "label": "ActionCallPopUp",
+                    "stateAction": {
+                        "cardName": "DisputeConclusionFlyoutInfo",
+                        "cardNode": "{records}",
+                        "channelName": "close_modal",
+                        "displayName": "Action",
+                        "flyoutLwc": "DisputeConclusionFlyoutInfo",
+                        "flyoutType": "childCard",
+                        "id": "flex-action-1713891223282",
+                        "openFlyoutIn": "Modal",
+                        "openUrlIn": "Current Window",
+                        "type": "Flyout",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "OpenModalEmptyInvoices",
+            "displayLabel": "OpenModalEmptyInvoices:Popup",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "Popup",
+            "eventtype": "pubsub",
+            "key": "event-9",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1714039065878-qbn4ers6s",
+                    "label": "SetLocalCurrentContextId",
+                    "stateAction": {
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "IdFromEvent",
+                                "fieldValue": "{action.WrapperContextId}"
+                            }
+                        ],
+                        "id": "flex-action-1714039102163",
+                        "message": "",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "DisputeFlexCardService",
+            "displayLabel": "DisputeFlexCardService:SetLocalCurrentContextId",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "SetLocalCurrentContextId",
+            "eventtype": "pubsub",
+            "key": "event-10",
+            "recordIndex": "0",
+            "showSpinner": "false"
         }
     ],
     "globalCSS": true,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfDisputeFlexCardServiceDefinition_34_Dispute",
-        "Id": "0Rb78000000La9oCAC",
+        "DeveloperName": "cfDisputeFlexCardWrapper_17_Dispute",
+        "Id": "0Rb78000000LczDCAS",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfDisputeFlexCardServiceDefinition_34_Dispute",
+        "MasterLabel": "cfDisputeFlexCardWrapper_17_Dispute",
         "NamespacePrefix": "c"
     },
     "osSupport": true,
@@ -656,6 +968,7 @@
                 "DisputeFlexCardCreateCreditFeedbackResponse",
                 "DisputeFlexCardCreateCreditFeedbackResponse",
                 "DisputeFlexCardCreateCreditFeedbackResponse",
+                "DisputeFlexCardCreateCreditFeedbackResponse",
                 "DisputeFlexCardCreateCreditFeedbackResponse"
             ],
             "components": {
@@ -664,7 +977,7 @@
                         {
                             "class": "slds-col ",
                             "element": "childCardPreview",
-                            "elementLabel": "FlexCard-4",
+                            "elementLabel": "FlexCard-1",
                             "name": "FlexCard",
                             "property": {
                                 "cardName": "DisputeFlexCardCreateCreditFeedbackResponse",
@@ -792,7 +1105,7 @@
                         {
                             "class": "slds-col ",
                             "element": "childCardPreview",
-                            "elementLabel": "FlexCard-0-clone-0",
+                            "elementLabel": "FlexCard-2",
                             "name": "FlexCard",
                             "property": {
                                 "cardName": "DisputeFlexCardCreateCreditFeedbackResponse",
@@ -920,7 +1233,7 @@
                         {
                             "class": "slds-col ",
                             "element": "childCardPreview",
-                            "elementLabel": "FlexCard-2",
+                            "elementLabel": "FlexCard-3",
                             "name": "FlexCard",
                             "property": {
                                 "cardName": "DisputeFlexCardCreateCreditFeedbackResponse",
@@ -1048,15 +1361,15 @@
                         {
                             "class": "slds-col ",
                             "element": "childCardPreview",
-                            "elementLabel": "FlexCard-1",
+                            "elementLabel": "feedbackCreditApproved",
                             "name": "FlexCard",
                             "property": {
                                 "cardName": "DisputeFlexCardCreateCreditFeedbackResponse",
-                                "cardNode": "{record.feedbackCredit}",
+                                "cardNode": "{record.feedbackCreditApproved}",
                                 "data-conditions": {
                                     "group": [
                                         {
-                                            "field": "feedbackCredit.Message",
+                                            "field": "feedbackCreditApproved.Message",
                                             "hasMergeField": false,
                                             "id": "state-new-condition-0",
                                             "operator": "!=",
@@ -1170,12 +1483,141 @@
                                     }
                                 }
                             ],
-                            "type": "element"
+                            "type": "element",
+                            "userUpdatedElementLabel": true
                         },
                         {
                             "class": "slds-col ",
                             "element": "childCardPreview",
-                            "elementLabel": "FlexCard-3",
+                            "elementLabel": "feedbackCreditConcession",
+                            "name": "FlexCard",
+                            "property": {
+                                "cardName": "DisputeFlexCardCreateCreditFeedbackResponse",
+                                "cardNode": "{record.feedbackCreditConcession}",
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "feedbackCreditConcession.Message",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-0",
+                                            "operator": "!=",
+                                            "type": "custom",
+                                            "value": "Null"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "isChildCardTrackingEnabled": false,
+                                "recordId": "{recordId}",
+                                "selectedState": "Active"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "background": {
+                                    "color": "",
+                                    "image": "",
+                                    "position": "",
+                                    "repeat": "",
+                                    "size": ""
+                                },
+                                "border": {
+                                    "color": "#cccccc",
+                                    "radius": "",
+                                    "style": "",
+                                    "type": "",
+                                    "width": ""
+                                },
+                                "class": "slds-p-around_xxx-small ",
+                                "container": {
+                                    "class": ""
+                                },
+                                "elementStyleProperties": {
+                                },
+                                "inlineStyle": "",
+                                "margin": [
+                                ],
+                                "padding": [
+                                    {
+                                        "label": "around:xxx-small",
+                                        "size": "xxx-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "size": {
+                                    "default": "12",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_12-of-12 ",
+                                "style": "      \n         ",
+                                "text": {
+                                    "align": "",
+                                    "color": ""
+                                }
+                            },
+                            "styleObjects": [
+                                {
+                                    "conditionString": "",
+                                    "conditions": "default",
+                                    "draggable": false,
+                                    "key": 0,
+                                    "label": "Default",
+                                    "name": "Default",
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "#cccccc",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "slds-p-around_xxx-small ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                            {
+                                                "label": "around:xxx-small",
+                                                "size": "xxx-small",
+                                                "type": "around"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    }
+                                }
+                            ],
+                            "type": "element",
+                            "userUpdatedElementLabel": true
+                        },
+                        {
+                            "class": "slds-col ",
+                            "element": "childCardPreview",
+                            "elementLabel": "FlexCard-5",
                             "name": "FlexCard",
                             "property": {
                                 "cardName": "DisputeFlexCardCreateCreditFeedbackResponse",
@@ -1303,7 +1745,7 @@
                         {
                             "class": "slds-col ",
                             "element": "outputField",
-                            "elementLabel": "Text-5",
+                            "elementLabel": "Text-6",
                             "name": "Text",
                             "property": {
                                 "card": "{card}",
@@ -1637,7 +2079,7 @@
                             ],
                             "class": "slds-col ",
                             "element": "block",
-                            "elementLabel": "Block-6",
+                            "elementLabel": "Block-7",
                             "name": "Block",
                             "property": {
                                 "card": "{card}",
@@ -1923,7 +2365,7 @@
                             ],
                             "class": "slds-col ",
                             "element": "block",
-                            "elementLabel": "Block-7",
+                            "elementLabel": "Block-8",
                             "name": "Block",
                             "property": {
                                 "card": "{card}",
@@ -1966,33 +2408,10 @@
                         {
                             "class": "slds-col ",
                             "element": "customLwc",
-                            "elementLabel": "Custom LWC-8",
+                            "elementLabel": "Custom LWC-9",
                             "name": "Custom LWC",
                             "property": {
                                 "customlwcname": "cfDisputeFlexCardServiceDefinitionMessage",
-                                "data-conditions": {
-                                    "group": [
-                                        {
-                                            "field": "isLastItem",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-2",
-                                            "operator": "==",
-                                            "type": "custom",
-                                            "value": "yes"
-                                        },
-                                        {
-                                            "field": "Parent.DisputeCloseService",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-3",
-                                            "logicalOperator": "&&",
-                                            "operator": "!=",
-                                            "type": "custom",
-                                            "value": "true"
-                                        }
-                                    ],
-                                    "id": "state-condition-object",
-                                    "isParent": true
-                                },
                                 "recordId": "{caseId}"
                             },
                             "size": {
@@ -2011,9 +2430,9 @@
                                     "class": "slds-col ",
                                     "element": "outputField",
                                     "elementLabel": "Block-Modality-Reembolso-Text",
-                                    "key": "element_element_block_3_0_outputField_0_0",
+                                    "key": "element_element_block_9_0_outputField_0_0",
                                     "name": "Text",
-                                    "parentElementKey": "element_block_3_0",
+                                    "parentElementKey": "element_block_9_0",
                                     "property": {
                                         "card": "{card}",
                                         "mergeField": "%3Cdiv%3EPreencha%20os%20campos%20abaixo%20de%20acordo%20com%20o%20informado%20pelo%20cliente.%3C/div%3E",
@@ -2115,12 +2534,19 @@
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
                                     "elementLabel": "Block-Modality-Reembolso-Bank",
-                                    "key": "element_element_block_3_0_baseInputElement_1_0",
+                                    "key": "element_element_block_9_0_baseInputElement_1_0",
                                     "name": "Text",
-                                    "parentElementKey": "element_block_3_0",
+                                    "parentElementKey": "element_block_9_0",
                                     "property": {
                                         "card": "{card}",
                                         "propertyObj": {
+                                            "customProperties": [
+                                                {
+                                                    "id": 0,
+                                                    "label": "disabled",
+                                                    "value": "{Session.HideRegisterButton}"
+                                                }
+                                            ],
                                             "fieldBinding": "{Session.bank}",
                                             "label": "Banco",
                                             "required": true
@@ -2162,9 +2588,9 @@
                                     "class": "slds-col ",
                                     "element": "block",
                                     "elementLabel": "Block-BreakLine-00",
-                                    "key": "element_element_block_3_0_block_2_0",
+                                    "key": "element_element_block_9_0_block_2_0",
                                     "name": "Block",
-                                    "parentElementKey": "element_block_3_0",
+                                    "parentElementKey": "element_block_9_0",
                                     "property": {
                                         "card": "{card}",
                                         "collapsedByDefault": false,
@@ -2198,12 +2624,19 @@
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
                                     "elementLabel": "Block-Modality-Reembolso-Agency",
-                                    "key": "element_element_block_3_0_baseInputElement_3_0",
+                                    "key": "element_element_block_9_0_baseInputElement_3_0",
                                     "name": "Text",
-                                    "parentElementKey": "element_block_3_0",
+                                    "parentElementKey": "element_block_9_0",
                                     "property": {
                                         "card": "{card}",
                                         "propertyObj": {
+                                            "customProperties": [
+                                                {
+                                                    "id": 0,
+                                                    "label": "disabled",
+                                                    "value": "{Session.HideRegisterButton}"
+                                                }
+                                            ],
                                             "fieldBinding": "{Session.agency}",
                                             "label": "Agência",
                                             "required": true
@@ -2243,12 +2676,19 @@
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
                                     "elementLabel": "Block-Modality-Reembolso-CC",
-                                    "key": "element_element_block_3_0_baseInputElement_4_0",
+                                    "key": "element_element_block_9_0_baseInputElement_4_0",
                                     "name": "Text",
-                                    "parentElementKey": "element_block_3_0",
+                                    "parentElementKey": "element_block_9_0",
                                     "property": {
                                         "card": "{card}",
                                         "propertyObj": {
+                                            "customProperties": [
+                                                {
+                                                    "id": 0,
+                                                    "label": "disabled",
+                                                    "value": "{Session.HideRegisterButton}"
+                                                }
+                                            ],
                                             "fieldBinding": "{Session.cc}",
                                             "label": "Conta Corrente",
                                             "required": true
@@ -2290,9 +2730,9 @@
                                     "class": "slds-col ",
                                     "element": "block",
                                     "elementLabel": "Block-BreakLine-01",
-                                    "key": "element_element_block_3_0_block_5_0",
+                                    "key": "element_element_block_9_0_block_5_0",
                                     "name": "Block",
-                                    "parentElementKey": "element_block_3_0",
+                                    "parentElementKey": "element_block_9_0",
                                     "property": {
                                         "card": "{card}",
                                         "collapsedByDefault": false,
@@ -2326,9 +2766,9 @@
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
                                     "elementLabel": "Block-Modality-Reembolso-Value",
-                                    "key": "element_element_block_3_0_baseInputElement_6_0",
+                                    "key": "element_element_block_9_0_baseInputElement_6_0",
                                     "name": "Text",
-                                    "parentElementKey": "element_block_3_0",
+                                    "parentElementKey": "element_block_9_0",
                                     "property": {
                                         "card": "{card}",
                                         "propertyObj": {
@@ -2417,9 +2857,9 @@
                                     "class": "slds-col ",
                                     "element": "customLwc",
                                     "elementLabel": "Block-5-Custom LWC-0",
-                                    "key": "element_element_block_5_0_customLwc_0_0",
+                                    "key": "element_element_block_10_0_customLwc_0_0",
                                     "name": "Custom LWC",
-                                    "parentElementKey": "element_block_5_0",
+                                    "parentElementKey": "element_block_10_0",
                                     "property": {
                                         "customlwcname": "disputeAdjustmentForm",
                                         "param": "{records}"
@@ -2437,7 +2877,7 @@
                             ],
                             "class": "slds-col ",
                             "element": "block",
-                            "elementLabel": "Block-10",
+                            "elementLabel": "Block-11",
                             "name": "Block",
                             "property": {
                                 "card": "{card}",
@@ -2564,9 +3004,9 @@
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
                                     "elementLabel": "Block-Modality-Boleto-Email",
-                                    "key": "element_element_block_5_0_baseInputElement_0_0",
+                                    "key": "element_element_block_11_0_baseInputElement_0_0",
                                     "name": "Select",
-                                    "parentElementKey": "element_block_5_0",
+                                    "parentElementKey": "element_block_11_0",
                                     "property": {
                                         "card": "{card}",
                                         "propertyObj": {
@@ -2620,9 +3060,9 @@
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
                                     "elementLabel": "Block-Modality-Boleto-OtherEmail",
-                                    "key": "element_element_block_5_0_baseInputElement_1_0",
+                                    "key": "element_element_block_11_0_baseInputElement_1_0",
                                     "name": "Text",
-                                    "parentElementKey": "element_block_5_0",
+                                    "parentElementKey": "element_block_11_0",
                                     "property": {
                                         "card": "{card}",
                                         "data-conditions": {
@@ -2664,7 +3104,12 @@
                                                 {
                                                     "id": 4,
                                                     "label": "message-when-pattern-mismatch",
-                                                    "value": "Please enter a valid email"
+                                                    "value": "Por favor digite um email válido"
+                                                },
+                                                {
+                                                    "id": 5,
+                                                    "label": "disabled",
+                                                    "value": "{Session.HideRegisterButton}"
                                                 }
                                             ],
                                             "fieldBinding": "{Session.otherEmail}",
@@ -2763,9 +3208,9 @@
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
                                     "elementLabel": "Block-Notes-Text",
-                                    "key": "element_element_block_11_0_baseInputElement_0_0",
+                                    "key": "element_element_block_12_0_baseInputElement_0_0",
                                     "name": "Text Area",
-                                    "parentElementKey": "element_block_11_0",
+                                    "parentElementKey": "element_block_12_0",
                                     "property": {
                                         "card": "{card}",
                                         "data-conditions": {
@@ -2959,15 +3404,15 @@
                         {
                             "class": "slds-col ",
                             "element": "action",
-                            "elementLabel": "Action-13",
+                            "elementLabel": "Action-14",
                             "name": "Action",
                             "property": {
                                 "actionList": [
                                     {
                                         "actionIndex": 0,
                                         "card": "{card}",
-                                        "draggable": true,
-                                        "isOpen": false,
+                                        "draggable": false,
+                                        "isOpen": true,
                                         "key": "1701972304498-mh3s95lu3",
                                         "label": "UpdateSalesforceCase",
                                         "stateAction": {
@@ -2982,10 +3427,11 @@
                                             "extraParams": {
                                                 "CaseId": "{caseId}",
                                                 "Notes": "{notes}",
-                                                "Session": "{Session}"
+                                                "Session": "{Session}",
+                                                "WrapperContextId": "{InteractionId}"
                                             },
                                             "hasExtraParams": true,
-                                            "id": "flex-action-1703267600814",
+                                            "id": "flex-action-1714163954326",
                                             "message": "RegisterBtn",
                                             "openUrlIn": "Current Window",
                                             "subType": "PubSub",
@@ -3153,14 +3599,14 @@
                         {
                             "class": "slds-col ",
                             "element": "action",
-                            "elementLabel": "Action-14",
+                            "elementLabel": "Action-15",
                             "name": "Action",
                             "property": {
                                 "actionList": [
                                     {
                                         "actionIndex": 0,
                                         "card": "{card}",
-                                        "draggable": true,
+                                        "draggable": false,
                                         "isOpen": true,
                                         "key": "1709908989274-f043v4kx1",
                                         "label": "ActionGetCaseInfo",
@@ -3169,8 +3615,8 @@
                                                 "targetName": "/apex"
                                             },
                                             "displayName": "Action",
-                                            "id": "flex-action-1712085620673",
-                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"Dispute_GetCaseInfoAndAssociatedDisputedItemsByCaseId\",\"vlocityAsync\":false,\"inputMap\":{\"CaseId\":\"{caseId}\"},\"jsonMap\":\"{\\\"caseId\\\":\\\"{caseId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"caseId\",\"val\":\"50078000005b7KBAAY\",\"id\":1}]}",
+                                            "id": "flex-action-1711631786751",
+                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"resultVar\":\"[0]\",\"ipMethod\":\"Dispute_GetCaseInfoAndAssociatedDisputedItemsByCaseId\",\"vlocityAsync\":false,\"inputMap\":{\"CaseId\":\"{caseId}\"},\"jsonMap\":\"{\\\"caseId\\\":\\\"{caseId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"caseId\",\"val\":\"5008K000005DPqfQAG\",\"id\":1}]}",
                                             "openUrlIn": "Current Window",
                                             "targetType": "Web Page",
                                             "type": "DataAction",
@@ -3384,7 +3830,7 @@
                         {
                             "class": "slds-col ",
                             "element": "action",
-                            "elementLabel": "Action-15",
+                            "elementLabel": "Action-16",
                             "name": "Action",
                             "property": {
                                 "actionList": [
@@ -3425,7 +3871,7 @@
                                         "actionIndex": 2,
                                         "card": "{card}",
                                         "draggable": true,
-                                        "isOpen": false,
+                                        "isOpen": true,
                                         "key": "1701980143967-b151wvyp6",
                                         "label": "AlertNotesEmpty",
                                         "stateAction": {
@@ -3461,8 +3907,8 @@
                                     {
                                         "actionIndex": 2,
                                         "card": "{card}",
-                                        "draggable": true,
-                                        "isOpen": false,
+                                        "draggable": false,
+                                        "isOpen": true,
                                         "key": "1709904683094-htwzffcww",
                                         "label": "ActionCallPopUp",
                                         "preloadFlyout": true,
@@ -3482,9 +3928,9 @@
                                                 "isParent": true
                                             },
                                             "displayName": "Action",
-                                            "eventName": "OpenModal",
+                                            "eventName": "OpenModalEmptyInvoices",
                                             "hasExtraParams": false,
-                                            "id": "flex-action-1709906623295",
+                                            "id": "flex-action-1713891251319",
                                             "message": "Popup",
                                             "openUrlIn": "Current Window",
                                             "subType": "PubSub",

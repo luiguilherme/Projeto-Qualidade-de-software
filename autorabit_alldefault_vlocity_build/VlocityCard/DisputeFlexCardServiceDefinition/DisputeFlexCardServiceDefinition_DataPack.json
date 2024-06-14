@@ -157,28 +157,8 @@
         "event-0_2": {
             "contextVariables": [
                 {
-                    "id": 0,
-                    "name": "isLastItem",
-                    "val": "yes"
-                },
-                {
                     "id": 1,
-                    "name": "serviceDefinitionName",
-                    "val": "Teste Nome"
-                },
-                {
-                    "id": 2,
-                    "name": "attendantMessage",
-                    "val": "mensagem"
-                },
-                {
-                    "id": 0,
-                    "name": "Parent.DisputeCloseService",
-                    "val": "false"
-                },
-                {
-                    "id": 1,
-                    "name": "action",
+                    "name": "action.Items",
                     "val": ""
                 },
                 {
@@ -188,11 +168,6 @@
                 },
                 {
                     "id": 5,
-                    "name": "Session.modality",
-                    "val": ""
-                },
-                {
-                    "id": 6,
                     "name": "modality",
                     "val": ""
                 },
@@ -207,8 +182,53 @@
                     "val": ""
                 },
                 {
-                    "id": 12,
-                    "name": "checkBoleto",
+                    "id": 11,
+                    "name": "ShouldSendBill",
+                    "val": ""
+                },
+                {
+                    "id": 13,
+                    "name": "CustomerIds",
+                    "val": ""
+                },
+                {
+                    "id": 15,
+                    "name": "selectedInvoice",
+                    "val": ""
+                },
+                {
+                    "id": 16,
+                    "name": "action.CustomerIds",
+                    "val": ""
+                },
+                {
+                    "id": 17,
+                    "name": "action.selectedInvoice",
+                    "val": ""
+                },
+                {
+                    "id": 17,
+                    "name": "bank",
+                    "val": ""
+                },
+                {
+                    "id": 19,
+                    "name": "totalAdjustmentAmount",
+                    "val": ""
+                },
+                {
+                    "id": 21,
+                    "name": "agency",
+                    "val": ""
+                },
+                {
+                    "id": 23,
+                    "name": "cc",
+                    "val": ""
+                },
+                {
+                    "id": 25,
+                    "name": "ConvertNotesToString",
                     "val": ""
                 }
             ],
@@ -221,15 +241,20 @@
                 "dsDelay": "",
                 "inputMap": {
                     "CaseId": "{caseId}",
-                    "CheckBoleto": "{checkBoleto}",
+                    "CustomerIds": "{action.CustomerIds}",
                     "Email": "{email}",
                     "Modality": "{modality}",
                     "OtherEmail": "{otherEmail}",
-                    "filteredAdjustmentItems": "{action}"
+                    "ShouldSendBill": "{ShouldSendBill}",
+                    "agency": "{agency}",
+                    "bank": "{bank}",
+                    "cc": "{cc}",
+                    "filteredAdjustmentItems": "{action.Items}",
+                    "selectedInvoice": "{action.selectedInvoice}",
+                    "totalAdjustmentAmount": "{totalAdjustmentAmount}"
                 },
                 "ipMethod": "Dispute_CreateCreditForChargeAndEvent",
-                "jsonMap": "{\"isLastItem\":\"{isLastItem}\",\"serviceDefinitionName\":\"{serviceDefinitionName}\",\"attendantMessage\":\"{attendantMessage}\",\"Parent.DisputeCloseService\":\"{Parent.DisputeCloseService}\",\"action\":\"{action}\",\"caseId\":\"{caseId}\",\"Session.modality\":\"{Session.modality}\",\"modality\":\"{modality}\",\"email\":\"{email}\",\"otherEmail\":\"{otherEmail}\",\"checkBoleto\":\"{checkBoleto}\"}",
-                "resultVar": "",
+                "jsonMap": "{\"action.Items\":\"{action.Items}\",\"caseId\":\"{caseId}\",\"modality\":\"{modality}\",\"email\":\"{email}\",\"otherEmail\":\"{otherEmail}\",\"ShouldSendBill\":\"{ShouldSendBill}\",\"CustomerIds\":\"{CustomerIds}\",\"selectedInvoice\":\"{selectedInvoice}\",\"action.CustomerIds\":\"{action.CustomerIds}\",\"action.selectedInvoice\":\"{action.selectedInvoice}\",\"bank\":\"{bank}\",\"totalAdjustmentAmount\":\"{totalAdjustmentAmount}\",\"agency\":\"{agency}\",\"cc\":\"{cc}\",\"ConvertNotesToString\":\"{ConvertNotesToString}\"}",
                 "vlocityAsync": false
             }
         },
@@ -275,6 +300,30 @@
                 "ipMethod": "Dispute_CaseClosureDefinition",
                 "jsonMap": "{\"isLastItem\":\"{isLastItem}\",\"serviceDefinitionName\":\"{serviceDefinitionName}\",\"attendantMessage\":\"{attendantMessage}\",\"Parent.DisputeCloseService\":\"{Parent.DisputeCloseService}\",\"Session.Notes\":\"{Session.Notes}\"}",
                 "resultVar": "[\"feedbackUser\"]",
+                "vlocityAsync": false
+            }
+        },
+        "event-10_0": {
+            "contextVariables": [
+                {
+                    "id": 1,
+                    "name": "caseId",
+                    "val": "5008K000005DPqfQAG"
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "CaseId": "{caseId}"
+                },
+                "ipMethod": "Dispute_GetCaseInfoAndAssociatedDisputedItemsByCaseId",
+                "jsonMap": "{\"caseId\":\"{caseId}\"}",
+                "resultVar": "",
                 "vlocityAsync": false
             }
         },
@@ -345,7 +394,53 @@
                 {
                     "id": 1,
                     "name": "caseId",
-                    "val": "50078000005b7KBAAY"
+                    "val": "5008K000005DPqfQAG"
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "CaseId": "{caseId}"
+                },
+                "ipMethod": "Dispute_GetCaseInfoAndAssociatedDisputedItemsByCaseId",
+                "jsonMap": "{\"caseId\":\"{caseId}\"}",
+                "vlocityAsync": false
+            }
+        },
+        "event-7_0": {
+            "contextVariables": [
+                {
+                    "id": 1,
+                    "name": "caseId",
+                    "val": "5008K000005DPqfQAG"
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "CaseId": "{caseId}"
+                },
+                "ipMethod": "Dispute_GetCaseInfoAndAssociatedDisputedItemsByCaseId",
+                "jsonMap": "{\"caseId\":\"{caseId}\"}",
+                "vlocityAsync": false
+            }
+        },
+        "event-9_0": {
+            "contextVariables": [
+                {
+                    "id": 1,
+                    "name": "caseId",
+                    "val": "5008K000005DPqfQAG"
                 }
             ],
             "orderBy": {
@@ -364,53 +459,31 @@
                 "vlocityAsync": false
             }
         },
-        "event-7_0": {
-            "contextVariables": [
-                {
-                    "id": 1,
-                    "name": "caseId",
-                    "val": "50078000005b7KBAAY"
-                }
-            ],
-            "orderBy": {
-                "isReverse": "",
-                "name": ""
-            },
-            "type": "IntegrationProcedures",
-            "value": {
-                "dsDelay": "",
-                "inputMap": {
-                    "CaseId": "{caseId}"
-                },
-                "ipMethod": "Dispute_GetCaseInfoAndAssociatedDisputedItemsByCaseId",
-                "jsonMap": "{\"caseId\":\"{caseId}\"}",
-                "vlocityAsync": false
-            }
-        },
-        "state0element14_0": {
-            "contextVariables": [
-                {
-                    "id": 1,
-                    "name": "caseId",
-                    "val": "50078000005b7KBAAY"
-                }
-            ],
-            "orderBy": {
-                "isReverse": "",
-                "name": ""
-            },
-            "type": "IntegrationProcedures",
-            "value": {
-                "dsDelay": "",
-                "inputMap": {
-                    "CaseId": "{caseId}"
-                },
-                "ipMethod": "Dispute_GetCaseInfoAndAssociatedDisputedItemsByCaseId",
-                "jsonMap": "{\"caseId\":\"{caseId}\"}",
-                "vlocityAsync": false
-            }
-        },
         "state0element15_0": {
+            "contextVariables": [
+                {
+                    "id": 1,
+                    "name": "caseId",
+                    "val": "5008K000005DPqfQAG"
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "CaseId": "{caseId}"
+                },
+                "ipMethod": "Dispute_GetCaseInfoAndAssociatedDisputedItemsByCaseId",
+                "jsonMap": "{\"caseId\":\"{caseId}\"}",
+                "resultVar": "[0]",
+                "vlocityAsync": false
+            }
+        },
+        "state0element16_0": {
             "contextVariables": [
                 {
                     "id": 4,
@@ -512,14 +585,14 @@
         }
     },
     "%vlocity_namespace%__Definition__c": "DisputeFlexCardServiceDefinition.json",
-    "%vlocity_namespace%__Description__c": "Alterado para levar informações para a criação de Caso Amdocs.",
-    "%vlocity_namespace%__GlobalKey__c": "DisputeFlexCardServiceDefinition/Dispute/33/1712085323964",
+    "%vlocity_namespace%__Description__c": "Alterado para levar informações para a criação de Caso Amdocs. + Single Event Refactor + feedbackCreditApproved+Concession",
+    "%vlocity_namespace%__GlobalKey__c": "DisputeFlexCardServiceDefinition/Dispute/35/1715111758193",
     "%vlocity_namespace%__IsChildCard__c": true,
     "%vlocity_namespace%__ParentID__c": "",
     "%vlocity_namespace%__SampleData__c": "{\"notes\":\"\",\"HideRegisterButton\":\"\",\"accountId\":\"\",\"attendantMessage\":\"\",\"caseId\":\"\",\"hasAutoDebit\":\"\",\"invoiceNumber\":\"\",\"invoiceStatus\":\"\",\"isLastItem\":\"\",\"serviceDefinitionName\":\"\",\"withinAdjustmentPeriod\":\"\",\"responseUpsertSuccess\":{},\"selectedInvoice\":[],\"CustomerIds\":\"\",\"InteractionId\":\"\",\"InteractionTopicId\":\"\"}",
-    "%vlocity_namespace%__Styles__c": "{\"customStyles\":\".modal-dialog.slds-modal__container {\\r\\n    width: 26rem !important;\\r\\n    min-width: 26rem !important;\\r\\n    max-width: 26rem !important;\\r\\n}\"}",
+    "%vlocity_namespace%__Styles__c": "{\"customStyles\":\".modal-dialog.slds-modal__container {\\r\\n    width: 26rem !important;\\r\\n    min-width: 26rem !important;\\r\\n    max-width: 26rem !important;\\r\\n}\\r\\n\"}",
     "%vlocity_namespace%__Type__c": "",
-    "%vlocity_namespace%__Version__c": 33,
+    "%vlocity_namespace%__Version__c": 35,
     "Name": "DisputeFlexCardServiceDefinition",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityCard__c",

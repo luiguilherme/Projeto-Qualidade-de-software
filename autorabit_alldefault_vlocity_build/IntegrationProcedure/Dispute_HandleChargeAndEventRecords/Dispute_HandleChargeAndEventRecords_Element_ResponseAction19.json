@@ -22,10 +22,16 @@
     "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
+            "Event:CustomError": "=IF(%events:status% == \"14\", true, false)",
+            "Event:Error": "=IF(%events:status% != \"1\" && %events:status% != \"14\", true, false)",
+            "Event:Message": "%events:message%",
+            "Event:Success": "=IF(%events:status% == \"1\", true, false)",
             "IsCustomError": "=IF(%CustomError:isChargeCustomError% || %CustomError:isEventCustomError%, true, false)",
             "Message": "=%STSetEventOnlyError:Message%",
             "Msg": "=CONCAT(\"Event: \" %events:message%)",
-            "Success": false
+            "Success": false,
+            "hasCharges": "%STVerifyLists:hasCharges%",
+            "hasEvents": "%STVerifyLists:hasEvents%"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",
