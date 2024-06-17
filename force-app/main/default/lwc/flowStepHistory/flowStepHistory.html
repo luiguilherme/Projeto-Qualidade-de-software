@@ -1,0 +1,34 @@
+<template>
+    <template lwc:if={historico}>
+        <div class="flowStepHistoryContainer">
+            <lightning-accordion
+                allow-multiple-sections-open>
+                <template 
+                    for:each={historico} 
+                    for:item="historico" 
+                    for:index="historicoIndex">
+                    <lightning-accordion-section 
+                        key={historico.Id} 
+                        name={historico.Id}
+                        label={historico.Name}>
+                        <template 
+                            for:each={historico.FlowExecutionStepHistories__r} 
+                            for:item="acao" 
+                            for:index="acaoIndex">
+                            <lightning-layout 
+                                key={acao.Id}>                                
+                                <lightning-layout-item size="12" small-device-size="8" medium-device-size="8" large-device-size="8">
+                                    <lightning-badge label={acao.Type__c}></lightning-badge>
+                                    <span>{acao.Name__c}</span>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="12" small-device-size="4" medium-device-size="4" large-device-size="4">
+                                    <div class="flowAnswer">{acao.Answer__c}</div>
+                                </lightning-layout-item>
+                            </lightning-layout>
+                        </template>
+                    </lightning-accordion-section>
+                </template>
+            </lightning-accordion>
+        </div>
+    </template>
+</template>

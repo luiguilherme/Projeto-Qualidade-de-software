@@ -3,28 +3,28 @@
         "contextVariables": [
             {
                 "id": 0,
-                "name": "Visible",
+                "name": "Parent.Visible",
                 "val": "true"
             },
             {
                 "id": 1,
-                "name": "Error",
+                "name": "Parent.Error",
                 "val": "true"
             },
             {
-                "id": 0,
-                "name": "Title",
-                "val": "Exemplo de Título"
-            },
-            {
                 "id": 1,
-                "name": "Subtitle",
+                "name": "Parent.Subtitle",
                 "val": "Exemplo de subtítulo"
             },
             {
                 "id": 2,
-                "name": "Message",
+                "name": "Parent.Message",
                 "val": "Exemplo de mensagem"
+            },
+            {
+                "id": 0,
+                "name": "Parent.Title",
+                "val": "Exemplo de Título"
             }
         ],
         "orderBy": {
@@ -33,7 +33,7 @@
         },
         "type": "Custom",
         "value": {
-            "body": "{\"Visible\": true}",
+            "body": "{\"Title\": \"{Parent.Title}\", \"Message\": \"{Parent.Message}\", \"Subtitle\": \"{Parent.Subtitle}\", \"Success\": \"{Parent.Success}\", \"Error\": \"{Parent.Error}\", \"Warning\": \"{Parent.Warning}\", \"Info\": \"{Parent.Info}\", \"Visible\": \"{Parent.Visible}\", \"CloseButton\": \"{Parent.CloseButton}\"}",
             "dsDelay": "",
             "resultVar": ""
         }
@@ -42,10 +42,10 @@
     "hideChildCardPreview": true,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfDisputeCustomMessageBox_1_Dispute",
-        "Id": "0Rb78000000LZQyCAO",
+        "DeveloperName": "cfDisputeCustomMessageBox_2_Dispute",
+        "Id": "0Rb78000000Ld27CAC",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfDisputeCustomMessageBox_1_Dispute",
+        "MasterLabel": "cfDisputeCustomMessageBox_2_Dispute",
         "NamespacePrefix": "c"
     },
     "osSupport": true,
@@ -692,6 +692,29 @@
                                         "ariaLabel": "Fechar",
                                         "buttonVariant": "brand",
                                         "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "CloseButton",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-0",
+                                                    "operator": "!=",
+                                                    "type": "custom",
+                                                    "value": "false"
+                                                },
+                                                {
+                                                    "field": "CloseButton",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-32",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "!=",
+                                                    "type": "custom",
+                                                    "value": "\"false\""
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
                                         "displayAsButton": true,
                                         "flyoutChannel": "close_modal",
                                         "flyoutDetails": {
@@ -1589,6 +1612,29 @@
                                         "ariaLabel": "Fechar",
                                         "buttonVariant": "brand",
                                         "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "CloseButton",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-7",
+                                                    "operator": "!=",
+                                                    "type": "custom",
+                                                    "value": "false"
+                                                },
+                                                {
+                                                    "field": "CloseButton",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-45",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "!=",
+                                                    "type": "custom",
+                                                    "value": "\"false\""
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
                                         "displayAsButton": true,
                                         "flyoutChannel": "close_modal",
                                         "flyoutDetails": {
@@ -1739,6 +1785,15 @@
                                                     "operator": "==",
                                                     "type": "custom",
                                                     "value": "true"
+                                                },
+                                                {
+                                                    "field": "Visible",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-5",
+                                                    "logicalOperator": "||",
+                                                    "operator": "==",
+                                                    "type": "custom",
+                                                    "value": "\"true\""
                                                 }
                                             ],
                                             "id": "state-new-group-30",
@@ -2489,6 +2544,29 @@
                                         "ariaLabel": "Fechar",
                                         "buttonVariant": "brand",
                                         "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "CloseButton",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-18",
+                                                    "operator": "!=",
+                                                    "type": "custom",
+                                                    "value": "false"
+                                                },
+                                                {
+                                                    "field": "CloseButton",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-58",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "!=",
+                                                    "type": "custom",
+                                                    "value": "\"false\""
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
                                         "displayAsButton": true,
                                         "flyoutChannel": "close_modal",
                                         "flyoutDetails": {
@@ -2625,7 +2703,7 @@
                                             "field": "Warning",
                                             "hasMergeField": false,
                                             "id": "state-new-condition-68",
-                                            "logicalOperator": "&&",
+                                            "logicalOperator": "||",
                                             "operator": "==",
                                             "type": "custom",
                                             "value": "\"true\""
@@ -3386,6 +3464,29 @@
                                         "ariaLabel": "Fechar",
                                         "buttonVariant": "brand",
                                         "card": "{card}",
+                                        "data-conditions": {
+                                            "group": [
+                                                {
+                                                    "field": "CloseButton",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-25",
+                                                    "operator": "!=",
+                                                    "type": "custom",
+                                                    "value": "false"
+                                                },
+                                                {
+                                                    "field": "CloseButton",
+                                                    "hasMergeField": false,
+                                                    "id": "state-new-condition-68",
+                                                    "logicalOperator": "&&",
+                                                    "operator": "!=",
+                                                    "type": "custom",
+                                                    "value": "\"false\""
+                                                }
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
                                         "displayAsButton": true,
                                         "flyoutChannel": "close_modal",
                                         "flyoutDetails": {
@@ -3674,18 +3775,42 @@
             "smartAction": {
             },
             "styleObject": {
-                "class": "slds-card slds-p-around_x-small slds-m-bottom_x-small",
+                "background": {
+                    "color": "",
+                    "image": "",
+                    "position": "",
+                    "repeat": "",
+                    "size": ""
+                },
+                "border": {
+                    "color": "#cccccc",
+                    "radius": "4px",
+                    "style": "",
+                    "type": [
+                        "border_top",
+                        "border_right",
+                        "border_bottom",
+                        "border_left"
+                    ],
+                    "width": "1"
+                },
+                "class": "slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-around_x-small slds-m-around_none ",
                 "container": {
                     "class": "slds-card"
                 },
+                "elementStyleProperties": {
+                },
+                "inlineStyle": "",
                 "margin": [
                     {
+                        "label": "around:none",
                         "size": "none",
                         "type": "around"
                     }
                 ],
                 "padding": [
                     {
+                        "label": "around:x-small",
                         "size": "x-small",
                         "type": "around"
                     }
@@ -3694,7 +3819,12 @@
                     "default": "12",
                     "isResponsive": false
                 },
-                "sizeClass": "slds-size_12-of-12"
+                "sizeClass": "slds-size_12-of-12 ",
+                "style": "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:4px;     ",
+                "text": {
+                    "align": "",
+                    "color": ""
+                }
             }
         }
     ],

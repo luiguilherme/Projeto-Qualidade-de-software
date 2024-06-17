@@ -30,11 +30,11 @@
             "Context": "%SVFilterList:ConcessionList|1:Context%",
             "InteractionProtocolLegacySystem": "%IPAIPCreateInteractionAmdocsConcession:protocolNumber%",
             "LegacySystem": "%SVFilterList:ConcessionList|1:LegacySystem%",
-            "Notes": "- Nome: %SVFilterList:ConcessionList|1:ServiceDefinitionName%\n- Código do Step: %SVFilterList:ConcessionList|1:StepCode%\n- Descrição: %SVFilterList:ConcessionList|1:Description%\n- Mensagem para o Atendente: %SVFilterList:ConcessionList|1:AttendantMessage%\n- Status: %SVFilterList:ConcessionList|1:StatusItem%\n- Contexto: %SVFilterList:ConcessionList|1:Context%\n- Encerramento: %SVFilterList:ConcessionList|1:Closure%\n- Mapeamento de Encerramento: %SVFilterList:ConcessionList|1:ClosureMapping%\n- Sistema Legado: %SVFilterList:ConcessionList|1:LegacySystem%\n- Notas do Atendimento: %Notes%",
+            "Notes": "- Código da Definição de Atendimento: %SVFilterList:ConcessionList|1:ServiceDefinitionName%\n- Código do Step: %SVFilterList:ConcessionList|1:StepCode%\n- Descrição: %SVFilterList:ConcessionList|1:Description%\n- Mensagem para o Atendente: %SVFilterList:ConcessionList|1:AttendantMessage%\n- Status: %SVFilterList:ConcessionList|1:StatusItem%\n- Contexto: %SVFilterList:ConcessionList|1:Context%\n- Fechamento Salesforce: %SVFilterList:ConcessionList|1:Closure%\n- Interação Sistema Origem: %SVFilterList:ConcessionList|1:ClosureMapping%\n- Sistema Legado: %SVFilterList:ConcessionList|1:LegacySystem%\n- Observação do Atendimento: %Notes%",
             "RequestObservation": "%Notes%",
             "ServiceDefinitionId": "%SVFilterList:ConcessionList|1:ServiceDefinitionId%",
-            "Status": "%SVFilterList:ConcessionList|1:Status%",
-            "StatusOld": "=IF(%FeedbackCreditAmdocs:Error% == true, \"ClosedAssigned\", %SVFilterList:ConcessionList|1:Status%)"
+            "Status": "=IF(%IPAPrepareCreateCaseAmdocs:feedbackCaseAmdocs:Success% == true, \"Fechado/Atribuído\", %SVFilterList:ConcessionList|1:Status%)",
+            "StatusOld": "%SVFilterList:ConcessionList|1:Status%"
         },
         "additionalOutput": {
         },
