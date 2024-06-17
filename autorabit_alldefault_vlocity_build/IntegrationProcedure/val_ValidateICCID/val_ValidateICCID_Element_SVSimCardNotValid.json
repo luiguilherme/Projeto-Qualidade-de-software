@@ -12,8 +12,8 @@
         "disOnTplt": false,
         "elementValueMap": {
             "DDD": "=%DDD%",
-            "statusICCID": "=IF(ISNOTBLANK(%SetFlatResponse:ResponseFlat:idCombo%), getLabel(\"valICCIDErrorCombo\"), IF(%DataValICCID:Response:resourceStatus% == 'DH', 'Valid' , 'Invalid'))",
-            "validationMessage": "=IF(ISNOTBLANK(%SetFlatResponse:ResponseFlat:idCombo%), getLabel(\"valICCIDErrorCombo\"), IF(%DataValICCID:Response:resourceStatus%=='DH', '' , IF(%DataValICCID:Response:code% = 'RIGSIM-28','Chip em uso','Chip Inválido')))"
+            "statusICCID": "=IF(ISNOTBLANK(%SetFlatResponse:ResponseFlat:idCombo%), getLabel(\"valICCIDErrorCombo\"), IF(%DataValICCID:Response:resourceStatus% == 'DH' && %SetFlatResponse:ResponseFlat:cardType% == \"3G\" && %SetFlatResponse:ResponseFlat:hrs% == \"T\", \"Invalid\", IF(%IPReservationSimCard:reservationStatusCode% != 201, \"Invalid\", IF(%DataValICCID:Response:resourceStatus% == 'DH', 'Valid', 'Invalid'))))",
+            "validationMessage": "=IF(ISNOTBLANK(%SetFlatResponse:ResponseFlat:idCombo%), getLabel(\"valICCIDErrorCombo\"), IF(%DataValICCID:Response:resourceStatus% == 'DH' && %SetFlatResponse:ResponseFlat:cardType% == \"3G\" && %SetFlatResponse:ResponseFlat:hrs% == \"T\", \"Simcard obsoleto, realize a aquisição de um Simcard novo para prosseguir.\", IF(%DataValICCID:Response:code% = 'RIGSIM-28', 'Chip em uso', IF(%DataValICCID:Response:reason% == \"Simcard ja reservado.(reserva)\" || %IPReservationSimCard:reservationStatusCode% != 201, \"Chip já possui reserva por favor escolher outro\", IF(%DataValICCID:Response:resourceStatus%=='DH', '' , 'Chip Inválido')))))"
         },
         "executionConditionalFormula": "IF(%StepConfigureLine:ICCIDBlock:validateLenghtICCID%=='true',true, false)",
         "failOnStepError": true,
