@@ -1,15 +1,16 @@
 import { LightningElement, api, track } from 'lwc';
 import { OmniscriptBaseMixin } from 'vlocity_cmt/omniscriptBaseMixin';
 import { creditReasonDescriptionMapping } from './creditReasonDescriptionMapping';
-
 import { getNamespaceDotNotation } from 'vlocity_cmt/omniscriptInternalUtils';
 import { OmniscriptActionCommonUtil } from 'vlocity_cmt/omniscriptActionUtils';
 import pubsub from 'vlocity_cmt/pubsub';
 import { interpolateWithRegex } from 'vlocity_cmt/flexCardUtility';
-
 import LightningAlert from 'lightning/alert';
 
-export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(LightningElement) {
+    export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(LightningElement) {
+    // Controlar Eventos
+    WrapperContextId;
+
     // Eventos
     _actionUtil;
     _ns = getNamespaceDotNotation();
@@ -33,8 +34,11 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
     hasAutoDebit;
     withinAdjustmentPeriod;
 
-    // Valores Rastreados
+    // Decoradores api
     @api param;
+
+    // Valores Rastreados
+    @track contextId;
     @track adjustmentItems = {};
     @track adjustmentItemsFormated = {};
     @track cartItems;
@@ -45,7 +49,7 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
     @track receivedFromAdjusment = false;
     @track sessionFields = false;
     @track sessionNotes;
-    @track isDisabled = false;;
+    @track isDisabled = false;
 
     // Variáveis Estáticas
     static MODALIDADES = {
@@ -73,17 +77,16 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
         'S': 'Concessão'
     };
 
-    connectedCallback() {
+    connectedCallback() {    
         // Adiciona Listener
-         this._actionUtil = new OmniscriptActionCommonUtil();
+        this._actionUtil = new OmniscriptActionCommonUtil();
 
-        // Capturar variaveis
+        // Captura variaveis
         this.getFromRecords();
-        this.subscribeToEvent('ServiceDefinition', 'RegisterBtn', this.handleSave.bind(this));
 
-        //Ouvir alertas
-        this.subscribeToEvent('FeedbackUser', 'Message', this.handleMessage.bind(this));
-
+        // Ouvir alertas
+        this.subscribeToEvent('ServiceDefinition', 'RegisterBtn',  this.handleEvent.bind(this));
+       
         // Captura Parâmetros Amdocs
         this.creditReasonDescriptionMapping = creditReasonDescriptionMapping();
 
@@ -95,24 +98,23 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
         }
     }
 
-    handleMessage({Success, Error, Message}){
-        const isSuccess = (Success === 'true' || Success === true);
-        const isError = (Error === 'true' || Error === true);
+    //Comparar interactionId (fixo) presente no FlexCard entregue pelo valServiceFlow com {recordId} da Wrapper que pode alterar
+    validateFireEvent() {
+        return this.interactionId === this.WrapperContextId;
+    }
 
-        if(!Message) {
-            if(isSuccess){
-                return this.openAlertModal('Sucesso', 'Registro de caso atualizado com sucesso!', 'success');
-            }
-            if(isError){
-                return this.openAlertModal('Erro', 'Falha ao atualizar registro de Caso!', 'error');
-            }
-        } else {
-            if(isSuccess){
-                return this.openAlertModal('Sucesso', Message , 'success');
-            }
-            if(isError){
-                return this.openAlertModal('Erro', Message, 'error');
-            }
+    //Verificando quem irá disparar o evento recebido pelo Registrar 
+    handleEvent(evt){
+        // Id da interaction deve ser o mesmo recebido através do evt.value (Parâmetro da action Register:Btn)
+        // Id recebido é o Id {recordId} do DisputeFlexCardWrapper
+        this.WrapperContextId = evt.WrapperContextId;
+            //Transportado via prefill {recordId} para DisputeInvoicesFlow
+            //Utilizado no OS MobileAdjust através da IP ValidateCartItemStatus (acionada duas vezes)
+            //Inserido no nó svAdjust
+        if (this.validateFireEvent()) {
+            //Antes da execução normal, setar o valor para DisputeFlexCardWrapper e DisputeFlexCardMessage
+            pubsub.fire('DisputeFlexCardService', 'SetLocalCurrentContextId', {WrapperContextId: this.WrapperContextId});       
+ 	        this.handleSave(evt);
         }
     }
     
@@ -125,8 +127,11 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
         if (!this.pubsubEvents[channelKey]) {
             this.pubsubEvents[channelKey] = {};
         }
-
+        // Verifica se o callback já está registrado para este evento
         const eventKey = interpolateWithRegex(event, this._allMergeFields, this._regexPattern, 'noparse');
+        if (this.pubsubEvents[channelKey][eventKey] && this.pubsubEvents[channelKey][eventKey] === callback) {
+            return;
+        }
         this.pubsubEvents[channelKey][eventKey] = callback;
         pubsub.register(channelKey, this.pubsubEvents[channelKey]);
     }
@@ -144,15 +149,27 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
             console.error('Invalid parameter: this.param should be an object');
             return;
         }
+        //param são {records} enviados via attributo lwc
         let forceParamObject = JSON.parse(JSON.stringify(this.param))[0];
-
         for (let key in forceParamObject) {
             if (typeof forceParamObject[key] === 'string' && forceParamObject[key].startsWith('=')) {
                 forceParamObject[key] = forceParamObject[key].substring(1);
             }
         }
-        
-        const { caseId, hasAutoDebit, invoiceStatus, invoiceNumber, withinAdjustmentPeriod, isLastItem, accountId, selectedInvoice, CustomerIds, InteractionId, InteractionTopicId } = forceParamObject;  
+        const { 
+            caseId, 
+            hasAutoDebit, 
+            invoiceStatus, 
+            invoiceNumber, 
+            withinAdjustmentPeriod, 
+            isLastItem,
+            accountId, 
+            selectedInvoice, 
+            CustomerIds, 
+            InteractionId, 
+            InteractionTopicId,
+        } = forceParamObject;
+  
         this.caseId = (caseId !== undefined && caseId !== "") ? caseId : null;
         this.interactionId = (InteractionId !== undefined && InteractionId !== "") ? InteractionId : null;
         this.interactionTopicId = (InteractionTopicId !== undefined && InteractionTopicId !== "") ? InteractionTopicId : null;
@@ -340,8 +357,8 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
             adjustmentItem.valorPagar = (valorAtual - adjustmentValue).toFixed(2);
             this.adjustmentItemsFormated = this.formatNumberForHtml(this.adjustmentItems);
             pubsub.fire('ServiceDefinition', 'GetTotalAdjustmentAmount', parseFloat(this.totalAdjustmentAmount.replace(/\D/g, '').replace(',', '.')) / 100);
-
-            if (parseFloat(this.totalAdjustmentAmount.replace(/\D/g, '').replace(',', '.')) / 100 == parseFloat(this.totalAdjustmentAmountInitial.replace(/\D/g, '').replace(',', '.')) / 100){
+         
+            if (parseFloat(this.totalAdjustmentAmount.replace(/\D/g, '').replace(',', '.')) / 100 == parseFloat(this.selectedInvoice[0].balance)){
                 this.shouldSendBill = false;
                 pubsub.fire('ServiceDefinition', 'ShouldSendBill', false);
             } else {
@@ -407,6 +424,7 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
             this.adjustmentItems = adjustmentItemsCopy;
             this.adjustmentItemsFormated = this.formatNumberForHtml(adjustmentItemsCopy);
         }
+        this.handleCollapsePage();
     }
 
     // Mudança em 'Modalidades' (Boleto, Reembolso, Conta Futura, Caso BKO) - todos os itens
@@ -421,6 +439,7 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
         this.adjustmentItems = adjustmentItemsCopy;
         this.adjustmentItemsFormated = this.formatNumberForHtml(adjustmentItemsCopy);
         pubsub.fire('ServiceDefinition', 'GetModality', newModalidade);
+        this.handleCollapsePage();
     }
 
     // Método para validar os campos baseado na modalidade
@@ -579,23 +598,27 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
                         }
                     }
                 });
-               const convertNotesToStringBoth = prepareNotesRequestArray.map( e => {
-                    return `Nome do Item: ${e.name}CHAR_ESPValor do Crédito: R$ ${e.value}CHAR_ESPTipo de Ajuste: ${e.status}CHAR_ESPMotivo de Crédito: ${e.creditReason}CHAR_ESPModalidade: ${e.modality}`;
-                }).toString().replaceAll('\n','CHAR_ESP');	
+                // CHAR_ESP: string que será substituída por uma quebra de linha na IP PrepareCaseAmdocs para evitar transportar \n
+                const convertNotesToStringBoth = prepareNotesRequestArray.map( e => {
+                    const status = e.status === 'Procedente' ? 'Retificação' : e.status;
+                    return `Nome do Item: ${e.name}CHAR_ESPValor do Crédito: R$ ${e.value}CHAR_ESPTipo de Ajuste: ${status}CHAR_ESPMotivo de Crédito: ${e.creditReason}CHAR_ESPModalidade: ${e.modality}`;
+                }).toString().replaceAll('\n', 'CHAR_ESP');
 
-                const convertNotesToStringConcession = prepareNotesRequestArray.filter(e => e.status == 'Concessão').map( e => {
+                const convertNotesToStringConcession = prepareNotesRequestArray.filter(e => e.status === 'Concessão').map(e => {
                     return `Nome do Item: ${e.name}CHAR_ESPValor do Crédito: R$ ${e.value}CHAR_ESPTipo de Ajuste: ${e.status}CHAR_ESPMotivo de Crédito: ${e.creditReason}CHAR_ESPModalidade: ${e.modality}`;
-                }).toString().replaceAll('\n','CHAR_ESP');	
+                }).toString().replaceAll('\n', 'CHAR_ESP');
 
-                const convertNotesToStringApproved = prepareNotesRequestArray.filter(e => e.status == 'Procedente').map( e => {
-                    return `Nome do Item: ${e.name}CHAR_ESPValor do Crédito: R$ ${e.value}CHAR_ESPTipo de Ajuste: ${e.status}CHAR_ESPMotivo de Crédito: ${e.creditReason}CHAR_ESPModalidade: ${e.modality}`;
-                }).toString().replaceAll('\n','CHAR_ESP');	
+                const convertNotesToStringApproved = prepareNotesRequestArray.filter(e => e.status === 'Procedente').map(e => {
+                    return `Nome do Item: ${e.name}CHAR_ESPValor do Crédito: R$ ${e.value}CHAR_ESPTipo de Ajuste: RetificaçãoCHAR_ESPMotivo de Crédito: ${e.creditReason}CHAR_ESPModalidade: ${e.modality}`;
+                }).toString().replaceAll('\n', 'CHAR_ESP');
+	
                 
                 const requests = {
                     procedente: procedenteRequest.charges.length > 0 || procedenteRequest.events.length > 0 ? [procedenteRequest] : [],
                     concessao: concessaoRequest.charges.length > 0 || concessaoRequest.events.length > 0 ? [concessaoRequest] : []
                 };
                 let notesFix = this.sessionNotes;
+
                 const obj = {
                     Items: requests,
                     Notes: notesFix.replaceAll('\n',' '),
@@ -606,10 +629,12 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
                     InteractionTopicId: this.interactionTopicId,
                     ConvertNotesToStringBoth: convertNotesToStringBoth,
                     ConvertNotesToStringApproved: convertNotesToStringApproved,
-                    ConvertNotesToStringConcession: convertNotesToStringConcession 
+                    ConvertNotesToStringConcession: convertNotesToStringConcession,
+                    WrapperContextId: this.WrapperContextId
                 };
+
                 pubsub.fire('ServiceDefinition', 'SendRequestGetInformationAndCreateCredit', obj);
-                this.isDisabled = true;               
+                this.isDisabled = true;
             }
         } else if (this.sessionFields){
             let notesFix = this.sessionNotes;
@@ -619,10 +644,11 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
                 CustomerIds: this.CustomerIds,
                 CaseId: this.caseId,
                 InteractionId: this.interactionId,
-                InteractionTopicId: this.interactionTopicId
-            };            
-            pubsub.fire('DisputeFlexCardServiceDefinitionMessage', 'CaseClosureDefinition', obj);
-            this.isDisabled = true;
+                InteractionTopicId: this.interactionTopicId,
+                WrapperContextId: this.WrapperContextId
+            };   
+           pubsub.fire('DisputeFlexCardServiceDefinitionMessage', 'CaseClosureDefinition', obj);
+           this.isDisabled = true;
         }
     }
 
@@ -726,4 +752,14 @@ export default class DisputeAdjustmentForm extends OmniscriptBaseMixin(Lightning
             theme: theme,
 		});
 	}
+
+    handleExpandPage(event) {
+        let height = this.refs.maincontainer.offsetHeight + 320;
+        this.refs.maincontainer.style.height = `${height}px`;
+    }
+
+    handleCollapsePage(event) {
+        this.refs.maincontainer.style.height = "auto";
+    }
+
 }

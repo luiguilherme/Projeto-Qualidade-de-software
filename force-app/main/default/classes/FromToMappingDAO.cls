@@ -136,4 +136,18 @@ public with sharing class FromToMappingDAO {
 
         return lstReturn.isEmpty() ? new List<FromToMapping__mdt>() : lstReturn;
     }
+
+    public static FromToMapping__mdt getRecordByUsersRoleAndUsedIn(String userRole, String usedIn) {
+        return [
+            SELECT
+            	OperatorSegment__c,
+                OriginApiName__c
+            FROM
+            	FromToMapping__mdt
+            WHERE
+            	OriginApiName__c = :userRole
+            AND UsedIn__c = :usedIn
+            LIMIT 1
+        ];
+    }
 }

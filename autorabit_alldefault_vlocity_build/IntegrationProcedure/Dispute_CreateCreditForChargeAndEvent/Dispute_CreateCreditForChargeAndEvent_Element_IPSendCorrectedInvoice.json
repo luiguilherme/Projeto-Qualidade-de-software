@@ -6,20 +6,6 @@
         "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/Dispute/CreateCreditForChargeAndEvent/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
-    "%vlocity_namespace%__ParentElementId__c": {
-        "%vlocity_namespace%__OmniScriptId__c": {
-            "Name": "IPCreateCreditForChargeAndEvent",
-            "VlocityDataPackType": "VlocityMatchingKeyObject",
-            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/Dispute/CreateCreditForChargeAndEvent/Procedure",
-            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
-        },
-        "Name": "CBSendCorrectedBill",
-        "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Dispute/CreateCreditForChargeAndEvent/Procedure/CBSendCorrectedBill",
-        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
-    },
-    "%vlocity_namespace%__ParentElementName__c": "CBSendCorrectedBill",
-    "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
@@ -30,13 +16,13 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "disableChainable": false,
-        "executionConditionalFormula": "",
+        "executionConditionalFormula": "ISNOTBLANK(%SVPrepareRequestSendBill%) && (%CallHandleChargeAndEventRecordsConcession:Event:Success% == true ||%CallHandleChargeAndEventRecordsConcession:Charge:Success% == true ||%CallHandleChargeAndEventRecordsApproved:Event:Success% == true ||%CallHandleChargeAndEventRecordsApproved:Charge:Success% == true)",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {
         },
         "integrationProcedureKey": "Dispute_SendCorrectedInvoice",
-        "label": "IntegrationProcedureAction7",
+        "label": "IntegrationProcedureAction11",
         "remoteOptions": {
         },
         "responseJSONNode": "",
