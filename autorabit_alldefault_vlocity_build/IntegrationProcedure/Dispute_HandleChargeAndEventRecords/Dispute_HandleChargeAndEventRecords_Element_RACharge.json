@@ -22,9 +22,15 @@
     "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
+            "Charge:CustomError": "=IF(%charges:status% == \"14\", true, false)",
+            "Charge:Error": "=IF(%charges:status% != \"1\" && %charges:status% != \"14\", true, false)",
+            "Charge:Message": "%charges:message%",
+            "Charge:Success": "=IF(%charges:status% == \"1\", true, false)",
             "Message": "Charge true",
             "Msg": "=CONCAT(\"Charge: \" %charges:message%)",
-            "Success": true
+            "Success": true,
+            "hasCharges": "%STVerifyLists:hasCharges%",
+            "hasEvents": "%STVerifyLists:hasEvents%"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",

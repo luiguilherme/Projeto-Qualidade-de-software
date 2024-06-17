@@ -8,7 +8,7 @@
         },
         "type": "Custom",
         "value": {
-            "body": "{\"OpenedDispute\":\"false\", \"LegacySystemTopicTree\":\"\", \"AssetId\":\"\", \"ServiceIdentifier\":\"\", \"CaseId\":\"\",\"AccountId\":\"\",\"InteractionId\":\"\",\"InteractionTopicId\":\"\",\"ContactId\":\"\"}",
+            "body": "{\"OpenedDispute\":\"\", \"LegacySystemTopicTree\":\"\", \"AssetId\":\"\", \"ServiceIdentifier\":\"\", \"CaseId\":\"\",\"AccountId\":\"\",\"InteractionId\":\"\",\"InteractionTopicId\":\"\",\"ContactId\":\"\"}",
             "dsDelay": "",
             "resultVar": ""
         }
@@ -41,6 +41,40 @@
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "DataAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1713809726690-oisses34j",
+                    "label": "Reload",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "OpenedDispute",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-7",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "false"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "reload",
+                        "id": "flex-action-1713809735797",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
                         "vlocityIcon": "standard-default"
                     }
                 }
@@ -177,10 +211,10 @@
     "globalCSS": true,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValAddRelationshipTopicFrontEnd",
-        "Id": "0Rb78000000La6BCAS",
+        "DeveloperName": "cfDisputeFlexCardWrapper_17_Dispute",
+        "Id": "0Rb78000000LczDCAS",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValAddRelationshipTopicFrontEnd",
+        "MasterLabel": "cfDisputeFlexCardWrapper_17_Dispute",
         "NamespacePrefix": "c"
     },
     "selectableMode": "Multi",
@@ -273,6 +307,7 @@
                                     "elementLabel": "Omniscript",
                                     "key": "element_element_block_0_0_customLwc_1_0",
                                     "name": "Custom LWC",
+                                    "parentElementKey": "element_block_0_0",
                                     "property": {
                                         "customlwcname": "disputeInvoicesFlowEnglish",
                                         "prefill": "{\"AssetId\": \"{AssetId}\",\"ServiceIdentifier\": \"{ServiceIdentifier}\",\"CaseId\": \"{CaseId}\",\"AccountId\": \"{AccountId}\",\"InteractionId\": \"{InteractionId}\",\"InteractionTopicId\":\"{InteractionTopicId}\",\"ContactId\":\"{ContactId}\"}"
@@ -355,6 +390,7 @@
                                             "customerAccountId": "{Session.customerAccountId}",
                                             "documentNumber": "{Session.documentNumber}",
                                             "faId": "{Session.faId}",
+                                            "recordId": "{recordId}",
                                             "serviceDefinitionName": "{Session.serviceDefinitionName}",
                                             "serviceId": "{Session.serviceId}"
                                         },
