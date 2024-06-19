@@ -11,10 +11,10 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "billingInvoiceNumber": "=IF(%SVInitParams:FeedbackCreditAmdocs:ConcessionError% == true, %SVInitParams:FeedbackCreditAmdocs:RequestBodyConcession:billingInvoiceNumber%, %SVInitParams:FeedbackCreditAmdocs:RequestBodyApproved:billingInvoiceNumber%)",
+            "billingInvoiceNumber": "%SVInitParams:FeedbackCreditAmdocs:invoiceNumber%",
             "caseNumber": "%DRGetCaseData:CaseNumber%",
             "externalId": "=%SVInitParams:CustomerIds:accountHref%",
-            "name": "=IF(%SVInitParams:Modality% == \"Reembolso\", \"Título de Caso BKO Reembolso\", \"Título de Demais Caso BKO\")",
+            "name": "Salesforce",
             "protocolNumber": "%DRGetCaseData:ProtocolNumber%"
         },
         "executionConditionalFormula": "",

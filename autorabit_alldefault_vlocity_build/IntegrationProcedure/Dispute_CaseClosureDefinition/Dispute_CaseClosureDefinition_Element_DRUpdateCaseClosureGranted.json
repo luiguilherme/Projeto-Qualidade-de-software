@@ -30,11 +30,11 @@
             "Context": "%SVFilterList:GrantedList|1:Context%",
             "InteractionProtocolLegacySystem": "%IPAIPCreateInteractionAmdocsGranted:protocolNumber%",
             "LegacySystem": "%SVFilterList:GrantedList|1:LegacySystem%",
-            "Notes": "- Nome: %SVFilterList:GrantedList|1:ServiceDefinitionName%\n- Código do Step: %SVFilterList:GrantedList|1:StepCode%\n- Descrição: %SVFilterList:GrantedList|1:Description%\n- Mensagem para o Atendente: %SVFilterList:GrantedList|1:AttendantMessage%\n- Status: %SVFilterList:GrantedList|1:StatusItem%\n- Contexto: %SVFilterList:GrantedList|1:Context%\n- Encerramento: %SVFilterList:GrantedList|1:Closure%\n- Mapeamento de Encerramento: %SVFilterList:GrantedList|1:ClosureMapping%\n- Sistema Legado: %SVFilterList:GrantedList|1:LegacySystem%\n- Notas do Atendimento: %Notes%",
+            "Notes": "- Código da Definição de Atendimento: %SVFilterList:GrantedList|1:ServiceDefinitionName%\n- Código do Step: %SVFilterList:GrantedList|1:StepCode%\n- Descrição: %SVFilterList:GrantedList|1:Description%\n- Mensagem para o Atendente: %SVFilterList:GrantedList|1:AttendantMessage%\n- Status: %SVFilterList:GrantedList|1:StatusItem%\n- Contexto: %SVFilterList:GrantedList|1:Context%\n- Fechamento Salesforce: %SVFilterList:GrantedList|1:Closure%\n- Interação Sistema Origem: %SVFilterList:GrantedList|1:ClosureMapping%\n- Sistema Legado: %SVFilterList:GrantedList|1:LegacySystem%\n- Observação do Atendimento: %Notes%",
             "RequestObservation": "%Notes%",
             "ServiceDefinitionId": "%SVFilterList:GrantedList|1:ServiceDefinitionId%",
-            "Status": "%SVFilterList:GrantedList|1:Status%",
-            "StatusOld": "=IF(%FeedbackCreditAmdocs:Error% == true, \"ClosedAssigned\", %SVFilterList:GrantedList|1:Status%)"
+            "Status": "=IF(%IPAPrepareCreateCaseAmdocs:feedbackCaseAmdocs:Success% == true, \"Fechado/Atribuído\", %SVFilterList:GrantedList|1:Status%)",
+            "StatusOld": "%SVFilterList:GrantedList|1:Status%"
         },
         "additionalOutput": {
         },
