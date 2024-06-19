@@ -12,8 +12,18 @@
             "AMDOCSCaseClosure": "%DRGetCaseData:AMDOCSClaseClosure%",
             "ExternalId": "%SVPrepareRequestCase:externalId%",
             "Name": "%SVPrepareRequestCase:name%",
-            "Notes": "=IF(%SVInitParams:Modality% == \"Reembolso\", %SVHistoryContent:NotesRefund%, %SVHistoryContent:NotesDefault%)",
-            "ProtocolNumber": "%SVPrepareRequestCase:protocolNumber%"
+            "Notes": "%SVHistoryContent:NotesRefund%",
+            "ProtocolNumber": "%SVPrepareRequestCase:protocolNumber%",
+            "flexAttributes": [
+                {
+                    "name": "x_9_Sistema_Externo",
+                    "value": "Salesforce"
+                },
+                {
+                    "name": "x_9_ID_Caso_Externo",
+                    "value": "%SVPrepareRequestCase:caseNumber%"
+                }
+            ]
         },
         "additionalOutput": {
         },

@@ -11,7 +11,7 @@
   <div if:true={showPage}>
     <lightning-card>
       <div class="custom-div">Formulário de Ajuste</div>
-      <div class="slds-m-around_medium table-container">
+      <div class="slds-m-around_medium table-container" lwc:ref="maincontainer">
         <div class="slds-grid slds-wrap item-row header-row">
           <div class="slds-col slds-size_1-of-12">Fatura</div>
           <div class="slds-col slds-size_1-of-12">Descrição</div>
@@ -73,16 +73,20 @@
               data-item-id={item.id}
               disabled={isDisabled}
               onchange={handleModalidadesChange}
+              onfocus={handleExpandPage}
+              onblur={handleCollapsePage}
             ></lightning-combobox>
             <lightning-combobox
               data-item-id={item.id}
-              class="font-item-row wide-combobox slds-col slds-size_1-of-12"
+              class="font-item-row wide-combobox slds-col slds-size_1-of-12 custom-combobox"
               name="motivoCredito"
               value={item.motivoCredito}
               placeholder="Selecione o motivo"
               options={item.motivoCreditoOptions}
               disabled={isDisabled}
               onchange={handleCreditReasonChange}
+              onfocus={handleExpandPage}
+              onblur={handleCollapsePage}
             ></lightning-combobox>
             <lightning-input class="font-item-row wide-input slds-col slds-size_1-of-12" type="text" value={item.valorPagar} readonly></lightning-input>
           </div>
