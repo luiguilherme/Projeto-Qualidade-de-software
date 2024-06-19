@@ -6,20 +6,6 @@
         "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/portabilityTicketNotification/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
-    "%vlocity_namespace%__ParentElementId__c": {
-        "%vlocity_namespace%__OmniScriptId__c": {
-            "Name": "valPortabilityTicketNotification",
-            "VlocityDataPackType": "VlocityMatchingKeyObject",
-            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/portabilityTicketNotification/Procedure",
-            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
-        },
-        "Name": "CBCancelOrders",
-        "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/portabilityTicketNotification/Procedure/CBCancelOrders",
-        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
-    },
-    "%vlocity_namespace%__ParentElementName__c": "CBCancelOrders",
-    "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
@@ -35,7 +21,7 @@
             }
         ],
         "disOnTplt": false,
-        "executionConditionalFormula": "",
+        "executionConditionalFormula": "%SVConditions:WindowStartPortout% OR %SVConditions:PortoutRequest% OR %SVConditions:PortinChargebackRequest% OR (%SVConditions:WindowStartPortin% AND %SVOrder:CancelOrder%)",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {

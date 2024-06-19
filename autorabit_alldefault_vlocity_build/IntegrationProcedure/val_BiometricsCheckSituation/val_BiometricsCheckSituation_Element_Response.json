@@ -8,9 +8,9 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "error": "=IF(%HTTPGEDOC:businessInteraction:status%==\"1\" OR %HTTPGEDOC:businessInteraction:status%==\"5\" OR %HTTPGEDOC:businessInteraction:status%==\"6\", false,true)",
+            "error": "=false",
             "message": "=IF(%HTTPGEDOC:businessInteraction:status%==\"-4\",\"-4 TOKEN INVÁLIDO “Não foi possível prosseguir com a solicitação, por favor consultar a Instrução de Trabalho de Biometria.”\",IF(%HTTPGEDOC:businessInteraction:status%==\"-3\",\"-3 AUSÊNCIA DO TOKEN OAM “Não foi possível prosseguir com a solicitação, por favor consultar a Instrução de Trabalho de Biometria.”\",IF(%HTTPGEDOC:businessInteraction:status%==\"-2\",\"-2 ADABÁS NÃO ENCONTRADO “Não foi possível seguir com a solicitação, por favor consultar a Instrução de Trabalho de Biometria.”\",IF(%HTTPGEDOC:businessInteraction:status%==\"-1\",\"-1 REQUEST INVALID “Não foi possível prosseguir com a solicitação, por favor consultar a Instrução de Trabalho de Biometria.”\",IF(%HTTPGEDOC:businessInteraction:status%==\"1\",\"\",IF(%HTTPGEDOC:businessInteraction:status%==\"2\",\"02 “Não foi possível prosseguir com a solicitação, por favor consultar a Instrução de Trabalho de Biometria.”\",IF(%HTTPGEDOC:businessInteraction:status%==\"3\",\"03 “EM ANÁLISE”.\",IF(%HTTPGEDOC:businessInteraction:status%==\"4\",\"4 CAPTURAR DOCUMENTOS “Está pendente de coleta de documentos ou coleta não tem qualidade necessária. Garanta a captura completa e legível do documento, valide que é um documento oficial de identificação e que não há divergência entre o CPF e documento apresentado.”\",IF(%HTTPGEDOC:businessInteraction:status%==\"7\",\"07 SERVIÇO NÃO CADASTRADO “Não foi possível seguir com a solicitação, por favor consultar a Instrução de Trabalho de Biometria. ”\",\"\"))))))))))",
-            "nextStep": "=IF(%HTTPGEDOC:businessInteraction:status%==\"1\" OR %HTTPGEDOC:businessInteraction:status%==\"5\" OR %HTTPGEDOC:businessInteraction:status%==\"6\", true, false)",
+            "nextStep": true,
             "palitagem": "=IF(%HTTPGEDOC:businessInteraction:status%==\"2\", true,false)",
             "variant": "=IF(%HTTPGEDOC:businessInteraction:status%==\"2\", \"error\",\"warning\")"
         },

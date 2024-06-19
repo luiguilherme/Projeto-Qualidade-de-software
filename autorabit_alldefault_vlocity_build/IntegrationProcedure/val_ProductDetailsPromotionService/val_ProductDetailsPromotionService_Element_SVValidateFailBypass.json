@@ -27,7 +27,7 @@
         "elementValueMap": {
             "fail": "=%HTTPGetServicesSmartSIMInfo:statusCode && % == \"551\" &&  %HTTPGetServicesSmartSIM:code% == \"SMTSIM_10001\" ||\r\n%HTTPGetServicesSmartSIMInfo:statusCode && % == \"550\" &&  %HTTPGetServicesSmartSIM:code% == \"SMTSIM_20003\" ||\r\n%HTTPGetServicesSmartSIMInfo:statusCode && % == \"550\" &&  %HTTPGetServicesSmartSIM:code% == \"SMTSIM_20005\" ||\r\n%HTTPGetServicesSmartSIMInfo:statusCode && % == \"550\" &&  %HTTPGetServicesSmartSIM:code% == \"SMTSIM_20016\" "
         },
-        "executionConditionalFormula": "",
+        "executionConditionalFormula": "%HTTPGetServicesSmartSIMInfo:statusCode% > 399",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "label": "SetValues3",

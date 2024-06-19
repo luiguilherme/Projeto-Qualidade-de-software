@@ -6,6 +6,7 @@ export default class omniscriptStepChartCustom extends OmniscriptStepChart {
 
     step;
     of;
+    stepsTitle = "Ações";
 
     render() {
         return tmpl;
@@ -23,6 +24,9 @@ export default class omniscriptStepChartCustom extends OmniscriptStepChart {
         (item) => item.indexInParent === value.asIndex
         );
         this.step = stepIndex + 1;
+        if (value.bpSubType === "InvoicesFlow") {
+            this.stepsTitle = "Fluxo Contestação";
+        }
         super.jsonDef = value;
     }
 }
