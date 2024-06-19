@@ -21,14 +21,10 @@
         "extraPayload": {
             "AccountId": "%AccountId%",
             "InteractionId": "%ContextId%",
-            "channelName": "%TopicNameCompleteAndUserData:channelName%",
-            "customerInteractionValues": {
-                "resultValueMap": {
-                    "protocolNumber": "%interactionNumber%",
-                    "topicName": "%TopicNameByRequest%"
-                }
-            },
-            "topicName": "%TopicNameCompleteAndUserData:topicName2%"
+            "channelName": "%responseTopicsAuto:channelName%",
+            "interactionNumber": "%interactionNumber%",
+            "processName": "%TopicNameByRequest%",
+            "topicName": "%responseTopicsAuto:topicName2%"
         },
         "failureAbortLabel": "Abort",
         "failureAbortMessage": "Are you sure?",
@@ -78,6 +74,40 @@
                                     "condition": "=",
                                     "data": "SalesJourney",
                                     "field": "Functionality"
+                                },
+                                {
+                                    "group": {
+                                        "operator": "OR",
+                                        "rules": [
+                                            {
+                                                "condition": "<>",
+                                                "data": "true",
+                                                "field": "HasPortability"
+                                            },
+                                            {
+                                                "group": {
+                                                    "operator": "AND",
+                                                    "rules": [
+                                                        {
+                                                            "condition": "=",
+                                                            "data": "true",
+                                                            "field": "HasPortability"
+                                                        },
+                                                        {
+                                                            "condition": "=",
+                                                            "data": "true",
+                                                            "field": "UserPermission:GerarPalitoAutomaticoPortabilidade"
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "condition": "<>",
+                                    "data": null,
+                                    "field": "responseTopicsAuto:topicName2"
                                 }
                             ]
                         }
