@@ -12,8 +12,9 @@
         "label": "LoopBlock4",
         "loopList": "changeService",
         "loopOutput": {
-            "accountNumber": "=%SubcriptionNumber%",
-            "amount": "=%changeService:totalCost%",
+            "accountNumber": "%changeService:subscriptionId%",
+            "amount": "",
+            "channelId": "=%changeService:channelId%",
             "clientCategory": "=%changeService:networkNumberType%",
             "csp": "",
             "inpugnation": "",
@@ -23,7 +24,7 @@
             "timeStamp": "=IF(ISNOTBLANK(%changeService:eventTime%),FORMATDATETIME(SUBSTRING(%changeService:eventTime%, 0, 23), \"dd/MM/YYYY HH:mm\", \"Etc/GMT\"),NULL)",
             "transactionType": "=%changeService:services|1:description%",
             "type": "=\"changeService\"",
-            "unit": "=\"BRL\"",
+            "unit": "",
             "userLogin": "=%changeService:userLogin%"
         },
         "show": null
