@@ -10,7 +10,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
           
           import styleDef from "./styleDefinition";
               
-          export default class cfValProductsViewSelector extends FlexCardMixin(LightningElement){
+          export default class cfValProductsViewSelector_11_GiovaniSouza extends FlexCardMixin(LightningElement){
               currentPageReference;        
               @wire(CurrentPageReference)
               setCurrentPageReference(currentPageReference) {
