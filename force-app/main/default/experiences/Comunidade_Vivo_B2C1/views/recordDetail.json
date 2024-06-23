@@ -1,16 +1,44 @@
 {
   "appPageId" : "4c62c18d-6c7e-478b-9b9c-9d43def3adb2",
-  "componentName" : "siteforce:sldsTwoCol84Layout",
+  "componentName" : "siteforce:sldsOneColLayout",
   "dataProviders" : [ ],
   "id" : "332c3cc4-b7b8-4773-9a6e-0e5ebd96c58b",
   "label" : "Record Detail",
   "regions" : [ {
     "components" : [ {
       "componentAttributes" : {
-        "recordId" : "{!recordId}"
+        "tabsetConfig" : {
+          "UUID" : "19ed2dd9-2b64-44ad-aab9-fc22bddf749c",
+          "activeTab" : "",
+          "tabs" : [ {
+            "UUID" : "e6827c2f-2e95-4026-82cd-77b59ed11d11",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "1",
+            "tabName" : "Details"
+          } ],
+          "useOverflowMenu" : false
+        }
       },
-      "componentName" : "forceCommunity:recordHeadline",
-      "id" : "5990e091-4d13-4fc3-b3ce-3bfe6ff9dba6",
+      "componentName" : "forceCommunity:tabset",
+      "id" : "19ed2dd9-2b64-44ad-aab9-fc22bddf749c",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "recordId" : "{!recordId}"
+          },
+          "componentName" : "forceCommunity:recordDetail",
+          "id" : "385c9784-b5fe-47e8-a72d-a5b2702b603c",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "e6827c2f-2e95-4026-82cd-77b59ed11d11",
+        "regionLabel" : "Details",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
@@ -21,46 +49,18 @@
   }, {
     "components" : [ {
       "componentAttributes" : {
-        "tabsetConfig" : {
-          "UUID" : "dc9a7e99-5fb2-4372-b4e6-218d0d0674db",
-          "activeTab" : "",
-          "tabs" : [ {
-            "UUID" : "55841daf-b4d9-4037-98d6-7dc41b831a02",
-            "allowGuestUser" : false,
-            "locked" : false,
-            "seedComponents" : [ ],
-            "tabKey" : "1",
-            "tabName" : "Detalhes"
-          } ],
-          "useOverflowMenu" : false
-        }
+        "detailsTabLabel" : "Details",
+        "discussionsTabLabel" : "Feed",
+        "recordId" : "{!recordId}",
+        "relatedTabLabel" : "Related",
+        "tab1Type" : "details",
+        "tab2Type" : "related",
+        "tab3Type" : "chatter",
+        "tab4Type" : "none",
+        "timelineTabLabel" : "Activity"
       },
-      "componentName" : "forceCommunity:tabset",
-      "id" : "dc9a7e99-5fb2-4372-b4e6-218d0d0674db",
-      "regions" : [ {
-        "components" : [ {
-          "componentAttributes" : {
-            "detailsTabLabel" : "Details",
-            "discussionsTabLabel" : "Feed",
-            "recordId" : "{!recordId}",
-            "relatedTabLabel" : "Related",
-            "tab1Type" : "details",
-            "tab2Type" : "none",
-            "tab3Type" : "none",
-            "tab4Type" : "none",
-            "timelineTabLabel" : "Activity"
-          },
-          "componentName" : "forceCommunity:recordHomeTabs",
-          "id" : "0b1236e3-82da-4f7c-8d95-d23619eb1867",
-          "renditionMap" : { },
-          "type" : "component"
-        } ],
-        "id" : "55841daf-b4d9-4037-98d6-7dc41b831a02",
-        "regionLabel" : "Detalhes",
-        "regionName" : "1",
-        "renditionMap" : { },
-        "type" : "region"
-      } ],
+      "componentName" : "forceCommunity:recordHomeTabs",
+      "id" : "0b1236e3-82da-4f7c-8d95-d23619eb1867",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
@@ -86,20 +86,6 @@
     } ],
     "id" : "bf3da34f-740b-47b2-a195-ea97bb650361",
     "regionName" : "sfdcHiddenRegion",
-    "type" : "region"
-  }, {
-    "components" : [ {
-      "componentAttributes" : {
-        "recordId" : "{!recordId}"
-      },
-      "componentName" : "c:cfValGetProcessInstanceStep",
-      "id" : "7078306e-1efe-4d28-a3ab-8012c2a76023",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
-    "id" : "71d2f039-8de7-494e-a18c-127e1ef6a8d2",
-    "regionName" : "sidebar",
     "type" : "region"
   } ],
   "themeLayoutType" : "Inner",
