@@ -17,6 +17,14 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               
               @track record;
               @track _sessionApiVars = {};
+              
+              @api set cfInteractionNumber(val) {
+                if(typeof val !== "undefined") {
+                  this._sessionApiVars["InteractionNumber"] = val;
+                }
+              } get cfInteractionNumber() {
+                return this._sessionApiVars["InteractionNumber"] || "";
+              }
 
               _regexPattern = /\{([a-zA-Z.0-9_]+)\}/g; //for {} fields by default
               
