@@ -1,0 +1,356 @@
+{
+    "dataSource": {
+        "contextVariables": [
+        ],
+        "orderBy": {
+            "isReverse": "",
+            "name": ""
+        },
+        "type": "Custom",
+        "value": {
+            "body": "{\n  \"pageControl\": {\n    \"state\": \"1\",\n    \"size\": 1,\n    \"pageNumber\": 1\n  },\n  \"code\": 200,\n  \"message\": \"\",\n  \"notificationSMS\": [\n    {\n      \"reason\": \"\",\n      \"amount\": \"\",\n      \"inpugnation\": \"\",\n      \"csp\": \"\",\n      \"accountNumber\": \"\",\n      \"timeStamp\": \"24/04/2023 14:04\",\n      \"transactionType\": \"Notificação\",\n      \"unit\": \"BRL\",\n      \"type\": \"notificationSMS\",\n      \"clientCategory\": \"pre\",\n      \"userLogin\": \"a0088999\",\n      \"systemUserId\": \"Any_customer_345314885970\",\n      \"notificationType\": null,\n      \"networkNumberReceiver\": 5511988887777,\n      \"category\": \"Threshold\",\n      \"message\": \"Voce ja utilizou 80% da franquia de internet do seu plano\",\n      \"LoopBlockIterationStatus\": true,\n      \"LoopBlockIterationIndex\": 1\n    }\n  ]\n}",
+            "dsDelay": "",
+            "resultVar": ""
+        }
+    },
+    "enableLwc": true,
+    "events": [
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1702395862713-z4087x8ti",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "updatedatasource",
+                        "id": "flex-action-1703621743761",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_HistoriesDetailsData\",\"vlocityAsync\":false,\"inputMap\":{\"networkNumber\":\"{networkNumber}\",\"parameterType\":\"{action.idType}\",\"historyType\":\"{action.historyType}\",\"inOperation\":\"{action.inOperation}\",\"startDateTime\":\"{action.initialDate}\",\"endDateTime\":\"{action.endDate}\",\"pageNumber\":\"{action.pageNumber}\",\"pageSize\":\"{action.pageSize}\",\"eventSearch\":\"menuAtendimento\",\"completeError\":\"Completed\",\"pageSum\":\"{action.pageSum}\",\"interactionId\":\"{action.interactionId}\",\"accountId\":\"{action.accountId}\",\"assetId\":\"{action.assetId}\"},\"jsonMap\":\"{\\\"action.customerId\\\":\\\"{action.customerId}\\\",\\\"action.minus1MonthUtil\\\":\\\"{action.minus1MonthUtil}\\\",\\\"action.today\\\":\\\"{action.today}\\\",\\\"action.pageNumber\\\":\\\"{action.pageNumber}\\\",\\\"action.pageSum\\\":\\\"{action.pageSum}\\\",\\\"action.inOperationType\\\":\\\"{action.inOperationType}\\\",\\\"historyType\\\":\\\"{historyType}\\\",\\\"action.initialDate\\\":\\\"{action.initialDate}\\\",\\\"action.endDate\\\":\\\"{action.endDate}\\\",\\\"action.pageSize\\\":\\\"{action.pageSize}\\\",\\\"action.idType\\\":\\\"{action.idType}\\\",\\\"action.interactionId\\\":\\\"{action.interactionId}\\\",\\\"action.accountId\\\":\\\"{action.accountId}\\\",\\\"action.assetId\\\":\\\"{action.assetId}\\\",\\\"action.historyType\\\":\\\"{action.historyType}\\\",\\\"networkNumber\\\":\\\"{networkNumber}\\\",\\\"action.inOperation\\\":\\\"{action.inOperation}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"action.customerId\",\"val\":\"\",\"id\":21},{\"name\":\"action.minus1MonthUtil\",\"val\":\"\",\"id\":25},{\"name\":\"action.today\",\"val\":\"\",\"id\":26},{\"name\":\"action.pageNumber\",\"val\":\"\",\"id\":27},{\"name\":\"action.pageSum\",\"val\":\"\",\"id\":28},{\"name\":\"action.inOperationType\",\"val\":\"all\",\"id\":22},{\"name\":\"historyType\",\"val\":\"\",\"id\":23},{\"name\":\"action.initialDate\",\"val\":\"\",\"id\":24},{\"name\":\"action.endDate\",\"val\":\"\",\"id\":25},{\"name\":\"action.pageSize\",\"val\":\"\",\"id\":26},{\"name\":\"action.idType\",\"val\":\"\",\"id\":22},{\"name\":\"action.interactionId\",\"val\":\"\",\"id\":23},{\"name\":\"action.accountId\",\"val\":\"\",\"id\":25},{\"name\":\"action.assetId\",\"val\":\"\",\"id\":27},{\"name\":\"action.historyType\",\"val\":\"\",\"id\":28},{\"name\":\"networkNumber\",\"val\":\"\",\"id\":29},{\"name\":\"action.inOperation\",\"val\":\"offers\",\"id\":28}]}",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "valNotificationTableView",
+            "displayLabel": "valNotificationTableView:setUpdataSource",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "setUpdataSource",
+            "eventtype": "pubsub",
+            "key": "event-0",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        }
+    ],
+    "isFlex": true,
+    "isRepeatable": true,
+    "lwc": {
+        "DeveloperName": "cfValNotificationTableView_1_Valentina",
+        "Id": "0Rb7600000054hZCAQ",
+        "ManageableState": "unmanaged",
+        "MasterLabel": "cfValNotificationTableView_1_Valentina",
+        "NamespacePrefix": "c"
+    },
+    "selectableMode": "Multi",
+    "states": [
+        {
+            "actions": [
+            ],
+            "childCards": [
+                "valNotificationHistoriesHeader",
+                "valNotificationHistoriesData",
+                "valDataPaginationHistories",
+                "valMessageAlert"
+            ],
+            "components": {
+                "layer-0": {
+                    "children": [
+                        {
+                            "class": "slds-col ",
+                            "element": "childCardPreview",
+                            "elementLabel": "FlexCard-4",
+                            "name": "FlexCard",
+                            "property": {
+                                "cardName": "valNotificationHistoriesHeader",
+                                "cardNode": "{record}",
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "code",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-96",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "200"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "isChildCardTrackingEnabled": false,
+                                "recordId": "{recordId}",
+                                "selectedState": "Active"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "element"
+                        },
+                        {
+                            "class": "slds-col ",
+                            "element": "childCardPreview",
+                            "elementLabel": "FlexCard-5",
+                            "name": "FlexCard",
+                            "property": {
+                                "cardName": "valNotificationHistoriesData",
+                                "cardNode": "{record.notificationSMS}",
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "code",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-106",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "200"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "isChildCardTrackingEnabled": false,
+                                "recordId": "{recordId}",
+                                "selectedState": "Active"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "background": {
+                                    "color": "",
+                                    "image": "",
+                                    "position": "",
+                                    "repeat": "",
+                                    "size": ""
+                                },
+                                "border": {
+                                    "color": "#cccccc",
+                                    "radius": "3",
+                                    "style": "",
+                                    "type": [
+                                    ],
+                                    "width": "1"
+                                },
+                                "class": " ",
+                                "container": {
+                                    "class": ""
+                                },
+                                "elementStyleProperties": {
+                                },
+                                "inlineStyle": "",
+                                "margin": [
+                                ],
+                                "padding": [
+                                ],
+                                "size": {
+                                    "default": "12",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_12-of-12 ",
+                                "style": "      \n    border-radius:3;     ",
+                                "text": {
+                                    "align": "",
+                                    "color": ""
+                                }
+                            },
+                            "styleObjects": [
+                                {
+                                    "conditionString": "",
+                                    "conditions": "default",
+                                    "draggable": false,
+                                    "key": 0,
+                                    "label": "Default",
+                                    "name": "Default",
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "#cccccc",
+                                            "radius": "3",
+                                            "style": "",
+                                            "type": [
+                                            ],
+                                            "width": "1"
+                                        },
+                                        "class": " ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "      \n    border-radius:3;     ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    }
+                                }
+                            ],
+                            "type": "element"
+                        },
+                        {
+                            "class": "slds-col ",
+                            "element": "childCardPreview",
+                            "elementLabel": "FlexCard-6",
+                            "name": "FlexCard",
+                            "property": {
+                                "cardName": "valDataPaginationHistories",
+                                "cardNode": "{record}",
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "code",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-18",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "200"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "isChildCardTrackingEnabled": false,
+                                "recordId": "{recordId}",
+                                "selectedState": "SinglePage"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "element"
+                        },
+                        {
+                            "class": "slds-col ",
+                            "element": "childCardPreview",
+                            "elementLabel": "FlexCard-7",
+                            "name": "FlexCard",
+                            "property": {
+                                "cardName": "valMessageAlert",
+                                "cardNode": "",
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "code",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-16",
+                                            "operator": "!=",
+                                            "type": "custom",
+                                            "value": "200"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "isChildCardTrackingEnabled": false,
+                                "parentAttribute": {
+                                    "ErrorMessage": "{message}"
+                                },
+                                "recordId": "{recordId}",
+                                "selectedState": "WarningCustomAttribute"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "element"
+                        }
+                    ]
+                }
+            },
+            "conditions": {
+                "group": [
+                ],
+                "id": "state-condition-object",
+                "isParent": true
+            },
+            "definedActions": {
+                "actions": [
+                ]
+            },
+            "documents": [
+            ],
+            "fields": [
+            ],
+            "isSmartAction": false,
+            "name": "Active",
+            "omniscripts": [
+            ],
+            "smartAction": {
+            },
+            "styleObject": {
+                "class": "slds-card slds-p-around_x-small slds-m-bottom_x-small",
+                "container": {
+                    "class": "slds-card"
+                },
+                "margin": [
+                    {
+                        "size": "none",
+                        "type": "around"
+                    }
+                ],
+                "padding": [
+                    {
+                        "size": "x-small",
+                        "type": "around"
+                    }
+                ],
+                "size": {
+                    "default": "12",
+                    "isResponsive": false
+                },
+                "sizeClass": "slds-size_12-of-12"
+            }
+        }
+    ],
+    "theme": "slds",
+    "title": "valNotificationTableView"
+}
