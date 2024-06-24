@@ -1,5 +1,5 @@
 {
-    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__Active__c": false,
     "%vlocity_namespace%__OmniScriptId__c": {
         "Name": "valProcessRollback",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
@@ -22,27 +22,21 @@
     "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
-        "additionalChainableResponse": {
-        },
         "additionalInput": {
-            "cartId": "%record_id%",
-            "intent": "Cancel"
+            "OrderId": "=%record_id%",
+            "OrderStatus": "=\"Canceled\""
         },
         "additionalOutput": {
         },
+        "bundle": "VPL-UpdateOrder",
         "chainOnStep": false,
         "disOnTplt": false,
-        "executionConditionalFormula": "IF(%RAPreValidateAvulsa:records|1:didAnyOrderItemReachPONR% == false, true, false)",
-        "failOnStepError": false,
-        "failureConditionalFormula": "%RAPreCancelOrderAvulsaStatus% == false",
+        "executionConditionalFormula": "%IsAsync% == true && %RAPreValidateAvulsaStatus% == true && %RACancelOrderAvulsaStatus% == true",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
         "failureResponse": {
         },
-        "label": "RemoteAction3",
-        "remoteClass": "%vlocity_namespace%.CPQAppHandler",
-        "remoteMethod": "createSupplementalOrder",
-        "remoteOptions": {
-            "withoutSharing": true
-        },
+        "label": "DataRaptorPostAction1",
         "responseJSONNode": "",
         "responseJSONPath": "",
         "returnOnlyAdditionalOutput": false,
@@ -54,9 +48,9 @@
         "useFormulas": true
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
-    "%vlocity_namespace%__Type__c": "Remote Action",
-    "Name": "RACancelOrderAvulsa",
+    "%vlocity_namespace%__Type__c": "DataRaptor Post Action",
+    "Name": "DRLOrderStatus",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ProcessRollback/Procedure/RACancelOrderAvulsa"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ProcessRollback/Procedure/DRLOrderStatus"
 }
