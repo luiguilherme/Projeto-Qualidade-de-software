@@ -1,17 +1,101 @@
+<!-- sldsValidatorIgnore -->
+<!-- sldsValidatorIgnore -->
 <template>
-    <div>
-        <lightning-card >
-            <template if:true={ltAssets}>
-                <lightning-card title="Selecione o Telefone:">
+    <div>       
+        <lightning-card>
+            <template if:true={selectionTypeMigration}>
+                <lightning-card title="Selecione o Fluxo de Troca de Oferta:">
                     <br>
-                    <lightning-datatable
+                    <div class="button-container">
+                        <template for:each={optionsTypes} for:item="option">
+                            <button 
+                                key={option.value}
+                                onclick={changeValueTypeMigration}
+                                value={option.value}
+                                class={option.variant}>
+                                {option.label}
+                            </button>
+                        </template>
+                    </div>  
+                </lightning-card>
+                <div class="slds-clearfix slds-p-right_small">
+                    <div  class=" slds-float_right">
+                        <lightning-button class="advanceButton" variant="brand" label="Avançar" title="Avançar" onclick={callListAssets} disabled={buttonAdvanceToListAssets}></lightning-button>
+                    </div>
+                </div>
+            </template>
+
+            <template if:true={ltAssets} >
+                <lightning-card title="Selecione a Instância/Linha:">
+                    <br>
+                    <table class="slds-table slds-table_bordered slds-border_left slds-border_right">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="" scope="col" style="width: 5px;">
+                                    <div class="slds-truncate" title="CheckImput"></div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Instância/Linha">Instância/Linha</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Plano">Plano</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Endereço">Endereço</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Tipo">Tipo</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Código Oferta">Código Oferta</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Sistema de Origem">Sistema de Origem</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <template for:each={ltAssets} for:item="itemRecord">
+                                <tr key={itemRecord.Id}>
+                                    <td data-label="Check" title={itemRecord.Id} key={itemRecord.Id}>
+                                        <div class="slds-truncate" title={itemRecord.Id}>
+                                            <input key={itemRecord.Id} type={tipoInput} name="scales" checked={itemRecord.checked} disabled={itemRecord.disableCheckbox} onchange={getSelectedAsset} value={itemRecord.Id}/> 
+                                        </div>
+                                    </td>
+                                    <th data-label="Nome" scope="row" key={itemRecord.Id}>
+                                        <div class="slds-truncate" title={itemRecord.Id}>{itemRecord.Name}</div>
+                                    </th>
+                                    <td data-label="MainProductDescription" title={itemRecord.MainProductDescription__c} key={itemRecord.Id}>
+                                        <div class="slds-truncate" title={itemRecord.Id}>{itemRecord.MainProductDescription__c}</div>
+                                    </td>
+                                    <td data-label="Endereço" title={itemRecord.endereco} key={itemRecord.Id}>
+                                        <div class="slds-truncate" style="white-space: pre-wrap;" title={itemRecord.Id}>{itemRecord.endereco}</div>
+                                    </td>
+                                    <th data-label="ProductType" scope="row" key={itemRecord.Id}>
+                                        <div class="slds-truncate" title={itemRecord.Id}>{itemRecord.ProductType__c}</div>
+                                    </th>
+                                    <th data-label="IdBundle" scope="row" key={itemRecord.Id}>
+                                        <div class="slds-truncate" title={itemRecord.Id}>{itemRecord.IdBundle__c}</div>
+                                    </th>
+                                    <td data-label="SourceSystem" title={itemRecord.SourceSystem__c} key={itemRecord.Id}>
+                                        <div class="slds-truncate" title={itemRecord.Id}>{itemRecord.SourceSystem__c}</div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+
+                    <!-- <lightning-datatable
                         key-field="Id"
                         data={ltAssets}
                         columns={columns}
                         class="dataTableFont"
                         onrowselection={getSelectedAsset}
-                        max-row-selection = 1>
-                    </lightning-datatable>
+                        max-row-selection={rowSelection}
+                        selected-rows={selectedRows}>
+                    </lightning-datatable> -->
+
                     <c-paginator
                         page-number={pageNumber}
                         page-size={pageSize}
@@ -22,18 +106,28 @@
                 </lightning-card>
                 <div class="newFont" >
                     <br>
-                        <lightning-formatted-text value = 'Importante: não é possível realizar trocas de ofertas de linhas fixas, móveis com dependentes e clientes Oi. Por favor consulte o sistema legado para estas transações.'></lightning-formatted-text>
+                        <lightning-formatted-text value = {messageTypeFluxo}></lightning-formatted-text>
                     </br>
                     <br>            
                 </div>
                 <div class="slds-clearfix slds-p-right_small">
+                    <div  class=" slds-float_left">
+                        <lightning-button class="advanceButton" variant="brand" label="Voltar" title="Voltar" onclick={backToSelectionTypeMigration}></lightning-button>
+                    </div>
                     <div  class=" slds-float_right">
                         <lightning-button class="advanceButton" variant="brand" label="Avançar" title="Avançar" onclick={callCanvas}></lightning-button>
                     </div>
                 </div>
             </template>
-            <template if:false={ltAssets}>
+
+            <template if:true={msgError}>
                 <p class="newFont">{errorMsg}</p>
+
+                <div class="slds-clearfix slds-p-right_small">
+                    <div  class=" slds-float_left">
+                        <lightning-button class="advanceButton" variant="brand" label="Voltar" title="Voltar" onclick={backToSelectionTypeMigration}></lightning-button>
+                    </div>
+                </div>
             </template>
         </lightning-card>
     </div>

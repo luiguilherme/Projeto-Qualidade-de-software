@@ -40,7 +40,8 @@ public with sharing class CanvasHybrisMigrationDAO {
                 UserSegment__c,
                 HasAccessToHybrisMigration__c,
                 PosToPre__c,
-                ControleToPre__c
+                ControleToPre__c,
+            	RetentionOffers__c
             FROM 
                 CanvasHybrisMigration__mdt
             WHERE

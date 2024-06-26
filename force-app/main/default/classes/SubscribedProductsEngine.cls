@@ -272,7 +272,9 @@ public Inherited Sharing class SubscribedProductsEngine {
                             type == CONST_STRING_MOVEL ? identifierFirstValue : '', //PhoneNumber__c
                             accountObj.DocumentNumber__c + identifierFirstValue,//LegacyAssetId__c
                             billingAccountObj != null && billingAccountObj.FullAddress__c != null ?  billingAccountObj.FullAddress__c : null,//Address__c (Não vai usar tirar do create, mantem via carga).
-                            subProductsObj.status != null ? subProductsObj.status.capitalize() : CONST_STRING_ACTIVE
+                            subProductsObj.status != null ? subProductsObj.status.capitalize() : CONST_STRING_ACTIVE,
+                            subscribedProductsObj.descriptions[0].text != null ? subscribedProductsObj.descriptions[0].text : null, // OfferDescription__c
+                            subscribedProductsObj.Id // IdBundle__c
                         ));
                     }
                     
@@ -299,7 +301,9 @@ public Inherited Sharing class SubscribedProductsEngine {
                                 type == CONST_STRING_MOVEL ? identifierFirstValue : '', //PhoneNumber__c
                                 accountObj.DocumentNumber__c + identifierFirstValue,//LegacyAssetId__c
                                 billingAccountObj != null && billingAccountObj.FullAddress__c != null ?  billingAccountObj.FullAddress__c : null,//Address__c (Não vai usar tirar do create, mantem via carga).
-                                subProductsObjAux.status != null ? subProductsObjAux.status.capitalize() : CONST_STRING_ACTIVE
+                                subProductsObjAux.status != null ? subProductsObjAux.status.capitalize() : CONST_STRING_ACTIVE,
+                                subscribedProductsObj.descriptions[0].text != null ? subscribedProductsObj.descriptions[0].text : null, // OfferDescription__c
+                                subscribedProductsObj.Id // IdBundle__c
                             ));
                         }
                     }    
@@ -323,7 +327,9 @@ public Inherited Sharing class SubscribedProductsEngine {
                     type == CONST_STRING_MOVEL ? identifierFirstValue : '', //PhoneNumber__c 
                     accountObj.DocumentNumber__c + identifierFirstValue,//LegacyAssetId__c
                     billingAccountObj != null && billingAccountObj.FullAddress__c != null ?  billingAccountObj.FullAddress__c : null,//Address__c (Não vai usar tirar do create, mantem via carga).
-                    subscribedProductsObj.status != null ? subscribedProductsObj.status.capitalize() : CONST_STRING_ACTIVE
+                    subscribedProductsObj.status != null ? subscribedProductsObj.status.capitalize() : CONST_STRING_ACTIVE,
+                    subscribedProductsObj.descriptions[0].text != null ? subscribedProductsObj.descriptions[0].text : null, // OfferDescription__c
+                    subscribedProductsObj.Id  // IdBundle__c //'Oferta Avulsa'
                 ));   
             }
         }
@@ -372,7 +378,7 @@ public Inherited Sharing class SubscribedProductsEngine {
         return mapFromTo.containsKey(returnValue +'|'+ CONST_STRING_LEGACYSYSTEM) ? mapFromTo.get(returnValue +'|'+ CONST_STRING_LEGACYSYSTEM) : returnValue;
     } 
 
-    private static Asset createAsset(String name, Id accountId, Id billingAccountId, String productType, String type, String mainProductDescription, String legacySystem, String isHold,  Date installDate, String speed, String instance, String phoneNumber, String idExterno, Id address, String status){
+    private static Asset createAsset(String name, Id accountId, Id billingAccountId, String productType, String type, String mainProductDescription, String legacySystem, String isHold,  Date installDate, String speed, String instance, String phoneNumber, String idExterno, Id address, String status, String offerDescription, String idBundle){
         Asset assetObj = new Asset();
         assetObj.Name = name;
         assetObj.AccountId = accountId;
@@ -384,6 +390,8 @@ public Inherited Sharing class SubscribedProductsEngine {
         assetObj.IsHolder__c = isHold != null && isHold.length() > 3 ? isHold.substring(0,3).toUpperCase() : CONST_STRING_TITULAR;
         assetObj.InstallDate = installDate;
     	assetObj.Status = status;
+    	assetObj.OfferDescription__c = offerDescription;
+    	assetObj.IdBundle__c = idBundle;
         
         if(speed != null){
             assetObj.Speed__c = speed;

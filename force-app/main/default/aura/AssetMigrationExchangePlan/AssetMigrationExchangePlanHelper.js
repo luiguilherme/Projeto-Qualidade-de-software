@@ -36,6 +36,8 @@
                 component.set('v.topicId', response.getReturnValue().success.Id);
                 component.set('v.assetMigrationNumber', assetObj);
                 component.set('v.showCanvas', true);
+                console.log('TESTE: ' + component.get('v.assetMigrationNumber'));
+
             }
         });
         $A.enqueueAction(action);

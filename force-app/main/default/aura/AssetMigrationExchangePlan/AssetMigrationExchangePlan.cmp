@@ -12,6 +12,7 @@
     <aura:attribute name="showResetButton"                      type="Boolean"/>
     <aura:attribute name="showModal"                            type="Boolean"/>
     <aura:attribute name="topicId"			                    type="String"/>
+    <aura:attribute name="title"			                    type="String"  default="Troca de Ofertas"/>
     <aura:attribute name="showErrors"                           type="Boolean" default="false"/>
     <aura:attribute name="showAssetMigrationSelection"          type="Boolean" default="false"/>
     <aura:attribute name="assetMigrationNumber"                 type="Object"/>
@@ -28,7 +29,7 @@
                 <article class="slds-card">
                     <header class="slds-media slds-media_center slds-has-flexi-truncate">
                         <div>
-                            <img src="{!$Resource.IconeTrocaDeOfertas}" alt="Troca de Ofertas" />
+                            <img src="{!$Resource.IconeTrocaDeOfertas}" alt="{!v.title}"/>
                         </div>
                         <div class="slds-media__body">
                             <table id="theGrid">
@@ -40,7 +41,7 @@
                                                     variant="base"
                                                     class="slds-card__header-link slds-truncate onhoverCSS" 
                                                     title="Acesso à Troca de Ofertas (Hybris)"
-                                                    label="Troca de Ofertas"/>
+                                                    label="{!v.title}"/>
                                             </h2>
                                         </td>
                                         <td width="100px">
@@ -67,7 +68,7 @@
                     </header>
                     <div class="slds-m-top_x-small">
                         <aura:if isTrue="{!v.showAssetMigrationSelection}">
-                            <c:assetMigrationSelection recordId="{!v.recordId}" oncallcanvashybris="{!c.handleClick}"/>
+                            <c:assetMigrationSelection recordId="{!v.recordId}" oncallcanvashybris="{!c.handleClick}" onmodifytitle="{!c.updateTitle}"/>
                         </aura:if>
                     </div>
                     <div class="slds-m-top_x-small">
