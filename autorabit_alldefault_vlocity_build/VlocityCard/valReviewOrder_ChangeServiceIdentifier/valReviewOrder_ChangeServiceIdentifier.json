@@ -37,10 +37,10 @@
     "isFlex": true,
     "isRepeatable": true,
     "lwc": {
-        "DeveloperName": "cfValReviewOrder_ChangeServiceIdentifier_2_Telefonica_Brasil_Valentina",
-        "Id": "0Rb76000000DQYpCAO",
+        "DeveloperName": "cfValReviewOrder_ChangeServiceIdentifier_1_Telefonica_Brasil_Valentina",
+        "Id": "0Rb7600000053khCAA",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValReviewOrder_ChangeServiceIdentifier_2_Telefonica_Brasil_Valentina",
+        "MasterLabel": "cfValReviewOrder_ChangeServiceIdentifier_1_Telefonica_Brasil_Valentina",
         "NamespacePrefix": "c"
     },
     "osSupport": true,
@@ -54,6 +54,7 @@
                 "valReviewOrderHeader",
                 "valReviewContact",
                 "valChangeServiceNumber",
+                "valReviewChangeNumberPortabilityDetails",
                 "valReviewPermission"
             ],
             "components": {
@@ -70,7 +71,7 @@
                                     "parentElementKey": "element_block_0_0",
                                     "property": {
                                         "cardName": "valReviewOrderHeader",
-                                        "cardNode": "{record.Address}",
+                                        "cardNode": "{record.Order}",
                                         "isChildCardTrackingEnabled": false,
                                         "recordId": "{recordId}",
                                         "selectedState": "Active"
@@ -212,6 +213,80 @@
                                 "collapsedByDefault": false,
                                 "collapsible": true,
                                 "label": "Dados de linha",
+                                "record": "{record}"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "class": "slds-p-around_x-small",
+                                "padding": [
+                                    {
+                                        "size": "x-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "block",
+                            "userUpdatedElementLabel": true
+                        },
+                        {
+                            "children": [
+                                {
+                                    "class": "slds-col ",
+                                    "element": "childCardPreview",
+                                    "elementLabel": "ContactDetails",
+                                    "key": "element_element_block_3_0_childCardPreview_0_0",
+                                    "name": "FlexCard",
+                                    "parentElementKey": "element_block_3_0",
+                                    "property": {
+                                        "cardName": "valReviewChangeNumberPortabilityDetails",
+                                        "cardNode": "",
+                                        "isChildCardTrackingEnabled": false,
+                                        "parentAttribute": {
+                                            "OrderId": "{Parent.OrderId}"
+                                        },
+                                        "recordId": "{recordId}",
+                                        "selectedState": "Active"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "sizeClass": "slds-size_12-of-12"
+                                    },
+                                    "type": "element",
+                                    "userUpdatedElementLabel": true
+                                }
+                            ],
+                            "class": "slds-col ",
+                            "element": "block",
+                            "elementLabel": "Block-2-clone-0",
+                            "name": "Block",
+                            "property": {
+                                "card": "{card}",
+                                "collapsedByDefault": false,
+                                "collapsible": true,
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "Parent.Portability",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-0",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "Sim"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "label": "Portabilidade",
                                 "record": "{record}"
                             },
                             "size": {
