@@ -32,10 +32,10 @@ public class CreateTopicsAutoReleaseJulho2024 {
     // Create a list of TopicsAuto__c to add
     //
     List<TopicsAuto__c> topicsAutoList = new List<TopicsAuto__c> {
-        new TopicsAuto__c(Process__c= 'Solicitação de Port-out'    ,Channel__c= 'Lojas Próprias',Status__c= 'Ativo',StartDate__c= datetime.now(),EndDate__c=  null,Topic__c= 'Início > Informação > Portabilidade > Port Out',Type__c= 'Topic'),
-        new TopicsAuto__c(Process__c= 'Solicitação de Port-out'    ,Channel__c= 'Revenda'       ,Status__c= 'Ativo',StartDate__c= datetime.now(),EndDate__c=  null,Topic__c= 'Início > Informação > Portabilidade > Port Out',Type__c= 'Topic'),
-        new TopicsAuto__c(Process__c= 'Solicitação de Port-out'    ,Channel__c= 'Call Center'   ,Status__c= 'Ativo',StartDate__c= datetime.now(),EndDate__c=  null,Topic__c= 'Início > Informação > Portabilidade > Port Out',Type__c= 'Topic'),
-        new TopicsAuto__c(Process__c= 'Solicitação de Port-out'    ,Channel__c= 'Integração'    ,Status__c= 'Ativo',StartDate__c= datetime.now(),EndDate__c=  null,Topic__c= 'Início > Informação > Portabilidade > Port Out',Type__c= 'API'),
+        new TopicsAuto__c(Process__c= 'Solicitação de Port-out'    ,Channel__c= 'Lojas Próprias',Status__c= 'Ativo',StartDate__c= datetime.now(),EndDate__c=  null,Topic__c= 'Início > Informação > Portabilidade > PORT OUT',Type__c= 'Topic'),
+        new TopicsAuto__c(Process__c= 'Solicitação de Port-out'    ,Channel__c= 'Revenda'       ,Status__c= 'Ativo',StartDate__c= datetime.now(),EndDate__c=  null,Topic__c= 'Início > Informação > Portabilidade > PORT OUT',Type__c= 'Topic'),
+        new TopicsAuto__c(Process__c= 'Solicitação de Port-out'    ,Channel__c= 'Call Center'   ,Status__c= 'Ativo',StartDate__c= datetime.now(),EndDate__c=  null,Topic__c= 'Início > Informação > Portabilidade > PORT OUT',Type__c= 'Topic'),
+        new TopicsAuto__c(Process__c= 'Solicitação de Port-out'    ,Channel__c= 'Integração'    ,Status__c= 'Ativo',StartDate__c= datetime.now(),EndDate__c=  null,Topic__c= 'Início > Informação > Portabilidade > PORT OUT',Type__c= 'API'),
         new TopicsAuto__c(Process__c= 'Solicitação de Reagendamento de Port-in'    ,Channel__c= 'Lojas Próprias',Status__c= 'Ativo',StartDate__c= datetime.now(),EndDate__c=  null,Topic__c= 'Início > Serviços > Portabilidade Numérica > Reagendamento',Type__c= 'Topic'),
         new TopicsAuto__c(Process__c= 'Solicitação de Reagendamento de Port-in'    ,Channel__c= 'Revenda'       ,Status__c= 'Ativo',StartDate__c= datetime.now(),EndDate__c=  null,Topic__c= 'Início > Serviços > Portabilidade Numérica > Reagendamento',Type__c= 'Topic'),
         new TopicsAuto__c(Process__c= 'Solicitação de Reagendamento de Port-in'    ,Channel__c= 'Call Center'   ,Status__c= 'Ativo',StartDate__c= datetime.now(),EndDate__c=  null,Topic__c= 'Início > Serviços > Portabilidade Numérica > Reagendamento',Type__c= 'Topic') ,           
