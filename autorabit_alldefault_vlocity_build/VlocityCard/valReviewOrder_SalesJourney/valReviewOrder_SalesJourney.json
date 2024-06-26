@@ -26,6 +26,7 @@
             "dsDelay": "",
             "inputMap": {
                 "OrderId": "{Parent.OrderId}",
+                "Portability": "{Parent.Portability}",
                 "funcionality": "{Parent.Functionality}"
             },
             "ipMethod": "val_GetReviewOrder",
@@ -38,10 +39,10 @@
     "isFlex": true,
     "isRepeatable": true,
     "lwc": {
-        "DeveloperName": "cfValReviewOrder_SalesJourney_2_Telefonica_Brasil_Valentina",
-        "Id": "0Rb76000000570YCAQ",
+        "DeveloperName": "cfValReviewOrder_SalesJourney_1_Telefonica_Brasil_Valentina",
+        "Id": "0Rb7600000053l1CAA",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValReviewOrder_SalesJourney_2_Telefonica_Brasil_Valentina",
+        "MasterLabel": "cfValReviewOrder_SalesJourney_1_Telefonica_Brasil_Valentina",
         "NamespacePrefix": "c"
     },
     "osSupport": true,
@@ -58,9 +59,8 @@
                 "valReviewContactDetails",
                 "valReviewLineDetails",
                 "valReviewAddress",
-                "valReviewOrderDetailsProduct",
-                "valReviewItems",
                 "valReviewTotal",
+                "valReviewItems",
                 "valReviewChannel",
                 "valReviewPermission"
             ],
@@ -343,8 +343,7 @@
                                         "isChildCardTrackingEnabled": false,
                                         "parentAttribute": {
                                             "assetId": "{Parent.AssetId}",
-                                            "functionality": "{Parent.Functionality}",
-                                            "orderId": "{Parent.OrderId}"
+                                            "functionality": "{Parent.Functionality}"
                                         },
                                         "recordId": "{recordId}",
                                         "selectedState": "Active"
@@ -464,15 +463,17 @@
                                         {
                                             "class": "slds-col ",
                                             "element": "childCardPreview",
-                                            "elementLabel": "Block-2-clone-0-Block-0-FlexCard-0",
+                                            "elementLabel": "Block-2-clone-0-FlexCard-1",
                                             "key": "element_element_element_block_6_0_block_0_0_childCardPreview_0_0",
                                             "name": "FlexCard",
                                             "parentElementKey": "element_element_block_6_0_block_0_0",
                                             "property": {
-                                                "cardName": "valReviewOrderDetailsProduct",
+                                                "cardName": "valReviewTotal",
+                                                "cardNode": "",
                                                 "isChildCardTrackingEnabled": false,
                                                 "parentAttribute": {
-                                                    "OrderId": "{Parent.OrderId}"
+                                                    "OrderId": "{Parent.OrderId}",
+                                                    "functionality": "{Parent.Functionality}"
                                                 },
                                                 "recordId": "{recordId}",
                                                 "selectedState": "Active"
@@ -490,7 +491,7 @@
                                         {
                                             "class": "slds-col ",
                                             "element": "childCardPreview",
-                                            "elementLabel": "Block-2-clone-0-Block-0-FlexCard-1",
+                                            "elementLabel": "Block-2-clone-0-FlexCard-2",
                                             "key": "element_element_element_block_6_0_block_0_0_childCardPreview_1_0",
                                             "name": "FlexCard",
                                             "parentElementKey": "element_element_block_6_0_block_0_0",
@@ -649,82 +650,6 @@
                                 "collapsedByDefault": false,
                                 "collapsible": true,
                                 "label": "Produtos",
-                                "record": "{record}"
-                            },
-                            "size": {
-                                "default": "12",
-                                "isResponsive": false
-                            },
-                            "stateIndex": 0,
-                            "styleObject": {
-                                "class": "slds-p-around_x-small",
-                                "padding": [
-                                    {
-                                        "size": "x-small",
-                                        "type": "around"
-                                    }
-                                ],
-                                "sizeClass": "slds-size_12-of-12"
-                            },
-                            "type": "block",
-                            "userUpdatedElementLabel": true
-                        },
-                        {
-                            "children": [
-                                {
-                                    "class": "slds-col ",
-                                    "element": "childCardPreview",
-                                    "elementLabel": "Block-2-clone-0-FlexCard-1",
-                                    "key": "element_element_block_7_0_childCardPreview_0_0",
-                                    "name": "FlexCard",
-                                    "parentElementKey": "element_block_7_0",
-                                    "property": {
-                                        "cardName": "valReviewTotal",
-                                        "cardNode": "",
-                                        "isChildCardTrackingEnabled": false,
-                                        "parentAttribute": {
-                                            "OrderId": "{Parent.OrderId}",
-                                            "activationHRS": "{Order.ActivationHRS}",
-                                            "functionality": "{Parent.Functionality}"
-                                        },
-                                        "recordId": "{recordId}",
-                                        "selectedState": "Active"
-                                    },
-                                    "size": {
-                                        "default": "12",
-                                        "isResponsive": false
-                                    },
-                                    "stateIndex": 0,
-                                    "styleObject": {
-                                        "sizeClass": "slds-size_12-of-12"
-                                    },
-                                    "type": "element"
-                                }
-                            ],
-                            "class": "slds-col ",
-                            "element": "block",
-                            "elementLabel": "BlockPaymentData",
-                            "name": "Block",
-                            "property": {
-                                "card": "{card}",
-                                "collapsedByDefault": false,
-                                "collapsible": true,
-                                "data-conditions": {
-                                    "group": [
-                                        {
-                                            "field": "Order.PaymentMethod",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-0",
-                                            "operator": "!=",
-                                            "type": "custom",
-                                            "value": "donate"
-                                        }
-                                    ],
-                                    "id": "state-condition-object",
-                                    "isParent": true
-                                },
-                                "data-preloadConditionalElement": false,
-                                "label": "Dados de Pagamento",
                                 "record": "{record}"
                             },
                             "size": {
