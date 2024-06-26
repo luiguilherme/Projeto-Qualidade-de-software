@@ -11,8 +11,8 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "size": "=LISTSIZE(%Offers:campaign%)+LISTSIZE(%Offers:promotion%)",
-            "state": "=IF(LISTSIZE(%Offers%)<=9&&%ResponsePageControl:pageNumber%>1,\"2\",IF(LISTSIZE(%Offers%)<=9&&%ResponsePageControl:pageNumber%==1,\"1\",IF(LISTSIZE(%Offers%)>=9&&%ResponsePageControl:pageNumber%>1,\"4\",IF(LISTSIZE(%Offers%)>=9&&%ResponsePageControl:pageNumber%==1,\"3\",\"5\"))))"
+            "size": "=IF(ISBLANK(%Offers:campaign%),0,LISTSIZE(%Offers:campaign%))+IF(ISBLANK(%Offers:promotion%),0,LISTSIZE(%Offers:promotion%))",
+            "state": "=IF(LISTSIZE(%Offers%)<=9&&%ResponsePageControl:pageNumber%>1,\"2\",IF(LISTSIZE(%Offers%)<=9&&%ResponsePageControl:pageNumber%==1,\"1\",IF(LISTSIZE(%Offers%)>=9&&%ResponsePageControl:pageNumber%>1,\"4\",IF(LISTSIZE(%Offers%)>=9&&%ResponsePageControl:pageNumber%==1,\"3\",\"1\"))))"
         },
         "executionConditionalFormula": "",
         "failOnStepError": true,
