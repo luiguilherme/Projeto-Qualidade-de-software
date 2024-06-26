@@ -9,25 +9,36 @@
 public with sharing class ServiceFlowGPSEngine {
 
     private static final String CASE_ORIGIN_GPS = 'GPS';
+    private static final String CASE_ORIGIN_GPS_PRE = 'GPS Pre';
     private static final String CASE_PRIORITY_LOW = 'Low';
     private static final String CASE_PRODUCT_FIXA = 'Fixa';
+    private static final String CASE_PRODUCT_PRE = 'Pre';
     private static final String CASE_STATUS_CLOSED = 'Closed';
     private static final String BILLING_ACCOUNT_FIXA = 'Fixa';
     private static final String CASE_PRIORITY_MEDIUM = 'Medium';
     private static final String GPS_CANVAS_APP_NAME = 'GpsCanvas';
+    private static final String GPS_CANVAS_CONVERGENTE_APP_NAME = 'GpsCanvasConvergente';
     private static final String CASE_STATUS_EM_ATENDIMENTO = 'Em Atendimento';
+	private static final String CASE_STATUS_EM_EXECUCAO = 'Em execução';
     private static final String CTI_INTEGRATION_QUEUE = 'CTIIntegrationQueue';
     private static final String CASE_SUBJECT_PALITAGEM_FIXA = 'Palitagem Fixa';
+    private static final String CASE_SUBJECT_PALITAGEM_PRE = 'Palitagem Pre';
     private static final String EXCEPTION_MESSAGE = 'Exception on ServiceFlowGPSEngine -->';
 
     private static final Id CURRENT_USER_ID = UserInfo.getUserId();
-    private static final Id RECORDTYPE_ID_CASE_CTI = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('CTIService').getrecordTypeId();
+    private static final Id RECORDTYPE_ID_CASE_CTI  = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('CTIService').getrecordTypeId();
     private static final Id RECORDTYPE_ID_CASE_FIXA = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('FixedServiceQualification').getrecordTypeId();
+    private static final Id RECORDTYPE_ID_CASE_PRE  = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('PreDefectAndRepair').getrecordTypeId();
 
     public static List<Asset> getAssetFixedByAccount(Id accountId) {
         List<Asset> ltAsset = AssetDAO.getAssetFixedByAccount(accountId);        
         return ltAsset;
     }
+
+    public static List<Asset> getAssetPreByAccount(Id accountId) {
+        List<Asset> ltAsset = AssetDAO.getAssetPreByAccount(accountId);        
+        return ltAsset;
+    }    
 
     public static Map<String, Object> getAccountInfo(Id accountId) {
         Map<String, Object> mapResult = new Map<String, Object>();
@@ -820,37 +831,48 @@ public with sharing class ServiceFlowGPSEngine {
     }
 
     public static void createCase(String accountId, String assetInstance, GPSProtocol gpsProtocol, Id serviceFlowId, String parentCaseId){
+        String productType;
         Case newCase = new Case();
         
-        try {
-            
+        try {            
             newCase.AccountId = accountId;
             newCase.Product__c = assetInstance;
-            newCase.Origin = CASE_ORIGIN_GPS;
-            newCase.Subject = CASE_SUBJECT_PALITAGEM_FIXA;
             newCase.Status = CASE_STATUS_CLOSED;
             newCase.Priority = CASE_PRIORITY_LOW;
             newCase.Protocol__c = gpsProtocol.protocol;
             if(parentCaseId != null && parentCaseId != ''){
                 newCase.ParentId = parentCaseId;
             }
-            
-            newCase.Description = '';
-            newCase.Description = gpsProtocol.protocol != null ? newCase.Description + 'Protocolo: ' + gpsProtocol.protocol : newCase.Description; 
-            newCase.Description = gpsProtocol.ssNumber != null ? newCase.Description + ' Número da SS: ' + gpsProtocol.ssNumber : newCase.Description; 
-            newCase.Description = gpsProtocol.ssStatus != null ? newCase.Description + ' Status da SS: ' + gpsProtocol.ssStatus : newCase.Description; 
-            newCase.Description = gpsProtocol.errorDetail != null ? newCase.Description + ' Detalhe do erro: ' + gpsProtocol.errorDetail : newCase.Description; 
-            
+                       
             List<CustomerInteractionTopicTree__c> ltCustomerInteractionTopicTree = new List<CustomerInteractionTopicTree__c>();
             ltCustomerInteractionTopicTree = CustomerInteractionTopicTreeDAO.getEndFlowCustomerInteractionTopicTreeById(serviceFlowId);
             
             if(ltCustomerInteractionTopicTree[0] != null && ltCustomerInteractionTopicTree[0].GpsFlow__c != null){
                 newCase.ServiceReason__c = ltCustomerInteractionTopicTree[0].GpsFlow__c;
-                //newCase.ServiceQualificationMobile__c = ltCustomerInteractionTopicTree[0].Id;
+                newCase.ServiceQualificationMobile__c = ltCustomerInteractionTopicTree[0].Id;
+                productType = ltCustomerInteractionTopicTree[0].ProductType__c;
             }
-            
-            newCase.RecordTypeId = RECORDTYPE_ID_CASE_FIXA;
 
+            newCase.Description = '';
+            
+            //DTT-KAISER
+            if(productType=='Pre'){
+                newCase.Origin         = CASE_ORIGIN_GPS_PRE;
+                newCase.Subject        = CASE_SUBJECT_PALITAGEM_PRE;
+                newCase.RecordTypeId   = RECORDTYPE_ID_CASE_PRE;
+                newCase.Description = gpsProtocol.protocol != null ? newCase.Description + 'Protocolo: ' + gpsProtocol.protocol : newCase.Description; 
+                newCase.Description = gpsProtocol.ssNumber != null ? newCase.Description + ' Número do Atendimento: ' + gpsProtocol.ssNumber : newCase.Description; 
+                newCase.Description = gpsProtocol.ssStatus != null ? newCase.Description + ' Status do Atendimento: ' + gpsProtocol.ssStatus : newCase.Description; 
+                newCase.Description = gpsProtocol.errorDetail != null ? newCase.Description + ' Detalhe do erro: ' + gpsProtocol.errorDetail : newCase.Description;                 
+            }else{
+                newCase.Origin         = CASE_ORIGIN_GPS;
+                newCase.Subject        = CASE_SUBJECT_PALITAGEM_FIXA;
+                newCase.RecordTypeId   = RECORDTYPE_ID_CASE_FIXA;
+                newCase.Description = gpsProtocol.protocol != null ? newCase.Description + 'Protocolo: ' + gpsProtocol.protocol : newCase.Description; 
+                newCase.Description = gpsProtocol.ssNumber != null ? newCase.Description + ' Número da SS: ' + gpsProtocol.ssNumber : newCase.Description; 
+                newCase.Description = gpsProtocol.ssStatus != null ? newCase.Description + ' Status da SS: ' + gpsProtocol.ssStatus : newCase.Description; 
+                newCase.Description = gpsProtocol.errorDetail != null ? newCase.Description + ' Detalhe do erro: ' + gpsProtocol.errorDetail : newCase.Description;                 
+            }            
             insert newCase;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
@@ -1010,6 +1032,8 @@ public with sharing class ServiceFlowGPSEngine {
     }
 
     public static CanvasResult getCanvasParameters(String recordId, String serviceFlowId, String assetInstance, String caseId){
+        String	ProductType='';
+        
         CanvasResult result = new CanvasResult();
         Map<String,Object> parameters = new Map<String,Object>();
 
@@ -1036,8 +1060,9 @@ public with sharing class ServiceFlowGPSEngine {
 
             try{
                 Case c = CaseDAO.getCasebyId(caseId);
-                if(c.Status != CASE_STATUS_EM_ATENDIMENTO){
+                if(c.Status != CASE_STATUS_EM_ATENDIMENTO && c.status != CASE_STATUS_EM_EXECUCAO){
                     result.canOpenCanvas = false;
+                    result.message = 'Status inválido';
                     return result;
                 }
                 parameters.put('CaseNumber', c.CaseNumber);
@@ -1051,6 +1076,7 @@ public with sharing class ServiceFlowGPSEngine {
                 List<CustomerInteractionTopicTree__c> ltCustomerInteractionTopicTree = CustomerInteractionTopicTreeDAO.getEndFlowCustomerInteractionTopicTreeById(serviceFlowId);
                 if(ltCustomerInteractionTopicTree.size() > 0){
                     parameters.put('TipificacaoId', ltCustomerInteractionTopicTree[0].GPSId__c);
+                    ProductType = ltCustomerInteractionTopicTree[0].ProductType__c;
                 }
             } catch (Exception e){
                 System.debug(EXCEPTION_MESSAGE + e.getMessage());
@@ -1077,7 +1103,11 @@ public with sharing class ServiceFlowGPSEngine {
                 System.debug(EXCEPTION_MESSAGE + e.getMessage());
             }
 
-            result.canvasAppName        = GPS_CANVAS_APP_NAME;
+            if(ProductType =='Pre'){
+            	result.canvasAppName        = GPS_CANVAS_CONVERGENTE_APP_NAME;
+            }else{
+            	result.canvasAppName        = GPS_CANVAS_APP_NAME;                
+            }
             result.parameters           = parameters;
             result.canOpenCanvas        = true;
         }
@@ -1111,13 +1141,16 @@ public with sharing class ServiceFlowGPSEngine {
 
             String gpsFlowId;
             String customerInteractionTopicTreeId;
-            String userId = UserInfo.getUserId();
-            String caseId = payload.get('caseId');
-            String accountId = payload.get('accountId');
-            String caseIdUra = payload.get('caseIdUra');
-            String selectedFlow = payload.get('selectedFlow');
-            String selectedAssetId = payload.get('selectedAssetId');
+            String userId                = UserInfo.getUserId();
+            String caseId                = payload.get('caseId');
+            String accountId             = payload.get('accountId');
+            String caseIdUra             = payload.get('caseIdUra');
+            String selectedFlow          = payload.get('selectedFlow');
+            String selectedAssetId       = payload.get('selectedAssetId');
             String selectedAssetInstance = payload.get('selectedAssetInstance');
+            String productType;
+            
+            List<Case> previousCaseList;
 
             List<CustomerInteractionTopicTree__c> ltCustomerInteractionTopicTree = new List<CustomerInteractionTopicTree__c>();
             ltCustomerInteractionTopicTree = CustomerInteractionTopicTreeDAO.getEndFlowCustomerInteractionTopicTreeById(selectedFlow);
@@ -1125,6 +1158,7 @@ public with sharing class ServiceFlowGPSEngine {
             if(ltCustomerInteractionTopicTree.size() > 0 && ltCustomerInteractionTopicTree[0] != null && ltCustomerInteractionTopicTree[0].GpsFlow__c != null){
                 gpsFlowId= ltCustomerInteractionTopicTree[0].GpsFlow__c;
                 customerInteractionTopicTreeId = ltCustomerInteractionTopicTree[0].Id;
+                productType = ltCustomerInteractionTopicTree[0].ProductType__c;
             }
 
             if(caseId != null && caseId != ''){
@@ -1133,55 +1167,64 @@ public with sharing class ServiceFlowGPSEngine {
 
                 if(existingCase != null){
 
-                    existingCase.Product__c = selectedAssetInstance;
+                    existingCase.Product__c         = selectedAssetInstance;
                     existingCase.ComplainedAsset__c = selectedAssetId;
-                    existingCase.ServiceReason__c = gpsFlowId;
+                    existingCase.ServiceReason__c   = gpsFlowId;
                     // existingCase.ServiceQualificationMobile__c = customerInteractionTopicTreeId;
     
                     update existingCase;
-    
                     return existingCase;
+                    
                 }else{
                     throw new AuraHandledException('Caso não localizado na base');
                 }
             } else{
-                List<Case> previousCaseList = CaseDAO.getOpenCaseFixa(accountId, userId);
+                if(productType=='Pre'){
+                    //recupearar um caso Pré
+                	previousCaseList = CaseDAO.getOpenCasePre(accountId, userId);
+                }else{
+                	previousCaseList = CaseDAO.getOpenCaseFixa(accountId, userId);
+                }
 
                 if(previousCaseList.size() > 0){
                     Case previousCase = previousCaseList[0];
 
-                    previousCase.Product__c = selectedAssetInstance;
+                    previousCase.Product__c         = selectedAssetInstance;
                     previousCase.ComplainedAsset__c = selectedAssetId;
-                    previousCase.ServiceReason__c = gpsFlowId;
+                    previousCase.ServiceReason__c   = gpsFlowId;
                     // previousCase.ServiceQualificationMobile__c = customerInteractionTopicTreeId;
 
                     update previousCase;
-
                     return previousCase;
+                    
                 }else{
                     Case newCase = new Case();
 
-                    newCase.AccountId = accountId;
-                    newCase.Product__c = selectedAssetInstance;
+                    newCase.AccountId          = accountId;
+                    newCase.Product__c         = selectedAssetInstance;
                     newCase.ComplainedAsset__c = selectedAssetId;
-                    newCase.Origin = CASE_ORIGIN_GPS;
-                    newCase.Subject = CASE_SUBJECT_PALITAGEM_FIXA;
-                    newCase.Status = CASE_STATUS_EM_ATENDIMENTO;
-                    newCase.Priority = CASE_PRIORITY_MEDIUM;
-                    newCase.ServiceReason__c = gpsFlowId;
+                    newCase.Status             = CASE_STATUS_EM_ATENDIMENTO;
+                    newCase.Priority           = CASE_PRIORITY_MEDIUM;
+                    newCase.ServiceReason__c   = gpsFlowId;
                     // newCase.ServiceQualificationMobile__c = customerInteractionTopicTreeId;
-                    newCase.RecordTypeId = RECORDTYPE_ID_CASE_FIXA;
+
+                    if(productType=='Pre'){
+                    	newCase.Origin         = CASE_ORIGIN_GPS_PRE;
+                    	newCase.Subject        = CASE_SUBJECT_PALITAGEM_PRE;
+                    	newCase.RecordTypeId   = RECORDTYPE_ID_CASE_PRE;
+                    }else{
+                    	newCase.Origin         = CASE_ORIGIN_GPS;
+                    	newCase.Subject        = CASE_SUBJECT_PALITAGEM_FIXA;
+                    	newCase.RecordTypeId   = RECORDTYPE_ID_CASE_FIXA;
+                    }
                     
                     if(caseIdUra != null){
-    
-                        Case caseURA = CaseDAO.getCasebyId(caseIdUra);
-                        newCase.ParentId = caseURA.Id;
+                        Case caseURA           = CaseDAO.getCasebyId(caseIdUra);
+                        newCase.ParentId       = caseURA.Id;
                         newCase.ProtocolURA__c = caseURA.ProtocolURA__c;
-                        newCase.CallerDDD__c = caseURA.CallerDDD__c;
-                        newCase.CallerPhone__c = caseURA.CallerPhone__c;
-                        
-                    }
-        
+                        newCase.CallerDDD__c   = caseURA.CallerDDD__c;
+                        newCase.CallerPhone__c = caseURA.CallerPhone__c;                        
+                    }        
                     insert newCase;
                     return newCase;
                 }
