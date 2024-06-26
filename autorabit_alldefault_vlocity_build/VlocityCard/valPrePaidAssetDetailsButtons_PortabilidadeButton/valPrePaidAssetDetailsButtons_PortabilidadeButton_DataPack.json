@@ -1,0 +1,267 @@
+{
+    "%vlocity_namespace%__Author__c": "Telefonica",
+    "%vlocity_namespace%__CardType__c": "flex",
+    "%vlocity_namespace%__Datasource__c": {
+        "dataSource": {
+            "contextVariables": [
+                {
+                    "id": 4,
+                    "name": "recordId",
+                    "val": "02i76000009Pdg3AAC"
+                }
+            ],
+            "orderBy": {
+            },
+            "type": null,
+            "value": {
+            }
+        },
+        "event-0_1": {
+            "contextVariables": [
+                {
+                    "id": 4,
+                    "name": "recordId",
+                    "val": "02i76000009Pdg3AAC"
+                },
+                {
+                    "id": 2,
+                    "name": "Products.AssetId",
+                    "val": ""
+                },
+                {
+                    "id": 4,
+                    "name": "Parent.InteractionId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "AssetId": "{Products.AssetId}",
+                    "InteractionId": "{Parent.InteractionId}",
+                    "TopicName": "Portabilidade"
+                },
+                "ipMethod": "val_CreateProtocolFromTopicsName",
+                "jsonMap": "{\"recordId\":\"{recordId}\",\"Products.AssetId\":\"{Products.AssetId}\",\"Parent.InteractionId\":\"{Parent.InteractionId}\"}",
+                "vlocityAsync": false
+            }
+        },
+        "state0element0_0": {
+            "contextVariables": [
+                {
+                    "id": 4,
+                    "name": "Products.AssetId",
+                    "val": ""
+                },
+                {
+                    "id": 6,
+                    "name": "Parent.InteractionId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": false,
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "AssetId": "{Products.AssetId}",
+                    "InteractionId": "{Parent.InteractionId}",
+                    "TopicName": "Portabilidade"
+                },
+                "ipMethod": "val_CreateProtocolFromTopicsName",
+                "jsonMap": "{\"Products.AssetId\":\"{Products.AssetId}\",\"Parent.InteractionId\":\"{Parent.InteractionId}\"}",
+                "vlocityAsync": false
+            }
+        },
+        "state1element2_0": {
+            "contextVariables": [
+                {
+                    "id": 2,
+                    "name": "recordId",
+                    "val": ""
+                },
+                {
+                    "id": 4,
+                    "name": "Products.OrderNumber",
+                    "val": ""
+                },
+                {
+                    "id": 6,
+                    "name": "Products.AccountId",
+                    "val": ""
+                },
+                {
+                    "id": 8,
+                    "name": "Products.LineNumber",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": false,
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "accountId": "{Products.AccountId}",
+                    "networkNumber": "{Products.LineNumber}",
+                    "rechargeType": "3",
+                    "requestId": "{Products.OrderNumber}"
+                },
+                "ipMethod": "val_CalloutCustomerOrderEligibility",
+                "jsonMap": "{\"recordId\":\"{recordId}\",\"Products.OrderNumber\":\"{Products.OrderNumber}\",\"Products.AccountId\":\"{Products.AccountId}\",\"Products.LineNumber\":\"{Products.LineNumber}\"}",
+                "vlocityAsync": false
+            }
+        },
+        "state1element3_1": {
+            "contextVariables": [
+                {
+                    "id": 4,
+                    "name": "recordId",
+                    "val": "02i76000000IOYaAAO"
+                },
+                {
+                    "id": 3,
+                    "name": "Products.ServiceAccountId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": false,
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "AccountId": "{Products.ServiceAccountId}",
+                    "AssetId": "{recordId}"
+                },
+                "ipMethod": "val_ValidateCrossOrderByAsset",
+                "jsonMap": "{\"recordId\":\"{recordId}\",\"Products.ServiceAccountId\":\"{Products.ServiceAccountId}\"}",
+                "vlocityAsync": false
+            }
+        },
+        "state1element3_2": {
+            "contextVariables": [
+                {
+                    "id": 4,
+                    "name": "recordId",
+                    "val": "02i76000000IOYaAAO"
+                },
+                {
+                    "id": 4,
+                    "name": "Products.LineNumber",
+                    "val": ""
+                },
+                {
+                    "id": 5,
+                    "name": "Products.ProductCode",
+                    "val": ""
+                },
+                {
+                    "id": 6,
+                    "name": "Products.Attributes.ATT_DC_RM_PROMO_PO_1",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": false,
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "PriceAttribute": "{Products.Attributes.ATT_DC_RM_PROMO_PO_1}",
+                    "ProductCode": "{Products.ProductCode}",
+                    "networkNumber": "{Products.LineNumber}"
+                },
+                "ipMethod": "val_ValidateBalanceLine",
+                "jsonMap": "{\"recordId\":\"{recordId}\",\"Products.LineNumber\":\"{Products.LineNumber}\",\"Products.ProductCode\":\"{Products.ProductCode}\",\"Products.Attributes.ATT_DC_RM_PROMO_PO_1\":\"{Products.Attributes.ATT_DC_RM_PROMO_PO_1}\"}",
+                "vlocityAsync": false
+            }
+        },
+        "state1element8_0": {
+            "contextVariables": [
+                {
+                    "id": 2,
+                    "name": "Parent.AccountId",
+                    "val": "02i76000000hdE4AAI"
+                },
+                {
+                    "id": 3,
+                    "name": "recordId",
+                    "val": "02i76000000hdE4AAI"
+                }
+            ],
+            "orderBy": {
+                "isReverse": false,
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "AccountId": "{Parent.AccountId}",
+                    "AssetId": "{recordId}"
+                },
+                "ipMethod": "val_ValidateCrossOrderByAsset",
+                "jsonMap": "{\"Parent.AccountId\":\"{Parent.AccountId}\",\"recordId\":\"{recordId}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        },
+        "state1element8_2": {
+            "contextVariables": [
+                {
+                    "id": 3,
+                    "name": "Products.LineNumber",
+                    "val": "11999205044"
+                },
+                {
+                    "id": 4,
+                    "name": "Products.ServiceAccountId",
+                    "val": "00176000002eKAoAAM"
+                }
+            ],
+            "orderBy": {
+                "isReverse": false,
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "accountId": "{Products.ServiceAccountId}",
+                    "serviceIdentifier": "{Products.LineNumber}"
+                },
+                "ipMethod": "val_ProductDetailsData",
+                "jsonMap": "{\"Products.LineNumber\":\"{Products.LineNumber}\",\"Products.ServiceAccountId\":\"{Products.ServiceAccountId}\"}",
+                "vlocityAsync": false
+            }
+        }
+    },
+    "%vlocity_namespace%__Definition__c": "valPrePaidAssetDetailsButtons_PortabilidadeButton.json",
+    "%vlocity_namespace%__Description__c": "[copy 3]Botão referente a Novo menu de opçoes[Paulo Silva].",
+    "%vlocity_namespace%__GlobalKey__c": "valPrePaidAssetDetailsButtons_PortabilidadeButton/Telefonica/2/1703858925836",
+    "%vlocity_namespace%__IsChildCard__c": true,
+    "%vlocity_namespace%__ParentID__c": "",
+    "%vlocity_namespace%__SampleData__c": "",
+    "%vlocity_namespace%__Styles__c": "{\"styleObjects\":{\"statusColor\":{\"sizeClass\":\"slds-size_2-of-12 \",\"size\":{\"isResponsive\":false,\"default\":\"2\"},\"padding\":[],\"margin\":[],\"background\":{\"color\":\"#DFD105\",\"image\":\"\",\"size\":\"\",\"repeat\":\"\",\"position\":\"\"},\"container\":{\"class\":\"\"},\"border\":{\"type\":\"\",\"width\":\"\",\"color\":\"#cccccc\",\"radius\":\"3px\",\"style\":\"\"},\"elementStyleProperties\":{\"styles\":{\"value\":{\"color\":\"#FFF\"}}},\"text\":{\"align\":\"center\",\"color\":\"\"},\"inlineStyle\":\"margin-top: 3.2px;\\nfont-weight: bold;\",\"class\":\"slds-text-align_center \",\"style\":\"background-color:#DFD105;      \\n    border-radius:3px;     margin-top: 3.2px;\\nfont-weight: bold;\",\"selectedStyles\":\"statusColor\",\"element\":\"outputField\"}},\"customStyles\":\".editButton {\\r\\n    background-color: #fff;\\r\\n}\\r\\n\\r\\n.editButton:hover {\\r\\n    background-color:  #660099;\\r\\n}\\r\\n\\r\\n.extratoIcon:hover{\\r\\n   filter: invert(100%) brightness(105000%) contrast(106%);\\r\\n}\\r\\n\\r\\n.iconButtonExtrato{\\r\\n    max-width: 35px;\\r\\n    border-style: solid;\\r\\n    border-width: 1px;\\r\\n}\\r\\n\\r\\n.iconButtonExtrato:hover{\\r\\n    background-color: #660099;\\r\\n  \\r\\n}\\r\\n\"}",
+    "%vlocity_namespace%__Type__c": "",
+    "%vlocity_namespace%__Version__c": 4,
+    "Name": "valPrePaidAssetDetailsButtons_PortabilidadeButton",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityCard__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__VlocityCard__c/valPrePaidAssetDetailsButtons_PortabilidadeButton"
+}

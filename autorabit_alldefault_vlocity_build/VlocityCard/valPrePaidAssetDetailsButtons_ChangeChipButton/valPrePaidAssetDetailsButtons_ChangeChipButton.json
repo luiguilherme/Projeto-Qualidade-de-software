@@ -4,7 +4,7 @@
             {
                 "id": 4,
                 "name": "recordId",
-                "val": "02i76000009Pdg3AAC"
+                "val": "02i7600000EJCR0AAP"
             }
         ],
         "orderBy": {
@@ -18,14 +18,270 @@
     },
     "enableLwc": true,
     "events": [
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1717678488937-g5upuw2fr",
+                    "label": "ValidateJourneys",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "id": "flex-action-1718708403073",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateAllJourneys\",\"vlocityAsync\":false,\"inputMap\":{\"serviceType\":\"507\",\"InteractionId\":\"{Parent.InteractionId}\",\"AccountId\":\"{Parent.AccountId}\",\"AssetId\":\"{Parent.AssetId}\",\"PreSetValues\":\"true\",\"CheckBiometric\":\"true\",\"Functionality\":\"ChangeSimCard\",\"ValidateOrder\":\"true\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"Parent.InteractionId\\\":\\\"{Parent.InteractionId}\\\",\\\"Parent.AccountId\\\":\\\"{Parent.AccountId}\\\",\\\"Parent.AssetId\\\":\\\"{Parent.AssetId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"02i76000000MqPQAA0\",\"id\":4},{\"name\":\"Parent.InteractionId\",\"val\":\"\",\"id\":17},{\"name\":\"Parent.AccountId\",\"val\":\"\",\"id\":18},{\"name\":\"Parent.AssetId\",\"val\":\"\",\"id\":19}]}",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "DataAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1717692767039-hbtlqe5xe",
+                    "label": "valToast",
+                    "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "blockJourney",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-21",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "true"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "valToast",
+                        "extraParams": {
+                            "message": "{message}",
+                            "variant": "{variant}"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1717692817262",
+                        "message": "showToast",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 2,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "isTrackingDisabled": true,
+                    "key": "1718658540871-byam6cxcf",
+                    "label": "ValidadeStatusLine",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "blockJourney",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-0",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "false"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "id": "flex-action-1718708421607",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_CheckStatusLineChangeChip\",\"vlocityAsync\":false,\"inputMap\":{\"accountId\":\"{Parent.AccountId}\",\"assetId\":\"{Parent.AssetId}\",\"serviceIdentifier\":\"{Products.LineNumber}\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"Parent.AccountId\\\":\\\"{Parent.AccountId}\\\",\\\"Parent.AssetId\\\":\\\"{Parent.AssetId}\\\",\\\"Products.LineNumber\\\":\\\"{Products.LineNumber}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"02i76000009Pdg3AAC\",\"id\":4},{\"name\":\"Parent.AccountId\",\"val\":\"\",\"id\":1},{\"name\":\"Parent.AssetId\",\"val\":\"\",\"id\":3},{\"name\":\"Products.LineNumber\",\"val\":\"\",\"id\":5}]}",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "DataAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 3,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1718658673422-a2wg7f1ul",
+                    "label": "toastValidadeStatusLine",
+                    "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "StatusLine",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-7",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "false"
+                                },
+                                {
+                                    "field": "blockJourney",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-6",
+                                    "logicalOperator": "&&",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "false"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "valToast",
+                        "extraParams": {
+                            "message": "O status da linha não permite seguir com a troca de simcard.",
+                            "variant": "warning"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1718659741289",
+                        "message": "showToast",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 4,
+                    "card": "{card}",
+                    "contextId": "\\{Parent.InteractionId}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1717693079455-ira0mje53",
+                    "label": "Action Omni",
+                    "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "blockJourney",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-42",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "false"
+                                },
+                                {
+                                    "field": "StatusLine",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-14",
+                                    "logicalOperator": "&&",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "true"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "extraParams": {
+                            "c__AccountId": "{Parent.AccountId}",
+                            "c__AssetId": "{Parent.AssetId}",
+                            "c__ChannelName": "{ChannelName}",
+                            "c__Functionality": "ChangeSimCard",
+                            "c__InteractionNumber": "{Parent.InteractionNumber}",
+                            "c__LineNumber": "{Products.LineNumber}"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1718658747854",
+                        "isLwcOS": true,
+                        "layoutType": "lightning",
+                        "omniType": {
+                            "Id": "a3076000000HP0aAAG",
+                            "Name": "val/changeChipJourney/Portuguese (Brazil)",
+                            "isLwcOs": true
+                        },
+                        "openUrlIn": "New Tab/Window",
+                        "tabIcon": "utility:change_record_type",
+                        "tabLabel": "Troca de SIM Card",
+                        "type": "OmniScript",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 4,
+                    "card": "{card}",
+                    "contextId": "\\{Parent.InteractionId}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1717693272901-c63iupj7n",
+                    "label": "PalitagemManual",
+                    "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "palitagem",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-54",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "true"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "extraParams": {
+                            "c__AccountId": "{Parent.AccountId}",
+                            "c__AssetId": "{Parent.AssetId}",
+                            "c__CustomerInteractionId": "{Parent.InteractionId}",
+                            "c__InteractionNumber": "{Parent.InteractionNumber}",
+                            "c__SourceCalled": "SalesJourney",
+                            "c__lineNumber": "{Products.LineNumber}"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1717693403476",
+                        "isLwcOS": true,
+                        "layoutType": "lightning",
+                        "omniType": {
+                            "Id": "a3076000000AsWyAAK",
+                            "Name": "val/AddRelationShipTopic/English",
+                            "isLwcOs": true
+                        },
+                        "openUrlIn": "Current Window",
+                        "tabIcon": "standard:cancel_checkout",
+                        "tabLabel": "Palitar",
+                        "type": "OmniScript",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "valPrePaidAssetDetailsButtons_ChannelNameButtons",
+            "displayLabel": "valPrePaidAssetDetailsButtons_ChannelNameButtons:Troca de Chip",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "Troca de Chip",
+            "eventtype": "pubsub",
+            "key": "event-0",
+            "recordIndex": "0",
+            "showSpinner": "true"
+        }
     ],
     "globalCSS": false,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValPrePaidAssetDetailsButtons_ChangeChipButton_8_Telefonica",
-        "Id": "0Rb76000000DQXhCAO",
+        "DeveloperName": "cfValPrePaidAssetDetailsButtons_ChangeChipButton_11_Telefonica",
+        "Id": "0Rb760000005687CAA",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValPrePaidAssetDetailsButtons_ChangeChipButton_8_Telefonica",
+        "MasterLabel": "cfValPrePaidAssetDetailsButtons_ChangeChipButton_11_Telefonica",
         "NamespacePrefix": "c"
     },
     "multilanguageSupport": true,
@@ -49,198 +305,26 @@
                                     {
                                         "actionIndex": 0,
                                         "card": "{card}",
-                                        "draggable": false,
+                                        "contextId": "\\{Parent.InteractionId}",
+                                        "draggable": true,
                                         "isOpen": true,
-                                        "key": "1708456443289-8ssmvwpg9",
-                                        "label": "CheckBiometric",
-                                        "stateAction": {
-                                            "Web Page": {
-                                                "targetName": "/apex"
-                                            },
-                                            "displayName": "Action",
-                                            "eventName": "updatedatasource",
-                                            "id": "flex-action-1711998797147",
-                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateAllJourneys\",\"vlocityAsync\":false,\"inputMap\":{\"serviceType\":\"507\",\"InteractionId\":\"{Parent.InteractionId}\",\"AccountId\":\"{Parent.AccountId}\",\"AssetId\":\"{Parent.AssetId}\",\"PreSetValues\":\"true\",\"CheckBiometric\":\"true\",\"Functionality\":\"ChangeChip\",\"ValidateOrder\":\"true\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"Parent.InteractionId\\\":\\\"{Parent.InteractionId}\\\",\\\"IPResult\\\":\\\"{IPResult}\\\",\\\"Parent.AccountId\\\":\\\"{Parent.AccountId}\\\",\\\"Parent.AssetId\\\":\\\"{Parent.AssetId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"02i76000009Pdg3AAC\",\"id\":4},{\"name\":\"Parent.InteractionId\",\"val\":\"\",\"id\":2},{\"name\":\"IPResult\",\"val\":\"\",\"id\":3},{\"name\":\"Parent.AccountId\",\"val\":\"\",\"id\":5},{\"name\":\"Parent.AssetId\",\"val\":\"\",\"id\":7}]}",
-                                            "openUrlIn": "Current Window",
-                                            "targetType": "Web Page",
-                                            "type": "DataAction",
-                                            "vlocityIcon": "standard-default"
-                                        }
-                                    },
-                                    {
-                                        "actionIndex": 1,
-                                        "card": "{card}",
-                                        "draggable": false,
-                                        "isOpen": true,
-                                        "key": "1708457779463-vq8lbvxmi",
-                                        "label": "valToast",
+                                        "key": "1708536601643-183ai050y",
+                                        "label": "event",
                                         "stateAction": {
                                             "actionConditions": {
                                                 "group": [
-                                                    {
-                                                        "field": "blockJourney",
-                                                        "hasMergeField": false,
-                                                        "id": "state-new-condition-0",
-                                                        "operator": "==",
-                                                        "type": "custom",
-                                                        "value": "true"
-                                                    }
                                                 ],
                                                 "id": "state-condition-object",
                                                 "isParent": true
                                             },
                                             "displayName": "Action",
-                                            "eventName": "valToast",
-                                            "extraParams": {
-                                                "message": "{message}",
-                                                "variant": "{variant}"
-                                            },
-                                            "hasExtraParams": true,
-                                            "id": "flex-action-1711998272011",
-                                            "message": "showToast",
+                                            "eventName": "valPrePaidAssetDetailsButtons_ChannelNameButtons",
+                                            "hasExtraParams": false,
+                                            "id": "flex-action-1717678522713",
+                                            "message": "Troca de Chip",
                                             "openUrlIn": "Current Window",
                                             "subType": "PubSub",
                                             "type": "Event",
-                                            "vlocityIcon": "standard-default"
-                                        }
-                                    },
-                                    {
-                                        "actionIndex": 2,
-                                        "card": "{card}",
-                                        "draggable": true,
-                                        "isOpen": true,
-                                        "key": "1702662083200-mmdx594zy",
-                                        "label": "CallOutGetProductStatus",
-                                        "stateAction": {
-                                            "Web Page": {
-                                                "targetName": "/apex"
-                                            },
-                                            "actionConditions": {
-                                                "group": [
-                                                    {
-                                                        "field": "blockJourney",
-                                                        "hasMergeField": false,
-                                                        "id": "state-new-condition-7",
-                                                        "operator": "==",
-                                                        "type": "custom",
-                                                        "value": "false"
-                                                    }
-                                                ],
-                                                "id": "state-condition-object",
-                                                "isParent": true
-                                            },
-                                            "displayName": "Action",
-                                            "id": "flex-action-1711998894865",
-                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_changeChipJourney\",\"vlocityAsync\":false,\"inputMap\":{\"serviceIdentifier\":\"{Products.LineNumber}\",\"accountId\":\"{Parent.AccountId}\",\"assetId\":\"{Parent.AssetId}\"},\"jsonMap\":\"{\\\"Products.LineNumber\\\":\\\"{Products.LineNumber}\\\",\\\"Parent.AccountId\\\":\\\"{Parent.AccountId}\\\",\\\"Parent.AssetId\\\":\\\"{Parent.AssetId}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"Products.LineNumber\",\"val\":\"11999509976\",\"id\":1},{\"name\":\"Parent.AccountId\",\"val\":\"0017600000Xf6dvAAB\",\"id\":3},{\"name\":\"Parent.AssetId\",\"val\":\"\",\"id\":6}]}",
-                                            "openUrlIn": "Current Window",
-                                            "responseNode": "",
-                                            "targetType": "Web Page",
-                                            "type": "DataAction",
-                                            "vlocityIcon": "standard-default"
-                                        }
-                                    },
-                                    {
-                                        "actionIndex": 3,
-                                        "card": "{card}",
-                                        "contextId": "\\{Parent.InteractionId}",
-                                        "draggable": false,
-                                        "isOpen": true,
-                                        "key": "1702662612889-a1dukno8c",
-                                        "label": "Action Omni",
-                                        "stateAction": {
-                                            "actionConditions": {
-                                                "group": [
-                                                    {
-                                                        "field": "StatusLine",
-                                                        "hasMergeField": false,
-                                                        "id": "state-new-condition-0",
-                                                        "operator": "==",
-                                                        "type": "custom",
-                                                        "value": "true"
-                                                    },
-                                                    {
-                                                        "field": "blockJourney",
-                                                        "hasMergeField": false,
-                                                        "id": "state-new-condition-34",
-                                                        "logicalOperator": "&&",
-                                                        "operator": "==",
-                                                        "type": "custom",
-                                                        "value": "false"
-                                                    }
-                                                ],
-                                                "id": "state-condition-object",
-                                                "isParent": true
-                                            },
-                                            "displayName": "Action",
-                                            "extraParams": {
-                                                "c__AccountId": "{Parent.AccountId}",
-                                                "c__AssetId": "{Parent.AssetId}",
-                                                "c__ChannelName": "{ChannelName}",
-                                                "c__Functionality": "ChangeSimCard",
-                                                "c__InteractionNumber": "{Parent.InteractionNumber}",
-                                                "c__LineNumber": "{Products.LineNumber}"
-                                            },
-                                            "hasExtraParams": true,
-                                            "id": "flex-action-1711998883374",
-                                            "isLwcOS": true,
-                                            "layoutType": "lightning",
-                                            "omniType": {
-                                                "Id": "a3076000000PGv8AAG",
-                                                "Name": "val/changeChipJourney/Portuguese (Brazil)",
-                                                "isLwcOs": true
-                                            },
-                                            "openUrlIn": "New Tab/Window",
-                                            "tabIcon": "utility:change_record_type",
-                                            "tabLabel": "Troca de SIM Card",
-                                            "type": "OmniScript",
-                                            "vlocityIcon": "standard-default"
-                                        }
-                                    },
-                                    {
-                                        "actionIndex": 6,
-                                        "card": "{card}",
-                                        "contextId": "\\{Parent.InteractionId}",
-                                        "draggable": true,
-                                        "isOpen": false,
-                                        "key": "1708536601643-183ai050y",
-                                        "label": "PalitagemManual",
-                                        "stateAction": {
-                                            "actionConditions": {
-                                                "group": [
-                                                    {
-                                                        "field": "palitagem",
-                                                        "hasMergeField": false,
-                                                        "id": "state-new-condition-7",
-                                                        "operator": "==",
-                                                        "type": "custom",
-                                                        "value": "true"
-                                                    }
-                                                ],
-                                                "id": "state-condition-object",
-                                                "isParent": true
-                                            },
-                                            "displayName": "Action",
-                                            "extraParams": {
-                                                "c__AccountId": "{Parent.AccountId}",
-                                                "c__AssetId": "{Parent.AssetId}",
-                                                "c__CustomerInteractionId": "{Parent.InteractionId}",
-                                                "c__InteractionNumber": "{Parent.InteractionNumber}",
-                                                "c__SourceCalled": "SalesJourney",
-                                                "c__lineNumber": "{Products.LineNumber}"
-                                            },
-                                            "hasExtraParams": true,
-                                            "id": "flex-action-1708536733917",
-                                            "isLwcOS": true,
-                                            "layoutType": "lightning",
-                                            "omniType": {
-                                                "Id": "a3076000000PNwjAAG",
-                                                "Name": "val/AddRelationShipTopic/English",
-                                                "isLwcOs": true
-                                            },
-                                            "openUrlIn": "Current Window",
-                                            "tabIcon": "standard:cancel_checkout",
-                                            "tabLabel": "Palitar",
-                                            "type": "OmniScript",
                                             "vlocityIcon": "standard-default"
                                         }
                                     }
@@ -255,14 +339,20 @@
                                 "flyoutChannel": "close_modal",
                                 "flyoutDetails": {
                                 },
-                                "iconColor": "#dddbda",
+                                "iconColor": "#792BA4",
                                 "iconName": "utility:change_record_type",
-                                "iconOnly": true,
+                                "iconOnly": false,
                                 "iconSize": "small",
-                                "label": "Troca de SIM Card",
+                                "label": "Troca de Chip",
                                 "record": "{record}",
                                 "showSpinner": "true",
-                                "stateObj": "{record}"
+                                "stateObj": "{record}",
+                                "styles": {
+                                    "label": {
+                                        "color": "#792BA4",
+                                        "fontSize": "12px"
+                                    }
+                                }
                             },
                             "size": {
                                 "default": "12",
@@ -289,28 +379,34 @@
                                     ],
                                     "width": "1"
                                 },
-                                "class": "slds-text-align_center slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-top_xx-small slds-m-right_x-small editButton",
+                                "class": "slds-text-align_left slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-top_small slds-p-left_small ",
                                 "container": {
                                     "class": ""
                                 },
-                                "customClass": "editButton",
+                                "customClass": "",
                                 "elementStyleProperties": {
-                                    "iconColor": "#dddbda",
-                                    "iconSize": "small"
-                                },
-                                "inlineStyle": "width: 35px;",
-                                "margin": [
-                                    {
-                                        "label": "right:x-small",
-                                        "size": "x-small",
-                                        "type": "right"
+                                    "iconColor": "#792BA4",
+                                    "iconSize": "small",
+                                    "styles": {
+                                        "label": {
+                                            "color": "#792BA4",
+                                            "fontSize": "12px"
+                                        }
                                     }
+                                },
+                                "inlineStyle": "height: 55px;",
+                                "margin": [
                                 ],
                                 "padding": [
                                     {
-                                        "label": "top:xx-small",
-                                        "size": "xx-small",
+                                        "label": "top:small",
+                                        "size": "small",
                                         "type": "top"
+                                    },
+                                    {
+                                        "label": "left:small",
+                                        "size": "small",
+                                        "type": "left"
                                     }
                                 ],
                                 "size": {
@@ -318,9 +414,9 @@
                                     "isResponsive": false
                                 },
                                 "sizeClass": "slds-size_12-of-12 ",
-                                "style": "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5px;     width: 35px;",
+                                "style": "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5px;     height: 55px;",
                                 "text": {
-                                    "align": "center",
+                                    "align": "left",
                                     "color": ""
                                 }
                             },
@@ -352,28 +448,34 @@
                                             ],
                                             "width": "1"
                                         },
-                                        "class": "slds-text-align_center slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-top_xx-small slds-m-right_x-small editButton",
+                                        "class": "slds-text-align_left slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-top_small slds-p-left_small ",
                                         "container": {
                                             "class": ""
                                         },
-                                        "customClass": "editButton",
+                                        "customClass": "",
                                         "elementStyleProperties": {
-                                            "iconColor": "#dddbda",
-                                            "iconSize": "small"
-                                        },
-                                        "inlineStyle": "width: 35px;",
-                                        "margin": [
-                                            {
-                                                "label": "right:x-small",
-                                                "size": "x-small",
-                                                "type": "right"
+                                            "iconColor": "#792BA4",
+                                            "iconSize": "small",
+                                            "styles": {
+                                                "label": {
+                                                    "color": "#792BA4",
+                                                    "fontSize": "12px"
+                                                }
                                             }
+                                        },
+                                        "inlineStyle": "height: 55px;",
+                                        "margin": [
                                         ],
                                         "padding": [
                                             {
-                                                "label": "top:xx-small",
-                                                "size": "xx-small",
+                                                "label": "top:small",
+                                                "size": "small",
                                                 "type": "top"
+                                            },
+                                            {
+                                                "label": "left:small",
+                                                "size": "small",
+                                                "type": "left"
                                             }
                                         ],
                                         "size": {
@@ -381,9 +483,9 @@
                                             "isResponsive": false
                                         },
                                         "sizeClass": "slds-size_12-of-12 ",
-                                        "style": "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5px;     width: 35px;",
+                                        "style": "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5px;     height: 55px;",
                                         "text": {
-                                            "align": "center",
+                                            "align": "left",
                                             "color": ""
                                         }
                                     }
@@ -459,7 +561,8 @@
     "xmlJson": [
         {
             "@attributes": {
-                "targets": "lightning__AppPage"
+                "targets": "lightning__AppPage",
+                "xmlns": "http://soap.sforce.com/2006/04/metadata"
             },
             "property": [
                 {
@@ -472,7 +575,8 @@
         },
         {
             "@attributes": {
-                "targets": "lightningCommunity__Default"
+                "targets": "lightningCommunity__Default",
+                "xmlns": ""
             },
             "property": [
                 {
@@ -499,11 +603,11 @@
     ],
     "xmlObject": {
         "apiVersion": 51,
-        "id": "0Rb760000000cdNCAQ",
         "isExplicitImport": false,
         "isExposed": true,
         "masterLabel": "valPrePaidAssetDetailsButtons_ChangeChipButton",
-        "targetConfigs": "PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5PjwvdGFyZ2V0Q29uZmlnPjx0YXJnZXRDb25maWcgdGFyZ2V0cz0ibGlnaHRuaW5nQ29tbXVuaXR5X19EZWZhdWx0Ij48cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48L3RhcmdldENvbmZpZz48dGFyZ2V0Q29uZmlnIHRhcmdldHM9ImxpZ2h0bmluZ19fSG9tZVBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5PjwvdGFyZ2V0Q29uZmlnPg==",
+        "runtimeNamespace": "%vlocity_namespace%",
+        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIi8+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyB4bWxucz0iIiB0YXJnZXRzPSJsaWdodG5pbmdDb21tdW5pdHlfX0RlZmF1bHQiPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIi8+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX0hvbWVQYWdlIj48cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPjwvdGFyZ2V0Q29uZmlnPg==",
         "targets": {
             "target": [
                 "lightning__AppPage",
