@@ -28,9 +28,9 @@
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.vlocity_cmt__State__c</leftValueReference>
-                <operator>EqualTo</operator>
+                <operator>NotEqualTo</operator>
                 <rightValue>
-                    <stringValue>Ready</stringValue>
+                    <stringValue>Fatally Failed</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -40,7 +40,7 @@
             <label>Status Processing</label>
         </rules>
     </decisions>
-    <description>Defeito Lock Row - Update Order status to Failed when orchestration plan is executing and an orchestration item is set to state Fatally Failed</description>
+    <description>Update Order status to Failed when orchestration plan is executing and an orchestration item is set to state Fatally Failed</description>
     <environments>Default</environments>
     <interviewLabel>UpdateOrderStatusFailed {!$Flow.CurrentDateTime}</interviewLabel>
     <label>UpdateOrderStatusFailed</label>
@@ -97,24 +97,17 @@
         <connector>
             <targetReference>State_Fatally_Failed</targetReference>
         </connector>
-        <filterLogic>or</filterLogic>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>vlocity_cmt__State__c</field>
-            <operator>EqualTo</operator>
+            <operator>IsChanged</operator>
             <value>
-                <stringValue>Ready</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>vlocity_cmt__State__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Fatally Failed</stringValue>
+                <booleanValue>true</booleanValue>
             </value>
         </filters>
         <object>vlocity_cmt__OrchestrationItem__c</object>
         <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Obsolete</status>
+    <status>Active</status>
 </Flow>
