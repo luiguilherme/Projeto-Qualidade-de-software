@@ -7,34 +7,38 @@
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
     "%vlocity_namespace%__PropertySet__c": {
-        "additionalOutput": {
-            "error": "=IF(ISBLANK(%HTTPCalloutRM:info:statusCode%), \"OK\", %HTTPCalloutRM:info:status%)",
-            "errorCode": "=IF(%HTTPCalloutRMInfo:statusCode% != NULL, %HTTPCalloutRMInfo:statusCode%, 400)",
-            "request": "%DRTChangeStatusRM%",
-            "response": "%HTTPCalloutRM%",
-            "response:code": 200
+        "actionMessage": "",
+        "additionalInput": {
+            "userId": "=$Vlocity.UserId"
         },
+        "additionalOutput": {
+        },
+        "bundle": "valGetChannel",
+        "chainOnStep": false,
+        "dataRaptor Input Parameters": [
+        ],
         "disOnTplt": false,
         "executionConditionalFormula": "",
-        "label": "ResponseAction1",
-        "responseDefaultData": {
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "failureResponse": {
         },
-        "responseFormat": "JSON",
+        "ignoreCache": false,
+        "label": "DataRaptorTurboAction1",
         "responseJSONNode": "",
         "responseJSONPath": "",
-        "returnFullDataJSON": false,
-        "returnOnlyAdditionalOutput": true,
+        "returnOnlyAdditionalOutput": false,
+        "returnOnlyFailureResponse": false,
         "sendJSONNode": "",
         "sendJSONPath": "",
+        "sendOnlyAdditionalInput": true,
         "show": null,
-        "useFormulas": true,
-        "vlcResponseHeaders": {
-        }
+        "useFormulas": true
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
-    "%vlocity_namespace%__Type__c": "Response Action",
-    "Name": "ResponseAction",
+    "%vlocity_namespace%__Type__c": "DataRaptor Turbo Action",
+    "Name": "DRTAGetChannel",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CancelDeactivateLine/Procedure/ResponseAction"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CancelDeactivateLine/Procedure/DRTAGetChannel"
 }
