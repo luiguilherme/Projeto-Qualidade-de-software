@@ -19,14 +19,6 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               @api debug;
               @api recordId;
               @api objectApiName;
-              @api set cfAssetId(val) {
-                if(typeof val !== "undefined") {
-                  this._sessionApiVars["AssetId"] = val;
-                }
-              } get cfAssetId() {
-                return this._sessionApiVars["AssetId"] || "";
-              }
-              
               @track _omniSupportKey = 'cfValPrePaidAssetDetailsButtons_DesativarLinhaButton';
                   @api get omniSupportKey() {
                     return this._omniSupportKey;
@@ -36,12 +28,12 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
                   }
               @track record;
               @track _sessionApiVars = {};
-        @api set cfAsssetId(val) {
+        @api set cfAssetId(val) {
           if(typeof val !== "undefined") {
-            this._sessionApiVars["AsssetId"] = val;
+            this._sessionApiVars["AssetId"] = val;
           }
-        } get cfAsssetId() {
-          return this._sessionApiVars["AsssetId"] || "";
+        } get cfAssetId() {
+          return this._sessionApiVars["AssetId"] || "";
         }
       
               
