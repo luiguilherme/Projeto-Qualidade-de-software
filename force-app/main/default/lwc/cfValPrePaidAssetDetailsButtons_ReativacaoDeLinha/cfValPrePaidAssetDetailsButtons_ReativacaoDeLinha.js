@@ -19,6 +19,15 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               @api debug;
               @api recordId;
               @api objectApiName;
+                            
+              @api set cfAssetId(val) {
+                if(typeof val !== "undefined") {
+                  this._sessionApiVars["AssetId"] = val;
+                }
+              } get cfAssetId() {
+                return this._sessionApiVars["AssetId"] || "";
+              }
+
               @track _omniSupportKey = 'cfValPrePaidAssetDetailsButtons_ReativacaoDeLinha';
                   @api get omniSupportKey() {
                     return this._omniSupportKey;
