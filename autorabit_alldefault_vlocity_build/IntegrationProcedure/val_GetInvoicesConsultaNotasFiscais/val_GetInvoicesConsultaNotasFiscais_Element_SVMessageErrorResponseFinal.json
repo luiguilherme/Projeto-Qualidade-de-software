@@ -25,9 +25,9 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "ListEmpty": "=IF(ISBLANK(%HTTPGetInvoicesByDate:invoices|1:number%),true,false)",
-            "ListError": "=IF(NOT(ISBLANK(%HTTPGetInvoicesByDate:errors|1:message%)),true,false)",
-            "code": "=IF(ISBLANK(%HTTPGetInvoicesByDate:invoices|1:number%),404, 200))"
+            "ListEmpty": "=IF(ISBLANK(%HTTPGetInvoicesByDateInfo:statusCode%),ISBLANK(%HTTPResponse:invoices%),false)",
+            "ListError": "=IF(ISBLANK(%HTTPGetInvoicesByDateInfo:statusCode%),false,true)",
+            "code": "=IF(ISBLANK(%HTTPGetInvoicesByDateInfo:statusCode%), 200, %HTTPGetInvoicesByDateInfo:statusCode%)"
         },
         "executionConditionalFormula": "",
         "failOnStepError": true,
