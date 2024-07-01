@@ -10,7 +10,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
           
           import styleDef from "./styleDefinition";
               
-          export default class cfValPrePaidAssetDetailsButtons_SuspAparelhoButton extends FlexCardMixin(OmniscriptBaseMixin(LightningElement)){
+          export default class cfValPrePaidAssetDetailsButtons_TransfTitularidadeButton extends FlexCardMixin(OmniscriptBaseMixin(LightningElement)){
               currentPageReference;        
               @wire(CurrentPageReference)
               setCurrentPageReference(currentPageReference) {
@@ -19,6 +19,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               @api debug;
               @api recordId;
               @api objectApiName;
+
                             
               @api set cfAssetId(val) {
                 if(typeof val !== "undefined") {
@@ -28,7 +29,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
                 return this._sessionApiVars["AssetId"] || "";
               }
 
-              @track _omniSupportKey = 'cfValPrePaidAssetDetailsButtons_SuspAparelhoButton';
+              @track _omniSupportKey = 'cfValPrePaidAssetDetailsButtons_TransfTitularidadeButton';
                   @api get omniSupportKey() {
                     return this._omniSupportKey;
                   }
@@ -66,9 +67,9 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               registerEvents() {
                 
         this.pubsubEvent[0] = {
-          [interpolateWithRegex(`Suspender Aparelho`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[0],0)
+          [interpolateWithRegex(`TransfTitularidadeButton`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[0],0)
         };
-        this.pubsubChannel0 = interpolateWithRegex(`valPrePaidAssetDetailsButtons_ChannelNameButtons`,this._allMergeFields,this._regexPattern,"noparse");
+        this.pubsubChannel0 = interpolateWithRegex(`valPrePaidAssetDetailsButtons_TransfTitularidadeButton`,this._allMergeFields,this._regexPattern,"noparse");
         pubsub.register(this.pubsubChannel0,this.pubsubEvent[0]);
 
               }
