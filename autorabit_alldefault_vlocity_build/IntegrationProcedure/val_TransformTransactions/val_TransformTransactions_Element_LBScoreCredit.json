@@ -16,7 +16,7 @@
             "accountNumber": "%scoreCredit:subscriptionId%",
             "amount": "=IF(%scoreCredit:balances|1:balanceTypeId%==\"CAC\",CONCAT(%scoreCredit:balances|1:amount%),IF(%scoreCredit:balances|2:balanceTypeId%==\"CAC\",CONCAT(%scoreCredit:balances|2:amount%)IF(%scoreCredit:balances|3:balanceTypeId%==\"CAC\",CONCAT(%scoreCredit:balances|3:amount%),\"0\")))",
             "balances": "=%LABalancesScoreCredit%",
-            "channel": "=%scoreCredit:channelId%",
+            "channel": "=IF(%scoreCredit:channelId%==\"null\",\"\",%scoreCredit:channelId%)",
             "clientCategory": "=%scoreCredit:networkNumberType%",
             "csp": "",
             "inpugnation": "",
