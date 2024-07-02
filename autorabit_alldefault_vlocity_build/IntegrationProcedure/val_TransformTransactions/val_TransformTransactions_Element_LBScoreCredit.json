@@ -13,7 +13,7 @@
         "label": "LoopBlock4",
         "loopList": "scoreCredit",
         "loopOutput": {
-            "accountNumber": "%SubcriptionNumber%",
+            "accountNumber": "%scoreCredit:subscriptionId%",
             "amount": "=IF(%scoreCredit:balances|1:balanceTypeId%==\"CAC\",CONCAT(%scoreCredit:balances|1:amount%),IF(%scoreCredit:balances|2:balanceTypeId%==\"CAC\",CONCAT(%scoreCredit:balances|2:amount%)IF(%scoreCredit:balances|3:balanceTypeId%==\"CAC\",CONCAT(%scoreCredit:balances|3:amount%),\"0\")))",
             "balances": "=%LABalancesScoreCredit%",
             "channel": "=%scoreCredit:channelId%",
@@ -21,6 +21,7 @@
             "csp": "",
             "inpugnation": "",
             "line": "=%networkNumber%",
+            "productStatusEndDate": "=IF(ISNOTBLANK(%scoreCredit:productStatusEndDate%),FORMATDATETIME(SUBSTRING(%scoreCredit:productStatusEndDate%, 0, 23), \"dd/MM/YYYY HH:mm\", \"Etc/GMT\"),NULL)",
             "reason": "=%scoreCredit:operationReason%",
             "systemUserId": "=%scoreCredit:accountId%",
             "timeStamp": "=IF(ISNOTBLANK(%scoreCredit:eventDateTime%),FORMATDATETIME(SUBSTRING(%scoreCredit:eventDateTime%, 0, 23), \"dd/MM/YYYY HH:mm\", \"Etc/GMT\"),NULL)",

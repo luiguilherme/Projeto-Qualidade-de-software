@@ -17,7 +17,7 @@
             "balanceValidityAfterRecharge": "=IF(ISNOTBLANK(%recharge:balanceExpirationDate%),FORMATDATETIME(SUBSTRING(%recharge:balanceExpirationDate%, 0, 23), \"dd/MM/YYYY HH:mm\", \"Etc/GMT\"),NULL)",
             "channelCode": "=%recharge:channelCode%",
             "channelDescription": "=%recharge:channelDescription%",
-            "channelId": "=%recharge:channelId%",
+            "channelId": "=IF(%recharge:channelId%==\"null\",\"\",%recharge:channelId%)",
             "clientCategory": "=%recharge:networkNumberType%",
             "csp": "",
             "inpugnation": "",
