@@ -13,10 +13,10 @@
         "label": "LoopBlock4",
         "loopList": "loanFee",
         "loopOutput": {
-            "accountNumber": "%SubcriptionNumber%",
+            "accountNumber": "%loanFee:subscriptionId%",
             "amount": "=IF(%loanFee:balances|1:description%==\"TaxaRemanescente\",CONCAT(%loanFee:balances|1:amount%),IF(%loanFee:balances|2:description%==\"TaxaRemanescente\",CONCAT(%loanFee:balances|2:amount%),\"0\"))",
             "balances": "=%LABalancesLoanFee%",
-            "channel": "=%loanFee:channelId%",
+            "channel": "=IF(%loanFee:channelId%==\"null\",\"\",%loanFee:channelId%)",
             "clientCategory": "=%loanFee:networkNumberType%",
             "csp": "",
             "inpugnation": "",

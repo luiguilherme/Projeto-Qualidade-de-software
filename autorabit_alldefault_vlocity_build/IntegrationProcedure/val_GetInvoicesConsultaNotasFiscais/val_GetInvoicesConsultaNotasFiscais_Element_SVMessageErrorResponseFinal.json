@@ -6,28 +6,14 @@
         "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/GetInvoicesConsultaNotasFiscais/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
-    "%vlocity_namespace%__ParentElementId__c": {
-        "%vlocity_namespace%__OmniScriptId__c": {
-            "Name": "valGetInvoicesConsultaNotasFiscais",
-            "VlocityDataPackType": "VlocityMatchingKeyObject",
-            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/GetInvoicesConsultaNotasFiscais/Procedure",
-            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
-        },
-        "Name": "BlocoFinal",
-        "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetInvoicesConsultaNotasFiscais/Procedure/BlocoFinal",
-        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
-    },
-    "%vlocity_namespace%__ParentElementName__c": "BlocoFinal",
-    "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "ListEmpty": "=IF(ISBLANK(%HTTPGetInvoicesByDate:invoices|1:number%),true,false)",
-            "ListError": "=IF(NOT(ISBLANK(%HTTPGetInvoicesByDate:errors|1:message%)),true,false)",
-            "code": "=IF(ISBLANK(%HTTPGetInvoicesByDate:invoices|1:number%),404, 200))"
+            "ListEmpty": "=IF(%HTTPGetInvoicesByDateInfo:statusCode%==200,ISBLANK(%HTTPResponse:invoices%),false)",
+            "ListError": "=IF(%HTTPGetInvoicesByDateInfo:statusCode%==200,false,true)",
+            "code": "=%HTTPGetInvoicesByDateInfo:statusCode%"
         },
         "executionConditionalFormula": "",
         "failOnStepError": true,
