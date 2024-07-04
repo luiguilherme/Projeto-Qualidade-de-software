@@ -28,7 +28,7 @@
             "PortoutChargebackReschedule": "=(%event:eventType% = \"portin\" AND %event:adminEntityStatus% = \"pending\" AND ISNOTBLANK(%DREPortDetails:TicketStatus%) AND ISNOTBLANK(%PortInput:PortabilityWindow__c%)  AND %PortInput:eventAction% != \"EnviarRetSolicPortab\" AND ISNOTBLANK(%PortInput:CorrelatedId%))",
             "PortoutChargebackSuspend": "=(%event:eventType% = \"portin\" AND %event:adminEntityStatus% = \"suspended\" AND ISNOTBLANK(%PortInput:CorrelatedId%))",
             "PortoutConflict": "=((%event:eventType% = \"portout\" OR %event:eventType% = \"estorno portin\") AND %event:adminEntityStatus% = \"conflict\" AND %event:transactionStatus% = \"autorizacao-negada\")",
-            "PortoutRequest": "=(%event:eventType% = \"portout\" AND ISBLANK(%DREPortDetails:TicketStatus%) AND %event:adminEntityStatus% = \"pending\")",
+            "PortoutRequest": "=(%event:eventType% = \"portout\" AND ISBLANK(%DREPortDetails:TicketStatus%) AND %event:adminEntityStatus% = \"pending\" AND ISBLANK(%PortInput:CorrelatedId%))",
             "PortoutReschedule": "=((%event:eventType% = \"estorno portin\" OR %event:eventType% = \"portout\") AND %event:adminEntityStatus% = \"pending\" AND ISNOTBLANK(%DREPortDetails:TicketStatus%) AND ISNOTBLANK(%PortInput:PortabilityWindow__c%) AND %PortInput:eventAction% != \"EnviarRetSolicPortab\")",
             "PortoutReversalRequest": "=(%event:eventType% = \"portin\" AND ISBLANK(%DREPortDetails:TicketStatus%) AND %event:eventAction% = \"EnviarSolicitPortabErro\" AND ISNOTBLANK(%PortInput:CorrelatedId%))",
             "PortoutSuspend": "=((%event:eventType% = \"portout\" OR %event:eventType% = \"estorno portin\") AND %event:adminEntityStatus% = \"suspended\")",
