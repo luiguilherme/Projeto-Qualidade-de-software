@@ -23,8 +23,8 @@
                 {
                     "actionIndex": 0,
                     "card": "{card}",
-                    "draggable": false,
-                    "isOpen": true,
+                    "draggable": true,
+                    "isOpen": false,
                     "key": "1717678488937-g5upuw2fr",
                     "label": "ValidateJourneys",
                     "stateAction": {
@@ -43,8 +43,8 @@
                 {
                     "actionIndex": 1,
                     "card": "{card}",
-                    "draggable": false,
-                    "isOpen": true,
+                    "draggable": true,
+                    "isOpen": false,
                     "key": "1717692767039-hbtlqe5xe",
                     "label": "valToast",
                     "stateAction": {
@@ -80,8 +80,8 @@
                 {
                     "actionIndex": 2,
                     "card": "{card}",
-                    "draggable": false,
-                    "isOpen": true,
+                    "draggable": true,
+                    "isOpen": false,
                     "isTrackingDisabled": true,
                     "key": "1718658540871-byam6cxcf",
                     "label": "ValidadeStatusLine",
@@ -162,8 +162,8 @@
                     "actionIndex": 4,
                     "card": "{card}",
                     "contextId": "\\{Parent.InteractionId}",
-                    "draggable": true,
-                    "isOpen": false,
+                    "draggable": false,
+                    "isOpen": true,
                     "key": "1717693079455-ira0mje53",
                     "label": "Action Omni",
                     "stateAction": {
@@ -200,7 +200,7 @@
                             "c__LineNumber": "{Products.LineNumber}"
                         },
                         "hasExtraParams": true,
-                        "id": "flex-action-1718658747854",
+                        "id": "flex-action-1720060236094",
                         "isLwcOS": true,
                         "layoutType": "lightning",
                         "omniType": {
@@ -210,7 +210,7 @@
                         },
                         "openUrlIn": "New Tab/Window",
                         "tabIcon": "utility:change_record_type",
-                        "tabLabel": "Troca de SIM Card",
+                        "tabLabel": "Troca de Chip",
                         "type": "OmniScript",
                         "vlocityIcon": "standard-default"
                     }
@@ -286,6 +286,13 @@
     },
     "multilanguageSupport": true,
     "osSupport": true,
+    "sessionVars": [
+        {
+            "isApi": true,
+            "name": "AssetId",
+            "val": ""
+        }
+    ],
     "states": [
         {
             "actions": [
@@ -570,6 +577,13 @@
                         "name": "recordId",
                         "type": "String"
                     }
+                },
+                {
+                    "@attributes": {
+                        "label": "AssetId",
+                        "name": "cfAssetId",
+                        "type": "String"
+                    }
                 }
             ]
         },
@@ -597,6 +611,27 @@
                         "name": "recordId",
                         "type": "String"
                     }
+                },
+                {
+                    "@attributes": {
+                        "label": "AssetId",
+                        "name": "cfAssetId",
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        {
+            "@attributes": {
+                "targets": "lightning__RecordPage"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "label": "AssetId",
+                        "name": "cfAssetId",
+                        "type": "String"
+                    }
                 }
             ]
         }
@@ -607,12 +642,13 @@
         "isExposed": true,
         "masterLabel": "valPrePaidAssetDetailsButtons_ChangeChipButton",
         "runtimeNamespace": "%vlocity_namespace%",
-        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIi8+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyB4bWxucz0iIiB0YXJnZXRzPSJsaWdodG5pbmdDb21tdW5pdHlfX0RlZmF1bHQiPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIi8+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX0hvbWVQYWdlIj48cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPjwvdGFyZ2V0Q29uZmlnPg==",
+        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIi8+PHByb3BlcnR5IG5hbWU9ImNmQXNzZXRJZCIgdHlwZT0iU3RyaW5nIiBsYWJlbD0iQXNzZXRJZCIvPjwvdGFyZ2V0Q29uZmlnPjx0YXJnZXRDb25maWcgeG1sbnM9IiIgdGFyZ2V0cz0ibGlnaHRuaW5nQ29tbXVuaXR5X19EZWZhdWx0Ij48cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPjwvdGFyZ2V0Q29uZmlnPjx0YXJnZXRDb25maWcgdGFyZ2V0cz0ibGlnaHRuaW5nX19Ib21lUGFnZSI+PHByb3BlcnR5IG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciLz48cHJvcGVydHkgbmFtZT0iY2ZBc3NldElkIiB0eXBlPSJTdHJpbmciIGxhYmVsPSJBc3NldElkIi8+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJjZkFzc2V0SWQiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkFzc2V0SWQiLz48L3RhcmdldENvbmZpZz4=",
         "targets": {
             "target": [
                 "lightning__AppPage",
                 "lightningCommunity__Default",
-                "lightning__HomePage"
+                "lightning__HomePage",
+                "lightning__RecordPage"
             ]
         }
     }

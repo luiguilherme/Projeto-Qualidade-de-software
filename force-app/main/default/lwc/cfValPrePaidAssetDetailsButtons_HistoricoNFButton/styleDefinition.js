@@ -1,0 +1,3 @@
+let styleDefinition =
+      {"state0element0":[{"conditions":"default","styleObject":{"class":"slds-col  condition-element slds-text-align_left slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-left_small slds-p-top_small  slds-size_12-of-12  ","style":"     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5px;     height: 55px;","styleProperties":{"iconSize":"small","iconColor":"#792BA4","styles":{"label":{"color":"#792BA4","fontSize":"13px"}}}}}]};
+  export default styleDefinition
