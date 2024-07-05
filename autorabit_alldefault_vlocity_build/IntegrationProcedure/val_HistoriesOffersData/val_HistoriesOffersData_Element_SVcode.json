@@ -1,9 +1,9 @@
 {
     "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "valProductDetailsData",
+        "Name": "valHistoriesOffersData",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ProductDetailsData/Procedure",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/HistoriesOffersData/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
     "%vlocity_namespace%__PropertySet__c": {
@@ -11,21 +11,20 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "BillingAccount": "%DRGetBilliningAddressAccounts:Account%",
-            "ServiceAccount": "%DRGetServiceAddressAccounts:Account%"
+            "code": "=IF(ISBLANK(%HTTPGetOffersInfo:statusCode%), 200, %HTTPGetOffersInfo:statusCode%)"
         },
         "executionConditionalFormula": "",
         "failOnStepError": true,
         "failureConditionalFormula": "",
-        "label": "SetValues1",
-        "responseJSONNode": "Asset",
-        "responseJSONPath": "",
+        "label": "SetValues5",
+        "responseJSONNode": "code",
+        "responseJSONPath": "code",
         "show": null
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
     "%vlocity_namespace%__Type__c": "Set Values",
-    "Name": "SetValues",
+    "Name": "SVcode",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ProductDetailsData/Procedure/SetValues"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/HistoriesOffersData/Procedure/SVcode"
 }
