@@ -91,11 +91,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             when 'base64Decode'
             {output.put('result', base64Decode(arguments));}            
             when 'convertObjectToList'
-            {output.put('result', convertObjectToList(arguments));}
-            when 'validaEid'
-            {output.put('result', validaEid(arguments));} 
-            when 'validaImei'
-            {output.put('result', validaImei(arguments));}                                             
+            {output.put('result', convertObjectToList(arguments));} 
         }
         return true;
     }
