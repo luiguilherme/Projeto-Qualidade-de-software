@@ -21,7 +21,8 @@
         "extraPayload": {
             "interactionId": "%responseProtocolItem:interactionId%",
             "interactionTopicId": "%responseProtocolItem:interactionTopicId%",
-            "topicName": "%TopicNameCompleteAndUserData:topicName%"
+            "orderId": "%OrderId%",
+            "topicName": "%responseTopicsAuto:topicName%"
         },
         "failureAbortLabel": "Abort",
         "failureAbortMessage": "Are you sure?",
@@ -71,6 +72,35 @@
                                     "condition": "=",
                                     "data": "SalesJourney",
                                     "field": "Functionality"
+                                },
+                                {
+                                    "group": {
+                                        "operator": "OR",
+                                        "rules": [
+                                            {
+                                                "condition": "<>",
+                                                "data": "true",
+                                                "field": "HasPortability"
+                                            },
+                                            {
+                                                "group": {
+                                                    "operator": "AND",
+                                                    "rules": [
+                                                        {
+                                                            "condition": "=",
+                                                            "data": "true",
+                                                            "field": "HasPortability"
+                                                        },
+                                                        {
+                                                            "condition": "=",
+                                                            "data": "true",
+                                                            "field": "UserPermission:GerarPalitoAutomaticoPortabilidade"
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
                                 }
                             ]
                         }
