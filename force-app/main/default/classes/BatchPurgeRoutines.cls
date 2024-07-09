@@ -4,6 +4,11 @@
 * Objetivo.: Batcha de Rotina de Expurgos
 * US - Rotina de Expurgos
 *  -------------------------------------------------------------------------
+* Autor....: Pedro Richtmann - Deloitte
+* Data.....: 26/01/2024
+* Alteração: Remoção do método updateScheduleTime, responsável pela atualização de data de realização do próximo expurgo; alteração de termo de "frequency" para "retentionPeriod" (API name e label do campo também foram alterados);
+* US - Rotina de Expurgos
+*  -------------------------------------------------------------------------
 * How to execute:           
 */ 
 public class BatchPurgeRoutines implements Database.Batchable<Sobject>, Database.Stateful
@@ -24,9 +29,19 @@ public class BatchPurgeRoutines implements Database.Batchable<Sobject>, Database
             throw new BatchPurgeRoutinesException('Configuração PurgeSetting__c Inválida: ' + sobjctName);       
         }
         
-        Integer frequency = objPurgeSetting.Frequency__c.intValue();
-        String frequencyMeasurementUnit = ('Meses'.equalsIgnoreCase(objPurgeSetting.FrequencyMeasurementUnit__c)) ? 'LAST_N_MONTHS:' : 'LAST_N_DAYS:';              
-        String query = ' SELECT Id FROM ' + objPurgeSetting.ObjectName__c + ' WHERE LastModifiedDate < ' + frequencyMeasurementUnit + frequency;
+        Integer retentionPeriod = objPurgeSetting.retentionPeriod__c.intValue();
+        String retentionPeriodMeasurementUnit = ('Meses'.equalsIgnoreCase(objPurgeSetting.retentionPeriodMeasurementUnit__c)) ? 'LAST_N_MONTHS:' : 'LAST_N_DAYS:';              
+        String query = '';
+        
+        if(objPurgeSetting.ObjectName__c == 'Order')
+        {           
+        	query = ' SELECT Id, Status FROM Order WHERE LastModifiedDate < ' + retentionPeriodMeasurementUnit + retentionPeriod;
+        }
+        else
+        {
+			query = ' SELECT Id FROM ' + objPurgeSetting.ObjectName__c + ' WHERE LastModifiedDate < ' + retentionPeriodMeasurementUnit + retentionPeriod;
+        }
+        
         return  Database.getQueryLocator(query);
     }
     
@@ -34,48 +49,39 @@ public class BatchPurgeRoutines implements Database.Batchable<Sobject>, Database
     {
         system.debug('BatchPurgeRoutines.execute lstSobjectToDelete: ' + lstSobjectToDelete);
         
+        if(objPurgeSetting.ObjectName__c == 'Order')
+        {           
+            for(SObject order : lstSobjectToDelete){
+                order.put('Status','Draft');
+            }
+            update lstSobjectToDelete;
+        }
+        
         List<Database.DeleteResult> lstDeleteResultsTotal = Database.delete(lstSobjectToDelete, false);        
         
-        List<vlocity_cmt__VlocityErrorLogEntry__c> lstVlocityErrorLogEntry = new List<vlocity_cmt__VlocityErrorLogEntry__c>();
+        List<vlocity_cmt__VlocityErrorLogEntry__c> lstVlocityErrorLogEntry = new List<vlocity_cmt__VlocityErrorLogEntry__c>(); // precisa add log nesse objeto da vlocity? faz sentido?
         for(Database.DeleteResult objResult : lstDeleteResultsTotal)
-        {            
+        {
             if(!objResult.isSuccess())
-            {                
+            {
                 for(Database.Error objError : objResult.getErrors()) 
                 {
-                    Id recordId = objResult.getId();                                      
+                    Id recordId = objResult.getId();
                     lstVlocityErrorLogEntry.add(createLog(recordId, objResult, objError));
                 }
-            }            
+            }
         }
 
-		Database.insert(lstVlocityErrorLogEntry, false);  
-        Database.emptyRecycleBin(lstSobjectToDelete);  
+		Database.insert(lstVlocityErrorLogEntry, false);
+        Database.emptyRecycleBin(lstSobjectToDelete);
     }
     
-    public void finish(Database.BatchableContext bc) 
+    public void finish(Database.BatchableContext bc)
     {
-       system.debug('finish objPurgeSetting.SchedulingDate__c: ' + objPurgeSetting.SchedulingDate__c);        
-       updateScheduleTime(objPurgeSetting);  
+       system.debug('finish objPurgeSetting.ObjectName__c: ' + objPurgeSetting.ObjectName__c);
     }
     
-    public void updateScheduleTime(PurgeSetting__c objPurgeSetting)
-    {
-        if('Meses'.equalsIgnoreCase(objPurgeSetting.FrequencyMeasurementUnit__c))
-        {            
-            objPurgeSetting.SchedulingDate__c = objPurgeSetting.SchedulingDate__c.addMonths(objPurgeSetting.Frequency__c.intValue());
-        }
-        
-        if('Dias'.equalsIgnoreCase(objPurgeSetting.FrequencyMeasurementUnit__c))
-        {
-            objPurgeSetting.SchedulingDate__c = objPurgeSetting.SchedulingDate__c.addDays(objPurgeSetting.Frequency__c.intValue());            
-        }
-        
-        Database.Update(objPurgeSetting);
-        system.debug('updateScheduleTime objPurgeSetting.SchedulingDate__c: ' + objPurgeSetting.SchedulingDate__c);
-    }
-    
-    private vlocity_cmt__VlocityErrorLogEntry__c createLog(Id recordId, Database.DeleteResult objResult,  Database.Error objError)
+    private vlocity_cmt__VlocityErrorLogEntry__c createLog(Id recordId, Database.DeleteResult objResult,  Database.Error objError)  // precisa add log nesse objeto da vlocity? faz sentido?
     {
         vlocity_cmt__VlocityErrorLogEntry__c objVlocityErrorLogEntry = new vlocity_cmt__VlocityErrorLogEntry__c();
         objVlocityErrorLogEntry.Name = String.valueof(recordId);
@@ -83,6 +89,5 @@ public class BatchPurgeRoutines implements Database.Batchable<Sobject>, Database
         objVlocityErrorLogEntry.vlocity_cmt__ErrorMessage__c = objError.getMessage();
         return objVlocityErrorLogEntry;        
     }
-    
-    public class BatchPurgeRoutinesException extends Exception{}
-}
+     	
+    public class BatchPurgeRoutinesException extends Exception{}}
