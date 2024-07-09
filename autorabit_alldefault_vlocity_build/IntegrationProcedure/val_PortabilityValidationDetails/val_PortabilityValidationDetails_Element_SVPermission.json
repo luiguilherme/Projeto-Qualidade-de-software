@@ -1,0 +1,46 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valPortabilityValidationDetails",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/PortabilityValidationDetails/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "AllowAuthorizeDonation": "=IF((%DREPortabilityGetDetails:ProcessType% == \"estorno portin\") && (%DREPortabilityGetDetails:TransactionStatus% == \"analise-de-fraude\" || %DREPortabilityGetDetails:TransactionStatus% == \"aguardando-autorizacao\"),true,false)",
+            "AllowsRescheduling": "=IF(%DREPortabilityGetDetails:PermiteReagendamento% && (%DREPortabilityGetDetails:ProcessType% == \"estorno portout\" ||%DREPortabilityGetDetails:ProcessType% == \"portin\" || %DREPortabilityGetDetails:ProcessType% == \"Winback\"), true, false)",
+            "AllowsSuspension": "=IF(%DREPortabilityGetDetails:PermiteSuspensao% && (%DREPortabilityGetDetails:ProcessType% == \"estorno portout\" || %DREPortabilityGetDetails:ProcessType% == \"portin\" || %DREPortabilityGetDetails:ProcessType% == \"Winback\"), true, false)",
+            "BroadCastDateCancel": "=%DREPortabilityGetDetails:BroadCastDateCancel%",
+            "BroadCastPending": "=%DREPortabilityGetDetails:BroadCastPending%",
+            "BroadcastDate": "=%DREPortabilityGetDetails:BroadcastDate%",
+            "BroadcastDateConflict": "=%DREPortabilityGetDetails:BroadcastDateConflict%",
+            "CancellationAllowed": "=IF(%DREPortabilityGetDetails:CancellationAllowed% && (%DREPortabilityGetDetails:ProcessType% == \"estorno portout\" || %DREPortabilityGetDetails:ProcessType% == \"portin\"), true, false)",
+            "HasProvisionalNumber": "=%DREPortabilityGetDetails:HasProvisionalNumber%",
+            "PortabilidadeGestaoBilhete": "=%IPGetUserPermission:UserPermission:PortabilidadeGestaoBilhetes%",
+            "RequestReversal": "=IF(%IPValidateRequestReversal:message1% != false || %IPValidateRequestReversal:message4% != false || %IPValidateRequestReversal:message5% != false, %IPValidateRequestReversal%,false)",
+            "StatusCancel": "=%DREPortabilityGetDetails:StatusCancel%",
+            "StatusSuspension": "=%DREPortabilityGetDetails:StatusSuspension%",
+            "UserInCommunity": "=%RAUserInCommunity:result%",
+            "ValidationOpenIncident": "=IF((%DREPortabilityGetDetails:ProcessType% == \"portin\" || %DREPortabilityGetDetails:ProcessType% == \"portout\" || %DREPortabilityGetDetails:ProcessType% == \"estorno portin\" || %DREPortabilityGetDetails:ProcessType% == \"estorno portout\" || %DREPortabilityGetDetails:ProcessType% == \"winback\"),true,false)",
+            "ValidationRemoveConflicts": "=IF((%DREPortabilityGetDetails:ProcessType% == \"estorno portout\" ||%DREPortabilityGetDetails:ProcessType% == \"portin\" || %DREPortabilityGetDetails:ProcessType% == \"Winback\") && (%DREPortabilityGetDetails:StatusEA% == \"conflict\" ),true,false)",
+            "ValidationRemoveSuspension": "=IF((%DREPortabilityGetDetails:ProcessType% == \"estorno portout\" ||%DREPortabilityGetDetails:ProcessType% == \"portin\" || %DREPortabilityGetDetails:ProcessType% == \"Winback\") && (%DREPortabilityGetDetails:StatusEA% == \"suspended\"),true,false)"
+        },
+        "executionConditionalFormula": "",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues2",
+        "responseJSONNode": "ResponsePermissions",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVPermission",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/PortabilityValidationDetails/Procedure/SVPermission"
+}
