@@ -3,6 +3,11 @@
 * Data.....: 29/01/2024
 * Objetivo.: Rotina de Expurgos
 *  -------------------------------------------------------------------------
+* Autor....: Pedro Richtmann - Deloitte
+* Data.....: 26/01/2024
+* Alteração: Remoção do método updateScheduleTime, responsável pela atualização de data de realização do próximo expurgo; alteração de termo de "frequency" para "retentionPeriod" (API name e label do campo também foram alterados);
+* US - Rotina de Expurgos
+*  -------------------------------------------------------------------------
 */ 
 @IsTest
 public class BatchPurgeRoutinesTest 
@@ -26,20 +31,18 @@ public class BatchPurgeRoutinesTest
         PurgeSetting__c objPurgeSettingCase = new PurgeSetting__c();
         objPurgeSettingCase.Name = 'Cases';
         objPurgeSettingCase.PurgeEnabled__c = true;
-        objPurgeSettingCase.Frequency__c = 68;
+        objPurgeSettingCase.RetentionPeriod__c = 68;
         objPurgeSettingCase.ObjectName__c = 'Case';
-        objPurgeSettingCase.FrequencyMeasurementUnit__c = 'Meses';
-        objPurgeSettingCase.SchedulingDate__c = System.now() + 10;
+        objPurgeSettingCase.RetentionPeriodMeasurementUnit__c = 'Meses';
         
         Insert objPurgeSettingCase;
         
         PurgeSetting__c objPurgeSettinTrackingEntries = new PurgeSetting__c();
         objPurgeSettinTrackingEntries.Name = 'Vlocity Tracking Entries';
         objPurgeSettinTrackingEntries.PurgeEnabled__c = true;
-        objPurgeSettinTrackingEntries.Frequency__c = 68;
+        objPurgeSettinTrackingEntries.RetentionPeriod__c = 68;
         objPurgeSettinTrackingEntries.ObjectName__c = 'vlocity_cmt__VlocityTrackingEntry__c';
-        objPurgeSettinTrackingEntries.FrequencyMeasurementUnit__c = 'Dias';
-        objPurgeSettinTrackingEntries.SchedulingDate__c = System.now();
+        objPurgeSettinTrackingEntries.RetentionPeriodMeasurementUnit__c = 'Dias';
         
         Insert objPurgeSettinTrackingEntries;        
     }    
@@ -48,16 +51,14 @@ public class BatchPurgeRoutinesTest
     private static void BatchPurgeRoutinesMesesTest()
     {  
         List<Sobject> lstSobject = [SELECT Id FROM vlocity_cmt__VlocityTrackingEntry__c];   
-        PurgeSetting__c objPurgeSetting = [SELECT ID, Name, SchedulingDate__c, FrequencyMeasurementUnit__c, Frequency__c FROM PurgeSetting__c WHERE Name = 'Cases'];
+        PurgeSetting__c objPurgeSetting = [SELECT ID, Name, RetentionPeriodMeasurementUnit__c, RetentionPeriod__c FROM PurgeSetting__c WHERE Name = 'Cases'];
         
         Test.startTest(); 
             BatchPurgeRoutines objBatch = new BatchPurgeRoutines(objPurgeSetting.Name);
             Database.executeBatch(objBatch);
             Database.BatchableContext bc;	
             objBatch.execute(bc, lstSobject);         	
-        	objBatch.updateScheduleTime(objPurgeSetting);
         
-        	System.assertEquals(true, objBatch.objPurgeSetting.SchedulingDate__c != objPurgeSetting.SchedulingDate__c, 'Data de Agendamento será atualizada com frequência');
         Test.stopTest();
     }
     
@@ -65,16 +66,14 @@ public class BatchPurgeRoutinesTest
     private static void BatchPurgeRoutinesDiasTest()
     {  
         List<Sobject> lstSobject = [SELECT Id FROM vlocity_cmt__VlocityTrackingEntry__c];   
-        PurgeSetting__c objPurgeSetting = [SELECT ID, Name, SchedulingDate__c, FrequencyMeasurementUnit__c, Frequency__c FROM PurgeSetting__c WHERE Name = 'Vlocity Tracking Entries'];
+        PurgeSetting__c objPurgeSetting = [SELECT ID, Name, RetentionPeriodMeasurementUnit__c, RetentionPeriod__c FROM PurgeSetting__c WHERE Name = 'Vlocity Tracking Entries'];
         
         Test.startTest(); 
             BatchPurgeRoutines objBatch = new BatchPurgeRoutines(objPurgeSetting.Name);
             Database.executeBatch(objBatch);
             Database.BatchableContext bc;	
             objBatch.execute(bc, lstSobject);
-        	objBatch.updateScheduleTime(objPurgeSetting);
         
-        	System.assertEquals(true, objBatch.objPurgeSetting.SchedulingDate__c != objPurgeSetting.SchedulingDate__c, 'Data de Agendamento será atualizada com frequência');
         Test.stopTest();
     }
     
