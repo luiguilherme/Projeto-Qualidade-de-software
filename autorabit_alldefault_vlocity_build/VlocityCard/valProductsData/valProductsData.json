@@ -2803,7 +2803,7 @@
                                                     }
                                                 },
                                                 {
-                                                    "conditionString": "SubscriptionStatus == Cancelado || (SubscriptionStatus == Cancelled)",
+                                                    "conditionString": "SubscriptionStatus == Cancelado",
                                                     "conditions": {
                                                         "group": [
                                                             {
@@ -2813,20 +2813,6 @@
                                                                 "operator": "==",
                                                                 "type": "custom",
                                                                 "value": "Cancelado"
-                                                            },
-                                                            {
-                                                                "group": [
-                                                                    {
-                                                                        "field": "SubscriptionStatus",
-                                                                        "hasMergeField": false,
-                                                                        "id": "state-new-condition-0",
-                                                                        "operator": "==",
-                                                                        "type": "custom",
-                                                                        "value": "Cancelled"
-                                                                    }
-                                                                ],
-                                                                "id": "state-new-group-1",
-                                                                "logicalOperator": "||"
                                                             }
                                                         ],
                                                         "id": "state-condition-object",
@@ -3033,7 +3019,7 @@
                                                     }
                                                 },
                                                 {
-                                                    "conditionString": "SubscriptionStatus == Desativado",
+                                                    "conditionString": "SubscriptionStatus == Desativado || SubscriptionStatus == Inativo || SubscriptionsStatus == Inactive",
                                                     "conditions": {
                                                         "group": [
                                                             {
@@ -3043,6 +3029,24 @@
                                                                 "operator": "==",
                                                                 "type": "custom",
                                                                 "value": "Desativado"
+                                                            },
+                                                            {
+                                                                "field": "SubscriptionStatus",
+                                                                "hasMergeField": false,
+                                                                "id": "state-new-condition-10",
+                                                                "logicalOperator": "||",
+                                                                "operator": "==",
+                                                                "type": "custom",
+                                                                "value": "Inativo"
+                                                            },
+                                                            {
+                                                                "field": "SubscriptionsStatus",
+                                                                "hasMergeField": false,
+                                                                "id": "state-new-condition-26",
+                                                                "logicalOperator": "||",
+                                                                "operator": "==",
+                                                                "type": "custom",
+                                                                "value": "Inactive"
                                                             }
                                                         ],
                                                         "id": "state-condition-object",
