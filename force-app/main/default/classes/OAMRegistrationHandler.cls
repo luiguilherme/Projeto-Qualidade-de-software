@@ -5,15 +5,17 @@
 *
 */
 global class OAMRegistrationHandler implements Auth.RegistrationHandler {
-    private static final String CONST_PARTNER_ACCOUNT_RECORD_TYPE_ID = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('PartnerAccount').getrecordTypeId();
-
+    //Deve pegar o recordtype PartnerAccount, porém ainda não foi migrado comunidades
+    private static final String CONST_PARTNER_ACCOUNT_RECORD_TYPE_ID = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Consumer').getrecordTypeId();
     class RegHandlerException extends Exception {}
 
-    global User createUser (Id portalId, Auth.UserData data) {        
+    global User createUser (Id portalId, Auth.UserData data) {
+        System.debug('start createUser > ' + data);
         return UserProvisioning(data);
     }
 
-    global void updateUser (Id userId, Id portalId, Auth.UserData data) {        
+    global void updateUser (Id userId, Id portalId, Auth.UserData data) {
+        System.debug('start updateUser > ' + data);
         UserProvisioning(data);
     }
 
@@ -122,6 +124,7 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             for (Schema.PicklistEntry item : field.getPicklistValues()) {
                 setPartnerGroup.add(item.getValue());
             }
+            System.debug(setPartnerGroup);
             return (setPartnerGroup.contains(roleResponse) ? roleResponse : 'null');
         }
     }
@@ -199,6 +202,9 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             userRecord.LocaleSidKey         = 'pt_BR';
             userRecord.EmailEncodingKey     = 'UTF-8';
             
+            //Recuperar CNPJ atravês do código Adabas
+            userRecord.AdabasAssignedDocument__c = getAdabasAssignedDocumentByAdabasCode(userRecord.ChannelName__c, userRecord.Site__c, userRecord.Adabas__c);
+            
             if (userRecord.Id == null) {
                 insert userRecord;
             } else{
@@ -211,7 +217,10 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             
             updatePermissionSetFuture(JSON.serialize(userRecord), JSON.serialize(ltPermissionSetSF));
             return userRecord;
-        } catch (Exception e) {            
+        } catch (Exception e) {
+            System.debug(e);            
+            System.debug(e.getStackTraceString());            
+            System.debug(e.getCause());            
             throw new RegHandlerException('Erro em criar/atualizar usuário: ' + e.getMessage());
         } 
     }
@@ -229,7 +238,7 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             } 
 
             accountToUpdateInsert.vlocity_cmt__Active__c = 'Yes';
-            accountToUpdateInsert.IsPartner = true;
+            //accountToUpdateInsert.IsPartner = true;
             update accountToUpdateInsert;
             return accountToUpdateInsert;
         }
@@ -252,6 +261,7 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             if (data.attributeMap.containsKey('phone_number')) {
                 contactToUpsert.Phone = data.attributeMap.get('phone_number');
             }
+
             upsert contactToUpsert;
             return contactToUpsert;
         }
@@ -465,5 +475,45 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
         }
 
         return center;
+    }
+    
+    private String getAdabasAssignedDocumentByAdabasCode(string varChannelName, String varSite, String varAdabas)
+    {
+        system.debug('OAMRegistrationHandler.getAdabasAssignedDocumentByAdabasCode varChannelName: ' + varChannelName);
+        system.debug('OAMRegistrationHandler.getAdabasAssignedDocumentByAdabasCode varSite: ' + varSite);
+        system.debug('OAMRegistrationHandler.getAdabasAssignedDocumentByAdabasCode varAdabas: ' + varAdabas);
+        
+        string queryAdabasSite;
+         AdabasSite__c sobjectAdabasSite;
+        
+        //J110 incluir campo Status__c n consulta adabas caso necessário por conta da Carga DO Power Center      
+        if(String.isNotEmpty(varChannelName) && String.isNotEmpty(varSite) && String.isNotEmpty(varAdabas))
+        {
+            switch on varChannelName 
+            {
+                when 'Call Center', 'Lojas Proprias' 
+                {
+                    queryAdabasSite = ' SELECT Name, AdabasCode__c, CNPJ__c FROM AdabasSite__c WHERE AdabasCode__c =: varSite';                
+                }
+                
+                when 'Lojas Revendas'
+                {                
+                    queryAdabasSite = ' SELECT Name, AdabasCode__c, CNPJ__c FROM AdabasSite__c WHERE AdabasCode__c =: varAdabas';                 
+                }            
+            }
+            
+            queryAdabasSite = queryAdabasSite + ' LIMIT 1';
+        }
+        
+        System.debug('OAMRegistrationHandler.getAdabasAssignedDocumentByAdabasCode queryAdabasSite: ' + queryAdabasSite); 
+        
+        if(queryAdabasSite != null)
+        {             
+            sobjectAdabasSite = Database.query(queryAdabasSite);            
+        }
+       
+        system.debug('OAMRegistrationHandler.getAdabasAssignedDocumentByAdabasCode sobjectAdabasSite: ' + sobjectAdabasSite);
+        
+        return (sobjectAdabasSite?.CNPJ__c != null) ? sobjectAdabasSite?.CNPJ__c : '';
     }
 }
