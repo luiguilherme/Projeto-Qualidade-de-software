@@ -1,5 +1,5 @@
 import { LightningElement, track, api } from 'lwc';
-import {OmniscriptBaseMixin} from 'vlocity_cmt/omniscriptBaseMixin'; 
+import { OmniscriptBaseMixin } from 'vlocity_cmt/omniscriptBaseMixin'; 
 import { getNamespaceDotNotation } from "vlocity_cmt/omniscriptInternalUtils";
 import { OmniscriptActionCommonUtil } from "vlocity_cmt/omniscriptActionUtils";
 
@@ -118,9 +118,14 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
                 this.tableVisible = true;
                 this.responseIP = response.result.IPResult;
                 this.isSuccess = response.result.IPResult.isSuccess;
-                this.generalSetting = this.responseIP.GeneralSetting.generalSetting;
+                this.generalSetting = this.responseIP.GeneralSetting 
+                    && this.responseIP.GeneralSetting.generalSetting 
+                    && Array.isArray(this.responseIP.GeneralSetting.generalSetting) ? this.responseIP.GeneralSetting.generalSetting : [ this.responseIP.GeneralSetting.generalSetting ];
                 this.invoicesApi = Array.isArray(this.responseIP.InvoicesApi) ? this.responseIP.InvoicesApi : [this.responseIP.InvoicesApi];
                 this.accountId = this.responseIP.CustomerIds.customerAccountId;
+
+                console.log('Retorno IP - General Settings', JSON.stringify(this.generalSetting));
+
                 this.copy = [...this.invoicesApi];
                 for(let i = 0; i < this.copy.length; i++) {
                     let objCopy = { ...this.copy[i] };
@@ -243,6 +248,11 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
     }
 
     handleSelection(event) {
+
+        if (!event || !event.detail || !event.detail.selectedRows[0]) { 
+            return; 
+        }
+
         this.selectedRow = [JSON.parse(JSON.stringify(event.detail.selectedRows[0]))];
         this.divVisible = true;
         this.tableVisible = false;
@@ -252,7 +262,6 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
         
         let index = this.filteredInvoices.findIndex(i => i.billNo === this.selectedRow[0]?.billNo); 
         let indexAnterior = index - 1;
-
        
         let obj = {
             billNo: this.selectedRow[0]?.billNo || '',
@@ -271,45 +280,62 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
             options: JSON.stringify(options)
         };
 
+        console.log('Chamando a IP_DisputeSearchInvoiceCharges', JSON.stringify(params));
+
         this._actionUtil
             .executeAction(params, null, this, null, null)
             .then((response) => {
+                console.log('Resultado da IP_DisputeSearchInvoiceCharges',JSON.stringify(response));
+                
                 this.tableVisible = true;
                 this.responseIP = response.result.IPResult;
                 this.isSuccess = response.result.IPResult.isSuccess;
+
                 const charges = Array.isArray(this.responseIP.invoiceCharges) ? this.responseIP.invoiceCharges : [this.responseIP.invoiceCharges]; 
+                console.log('charges', JSON.stringify(charges)); //<------ Subir isso
                 let credits;
-                if(this.responseIP.invoiceCredits){
-                    credits = Array.isArray(this.responseIP.invoiceCredits) ? this.responseIP.invoiceCredits : [this.responseIP.invoiceCredits];
+                if(this.responseIP.invoiceCredits && this.responseIP.invoiceCredits.invoiceCredits && this.responseIP.invoiceCredits.invoiceCredits.credits){
+                    credits = Array.isArray(this.responseIP.invoiceCredits.invoiceCredits.credits) ? this.responseIP.invoiceCredits.invoiceCredits.credits : [this.responseIP.invoiceCredits.invoiceCredits.credits];
                 }
-                console.log()
-                this.generalSetting = Array.isArray(this.generalSetting) ? this.generalSetting : [this.generalSetting];
+                console.log('credits', JSON.stringify(credits)); //<------ Subir isso
                 this.productList = this.normalizeCharges(charges ?? []);
+
                 let types = [];
                 this.productListByType= [];
-                
+                console.log('ProductList', JSON.stringify(this.productList)); //<------ Subir isso
                 if(credits) this.haveDiscount = credits.some((credit) => credit.reason == 'INOPTC');
                 
                 for (let i = 0; i < this.productList.length; i++) {
                     let product = this.productList[i];
-                    let type;
-                    let generalSettingItem = this.generalSetting.find(item => item.Name == product.frontEndCode);
-                    if(chargeCodes.includes(product.code)){
-                        this.isColab = true;
-                    }
-                    if(generalSettingItem){
-                        type = generalSettingItem.TabValue;
-                    }
-                    if(type != undefined){
-                        if (!this.productListByType[type]) {
-                            this.productListByType[type] = []; 
+
+                    try {
+                        console.log('product',JSON.stringify(product)); //<------ Subir isso
+                        let type;
+                        let generalSettingItem = this.generalSetting.find(item => item && item.Name && item.Name == product.frontEndCode); //<------ Subir isso
+                        console.log('GeneralSettingItem', JSON.stringify(generalSettingItem));
+                        console.log('Todas generalSettings', JSON.stringify(this.generalSetting));
+                        if(chargeCodes.includes(product.code)){
+                            this.isColab = true;
                         }
-                        this.productListByType[type].push(product)
-                        if (!types.includes(type)) {
-                            types.push(type);
-                        };
+                        if(generalSettingItem){
+                            type = generalSettingItem.TabValue;
+                        }
+                        if(type != undefined){
+                            if (!this.productListByType[type]) {
+                                this.productListByType[type] = []; 
+                            }
+                            this.productListByType[type].push(product)
+                            if (!types.includes(type)) {
+                                types.push(type);
+                            };
+                        }    
+                    } catch (e) {
+                        console.log('Erro ao tentar exibir o produto: ' + e);
+                        console.log('product', JSON.stringify(this.product));
                     }
                 }       
+                console.log('productList', JSON.stringify(this.productList));
+                console.log('Types', JSON.stringify(types));
                 this.selectedType = types[0];
             })
             .catch((error) => {
