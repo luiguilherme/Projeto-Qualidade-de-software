@@ -5,12 +5,12 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
           import { LightningElement, api, track, wire } from "lwc";
           import pubsub from "vlocity_cmt/pubsub";
           import { getRecord } from "lightning/uiRecordApi";
-          import { OmniscriptBaseMixin } from "vlocity_cmt/omniscriptBaseMixin";
+          
           import data from "./definition";
           
           import styleDef from "./styleDefinition";
               
-          export default class cfValPortabilityActionsPage extends FlexCardMixin(OmniscriptBaseMixin(LightningElement)){
+          export default class cfValPortabilityTicketDetailsPage extends FlexCardMixin(LightningElement){
               currentPageReference;        
               @wire(CurrentPageReference)
               setCurrentPageReference(currentPageReference) {
@@ -19,23 +19,9 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               @api debug;
               @api recordId;
               @api objectApiName;
-              @track _omniSupportKey = 'cfValPortabilityActionsPage';
-                  @api get omniSupportKey() {
-                    return this._omniSupportKey;
-                  }
-                  set omniSupportKey(parentRecordKey) {
-                    this._omniSupportKey = this._omniSupportKey  + '_' + parentRecordKey;
-                  }
+              
               @track record;
-              @track _sessionApiVars = {};
-        @api set cfCustomerInteraction(val) {
-          if(typeof val !== "undefined") {
-            this._sessionApiVars["CustomerInteraction"] = val;
-          }
-        } get cfCustomerInteraction() {
-          return this._sessionApiVars["CustomerInteraction"] || "{vlocity_cmt__CustomerInteraction__c}";
-        }
-      
+              
               
               pubsubEvent = [];
               customEvent = [];
@@ -45,8 +31,7 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
                 this.setStyleDefinition(styleDef);
                 data.Session = {} //reinitialize on reload
                 
-                this.flexiPageWidthAwareCB = this.flexiPageWidthAware.bind(this);
-                  window.addEventListener('resize', this.flexiPageWidthAwareCB);
+                
                 
                 this.setDefinition(data);
  this.registerEvents();
@@ -56,8 +41,8 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               
               disconnectedCallback(){
                 super.disconnectedCallback();
-                    this.omniSaveState(this.records,this.omniSupportKey,true);
-                    window.removeEventListener('resize', this.flexiPageWidthAwareCB);
+                    
+                    
 
                   this.unregisterEvents();
               }
@@ -65,9 +50,9 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               registerEvents() {
                 
         this.pubsubEvent[0] = {
-          [interpolateWithRegex(`data`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[0],0)
+          [interpolateWithRegex(`refresh`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[0],0)
         };
-        this.pubsubChannel0 = interpolateWithRegex(`omniscript_action`,this._allMergeFields,this._regexPattern,"noparse");
+        this.pubsubChannel0 = interpolateWithRegex(`refreshTab`,this._allMergeFields,this._regexPattern,"noparse");
         pubsub.register(this.pubsubChannel0,this.pubsubEvent[0]);
 
               }
@@ -80,9 +65,5 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               renderedCallback() {
                 super.renderedCallback();
                 
-                if(!this.containerWidthInitialised) {
-                  this.containerWidthInitialised = true;
-                  this.flexiPageWidthAware();
-                }
               }
           }

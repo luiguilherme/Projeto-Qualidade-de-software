@@ -1,7 +1,7 @@
 import { LightningElement, wire } from 'lwc';
 import pubsub from "vlocity_cmt/pubsub";
 
-export default class ShowBase64File extends LightningElement {
+export default class ShowBase64File extends LightningElement {    
 
     connectedCallback() {
         this.pubSubOpenPDF = {
