@@ -1,0 +1,97 @@
+<template>
+            <div class="slds-grid slds-wrap slds-is-relative ">
+            <div style="position: fixed;z-index: 999999;top: 0;right: 0;">
+  <vlocity_cmt-toast class="flexcard-toast-element" theme="slds" title="" message="" styletype=""> </vlocity_cmt-toast>
+</div>
+            <div if:true={showLoader} class="slds-is-absolute vloc-loader_override" style="height: 100%; width: 100%; min-height:50px; background: transparent; z-index: 99;">
+  <div>
+   <vlocity_cmt-spinner
+      variant="brand"
+      alternative-text="Loading content..."
+      size="medium"
+      theme="slds"
+      ></vlocity_cmt-spinner>
+  </div>
+</div>
+            <template if:false={hasPermission}>
+              You don't have required permissions to view this card.
+            </template>
+            <template if:true={hasPermission}>
+              <template if:true={hasRecords}>
+                        <template for:each={_records} for:item="record" for:index="rindex">
+                            <vlocity_cmt-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left " style="background-color:#ffb75d;     border-top: #FFFFFF 2px solid;border-right: #FFFFFF 2px solid;border-bottom: #FFFFFF 2px solid;border-left: #FFFFFF 2px solid; 
+         height: 25px;">
+          <div data-style-id="state0element0" class="slds-col    slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0" class="slds-col   slds-p-bottom_medium  slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"group":[],"id":"state-condition-object","isParent":true}' >
+    <vlocity_cmt-block data-style-id="state0element0block_element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  data-conditions='\{"group":[],"id":"state-condition-object","isParent":true}'  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0block_element0" class="slds-col  slds-text-align_center  slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-icon data-style-id="state0element0block_element0block_element0_child"   record={record}  card={card}  extraclass="slds-icon_container slds-icon__svg--default "  icon-name="utility:warning"  icon-type="Salesforce SVG"  imgsrc=""  size="x-small"  variant="default"  theme="slds"  ></vlocity_cmt-flex-icon>
+      </div><div data-style-id="state0element0block_element0block_element1" class="slds-col  slds-text-align_left  slds-large-size_7-of-12  slds-medium-size_8-of-12  slds-small-size_8-of-12  slds-size_8-of-12  " data-rindex={rindex} style="      
+         
+" ><vlocity_cmt-output-field data-style-id="state0element0block_element0block_element1_child"   record={record}  card={card}  merge-field="%3Cdiv%20class=%22slds-text-align_left%22%3E%3Cspan%20style=%22font-family:%20sans-serif;%20font-size:%208pt;%22%3E&nbsp;%20&nbsp;%20&nbsp;%20&nbsp;%20Cliente%20possui%20a%20linha%20%7BCaseLineNumber%7D%20que%20est&aacute;%20em%20processo%20de%20portabilidade.%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element0block_element0block_element2" class="slds-col  slds-p-top_xx-small  slds-size_3-of-12  " data-rindex={rindex} style="      
+         height: 40px;" ><vlocity_cmt-flex-action data-style-id="state0element0block_element0block_element2_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element0block_element2_child flexActionElement" 
+        data-action-element-class="state0element0block_element0block_element2_child" data-action-key="state0element0block_element0block_element2" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="action3"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":true,"isOpen":true,"key":"1699407097524-6zcnpg1wy","label":"Action","stateAction":{"Record":{"targetAction":"view","targetId":"{CaseId}","targetName":"Case"},"id":"flex-action-1712171261114","openUrlIn":"New Tab/Window","targetType":"Record","type":"Custom"}}]'  flyout-details='\{}'  hide-action-icon="true"  icon-name="standard-default"  icon-size="medium"  label="Deseja consultar bilhete?"  styles='\{"label":{"fontFamily":"Arial","fontSize":"11px","textDecoration":"underline"}}'  theme="slds"  ></vlocity_cmt-flex-action>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state><vlocity_cmt-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="1" data-rindex={rindex} class="cf-vlocity-state-1 cf-vlocity-state slds-size_12-of-12"  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-bottom_x-small" style="">
+          
+        </div>
+      </vlocity_cmt-flex-card-state>
+                        </template>
+                      </template>
+                      <template if:false={hasRecords}>
+                            <vlocity_cmt-flex-card-state  record={record} data-statue="false"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left " style="background-color:#ffb75d;     border-top: #FFFFFF 2px solid;border-right: #FFFFFF 2px solid;border-bottom: #FFFFFF 2px solid;border-left: #FFFFFF 2px solid; 
+         height: 25px;">
+          <div data-style-id="state0element0" class="slds-col    slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0" class="slds-col   slds-p-bottom_medium  slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"group":[],"id":"state-condition-object","isParent":true}' >
+    <vlocity_cmt-block data-style-id="state0element0block_element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  data-conditions='\{"group":[],"id":"state-condition-object","isParent":true}'  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0block_element0" class="slds-col  slds-text-align_center  slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-icon data-style-id="state0element0block_element0block_element0_child"   record={record}  card={card}  extraclass="slds-icon_container slds-icon__svg--default "  icon-name="utility:warning"  icon-type="Salesforce SVG"  imgsrc=""  size="x-small"  variant="default"  theme="slds"  ></vlocity_cmt-flex-icon>
+      </div><div data-style-id="state0element0block_element0block_element1" class="slds-col  slds-text-align_left  slds-large-size_7-of-12  slds-medium-size_8-of-12  slds-small-size_8-of-12  slds-size_8-of-12  " data-rindex={rindex} style="      
+         
+" ><vlocity_cmt-output-field data-style-id="state0element0block_element0block_element1_child"   record={record}  card={card}  merge-field="%3Cdiv%20class=%22slds-text-align_left%22%3E%3Cspan%20style=%22font-family:%20sans-serif;%20font-size:%208pt;%22%3E&nbsp;%20&nbsp;%20&nbsp;%20&nbsp;%20Cliente%20possui%20a%20linha%20%7BCaseLineNumber%7D%20que%20est&aacute;%20em%20processo%20de%20portabilidade.%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element0block_element0block_element2" class="slds-col  slds-p-top_xx-small  slds-size_3-of-12  " data-rindex={rindex} style="      
+         height: 40px;" ><vlocity_cmt-flex-action data-style-id="state0element0block_element0block_element2_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element0block_element2_child flexActionElement" 
+        data-action-element-class="state0element0block_element0block_element2_child" data-action-key="state0element0block_element0block_element2" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="action3"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":true,"isOpen":true,"key":"1699407097524-6zcnpg1wy","label":"Action","stateAction":{"Record":{"targetAction":"view","targetId":"{CaseId}","targetName":"Case"},"id":"flex-action-1712171261114","openUrlIn":"New Tab/Window","targetType":"Record","type":"Custom"}}]'  flyout-details='\{}'  hide-action-icon="true"  icon-name="standard-default"  icon-size="medium"  label="Deseja consultar bilhete?"  styles='\{"label":{"fontFamily":"Arial","fontSize":"11px","textDecoration":"underline"}}'  theme="slds"  ></vlocity_cmt-flex-action>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state><vlocity_cmt-flex-card-state  record={record} data-statue="false"  data-index="1" data-rindex={rindex} class="cf-vlocity-state-1 cf-vlocity-state slds-size_12-of-12"  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-bottom_x-small" style="">
+          
+        </div>
+      </vlocity_cmt-flex-card-state>
+                      </template>
+            </template>
+            <template if:true={hasError}>
+            {error}
+            </template>
+            
+      <vlocity_cmt-action action-wrapperclass="slds-hide" re-render-flyout class="action-trigger slds-col" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+      
+      </vlocity_cmt-action>
+  
+            <vlocity_cmt-action class="execute-action" re-render-flyout action-wrapperclass="slds-hide" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+            
+            </vlocity_cmt-action>
+            </div>
+          </template>
