@@ -39,14 +39,14 @@
         "inputWidth": 12,
         "label": "Forma de Pagamento",
         "optionSource": {
-            "source": "",
+            "source": "Formula1",
             "type": ""
         },
         "options": [
             {
                 "autoAdv": null,
                 "name": "full",
-                "value": "Á vista"
+                "value": "À Vista"
             }
         ],
         "readOnly": false,
@@ -54,7 +54,52 @@
         "repeatClone": false,
         "repeatLimit": null,
         "required": true,
-        "show": null,
+        "show": {
+            "group": {
+                "operator": "OR",
+                "rules": [
+                    {
+                        "condition": "<>",
+                        "data": "Lojas Proprias",
+                        "field": "channel"
+                    },
+                    {
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "Lojas Proprias",
+                                    "field": "channel"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "false",
+                                    "field": "SalesJourneyChipSelect:hasChipSelected"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "Lojas Proprias",
+                                    "field": "channel"
+                                },
+                                {
+                                    "condition": "<>",
+                                    "data": "donate",
+                                    "field": "paymentMethodLP"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
         "showInputWidth": false
     },
     "%vlocity_namespace%__ReusableOmniScript__c": true,

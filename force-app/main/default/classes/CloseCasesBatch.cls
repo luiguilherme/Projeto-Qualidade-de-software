@@ -1,5 +1,12 @@
 global with sharing class CloseCasesBatch implements Database.Batchable<sObject>{
     private GeneralParam__c param;
+    private DateTime jobStartDateTime = System.now();
+    private Integer  offSetUserTimeZone = UserInfo.getTimeZone().getOffset(jobStartDateTime) / (60 * 60 * 1000);
+    private Integer  referenceHour = (offSetUserTimeZone == -3)  ? -4 : -3;
+    private String   expirationDate = jobStartDateTime.addHours(referenceHour).format('yyyy-MM-dd\'T\'HH:mm:ss\'.000Z\'', 'GMT');
+	private String   recordTypeIdFixed   = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('FixedServiceQualification').getrecordTypeId();
+    private String   recordTypeIdDispute = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('DisputeInvoiceCase').getRecordTypeId();
+    private String   recordTypeIdPre     = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('PreDefectAndRepair').getRecordTypeId();    
 
     global static void start(){
         Database.executeBatch(new CloseCasesBatch());
@@ -12,19 +19,12 @@ global with sharing class CloseCasesBatch implements Database.Batchable<sObject>
     global Database.QueryLocator start(Database.BatchableContext BC) {
         String query;
 
-        DateTime jobStartDateTime = System.now();
-        Integer offSetUserTimeZone = UserInfo.getTimeZone().getOffset(jobStartDateTime) / (60 * 60 * 1000);
-        Integer referenceHour = (offSetUserTimeZone == -3)  ? -4 : -3;
-        String expirationDate = jobStartDateTime.addHours(referenceHour).format('yyyy-MM-dd\'T\'HH:mm:ss\'.000Z\'', 'GMT');
-        String recordTypeIdFixed = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('FixedServiceQualification').getrecordTypeId();
-        String recordTypeIdDispute = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('DisputeInvoiceCase').getRecordTypeId();
-        
         query = 'SELECT';
-        query += ' Id, CreatedDate, Status, RecordTypeId ';
+        query += ' Id, CreatedDate, Status, RecordTypeId, DateTimeStatusChanged__c';
         query += ' FROM Case';
         query += ' WHERE CreatedDate <= ' + expirationDate;
         query += ' AND (Status = \'Em Atendimento\' OR Status = \'InTransfer\' OR Status = \'Consulting\')';
-        query += ' AND RecordTypeId IN (\'' + recordTypeIdFixed + '\', \'' + recordTypeIdDispute + '\')';
+        query += ' AND RecordTypeId IN (\'' + recordTypeIdFixed + '\', \'' + recordTypeIdDispute + '\', \'' + recordTypeIdPre + '\')';
         return Database.getQueryLocator(query);
     }
 
@@ -57,12 +57,24 @@ global with sharing class CloseCasesBatch implements Database.Batchable<sObject>
             }
             caseToInteractionTopicsMap.get(topic.vlocity_cmt__CaseId__c).add(topic);
         }
-
+       
         for (Case c : scope) {
+
+            Long hoursSource = c.DateTimeStatusChanged__c!= null ? c.DateTimeStatusChanged__c.getTime() : jobStartDateTime.getTime();
+            Long hoursTotal = (jobStartDateTime.getTime() - hoursSource)/(60 * 60 * 1000);
+           
             if (c.Status == 'Em Atendimento') {
-                c.Status = 'InterruptedFlow';
+                if(c.RecordTypeId == recordTypeIdPre && hoursTotal > 4 ){
+                	c.Status = 'InterruptedFlow';
+                }else if(c.RecordTypeId == recordTypeIdFixed || c.RecordTypeId == recordTypeIdDispute){
+                	c.Status = 'InterruptedFlow';                    
+                }
             } else if (c.Status == 'InTransfer' || c.Status == 'Consulting') {
-                c.Status = 'TransferInterrupted';
+                if(c.RecordTypeId == recordTypeIdPre  && hoursTotal > 4){
+                    c.Status = 'TransferInterrupted';
+                }else if(c.RecordTypeId == recordTypeIdFixed || c.RecordTypeId == recordTypeIdDispute){
+                    c.Status = 'TransferInterrupted';
+                }
             }
 
             if (caseToDisputedItemsMap.containsKey(c.Id)) {

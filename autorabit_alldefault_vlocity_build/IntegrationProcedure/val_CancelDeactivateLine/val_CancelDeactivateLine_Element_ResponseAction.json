@@ -8,10 +8,11 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "error": "=IF(ISBLANK(%HTTPCalloutRM:code%), \"OK\", %HTTPCalloutRM:message%)",
+            "error": "=IF(ISBLANK(%HTTPCalloutRM:info:statusCode%), \"OK\", %HTTPCalloutRM:info:status%)",
             "errorCode": "=IF(%HTTPCalloutRMInfo:statusCode% != NULL, %HTTPCalloutRMInfo:statusCode%, 400)",
             "request": "%DRTChangeStatusRM%",
-            "response": "%HTTPCalloutRM%"
+            "response": "%HTTPCalloutRM%",
+            "response:code": 200
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",
