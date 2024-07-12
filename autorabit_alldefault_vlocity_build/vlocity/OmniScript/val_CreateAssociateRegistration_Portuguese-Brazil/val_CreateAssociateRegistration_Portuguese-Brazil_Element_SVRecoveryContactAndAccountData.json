@@ -1,0 +1,64 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "AssociateRegistration",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CreateAssociateRegistration/Portuguese (Brazil)",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "HTMLTemplateId": "",
+        "controlWidth": 12,
+        "elementValueMap": {
+            "AccountDocumentNumber": "=IF(%StepRegister:DocumentBlock:DocumentNumberCPFRO% != null, %StepRegister:DocumentBlock:DocumentNumberCPFRO%, IF(%StepRegister:DocumentBlock:DocumentNumberPassaportRO% != null, %StepRegister:DocumentBlock:DocumentNumberPassaportRO%, %StepRegister:DocumentBlock:DocumentNumberExtRO%))",
+            "AlternativeEmail": "=IF(%StepRegister:ContactData:PhoneSelect:ContactData:OtherEmail% == null || %StepRegister:ContactData:PhoneSelect:ContactData:OtherEmail% == \"\", \" \", %StepRegister:ContactData:PhoneSelect:ContactData:OtherEmail%)",
+            "ComercialPhone": "=%StepRegister:ContactData:PhoneSelect:ContactData:ComercialPhone%",
+            "ComercialPhonePrincipal": "=%StepRegister:ContactData:PhoneSelect:ContactData:ComercialPhonePrincipal%",
+            "ComercialPhonePrincipalDisable": "=%StepRegister:ContactData:PhoneSelect:ContactData:ComercialPhonePrincipalDisable%",
+            "Email": "=IF(%StepRegister:ContactData:PhoneSelect:ContactData:Email%==\"null\", \"\", %StepRegister:ContactData:PhoneSelect:ContactData:Email%)",
+            "MobilePhone": "=%StepRegister:ContactData:PhoneSelect:ContactData:MobilePhone%",
+            "MobilePhonePrincipal": "=%StepRegister:ContactData:PhoneSelect:ContactData:MobilePhonePrincipal%",
+            "MobilePhonePrincipalDisable": "=%StepRegister:ContactData:PhoneSelect:ContactData:MobilePhonePrincipalDisable%",
+            "OtherEmail": "=IF(%StepRegister:ContactData:PhoneSelect:ContactData:OtherEmail%==\"null\", \"\", %StepRegister:ContactData:PhoneSelect:ContactData:OtherEmail%)",
+            "ResidentialPhone": "=%StepRegister:ContactData:PhoneSelect:ContactData:ResidentialPhone%",
+            "ResidentialPhonePrincipal": "=%StepRegister:ContactData:PhoneSelect:ContactData:ResidentialPhonePrincipal%",
+            "ResidentialPhonePrincipalDisable": "=%StepRegister:ContactData:PhoneSelect:ContactData:ResidentialPhonePrincipalDisable%",
+            "interactionIdAssociate": "%responseProtocolItem:interactionId%",
+            "interactionNumberAssociate": "%responseProtocolItem:interactionNumber%",
+            "interactionTopicIdAssociate": "%responseProtocolItem:interactionTopicId%"
+        },
+        "label": "SVRecoveryContactData",
+        "message": {
+        },
+        "pubsub": false,
+        "show": {
+            "group": {
+                "operator": "AND",
+                "rules": [
+                    {
+                        "condition": "=",
+                        "data": "true",
+                        "field": "ShowDataFields"
+                    },
+                    {
+                        "condition": "<>",
+                        "data": "true",
+                        "field": "ShowValidate"
+                    }
+                ]
+            }
+        },
+        "showPersistentComponent": [
+            true,
+            false
+        ],
+        "ssm": false,
+        "wpm": false
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVRecoveryContactAndAccountData",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CreateAssociateRegistration/Portuguese (Brazil)/SVRecoveryContactAndAccountData"
+}
