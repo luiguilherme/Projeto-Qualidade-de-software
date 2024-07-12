@@ -47,8 +47,9 @@ public class TopicTree {
     private static String staticResourcePalitosCallCenterBloco9           = 'PalitosCallCenterBloco9';
     private static String staticResourcePalitosLojasReleaseJulho2024      = 'PalitosLojasReleaseJulho2024';
     private static String staticResourcePalitosCallCenterReleaseJulho2024 = 'PalitosCallCenterReleaseJulho2024';    
+    private static String staticResourcePalitosCallCenterReleaseJulho2024V2 = 'PalitosCallCenterReleaseJulho2024V2';
     private static String staticResourcePalitosLojasReleaseSetembro2024      = 'PalitosLojasReleaseSetembro2024';
-    private static String staticResourcePalitosCallCenterReleaseSetembro2024 = 'PalitosCallCenterReleaseSetembro2024';
+    private static String staticResourcePalitosCallCenterReleaseSetembro2024 = 'PalitosCallCenterReleaseSetembro2024';    
     //
     Map<String, CustomerInteractionTopicTree__c> mapTopicsDedup = new Map<String, CustomerInteractionTopicTree__c>();    
 	// 
@@ -89,13 +90,17 @@ public class TopicTree {
     }            
     private static StaticResource getResourcestaticResourcePalitosCallCenterReleaseJulho2024(){
         return [SELECT ID, body FROM StaticResource WHERE Name =: staticResourcePalitosCallCenterReleaseJulho2024 LIMIT 1];
+    } 
+    private static StaticResource getResourcestaticResourcePalitosCallCenterReleaseJulho2024V2(){
+        return [SELECT ID, body FROM StaticResource WHERE Name =: staticResourcePalitosCallCenterReleaseJulho2024V2 LIMIT 1];
     }                
     private static StaticResource getResourcestaticResourcePalitosLojasReleaseSetembro2024(){
         return [SELECT ID, body FROM StaticResource WHERE Name =: staticResourcePalitosLojasReleaseSetembro2024 LIMIT 1];
     }            
     private static StaticResource getResourcestaticResourcePalitosCallCenterReleaseSetembro2024(){
         return [SELECT ID, body FROM StaticResource WHERE Name =: staticResourcePalitosCallCenterReleaseSetembro2024 LIMIT 1];
-    }                    
+    }    
+              
 
 	public class Topic {
 		public String SEQ;
@@ -229,7 +234,7 @@ public class TopicTree {
         
     	if(this.file=='LOJA' || this.file=='PALITOSLOJASBLOCO9' || this.file=='PALITOSLOJASRELEASEJULHO2024' || this.file=='PALITOSLOJASRELEASESETEMBRO2024'){
             serviceTree = 'Store';
-        }else if(this.file=='CALLCENTER' || this.file=='PALITOSCALLCENTERBLOCO9' || this.file=='PALITOSCALLCENTERRELEASEJULHO2024' || this.file=='PALITOSCALLCENTERRELEASESETEMBRO2024'){
+        }else if(this.file=='CALLCENTER' || this.file=='PALITOSCALLCENTERBLOCO9' || this.file=='PALITOSCALLCENTERRELEASEJULHO2024' || this.file=='PALITOSCALLCENTERRELEASEJULHO2024V2' || this.file=='PALITOSCALLCENTERRELEASESETEMBRO2024'){
             serviceTree = 'Service';
         }
         System.debug('--------------------------------------');
@@ -274,6 +279,8 @@ public class TopicTree {
             sr = getResourcestaticResourcePalitosLojasReleaseJulho2024();
         }else if(file=='PALITOSCALLCENTERRELEASEJULHO2024'){
             sr = getResourcestaticResourcePalitosCallCenterReleaseJulho2024();
+        }else if(file=='PALITOSCALLCENTERRELEASEJULHO2024V2'){
+            sr = getResourcestaticResourcePalitosCallCenterReleaseJulho2024V2();    
         }else if(file=='PALITOSLOJASRELEASESETEMBRO2024'){
             sr = getResourcestaticResourcePalitosLojasReleaseSetembro2024();
         }else if(file=='PALITOSCALLCENTERRELEASESETEMBRO2024'){
