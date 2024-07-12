@@ -14,10 +14,11 @@
             "comboChipSmartPayments": {
                 "id": "",
                 "operation": "",
+                "orderId": "%SVOrder:OrderId%",
                 "promotionCode": ""
             },
             "requestId": "=CONCAT(\"5025\", %OrderNumber%)",
-            "voucherSmartPayments": "=IF(%VoucherBroken% == true, %VoucherPin%, %Pin%)"
+            "voucherSmartPayments": "=IF(%VoucherBroken% == true, TOSTRING(%VoucherPin%), TOSTRING(%Pin%))"
         },
         "executionConditionalFormula": "",
         "failOnStepError": false,

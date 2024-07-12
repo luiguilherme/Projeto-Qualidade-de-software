@@ -1,0 +1,70 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valPortabilityAuthorizeDonation",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/PortabilityAuthorizeDonation/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__ParentElementId__c": {
+        "%vlocity_namespace%__OmniScriptId__c": {
+            "Name": "valPortabilityAuthorizeDonation",
+            "VlocityDataPackType": "VlocityMatchingKeyObject",
+            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/PortabilityAuthorizeDonation/Procedure",
+            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+        },
+        "Name": "CBExecuteCustomerInteractionTopic",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/PortabilityAuthorizeDonation/Procedure/CBExecuteCustomerInteractionTopic",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
+    },
+    "%vlocity_namespace%__ParentElementName__c": "CBExecuteCustomerInteractionTopic",
+    "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "additionalInput": {
+            "InteractionId": "%DREGetAccountbyCase0:InteractionId%",
+            "NetworkNumber": "%DREGetAccountbyCase0:LineNumber%",
+            "accountId": "%DREGetAccountbyCase0:AccountId%",
+            "assetId": "%DREGetAccountbyCase0:RootAssetId%",
+            "interactionId": "%DREGetAccountbyCase0:InteractionId%",
+            "topicname": "Solicitação de Estorno de Port-In"
+        },
+        "additionalOutput": {
+            "AuthorizationSucess": "=ISBLANK(%HTTPCallAuthorizeDonation:info:status%)",
+            "erroResultMessage": "=IF(ISBLANK(%HTTPCallAuthorizeDonation:result%),\"Sucess\",(%HTTPCallAuthorizeDonation:result%)",
+            "error": "=IF(ISBLANK(%HTTPCallAuthorizeDonation:info:status%) ,\"OK\", %HTTPCallAuthorizeDonation:info:status%)",
+            "errorCode": "=IF(ISBLANK(%HTTPCallAuthorizeDonation:info:statuscode%),\"204\",%HTTPCallAuthorizeDonation:info:statuscode%)",
+            "message": "=IF(ISBLANK(%HTTPCallAuthorizeDonation:info:status%), \"Solicitação enviada com sucesso.\",\"Falha ao enviar solicitação\")",
+            "request": "=%DRRequestAuthorizeConector%",
+            "variant": "=IF(ISBLANK(%HTTPCallAuthorizeDonation:info:status%), \"success\",\"error\")"
+        },
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "disableChainable": false,
+        "executionConditionalFormula": "",
+        "failOnStepError": false,
+        "failureConditionalFormula": "",
+        "failureResponse": {
+        },
+        "integrationProcedureKey": "val_CreatesAutomaticTopicPortability",
+        "label": "IntegrationProcedureAction4",
+        "remoteOptions": {
+        },
+        "responseJSONNode": "result",
+        "responseJSONPath": "",
+        "returnOnlyAdditionalOutput": false,
+        "returnOnlyFailureResponse": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "sendOnlyAdditionalInput": true,
+        "show": null,
+        "useFormulas": true
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Integration Procedure Action",
+    "Name": "IPCreateCustomerInteractionTopic0",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/PortabilityAuthorizeDonation/Procedure/IPCreateCustomerInteractionTopic0"
+}

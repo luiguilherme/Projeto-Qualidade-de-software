@@ -50,7 +50,8 @@ public without sharing class AssetDAO {
             AccountId =: accountId 
         AND Type__c = 'Movel'];
     }
-    @AuraEnabled
+    
+	@AuraEnabled
     public static List<Asset> getAssetMobileMigration(String accountId) {
         return   [
             SELECT Id,                          	
@@ -138,7 +139,33 @@ public without sharing class AssetDAO {
             and type__c = 'Fixa'
         ];
     }
-
+    
+    public static List<Asset> getAssetPreByAccount(String accountId){
+        return [
+            SELECT
+                Id, 
+                TVOfferFormula__c,
+                MainProductDescription__c, 
+                LastModifiedDate, 
+                Instance__c,                
+                AccountId,
+                Technology__c,
+                Type__c,
+                Cabinet__c, 
+                ProductType__c, 
+                Speed__c, 
+                LegacySystem__c, 
+                Streaming__c,
+                vlocity_cmt__BillingAccountId__c,
+                vlocity_cmt__ServiceAccountId__r.ShippingState,
+                vlocity_cmt__ServiceAccountId__r.ShippingCity,
+                vlocity_cmt__ServiceAccountId__r.FullAddress__c
+            FROM Asset 
+            WHERE AccountId =: accountId 
+             AND Product2.vlocity_cmt__Type__c  = 'Prepaid'
+        ];
+    }    
+    
     public static List<Asset> getByAccountIdRecordtypeDeveloperName(Id accountId, String recordtypeName){
         return[
             SELECT 
@@ -195,13 +222,16 @@ public without sharing class AssetDAO {
                 LastModifiedDate > :lastModifiedDate   
         ];
     }
-	
+
     public static Asset getAssetById(String Id) {
         return   [
             SELECT  Id,
-                    toLabel(Status),
+                    toLabel(Status),            		
                     Instance__c,
-                    Name
+            		Name,
+                    MainProductDescription__c,
+                    Product2.vlocity_cmt__Type__c,
+                    vlocity_cmt__ServiceIdentifier__c
         FROM 
             Asset 
         WHERE 
@@ -212,7 +242,7 @@ public without sharing class AssetDAO {
 
     public static List<Asset> getAssetByName(String Name) {
         return   [
-            SELECT Id,
+		SELECT Id,
                 AccountId,
                 Account.Name,
                 Account.Id,
@@ -232,7 +262,14 @@ public without sharing class AssetDAO {
     public static List<Asset> getByAccountId(Id accountId){
         return[
             SELECT  
-                Id,
+            	Id, 
+            	Status, 
+            	Product2.vlocity_cmt__SubType__c, 
+            	LegacyIdentifier__c, 
+            	vlocity_cmt__ServiceIdentifier__c,
+            	StartDateTime__c, 
+            	EndDateTime__c, 
+            	vlocity_cmt__AttributeSelectedValues__c,
                 Name,                
                 Account.Name,
                 LegacyAssetId__c,
@@ -244,7 +281,7 @@ public without sharing class AssetDAO {
         ];
     }
 
-    public static List<Asset> getAccountId(Id accountId){
+   public static List<Asset> getAccountId(Id accountId){
         return[
             SELECT  
                 Id,
@@ -259,15 +296,32 @@ public without sharing class AssetDAO {
                 AccountId = :accountId 
         ];
     }    
-    
+        
     public static List<Asset> getByBillingAccountId(Set<Id> setBillingAccounId){
         return[
             SELECT
                 Id,
-                Name                
+                Name,
+            	LegacyIdentifier__c,
+            	Product2.vlocity_cmt__SubType__c,
+            	vlocity_cmt__AttributeSelectedValues__c
             FROM
                 Asset
         ];
+    }
+
+    public static Asset[] getByParentItemId(String parentItemId)
+    {
+        return [
+            SELECT id,
+                productcode,
+                product2id,
+                name,
+                externalid__c,
+                price,
+                vlocity_cmt__assetreferenceid__c
+            FROM Asset
+            WHERE (Status = 'Active' AND vlocity_cmt__ParentItemId__c = :parentItemId)];
     }
     
     public static List<Asset> getAssetIdByIdentifiers(String serviceIdentifier, String accountId) {
@@ -280,8 +334,8 @@ public without sharing class AssetDAO {
     public static List<Asset> getAssetIdWithoutIdentifiers(String accountId) {
         return [SELECT Id, Type__c, SourceSystem__c, vlocity_cmt__ServiceIdentifier__c FROM Asset WHERE AccountId =: accountId AND Type__c = 'Fixa' AND SourceSystem__c = 'SIEBEL' LIMIT 1];
          
-    }
-
+    }  
+    
     public static List<Asset> getPidAssetMobileByAccount(String accountId) {
         final String STR_STATUS = 'Active';
 
@@ -324,5 +378,57 @@ public without sharing class AssetDAO {
             ORDER BY 
                 StartDate__c ASC
         ];
+    }    
+    
+    public static Asset getPlanByMsisdn(String msisdn)
+    {
+        
+        Asset assetPromo = [SELECT vlocity_cmt__AssetReferenceId__c 
+                            FROM Asset 
+                            WHERE vlocity_cmt__ServiceIdentifier__c  =:msisdn AND Status  = 'Active' AND Product2.vlocity_cmt__SubType__c = 'Promotion' 
+                            LIMIT 1];
+        System.debug('assetPromo: '+assetPromo);
+        if(assetPromo == null) return null;
+        System.debug('assetPromo.vlocity_cmt__AssetReferenceId__c: '+assetPromo.vlocity_cmt__AssetReferenceId__c);
+        return [
+            SELECT id,
+                Productcode,
+                Product2id,
+                Name,
+                vlocity_cmt__AttributeSelectedValues__c
+            FROM Asset
+            WHERE (vlocity_cmt__ParentItemId__c =:assetPromo.vlocity_cmt__AssetReferenceId__c AND Product2.vlocity_cmt__SubType__c = 'Plan') 
+            LIMIT 1];
     }
+    
+ 	public static List<Asset> getBy(String accountId, String identifier, String description)
+    {
+        return [
+            SELECT Id, Instance__c
+            FROM Asset
+            WHERE AccountId = :accountId
+            AND vlocity_cmt__ServiceIdentifier__c = :identifier
+            AND MainProductDescription__c = :description
+        ];
+    }
+
+    public static List<Asset> getBy(String accountId, String externalId)
+    {
+        return [
+            SELECT Id
+            FROM Asset
+            WHERE accountId = :accountId
+            AND ExternalId__c = :externalId
+        ];
+
+    }
+
+    public static List<Asset> getBy(Set<Id> assetIds)
+    {
+        return [
+            SELECT Id, Type__c, Technology__c, MainProductDescription__c
+            FROM Asset
+            WHERE Id = :assetIds
+        ];
+    }    
 }

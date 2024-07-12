@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>RowCount</column>
+        </chartSummaries>
+        <chartType>HorizontalBar</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>CDF1</groupingColumn>
+        <location>CHART_BOTTOM</location>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>Order$Id</field>
+    </columns>
+    <columns>
+        <field>Order$OrderNumber</field>
+    </columns>
+    <columns>
+        <field>Order$Status</field>
+    </columns>
+    <columns>
+        <field>Order$Type</field>
+    </columns>
+    <columns>
+        <field>Order$CurrentMSISDN__c</field>
+    </columns>
+    <columns>
+        <field>Order$ChannelName__c</field>
+    </columns>
+    <columns>
+        <field>Order$LastModifiedDate</field>
+    </columns>
+    <columns>
+        <field>Order$CreatedDate</field>
+    </columns>
+    <customDetailFormulas>
+        <calculatedFormula>IF(
+ISPICKVAL(Order.Status, &quot;Processing&quot;),
+IF(
+NOW() - Order.LastModifiedDate &lt; (10/1440),
+&quot;Green Flag&quot;,
+IF(
+NOW() - Order.LastModifiedDate &lt; (20/1440),
+&quot;Yellow Flag&quot;,
+&quot;Red Flag&quot;
+)
+),
+NULL
+)</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>SLA Flag</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>CDF1</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>X</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Order$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Processing</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Order$Id</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>929293929392932</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Order$OrderNumber</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>929292929292922</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Order$Type</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>,DeviceBlock,BlockLine,CancelLine,FreezeLine,UnblockLine,Desbloqueio de Linha,DeactivateLine,EffectPortin,EffectPortOut,ReversalPortout,ServiceManagement,Habilitação Pré,PrepaidRemoteActivation,Migration,ControlMigration,PostPaidMigration,AdditionalPackage,Promotion,ReactivationLine,RechargeVoucher,Recharge,NumberSwap,ChangeServiceIdentifier,ChangeSimCard,Change</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Order$CurrentMSISDN__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>9292929292</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Order$ChannelName__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>X</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Order$LastModifiedDate</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>4/1/2022 12:00 AM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Order$CreatedDate</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>4/1/2022 12:00 AM</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CDF1</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Ordens em Processamento</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Orders__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Order$ActivatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

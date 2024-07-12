@@ -4,12 +4,17 @@
             {
                 "id": 35,
                 "name": "Parent.OrderId",
-                "val": "80176000001fznpAAA"
+                "val": "80176000000MQmlAAG"
             },
             {
                 "id": 7,
                 "name": "Parent.Functionality",
                 "val": "SalesJourney"
+            },
+            {
+                "id": 6,
+                "name": "Parent.Portability",
+                "val": "Sim"
             }
         ],
         "orderBy": {
@@ -21,10 +26,11 @@
             "dsDelay": "",
             "inputMap": {
                 "OrderId": "{Parent.OrderId}",
+                "Portability": "{Parent.Portability}",
                 "funcionality": "{Parent.Functionality}"
             },
             "ipMethod": "val_GetReviewOrder",
-            "jsonMap": "{\"Parent.OrderId\":\"{Parent.OrderId}\",\"Parent.Functionality\":\"{Parent.Functionality}\"}",
+            "jsonMap": "{\"Parent.OrderId\":\"{Parent.OrderId}\",\"Parent.Functionality\":\"{Parent.Functionality}\",\"Parent.Portability\":\"{Parent.Portability}\"}",
             "resultVar": "",
             "vlocityAsync": false
         }
@@ -48,6 +54,7 @@
             ],
             "childCards": [
                 "valReviewOrderHeader",
+                "valReviewPortabilityDetails",
                 "valReviewContact",
                 "valReviewContactDetails",
                 "valReviewLineDetails",
@@ -100,6 +107,76 @@
                                 "collapsedByDefault": false,
                                 "collapsible": true,
                                 "label": "Dados do Pedido",
+                                "record": "{record}"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "class": "slds-p-around_x-small",
+                                "padding": [
+                                    {
+                                        "size": "x-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "block",
+                            "userUpdatedElementLabel": true
+                        },
+                        {
+                            "children": [
+                                {
+                                    "class": "slds-col ",
+                                    "element": "childCardPreview",
+                                    "elementLabel": "Contacts-FlexCard-1",
+                                    "key": "element_element_block_1_0_childCardPreview_0_0",
+                                    "name": "FlexCard",
+                                    "parentElementKey": "element_block_1_0",
+                                    "property": {
+                                        "cardName": "valReviewPortabilityDetails",
+                                        "cardNode": "{record.PortabilityDetails}",
+                                        "isChildCardTrackingEnabled": false,
+                                        "recordId": "{recordId}",
+                                        "selectedState": "Active"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "sizeClass": "slds-size_12-of-12"
+                                    },
+                                    "type": "element"
+                                }
+                            ],
+                            "class": "slds-col ",
+                            "element": "block",
+                            "elementLabel": "Contacts",
+                            "name": "Block",
+                            "property": {
+                                "card": "{card}",
+                                "collapsedByDefault": false,
+                                "collapsible": true,
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "Order.HasPortability",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-0",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "Sim"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "label": "Portabilidade",
                                 "record": "{record}"
                             },
                             "size": {
@@ -395,6 +472,7 @@
                                                 "cardNode": "",
                                                 "isChildCardTrackingEnabled": false,
                                                 "parentAttribute": {
+                                                    "OrderId": "{Parent.OrderId}",
                                                     "functionality": "{Parent.Functionality}"
                                                 },
                                                 "recordId": "{recordId}",
@@ -848,7 +926,7 @@
         "isExposed": true,
         "masterLabel": "valReviewOrder_SalesJourney",
         "runtimeNamespace": "%vlocity_namespace%",
-        "targetConfigs": "PHRhcmdldENvbmZpZyAgeG1sbnM9Imh0dHA6Ly9zb2FwLnNmb3JjZS5jb20vMjAwNi8wNC9tZXRhZGF0YSIgdGFyZ2V0cz0ibGlnaHRuaW5nX19BcHBQYWdlIj48cHJvcGVydHkgIG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48L3RhcmdldENvbmZpZz48dGFyZ2V0Q29uZmlnICB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPjxwcm9wZXJ0eSAgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+",
+        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiIvPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIi8+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiIvPjwvdGFyZ2V0Q29uZmlnPg==",
         "targets": {
             "target": [
                 "lightning__AppPage",
