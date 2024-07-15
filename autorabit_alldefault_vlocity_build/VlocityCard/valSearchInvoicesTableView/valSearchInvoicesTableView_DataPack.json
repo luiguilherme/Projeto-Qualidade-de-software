@@ -1,0 +1,272 @@
+{
+    "%vlocity_namespace%__Author__c": "Valentina",
+    "%vlocity_namespace%__CardType__c": "flex",
+    "%vlocity_namespace%__Datasource__c": {
+        "dataSource": {
+            "contextVariables": [
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "Custom",
+            "value": {
+                "body": "{\n  \"currentPage\": \"1\",\n  \"invoices\": [\n    {\n      \"number\": 36390,\n      \"series\": 4,\n      \"date\": \"26062024100601\",\n      \"totalAmount\": 50,\n      \"paidAmount\": 50,\n      \"taxFreeAmount\": 0,\n      \"brazilianDateTime\": \"26062024100601\",\n      \"tributedInvoice\": null\n    }\n  ],\n  \"navigation\": \"\",\n  \"ErrorMessage\": \"\",\n  \"ListEmpty\": false,\n  \"ListError\": false,\n  \"Pagination\": {\n    \"TotalRecords\": 1,\n    \"TotalPages\": 1,\n    \"State\": 1,\n    \"CurrentPage\": 1\n  },\n  \"Topics\": {\n    \"ListView\": [\n      {\n        \"number\": 36390,\n        \"series\": 4,\n        \"date\": \"26062024100601\",\n        \"totalAmount\": 50,\n        \"paidAmount\": 50,\n        \"taxFreeAmount\": 0,\n        \"brazilianDateTime\": \"26062024100601\",\n        \"tributedInvoice\": null\n      }\n    ]\n  },\n  \"code\": 200,\n  \"messageError\": \"\",\n\"subscriptionId\":\"a538M000000Q0WY\"\n}",
+                "dsDelay": "",
+                "resultVar": ""
+            }
+        },
+        "event-0_0": {
+            "contextVariables": [
+                {
+                    "id": 4,
+                    "name": "action.AccountId",
+                    "val": ""
+                },
+                {
+                    "id": 5,
+                    "name": "action.",
+                    "val": ""
+                },
+                {
+                    "id": 6,
+                    "name": "action.AssetId",
+                    "val": ""
+                },
+                {
+                    "id": 7,
+                    "name": "action.NetworkNumber",
+                    "val": ""
+                },
+                {
+                    "id": 9,
+                    "name": "action.InteractionId",
+                    "val": ""
+                },
+                {
+                    "id": 14,
+                    "name": "action.StartDateTime",
+                    "val": ""
+                },
+                {
+                    "id": 15,
+                    "name": "action.EndDateTime",
+                    "val": ""
+                },
+                {
+                    "id": 17,
+                    "name": "action.RecordId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "AccountId": "{action.AccountId}",
+                    "AssetId": "{action.AssetId}",
+                    "EndDateTime": "{action.EndDateTime}",
+                    "InteractionId": "{action.InteractionId}",
+                    "NetworkNumber": "{action.NetworkNumber}",
+                    "RecordId": "{action.RecordId}",
+                    "StartDateTime": "{action.StartDateTime}",
+                    "topicname": "Consulta de Notas Fiscais"
+                },
+                "ipMethod": "val_SearchInvoices",
+                "jsonMap": "{\"action.AccountId\":\"{action.AccountId}\",\"action.\":\"{action.}\",\"action.AssetId\":\"{action.AssetId}\",\"action.NetworkNumber\":\"{action.NetworkNumber}\",\"action.InteractionId\":\"{action.InteractionId}\",\"action.StartDateTime\":\"{action.StartDateTime}\",\"action.EndDateTime\":\"{action.EndDateTime}\",\"action.RecordId\":\"{action.RecordId}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        },
+        "event-1_1": {
+            "contextVariables": [
+                {
+                    "id": 6,
+                    "name": "Pagination.CurrentPage",
+                    "val": ""
+                },
+                {
+                    "id": 7,
+                    "name": "record.NetworkNumber",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "NetworkNumber": "{record.NetworkNumber}",
+                    "currentPage": "{Pagination.CurrentPage}",
+                    "navigation": "next"
+                },
+                "ipMethod": "val_SearchInvoices",
+                "vlocityAsync": false
+            }
+        },
+        "event-2_1": {
+            "contextVariables": [
+                {
+                    "id": 8,
+                    "name": "ProtocolNumberPagination",
+                    "val": ""
+                },
+                {
+                    "id": 9,
+                    "name": "EndDatePagination",
+                    "val": ""
+                },
+                {
+                    "id": 10,
+                    "name": "InitialDatePagination",
+                    "val": ""
+                },
+                {
+                    "id": 11,
+                    "name": "recordId",
+                    "val": ""
+                },
+                {
+                    "id": 12,
+                    "name": "SetDays",
+                    "val": ""
+                },
+                {
+                    "id": 13,
+                    "name": "LineNumberPagination",
+                    "val": ""
+                },
+                {
+                    "id": 14,
+                    "name": "ControlPage.CurrentPage",
+                    "val": ""
+                },
+                {
+                    "id": 6,
+                    "name": "Pagination.CurrentPage",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "RecordId": "{recordId}",
+                    "currentPage": "{Pagination.CurrentPage}",
+                    "navigation": "previous"
+                },
+                "ipMethod": "val_SearchInvoices",
+                "jsonMap": "{\"ProtocolNumberPagination\":\"{ProtocolNumberPagination}\",\"EndDatePagination\":\"{EndDatePagination}\",\"InitialDatePagination\":\"{InitialDatePagination}\",\"recordId\":\"{recordId}\",\"SetDays\":\"{SetDays}\",\"LineNumberPagination\":\"{LineNumberPagination}\",\"ControlPage.CurrentPage\":\"{ControlPage.CurrentPage}\",\"Pagination.CurrentPage\":\"{Pagination.CurrentPage}\"}",
+                "vlocityAsync": false
+            }
+        },
+        "event-3_1": {
+            "contextVariables": [
+                {
+                    "id": 8,
+                    "name": "recordId",
+                    "val": ""
+                },
+                {
+                    "id": 9,
+                    "name": "InitialDatePagination",
+                    "val": ""
+                },
+                {
+                    "id": 10,
+                    "name": "EndDatePagination",
+                    "val": ""
+                },
+                {
+                    "id": 11,
+                    "name": "LineNumberPagination",
+                    "val": ""
+                },
+                {
+                    "id": 12,
+                    "name": "ProtocolNumberPagination",
+                    "val": ""
+                },
+                {
+                    "id": 13,
+                    "name": "SetDays",
+                    "val": ""
+                },
+                {
+                    "id": 14,
+                    "name": "RecentTopics",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "CurrentPage": "1",
+                    "EndDate": "{EndDatePagination}",
+                    "InitialDate": "{InitialDatePagination}",
+                    "LineNumber": "{LineNumberPagination}",
+                    "ProtocolNumber": "{ProtocolNumberPagination}",
+                    "RecentTopics": "{RecentTopics}",
+                    "RecordId": "{recordId}",
+                    "SetDays": "{SetDays}"
+                },
+                "ipMethod": "val_GetCustomerTopicsHistory",
+                "jsonMap": "{\"recordId\":\"{recordId}\",\"InitialDatePagination\":\"{InitialDatePagination}\",\"EndDatePagination\":\"{EndDatePagination}\",\"LineNumberPagination\":\"{LineNumberPagination}\",\"ProtocolNumberPagination\":\"{ProtocolNumberPagination}\",\"SetDays\":\"{SetDays}\",\"RecentTopics\":\"{RecentTopics}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        },
+        "event-5_0": {
+            "contextVariables": [
+                {
+                    "id": 1,
+                    "name": "action.EmailAddrNFSendEmail",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "EmailAddrNFSendEmail": "{action.EmailAddrNFSendEmail}"
+                },
+                "ipMethod": "val_SendInvoiceByEmail",
+                "jsonMap": "{\"action.EmailAddrNFSendEmail\":\"{action.EmailAddrNFSendEmail}\"}",
+                "vlocityAsync": false
+            }
+        }
+    },
+    "%vlocity_namespace%__Definition__c": "valSearchInvoicesTableView.json",
+    "%vlocity_namespace%__Description__c": "PTI2283-2949 | Bloco 06 | J70 | Consultar Notas Fiscais de Recarga",
+    "%vlocity_namespace%__GlobalKey__c": "valSearchInvoicesTableView/Valentina/5/1703272888355",
+    "%vlocity_namespace%__IsChildCard__c": true,
+    "%vlocity_namespace%__ParentID__c": "",
+    "%vlocity_namespace%__SampleData__c": "{\"currentPage\":\"1\",\"invoices\":[{\"number\":36390,\"series\":4,\"date\":\"26062024100601\",\"totalAmount\":50,\"paidAmount\":50,\"taxFreeAmount\":0,\"brazilianDateTime\":\"26062024100601\",\"tributedInvoice\":null}],\"navigation\":\"\",\"ErrorMessage\":\"\",\"ListEmpty\":false,\"ListError\":false,\"Pagination\":{\"TotalRecords\":1,\"TotalPages\":1,\"State\":1,\"CurrentPage\":1},\"Topics\":{\"ListView\":[{\"number\":36390,\"series\":4,\"date\":\"26062024100601\",\"totalAmount\":50,\"paidAmount\":50,\"taxFreeAmount\":0,\"brazilianDateTime\":\"26062024100601\",\"tributedInvoice\":null}]},\"code\":200,\"messageError\":\"\",\"subscriptionId\":\"a538M000000Q0WY\"}",
+    "%vlocity_namespace%__Styles__c": "",
+    "%vlocity_namespace%__Type__c": "",
+    "%vlocity_namespace%__Version__c": 5,
+    "Name": "valSearchInvoicesTableView",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityCard__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__VlocityCard__c/valSearchInvoicesTableView"
+}

@@ -1,0 +1,43 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valPortabilitySuspend",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/PortabilitySuspend/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "additionalOutput": {
+            "result:ShowConfirmationStep": false,
+            "result:SuspendSucess": "=ISBLANK(%HTTPASuspendTicket%)",
+            "result:erroResultMessage": "=IF(%HTTPASuspendTicket:result% == \"\",\"success\", \"error\")",
+            "result:error": "=%HTTPASuspendTicketInfo%",
+            "result:errorCode": "=%HTTPASuspendTicketInfo:statusCode%",
+            "result:message": "=IF(%HTTPASuspendTicket% == \"\", \"Solicitação enviada com sucesso\" , \"Falha na Solicitação de Suspensão\")",
+            "result:request": "=%DRTTransformPortabilitySuspend%",
+            "result:variant": "=IF(%HTTPASuspendTicket% ==\"\",\"success\",\"error\")"
+        },
+        "disOnTplt": false,
+        "executionConditionalFormula": "%HTTPASuspendTicket% == '' &&  %IPGetUserPermission:UserPermission:GerarPalitoAutomaticoPortabilidade% == false",
+        "label": "ResponseAction1",
+        "responseDefaultData": {
+        },
+        "responseFormat": "JSON",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "returnFullDataJSON": false,
+        "returnOnlyAdditionalOutput": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "show": null,
+        "useFormulas": true,
+        "vlcResponseHeaders": {
+        }
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Response Action",
+    "Name": "RA2",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/PortabilitySuspend/Procedure/RA2"
+}

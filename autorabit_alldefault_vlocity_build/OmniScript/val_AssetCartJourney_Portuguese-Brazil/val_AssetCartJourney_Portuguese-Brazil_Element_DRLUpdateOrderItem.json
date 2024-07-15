@@ -41,32 +41,12 @@
         "sendJSONPath": "",
         "show": {
             "group": {
-                "operator": "AND",
+                "operator": "OR",
                 "rules": [
-                    {
-                        "condition": "<>",
-                        "data": null,
-                        "field": "OrderItemId"
-                    },
-                    {
-                        "condition": "<>",
-                        "data": "null",
-                        "field": "OrderItemId"
-                    },
                     {
                         "group": {
                             "operator": "OR",
                             "rules": [
-                                {
-                                    "condition": "=",
-                                    "data": "AdditionalPackage",
-                                    "field": "Functionality"
-                                },
-                                {
-                                    "condition": "=",
-                                    "data": "ServiceManagement",
-                                    "field": "Functionality"
-                                },
                                 {
                                     "group": {
                                         "operator": "AND",
@@ -80,6 +60,45 @@
                                                 "condition": "=",
                                                 "data": "ChangePlan",
                                                 "field": "StepSelectProcess:ProcessReason"
+                                            },
+                                            {
+                                                "condition": "<>",
+                                                "data": null,
+                                                "field": "OrderItemId"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "group": {
+                                        "operator": "AND",
+                                        "rules": [
+                                            {
+                                                "condition": "=",
+                                                "data": "AdditionalPackage",
+                                                "field": "Functionality"
+                                            },
+                                            {
+                                                "condition": "<>",
+                                                "data": null,
+                                                "field": "OrderItemId"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "group": {
+                                        "operator": "AND",
+                                        "rules": [
+                                            {
+                                                "condition": "=",
+                                                "data": "ServiceManagement",
+                                                "field": "Functionality"
+                                            },
+                                            {
+                                                "condition": "=",
+                                                "data": null,
+                                                "field": "OrderItemId"
                                             }
                                         ]
                                     }
@@ -122,6 +141,11 @@
                                             }
                                         ]
                                     }
+                                },
+                                {
+                                    "condition": "<>",
+                                    "data": null,
+                                    "field": "OrderItemId"
                                 }
                             ]
                         }

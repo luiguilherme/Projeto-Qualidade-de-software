@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Order$Id</field>
+    </columns>
+    <columns>
+        <field>Order$OrderNumber</field>
+    </columns>
+    <columns>
+        <field>Order$Type</field>
+    </columns>
+    <columns>
+        <field>Order$CurrentMSISDN__c</field>
+    </columns>
+    <columns>
+        <field>Order$ChannelName__c</field>
+    </columns>
+    <columns>
+        <field>Order$LastModifiedDate</field>
+    </columns>
+    <columns>
+        <field>Order$CreatedDate</field>
+    </columns>
+    <customDetailFormulas>
+        <calculatedFormula>IF(
+ISPICKVAL(Order.Status, &quot;Processing&quot;),
+IF(
+NOW() - Order.LastModifiedDate &lt; (10/1440),
+&quot;Green Flag&quot;,
+IF(
+NOW() - Order.LastModifiedDate &lt; (20/1440),
+&quot;Yellow Flag&quot;,
+&quot;Red Flag&quot;
+)
+),
+NULL
+)</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>SLA Flag</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>Order$Id</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>006D002300CrRLx</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Order$OrderNumber</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>006D000000CrRLa</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Order$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>,PendingPayment,Canceled,Activated,Draft,Failed,Processing</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Order$Type</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>,DeviceBlock,BlockLine,CancelLine,FreezeLine,UnblockLine,Desbloqueio de Linha,DeactivateLine,EffectPortin,EffectPortOut,ReversalPortout,ServiceManagement,Habilitação Pré,PrepaidRemoteActivation,Migration,ControlMigration,PostPaidMigration,AdditionalPackage,Promotion,ReactivationLine,RechargeVoucher,Recharge,NumberSwap,ChangeServiceIdentifier,ChangeSimCard,Change</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Order$CurrentMSISDN__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>86868686</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Order$ChannelName__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>X</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Order$LastModifiedDate</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>4/1/2022 12:00 AM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Order$CreatedDate</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>4/1/2022 12:00 AM</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Order$Status</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Volumetria de Ordens</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Orders__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Order$ActivatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -30,8 +30,10 @@ export default class ValToast extends OmniscriptBaseMixin(LightningElement) {
         });
 
         // this.handleToast(this);
+       
 
         pubsub.register("valToast",{["showToast"]: this.handleToast.bind(this)});
+        pubsub.register("valToast",{["valNextStep"]: this.nextButton.bind(this)});
     }
 
     handleToast(data) {
@@ -61,11 +63,11 @@ export default class ValToast extends OmniscriptBaseMixin(LightningElement) {
 
     showMultipleToast(messageArray, variant) {
 
-        messageArray.forEach(item => {
+       messageArray.forEach(item => {
             const toastParams ={
-                title: "",
-                message: item.message,
-                variant: variant
+            title: "",
+            message: item.message,
+             variant: variant
             };
             const event =  new ShowToastEvent(toastParams);
             this.dispatchEvent(event); 
@@ -83,4 +85,8 @@ export default class ValToast extends OmniscriptBaseMixin(LightningElement) {
         const event =  new ShowToastEvent(toastParams);
         this.dispatchEvent(event);        
     }
+
+    nextButton(evt) {
+        this.omniNextStep();
+    }    
 }
