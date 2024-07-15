@@ -28,7 +28,6 @@
             "closeModal": "close",
             "entryPoint": "ProductDetails",
             "isNotPushEvent": true,
-            "secondMsg": "%secondMsg%",
             "showToast": "show",
             "variant": [
                 {
@@ -42,12 +41,19 @@
         "pubsub": true,
         "show": {
             "group": {
-                "operator": "AND",
+                "operator": "OR",
                 "rules": [
                     {
-                        "condition": "=",
-                        "data": "Promotion",
-                        "field": "Functionality"
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "Promotion",
+                                    "field": "Functionality"
+                                }
+                            ]
+                        }
                     }
                 ]
             }

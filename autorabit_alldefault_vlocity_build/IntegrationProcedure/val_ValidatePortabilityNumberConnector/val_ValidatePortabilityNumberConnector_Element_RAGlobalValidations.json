@@ -1,0 +1,36 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valValidatePortabilityNumberConnector",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ValidatePortabilityNumberConnector/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "additionalOutput": {
+            "message": "=IF(%SVGlobalValidations:message1% != false,\"Cliente com portabilidade em andamento com a  Vivo. Verifique o histórico do pedido de portabilidade e informe ao cliente sobre o andamento.\", IF(%SVGlobalValidations:message4% != false,\"Cliente com portabilidade em andamento com a  Vivo. Verifique o histórico do pedido de portabilidade e informe ao cliente sobre o andamento.\", IF(%SVGlobalValidations:message5% != false, %SVRMFilter:FilterRMStatus%, IF(%IPCalloutGetProductStatus:networkNumberStatus% != \"Recém Portado\" && %DREPortabilityGetRescheduleInfo:TransectionStatus% != \"concluido\" , \"O status da linha não permite seguir com a solicitação\",false))))"
+        },
+        "disOnTplt": false,
+        "executionConditionalFormula": "",
+        "label": "ResponseAction9",
+        "responseDefaultData": {
+        },
+        "responseFormat": "JSON",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "returnFullDataJSON": false,
+        "returnOnlyAdditionalOutput": true,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "show": null,
+        "useFormulas": true,
+        "vlcResponseHeaders": {
+        }
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Response Action",
+    "Name": "RAGlobalValidations",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ValidatePortabilityNumberConnector/Procedure/RAGlobalValidations"
+}

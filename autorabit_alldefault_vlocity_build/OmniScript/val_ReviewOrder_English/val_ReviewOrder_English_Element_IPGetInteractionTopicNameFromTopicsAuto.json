@@ -70,6 +70,35 @@
                                     "condition": "=",
                                     "data": "SalesJourney",
                                     "field": "Functionality"
+                                },
+                                {
+                                    "group": {
+                                        "operator": "OR",
+                                        "rules": [
+                                            {
+                                                "condition": "<>",
+                                                "data": "true",
+                                                "field": "HasPortability"
+                                            },
+                                            {
+                                                "group": {
+                                                    "operator": "AND",
+                                                    "rules": [
+                                                        {
+                                                            "condition": "=",
+                                                            "data": "true",
+                                                            "field": "HasPortability"
+                                                        },
+                                                        {
+                                                            "condition": "=",
+                                                            "data": "true",
+                                                            "field": "UserPermission:GerarPalitoAutomaticoPortabilidade"
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
                                 }
                             ]
                         }

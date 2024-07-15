@@ -11,7 +11,10 @@
             "AccountId": "%DREGetMSISDNWithAssetId:AccountId%",
             "HTTPResponse": "%HTTPGetSubscriptionStatus%",
             "LineNumber": "%SVMSISDN:MSISDN%",
-            "SubscriptionId": "%DREGetSubscriptionIDWithAssetID:SubscriptionId%"
+            "StatusCode": "=IF(%DRUpdateSubscriptionStatus:error% = 'OK',200,400)",
+            "SubscriptionId": "%DREGetSubscriptionIDWithAssetID:SubscriptionId%",
+            "errorCode": "=IF(%DRUpdateSubscriptionStatus:error% = 'OK',200,400)",
+            "request": "=%DRUpdateSubscriptionStatus%"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",

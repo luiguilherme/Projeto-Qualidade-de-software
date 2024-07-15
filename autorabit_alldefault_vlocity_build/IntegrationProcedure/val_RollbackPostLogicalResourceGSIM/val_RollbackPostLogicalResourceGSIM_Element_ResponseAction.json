@@ -1,27 +1,17 @@
 {
     "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "valRollbackDeleteLogicalResourceGSIM",
+        "Name": "[DEV - BL9] valRollbackDeleteLogicalResourceGSIM",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
         "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/RollbackPostLogicalResourceGSIM/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "error": "=%HTTPPostLogicalResourceGSIM:message%",
-            "errorCode": "=%HTTPPostLogicalResourceGSIMInfo:statusCode%",
-            "request": {
-                "@type": "SimCard",
-                "relatedParty": [
-                    {
-                        "id": "SALESFORCE",
-                        "referredType": "APPLICATION",
-                        "role": "CURRENT_SYSTEM"
-                    }
-                ],
-                "value": "%RAGetAttributes:ATT_RT_ICCID%"
-            },
-            "response": "=%HTTPPostLogicalResourceGSIM%"
+            "error": "=%responseHTTP:message%",
+            "errorCode": "=IF(ISNOTBLANK(%HTTPPostLogicalResourceGSIMInfo:statusCode%), %HTTPPostLogicalResourceGSIMInfo:statusCode%, IF(ISNOTBLANK(%HTTPPostLogicalResourceGSIMHRSInfo:statusCode%), %HTTPPostLogicalResourceGSIMHRSInfo:statusCode%, null))",
+            "request": "%RequestGSIM%",
+            "response": "=%responseHTTP%"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",

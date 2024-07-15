@@ -13,8 +13,9 @@
         "elementValueMap": {
             "accountId": "=%DRGetCustomerInteractionTopicData:accountId%",
             "assetId": "=%AssetId%",
+            "createCase": "=IF(%CreateCase%==null, true, false)",
             "interactionTopicId": "=IF(%DRGetCustomerInteractionTopicData:interactionTopicId%!=NULL,%DRGetCustomerInteractionTopicData:interactionTopicId%,%interactionTopicId%)",
-            "origin": "=IF(%ProductType%=='Pre','VIVO/NET',IF(%ProductType%=='Fixed','GPS',IF(%ProductType%=='Mobile' && %SelectedRelationshipTargetFlow%=='InvoiceDispute' && %SelectedRelationshipLegacySystem%=='NEXT' && ( %ProductSourceSystem%=='Next' || %ProductSourceSystem%=='NEXT'), %SVTopicOriginInvoiceDisputeNext:Origin%, 'Salesforce')))",
+            "origin": "=IF(%ProductType%=='Pre' && %RelationshipType%=='GPS','GPS Pré',IF(%ProductType%=='Pre' && %RelationshipType%!='GPS','Salesforce',IF(%ProductType%=='Fixed','GPS',IF(%ProductType%=='Mobile' && %SelectedRelationshipTargetFlow%=='InvoiceDispute' && %SelectedRelationshipLegacySystem%=='NEXT' && ( %ProductSourceSystem%=='Next' || %ProductSourceSystem%=='NEXT'), %SVTopicOriginInvoiceDisputeNext:Origin%, 'Salesforce'))))",
             "otherProduct": "=IF(%OtherProduct%=='{OtherProduct}','',%OtherProduct%)",
             "outcome": "Completo",
             "process": "Palitagem Manual",

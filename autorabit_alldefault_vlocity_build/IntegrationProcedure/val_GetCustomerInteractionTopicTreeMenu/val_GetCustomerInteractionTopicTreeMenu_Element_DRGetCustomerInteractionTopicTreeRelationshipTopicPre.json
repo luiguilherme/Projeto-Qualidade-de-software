@@ -23,13 +23,15 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
+            "AssetId": "=%AssetId%",
             "Channel": "=%SVRelationshipTopic:Channel%",
             "CustomerType": "=%SVRelationshipTopic:CustomerType%",
             "LineType": "=%SVRelationshipTopic:LineType%",
             "ParentTopicId": "=%ParentTopicId%",
             "ProductType": "=%SVRelationshipTopic:AssetType%",
             "Segmentation": "=%SVRelationshipTopic:Segmentation%",
-            "ServiceTree": "%ServiceTree%"
+            "ServiceTree": "=%SVRelationshipTopic:ServiceTree%",
+            "VisibleTo": "=%SVRelationshipTopic:VisibleTo%"
         },
         "additionalOutput": {
         },
@@ -38,7 +40,7 @@
         "dataRaptor Input Parameters": [
         ],
         "disOnTplt": false,
-        "executionConditionalFormula": "(%SelectedFunction% == 'RelationshipTopic'|| %SelectedFunction% == 'RelationshipTopicFront')  && (%ProductType% == 'Pre' || %ProductType% == '')",
+        "executionConditionalFormula": "(%SelectedFunction% == 'RelationshipTopic'|| %SelectedFunction% == 'RelationshipTopicFront')  && (%SVRelationshipTopic:AssetType%=='Pre' || %SVRelationshipTopic:AssetType%=='') && %SVRelationshipTopic:ShowOnlyAutomaticAndManual%==false && %SVRelationshipTopic:ShowTopicsCaseOpening%==false",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {
