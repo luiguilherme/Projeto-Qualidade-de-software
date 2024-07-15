@@ -1,0 +1,37 @@
+{
+    "%vlocity_namespace%__Active__c": false,
+    "%vlocity_namespace%__InternalNotes__c": "corrigir mapeamento",
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valTransformTransactions",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/TransformTransactions/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "disOnTplt": false,
+        "executionConditionalFormula": "",
+        "label": "LoopBlock4",
+        "loopList": "balanceAdjustment",
+        "loopOutput": {
+            "accountNumber": "%SubcriptionNumber%",
+            "amount": "=%balanceAdjustment:productCost%",
+            "clientCategory": "=%balanceAdjustment:networkNumberType%",
+            "csp": "",
+            "inpugnation": "",
+            "reason": "",
+            "systemUserId": "=%balanceAdjustment:accountId%",
+            "timeStamp": "=IF(ISNOTBLANK(%balanceAdjustment:eventDateTime%),FORMATDATETIME(SUBSTRING(%balanceAdjustment:eventDateTime%, 0, 23), \"dd/MM/YYYY HH:mm\", \"Etc/GMT\"),NULL)",
+            "transactionType": "=%balanceAdjustment:operationReason%",
+            "type": "=\"balanceAdjustment\"",
+            "unit": "=%balanceAdjustment:usageUnit%",
+            "userLogin": "=%balanceAdjustment:userLogin%"
+        },
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Loop Block",
+    "Name": "LBBalanceAdjustment",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/TransformTransactions/Procedure/LBBalanceAdjustment"
+}
