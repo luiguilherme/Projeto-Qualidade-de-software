@@ -9,14 +9,14 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "ATT_DC_NEW_RM_STATUS": "%DREGetPortabilityTicket:SubscriptionStatus%"
+            "SubscriptionStatus": "%DREGetPortabilityTicket:SubscriptionStatus%"
         },
         "additionalOutput": {
         },
         "bundle": "valUpdateValueRm",
         "chainOnStep": false,
         "disOnTplt": false,
-        "executionConditionalFormula": "",
+        "executionConditionalFormula": "%AssetAttributes:ATT_RT_ORDER_TYPE% != \"BlockLine\" && %AssetAttributes:ATT_RT_ORDER_TYPE% != \"UnblockLine\" && %AssetAttributes:ATT_RT_ORDER_TYPE% != \"ReactivationLine\"",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {

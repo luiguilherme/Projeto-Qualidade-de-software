@@ -1,0 +1,51 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valCalloutSmsWelcome",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CalloutSMSWelcome/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "List": [
+                {
+                    "attachment": [
+                        {
+                            "description": "1",
+                            "name": "filter_1"
+                        }
+                    ],
+                    "characteristic": [
+                        {
+                            "name": "EVENT_TYPE",
+                            "value": "SmsPortInPre"
+                        }
+                    ],
+                    "sender": {
+                        "id": "CRM_PRE",
+                        "party": {
+                            "id": "%orchestration_item_id%"
+                        }
+                    }
+                }
+            ]
+        },
+        "executionConditionalFormula": "%DREGetHasPortability:hasPortability__c% == \"Sim\" && (%RAGetAttributes:ATT_RT_ORDER_TYPE% == \"Habilitação Pré\" || %RAGetAttributes:ATT_RT_ORDER_TYPE% == \"PrepaidRemoteActivation\")",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues1",
+        "responseJSONNode": "ListaEventos",
+        "responseJSONPath": "List",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVSMSPortIn",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CalloutSMSWelcome/Procedure/SVSMSPortIn"
+}

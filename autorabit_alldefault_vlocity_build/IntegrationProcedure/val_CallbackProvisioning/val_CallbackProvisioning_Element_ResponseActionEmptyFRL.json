@@ -1,6 +1,6 @@
 {
     "%vlocity_namespace%__Active__c": true,
-    "%vlocity_namespace%__InternalNotes__c": "Caso não retorne nenhum registro de orchestration Item; Enviar mensagem de erro.",
+    "%vlocity_namespace%__InternalNotes__c": "Caso não retorne nenhum registro de orchestration Item; Enviar mensagem de erro. Add statusCode na V12.",
     "%vlocity_namespace%__OmniScriptId__c": {
         "Name": "valCallbackProvisioning",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
@@ -9,7 +9,8 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "errorMessage": "=CONCAT(\"Não foi encontrado nenhum registro utilizando o transactionId: \"+ %transactionId% )"
+            "errorMessage": "=CONCAT(\"Não foi encontrado nenhum registro utilizando o transactionId: \"+ %transactionId% )",
+            "statusCode": 404
         },
         "disOnTplt": false,
         "executionConditionalFormula": "IF(ISBLANK(DREGetFRLId),true, false)",
@@ -26,7 +27,8 @@
         "show": null,
         "useFormulas": true,
         "vlcResponseHeaders": {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "statusCode": 404
         }
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,

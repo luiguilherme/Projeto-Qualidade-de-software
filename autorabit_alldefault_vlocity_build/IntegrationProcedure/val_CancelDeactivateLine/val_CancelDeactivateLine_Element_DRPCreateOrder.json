@@ -10,11 +10,13 @@
         "actionMessage": "",
         "additionalInput": {
             "AccountId": "%DREGetSFInfo:AccountId%",
+            "Adabas": "%DRTAGetChannel:Channel|1:Adabas__c%",
             "CustomerInteractionId": "%InteractionId%",
             "Description": "=CONCAT(%reason%, \" - \", %comment%,  \" \",  %certificate%)",
             "OrderId": "%IPAssetToOrder:cartId%",
             "Remarks": "=IF(%reason%=\"Falecimento do Titular\", %certificate%, %comment%)",
             "Status": "Activated",
+            "channel": "%DRTAGetChannel:Channel|1:ChannelName__c%",
             "type": "=IF(%Function%=\"Cancel\", \"CancelLine\", IF(%Function%=\"Deactivate\", \"DeactivateLine\", null))"
         },
         "additionalOutput": {
@@ -23,7 +25,7 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "executionConditionalFormula": "",
-        "failOnStepError": true,
+        "failOnStepError": false,
         "failureConditionalFormula": "",
         "failureResponse": {
         },

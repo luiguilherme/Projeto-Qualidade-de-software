@@ -1,0 +1,31 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valGetBalanceSharingHistory",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/GetBalanceSharingHistory/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "size": "=IF(ISBLANK(LB),0,LISTSIZE(LB))",
+            "state": "=IF(LISTSIZE(%IPGetHistory:response:transactions:balanceSharing%)<=9&&%ResponsePageControl:pageNumber%>1,\"2\",IF(LISTSIZE(%IPGetHistory:response:transactions:balanceSharing%)<=9&&%ResponsePageControl:pageNumber%==1,\"1\",IF(LISTSIZE(%IPGetHistory:response:transactions:balanceSharing%)>=9&&%ResponsePageControl:pageNumber%>1,\"4\",IF(LISTSIZE(%IPGetHistory:response:transactions:balanceSharing%)>=9&&%ResponsePageControl:pageNumber%==1,\"3\",\"5\"))))"
+        },
+        "executionConditionalFormula": "",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues10",
+        "responseJSONNode": "ResponsePageControl",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVState",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetBalanceSharingHistory/Procedure/SVState"
+}
