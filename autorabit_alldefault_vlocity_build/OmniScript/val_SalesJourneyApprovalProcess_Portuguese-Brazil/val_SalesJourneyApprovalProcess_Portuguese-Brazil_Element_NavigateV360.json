@@ -24,38 +24,45 @@
         "replace": true,
         "show": {
             "group": {
-                "operator": "AND",
+                "operator": "OR",
                 "rules": [
                     {
                         "group": {
-                            "operator": "OR",
+                            "operator": "AND",
                             "rules": [
                                 {
-                                    "condition": "=",
-                                    "data": "Call Center",
-                                    "field": "channel"
+                                    "group": {
+                                        "operator": "OR",
+                                        "rules": [
+                                            {
+                                                "condition": "=",
+                                                "data": "Call Center",
+                                                "field": "channel"
+                                            },
+                                            {
+                                                "condition": "=",
+                                                "data": "Revendas",
+                                                "field": "channel"
+                                            }
+                                        ]
+                                    }
                                 },
                                 {
-                                    "condition": "=",
-                                    "data": "Lojas Revendas",
-                                    "field": "channel"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "group": {
-                            "operator": "OR",
-                            "rules": [
-                                {
-                                    "condition": "=",
-                                    "data": "1",
-                                    "field": "totalLimit"
-                                },
-                                {
-                                    "condition": "=",
-                                    "data": "1",
-                                    "field": "limitQtyMonth"
+                                    "group": {
+                                        "operator": "OR",
+                                        "rules": [
+                                            {
+                                                "condition": "=",
+                                                "data": "1",
+                                                "field": "totalLimit"
+                                            },
+                                            {
+                                                "condition": "=",
+                                                "data": "1",
+                                                "field": "limitQtyMonth"
+                                            }
+                                        ]
+                                    }
                                 }
                             ]
                         }

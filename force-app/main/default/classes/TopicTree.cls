@@ -7,6 +7,10 @@
 * Data: 29/11/2023
 * Modificação: Inclusão de campos bloco 9
 *  -------------------------------------------------------------------------
+* Data: 25/04/2024
+* Modificação: Alterado para executar StaticResources
+*  PALITOSLOJASRELEASEJULHO2024, 
+*  -------------------------------------------------------------------------
 * How to execute:
 
         TopicTree topic = new TopicTree('LOJA',30,0);
@@ -20,19 +24,33 @@
 
         TopicTree topic = new TopicTree('PALITOSCALLCENTERBLOCO9',30,0);
         topic.ExecuteTopicTree();
+
+        TopicTree topic = new TopicTree('PALITOSLOJASRELEASEJULHO2024',30,0);
+        topic.ExecuteTopicTree();
+
+        TopicTree topic = new TopicTree('PALITOSCALLCENTERRELEASEJULHO2024',30,0);
+        topic.ExecuteTopicTree();
+
+        TopicTree topic = new TopicTree('PALITOSLOJASRELEASESETEMBRO2024',30,0);
+        topic.ExecuteTopicTree();
+
+        TopicTree topic = new TopicTree('PALITOSCALLCENTERRELEASESETEMBRO2024',30,0);
+        topic.ExecuteTopicTree();
+
 */
 public class TopicTree {
 
     @TestVisible
-    private static String staticResourceLojaseRevendas          = 'PalitosLojaseRevendas';
-    private static String staticResourceCallCenter              = 'PalitosCallCenter';
-    private static String staticResourcePalitosLojasBloco9      = 'PalitosLojasBloco9';
-    private static String staticResourcePalitosCallCenterBloco9 = 'PalitosCallCenterBloco9';
+    private static String staticResourceLojaseRevendas                    = 'PalitosLojaseRevendas';
+    private static String staticResourceCallCenter                        = 'PalitosCallCenter';
+    private static String staticResourcePalitosLojasBloco9                = 'PalitosLojasBloco9';
+    private static String staticResourcePalitosCallCenterBloco9           = 'PalitosCallCenterBloco9';
+    private static String staticResourcePalitosLojasReleaseJulho2024      = 'PalitosLojasReleaseJulho2024';
+    private static String staticResourcePalitosCallCenterReleaseJulho2024 = 'PalitosCallCenterReleaseJulho2024';    
+    private static String staticResourcePalitosCallCenterReleaseJulho2024V2 = 'PalitosCallCenterReleaseJulho2024V2';
+    private static String staticResourcePalitosLojasReleaseSetembro2024      = 'PalitosLojasReleaseSetembro2024';
+    private static String staticResourcePalitosCallCenterReleaseSetembro2024 = 'PalitosCallCenterReleaseSetembro2024';    
     //
-    // TESTE
-    private static String staticResourcePalitosTeste            = 'PalitoTeste';
-    
-    
     Map<String, CustomerInteractionTopicTree__c> mapTopicsDedup = new Map<String, CustomerInteractionTopicTree__c>();    
 	// 
     public String file;
@@ -67,9 +85,22 @@ public class TopicTree {
     private static StaticResource getResourcestaticResourcePalitosCallCenterBloco9(){
         return [SELECT ID, body FROM StaticResource WHERE Name =: staticResourcePalitosCallCenterBloco9 LIMIT 1];
     }        
-    private static StaticResource getResourcestaticResourcePalitosTeste(){
-        return [SELECT ID, body FROM StaticResource WHERE Name =: staticResourcePalitosTeste LIMIT 1];
+    private static StaticResource getResourcestaticResourcePalitosLojasReleaseJulho2024(){
+        return [SELECT ID, body FROM StaticResource WHERE Name =: staticResourcePalitosLojasReleaseJulho2024 LIMIT 1];
     }            
+    private static StaticResource getResourcestaticResourcePalitosCallCenterReleaseJulho2024(){
+        return [SELECT ID, body FROM StaticResource WHERE Name =: staticResourcePalitosCallCenterReleaseJulho2024 LIMIT 1];
+    } 
+    private static StaticResource getResourcestaticResourcePalitosCallCenterReleaseJulho2024V2(){
+        return [SELECT ID, body FROM StaticResource WHERE Name =: staticResourcePalitosCallCenterReleaseJulho2024V2 LIMIT 1];
+    }                
+    private static StaticResource getResourcestaticResourcePalitosLojasReleaseSetembro2024(){
+        return [SELECT ID, body FROM StaticResource WHERE Name =: staticResourcePalitosLojasReleaseSetembro2024 LIMIT 1];
+    }            
+    private static StaticResource getResourcestaticResourcePalitosCallCenterReleaseSetembro2024(){
+        return [SELECT ID, body FROM StaticResource WHERE Name =: staticResourcePalitosCallCenterReleaseSetembro2024 LIMIT 1];
+    }    
+              
 
 	public class Topic {
 		public String SEQ;
@@ -98,6 +129,7 @@ public class TopicTree {
         public String SLA;
         public String CustomerFeedback;
         public String VisibleTo;
+        public String CaseStatusGenTopic;        
 	}
 	
 	public static List<Topic> parse(String json, Integer qty, Integer pos) {
@@ -124,7 +156,7 @@ public class TopicTree {
 */
 	}    
     
-    public String getId(String source, String name, String type,String idVivoNet, String classification, String sendSMS ,String productType, String serviceTree, String active, String customerTypes, String linesTypes, String segmentations, String channels, String relationshipType, String caseOpening, String caseReturn, String caseHandling, String formType, String sla, String customerFeedback, String visibleTo){
+    public String getId(String source, String name, String type,String idVivoNet, String classification, String sendSMS ,String productType, String serviceTree, String active, String customerTypes, String linesTypes, String segmentations, String channels, String relationshipType, String caseOpening, String caseReturn, String caseHandling, String formType, String sla, String customerFeedback, String visibleTo, String caseStatusGenTopic){
 		//
         String Id=null;
         CustomerInteractionTopicTree__c[] objAuxiliar;        
@@ -163,7 +195,7 @@ public class TopicTree {
                         if(type=='Pasta'){
                             Id = insertFolder(source, name, productType, serviceTree, active, relationshipType);
                         }else{
-                            Id = insertTopic (source, name, idVivoNet, classification, sendSMS, productType, serviceTree, active, customerTypes, linesTypes, segmentations, channels, relationshipType, caseOpening, caseReturn, caseHandling, formType, sla, customerFeedback, visibleTo);
+                            Id = insertTopic (source, name, idVivoNet, classification, sendSMS, productType, serviceTree, active, customerTypes, linesTypes, segmentations, channels, relationshipType, caseOpening, caseReturn, caseHandling, formType, sla, customerFeedback, visibleTo, caseStatusGenTopic);
                         }                        
                     }else{                
                         System.debug('***** Limite de inserção.  *****'+ Limits.getQueries());
@@ -185,8 +217,8 @@ public class TopicTree {
         String Id = record.Id;
         return Id;
     }    
-    public String insertTopic(String parentTopic, String folderName, String idVivoNet, String classification, String sendSMS ,String productType, String serviceTree, String active, String customerTypes, String linesTypes, String segmentations, String channels, String relationshipType, String caseOpening, String caseReturn, String caseHandling, String formType, String sla, String customerFeedback, String visibleTo){
-        CustomerInteractionTopicTree__c record = new CustomerInteractionTopicTree__c(Name= folderName,Type__c='Palito', RelationshipType__c= relationshipType, Active__c= Boolean.valueOf(active), ProductType__c= productType , ServiceTree__c = serviceTree ,ParentTopicId__c= parentTopic, idVivoNet__c = idVivoNet ,CustomerTypes__c = customerTypes, LinesTypes__c = linesTypes, Segmentations__c = segmentations, SendSMS__c = Boolean.valueOf(sendSMS), Classification__c= classification, Channels__c= channels, CaseOpening__c = caseOpening, CaseReturn__c = caseReturn, CaseHandling__c= caseHandling, FormType__c = formType, SLA__c = sla, CustomerFeedback__c = customerFeedback, VisibleTo__C = visibleTo);
+    public String insertTopic(String parentTopic, String folderName, String idVivoNet, String classification, String sendSMS ,String productType, String serviceTree, String active, String customerTypes, String linesTypes, String segmentations, String channels, String relationshipType, String caseOpening, String caseReturn, String caseHandling, String formType, String sla, String customerFeedback, String visibleTo, String caseStatusGenTopic){
+        CustomerInteractionTopicTree__c record = new CustomerInteractionTopicTree__c(Name= folderName,Type__c='Palito', RelationshipType__c= relationshipType, Active__c= Boolean.valueOf(active), ProductType__c= productType , ServiceTree__c = serviceTree ,ParentTopicId__c= parentTopic, idVivoNet__c = idVivoNet ,CustomerTypes__c = customerTypes, LinesTypes__c = linesTypes, Segmentations__c = segmentations, SendSMS__c = Boolean.valueOf(sendSMS), Classification__c= classification, Channels__c= channels, CaseOpening__c = caseOpening, CaseReturn__c = caseReturn, CaseHandling__c= caseHandling, FormType__c = formType, SLA__c = sla, CustomerFeedback__c = customerFeedback, VisibleTo__C = visibleTo, CaseStatusGenTopic__c = caseStatusGenTopic);
 		Database.insert(record, true);
         
         system.debug('this.key insertTopic..: '+ this.key);        
@@ -200,9 +232,9 @@ public class TopicTree {
 		
         String serviceTree ='';
         
-    	if(this.file=='LOJA' || this.file=='PALITOSLOJASBLOCO9'){
+    	if(this.file=='LOJA' || this.file=='PALITOSLOJASBLOCO9' || this.file=='PALITOSLOJASRELEASEJULHO2024' || this.file=='PALITOSLOJASRELEASESETEMBRO2024'){
             serviceTree = 'Store';
-        }else if(this.file=='CALLCENTER' || this.file=='PALITOSCALLCENTERBLOCO9' || this.file=='PALITOTESTE'){
+        }else if(this.file=='CALLCENTER' || this.file=='PALITOSCALLCENTERBLOCO9' || this.file=='PALITOSCALLCENTERRELEASEJULHO2024' || this.file=='PALITOSCALLCENTERRELEASEJULHO2024V2' || this.file=='PALITOSCALLCENTERRELEASESETEMBRO2024'){
             serviceTree = 'Service';
         }
         System.debug('--------------------------------------');
@@ -243,8 +275,16 @@ public class TopicTree {
             sr = getResourcestaticResourcePalitosLojasBloco9();
         }else if(file=='PALITOSCALLCENTERBLOCO9'){
             sr = getResourcestaticResourcePalitosCallCenterBloco9();
-        }else if(file=='PALITOTESTE'){
-            sr = getResourcestaticResourcePalitosTeste();
+        }else if(file=='PALITOSLOJASRELEASEJULHO2024'){
+            sr = getResourcestaticResourcePalitosLojasReleaseJulho2024();
+        }else if(file=='PALITOSCALLCENTERRELEASEJULHO2024'){
+            sr = getResourcestaticResourcePalitosCallCenterReleaseJulho2024();
+        }else if(file=='PALITOSCALLCENTERRELEASEJULHO2024V2'){
+            sr = getResourcestaticResourcePalitosCallCenterReleaseJulho2024V2();    
+        }else if(file=='PALITOSLOJASRELEASESETEMBRO2024'){
+            sr = getResourcestaticResourcePalitosLojasReleaseSetembro2024();
+        }else if(file=='PALITOSCALLCENTERRELEASESETEMBRO2024'){
+            sr = getResourcestaticResourcePalitosCallCenterReleaseSetembro2024();
         }
         if(sr != null && sr.Body != null) {
             String content = sr.Body.toString();
@@ -279,22 +319,22 @@ public class TopicTree {
                         system.debug('Pasta');
                         //
                         if(hasLevel0){ /* NIVEL 0 */ 
-                            IdLevel0 = getId(null, topic.Level0,'Pasta',null,null,null,topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null ); 
+                            IdLevel0 = getId(null, topic.Level0,'Pasta',null,null,null,topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null, null ); 
                             //
                             if(IdLevel0!=null && hasLevel1){ /* NIVEL 1 */
-                                IdLevel1 = getId(IdLevel0 , topic.Level1,'Pasta',null,null,null,topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null);
+                                IdLevel1 = getId(IdLevel0 , topic.Level1,'Pasta',null,null,null,topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null, null);
                                 //
                                 if(IdLevel1!=null && hasLevel2){ /* NIVEL 2 */
-                                    IdLevel2 = getId(IdLevel1 , topic.Level2,'Pasta',null,null,null,topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null);
+                                    IdLevel2 = getId(IdLevel1 , topic.Level2,'Pasta',null,null,null,topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null, null);
                                     
                                     if(IdLevel2!=null && hasLevel3){ /* NIVEL 3 */
-                                        IdLevel3 = getId(IdLevel2 , topic.Level3,'Pasta',null,null,null,topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null);
+                                        IdLevel3 = getId(IdLevel2 , topic.Level3,'Pasta',null,null,null,topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null, null);
                                         
                                         if(IdLevel3!=null && hasLevel4){ /* NIVEL 4 */
-                                            IdLevel4 = getId(IdLevel3 , topic.Level4,'Pasta',null,null,null,topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null);
+                                            IdLevel4 = getId(IdLevel3 , topic.Level4,'Pasta',null,null,null,topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null, null);
                                             
                                             if(IdLevel4!=null && hasLevel5){ /* NIVEL 5 */
-                                                IdLevel5 = getId(IdLevel4 , topic.Level5,'Pasta',null,null,null,topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null);
+                                                IdLevel5 = getId(IdLevel4 , topic.Level5,'Pasta',null,null,null,topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null, null);
                                                 
                                             }		
                                         }   
@@ -306,38 +346,38 @@ public class TopicTree {
                         system.debug('Palito');   
                         
                         if(hasLevel0){ /* NIVEL 0 */ 
-                            String IdLevel0 = getId(null, topic.Level0,'Pasta',null,null,null,topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null);
+                            String IdLevel0 = getId(null, topic.Level0,'Pasta',null,null,null,topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null, null);
                             //
                             if(IdLevel0!=null && hasLevel1){ /* NIVEL 1 */
                                 if(hasLevel2){
-                                    IdLevel1 = getId(IdLevel0 , topic.Level1,'Pasta',null,null,null,topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null);
+                                    IdLevel1 = getId(IdLevel0 , topic.Level1,'Pasta',null,null,null,topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null, null);
                                 }else{
-                                    IdLevel1 = getId(IdLevel0, topic.Level1, 'Palito', topic.IdVivoNet, topic.Classification, topic.SendSMS, topic.ProductType, topic.ServiceTree, topic.Active, topic.CustomerTypes, topic.LinesTypes, topic.Segmentations, topic.Channels,topic.RelationshipType, topic.CaseOpening, topic.CaseReturn, topic.CaseHandling, topic.FormType, topic.SLA, topic.CustomerFeedback, topic.VisibleTo);
+                                    IdLevel1 = getId(IdLevel0, topic.Level1, 'Palito', topic.IdVivoNet, topic.Classification, topic.SendSMS, topic.ProductType, topic.ServiceTree, topic.Active, topic.CustomerTypes, topic.LinesTypes, topic.Segmentations, topic.Channels,topic.RelationshipType, topic.CaseOpening, topic.CaseReturn, topic.CaseHandling, topic.FormType, topic.SLA, topic.CustomerFeedback, topic.VisibleTo, topic.CaseStatusGenTopic);
                                 }
                                 //
                                 if(IdLevel1!=null && hasLevel2){ /* NIVEL 2 */
                                     if(hasLevel3){
-                                        IdLevel2 = getId(IdLevel1 , topic.Level2,'Pasta',null,null,null,topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null);
+                                        IdLevel2 = getId(IdLevel1 , topic.Level2,'Pasta',null,null,null,topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null, null);
                                     }else{
-                                        IdLevel2 = getId(IdLevel1, topic.Level2, 'Palito', topic.IdVivoNet, topic.Classification, topic.SendSMS, topic.ProductType, topic.ServiceTree, topic.Active, topic.CustomerTypes, topic.LinesTypes, topic.Segmentations, topic.Channels,topic.RelationshipType, topic.CaseOpening, topic.CaseReturn, topic.CaseHandling, topic.FormType, topic.SLA, topic.CustomerFeedback, topic.VisibleTo);
+                                        IdLevel2 = getId(IdLevel1, topic.Level2, 'Palito', topic.IdVivoNet, topic.Classification, topic.SendSMS, topic.ProductType, topic.ServiceTree, topic.Active, topic.CustomerTypes, topic.LinesTypes, topic.Segmentations, topic.Channels,topic.RelationshipType, topic.CaseOpening, topic.CaseReturn, topic.CaseHandling, topic.FormType, topic.SLA, topic.CustomerFeedback, topic.VisibleTo, topic.CaseStatusGenTopic);
                                     }                                        
                                     //
                                     if(IdLevel2!=null && hasLevel3){ /* NIVEL 3 */
                                         if(hasLevel4){
-                                            IdLevel3 = getId(IdLevel2 , topic.Level3,'Pasta',null,null,null, topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null);
+                                            IdLevel3 = getId(IdLevel2 , topic.Level3,'Pasta',null,null,null, topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null, null);
                                         }else{
-                                            IdLevel3 = getId(IdLevel2, topic.Level3, 'Palito', topic.IdVivoNet, topic.Classification, topic.SendSMS, topic.ProductType, topic.ServiceTree, topic.Active, topic.CustomerTypes, topic.LinesTypes, topic.Segmentations, topic.Channels,topic.RelationshipType, topic.CaseOpening, topic.CaseReturn, topic.CaseHandling, topic.FormType, topic.SLA, topic.CustomerFeedback, topic.VisibleTo);
+                                            IdLevel3 = getId(IdLevel2, topic.Level3, 'Palito', topic.IdVivoNet, topic.Classification, topic.SendSMS, topic.ProductType, topic.ServiceTree, topic.Active, topic.CustomerTypes, topic.LinesTypes, topic.Segmentations, topic.Channels,topic.RelationshipType, topic.CaseOpening, topic.CaseReturn, topic.CaseHandling, topic.FormType, topic.SLA, topic.CustomerFeedback, topic.VisibleTo, topic.CaseStatusGenTopic);
                                         }                                        
                                         //
                                         if(IdLevel3!=null && hasLevel4){ /* NIVEL 4 */                                            
                                             if(hasLevel5){
-                                                IdLevel4 = getId(IdLevel3 , topic.Level4,'Pasta',null,null,null,topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null);
+                                                IdLevel4 = getId(IdLevel3 , topic.Level4,'Pasta',null,null,null,topic.ProductType, topic.ServiceTree, topic.Active,null,null,null,null,topic.RelationshipType, null, null, null, null, null, null, null, null);
                                             }else{
-                                                IdLevel4 = getId(IdLevel3, topic.Level4, 'Palito', topic.IdVivoNet, topic.Classification, topic.SendSMS, topic.ProductType, topic.ServiceTree, topic.Active, topic.CustomerTypes, topic.LinesTypes, topic.Segmentations, topic.Channels,topic.RelationshipType, topic.CaseOpening, topic.CaseReturn, topic.CaseHandling, topic.FormType, topic.SLA, topic.CustomerFeedback, topic.VisibleTo);
+                                                IdLevel4 = getId(IdLevel3, topic.Level4, 'Palito', topic.IdVivoNet, topic.Classification, topic.SendSMS, topic.ProductType, topic.ServiceTree, topic.Active, topic.CustomerTypes, topic.LinesTypes, topic.Segmentations, topic.Channels,topic.RelationshipType, topic.CaseOpening, topic.CaseReturn, topic.CaseHandling, topic.FormType, topic.SLA, topic.CustomerFeedback, topic.VisibleTo, topic.CaseStatusGenTopic);
                                             }                                        
                                             //
                                             if(IdLevel4!=null && hasLevel5){ /* NIVEL 5 */
-                                                IdLevel5 = getId(IdLevel4, topic.Level5, 'Palito', topic.IdVivoNet, topic.Classification, topic.SendSMS, topic.ProductType, topic.ServiceTree, topic.Active, topic.CustomerTypes, topic.LinesTypes, topic.Segmentations, topic.Channels,topic.RelationshipType, topic.CaseOpening, topic.CaseReturn, topic.CaseHandling, topic.FormType, topic.SLA, topic.CustomerFeedback, topic.VisibleTo);
+                                                IdLevel5 = getId(IdLevel4, topic.Level5, 'Palito', topic.IdVivoNet, topic.Classification, topic.SendSMS, topic.ProductType, topic.ServiceTree, topic.Active, topic.CustomerTypes, topic.LinesTypes, topic.Segmentations, topic.Channels,topic.RelationshipType, topic.CaseOpening, topic.CaseReturn, topic.CaseHandling, topic.FormType, topic.SLA, topic.CustomerFeedback, topic.VisibleTo, topic.CaseStatusGenTopic);
                                             }                                        
                                         }		
                                     }   

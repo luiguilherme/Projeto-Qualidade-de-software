@@ -1,7 +1,7 @@
 {
     "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "valRollbackDeleteLogicalResourceGSIM",
+        "Name": "[DEV - BL9] valRollbackDeleteLogicalResourceGSIM",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
         "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/RollbackPostLogicalResourceGSIM/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
@@ -9,21 +9,12 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "@type": "SimCard",
-            "relatedParty": [
-                {
-                    "id": "SALESFORCE",
-                    "referredType": "APPLICATION",
-                    "role": "CURRENT_SYSTEM"
-                }
-            ],
-            "value": "%RAGetAttributes:ATT_RT_ICCID%"
         },
         "additionalOutput": {
         },
         "chainOnStep": false,
         "disOnTplt": false,
-        "executionConditionalFormula": "",
+        "executionConditionalFormula": "%RAGetAttributes:ATT_RT_NETWORK_SIM_CARD_TYPE% != \"HRS\"",
         "failOnStepError": false,
         "failureConditionalFormula": "",
         "failureResponse": {
@@ -32,7 +23,7 @@
         "namedCredential": "APITelefonica",
         "postActionLogging": "",
         "preActionLogging": "%endpoint%",
-        "responseJSONNode": "",
+        "responseJSONNode": "responseHTTP",
         "responseJSONPath": "",
         "restMethod": "PATCH",
         "restOptions": {
@@ -52,8 +43,8 @@
         "returnOnlyAdditionalOutput": false,
         "returnOnlyFailureResponse": false,
         "sendJSONNode": "",
-        "sendJSONPath": "",
-        "sendOnlyAdditionalInput": true,
+        "sendJSONPath": "RequestGSIM",
+        "sendOnlyAdditionalInput": false,
         "show": null,
         "type": "Integration",
         "useFormulas": true
