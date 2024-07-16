@@ -5,17 +5,15 @@
 *
 */
 global class OAMRegistrationHandler implements Auth.RegistrationHandler {
-    //Deve pegar o recordtype PartnerAccount, porém ainda não foi migrado comunidades
-    private static final String CONST_PARTNER_ACCOUNT_RECORD_TYPE_ID = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Consumer').getrecordTypeId();
+    private static final String CONST_PARTNER_ACCOUNT_RECORD_TYPE_ID = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('PartnerAccount').getrecordTypeId();
+
     class RegHandlerException extends Exception {}
 
-    global User createUser (Id portalId, Auth.UserData data) {
-        System.debug('start createUser > ' + data);
+    global User createUser (Id portalId, Auth.UserData data) {        
         return UserProvisioning(data);
     }
 
-    global void updateUser (Id userId, Id portalId, Auth.UserData data) {
-        System.debug('start updateUser > ' + data);
+    global void updateUser (Id userId, Id portalId, Auth.UserData data) {        
         UserProvisioning(data);
     }
 
@@ -124,7 +122,6 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             for (Schema.PicklistEntry item : field.getPicklistValues()) {
                 setPartnerGroup.add(item.getValue());
             }
-            System.debug(setPartnerGroup);
             return (setPartnerGroup.contains(roleResponse) ? roleResponse : 'null');
         }
     }
@@ -217,10 +214,7 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             
             updatePermissionSetFuture(JSON.serialize(userRecord), JSON.serialize(ltPermissionSetSF));
             return userRecord;
-        } catch (Exception e) {
-            System.debug(e);            
-            System.debug(e.getStackTraceString());            
-            System.debug(e.getCause());            
+        } catch (Exception e) {            
             throw new RegHandlerException('Erro em criar/atualizar usuário: ' + e.getMessage());
         } 
     }
@@ -238,7 +232,7 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             } 
 
             accountToUpdateInsert.vlocity_cmt__Active__c = 'Yes';
-            //accountToUpdateInsert.IsPartner = true;
+            accountToUpdateInsert.IsPartner = true;
             update accountToUpdateInsert;
             return accountToUpdateInsert;
         }
@@ -261,7 +255,6 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             if (data.attributeMap.containsKey('phone_number')) {
                 contactToUpsert.Phone = data.attributeMap.get('phone_number');
             }
-
             upsert contactToUpsert;
             return contactToUpsert;
         }
