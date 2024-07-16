@@ -1,0 +1,50 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valCalloutAdjustmentBalance",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CalloutAdjustmentBalance/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "additionalInput": {
+            "AdjustReason": "%AdjustmentReason%",
+            "AdjustType": "%AdjustType%",
+            "BalanceType": "%BalanceType%",
+            "CaseComment": "%Comments%",
+            "CaseId": "%caseId%",
+            "DateTimeAdjust": "=NOW()",
+            "Status": "Closed",
+            "Validity": "%BalanceValidate%",
+            "Value": "=IF(ISBLANK(%BalanceValueOpen%), %BalanceValueSelect%, %BalanceValueOpen%)",
+            "balanceValue": "%balanceValue%"
+        },
+        "additionalOutput": {
+        },
+        "bundle": "valUpdateBalanceAdjustmentCase",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "executionConditionalFormula": "%HTTPResponse:code% == 200",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "failureResponse": {
+        },
+        "label": "DataRaptorPostAction1",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "returnOnlyAdditionalOutput": false,
+        "returnOnlyFailureResponse": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "sendOnlyAdditionalInput": true,
+        "show": null,
+        "useFormulas": true
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "DataRaptor Post Action",
+    "Name": "DRLUpdateCase",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CalloutAdjustmentBalance/Procedure/DRLUpdateCase"
+}

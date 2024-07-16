@@ -1,0 +1,57 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valCaseActionsPageValidate",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CaseActionsPageValidate/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__ParentElementId__c": {
+        "%vlocity_namespace%__OmniScriptId__c": {
+            "Name": "valCaseActionsPageValidate",
+            "VlocityDataPackType": "VlocityMatchingKeyObject",
+            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CaseActionsPageValidate/Procedure",
+            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+        },
+        "Name": "CBAjustarSaldo",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CaseActionsPageValidate/Procedure/CBAjustarSaldo",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
+    },
+    "%vlocity_namespace%__ParentElementName__c": "CBAjustarSaldo",
+    "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "additionalInput": {
+            "CaseId": "%caseId%",
+            "Closure": "Linha com status invalido para realizar o ajuste",
+            "Status": "Cancelado"
+        },
+        "additionalOutput": {
+        },
+        "bundle": "valUpdateBalanceAdjustmentCase",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "executionConditionalFormula": "%IPProductSatus:statusCode% == 200 && %IPProductStatus:networkNumberStatus%=='Suspenso por Cadastro' || %IPProductStatus:networkNumberStatus%=='Suspenso a Pedido' || %IPProductStatus:networkNumberStatus%=='Suspenso por Roubo' || %IPProductStatus:networkNumberStatus%=='Cancelado' || %IPProductStatus:networkNumberStatus%=='Suspenso por Fraude' || %IPProductStatus:networkNumberStatus%=='Recém Portado'||%IPProductStatus:networkNumberStatus%=='Desativado'",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "failureResponse": {
+        },
+        "label": "DataRaptorPostAction1",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "returnOnlyAdditionalOutput": false,
+        "returnOnlyFailureResponse": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "sendOnlyAdditionalInput": false,
+        "show": null,
+        "useFormulas": true
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "DataRaptor Post Action",
+    "Name": "DRUpdateCaseStatus",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CaseActionsPageValidate/Procedure/DRUpdateCaseStatus"
+}
