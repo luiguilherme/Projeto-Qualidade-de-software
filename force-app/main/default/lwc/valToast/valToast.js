@@ -62,7 +62,12 @@ export default class ValToast extends OmniscriptBaseMixin(LightningElement) {
                 });
             }
         } else {
-            this.showToast("", data.message, data.variant, data.mode);
+            if(data.message!=undefined){
+                this.showToast("", data.message, data.variant, data.mode);
+            }
+            else{
+                this.showToast("", this.message, this.variant,"");
+            }
         }
 
     }
