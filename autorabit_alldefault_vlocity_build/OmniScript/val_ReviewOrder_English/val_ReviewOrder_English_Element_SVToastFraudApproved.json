@@ -1,0 +1,82 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valReviewOrder",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ReviewOrder/English",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "HTMLTemplateId": "",
+        "controlWidth": 12,
+        "elementValueMap": {
+            "MessageFraude": "Solicitação de Troca realizada com sucesso"
+        },
+        "label": "SVToastFraudApproved",
+        "message": {
+            "channelName": "valReviewOrder_ChangeSimJourney",
+            "eventName": "validationToast",
+            "message": "%MessageFraude%",
+            "variant": "success"
+        },
+        "pubsub": true,
+        "show": {
+            "group": {
+                "operator": "OR",
+                "rules": [
+                    {
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "true",
+                                    "field": "MessageAprovadoBypass"
+                                },
+                                {
+                                    "condition": "<>",
+                                    "data": "eSim",
+                                    "field": "tipoChip"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "<>",
+                                    "data": "true",
+                                    "field": "ResponseICCIDReprovado"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "eSim",
+                                    "field": "tipoChip"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "true",
+                                    "field": "MessageAprovadoBypass"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "showPersistentComponent": [
+            true,
+            false
+        ],
+        "ssm": false,
+        "wpm": false
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": true,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVToastFraudApproved",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ReviewOrder/English/SVToastFraudApproved"
+}
