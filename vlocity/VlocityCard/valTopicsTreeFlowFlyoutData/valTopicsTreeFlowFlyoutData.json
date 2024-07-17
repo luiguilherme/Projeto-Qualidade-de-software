@@ -1,0 +1,478 @@
+{
+    "dataSource": {
+        "contextVariables": [
+            {
+                "id": 0,
+                "name": "hierarquia",
+                "val": "Informação > Atendimento > Treinamento > treinamento gps crm"
+            },
+            {
+                "id": 1,
+                "name": "id",
+                "val": "12345"
+            },
+            {
+                "id": 1,
+                "name": "descricao",
+                "val": "treinamento gps crm"
+            }
+        ],
+        "orderBy": {
+        },
+        "type": null,
+        "value": {
+        }
+    },
+    "enableLwc": true,
+    "isFlex": true,
+    "lwc": {
+        "DeveloperName": "cfValTopicsTreeFlowFlyoutData_7_val",
+        "Id": "0Rb760000000g1MCAQ",
+        "ManageableState": "unmanaged",
+        "MasterLabel": "cfValTopicsTreeFlowFlyoutData_7_val",
+        "NamespacePrefix": "c"
+    },
+    "multilanguageSupport": true,
+    "osSupport": true,
+    "selectableField": "",
+    "selectableMode": "Single",
+    "selectedCardsLabel": "",
+    "states": [
+        {
+            "actions": [
+            ],
+            "childCards": [
+            ],
+            "components": {
+                "layer-0": {
+                    "children": [
+                        {
+                            "class": "slds-col ",
+                            "element": "action",
+                            "elementLabel": "Action-0",
+                            "name": "Action",
+                            "property": {
+                                "actionList": [
+                                    {
+                                        "actionIndex": 0,
+                                        "card": "{card}",
+                                        "draggable": true,
+                                        "isOpen": true,
+                                        "key": "1714072124740-xb5z9j75f",
+                                        "label": "ActionValidateFlowInUse",
+                                        "stateAction": {
+                                            "Web Page": {
+                                                "targetName": "/apex"
+                                            },
+                                            "displayName": "Action",
+                                            "id": "flex-action-1715197773553",
+                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_GPSFlowInUse\",\"vlocityAsync\":false,\"inputMap\":{\"Id\":\"{Parent.Id}\",\"ProductType\":\"{Parent.ProductType}\",\"ServiceTree\":\"{Parent.ServiceTree}\",\"GPSId\":\"{id}\"},\"jsonMap\":\"{\\\"Parent.Id\\\":\\\"{Parent.Id}\\\",\\\"Parent.ProductType\\\":\\\"{Parent.ProductType}\\\",\\\"Parent.ServiceTree\\\":\\\"{Parent.ServiceTree}\\\",\\\"id\\\":\\\"{id}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"Parent.Id\",\"val\":\"\",\"id\":1},{\"name\":\"Parent.ProductType\",\"val\":\"\",\"id\":3},{\"name\":\"Parent.ServiceTree\",\"val\":\"\",\"id\":5},{\"name\":\"id\",\"val\":\"\",\"id\":7}]}",
+                                            "openUrlIn": "Current Window",
+                                            "targetType": "Web Page",
+                                            "type": "DataAction",
+                                            "vlocityIcon": "standard-default"
+                                        }
+                                    },
+                                    {
+                                        "actionIndex": 4,
+                                        "card": "{card}",
+                                        "draggable": true,
+                                        "isOpen": false,
+                                        "key": "1714072414764-e64vfc4op",
+                                        "label": "ActionToastFlowInUse",
+                                        "stateAction": {
+                                            "actionConditions": {
+                                                "group": [
+                                                    {
+                                                        "field": "GPSFlowFound",
+                                                        "hasMergeField": false,
+                                                        "id": "state-new-condition-0",
+                                                        "operator": "==",
+                                                        "type": "custom",
+                                                        "value": "true"
+                                                    },
+                                                    {
+                                                        "field": "{Parent.ProductType}",
+                                                        "hasMergeField": true,
+                                                        "id": "state-new-condition-7",
+                                                        "logicalOperator": "&&",
+                                                        "operator": "==",
+                                                        "type": "custom",
+                                                        "value": "Pre"
+                                                    }
+                                                ],
+                                                "id": "state-condition-object",
+                                                "isParent": true
+                                            },
+                                            "displayName": "Action",
+                                            "eventName": "valToast",
+                                            "extraParams": {
+                                                "message": "{message}",
+                                                "variant": "{variant}"
+                                            },
+                                            "hasExtraParams": true,
+                                            "id": "flex-action-1714072556295",
+                                            "message": "showToast",
+                                            "openUrlIn": "Current Window",
+                                            "subType": "PubSub",
+                                            "type": "Event",
+                                            "vlocityIcon": "standard-default"
+                                        }
+                                    },
+                                    {
+                                        "actionIndex": 0,
+                                        "draggable": true,
+                                        "isOpen": true,
+                                        "key": "1675117151874-i2bnevxep",
+                                        "label": "SelectCard",
+                                        "stateAction": {
+                                            "Web Page": {
+                                                "targetName": "/apex"
+                                            },
+                                            "eventName": "selectcards",
+                                            "id": "flex-action-1675181188015",
+                                            "openUrlIn": "Current Window",
+                                            "targetType": "Web Page",
+                                            "type": "cardAction"
+                                        }
+                                    },
+                                    {
+                                        "actionIndex": 3,
+                                        "card": "{card}",
+                                        "draggable": true,
+                                        "isOpen": true,
+                                        "key": "1675117255541-m05epnwl4",
+                                        "label": "SendFlowId",
+                                        "stateAction": {
+                                            "actionConditions": {
+                                                "group": [
+                                                    {
+                                                        "group": [
+                                                            {
+                                                                "field": "{Parent.ProductType}",
+                                                                "hasMergeField": true,
+                                                                "id": "state-new-condition-22",
+                                                                "operator": "==",
+                                                                "type": "custom",
+                                                                "value": "Pre"
+                                                            },
+                                                            {
+                                                                "field": "GPSFlowFound",
+                                                                "hasMergeField": false,
+                                                                "id": "state-new-condition-40",
+                                                                "logicalOperator": "&&",
+                                                                "operator": "==",
+                                                                "type": "custom",
+                                                                "value": "false"
+                                                            }
+                                                        ],
+                                                        "id": "state-new-group-23"
+                                                    },
+                                                    {
+                                                        "field": "{Parent.ProductType}",
+                                                        "hasMergeField": true,
+                                                        "id": "state-new-condition-62",
+                                                        "logicalOperator": "||",
+                                                        "operator": "!=",
+                                                        "type": "custom",
+                                                        "value": "Pre"
+                                                    }
+                                                ],
+                                                "id": "state-condition-object",
+                                                "isParent": true
+                                            },
+                                            "displayName": "Action",
+                                            "eventName": "TopicsTreeModal",
+                                            "extraParams": {
+                                                "selectedDescription": "{hierarquia}",
+                                                "selectedId": "{id}"
+                                            },
+                                            "hasExtraParams": true,
+                                            "id": "flex-action-1715197758034",
+                                            "message": "selectFlow",
+                                            "openUrlIn": "Current Window",
+                                            "subType": "PubSub",
+                                            "type": "Event",
+                                            "vlocityIcon": "standard-default"
+                                        }
+                                    },
+                                    {
+                                        "actionIndex": 4,
+                                        "card": "{card}",
+                                        "draggable": true,
+                                        "isOpen": false,
+                                        "key": "1675434591052-ynzno44xc",
+                                        "label": "ActionClose",
+                                        "stateAction": {
+                                            "actionConditions": {
+                                                "group": [
+                                                    {
+                                                        "group": [
+                                                            {
+                                                                "field": "{Parent.ProductType}",
+                                                                "hasMergeField": true,
+                                                                "id": "state-new-condition-93",
+                                                                "operator": "==",
+                                                                "type": "custom",
+                                                                "value": "Pre"
+                                                            },
+                                                            {
+                                                                "field": "GPSFlowFound",
+                                                                "hasMergeField": false,
+                                                                "id": "state-new-condition-111",
+                                                                "logicalOperator": "&&",
+                                                                "operator": "==",
+                                                                "type": "custom",
+                                                                "value": "false"
+                                                            }
+                                                        ],
+                                                        "id": "state-new-group-94"
+                                                    },
+                                                    {
+                                                        "field": "{Parent.ProductType}",
+                                                        "hasMergeField": true,
+                                                        "id": "state-new-condition-140",
+                                                        "logicalOperator": "||",
+                                                        "operator": "!=",
+                                                        "type": "custom",
+                                                        "value": "Pre"
+                                                    }
+                                                ],
+                                                "id": "state-condition-object",
+                                                "isParent": true
+                                            },
+                                            "bubbles": true,
+                                            "composed": true,
+                                            "displayName": "Action",
+                                            "eventName": "closemodal",
+                                            "id": "flex-action-1714072757261",
+                                            "openUrlIn": "Current Window",
+                                            "subType": "Custom",
+                                            "type": "Event",
+                                            "vlocityIcon": "standard-default"
+                                        }
+                                    }
+                                ],
+                                "card": "{card}",
+                                "flyoutDetails": {
+                                },
+                                "hideActionIcon": true,
+                                "iconName": "standard-default",
+                                "label": "\\{hierarquia}",
+                                "record": "{record}",
+                                "showSpinner": "false",
+                                "stateObj": "{record}"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "background": {
+                                    "color": "",
+                                    "image": "",
+                                    "position": "",
+                                    "repeat": "",
+                                    "size": ""
+                                },
+                                "border": {
+                                    "color": "",
+                                    "radius": "",
+                                    "style": "",
+                                    "type": "",
+                                    "width": ""
+                                },
+                                "class": "slds-theme_default ",
+                                "container": {
+                                    "class": ""
+                                },
+                                "elementStyleProperties": {
+                                },
+                                "inlineStyle": "",
+                                "margin": [
+                                ],
+                                "padding": [
+                                ],
+                                "size": {
+                                    "default": "12",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_12-of-12 ",
+                                "style": "      \n         ",
+                                "text": {
+                                    "align": "",
+                                    "color": ""
+                                },
+                                "theme": "theme_default"
+                            },
+                            "styleObjects": [
+                                {
+                                    "conditionString": "",
+                                    "conditions": "default",
+                                    "draggable": false,
+                                    "key": 0,
+                                    "label": "Default",
+                                    "name": "Default",
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "slds-theme_default ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        },
+                                        "theme": "theme_default"
+                                    }
+                                }
+                            ],
+                            "type": "element"
+                        }
+                    ]
+                }
+            },
+            "conditions": {
+                "group": [
+                ],
+                "id": "state-condition-object",
+                "isParent": true
+            },
+            "definedActions": {
+                "actions": [
+                ]
+            },
+            "documents": [
+            ],
+            "fields": [
+            ],
+            "isSmartAction": false,
+            "name": "Active",
+            "omniscripts": [
+            ],
+            "smartAction": {
+            },
+            "styleObject": {
+                "background": {
+                    "color": "",
+                    "image": "",
+                    "position": "",
+                    "repeat": "",
+                    "size": ""
+                },
+                "border": {
+                    "color": "",
+                    "radius": "",
+                    "style": "",
+                    "type": "",
+                    "width": ""
+                },
+                "class": "slds-card slds-p-around_x-small slds-m-around_none ",
+                "container": {
+                    "class": "slds-card"
+                },
+                "elementStyleProperties": {
+                },
+                "inlineStyle": "",
+                "margin": [
+                    {
+                        "label": "around:none",
+                        "size": "none",
+                        "type": "around"
+                    }
+                ],
+                "maxHeight": "",
+                "padding": [
+                    {
+                        "label": "around:x-small",
+                        "size": "x-small",
+                        "type": "around"
+                    }
+                ],
+                "size": {
+                    "default": "12",
+                    "isResponsive": false
+                },
+                "sizeClass": "slds-size_12-of-12 ",
+                "style": "      \n         ",
+                "text": {
+                    "align": "",
+                    "color": ""
+                }
+            }
+        }
+    ],
+    "theme": "slds",
+    "title": "valTopicsTreeFlowFlyoutData",
+    "xmlJson": [
+        {
+            "@attributes": {
+                "targets": "lightning__AppPage"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "name": "debug",
+                        "type": "Boolean"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "name": "recordId",
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        {
+            "@attributes": {
+                "targets": "lightning__RecordPage"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "name": "debug",
+                        "type": "Boolean"
+                    }
+                }
+            ]
+        }
+    ],
+    "xmlObject": {
+        "targetConfigs": "PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgogICAgICAgICAgICAgICAgICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgICAgICAgICAgICAgICAgICA8cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPgogICAgICAgICAgICAgICAgICA8L3RhcmdldENvbmZpZz4KICAgICAgICAgICAgICAgICAgPHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPgogICAgICAgICAgICAgICAgICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgICAgICAgICAgICAgIDwvdGFyZ2V0Q29uZmlnPg==",
+        "targets": {
+            "target": [
+                "lightning__RecordPage",
+                "lightning__AppPage",
+                "lightning__HomePage"
+            ]
+        }
+    }
+}
