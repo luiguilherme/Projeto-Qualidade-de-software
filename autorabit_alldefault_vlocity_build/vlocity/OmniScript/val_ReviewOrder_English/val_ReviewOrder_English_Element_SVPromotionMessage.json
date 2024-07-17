@@ -1,0 +1,74 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valReviewOrder",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ReviewOrder/English",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "HTMLTemplateId": "",
+        "controlWidth": 12,
+        "elementValueMap": {
+            "Message": "O pedido iniciou o processamento. ATENÇÃO: Acompanhe no Ciclo de vida da Ordem se a troca de Plano/Promoção foi realizada com sucesso.",
+            "secondMsg": "=IF(%StepSelectProcess:ProcessReason%=='ChangePromotion', 'Promoção ativada com sucesso.',IF(%StepSelectProcess:ProcessReason%=='ChangePlanPromotion','Plano/Promoção ativados com sucesso.',IF(%StepSelectProcess:ProcessReason%=='ChangePlan','Plano ativado com sucesso.')))",
+            "secondVariant": "success",
+            "variant": "success"
+        },
+        "label": "SVPromotionMessage",
+        "message": {
+            "Message": [
+                {
+                    "message": "%Message%"
+                },
+                {
+                    "message": "%secondMsg%"
+                }
+            ],
+            "closeModal": "close",
+            "entryPoint": "ProductDetails",
+            "isNotPushEvent": true,
+            "showToast": "show",
+            "variant": [
+                {
+                    "variant": "%variant%"
+                },
+                {
+                    "variant": "%secondVariant%"
+                }
+            ]
+        },
+        "pubsub": true,
+        "show": {
+            "group": {
+                "operator": "OR",
+                "rules": [
+                    {
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "Promotion",
+                                    "field": "Functionality"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "showPersistentComponent": [
+            true,
+            false
+        ],
+        "ssm": false,
+        "wpm": false
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": true,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVPromotionMessage",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ReviewOrder/English/SVPromotionMessage"
+}

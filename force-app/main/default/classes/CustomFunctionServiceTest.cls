@@ -6,7 +6,16 @@
 public class CustomFunctionServiceTest {
     
     @TestSetup
-    static void setup(){ 
+    static void setup(){
+        
+        string type = 'Fixa';
+
+        Account lAccount = DataFactory.createAccount();
+        insert lAccount;        
+        
+        Asset lAsset = DataFactory.createAsset(lAccount.Id, type );
+        insert lAsset;
+        
         // Árvore de palitagem 
         CustomerInteractionTopicTree__c topicTree = new CustomerInteractionTopicTree__c();
         topicTree.Name = 'Vivo';
@@ -985,6 +994,267 @@ public class CustomFunctionServiceTest {
         System.debug(output);
         System.assert(output.get('result') == 'Test String');
     }
+    
+        @isTest
+    public static void testValidaImeiValid() {
+        // Preparar inputs
+        List<Object> arguments = new List<Object>{'490154203237518'};
+
+        // Chamar o método
+        Boolean result = CustomFunctionService.validaImei(arguments);
+
+        // Verificar o resultado
+        System.assert(result, 'O IMEI deve ser válido');
+    }
+
+    @isTest
+    public static void testValidaImeiInvalid() {
+        // Preparar inputs
+        List<Object> arguments = new List<Object>{'490154203237517'};
+
+        // Chamar o método
+        Boolean result = CustomFunctionService.validaImei(arguments);
+
+        // Verificar o resultado
+        System.assert(!result, 'O IMEI deve ser inválido');
+    }
+
+    @isTest
+    public static void testValidaImeiNullInput() {
+        // Preparar inputs
+        List<Object> arguments = null;
+
+        // Chamar o método
+        Boolean result = CustomFunctionService.validaImei(arguments);
+
+        // Verificar o resultado
+        System.assert(!result, 'O resultado deve ser falso quando os argumentos são nulos');
+    }
+
+    @isTest
+    public static void testValidaImeiInvalidLength() {
+        // Preparar inputs
+        List<Object> arguments = new List<Object>{'12345'};
+
+        // Chamar o método
+        Boolean result = CustomFunctionService.validaImei(arguments);
+
+        // Verificar o resultado
+        System.assert(!result, 'O resultado deve ser falso quando o comprimento do IMEI é inválido');
+    }
+    
+    @isTest
+    public static void testReplacePhoneCaracters() {
+        // Preparar dados de teste
+        List<Object> inputList = new List<Object>{'(123) 456-7890'};
+        String expectedOutput = '1234567890';
+        
+        // Chamar o método
+        String result = CustomFunctionService.replacePhoneCaracters(inputList);
+        
+        // Verificar o resultado
+        System.assertEquals(expectedOutput, result, 'A string de saída deve conter apenas dígitos numéricos.');
+    }
+    
+    @isTest
+    public static void testOrgURL() {
+        // Preparar inputs para o caso 'getURL'
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+        List<Object> arguments = new List<Object>{'getURL'};
+        inputs.put('arguments', arguments);
+        
+        // Chamar o método
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('orgURL', inputs, output, options);
+
+        // Verificar o resultado
+        String result = (String) output.get('result');
+        String expectedOutput = URL.getOrgDomainUrl().toExternalForm();
+        
+        System.assertEquals(expectedOutput, result, 'O URL da organização deve ser retornado.');
+
+        // Preparar inputs para um caso qualquer
+        arguments = new List<Object>{'anyString'};
+        inputs.put('arguments', arguments);
+        
+        c.invokeMethod('orgURL', inputs, output, options);
+        result = (String) output.get('result');
+        expectedOutput = 'anyString';
+        
+        System.assertEquals(expectedOutput, result, 'A string original deve ser retornada.');
+    }
+    
+    @isTest
+    public static void testGetDatetimeLast24Hours() {
+        // Preparar inputs para o caso padrão de 24 horas
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+        List<Object> arguments = new List<Object>{24};
+        inputs.put('arguments', arguments);
+        
+        // Chamar o método
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('getDatetimeLast24Hours', inputs, output, options);
+
+        // Verificar o resultado para 24 horas
+        Datetime expectedDatetime = Datetime.now().addhours(-24);
+        Datetime result = (Datetime) output.get('result');
+        
+        System.assertEquals(expectedDatetime.year(), result.year(), 'O ano deve corresponder.');
+        System.assertEquals(expectedDatetime.month(), result.month(), 'O mês deve corresponder.');
+        System.assertEquals(expectedDatetime.day(), result.day(), 'O dia deve corresponder.');
+        System.assertEquals(expectedDatetime.hour(), result.hour(), 'A hora deve corresponder.');
+
+        // Preparar inputs para um caso com quantidade diferente de horas
+        arguments = new List<Object>{48};
+        inputs.put('arguments', arguments);
+        
+        c.invokeMethod('getDatetimeLast24Hours', inputs, output, options);
+        expectedDatetime = Datetime.now().addhours(-48);
+        result = (Datetime) output.get('result');
+        
+        System.assertEquals(expectedDatetime.year(), result.year(), 'O ano deve corresponder.');
+        System.assertEquals(expectedDatetime.month(), result.month(), 'O mês deve corresponder.');
+        System.assertEquals(expectedDatetime.day(), result.day(), 'O dia deve corresponder.');
+        System.assertEquals(expectedDatetime.hour(), result.hour(), 'A hora deve corresponder.');
+    }
+    
+    @isTest
+    public static void testGetCalcDateCase() {
+        // Preparar inputs para o teste
+        Date startDate = Date.newInstance(2024, 7, 4); // Data de início
+        Integer qtyDays = 5; // Quantidade de dias
+        String func = 'SegSex'; // Função de cálculo de dia útil
+        
+        // Preparar lista de argumentos
+        List<Object> arguments = new List<Object>{
+            startDate,
+            qtyDays,
+            func
+        };
+        
+        // Chamar o método
+        CustomFunctionService c = new CustomFunctionService();
+        Map<String, Object> inputs = new Map<String, Object>{
+            'arguments' => arguments
+        };
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+        c.invokeMethod('getCalcDateCase', inputs, output, options);
+        
+        // Verificar o resultado esperado
+        DateTime expectedEndDate = DateTime.newInstance(2024, 7, 11, 0, 0, 0); // Data de término esperada (5 dias úteis a partir de 4 de julho de 2024)
+        DateTime resultEndDate = (DateTime) output.get('result');
+        
+        // Asserts para verificar se o resultado corresponde ao esperado
+        System.assertEquals(expectedEndDate.year(), resultEndDate.year(), 'O ano deve corresponder.');
+        System.assertEquals(expectedEndDate.month(), resultEndDate.month(), 'O mês deve corresponder.');
+        System.assertEquals(expectedEndDate.day(), resultEndDate.day(), 'O dia deve corresponder.');
+        System.assertEquals(expectedEndDate.hour(), resultEndDate.hour(), 'A hora deve corresponder.');
+    }
+    
+    @isTest
+    public static void testValidaEid() {
+        // Preparar inputs válidos
+        List<Object> validArguments = new List<Object>{
+            '89001012012341234012345678901224'
+        };
+
+        // Preparar inputs inválidos
+        List<Object> invalidArgumentsLength = new List<Object>{
+            '1234567890123456789012345678901'
+        };
+
+        List<Object> nullArguments = null;
+
+        // Chamar o método
+        CustomFunctionService c = new CustomFunctionService();
+        Map<String, Object> inputs = new Map<String, Object>{
+            'arguments' => validArguments
+        };
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        c.invokeMethod('validaEid', inputs, output, options);
+
+        // Verificar o resultado esperado para argumentos válidos
+        System.debug('output ' + output);
+        Boolean resultValid = (Boolean) output.get('result');
+        System.assertEquals(true, resultValid, 'O EID deve ser válido');
+
+        // Preparar inputs para argumentos inválidos
+        inputs.put('arguments', invalidArgumentsLength);
+        c.invokeMethod('validaEid', inputs, output, options);
+
+        // Verificar o resultado esperado para argumentos inválidos (tamanho)
+        // 
+        Boolean resultInvalidLength = (Boolean) output.get('result');
+        System.assertEquals(false, resultInvalidLength, 'O EID deve ser inválido devido ao tamanho');
+
+        // Preparar inputs para argumentos nulos
+        inputs.put('arguments', nullArguments);
+        c.invokeMethod('validaEid', inputs, output, options);
+
+        // Verificar o resultado esperado para argumentos nulos
+        Boolean resultNullArguments = (Boolean) output.get('result');
+        System.assertEquals(false, resultNullArguments, 'O EID deve ser inválido devido a argumentos nulos');
+    }
+    
+    @isTest
+    public static void testCloneAsset() {
+        // Criar uma conta de teste
+        Account testAccount = new Account(Name='Test Account');
+        insert testAccount;
+
+        // Criar um Asset original para ser clonado
+        Asset originalAsset = new Asset(
+            Name='Original Asset',
+            AccountId=testAccount.Id,
+            LegacyIdentifier__c='802760000060wSyAAI',
+            vlocity_cmt__AssetReferenceId__c='61193bbb-7975-fe7f-6a3a-18a23320567b',
+            vlocity_cmt__ParentItemId__c='61193bbb-7975-fe7f-6a3a-18a23320567b',
+            vlocity_cmt__RootItemId__c='61193bbb-7975-fe7f-6a3a-18a23320567b'
+        );
+        insert originalAsset;
+        
+        vlocity_cmt__Subscription__c newSubscription = new vlocity_cmt__Subscription__c(
+            vlocity_cmt__AccountId__c = testAccount.Id,
+            vlocity_cmt__SubscriptionNumber__c = 'teste'
+        );
+        insert newSubscription;
+        
+        // Criar argumentos de entrada para o método cloneAsset
+        Map<String, Object> argMap = new Map<String, Object>();
+        argMap.put('OldAssetId', new List<String>{originalAsset.Id});
+        argMap.put('ConsumerAccount', new List<String>{testAccount.Id});
+        argMap.put('NewBillingAccount', new List<String>{testAccount.Id});
+        argMap.put('NewServiceAccount', new List<String>{testAccount.Id});
+        argMap.put('NewSubscription', new List<String>{newSubscription.Id});
+        List<Object> arguments = new List<Object>{argMap};
+
+        // Chamar o método cloneAsset diretamente
+        CustomFunctionService cfs = new CustomFunctionService();
+        List<Asset> clonedAssets = cfs.cloneAsset(arguments);
+
+        // Verificar o resultado
+        System.assertEquals(1, clonedAssets.size(), 'O número de Assets clonados deve ser 1');
+        Asset clonedAsset = clonedAssets[0];
+        System.assertNotEquals(null, clonedAsset, 'O Asset clonado não deve ser nulo');
+        System.assertEquals('Desativado', clonedAsset.Status, 'O status do Asset clonado deve ser Desativado');
+        System.assertEquals('Disconnect', clonedAsset.vlocity_cmt__Action__c, 'A ação do Asset clonado deve ser Disconnect');
+        System.assertNotEquals(originalAsset.Id, clonedAsset.Id, 'O Asset clonado deve ter um ID diferente do original');
+
+        // Verificar alterações no original
+        Asset updatedOriginalAsset = [SELECT AccountId, vlocity_cmt__BillingAccountId__c, vlocity_cmt__ServiceAccountId__c, vlocity_cmt__SubscriptionId__c FROM Asset WHERE Id = :originalAsset.Id];
+        System.assertEquals(testAccount.Id, updatedOriginalAsset.AccountId, 'O ID da conta do Asset original deve ser atualizado');
+        System.assertEquals(testAccount.Id, updatedOriginalAsset.vlocity_cmt__BillingAccountId__c, 'O ID da nova conta de faturamento do Asset original deve ser atualizado');
+        System.assertEquals(testAccount.Id, updatedOriginalAsset.vlocity_cmt__ServiceAccountId__c, 'O ID da nova conta de serviço do Asset original deve ser atualizado');
+        System.assertEquals(newSubscription.Id, updatedOriginalAsset.vlocity_cmt__SubscriptionId__c, 'O ID da nova assinatura do Asset original deve ser atualizado');
+    }
+    
  
 /*    @isTest
     static void testConvertObjectToList() {    
