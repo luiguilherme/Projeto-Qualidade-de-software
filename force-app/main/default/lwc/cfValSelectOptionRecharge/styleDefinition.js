@@ -1,3 +1,0 @@
-let styleDefinition =
-      {"state0element1block_element0block_element1block_element2":[{"conditions":"default","styleObject":{"class":"slds-col  condition-element slds-m-left_x-small option-item slds-size_2-of-12   slds-text-link_reset ","style":"      \n         ","styleProperties":{}}}],"state0element1block_element0block_element1block_element2block_element0block_element1block_element3":[{"conditions":"default","styleObject":{"class":"slds-col  condition-element slds-m-left_x-small option-item slds-size_2-of-12   slds-text-link_reset ","style":"      \n         ","styleProperties":{}}}]};
-  export default styleDefinition

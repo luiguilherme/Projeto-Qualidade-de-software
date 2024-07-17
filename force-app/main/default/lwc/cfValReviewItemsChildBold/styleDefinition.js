@@ -1,3 +1,0 @@
-let styleDefinition =
-      {"state0element1":[{"conditions":"default","styleObject":{"class":"slds-col  condition-element  slds-size_4-of-12  ","style":"","styleProperties":{"styles":{"label":{"color":"#000000"},"value":{"color":"#000000"}}}}}],"state0element3":[{"conditions":"default","styleObject":{"class":"slds-col  condition-element  slds-size_12-of-12  ","style":"      \n         ","styleProperties":{}}}]};
-  export default styleDefinition

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>EditAttributesWithLogs</fullName>
-    <active>true</active>
-    <description>Não permite editar a classificação, Produto ou categoria quando o registro de Script possui Logs associados.</description>
-    <errorConditionFormula>AND(ScriptsLog__c &gt;0, RecordType.DeveloperName =&apos;Cluster&apos;, OR(ISCHANGED(Category__c), ISCHANGED(ProductType__c), ISCHANGED(SupportClassification__c)))</errorConditionFormula>
-    <errorMessage>Não é possível alterar o campo Produto, Classificação ou Categoria quando existem registros de log associados.</errorMessage>
-</ValidationRule>
