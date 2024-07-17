@@ -1,0 +1,77 @@
+<template>
+            <div class="slds-grid slds-wrap slds-is-relative ">
+            <div style="position: fixed;z-index: 999999;top: 0;right: 0;">
+  <vlocity_cmt-toast class="flexcard-toast-element" theme="slds" title="" message="" styletype=""> </vlocity_cmt-toast>
+</div>
+            <div if:true={showLoader} class="slds-is-absolute vloc-loader_override" style="height: 100%; width: 100%; min-height:50px; background: transparent; z-index: 99;">
+  <div>
+   <vlocity_cmt-spinner
+      variant="brand"
+      alternative-text="Loading content..."
+      size="medium"
+      theme="slds"
+      ></vlocity_cmt-spinner>
+  </div>
+</div>
+            <template if:false={hasPermission}>
+              You don't have required permissions to view this card.
+            </template>
+            <template if:true={hasPermission}>
+              <template if:true={hasRecords}>
+                        <template for:each={_records} for:item="record" for:index="rindex">
+                            <vlocity_cmt-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12"  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-bottom_x-small" style="">
+          <div data-style-id="state0element0" class="slds-col   slds-border_top slds-p-around_x-small  slds-size_12-of-12  " data-rindex={rindex} style="background-color:#FFFFFF;     border-top: #cccccc 1px solid; 
+         " >
+    <vlocity_cmt-block data-style-id="state0element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><vlocity_cmt-output-field data-style-id="state0element1_child"   record={record}  card={card}  merge-field="%3Cdiv%3E%3Cspan%20style=%22color:%20#3598db;%20font-size:%2014pt;%22%3EResultado%20da%20Busca%3C/span%3E%3C/div%3E%0A%3Cdiv%3E%3Cspan%20style=%22color:%20#000000;%20font-size:%2010pt;%22%3EMostrando%200%20resultados%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element2" class="slds-col  slds-text-align_center  slds-size_12-of-12 " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-custom-lwc-wrapper class="" element-name="c-val-view-image" property='\{}' data-rindex={rindex} records={records} record={record} record-id={recordId} card={card} ><c-val-view-image   image-name="LakeMountain" ></c-val-view-image></vlocity_cmt-custom-lwc-wrapper>
+    </div><div data-style-id="state0element3" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><vlocity_cmt-output-field data-style-id="state0element3_child"   record={record}  card={card}  merge-field="%3Cdiv%20class=%22slds-text-align_center%22%3E%3Cspan%20style=%22font-size:%2018pt;%22%3ENenhum%20cadastro%20encontrado,%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element4" class="slds-col  slds-text-align_center  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element4_child"  tracking-obj={_childCardTrackingObj}  class= "state0element4_child flexActionElement" 
+        data-action-element-class="state0element4_child" data-action-key="state0element4" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="action5"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":true,"isOpen":true,"isTrackingDisabled":false,"key":"1662133012139-3nms6kstp","label":"StartRegistration","stateAction":{"elementId":"Start","extraParams":{"ShowFields":"true"},"hasExtraParams":true,"id":"flex-action-1683573874064","openUrlIn":"Current Window","type":"updateOmniScript"}},{"actionIndex":1,"card":"{card}","draggable":true,"isOpen":true,"key":"1678760340529-mrp8ta6lm","label":"Action","stateAction":{"displayName":"Action","elementId":"showComponents","extraParams":{"SVConsumerAccountIdBoolean":"null"},"hasExtraParams":true,"id":"flex-action-1683571668251","openUrlIn":"Current Window","type":"updateOmniScript","vlocityIcon":"standard-default"}},{"actionIndex":1,"card":"{card}","draggable":true,"isOpen":false,"key":"1678065689203-6b5o4lv42","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"displayName":"Action","eventName":"remove","id":"flex-action-1678065701022","openUrlIn":"Current Window","targetType":"Web Page","type":"cardAction","vlocityIcon":"standard-default"}}]'  flyout-details='\{}'  hide-action-icon="true"  icon-name="standard-default"  label="clique aqui para criar cadastro."  styles='\{"label":{"color":"#0885C0","fontSize":"24px"}}'  theme="slds"  ></vlocity_cmt-flex-action>
+      </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                        </template>
+                      </template>
+                      <template if:false={hasRecords}>
+                            <vlocity_cmt-flex-card-state  record={record} data-statue="false"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12"  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-bottom_x-small" style="">
+          <div data-style-id="state0element0" class="slds-col   slds-border_top slds-p-around_x-small  slds-size_12-of-12  " data-rindex={rindex} style="background-color:#FFFFFF;     border-top: #cccccc 1px solid; 
+         " >
+    <vlocity_cmt-block data-style-id="state0element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><vlocity_cmt-output-field data-style-id="state0element1_child"   record={record}  card={card}  merge-field="%3Cdiv%3E%3Cspan%20style=%22color:%20#3598db;%20font-size:%2014pt;%22%3EResultado%20da%20Busca%3C/span%3E%3C/div%3E%0A%3Cdiv%3E%3Cspan%20style=%22color:%20#000000;%20font-size:%2010pt;%22%3EMostrando%200%20resultados%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element2" class="slds-col  slds-text-align_center  slds-size_12-of-12 " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-custom-lwc-wrapper class="" element-name="c-val-view-image" property='\{}' data-rindex={rindex} records={records} record={record} record-id={recordId} card={card} ><c-val-view-image   image-name="LakeMountain" ></c-val-view-image></vlocity_cmt-custom-lwc-wrapper>
+    </div><div data-style-id="state0element3" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><vlocity_cmt-output-field data-style-id="state0element3_child"   record={record}  card={card}  merge-field="%3Cdiv%20class=%22slds-text-align_center%22%3E%3Cspan%20style=%22font-size:%2018pt;%22%3ENenhum%20cadastro%20encontrado,%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element4" class="slds-col  slds-text-align_center  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element4_child"  tracking-obj={_childCardTrackingObj}  class= "state0element4_child flexActionElement" 
+        data-action-element-class="state0element4_child" data-action-key="state0element4" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="action5"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":true,"isOpen":true,"isTrackingDisabled":false,"key":"1662133012139-3nms6kstp","label":"StartRegistration","stateAction":{"elementId":"Start","extraParams":{"ShowFields":"true"},"hasExtraParams":true,"id":"flex-action-1683573874064","openUrlIn":"Current Window","type":"updateOmniScript"}},{"actionIndex":1,"card":"{card}","draggable":true,"isOpen":true,"key":"1678760340529-mrp8ta6lm","label":"Action","stateAction":{"displayName":"Action","elementId":"showComponents","extraParams":{"SVConsumerAccountIdBoolean":"null"},"hasExtraParams":true,"id":"flex-action-1683571668251","openUrlIn":"Current Window","type":"updateOmniScript","vlocityIcon":"standard-default"}},{"actionIndex":1,"card":"{card}","draggable":true,"isOpen":false,"key":"1678065689203-6b5o4lv42","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"displayName":"Action","eventName":"remove","id":"flex-action-1678065701022","openUrlIn":"Current Window","targetType":"Web Page","type":"cardAction","vlocityIcon":"standard-default"}}]'  flyout-details='\{}'  hide-action-icon="true"  icon-name="standard-default"  label="clique aqui para criar cadastro."  styles='\{"label":{"color":"#0885C0","fontSize":"24px"}}'  theme="slds"  ></vlocity_cmt-flex-action>
+      </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                      </template>
+            </template>
+            <template if:true={hasError}>
+            {error}
+            </template>
+            
+      <vlocity_cmt-action action-wrapperclass="slds-hide" re-render-flyout class="action-trigger slds-col" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+      
+      </vlocity_cmt-action>
+  
+            <vlocity_cmt-action class="execute-action" re-render-flyout action-wrapperclass="slds-hide" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+            
+            </vlocity_cmt-action>
+            </div>
+          </template>

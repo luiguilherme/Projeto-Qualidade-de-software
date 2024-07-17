@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VerificationFormatCPFFibraRural</fullName>
+    <active>true</active>
+    <description>Verifica o formato do CPF</description>
+    <errorConditionFormula>AND
+(
+RecordType.DeveloperName = &quot;FibraRural&quot;,
+NOT(
+OR(
+ISBLANK( Document__c ),
+REGEX( Document__c , &quot;[0-9]{11}&quot;)
+)
+)
+)</errorConditionFormula>
+    <errorDisplayField>Document__c</errorDisplayField>
+    <errorMessage>O CPF deve ser informado no formato numérico sem pontos ou traços, por exemplo: 99999999999.</errorMessage>
+</ValidationRule>

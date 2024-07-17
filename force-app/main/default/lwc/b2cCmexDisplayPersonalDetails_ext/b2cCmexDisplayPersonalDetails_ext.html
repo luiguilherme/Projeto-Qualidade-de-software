@@ -1,0 +1,277 @@
+<template>
+  <slot name="msmextensionslot">
+  <div class="slds-grid_align-center slds-p-around_xx-large">
+    <lightning-layout multiple-rows padding="around-medium">
+      <!--Name Section-->
+      <lightning-layout-item
+        size="12"
+        small-device-size="12"
+        medium-device-size="3"
+        large-device-size="3"
+        class="slds-p-top_medium"
+      >
+        <h2 class="b2cCmex-field-title">Nome</h2>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="12"
+        small-device-size="12"
+        medium-device-size="6"
+        large-device-size="6"
+        class="slds-p-top_medium"
+      >
+        <template if:false={isNameChanged}>
+          <p class="slds-text-heading_small">
+            {personaldetails.Salutation} {personaldetails.FirstName}
+            {personaldetails.LastName}
+          </p>
+        </template>
+        <template if:true={isNameChanged}>
+          <p class="slds-text-heading_small">
+            {namedetails.Salutation} {namedetails.FirstName}
+            {namedetails.LastName}
+          </p>
+        </template>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="12"
+        small-device-size="6"
+        medium-device-size="3"
+        large-device-size="3"
+        class="slds-p-top_medium"
+      >
+        <div
+          class="b2cCmex-actionlinks slds-text-body_regular slds-p-right_large slds-align_absolute-center"
+        >
+          <lightning-button
+            variant="base"
+            label="Editar nome"
+            onclick={handleClick}
+            class="slds-text-align_center"
+            name="name"
+          ></lightning-button>
+        </div>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="12"
+        small-device-size="12"
+        medium-device-size="12"
+        large-device-size="12"
+        class="slds-p-top_medium"
+      >
+        <div class="slds-border_bottom"></div>
+      </lightning-layout-item>
+
+      <!--Email Section-->
+      <lightning-layout-item
+        size="12"
+        small-device-size="12"
+        medium-device-size="3"
+        large-device-size="3"
+        class="slds-p-top_medium"
+      >
+        <h2 class="b2cCmex-field-title">Email</h2>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="12"
+        small-device-size="12"
+        medium-device-size="6"
+        large-device-size="6"
+        class="slds-p-top_medium"
+      >
+        <lightning-formatted-email
+          value={personaldetails.ContactEmail}
+          class="slds-text-heading_small"
+          hide-icon
+        ></lightning-formatted-email>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="12"
+        small-device-size="12"
+        medium-device-size="12"
+        large-device-size="12"
+        class="slds-p-top_medium"
+      >
+        <div class="slds-border_bottom"></div>
+      </lightning-layout-item>
+
+      <!--Address Section-->
+      <lightning-layout-item
+        size="12"
+        small-device-size="12"
+        medium-device-size="3"
+        large-device-size="3"
+        class="slds-p-top_medium"
+      >
+        <h2 class="b2cCmex-field-title">Endereço de Contato</h2>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="12"
+        small-device-size="12"
+        medium-device-size="6"
+        large-device-size="6"
+        class="slds-p-top_medium"
+      >
+        <template if:false={isAddressChanged}>
+          <lightning-formatted-address
+            street={personaldetails.MailingStreet}
+            city={personaldetails.MailingCity}
+            country={personaldetails.MailingCountry}
+            province={personaldetails.MailingState}
+            postal-code={personaldetails.MailingPostalCode}
+            class="slds-text-heading_small"
+            disabled
+          >
+          </lightning-formatted-address>
+        </template>
+        <template if:true={isAddressChanged}>
+          <lightning-formatted-address
+            street={addressData.Street}
+            city={addressData.City}
+            country={addressData.Country}
+            province={addressData.State}
+            postal-code={addressData.Zipcode}
+            class="slds-text-heading_small"
+            disabled
+          >
+          </lightning-formatted-address>
+        </template>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="12"
+        small-device-size="6"
+        medium-device-size="3"
+        large-device-size="3"
+        class="slds-p-top_medium"
+      >
+        <div
+          class="b2cCmex-actionlinks slds-text-body_regular slds-p-right_large slds-align_absolute-center"
+        >
+          <lightning-button
+            variant="base"
+            label="Editar Endereço de Contato"
+            onclick={handleClick}
+            class="slds-m-left_x-small"
+            name="address"
+          ></lightning-button>
+        </div>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="12"
+        small-device-size="12"
+        medium-device-size="12"
+        large-device-size="12"
+        class="slds-p-top_medium"
+      >
+        <div class="slds-border_bottom"></div>
+      </lightning-layout-item>
+
+      <!--Phone Section-->
+      <lightning-layout-item
+        size="12"
+        small-device-size="12"
+        medium-device-size="3"
+        large-device-size="3"
+        class="slds-p-top_medium"
+      >
+        <h2 class="b2cCmex-field-title">Telefone</h2>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="12"
+        small-device-size="12"
+        medium-device-size="6"
+        large-device-size="6"
+        class="slds-p-top_medium"
+      >
+        <lightning-formatted-phone
+          value={phoneNum}
+          class="slds-text-heading_small"
+        ></lightning-formatted-phone>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="12"
+        small-device-size="6"
+        medium-device-size="3"
+        large-device-size="3"
+        class="slds-p-top_medium"
+      >
+        <div
+          class="b2cCmex-actionlinks slds-text-body_regular slds-p-right_large slds-align_absolute-center"
+        >
+          <lightning-button
+            variant="base"
+            label="Editar Telefone"
+            onclick={handleClick}
+            class="slds-m-left_x-small"
+            name="phone"
+          ></lightning-button>
+        </div>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="12"
+        small-device-size="12"
+        medium-device-size="12"
+        large-device-size="12"
+        class="slds-p-top_medium"
+      >
+        <div class="slds-border_bottom"></div>
+      </lightning-layout-item>
+
+      <!--Birthdate Section-->
+      <lightning-layout-item
+        size="12"
+        small-device-size="12"
+        medium-device-size="3"
+        large-device-size="3"
+        class="slds-p-top_medium"
+      >
+        <h2 class="b2cCmex-field-title">Data de Nascimento</h2>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="12"
+        small-device-size="12"
+        medium-device-size="6"
+        large-device-size="6"
+        class="slds-p-top_medium"
+      >
+        <template if:true={isBirthDate}>
+          <template if:true={isBirthDateChange}>
+            <div class="slds-text-heading_small">{dateOfbirth}</div>
+          </template>
+          <template if:false={isBirthDateChange}>
+            <div class="slds-text-heading_small">{formatedInitialDob}</div>
+          </template>
+        </template>
+        <template if:false={isBirthDate}> - </template>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="12"
+        small-device-size="6"
+        medium-device-size="3"
+        large-device-size="3"
+        class="slds-p-top_medium"
+      >
+        <div
+          class="b2cCmex-actionlinks slds-align_absolute-center slds-text-body_regular slds-p-right_large"
+        >
+          <lightning-button
+            variant="base"
+            label="Editar Data de Nascimento"
+            onclick={handleClick}
+            class="slds-m-left_x-small"
+            name="dateOfBirth"
+          ></lightning-button>
+        </div>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="12"
+        small-device-size="12"
+        medium-device-size="12"
+        large-device-size="12"
+        class="slds-p-top_medium"
+      >
+        <div class="slds-border_bottom"></div>
+      </lightning-layout-item>
+    </lightning-layout>
+  </div>
+  </slot>
+</template>

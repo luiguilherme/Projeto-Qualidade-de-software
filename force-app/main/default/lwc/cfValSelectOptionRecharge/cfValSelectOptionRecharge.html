@@ -1,0 +1,165 @@
+<template>
+            <div class="slds-grid slds-wrap slds-is-relative ">
+            <div style="position: fixed;z-index: 999999;top: 0;right: 0;">
+  <vlocity_cmt-toast class="flexcard-toast-element" theme="slds" title="" message="" styletype=""> </vlocity_cmt-toast>
+</div>
+            <div if:true={showLoader} class="slds-is-absolute vloc-loader_override" style="height: 100%; width: 100%; min-height:50px; background: transparent; z-index: 99;">
+  <div>
+   <vlocity_cmt-spinner
+      variant="brand"
+      alternative-text="Loading content..."
+      size="medium"
+      theme="slds"
+      ></vlocity_cmt-spinner>
+  </div>
+</div>
+            <template if:false={hasPermission}>
+              You don't have required permissions to view this card.
+            </template>
+            <template if:true={hasPermission}>
+              <template if:true={hasRecords}>
+                        <template for:each={_records} for:item="record" for:index="rindex">
+                            <vlocity_cmt-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-around_x-small slds-m-bottom_x-small slds-m-top_medium " style="     border-top: #DDDBDA 1px solid;border-right: #DDDBDA 1px solid;border-bottom: #DDDBDA 1px solid;border-left: #DDDBDA 1px solid; 
+    border-radius:4px;     box-shadow: rgb(0 0 0 / 16%) 0px 1px 3px;">
+          <div data-style-id="state0element0" class="slds-col   slds-p-around_x-small slds-size_12-of-12 " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element0_child"  card={card}  record={record}  label="Block"  collapsible="false"  collapsed-by-default="false"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0" class="slds-col   slds-size_4-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element0block_element0_child"   card={card}  record={record}  merge-field="%3Cdiv%3E%3Cspan%20style=%22font-size:%2014pt;%22%3ERecarga%20de%20Linha:%20%3Cstrong%3E%7BSession.LineNumber%7D%3C/strong%3E%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element0block_element0block_element1" class="slds-col   slds-p-around_x-small slds-size_8-of-12 " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element0block_element0block_element1_child"  card={card}  record={record}  label="Block"  collapsible="false"  collapsed-by-default="false"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element0block_element1block_element2" class="slds-col   slds-p-top_x-small  slds-size_1-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element0block_element1block_element2_child"  card={card}  record={record}  label="Block"  collapsible="false"  collapsed-by-default="false"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0block_element1block_element2block_element0" class="slds-col   slds-border_bottom  slds-size_8-of-12  " data-rindex={rindex} style="     border-bottom: #507BBB 1px solid; 
+        color:#000000; " >
+    <vlocity_cmt-block data-style-id="state0element0block_element0block_element1block_element2block_element0_child"  card={card}  record={record}  label="Block"  collapsible="false"  collapsed-by-default="false"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1" class="slds-col   slds-p-top_x-small slds-p-right_x-small slds-p-left_x-small slds-p-bottom_large  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element1_child"  card={card}  record={record}  label="Block"  collapsible="false"  collapsed-by-default="false"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element0" class="slds-col    slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element1block_element0_child"  card={card}  record={record}  label="Block"  collapsible="false"  collapsed-by-default="false"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1block_element0block_element1" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><vlocity_cmt-output-field data-style-id="state0element1block_element0block_element1_child"   card={card}  record={record}  merge-field="%3Cdiv%3E%3Cspan%20style=%22font-size:%2012pt;%22%3ESelecione%20o%20tipo%20de%20Recarga:%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element0block_element1block_element2" class="slds-col   slds-text-link_reset  slds-m-left_x-small option-item slds-size_2-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"Session.ChannelName","operator":"==","value":"Lojas Proprias","type":"custom","hasMergeField":false}]}' >
+    <vlocity_cmt-block data-style-id="state0element1block_element0block_element1block_element2_child"  card={card}  record={record}  label="Block"  collapsible="false"  collapsed-by-default="false"  action='\{"label":"Action","iconName":"standard-default","eventType":"onclick","actionList":[{"key":"1684249649391-f2w2nxjqp","label":"Action","draggable":false,"isOpen":true,"card":"{card}","stateAction":{"id":"flex-action-1692123669334","type":"OmniScript","displayName":"Action","vlocityIcon":"standard-default","openUrlIn":"New Tab/Window","layoutType":"lightning","omniType":{"Name":"val/rechargeJourney/Portuguese (Brazil)","Id":"a3076000000ARH3AAO","isLwcOs":true},"isLwcOS":true,"hasExtraParams":true,"extraParams":{"c__AssetId":"{Session.AssetId}","c__LineNumber":"{Session.LineNumber}","c__DDD":"{Session.Ddd}"},"tabLabel":"Recarga online"},"actionIndex":0,"contextId":"\\{Session.InteractionId}"}],"showSpinner":"false"}'  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"Session.ChannelName","operator":"==","value":"Lojas Proprias","type":"custom","hasMergeField":false}]}'  extraclass=" slds-text-link_reset"  theme="slds"  onclick={executeAction} data-element-label="block1block3" data-action-key="state0element1block_element0block_element1block_element2" onkeydown={executeActionWithKeyboard} tabindex="0"><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element0block_element1block_element2block_element0" class="slds-col  slds-text-align_center slds-p-top_x-large slds-m-top_x-small  slds-size_12-of-12 " data-rindex={rindex} style="      
+     height:200px;    margin-bottom: -20px; padding-top: 15px;" >
+    <vlocity_cmt-custom-lwc-wrapper class="" element-name="c-val-view-image" property='\{}' data-rindex={rindex} records={records} record={record} record-id={recordId} card={card} ><c-val-view-image   image-name="RecargaOnline" ></c-val-view-image></vlocity_cmt-custom-lwc-wrapper>
+    </div><div data-style-id="state0element1block_element0block_element1block_element2block_element0block_element1" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><vlocity_cmt-output-field data-style-id="state0element1block_element0block_element1block_element2block_element0block_element1_child"   card={card}  record={record}  merge-field="%3Cdiv%20class=%22slds-text-align_center%22%3E%3Cspan%20style=%22font-family:%20sans-serif;%20font-size:%2012pt;%22%3ERecarga%20Online%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1block_element0block_element1block_element2block_element0block_element1block_element3" class="slds-col   slds-text-link_reset  slds-m-left_x-small option-item slds-size_2-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-2","field":"Session.ChannelName","operator":"==","value":"Lojas Proprias","type":"custom","hasMergeField":false},{"id":"state-new-condition-13","field":"Session.ChannelName","operator":"==","value":"Lojas Revendas","type":"custom","hasMergeField":false,"logicalOperator":"||"}]}' >
+    <vlocity_cmt-block data-style-id="state0element1block_element0block_element1block_element2block_element0block_element1block_element3_child"  card={card}  record={record}  label="Block"  collapsible="false"  collapsed-by-default="false"  action='\{"label":"Action","iconName":"standard-default","eventType":"onclick","actionList":[{"key":"1691764763283-a38dm5jtd","label":"ActionCreateOrder","draggable":false,"isOpen":true,"card":"{card}","stateAction":{"id":"flex-action-1693578491282","type":"DataAction","displayName":"Action","vlocityIcon":"standard-default","targetType":"Web Page","openUrlIn":"Current Window","Web Page":{"targetName":"/apex"},"message":"{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_CreateOrderRechargeVoucher\",\"vlocityAsync\":false,\"inputMap\":{\"productCode\":\"PRE_OFFER_SIMPLE_RECARGA_VOUCHER_001\",\"accountId\":\"{Session.AccountDetails}\",\"lineNumber\":\"{Session.LineNumber}\"},\"jsonMap\":\"{\\\"Session.AccountDetails\\\":\\\"{Session.AccountDetails}\\\",\\\"Session.LineNumber\\\":\\\"{Session.LineNumber}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"Session.AccountDetails\",\"val\":\"\",\"id\":2},{\"name\":\"Session.LineNumber\",\"val\":\"\",\"id\":5}]}"},"actionIndex":0},{"key":"1687203823344-ins6zmcp4","label":"SVChoosePhysicalRecharge","draggable":true,"isOpen":false,"card":"{card}","stateAction":{"id":"flex-action-1687203883852","type":"cardAction","displayName":"Action","vlocityIcon":"standard-default","openUrlIn":"Current Window","subType":"PubSub","eventName":"setValues","fieldValues":[{"fieldName":"ChoosePhysicalRecharge","fieldValue":"true"}]},"actionIndex":0}],"showSpinner":"false"}'  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-2","field":"Session.ChannelName","operator":"==","value":"Lojas Proprias","type":"custom","hasMergeField":false},{"id":"state-new-condition-13","field":"Session.ChannelName","operator":"==","value":"Lojas Revendas","type":"custom","hasMergeField":false,"logicalOperator":"||"}]}'  extraclass=" slds-text-link_reset"  theme="slds"  onclick={executeAction} data-element-label="block1block4" data-action-key="state0element1block_element0block_element1block_element2block_element0block_element1block_element3" onkeydown={executeActionWithKeyboard} tabindex="0"><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element0block_element1block_element2block_element0block_element1block_element3block_element0" class="slds-col  slds-text-align_center slds-p-top_small slds-m-top_x-small  slds-size_12-of-12 " data-rindex={rindex} style="      
+     height:200px;    margin-bottom: -20px;" >
+    <vlocity_cmt-custom-lwc-wrapper class="" element-name="c-val-view-image" property='\{}' data-rindex={rindex} records={records} record={record} record-id={recordId} card={card} ><c-val-view-image   image-name="RecargaFisica" ></c-val-view-image></vlocity_cmt-custom-lwc-wrapper>
+    </div><div data-style-id="state0element1block_element0block_element1block_element2block_element0block_element1block_element3block_element0block_element1" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><vlocity_cmt-output-field data-style-id="state0element1block_element0block_element1block_element2block_element0block_element1block_element3block_element0block_element1_child"   card={card}  record={record}  merge-field="%3Cdiv%20class=%22slds-text-align_center%22%3E%3Cspan%20style=%22font-family:%20sans-serif;%20font-size:%2012pt;%22%3ERecarga%20F&iacute;sica%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state><vlocity_cmt-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="1" data-rindex={rindex} class="cf-vlocity-state-1 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-around_x-small slds-m-bottom_x-small slds-m-top_medium " style="     border-top: #DDDBDA 1px solid;border-right: #DDDBDA 1px solid;border-bottom: #DDDBDA 1px solid;border-left: #DDDBDA 1px solid; 
+    border-radius:4px;     box-shadow: rgb(0 0 0 / 16%) 0px 1px 3px;">
+          <div data-style-id="state1element0" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><c-cf-val-recharge-voucher data-style-id="state1element0_child"  tracking-obj={_childCardTrackingObj}  is-inside-parent={insideParent} parent-uniquekey={uniqueKey}  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  is-child-card-tracking-enabled="false"  parent-attribute='\{"InteractionId":"{Session.InteractionId}","LineNumber":"{Session.LineNumber}","accountId":"{Session.AccountDetails}","assetId":"{Session.AssetId}","interactionNumber":"{Session.InteractionNumber}","orderNumber":"{createOrderResponse.OrderNumber}","orderId":"{createOrderResponse.Id}","orderItemId":"{createOrderItemResponse}"}'  object-api-name={objectApiName}  theme="slds"  omni-json-def={omniJsonDef} omni-script-header-def={omniScriptHeaderDef} omni-custom-state={omniCustomState} omni-json-data={omniJsonData} omni-support-key={record._flex.uniqueKey}   onupdateparent={updateParentData}></c-cf-val-recharge-voucher>
+    </div><div data-style-id="state1element1" class="slds-col   slds-size_12-of-12" data-rindex={rindex} style="" >
+    <vlocity_cmt-custom-lwc-wrapper class="" element-name="c-val-modal" property='\{}' data-rindex={rindex} records={records} record={record} record-id={recordId} card={card} ><c-val-modal  ></c-val-modal></vlocity_cmt-custom-lwc-wrapper>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                        </template>
+                      </template>
+                      <template if:false={hasRecords}>
+                            <vlocity_cmt-flex-card-state  record={record} data-statue="false"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-around_x-small slds-m-bottom_x-small slds-m-top_medium " style="     border-top: #DDDBDA 1px solid;border-right: #DDDBDA 1px solid;border-bottom: #DDDBDA 1px solid;border-left: #DDDBDA 1px solid; 
+    border-radius:4px;     box-shadow: rgb(0 0 0 / 16%) 0px 1px 3px;">
+          <div data-style-id="state0element0" class="slds-col   slds-p-around_x-small slds-size_12-of-12 " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element0_child"  card={card}  record={record}  label="Block"  collapsible="false"  collapsed-by-default="false"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0" class="slds-col   slds-size_4-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element0block_element0_child"   card={card}  record={record}  merge-field="%3Cdiv%3E%3Cspan%20style=%22font-size:%2014pt;%22%3ERecarga%20de%20Linha:%20%3Cstrong%3E%7BSession.LineNumber%7D%3C/strong%3E%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element0block_element0block_element1" class="slds-col   slds-p-around_x-small slds-size_8-of-12 " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element0block_element0block_element1_child"  card={card}  record={record}  label="Block"  collapsible="false"  collapsed-by-default="false"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element0block_element1block_element2" class="slds-col   slds-p-top_x-small  slds-size_1-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element0block_element1block_element2_child"  card={card}  record={record}  label="Block"  collapsible="false"  collapsed-by-default="false"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0block_element1block_element2block_element0" class="slds-col   slds-border_bottom  slds-size_8-of-12  " data-rindex={rindex} style="     border-bottom: #507BBB 1px solid; 
+        color:#000000; " >
+    <vlocity_cmt-block data-style-id="state0element0block_element0block_element1block_element2block_element0_child"  card={card}  record={record}  label="Block"  collapsible="false"  collapsed-by-default="false"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1" class="slds-col   slds-p-top_x-small slds-p-right_x-small slds-p-left_x-small slds-p-bottom_large  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element1_child"  card={card}  record={record}  label="Block"  collapsible="false"  collapsed-by-default="false"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element0" class="slds-col    slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element1block_element0_child"  card={card}  record={record}  label="Block"  collapsible="false"  collapsed-by-default="false"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1block_element0block_element1" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><vlocity_cmt-output-field data-style-id="state0element1block_element0block_element1_child"   card={card}  record={record}  merge-field="%3Cdiv%3E%3Cspan%20style=%22font-size:%2012pt;%22%3ESelecione%20o%20tipo%20de%20Recarga:%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1block_element0block_element1block_element2" class="slds-col   slds-text-link_reset  slds-m-left_x-small option-item slds-size_2-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"Session.ChannelName","operator":"==","value":"Lojas Proprias","type":"custom","hasMergeField":false}]}' >
+    <vlocity_cmt-block data-style-id="state0element1block_element0block_element1block_element2_child"  card={card}  record={record}  label="Block"  collapsible="false"  collapsed-by-default="false"  action='\{"label":"Action","iconName":"standard-default","eventType":"onclick","actionList":[{"key":"1684249649391-f2w2nxjqp","label":"Action","draggable":false,"isOpen":true,"card":"{card}","stateAction":{"id":"flex-action-1692123669334","type":"OmniScript","displayName":"Action","vlocityIcon":"standard-default","openUrlIn":"New Tab/Window","layoutType":"lightning","omniType":{"Name":"val/rechargeJourney/Portuguese (Brazil)","Id":"a3076000000ARH3AAO","isLwcOs":true},"isLwcOS":true,"hasExtraParams":true,"extraParams":{"c__AssetId":"{Session.AssetId}","c__LineNumber":"{Session.LineNumber}","c__DDD":"{Session.Ddd}"},"tabLabel":"Recarga online"},"actionIndex":0,"contextId":"\\{Session.InteractionId}"}],"showSpinner":"false"}'  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"Session.ChannelName","operator":"==","value":"Lojas Proprias","type":"custom","hasMergeField":false}]}'  extraclass=" slds-text-link_reset"  theme="slds"  onclick={executeAction} data-element-label="block1block3" data-action-key="state0element1block_element0block_element1block_element2" onkeydown={executeActionWithKeyboard} tabindex="0"><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element0block_element1block_element2block_element0" class="slds-col  slds-text-align_center slds-p-top_x-large slds-m-top_x-small  slds-size_12-of-12 " data-rindex={rindex} style="      
+     height:200px;    margin-bottom: -20px; padding-top: 15px;" >
+    <vlocity_cmt-custom-lwc-wrapper class="" element-name="c-val-view-image" property='\{}' data-rindex={rindex} records={records} record={record} record-id={recordId} card={card} ><c-val-view-image   image-name="RecargaOnline" ></c-val-view-image></vlocity_cmt-custom-lwc-wrapper>
+    </div><div data-style-id="state0element1block_element0block_element1block_element2block_element0block_element1" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><vlocity_cmt-output-field data-style-id="state0element1block_element0block_element1block_element2block_element0block_element1_child"   card={card}  record={record}  merge-field="%3Cdiv%20class=%22slds-text-align_center%22%3E%3Cspan%20style=%22font-family:%20sans-serif;%20font-size:%2012pt;%22%3ERecarga%20Online%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1block_element0block_element1block_element2block_element0block_element1block_element3" class="slds-col   slds-text-link_reset  slds-m-left_x-small option-item slds-size_2-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-2","field":"Session.ChannelName","operator":"==","value":"Lojas Proprias","type":"custom","hasMergeField":false},{"id":"state-new-condition-13","field":"Session.ChannelName","operator":"==","value":"Lojas Revendas","type":"custom","hasMergeField":false,"logicalOperator":"||"}]}' >
+    <vlocity_cmt-block data-style-id="state0element1block_element0block_element1block_element2block_element0block_element1block_element3_child"  card={card}  record={record}  label="Block"  collapsible="false"  collapsed-by-default="false"  action='\{"label":"Action","iconName":"standard-default","eventType":"onclick","actionList":[{"key":"1691764763283-a38dm5jtd","label":"ActionCreateOrder","draggable":false,"isOpen":true,"card":"{card}","stateAction":{"id":"flex-action-1693578491282","type":"DataAction","displayName":"Action","vlocityIcon":"standard-default","targetType":"Web Page","openUrlIn":"Current Window","Web Page":{"targetName":"/apex"},"message":"{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_CreateOrderRechargeVoucher\",\"vlocityAsync\":false,\"inputMap\":{\"productCode\":\"PRE_OFFER_SIMPLE_RECARGA_VOUCHER_001\",\"accountId\":\"{Session.AccountDetails}\",\"lineNumber\":\"{Session.LineNumber}\"},\"jsonMap\":\"{\\\"Session.AccountDetails\\\":\\\"{Session.AccountDetails}\\\",\\\"Session.LineNumber\\\":\\\"{Session.LineNumber}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"Session.AccountDetails\",\"val\":\"\",\"id\":2},{\"name\":\"Session.LineNumber\",\"val\":\"\",\"id\":5}]}"},"actionIndex":0},{"key":"1687203823344-ins6zmcp4","label":"SVChoosePhysicalRecharge","draggable":true,"isOpen":false,"card":"{card}","stateAction":{"id":"flex-action-1687203883852","type":"cardAction","displayName":"Action","vlocityIcon":"standard-default","openUrlIn":"Current Window","subType":"PubSub","eventName":"setValues","fieldValues":[{"fieldName":"ChoosePhysicalRecharge","fieldValue":"true"}]},"actionIndex":0}],"showSpinner":"false"}'  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-2","field":"Session.ChannelName","operator":"==","value":"Lojas Proprias","type":"custom","hasMergeField":false},{"id":"state-new-condition-13","field":"Session.ChannelName","operator":"==","value":"Lojas Revendas","type":"custom","hasMergeField":false,"logicalOperator":"||"}]}'  extraclass=" slds-text-link_reset"  theme="slds"  onclick={executeAction} data-element-label="block1block4" data-action-key="state0element1block_element0block_element1block_element2block_element0block_element1block_element3" onkeydown={executeActionWithKeyboard} tabindex="0"><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element0block_element1block_element2block_element0block_element1block_element3block_element0" class="slds-col  slds-text-align_center slds-p-top_small slds-m-top_x-small  slds-size_12-of-12 " data-rindex={rindex} style="      
+     height:200px;    margin-bottom: -20px;" >
+    <vlocity_cmt-custom-lwc-wrapper class="" element-name="c-val-view-image" property='\{}' data-rindex={rindex} records={records} record={record} record-id={recordId} card={card} ><c-val-view-image   image-name="RecargaFisica" ></c-val-view-image></vlocity_cmt-custom-lwc-wrapper>
+    </div><div data-style-id="state0element1block_element0block_element1block_element2block_element0block_element1block_element3block_element0block_element1" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><vlocity_cmt-output-field data-style-id="state0element1block_element0block_element1block_element2block_element0block_element1block_element3block_element0block_element1_child"   card={card}  record={record}  merge-field="%3Cdiv%20class=%22slds-text-align_center%22%3E%3Cspan%20style=%22font-family:%20sans-serif;%20font-size:%2012pt;%22%3ERecarga%20F&iacute;sica%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state><vlocity_cmt-flex-card-state  record={record} data-statue="false"  data-index="1" data-rindex={rindex} class="cf-vlocity-state-1 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-around_x-small slds-m-bottom_x-small slds-m-top_medium " style="     border-top: #DDDBDA 1px solid;border-right: #DDDBDA 1px solid;border-bottom: #DDDBDA 1px solid;border-left: #DDDBDA 1px solid; 
+    border-radius:4px;     box-shadow: rgb(0 0 0 / 16%) 0px 1px 3px;">
+          <div data-style-id="state1element0" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><c-cf-val-recharge-voucher data-style-id="state1element0_child"  tracking-obj={_childCardTrackingObj}  is-inside-parent={insideParent} parent-uniquekey={uniqueKey}  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  is-child-card-tracking-enabled="false"  parent-attribute='\{"InteractionId":"{Session.InteractionId}","LineNumber":"{Session.LineNumber}","accountId":"{Session.AccountDetails}","assetId":"{Session.AssetId}","interactionNumber":"{Session.InteractionNumber}","orderNumber":"{createOrderResponse.OrderNumber}","orderId":"{createOrderResponse.Id}","orderItemId":"{createOrderItemResponse}"}'  object-api-name={objectApiName}  theme="slds"   onupdateparent={updateParentData}></c-cf-val-recharge-voucher>
+    </div><div data-style-id="state1element1" class="slds-col   slds-size_12-of-12" data-rindex={rindex} style="" >
+    <vlocity_cmt-custom-lwc-wrapper class="" element-name="c-val-modal" property='\{}' data-rindex={rindex} records={records} record={record} record-id={recordId} card={card} ><c-val-modal  ></c-val-modal></vlocity_cmt-custom-lwc-wrapper>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                      </template>
+            </template>
+            <template if:true={hasError}>
+            {error}
+            </template>
+            
+      <vlocity_cmt-action action-wrapperclass="slds-hide" re-render-flyout class="action-trigger slds-col" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+      
+      </vlocity_cmt-action>
+  
+            <vlocity_cmt-action class="execute-action" re-render-flyout action-wrapperclass="slds-hide" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+            
+            </vlocity_cmt-action>
+            </div>
+          </template>

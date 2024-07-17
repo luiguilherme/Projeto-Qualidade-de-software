@@ -1,0 +1,55 @@
+<template>
+            <div class="slds-grid slds-wrap slds-is-relative ">
+            <div style="position: fixed;z-index: 999999;top: 0;right: 0;">
+  <vlocity_cmt-toast class="flexcard-toast-element" theme="slds" title="" message="" styletype=""> </vlocity_cmt-toast>
+</div>
+            <div if:false={cardLoaded} class="slds-is-absolute vloc-loader_override" style="height: 100%; width: 100%; min-height:50px; background: white; z-index: 99;">
+  <div>
+   <vlocity_cmt-spinner
+      variant="brand"
+      alternative-text="Loading content..."
+      size="medium"
+      theme="slds"
+      ></vlocity_cmt-spinner>
+  </div>
+</div>
+            <template if:false={hasPermission}>
+              You don't have required permissions to view this card.
+            </template>
+            <template if:true={hasPermission}>
+              <template if:true={hasRecords}>
+                        <template for:each={_records} for:item="record" for:index="rindex">
+                            <vlocity_cmt-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12"  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-bottom_x-small" style="">
+          <div data-style-id="state0element0" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><vlocity_cmt-output-field data-style-id="state0element0_child"   record={record}  card={card}  merge-field="%3Cdiv%3E%3Cspan%20style=%22color:%20#000000;%22%3E*Autoriza%20receber%20em%20seu%20Vivo%20as%20promo&ccedil;&otilde;es%20e%20novidades%20que%20n&oacute;s%20e%20nossos%20parceiros%20preparamos,%20assim%20como%20utilizarmos%20dados%20an&ocirc;nimos%20e%20consolidados%20a%20respeito%20da%20&aacute;rea%20e%20hora%20do%20uso%20da%20rede%20m&oacute;vel,%20sexo%20e%20idade,%20constantes%20de%20nossas%20antenas%20e%20sistemas%20para%20melhoria%20e%20desenvolvimento%20de%20novos%20Produtos%20est&aacute;ticos?%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1" class="slds-col  slds-p-left_small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-toggle data-style-id="state0element1_child"   record={record}  card={card}  alignment="horizontal"  disabled  label=""  name=""  options='\[{"label":"Sim","value":"true"},{"label":"Não","value":"false"}]'  type="checkbox"  value="\{AcceptContact}"  theme="slds"  ></vlocity_cmt-flex-toggle>
+      </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                        </template>
+                      </template>
+                      <template if:false={hasRecords}>
+                            <vlocity_cmt-flex-card-state  record={record} data-statue="false"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12"  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-bottom_x-small" style="">
+          <div data-style-id="state0element0" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><vlocity_cmt-output-field data-style-id="state0element0_child"   record={record}  card={card}  merge-field="%3Cdiv%3E%3Cspan%20style=%22color:%20#000000;%22%3E*Autoriza%20receber%20em%20seu%20Vivo%20as%20promo&ccedil;&otilde;es%20e%20novidades%20que%20n&oacute;s%20e%20nossos%20parceiros%20preparamos,%20assim%20como%20utilizarmos%20dados%20an&ocirc;nimos%20e%20consolidados%20a%20respeito%20da%20&aacute;rea%20e%20hora%20do%20uso%20da%20rede%20m&oacute;vel,%20sexo%20e%20idade,%20constantes%20de%20nossas%20antenas%20e%20sistemas%20para%20melhoria%20e%20desenvolvimento%20de%20novos%20Produtos%20est&aacute;ticos?%3C/span%3E%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div><div data-style-id="state0element1" class="slds-col  slds-p-left_small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-toggle data-style-id="state0element1_child"   record={record}  card={card}  alignment="horizontal"  disabled  label=""  name=""  options='\[{"label":"Sim","value":"true"},{"label":"Não","value":"false"}]'  type="checkbox"  value="\{AcceptContact}"  theme="slds"  ></vlocity_cmt-flex-toggle>
+      </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                      </template>
+            </template>
+            <template if:true={hasError}>
+            {error}
+            </template>
+            
+      <vlocity_cmt-action action-wrapperclass="slds-hide" re-render-flyout class="action-trigger slds-col" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+      
+      </vlocity_cmt-action>
+  
+            <vlocity_cmt-action class="execute-action" re-render-flyout action-wrapperclass="slds-hide" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+            
+            </vlocity_cmt-action>
+            </div>
+          </template>

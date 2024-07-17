@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ChangeOrderNumberValidation</fullName>
+    <active>true</active>
+    <description>[B9-J9] Abertura e Tratativa de Casos | Validação para alteração de número da ordem [Fernanda Faria]</description>
+    <errorConditionFormula>AND(
+    NOT(ISNEW()),
+    OR($RecordType.Name = &quot;Caso Processo&quot;, $RecordType.Name = &quot;Caso Portabilidade&quot;),
+    NOT(ISBLANK(PRIORVALUE(OrderNumber__c))),
+        ISCHANGED(OrderNumber__c)
+
+   )</errorConditionFormula>
+    <errorDisplayField>OrderNumber__c</errorDisplayField>
+    <errorMessage>Não é possível alterar o Número da Ordem.</errorMessage>
+</ValidationRule>

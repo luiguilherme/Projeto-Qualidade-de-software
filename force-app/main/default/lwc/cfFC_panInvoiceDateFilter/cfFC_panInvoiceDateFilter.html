@@ -1,0 +1,147 @@
+<template>
+            <div class="slds-grid slds-wrap slds-is-relative ">
+            <div style="position: fixed;z-index: 999999;top: 0;right: 0;">
+  <vlocity_cmt-toast class="flexcard-toast-element" theme="slds" title="" message="" styletype=""> </vlocity_cmt-toast>
+</div>
+            <div if:true={showLoader} class="slds-is-absolute vloc-loader_override" style="height: 100%; width: 100%; min-height:50px; background: transparent; z-index: 99;">
+  <div>
+   <vlocity_cmt-spinner
+      variant="brand"
+      alternative-text="Loading content..."
+      size="medium"
+      theme="slds"
+      ></vlocity_cmt-spinner>
+  </div>
+</div>
+            <template if:false={hasPermission}>
+              You don't have required permissions to view this card.
+            </template>
+            <template if:true={hasPermission}>
+              <template if:true={hasRecords}>
+                        <template for:each={_records} for:item="record" for:index="rindex">
+                            <vlocity_cmt-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12"  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-bottom_x-small" style="">
+          <div data-style-id="state0element0" class="slds-col    slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"group":[{"field":"message","hasMergeField":false,"id":"state-new-condition-2","operator":"!=","type":"custom","value":"OK"}],"id":"state-condition-object","isParent":true}' >
+    <vlocity_cmt-block data-style-id="state0element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  data-conditions='\{"group":[{"field":"message","hasMergeField":false,"id":"state-new-condition-2","operator":"!=","type":"custom","value":"OK"}],"id":"state-condition-object","isParent":true}'  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0" class="slds-col   slds-p-around_x-small  slds-size_9-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0block_element0" class="slds-col   slds-size_11-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"group":[],"id":"state-condition-object","isParent":true}' ><c-cf-pan-alert-range-between-dates data-style-id="state0element0block_element0block_element0_child"  tracking-obj={_childCardTrackingObj}  is-inside-parent={insideParent} parent-uniquekey={uniqueKey}  card-node=""  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  data-conditions='\{"group":[],"id":"state-condition-object","isParent":true}'  is-child-card-tracking-enabled="false"  object-api-name={objectApiName}  theme="slds"   onupdateparent={updateParentData}></c-cf-pan-alert-range-between-dates>
+    </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1" class="slds-col    slds-size_3-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1" class="slds-col    slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element0" class="slds-col   slds-p-around_x-small  slds-size_4-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element1block_element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element0block_element0" class="slds-col  slds-m-bottom_xx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-base-input-element data-style-id="state0element1block_element0block_element0_child"   record={record}  card={card}  action='\{"actionList":[{"actionIndex":0,"card":"{card}","draggable":false,"isOpen":true,"key":"1658849475397-4cf6lbifa","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"displayName":"Action","eventName":"setValues","fieldValues":[{"fieldName":"startDateGMT","fieldValue":"{element.value}"}],"id":"flex-action-1658849589344","openUrlIn":"Current Window","targetType":"Web Page","type":"cardAction","vlocityIcon":"standard-default"}}],"eventType":"onchange","iconName":"standard-default","label":"Action","showSpinner":"false"}'  property-obj='\{"action":{"actionList":[{"actionIndex":0,"card":"{card}","draggable":false,"isOpen":true,"key":"1658849475397-4cf6lbifa","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"displayName":"Action","eventName":"setValues","fieldValues":[{"fieldName":"startDateGMT","fieldValue":"{element.value}"}],"id":"flex-action-1658849589344","openUrlIn":"Current Window","targetType":"Web Page","type":"cardAction","vlocityIcon":"standard-default"}}],"eventType":"onchange","iconName":"standard-default","label":"Action","showSpinner":"false"},"fieldBinding":"","format":"DD/MM/YYYY","label":"Data Inicial","max":"{maxDate}","min":"{minDate}","name":"Block-2-Block-0-Date-0","outputFormat":"DD/MM/YYYY","required":true,"value":"{startDateBind}"}'  styles='\{"label":{"color":"#000000"}}'  type="date"  extraclass=" slds-text-link_reset"  theme="slds" onchange={executeAction} data-element-label="block2block0clone0date1" data-action-key="state0element1block_element0block_element0" ></vlocity_cmt-base-input-element>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1block_element1" class="slds-col   slds-p-around_x-small  slds-size_4-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element1block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element1block_element0" class="slds-col  slds-m-bottom_xx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-base-input-element data-style-id="state0element1block_element1block_element0_child"   record={record}  card={card}  action='\{"actionList":[{"actionIndex":0,"card":"{card}","draggable":false,"isOpen":true,"key":"1658849475397-4cf6lbifa","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"displayName":"Action","eventName":"setValues","fieldValues":[{"fieldName":"endDateGMT","fieldValue":"{element.value}"}],"id":"flex-action-1658849493270","openUrlIn":"Current Window","targetType":"Web Page","type":"cardAction","vlocityIcon":"standard-default"}}],"eventType":"onchange","iconName":"standard-default","label":"Action","showSpinner":"false"}'  property-obj='\{"action":{"actionList":[{"actionIndex":0,"card":"{card}","draggable":false,"isOpen":true,"key":"1658849475397-4cf6lbifa","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"displayName":"Action","eventName":"setValues","fieldValues":[{"fieldName":"endDateGMT","fieldValue":"{element.value}"}],"id":"flex-action-1658849493270","openUrlIn":"Current Window","targetType":"Web Page","type":"cardAction","vlocityIcon":"standard-default"}}],"eventType":"onchange","iconName":"standard-default","label":"Action","showSpinner":"false"},"format":"DD/MM/YYYY","label":"Data Fim","max":"{maxDate}","min":"{minDate}","name":"Block-2-Block-0-Date-0","outputFormat":"DD/MM/YYYY","required":true,"value":"{endDateBind}"}'  styles='\{"label":{"color":"#000000"}}'  type="date"  extraclass=" slds-text-link_reset"  theme="slds" onchange={executeAction} data-element-label="block2block0date0" data-action-key="state0element1block_element1block_element0" ></vlocity_cmt-base-input-element>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element2" class="slds-col   slds-p-around_x-small slds-size_12-of-12 " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element2_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element3" class="slds-col    slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element3_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element3block_element0" class="slds-col  slds-text-align_left  slds-size_4-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element3block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element3block_element0_child flexActionElement" 
+        data-action-element-class="state0element3block_element0_child" data-action-key="state0element3block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="action4"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":true,"isOpen":false,"key":"1658426095008-mio53ibol","label":"Date verifier","stateAction":{"Web Page":{"targetName":"/apex"},"id":"flex-action-1661275999863","message":"{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"pan_DateInvoice\",\"vlocityAsync\":false,\"inputMap\":{\"Session.startDate\":\"{startDateGMT}\",\"Session.endDate\":\"{endDateGMT}\",\"Session.inputType\":\"0\"}},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"startDateGMT\",\"val\":\"\",\"id\":2},{\"name\":\"endDateGMT\",\"val\":\"\",\"id\":3}]}","openUrlIn":"Current Window","targetType":"Web Page","type":"DataAction"}},{"actionIndex":1,"card":"{card}","draggable":false,"isOpen":true,"key":"1659190151322-aal14zeh1","label":"Send Date to IP","stateAction":{"actionConditions":{"group":[{"field":"message","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"OK"}],"id":"state-condition-object","isParent":true},"bubbles":true,"composed":true,"displayName":"Action","eventName":"pesquisanotafiscal","extraParams":{"endDate":"{endDateGMT}","startDate":"{startDateGMT}"},"hasExtraParams":true,"id":"flex-action-1661276017334","openUrlIn":"Current Window","subType":"Custom","type":"Event","vlocityIcon":"standard-default"}}]'  button-variant="brand"  display-as-button="true"  flyout-details='\{}'  hide-action-icon="true"  icon-name="standard-default"  icon-only="false"  label="Buscar Agora"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                        </template>
+                      </template>
+                      <template if:false={hasRecords}>
+                            <vlocity_cmt-flex-card-state  record={record} data-statue="false"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12"  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-bottom_x-small" style="">
+          <div data-style-id="state0element0" class="slds-col    slds-size_12-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"group":[{"field":"message","hasMergeField":false,"id":"state-new-condition-2","operator":"!=","type":"custom","value":"OK"}],"id":"state-condition-object","isParent":true}' >
+    <vlocity_cmt-block data-style-id="state0element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  data-conditions='\{"group":[{"field":"message","hasMergeField":false,"id":"state-new-condition-2","operator":"!=","type":"custom","value":"OK"}],"id":"state-condition-object","isParent":true}'  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0" class="slds-col   slds-p-around_x-small  slds-size_9-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0block_element0" class="slds-col   slds-size_11-of-12  condition-element" data-rindex={rindex} style="      
+         "  data-conditions='\{"group":[],"id":"state-condition-object","isParent":true}' ><c-cf-pan-alert-range-between-dates data-style-id="state0element0block_element0block_element0_child"  tracking-obj={_childCardTrackingObj}  is-inside-parent={insideParent} parent-uniquekey={uniqueKey}  card-node=""  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  data-conditions='\{"group":[],"id":"state-condition-object","isParent":true}'  is-child-card-tracking-enabled="false"  object-api-name={objectApiName}  theme="slds"   onupdateparent={updateParentData}></c-cf-pan-alert-range-between-dates>
+    </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element0block_element1" class="slds-col    slds-size_3-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element0block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1" class="slds-col    slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element0" class="slds-col   slds-p-around_x-small  slds-size_4-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element1block_element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element0block_element0" class="slds-col  slds-m-bottom_xx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-base-input-element data-style-id="state0element1block_element0block_element0_child"   record={record}  card={card}  action='\{"actionList":[{"actionIndex":0,"card":"{card}","draggable":false,"isOpen":true,"key":"1658849475397-4cf6lbifa","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"displayName":"Action","eventName":"setValues","fieldValues":[{"fieldName":"startDateGMT","fieldValue":"{element.value}"}],"id":"flex-action-1658849589344","openUrlIn":"Current Window","targetType":"Web Page","type":"cardAction","vlocityIcon":"standard-default"}}],"eventType":"onchange","iconName":"standard-default","label":"Action","showSpinner":"false"}'  property-obj='\{"action":{"actionList":[{"actionIndex":0,"card":"{card}","draggable":false,"isOpen":true,"key":"1658849475397-4cf6lbifa","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"displayName":"Action","eventName":"setValues","fieldValues":[{"fieldName":"startDateGMT","fieldValue":"{element.value}"}],"id":"flex-action-1658849589344","openUrlIn":"Current Window","targetType":"Web Page","type":"cardAction","vlocityIcon":"standard-default"}}],"eventType":"onchange","iconName":"standard-default","label":"Action","showSpinner":"false"},"fieldBinding":"","format":"DD/MM/YYYY","label":"Data Inicial","max":"{maxDate}","min":"{minDate}","name":"Block-2-Block-0-Date-0","outputFormat":"DD/MM/YYYY","required":true,"value":"{startDateBind}"}'  styles='\{"label":{"color":"#000000"}}'  type="date"  extraclass=" slds-text-link_reset"  theme="slds" onchange={executeAction} data-element-label="block2block0clone0date1" data-action-key="state0element1block_element0block_element0" ></vlocity_cmt-base-input-element>
+      </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element1block_element1" class="slds-col   slds-p-around_x-small  slds-size_4-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element1block_element1_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element1block_element1block_element0" class="slds-col  slds-m-bottom_xx-small  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-base-input-element data-style-id="state0element1block_element1block_element0_child"   record={record}  card={card}  action='\{"actionList":[{"actionIndex":0,"card":"{card}","draggable":false,"isOpen":true,"key":"1658849475397-4cf6lbifa","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"displayName":"Action","eventName":"setValues","fieldValues":[{"fieldName":"endDateGMT","fieldValue":"{element.value}"}],"id":"flex-action-1658849493270","openUrlIn":"Current Window","targetType":"Web Page","type":"cardAction","vlocityIcon":"standard-default"}}],"eventType":"onchange","iconName":"standard-default","label":"Action","showSpinner":"false"}'  property-obj='\{"action":{"actionList":[{"actionIndex":0,"card":"{card}","draggable":false,"isOpen":true,"key":"1658849475397-4cf6lbifa","label":"Action","stateAction":{"Web Page":{"targetName":"/apex"},"displayName":"Action","eventName":"setValues","fieldValues":[{"fieldName":"endDateGMT","fieldValue":"{element.value}"}],"id":"flex-action-1658849493270","openUrlIn":"Current Window","targetType":"Web Page","type":"cardAction","vlocityIcon":"standard-default"}}],"eventType":"onchange","iconName":"standard-default","label":"Action","showSpinner":"false"},"format":"DD/MM/YYYY","label":"Data Fim","max":"{maxDate}","min":"{minDate}","name":"Block-2-Block-0-Date-0","outputFormat":"DD/MM/YYYY","required":true,"value":"{endDateBind}"}'  styles='\{"label":{"color":"#000000"}}'  type="date"  extraclass=" slds-text-link_reset"  theme="slds" onchange={executeAction} data-element-label="block2block0date0" data-action-key="state0element1block_element1block_element0" ></vlocity_cmt-base-input-element>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element2" class="slds-col   slds-p-around_x-small slds-size_12-of-12 " data-rindex={rindex} style="" >
+    <vlocity_cmt-block data-style-id="state0element2_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          
+        </div></vlocity_cmt-block>
+    </div><div data-style-id="state0element3" class="slds-col    slds-size_12-of-12  " data-rindex={rindex} style="      
+         " >
+    <vlocity_cmt-block data-style-id="state0element3_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Block"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element3block_element0" class="slds-col  slds-text-align_left  slds-size_4-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-flex-action data-style-id="state0element3block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element3block_element0_child flexActionElement" 
+        data-action-element-class="state0element3block_element0_child" data-action-key="state0element3block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="action4"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":true,"isOpen":false,"key":"1658426095008-mio53ibol","label":"Date verifier","stateAction":{"Web Page":{"targetName":"/apex"},"id":"flex-action-1661275999863","message":"{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"pan_DateInvoice\",\"vlocityAsync\":false,\"inputMap\":{\"Session.startDate\":\"{startDateGMT}\",\"Session.endDate\":\"{endDateGMT}\",\"Session.inputType\":\"0\"}},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"startDateGMT\",\"val\":\"\",\"id\":2},{\"name\":\"endDateGMT\",\"val\":\"\",\"id\":3}]}","openUrlIn":"Current Window","targetType":"Web Page","type":"DataAction"}},{"actionIndex":1,"card":"{card}","draggable":false,"isOpen":true,"key":"1659190151322-aal14zeh1","label":"Send Date to IP","stateAction":{"actionConditions":{"group":[{"field":"message","hasMergeField":false,"id":"state-new-condition-0","operator":"==","type":"custom","value":"OK"}],"id":"state-condition-object","isParent":true},"bubbles":true,"composed":true,"displayName":"Action","eventName":"pesquisanotafiscal","extraParams":{"endDate":"{endDateGMT}","startDate":"{startDateGMT}"},"hasExtraParams":true,"id":"flex-action-1661276017334","openUrlIn":"Current Window","subType":"Custom","type":"Event","vlocityIcon":"standard-default"}}]'  button-variant="brand"  display-as-button="true"  flyout-details='\{}'  hide-action-icon="true"  icon-name="standard-default"  icon-only="false"  label="Buscar Agora"  theme="slds"  ></vlocity_cmt-flex-action>
+      </div>
+        </div></vlocity_cmt-block>
+    </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                      </template>
+            </template>
+            <template if:true={hasError}>
+            {error}
+            </template>
+            
+      <vlocity_cmt-action action-wrapperclass="slds-hide" re-render-flyout class="action-trigger slds-col" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+      
+      </vlocity_cmt-action>
+  
+            <vlocity_cmt-action class="execute-action" re-render-flyout action-wrapperclass="slds-hide" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+            
+            </vlocity_cmt-action>
+            </div>
+          </template>

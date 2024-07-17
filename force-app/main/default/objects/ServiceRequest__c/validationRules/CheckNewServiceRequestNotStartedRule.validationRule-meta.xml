@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CheckNewServiceRequestNotStartedRule</fullName>
+    <active>true</active>
+    <description>Validação para criar apenas SS com status = Não iniciado</description>
+    <errorConditionFormula>AND(
+ISNEW(),
+NOT ISPICKVAL(Status__c,&apos;NotStarted&apos;)
+)</errorConditionFormula>
+    <errorDisplayField>Status__c</errorDisplayField>
+    <errorMessage>Não é permitida a criação de uma solicitação com este Status.</errorMessage>
+</ValidationRule>
