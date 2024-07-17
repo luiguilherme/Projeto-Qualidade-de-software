@@ -30,7 +30,7 @@
                     "CaseOpen": "%DRGetServiceTree:CaseOpening|5%"
                 }
             ],
-            "Channel": "=IF(TOUPPERCASE(%DRGetUserData:ChannelName%)='LOJAS PROPRIAS','LOJAS PRÓPRIAS'TOUPPERCASE(%DRGetUserData:ChannelName%))",
+            "Channel": "=IF(TOUPPERCASE(%DRGetServiceTree:ChannelName%)='LOJAS PROPRIAS','LOJAS PRÓPRIAS',TOUPPERCASE(%DRGetServiceTree:ChannelName%))",
             "CustomerType": "=IF(%DRGetCustomerInteractionDetails:CustomerType%='Customer','CLIENTE',TOUPPERCASE(%DRGetCustomerInteractionDetails:CustomerType%))",
             "Instance": "=TOUPPERCASE(%DRGetAssetDetails:Product:ProductType%)",
             "LineType": "=IF(ISNOTBLANK(%DRGetCustomerInteractionDetails:Asset%),LIST(GroupKeyValues(%DRGetCustomerInteractionDetails:Asset%)),LIST(SVPlataformNotAnswared))",

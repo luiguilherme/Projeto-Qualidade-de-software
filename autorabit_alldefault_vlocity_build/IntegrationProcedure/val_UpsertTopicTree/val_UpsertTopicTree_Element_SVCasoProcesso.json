@@ -11,6 +11,7 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
+            "hasCaseStatusGenTopic": "=IF(%data:RelationshipType__c%=='Caso/Processo' && ISBLANK(%data:CaseStatusGenTopic__c%),false,true)",
             "hasNoReturn": "=IF(%data:RelationshipType__c%=='Caso/Processo' && ISNOTBLANK(%data:CustomerFeedback%),(%data:CustomerFeedback% INCLUDES ('SEM RETORNO')),false)",
             "hasOtherValues": "=IF(%data:RelationshipType__c%=='Caso/Processo' && ISNOTBLANK(%data:CustomerFeedback%),(%data:CustomerFeedback% INCLUDES ('CONTATO TELEFÔNICO')||%data:CustomerFeedback% INCLUDES ('SMS')||%data:CustomerFeedback% INCLUDES ('EMAIL')) ,false)"
         },
