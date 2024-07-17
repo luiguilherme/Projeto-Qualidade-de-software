@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HDERestrictCloseStatus</fullName>
+    <active>true</active>
+    <description>Proibir modificar o Status do caso, sem tratar o caso.</description>
+    <errorConditionFormula>AND(
+IsHDE__c = true,
+ISPICKVAL(CaseCloseType__c, &apos;&apos; ),
+ISPICKVAL(Status,&apos;Closed&apos;),
+
+$Profile.Name &lt;&gt; &apos;Administrador do sistema&apos;,
+$Profile.Name &lt;&gt; &apos;System Administrator&apos;,
+$Profile.Name &lt;&gt; &apos;AdministracaoSistema&apos;,
+$Profile.Name &lt;&gt; &apos;IntegracaoSistema&apos;
+)</errorConditionFormula>
+    <errorMessage>Ação incorreta - Por favor, utilizar o botão &quot;Encerrar Chamado&quot;</errorMessage>
+</ValidationRule>

@@ -1,0 +1,324 @@
+<apex:page controller="CTIServiceIntegrationVFController" cache="false" showHeader="false" sidebar="false" action="{!init}">
+    <script>
+        window.onload = function () {
+            try {
+                let caseId;
+
+                if (typeof external.isCallActive === "function") {
+
+                    if (typeof external.getCaseId === "function") {
+                        caseId = external.getCaseId();
+                    }                    
+
+                    /*if (caseId) {
+                        doCloseCaseIfNonCanvas(caseId);
+                    }*/
+
+                    // Setting and sending message to Aura component with method window.postMessage
+                    let message = {
+                        service: "WDE_InitialResponse",
+                        vfHost: window.location.origin,
+                        caseId: caseId
+                    };
+
+                    var lexOrigin = "{!pageURL}";
+
+                    parent.postMessage(message, lexOrigin);
+
+                    // Add listener and setting callback to get data from Aura component
+                    window.removeEventListener("message", receiveMessage);
+                    window.addEventListener("message", receiveMessage);
+
+                    function receiveMessage(event) {
+                        let type = event.data.service;
+                        let payload = event.data.payload;
+
+                        console.log('function receiveMessage payload: ' + JSON.stringify(payload));
+                        
+                        if (!payload) {
+                            payload = {
+                                CustomerInteractionId__c: event.data.accountId
+                            }
+                        }
+
+                        if (type == 'CTIServiceIntegration_DirectTransfer') {
+                            event.stopPropagation();
+
+                            payload.service = 'WDE_DirectTransfer';
+                            doDirectTransfer(payload);
+
+                        } else if (type == 'CTIServiceIntegration_AssistedTransfer') {
+                            event.stopPropagation();
+
+                            payload.service = 'WDE_AssistedTransfer';
+							console.log('Assisted Transfer Params:' + payload.DestinyCell__c+ '+  CaseID: '+ payload.CaseId__c +'  + CustomerInteractionID:'+ payload.CustomerInteractionId__c );
+                            let wdeResponse = external.transferInit(payload.DestinyCell__c, payload.CaseId__c, payload.CustomerInteractionId__c);
+							console.log('WDE Response: '+wdeResponse);
+                            payload.wdeResponse = wdeResponse;
+							debugger;
+                            if (wdeResponse) {
+                                doUpdateWdeCase(payload);
+                                return;
+                            } else {
+                                payload.caseUpdated = false;
+                                parent.postMessage(payload, lexOrigin);
+                            }
+                        } else if (type == 'CTIServiceIntegration_FinishAssistedTransfer') {
+                            event.stopPropagation();
+
+                            payload.service = 'WDE_FinishAssistedTransfer';
+
+                            doFinishAssistedTransfer(payload);
+
+                        } else if (type == 'CTIServiceIntegration_CancelAssistedTransfer') {
+                            event.stopPropagation();
+                            payload.service = "WDE_CancelAssistedTransfer";
+
+                            let wdeResponse = external.transferCancel();
+
+                            payload.wdeResponse = wdeResponse;
+
+                            if (wdeResponse) {
+                                doUpdateWdeCase(payload);
+                                return;
+                            } else {
+                                payload.caseUpdated = false;
+                                parent.postMessage(payload, lexOrigin);
+                            }
+
+                        } else if (type == 'CTIServiceIntegration_TalkToTheCustomer') {
+                            event.stopPropagation();
+                            payload.service = "WDE_TalkToTheCustomer";
+
+                            let wdeResponse = external.alternateCall();
+
+                            payload.wdeResponse = wdeResponse;
+
+                            if (wdeResponse) {
+                                doUpdateWdeCase(payload);
+                                return;
+                            } else {
+                                payload.caseUpdated = false;
+                                parent.postMessage(payload, lexOrigin);
+                            }
+                        } else if (type == 'CTIServiceIntegration_CloseSummary') {
+                            event.stopPropagation();
+                            let wdeResponse = external.isConsultCall();
+
+                            payload.wdeResponse = wdeResponse;
+                            payload.service = "WDE_CloseSummary";
+
+                            parent.postMessage(payload, lexOrigin);
+                        } else if (type == 'CTIServiceIntegration_PerformConsult') {
+                            event.stopPropagation();
+                            payload.service = "WDE_PerformConsult";
+
+                            let wdeResponse = external.consult(payload.DestinyCell__c, payload.CaseId__c, payload.CustomerInteractionId__c);
+
+                            payload.wdeResponse = wdeResponse;
+
+                            if (wdeResponse) {
+                                doUpdateWdeCase(payload);
+                                return;
+                            } else {
+                                payload.caseUpdated = false;
+                                parent.postMessage(payload, lexOrigin);
+                            }
+
+                        } else if (type == 'CTIServiceIntegration_FinalizeConsult') {
+                            event.stopPropagation();
+                            payload.service = "WDE_FinalizeConsult";
+
+                            let wdeResponse = external.endConsult();
+
+                            payload.wdeResponse = wdeResponse;
+
+                            if (wdeResponse) {
+                                doUpdateWdeCase(payload);
+                                return;
+                            } else {
+                                payload.caseUpdated = false;
+                                parent.postMessage(payload, lexOrigin);
+                            }
+
+                        } else if (type == 'CTIServiceIntegration_CallDropped') {
+                            event.stopPropagation();
+                            payload.service = "WDE_CallDropped";
+
+                            let wdeResponse = external.isCallActive();
+
+                            payload.wdeResponse = wdeResponse;
+
+                            if (wdeResponse) {
+                                parent.postMessage(payload, lexOrigin);
+                            } else {                                
+                                if (payload.CaseId__c) {                                    
+                                    payload.OperationType__c = 'CallDropped';
+                                    doUpdateWdeCaseAndMarkDone(payload);
+                                } else {
+                                    doCreateCaseAndMarkDone(payload);
+                                }
+                            }
+                        } else if (type == 'CTIServiceIntegration_NewService') {
+                            event.stopPropagation();
+                            payload.service = "WDE_NewService";
+
+                            if (external.isCallActive()) {
+                                payload.wdeResponse = false;
+                            } else {
+                                external.markDone();
+                                payload.wdeResponse = true;
+                            }
+
+                            payload.updateWdeCase = true;
+                            parent.postMessage(payload, lexOrigin);
+                        } else if (type == 'CTIServiceIntegration_isCallActive') {
+                            event.stopPropagation();
+                            payload.service = "WDE_IsCallActive";
+
+                            let wdeResponse = external.isCallActive();
+
+                            payload.wdeResponse = wdeResponse;
+
+                            parent.postMessage(payload, lexOrigin);
+                        }
+                    }
+                }
+            } catch (e) {
+                console.log(`Error CTI Service Integration Visualforce Page: ${e}`);
+            }
+        };
+
+        function doDirectTransfer(payload) {
+            Visualforce.remoting.Manager.invokeAction(
+                CTIServiceIntegrationVFController.sendCaseToQueue(
+                    payload,
+                    function (caseSentToQueue, event) {
+
+                        if (caseSentToQueue) {
+                            // Calls WDE function to direct transfer the call
+                            let wdeResponse = external.transferToCellDirect(payload.DestinyCell__c, payload.CaseId__c, payload.CustomerInteractionId__c);
+
+                            if (wdeResponse) {
+                                payload.wdeResponse = wdeResponse;
+                                doUpdateWdeCase(payload);
+                                return;
+                            } else {
+                                // Calls backend to set case owner to current user
+                                doSetCaseOwnerAsCurrentUser(payload);
+                                return;
+                            }
+                        } else {
+                            payload.updateWdeCase = false;
+                            payload.wdeResponse = false;
+                            parent.postMessage(payload, "{!pageURL}");
+                        }
+                    },
+                    { escape: true }
+                )
+            );
+        };
+
+        function doSetCaseOwnerAsCurrentUser(payload) {
+            Visualforce.remoting.Manager.invokeAction(
+                CTIServiceIntegrationVFController.setCaseOwnerAsCurrentUser(
+                    payload,
+                    function (result, event) {
+                        payload.wdeResponse = false;
+                        payload.updateWdeCase = false;
+
+                        parent.postMessage(payload, "{!pageURL}");
+                    },
+                    { escape: true }
+                )
+            );
+        };
+
+        function doUpdateWdeCase(payload) {
+            Visualforce.remoting.Manager.invokeAction(
+                CTIServiceIntegrationVFController.updateWdeCase(
+                    payload,
+                    function (result, event) {
+
+                        payload.updateWdeCase = result;
+
+                        parent.postMessage(payload, "{!pageURL}");
+                    },
+                    { escape: true }
+                )
+            );
+        };
+
+        function doFinishAssistedTransfer(payload) {
+            Visualforce.remoting.Manager.invokeAction(
+                CTIServiceIntegrationVFController.sendCaseToQueue(
+                    payload,
+                    function (caseSentToQueue, event) {
+
+                        if (caseSentToQueue) {
+                            let wdeResponse = external.transferComplete();
+
+                            if (wdeResponse) {
+                                payload.wdeResponse = wdeResponse;
+                                doUpdateWdeCase(payload);
+                                return;
+                            } else {
+                                // Calls backend to set case owner to current user
+                                doSetCaseOwnerAsCurrentUser(payload);
+                                return;
+                            }
+                        } else {
+                            payload.updateWdeCase = false;
+                            payload.wdeResponse = false;
+                            parent.postMessage(payload, "{!pageURL}");
+                        }
+                    },
+                    { escape: true }
+                )
+            );
+        };
+
+        function doCreateCaseAndMarkDone(payload) {
+            Visualforce.remoting.Manager.invokeAction(
+                CTIServiceIntegrationVFController.createCase(
+                    payload,
+                    function (result, event) {
+
+                        payload.updateWdeCase = result;
+                        payload.markDone = external.markDone();
+
+                        parent.postMessage(payload, "{!pageURL}");
+                    },
+                    { escape: true }
+                )
+            );
+        };
+
+        function doUpdateWdeCaseAndMarkDone(payload) {
+            Visualforce.remoting.Manager.invokeAction(
+                CTIServiceIntegrationVFController.updateWdeCase(
+                    payload,
+                    function (result, event) {
+
+                        payload.updateWdeCase = result;
+                        payload.markDone = external.markDone();
+
+                        parent.postMessage(payload, "{!pageURL}");
+                    },
+                    { escape: true }
+                )
+            );
+        };
+
+        function doCloseCaseIfNonCanvas(caseId) {
+            Visualforce.remoting.Manager.invokeAction(
+                CTIServiceIntegrationVFController.closeCaseIfNonCanvas(
+                    caseId,
+                    function (result, event) { },
+                    { escape: true }
+                )
+            );
+        };
+
+    </script>
+</apex:page>

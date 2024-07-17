@@ -1,0 +1,78 @@
+<template>
+    <slot name="msmextensionslot">
+    <div if:true={selectedState}>
+        <div class="slds-card via-slds-card--active"> 
+            <div>
+		        <div if:false={isAccountActive} class="slds-m-around_small">
+                    <span class = "slds-p-right_small">
+                        <vlocity_cmt-icon theme="slds" icon-name="utility:lock" size="small" color="#ff0039">
+                        </vlocity_cmt-icon>
+                    </span>
+                    <span>Conta Bloqueada</span>
+                </div>                
+                <div if:true={isAccountActive} class="slds-m-around_small">
+                    <span class = "slds-p-right_small">
+                        <vlocity_cmt-icon theme="slds" icon-name="action:add_contact" size="small" color="#46A639">
+                        </vlocity_cmt-icon>
+                    </span>
+                    <span>{session.ActiveAccountText}</span>
+                </div>
+            </div>
+            <div class="slds-m-around_small">
+            <div class="slds-border_top">
+                <template for:each={actions} for:item="item">
+                    <div class="slds-float_right slds-m-right_small via-actions b2cCmex-state-action-item"
+                        key={item.id}>
+                    
+                        <vlocity_cmt-action action-wrapperclass="slds-text-link" state-obj={obj} context-id={contextId}
+                            s-object-type={sObjectType}
+                            state-action={item}  style="color:#0176D3;">
+                        </vlocity_cmt-action>
+                    </div>
+                </template>
+                <div class="slds-m-bottom_small slds-m-top_medium slds-grid">
+                    <span class="slds-p-right_small slds-col slds-size_1-of-12 b2cCmex-icon-width">
+                        <vlocity_cmt-icon theme="slds" alternative-text="Mailing address" icon-name="utility:home" color = "#C3C1C0" size="x-small">
+                        </vlocity_cmt-icon>
+                    </span>
+                    <span class="slds-col slds-size_11-of-12">
+                        <vlocity_cmt-output-field
+                                        record={obj}
+                                        field-name="BillingAddress"
+                                        type="text">
+                        </vlocity_cmt-output-field>
+                    </span>
+                </div>
+                <div class="slds-m-bottom_small slds-grid">
+                    <span class="slds-p-right_small slds-col slds-size_1-of-12 b2cCmex-icon-width">
+                        <vlocity_cmt-icon theme="slds" alternative-text="Alternative phone number" icon-name="utility:call" color = "#C3C1C0" size="x-small">
+                        </vlocity_cmt-icon>
+                        <!--sup class="b2cCmex-icon-color"><strong>2</strong></sup!-->    
+                    </span>
+                    <span class="slds-col slds-size_11-of-12">
+                        <vlocity_cmt-output-field
+                                        record={obj}
+                                        field-name="Phone"
+                                        type="phone">
+                        </vlocity_cmt-output-field>
+                    </span>
+                </div>
+                <div class="slds-m-bottom_small slds-grid">
+                    <span class="slds-p-right_small slds-col slds-size_1-of-12 b2cCmex-icon-width">
+                        <vlocity_cmt-icon theme="slds" alternative-text="Email address" icon-name="utility:email" color = "#C3C1C0" size="x-small">
+                        </vlocity_cmt-icon>
+                    </span>
+                    <span class="slds-col slds-size_11-of-12">
+                        <vlocity_cmt-output-field
+                                        record={obj}
+                                        field-name="Email"
+                                        type="email">
+                        </vlocity_cmt-output-field>
+                    </span>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    </slot>
+</template>

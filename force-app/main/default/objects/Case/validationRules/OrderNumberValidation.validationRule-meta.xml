@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderNumberValidation</fullName>
+    <active>true</active>
+    <description>[B9-J9] Abertura e Tratativa de Casos | Validação para edição do campo somente pelo proprietário do caso [Fernanda Faria]</description>
+    <errorConditionFormula>AND(
+				NOT(ISNEW()),
+				OR($RecordType.Name = &quot;Caso Processo&quot;, $RecordType.Name = &quot;Caso Portabilidade&quot;),
+				ISCHANGED(OrderNumber__c),
+				$User.Id &lt;&gt; OwnerId
+    
+   )</errorConditionFormula>
+    <errorDisplayField>OrderNumber__c</errorDisplayField>
+    <errorMessage>Somente é permitido inserir um Número da Ordem pelo Proprietário do Caso.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,3 @@
+let definition = 
+                {"Cards":["vplAdditionalBuy"],"GlobalKey__c":"vplAdditionalbuyAgent/1/vlocityDev/1612175362975","componentName":"cfVplAdditionalbuyAgent_1_vlocityDev","dataSource":{"type":null},"enableLwc":true,"lwc":{"DeveloperName":"cardCanvas1x","Id":"0Rb4x000000SdYrCAK","MasterLabel":"cardCanvas1x","NamespacePrefix":"vlocity_cmt","name":"cardCanvas1x"},"previewType":"designTime","repeatCards":false,"workspace":["vplAdditionalBuy/vlocityDev/1/1610956006542"]}; 
+            export default definition

@@ -1,0 +1,36 @@
+<template>
+    <template lwc:if={visivel}>
+        <lightning-card>
+            <lightning-layout multiple-rows>
+                <lightning-layout-item 
+                    padding="around-small" 
+                    size="12" 
+                    small-device-size="12" 
+                    medium-device-size="12" 
+                    large-device-size="12">
+                    <c-flow-step-history case-id={caseId}></c-flow-step-history>
+                </lightning-layout-item>
+                <lightning-layout-item 
+                    padding="around-small" 
+                    size="12" 
+                    small-device-size="12" 
+                    medium-device-size="12" 
+                    large-device-size="12">
+                    <c-disputed-itens-history case-id={caseId}></c-disputed-itens-history>
+                </lightning-layout-item>
+                <lightning-layout-item 
+                    padding="around-small" 
+                    size="12" 
+                    small-device-size="12" 
+                    medium-device-size="12" 
+                    large-device-size="12">
+                    <lightning-flow
+                        flow-api-name={flowApiName}
+                        flow-input-variables={flowInputVariables}
+                        onstatuschange={handleFlowStatusChange}>
+                    </lightning-flow>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-card>    
+    </template>
+</template>
