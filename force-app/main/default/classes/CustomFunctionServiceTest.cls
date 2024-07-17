@@ -1205,42 +1205,43 @@ public class CustomFunctionServiceTest {
     
     @isTest
     public static void testCloneAsset() {
+        // Criar uma conta de teste
+        Account testAccount = new Account(Name='Test Account');
+        insert testAccount;
+
         // Criar um Asset original para ser clonado
-        Asset originalAsset = [SELECT Id, Name, PhoneNumber__c, AccountId FROM Asset LIMIT 1];
-		System.debug('originalAsset ' +originalAsset);
-        originalAsset.LegacyIdentifier__c = '802760000060wSyAAI';
-        originalAsset.vlocity_cmt__AssetReferenceId__c = '61193bbb-7975-fe7f-6a3a-18a23320567b';
-        originalAsset.vlocity_cmt__ParentItemId__c = '61193bbb-7975-fe7f-6a3a-18a23320567b';
-        originalAsset.vlocity_cmt__RootItemId__c = '61193bbb-7975-fe7f-6a3a-18a23320567b';
-        update originalAsset;
+        Asset originalAsset = new Asset(
+            Name='Original Asset',
+            AccountId=testAccount.Id,
+            LegacyIdentifier__c='802760000060wSyAAI',
+            vlocity_cmt__AssetReferenceId__c='61193bbb-7975-fe7f-6a3a-18a23320567b',
+            vlocity_cmt__ParentItemId__c='61193bbb-7975-fe7f-6a3a-18a23320567b',
+            vlocity_cmt__RootItemId__c='61193bbb-7975-fe7f-6a3a-18a23320567b'
+        );
+        insert originalAsset;
         
-        vlocity_cmt__Subscription__c newSubscription = new vlocity_cmt__Subscription__c();
-        newSubscription.vlocity_cmt__AccountId__c = originalAsset.AccountId;
-        newSubscription.vlocity_cmt__SubscriptionNumber__c = 'teste';
+        vlocity_cmt__Subscription__c newSubscription = new vlocity_cmt__Subscription__c(
+            vlocity_cmt__AccountId__c = testAccount.Id,
+            vlocity_cmt__SubscriptionNumber__c = 'teste'
+        );
         insert newSubscription;
-        System.debug('newSubscription ' +newSubscription);
+        
         // Criar argumentos de entrada para o método cloneAsset
         Map<String, Object> argMap = new Map<String, Object>();
-        argMap.put('OldAssetId', originalAsset.Id);
-        argMap.put('ConsumerAccount', originalAsset.AccountId);
-        argMap.put('NewBillingAccount', originalAsset.AccountId);
-        argMap.put('NewServiceAccount', originalAsset.AccountId);
-        argMap.put('NewSubscription', newSubscription.Id);
+        argMap.put('OldAssetId', new List<String>{originalAsset.Id});
+        argMap.put('ConsumerAccount', new List<String>{testAccount.Id});
+        argMap.put('NewBillingAccount', new List<String>{testAccount.Id});
+        argMap.put('NewServiceAccount', new List<String>{testAccount.Id});
+        argMap.put('NewSubscription', new List<String>{newSubscription.Id});
         List<Object> arguments = new List<Object>{argMap};
-        System.debug('arguments ' +arguments);
 
-        // Chamar o método
-        CustomFunctionService c = new CustomFunctionService();
-        Map<String, Object> inputs = new Map<String, Object>{
-            'arguments' => arguments
-        };
-        Map<String, Object> output = new Map<String, Object>();
-        Map<String, Object> options = new Map<String, Object>();
-
-        c.invokeMethod('cloneAsset', inputs, output, options);
+        // Chamar o método cloneAsset diretamente
+        CustomFunctionService cfs = new CustomFunctionService();
+        List<Asset> clonedAssets = cfs.cloneAsset(arguments);
 
         // Verificar o resultado
-        Asset clonedAsset = (Asset) output.get('result');
+        System.assertEquals(1, clonedAssets.size(), 'O número de Assets clonados deve ser 1');
+        Asset clonedAsset = clonedAssets[0];
         System.assertNotEquals(null, clonedAsset, 'O Asset clonado não deve ser nulo');
         System.assertEquals('Desativado', clonedAsset.Status, 'O status do Asset clonado deve ser Desativado');
         System.assertEquals('Disconnect', clonedAsset.vlocity_cmt__Action__c, 'A ação do Asset clonado deve ser Disconnect');
@@ -1248,9 +1249,9 @@ public class CustomFunctionServiceTest {
 
         // Verificar alterações no original
         Asset updatedOriginalAsset = [SELECT AccountId, vlocity_cmt__BillingAccountId__c, vlocity_cmt__ServiceAccountId__c, vlocity_cmt__SubscriptionId__c FROM Asset WHERE Id = :originalAsset.Id];
-        System.assertEquals(originalAsset.AccountId, updatedOriginalAsset.AccountId, 'O ID da conta do Asset original deve ser atualizado');
-        System.assertEquals(originalAsset.AccountId, updatedOriginalAsset.vlocity_cmt__BillingAccountId__c, 'O ID da nova conta de faturamento do Asset original deve ser atualizado');
-        System.assertEquals(originalAsset.AccountId, updatedOriginalAsset.vlocity_cmt__ServiceAccountId__c, 'O ID da nova conta de serviço do Asset original deve ser atualizado');
+        System.assertEquals(testAccount.Id, updatedOriginalAsset.AccountId, 'O ID da conta do Asset original deve ser atualizado');
+        System.assertEquals(testAccount.Id, updatedOriginalAsset.vlocity_cmt__BillingAccountId__c, 'O ID da nova conta de faturamento do Asset original deve ser atualizado');
+        System.assertEquals(testAccount.Id, updatedOriginalAsset.vlocity_cmt__ServiceAccountId__c, 'O ID da nova conta de serviço do Asset original deve ser atualizado');
         System.assertEquals(newSubscription.Id, updatedOriginalAsset.vlocity_cmt__SubscriptionId__c, 'O ID da nova assinatura do Asset original deve ser atualizado');
     }
     

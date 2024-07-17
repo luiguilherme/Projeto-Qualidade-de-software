@@ -1127,16 +1127,46 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     * Descrição: Validacao de IMEI
     * Data.....: 04/06/2024
     */  
-    public Asset cloneAsset(List<Object> arguments) {
+    public List<Asset> cloneAsset(List<Object> arguments) {
+        List<Asset> clonedAssets = new List<Asset>();
         Map<String, Object> argMap = (Map<String, Object>)arguments[0];
         System.debug('arguments ' + arguments);
-        String assetId = (String) argMap.get('OldAssetId');
-        System.debug('assetId ' + assetId);
+        List<String> oldAssetIds = new List<String>();
+        for (Object obj : (List<Object>) argMap.get('OldAssetId')) {
+            oldAssetIds.add((String) obj);
+        }
+        System.debug('oldAssetIds ' + oldAssetIds);
+        System.debug('oldAssetIds ' + oldAssetIds.size());
+
+        List<String> consumerAccounts = new List<String>();
+        for (Object obj : (List<Object>) argMap.get('ConsumerAccount')) {
+            consumerAccounts.add((String) obj);
+        }
+        System.debug('consumerAccounts ' + consumerAccounts);
+
+        List<String> newBillingAccounts = new List<String>();
+        for (Object obj : (List<Object>) argMap.get('NewBillingAccount')) {
+            newBillingAccounts.add((String) obj);
+        }
+        System.debug('newBillingAccounts ' + newBillingAccounts);
+
+        List<String> newServiceAccounts = new List<String>();
+        for (Object obj : (List<Object>) argMap.get('NewServiceAccount')) {
+            newServiceAccounts.add((String) obj);
+        }
+        System.debug('newServiceAccounts ' + newServiceAccounts);
+
+        List<String> newSubscriptions = new List<String>();
+        for (Object obj : (List<Object>) argMap.get('NewSubscription')) {
+            newSubscriptions.add((String) obj);
+        }
+        System.debug('newSubscriptions ' + newSubscriptions);
+
          
-    Asset originalAsset = [SELECT AccountId, AssetLevel, AssetProvidedById, AssetServicedById, Cabinet__c,
+    List<Asset> originalAssets = [SELECT Id, AccountId, AssetLevel, AssetProvidedById, AssetServicedById, Cabinet__c,
         ContactId, CreatedById, CreatedDate, Description, DigitalServices__c, ExternalId__c, 
         HasBonus__c, HasBonusFormula__c, HasDiscount__c, HasDiscountFormula__c, 
-        HolderDependent__c, Id, IMEI__c, InstallDate, Instance__c, IsCompetitorProduct, IsDeleted, 
+        HolderDependent__c, IMEI__c, InstallDate, Instance__c, IsCompetitorProduct, IsDeleted, 
         IsHolder__c, IsInternal, LastModifiedById, LastModifiedDate, LastReferencedDate, LastViewedDate, 
         LegacyAssetId__c, LegacyIdentifier__c, LegacySystem__c, MainProductDescription__c, 
         Name, NRCAccount__c, OwnerId, ParentId, PhoneNumber__c, Platform__c, PortfolioType__c, 
@@ -1174,39 +1204,69 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         vlocity_cmt__UsageQuantity__c, vlocity_cmt__UsageUnitCost__c, vlocity_cmt__UsageUnitPrice__c, 
         vlocity_cmt__Username__c 
     FROM Asset 
-    WHERE Id = :assetId 
-    LIMIT 1
-];
-        System.debug('originalAsset ' + originalAsset);
-        originalAsset.AccountId = (String) argMap.get('ConsumerAccount');
-        originalAsset.vlocity_cmt__BillingAccountId__c = (String) argMap.get('NewBillingAccount');
-        originalAsset.vlocity_cmt__ServiceAccountId__c = (String) argMap.get('NewServiceAccount');
-        originalAsset.vlocity_cmt__SubscriptionId__c = (String) argMap.get('NewSubscription');
-        
-        // Clonar o Asset
-        Asset clonedAsset = originalAsset.clone(false, true);
-        if (clonedAsset.LegacyIdentifier__c != null && clonedAsset.LegacyIdentifier__c.length() > 0) {
-            clonedAsset.LegacyIdentifier__c = 'X' + clonedAsset.LegacyIdentifier__c.substring(1);
+    WHERE Id IN :oldAssetIds 
+    LIMIT 3
+    ];
+    System.debug('originalAssets ' + originalAssets);
+    System.debug('originalAssets ' + originalAssets.size());
+
+        Map<String, Asset> assetMap =  new Map<String, Asset>();
+        for (Asset asset : originalAssets) {
+            assetMap.put(asset.Id, asset);
         }
-        // if (clonedAsset.ParentId != null) {
-        //     clonedAsset.ParentId += '_OLD';
-        // }
-        if (clonedAsset.vlocity_cmt__AssetReferenceId__c!= null) {
-            clonedAsset.vlocity_cmt__AssetReferenceId__c += '_OLD';
+
+        List<Asset> assetsToUpdate = new List<Asset>();
+        List<Asset> assetsToInsert = new List<Asset>();
+
+        for (Integer i =0; i<oldAssetIds.size(); i++){
+            String assetId = oldAssetIds[i];
+            String consumerAccount = consumerAccounts[i];
+            String newBillingAccount = newBillingAccounts[i];
+            String newServiceAccount = newServiceAccounts[i];
+            String newSubscription = newSubscriptions[i];
+
+            Asset originalAsset =  assetMap.get(assetId);
+            
+            // Clonar o Asset
+            Asset clonedAsset = originalAsset.clone(false, false);
+            originalAsset.AccountId = consumerAccount;
+            originalAsset.vlocity_cmt__BillingAccountId__c = newBillingAccount;
+            originalAsset.vlocity_cmt__ServiceAccountId__c = newServiceAccount;
+            originalAsset.vlocity_cmt__SubscriptionId__c = newSubscription;
+            if (clonedAsset.LegacyIdentifier__c != null && clonedAsset.LegacyIdentifier__c.length() > 0) {
+                clonedAsset.LegacyIdentifier__c = 'X' + clonedAsset.LegacyIdentifier__c.substring(1);
+            }
+            // if (clonedAsset.ParentId != null) {
+            //     clonedAsset.ParentId += '_OLD';
+            // }
+            if (clonedAsset.vlocity_cmt__AssetReferenceId__c!= null) {
+                clonedAsset.vlocity_cmt__AssetReferenceId__c += '_OLD';
+            }
+            if (clonedAsset.vlocity_cmt__ParentItemId__c!= null) {
+                clonedAsset.vlocity_cmt__ParentItemId__c += '_OLD';
+            }
+            if (clonedAsset.vlocity_cmt__RootItemId__c!= null) {
+                clonedAsset.vlocity_cmt__RootItemId__c += '_OLD';
+            }
+            clonedAsset.Status = 'Desativado';
+            clonedAsset.vlocity_cmt__Action__c = 'Disconnect';
+            clonedAsset.vlocity_cmt__DisconnectDate__c = Datetime.now();
+            // Inserir o novo Asset clonado
+            if (originalAsset.Id!=null) {
+                assetsToUpdate.add(originalAsset);
+            }
+            assetsToInsert.add(clonedAsset);
+            clonedAssets.add(clonedAsset);
         }
-        if (clonedAsset.vlocity_cmt__ParentItemId__c!= null) {
-            clonedAsset.vlocity_cmt__ParentItemId__c += '_OLD';
+
+        if (!assetsToUpdate.isEmpty()) {
+            update assetsToUpdate;
         }
-        if (clonedAsset.vlocity_cmt__RootItemId__c!= null) {
-            clonedAsset.vlocity_cmt__RootItemId__c += '_OLD';
+        if (!assetsToInsert.isEmpty()) {
+            insert assetsToInsert;
         }
-        clonedAsset.Status = 'Desativado';
-        clonedAsset.vlocity_cmt__Action__c = 'Disconnect';
-        clonedAsset.vlocity_cmt__DisconnectDate__c = Datetime.now();
-        // Inserir o novo Asset clonado
-        insert clonedAsset;
-        update originalAsset;
-        return clonedAsset;
+
+        return clonedAssets;
     }
            /*
     * Autor....: Lucas Bhering / Eduardo Murakami - Deloitte
