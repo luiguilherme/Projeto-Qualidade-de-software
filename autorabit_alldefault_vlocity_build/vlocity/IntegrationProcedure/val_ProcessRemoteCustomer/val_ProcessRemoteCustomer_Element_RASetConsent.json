@@ -1,29 +1,34 @@
 {
-    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__Active__c": false,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "CreateChangeOwnershipData",
+        "Name": "valProcessRemoteCustomer",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CreateChangeOwnershipData/Procedure",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ProcessRemoteCustomer/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
+        "additionalChainableResponse": {
+        },
         "additionalInput": {
-            "NewSubscription": "%DRPOSTCreateChangeOwnershipSubscription:%vlocity_namespace%__Subscription__c_1|1:Id%",
-            "OrderId": "%OrderId%"
+            "AttributeCode": "ATT_RT_CONSENT_STATUS",
+            "AttributeValue": "OK",
+            "FulfilmentRequestLineId": "%DREGetFRLCadastroRFS:Id%"
         },
         "additionalOutput": {
-            "": ""
         },
-        "bundle": "valUpdateOrderForChangeOwnership",
         "chainOnStep": false,
         "disOnTplt": false,
-        "executionConditionalFormula": "",
+        "executionConditionalFormula": "%customerInformation:channel% <> \"URA\" AND %customerInformation:channel% <> \"SATPUSH\"",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {
         },
-        "label": "DataRaptorPostAction2",
+        "label": "RemoteAction6",
+        "remoteClass": "FulfilmentRequestLineController",
+        "remoteMethod": "setAttribute",
+        "remoteOptions": {
+        },
         "responseJSONNode": "",
         "responseJSONPath": "",
         "returnOnlyAdditionalOutput": false,
@@ -35,9 +40,9 @@
         "useFormulas": true
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
-    "%vlocity_namespace%__Type__c": "DataRaptor Post Action",
-    "Name": "DRUpdateOrderForChangeOwnership",
+    "%vlocity_namespace%__Type__c": "Remote Action",
+    "Name": "RASetConsent",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CreateChangeOwnershipData/Procedure/DRUpdateOrderForChangeOwnership"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ProcessRemoteCustomer/Procedure/RASetConsent"
 }

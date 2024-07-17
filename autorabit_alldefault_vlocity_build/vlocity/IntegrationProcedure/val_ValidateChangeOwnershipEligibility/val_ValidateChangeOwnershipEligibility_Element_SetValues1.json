@@ -11,10 +11,10 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "Activation": "=IF(DATEDIFF(%DREGetAssetChangeOwnershipDetails:CreatedDate%, TODAY()) > QUERY(\"SELECT ChangeOwnershipBlockDate__c FROM ChangeOwnershipParams__mdt\"), true, false)",
+            "Activation": "=IF(DATEDIFF(%DREGetAssetChangeOwnershipDetails:CreatedDate%, TODAY()) >= QUERY(\"SELECT ChangeOwnershipBlockDate__c FROM ChangeOwnershipParams__mdt\"), true, false)",
             "IsCPF": "=IF(%DREGetAssetChangeOwnershipDetails:DocumentType% == \"CPF\", true, false)",
             "message1": "=IF(%DREGetAssetChangeOwnershipDetails:DocumentType% == \"CPF\", NULL, \"Não é permitido realizar a Troca de Titularidade quando o tipo de documento do cadastro do CEDENTE não for um CPF.\")",
-            "message2": "=IF(DATEDIFF(%DREGetAssetChangeOwnershipDetails:CreatedDate%, TODAY()) > QUERY(\"SELECT ChangeOwnershipBlockDate__c FROM ChangeOwnershipParams__mdt\"), NULL, CONCAT(\"Troca de Titularidade não permitida pois a linha está habilitada a menos \",QUERY(\"SELECT ChangeOwnershipBlockDate__c FROM ChangeOwnershipParams__mdt\"),\" dias\"))"
+            "message2": "=IF(DATEDIFF(%DREGetAssetChangeOwnershipDetails:CreatedDate%, TODAY()) >= QUERY(\"SELECT ChangeOwnershipBlockDate__c FROM ChangeOwnershipParams__mdt\"), NULL, CONCAT(\"Troca de Titularidade não permitida pois a linha está habilitada a menos \",QUERY(\"SELECT ChangeOwnershipBlockDate__c FROM ChangeOwnershipParams__mdt\"),\" dias\"))"
         },
         "executionConditionalFormula": "",
         "failOnStepError": true,
