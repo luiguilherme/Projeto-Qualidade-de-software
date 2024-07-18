@@ -13,7 +13,7 @@
         },
         "type": "Custom",
         "value": {
-            "body": "{\n \"ValidateBalanceLine\":{}\n}",
+            "body": "{\n \"ValidateBalanceLine\":{}\n\n}",
             "dsDelay": "",
             "resultVar": ""
         }
@@ -30,17 +30,16 @@
                     "card": "{card}",
                     "draggable": true,
                     "isOpen": false,
-                    "key": "1718243829125-rtzbircox",
+                    "key": "1721265335737-r8f9hx90w",
                     "label": "CheckValidations",
                     "stateAction": {
                         "Web Page": {
                             "targetName": "/apex"
                         },
                         "displayName": "Action",
-                        "id": "flex-action-1721242242515",
-                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateAllJourneys\",\"vlocityAsync\":false,\"inputMap\":{\"ValidatePortability\":\"true\",\"Functionality\":\"ChangeServiceIdentifier\",\"AssetId\":\"{Parent.AssetId}\"},\"jsonMap\":\"{\\\"Parent.AssetId\\\":\\\"{Parent.AssetId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"Parent.AssetId\",\"val\":\"02i76000009PrSqAAK\",\"id\":3}]}",
+                        "id": "flex-action-1721268820639",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateAllJourneys\",\"vlocityAsync\":false,\"inputMap\":{\"ValidatePortability\":\"true\",\"Functionality\":\"ChangeServiceIdentifier\",\"AssetId\":\"{Parent.AssetId}\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"Parent.AssetId\\\":\\\"{Parent.AssetId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"id\":4,\"name\":\"recordId\",\"val\":\"02i76000009Pdg3AAC\"},{\"name\":\"Parent.AssetId\",\"val\":\"\",\"id\":3}]}",
                         "openUrlIn": "Current Window",
-                        "responseNode": "",
                         "targetType": "Web Page",
                         "type": "DataAction",
                         "vlocityIcon": "standard-default"
@@ -51,7 +50,8 @@
                     "card": "{card}",
                     "draggable": true,
                     "isOpen": false,
-                    "key": "1718244121564-55qxb1m4e",
+                    "isTrackingDisabled": true,
+                    "key": "1721265743353-le6p6zs8p",
                     "label": "showToastError",
                     "stateAction": {
                         "actionConditions": {
@@ -59,7 +59,7 @@
                                 {
                                     "field": "blockJourney",
                                     "hasMergeField": false,
-                                    "id": "state-new-condition-8",
+                                    "id": "state-new-condition-0",
                                     "operator": "==",
                                     "type": "custom",
                                     "value": "true"
@@ -75,7 +75,7 @@
                             "variant": "warning"
                         },
                         "hasExtraParams": true,
-                        "id": "flex-action-1721242134522",
+                        "id": "flex-action-1721270283932",
                         "message": "showToast",
                         "openUrlIn": "Current Window",
                         "subType": "PubSub",
@@ -84,58 +84,63 @@
                     }
                 },
                 {
-                    "actionIndex": 6,
+                    "actionIndex": 2,
                     "card": "{card}",
                     "draggable": true,
                     "isOpen": false,
-                    "key": "1718375735807-eenpql3tm",
+                    "key": "1721266052185-qw1u9tlty",
                     "label": "LineStateOtherThanActive",
                     "stateAction": {
                         "actionConditions": {
                             "group": [
                                 {
-                                    "field": "Products.SubscriptionStatus",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-0",
-                                    "operator": "!=",
-                                    "type": "custom",
-                                    "value": "Ativo"
-                                },
-                                {
-                                    "field": "Products.SubscriptionStatus",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-9",
-                                    "logicalOperator": "&&",
-                                    "operator": "!=",
-                                    "type": "custom",
-                                    "value": "Barrado"
-                                },
-                                {
-                                    "field": "Products.SubscriptionStatus",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-19",
-                                    "logicalOperator": "&&",
-                                    "operator": "!=",
-                                    "type": "custom",
-                                    "value": "Barrado Total"
-                                },
-                                {
-                                    "field": "showToast",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-32",
-                                    "logicalOperator": "&&",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "false"
-                                },
-                                {
-                                    "field": "blockJourney",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-48",
-                                    "logicalOperator": "&&",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "false"
+                                    "group": [
+                                        {
+                                            "field": "Products.SubscriptionStatus",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-0",
+                                            "operator": "!=",
+                                            "type": "custom",
+                                            "value": "Ativo"
+                                        },
+                                        {
+                                            "field": "Products.SubscriptionStatus",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-9",
+                                            "logicalOperator": "&&",
+                                            "operator": "!=",
+                                            "type": "custom",
+                                            "value": "Barrado"
+                                        },
+                                        {
+                                            "field": "Products.SubscriptionStatus",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-19",
+                                            "logicalOperator": "&&",
+                                            "operator": "!=",
+                                            "type": "custom",
+                                            "value": "Barrado Total"
+                                        },
+                                        {
+                                            "field": "showToast",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-32",
+                                            "logicalOperator": "&&",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "false"
+                                        },
+                                        {
+                                            "field": "blockJourney",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-48",
+                                            "logicalOperator": "&&",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "false"
+                                        }
+                                    ],
+                                    "id": "state-new-group-1"
                                 }
                             ],
                             "id": "state-condition-object",
@@ -148,7 +153,7 @@
                             "variant": "warning"
                         },
                         "hasExtraParams": true,
-                        "id": "flex-action-1718375794036",
+                        "id": "flex-action-1721269947726",
                         "message": "showToast",
                         "openUrlIn": "Current Window",
                         "subType": "PubSub",
@@ -159,17 +164,20 @@
                 {
                     "actionIndex": 3,
                     "card": "{card}",
-                    "draggable": false,
-                    "isOpen": true,
-                    "key": "1718244397576-g04uv0ul4",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1721268078636-g2y2b2w7r",
                     "label": "ValidateAvailableLineBalance",
                     "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
                         "actionConditions": {
                             "group": [
                                 {
                                     "field": "blockJourney",
                                     "hasMergeField": false,
-                                    "id": "state-new-condition-83",
+                                    "id": "state-new-condition-3",
                                     "operator": "==",
                                     "type": "custom",
                                     "value": "false"
@@ -179,11 +187,11 @@
                             "isParent": true
                         },
                         "displayName": "Action",
-                        "eventName": "reload",
-                        "id": "flex-action-1721242482723",
-                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateBalanceLine\",\"vlocityAsync\":false,\"inputMap\":{\"networkNumber\":\"{Products.LineNumber}\",\"ProductCode\":\"{Products.ProductCode}\",\"PriceAttribute\":\"{Products.Attributes.ATT_DC_RM_PROMO_PO_1}\"},\"jsonMap\":\"{\\\"Products.LineNumber\\\":\\\"{Products.LineNumber}\\\",\\\"Products.ProductCode\\\":\\\"{Products.ProductCode}\\\",\\\"Products.Attributes.ATT_DC_RM_PROMO_PO_1\\\":\\\"{Products.Attributes.ATT_DC_RM_PROMO_PO_1}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"Products.LineNumber\",\"val\":\"32932526035\",\"id\":3},{\"name\":\"Products.ProductCode\",\"val\":\"\",\"id\":4},{\"name\":\"Products.Attributes.ATT_DC_RM_PROMO_PO_1\",\"val\":\"ATT_DC_RM_PROMO_PO_1\",\"id\":5}]}",
+                        "id": "flex-action-1721306087999",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateBalanceLine\",\"vlocityAsync\":false,\"inputMap\":{\"networkNumber\":\"{Products.LineNumber}\",\"ProductCode\":\"{Products.ProductCode}\",\"PriceAttribute\":\"{Products.Attributes.ATT_DC_RM_PROMO_PO_1}\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"Products.LineNumber\\\":\\\"{Products.LineNumber}\\\",\\\"Products.ProductCode\\\":\\\"{Products.ProductCode}\\\",\\\"Products.Attributes.ATT_DC_RM_PROMO_PO_1\\\":\\\"{Products.Attributes.ATT_DC_RM_PROMO_PO_1}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"id\":4,\"name\":\"recordId\",\"val\":\"02i76000009Pdg3AAC\"},{\"name\":\"Products.LineNumber\",\"val\":\"\",\"id\":6},{\"name\":\"Products.ProductCode\",\"val\":\"\",\"id\":7},{\"name\":\"Products.Attributes.ATT_DC_RM_PROMO_PO_1\",\"val\":\"\",\"id\":8}]}",
                         "openUrlIn": "Current Window",
                         "responseNode": "ValidateBalanceLine",
+                        "targetType": "Web Page",
                         "type": "DataAction",
                         "vlocityIcon": "standard-default"
                     }
@@ -191,9 +199,9 @@
                 {
                     "actionIndex": 4,
                     "card": "{card}",
-                    "draggable": false,
-                    "isOpen": true,
-                    "key": "1718244584484-gnkq40i04",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1721269894849-mtobbg08h",
                     "label": "ShowToastResult",
                     "stateAction": {
                         "actionConditions": {
@@ -258,7 +266,7 @@
                             "variant": "{ValidateBalanceLine.variant}"
                         },
                         "hasExtraParams": true,
-                        "id": "flex-action-1721242511665",
+                        "id": "flex-action-1721306074877",
                         "message": "showToast",
                         "openUrlIn": "Current Window",
                         "subType": "PubSub",
@@ -271,60 +279,11 @@
                     "card": "{card}",
                     "draggable": false,
                     "isOpen": true,
-                    "key": "1718244744619-a6s3yrcot",
+                    "key": "1721303895638-flycpqjlp",
                     "label": "ConfirmModal",
                     "stateAction": {
                         "actionConditions": {
                             "group": [
-                                {
-                                    "field": "ValidateBalanceLine.InsufficientBallance",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-0",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "false"
-                                },
-                                {
-                                    "group": [
-                                        {
-                                            "field": "Products.SubscriptionStatus",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-11",
-                                            "operator": "==",
-                                            "type": "custom",
-                                            "value": "Ativo"
-                                        },
-                                        {
-                                            "field": "Products.SubscriptionStatus",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-34",
-                                            "logicalOperator": "&&",
-                                            "operator": "==",
-                                            "type": "custom",
-                                            "value": "Barrado"
-                                        },
-                                        {
-                                            "field": "Products.SubscriptionStatus",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-38",
-                                            "logicalOperator": "&&",
-                                            "operator": "==",
-                                            "type": "custom",
-                                            "value": "Barrado Total"
-                                        }
-                                    ],
-                                    "id": "state-new-group-12",
-                                    "logicalOperator": "&&"
-                                },
-                                {
-                                    "field": "blockJourney",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-80",
-                                    "logicalOperator": "&&",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "false"
-                                }
                             ],
                             "id": "state-condition-object",
                             "isParent": true
@@ -336,14 +295,14 @@
                         "flyoutLwc": "valAntecipatePromotionFlyout",
                         "flyoutParams": {
                             "AccountId": "{Products.AccountId}",
-                            "InteractionId": "{Parent.InteractionId}",
-                            "InteractionNumber": "{Parent.InteractionNumber}",
+                            "InteractionId": "{Products.InteractionId}",
+                            "InteractionNumber": "{Products.InteractionNumber}",
                             "LineNumber": "{Products.LineNumber}",
                             "PO": "{Products.Attributes.ATT_DC_RM_PROMO_PO_1}"
                         },
                         "flyoutType": "childCard",
                         "hasExtraParams": true,
-                        "id": "flex-action-1721242523984",
+                        "id": "flex-action-1721312492705",
                         "openFlyoutIn": "Modal",
                         "openUrlIn": "Current Window",
                         "type": "Flyout",
@@ -356,27 +315,27 @@
                     "contextId": "\\{Parent.InteractionId}",
                     "draggable": true,
                     "isOpen": false,
-                    "key": "1718245020646-1gy8knt4v",
+                    "key": "1721304613392-hauxqv782",
                     "label": "PalitagemManual",
                     "stateAction": {
                         "actionConditions": {
                             "group": [
                                 {
-                                    "field": "palitagem",
+                                    "field": "blockJourney",
                                     "hasMergeField": false,
-                                    "id": "state-new-condition-350",
+                                    "id": "state-new-condition-0",
                                     "operator": "==",
                                     "type": "custom",
                                     "value": "true"
                                 },
                                 {
-                                    "field": "blockJourney",
+                                    "field": "palitagem",
                                     "hasMergeField": false,
-                                    "id": "state-new-condition-357",
+                                    "id": "state-new-condition-7",
                                     "logicalOperator": "&&",
                                     "operator": "==",
                                     "type": "custom",
-                                    "value": "false"
+                                    "value": "true"
                                 }
                             ],
                             "id": "state-condition-object",
@@ -392,15 +351,15 @@
                             "c__lineNumber": "{Products.LineNumber}"
                         },
                         "hasExtraParams": true,
-                        "id": "flex-action-1718245223138",
+                        "id": "flex-action-1721307982879",
                         "isLwcOS": true,
                         "layoutType": "lightning",
                         "omniType": {
-                            "Id": "a3076000000AsWyAAK",
+                            "Id": "a308I000000Dv11QAC",
                             "Name": "val/AddRelationShipTopic/English",
                             "isLwcOs": true
                         },
-                        "openUrlIn": "Current Window",
+                        "openUrlIn": "New Tab/Window",
                         "tabIcon": "standard:cancel_checkout",
                         "tabLabel": "Palitar",
                         "type": "OmniScript",
@@ -408,24 +367,24 @@
                     }
                 }
             ],
-            "channelname": "valPrePaidAssetDetailsButtons_ChannelNameButtons",
-            "displayLabel": "valPrePaidAssetDetailsButtons_ChannelNameButtons:Antecipar Promoção",
+            "channelname": "valPrePaidAssetDetailsButtons_AnteciparButton",
+            "displayLabel": "valPrePaidAssetDetailsButtons_AnteciparButton:AnteciparPromocao",
             "element": "action",
             "eventLabel": "pubsub",
-            "eventname": "Antecipar Promoção",
+            "eventname": "AnteciparPromocao",
             "eventtype": "pubsub",
             "key": "event-0",
             "recordIndex": "0",
-            "showSpinner": "true"
+            "showSpinner": "false"
         }
     ],
     "globalCSS": false,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValPrePaidAssetDetailsButtons_AnteciparButton_7_Telefonica",
-        "Id": "0Rb76000000L88uCAC",
+        "DeveloperName": "cfValPrePaidAssetDetailsButtons_AnteciparButton_8_Telefonica",
+        "Id": "0Rb8I000001tigLSAQ",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValPrePaidAssetDetailsButtons_AnteciparButton_7_Telefonica",
+        "MasterLabel": "cfValPrePaidAssetDetailsButtons_AnteciparButton_8_Telefonica",
         "NamespacePrefix": "c"
     },
     "multilanguageSupport": true,
@@ -442,53 +401,40 @@
                         {
                             "class": "slds-col ",
                             "element": "action",
-                            "elementLabel": "Block-antecipar-promocao-button",
+                            "elementLabel": "Block-antecipar-promocao-button2",
                             "name": "Action",
                             "property": {
                                 "actionList": [
                                     {
                                         "actionIndex": 0,
-                                        "card": "{card}",
-                                        "draggable": false,
+                                        "draggable": true,
                                         "isOpen": true,
-                                        "key": "1708365720389-b7xroa5aa",
-                                        "label": "event",
+                                        "key": "1721261287621-rnxjsse0n",
+                                        "label": "Action",
                                         "stateAction": {
-                                            "displayName": "Action",
-                                            "eventName": "valPrePaidAssetDetailsButtons_ChannelNameButtons",
-                                            "id": "flex-action-1721240910156",
-                                            "message": "Antecipar Promoção",
+                                            "eventName": "valPrePaidAssetDetailsButtons_AnteciparButton",
+                                            "id": "flex-action-1721268971827",
+                                            "message": "AnteciparPromocao",
                                             "openUrlIn": "Current Window",
                                             "subType": "PubSub",
-                                            "type": "Event",
-                                            "vlocityIcon": "standard-default"
+                                            "type": "Event"
                                         }
                                     }
                                 ],
                                 "card": "{card}",
-                                "data-conditions": {
-                                    "group": [
-                                    ],
-                                    "id": "state-condition-object",
-                                    "isParent": true
-                                },
                                 "displayAsButton": false,
-                                "flyoutChannel": "close_modal",
                                 "flyoutDetails": {
                                 },
                                 "hideActionIcon": false,
                                 "iconColor": "#792BA4",
                                 "iconName": "utility:push",
-                                "iconOnly": false,
-                                "iconSize": "small",
                                 "label": "Antecipar promoção",
                                 "record": "{record}",
                                 "showSpinner": "true",
                                 "stateObj": "{record}",
                                 "styles": {
                                     "label": {
-                                        "color": "#792BA4",
-                                        "fontSize": "12px"
+                                        "color": "#792BA4"
                                     }
                                 }
                             },
@@ -517,18 +463,15 @@
                                     ],
                                     "width": "1"
                                 },
-                                "class": "slds-text-align_left slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-left_small slds-p-top_small ",
+                                "class": "slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-left_small slds-p-top_small ",
                                 "container": {
                                     "class": "slds-card"
                                 },
-                                "customClass": "",
                                 "elementStyleProperties": {
                                     "iconColor": "#792BA4",
-                                    "iconSize": "small",
                                     "styles": {
                                         "label": {
-                                            "color": "#792BA4",
-                                            "fontSize": "12px"
+                                            "color": "#792BA4"
                                         }
                                     }
                                 },
@@ -554,7 +497,7 @@
                                 "sizeClass": "slds-size_12-of-12 ",
                                 "style": "     border-top: #DDDDDD 1px solid;border-right: #DDDDDD 1px solid;border-bottom: #DDDDDD 1px solid;border-left: #DDDDDD 1px solid; \n    border-radius:4;     height: 55px;",
                                 "text": {
-                                    "align": "left",
+                                    "align": "",
                                     "color": ""
                                 }
                             },
@@ -586,18 +529,15 @@
                                             ],
                                             "width": "1"
                                         },
-                                        "class": "slds-text-align_left slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-left_small slds-p-top_small ",
+                                        "class": "slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-left_small slds-p-top_small ",
                                         "container": {
                                             "class": "slds-card"
                                         },
-                                        "customClass": "",
                                         "elementStyleProperties": {
                                             "iconColor": "#792BA4",
-                                            "iconSize": "small",
                                             "styles": {
                                                 "label": {
-                                                    "color": "#792BA4",
-                                                    "fontSize": "12px"
+                                                    "color": "#792BA4"
                                                 }
                                             }
                                         },
@@ -623,7 +563,7 @@
                                         "sizeClass": "slds-size_12-of-12 ",
                                         "style": "     border-top: #DDDDDD 1px solid;border-right: #DDDDDD 1px solid;border-bottom: #DDDDDD 1px solid;border-left: #DDDDDD 1px solid; \n    border-radius:4;     height: 55px;",
                                         "text": {
-                                            "align": "left",
+                                            "align": "",
                                             "color": ""
                                         }
                                     }
@@ -670,13 +610,13 @@
                     "type": "",
                     "width": ""
                 },
-                "class": "",
+                "class": "slds-card ",
                 "container": {
-                    "class": ""
+                    "class": "slds-card"
                 },
                 "elementStyleProperties": {
                 },
-                "inlineStyle": "",
+                "inlineStyle": "height: 55px;",
                 "margin": [
                 ],
                 "padding": [
@@ -686,7 +626,7 @@
                     "isResponsive": false
                 },
                 "sizeClass": "slds-size_12-of-12 ",
-                "style": "      \n         ",
+                "style": "      \n         height: 55px;",
                 "text": {
                     "align": "",
                     "color": ""
