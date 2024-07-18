@@ -1,6 +1,6 @@
 import { LightningElement, api, track } from 'lwc';
-import { OmniscriptBaseMixin } from '%vlocity_namespace%/omniscriptBaseMixin';
-import pubsub from "%vlocity_namespace%/pubsub";
+import { OmniscriptBaseMixin } from 'vlocity_cmt/omniscriptBaseMixin';
+import pubsub from "vlocity_cmt/pubsub";
 
 export default class OmniCancelGenericButton extends OmniscriptBaseMixin(LightningElement) {
     @api openModalButtonLabel;
@@ -15,6 +15,7 @@ export default class OmniCancelGenericButton extends OmniscriptBaseMixin(Lightni
     @api lineNumber;
     @api assetId;
     @api showModalCancel;
+    
 
     connectedCallback(){
         console.log("openModalButtonLabel: " + this.openModalButtonLabel);
@@ -36,6 +37,5 @@ export default class OmniCancelGenericButton extends OmniscriptBaseMixin(Lightni
 
     openModal() {
         pubsub.fire("OmniCancelGenericButton", "OpenCancelModal", {});
-        console.log("PubSub enviado");
     }
 }

@@ -18,7 +18,7 @@ export default class ValToast extends OmniscriptBaseMixin(LightningElement) {
         return this._mode;
     };
     set mode(value) {
-        this._message = value;
+        this.mode = value;
         console.log('value..'+ value);
     }
     @api variant='';
