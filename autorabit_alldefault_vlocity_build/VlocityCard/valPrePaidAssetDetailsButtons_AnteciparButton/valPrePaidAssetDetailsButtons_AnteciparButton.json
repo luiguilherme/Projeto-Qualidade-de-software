@@ -37,8 +37,8 @@
                             "targetName": "/apex"
                         },
                         "displayName": "Action",
-                        "id": "flex-action-1721339901744",
-                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateAllJourneys\",\"vlocityAsync\":false,\"inputMap\":{\"ValidatePortability\":\"true\",\"Functionality\":\"AnticipateButton\",\"AssetId\":\"{Parent.AssetId}\",\"ValidateOrder\":\"true\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"Parent.AssetId\\\":\\\"{Parent.AssetId}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"id\":4,\"name\":\"recordId\",\"val\":\"02i76000009Pdg3AAC\"},{\"name\":\"Parent.AssetId\",\"val\":\"\",\"id\":3}]}",
+                        "id": "flex-action-1721268820639",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateAllJourneys\",\"vlocityAsync\":false,\"inputMap\":{\"ValidatePortability\":\"true\",\"Functionality\":\"ChangeServiceIdentifier\",\"AssetId\":\"{Parent.AssetId}\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"Parent.AssetId\\\":\\\"{Parent.AssetId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"id\":4,\"name\":\"recordId\",\"val\":\"02i76000009Pdg3AAC\"},{\"name\":\"Parent.AssetId\",\"val\":\"\",\"id\":3}]}",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "DataAction",
@@ -86,8 +86,8 @@
                 {
                     "actionIndex": 2,
                     "card": "{card}",
-                    "draggable": false,
-                    "isOpen": true,
+                    "draggable": true,
+                    "isOpen": false,
                     "key": "1721266052185-qw1u9tlty",
                     "label": "LineStateOtherThanActive",
                     "stateAction": {
@@ -153,7 +153,7 @@
                             "variant": "warning"
                         },
                         "hasExtraParams": true,
-                        "id": "flex-action-1721340633526",
+                        "id": "flex-action-1721269947726",
                         "message": "showToast",
                         "openUrlIn": "Current Window",
                         "subType": "PubSub",
@@ -266,7 +266,7 @@
                             "variant": "{ValidateBalanceLine.variant}"
                         },
                         "hasExtraParams": true,
-                        "id": "flex-action-1721336121426",
+                        "id": "flex-action-1721306074877",
                         "message": "showToast",
                         "openUrlIn": "Current Window",
                         "subType": "PubSub",
@@ -277,62 +277,13 @@
                 {
                     "actionIndex": 5,
                     "card": "{card}",
-                    "draggable": true,
-                    "isOpen": false,
+                    "draggable": false,
+                    "isOpen": true,
                     "key": "1721303895638-flycpqjlp",
                     "label": "ConfirmModal",
                     "stateAction": {
                         "actionConditions": {
                             "group": [
-                                {
-                                    "field": "ValidateBalanceLine.InsufficientBallance",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-0",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "false"
-                                },
-                                {
-                                    "field": "blockJourney",
-                                    "hasMergeField": false,
-                                    "id": "state-new-condition-7",
-                                    "logicalOperator": "&&",
-                                    "operator": "==",
-                                    "type": "custom",
-                                    "value": "false"
-                                },
-                                {
-                                    "group": [
-                                        {
-                                            "field": "Products.SubscriptionStatus",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-17",
-                                            "operator": "==",
-                                            "type": "custom",
-                                            "value": "Ativo"
-                                        },
-                                        {
-                                            "field": "Products.SubscriptionStatus",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-22",
-                                            "logicalOperator": "||",
-                                            "operator": "==",
-                                            "type": "custom",
-                                            "value": "Barrado"
-                                        },
-                                        {
-                                            "field": "Products.SubscriptionStatus",
-                                            "hasMergeField": false,
-                                            "id": "state-new-condition-37",
-                                            "logicalOperator": "||",
-                                            "operator": "==",
-                                            "type": "custom",
-                                            "value": "Barrado Total Delete"
-                                        }
-                                    ],
-                                    "id": "state-new-group-18",
-                                    "logicalOperator": "&&"
-                                }
                             ],
                             "id": "state-condition-object",
                             "isParent": true
@@ -351,7 +302,7 @@
                         },
                         "flyoutType": "childCard",
                         "hasExtraParams": true,
-                        "id": "flex-action-1721336029195",
+                        "id": "flex-action-1721312492705",
                         "openFlyoutIn": "Modal",
                         "openUrlIn": "Current Window",
                         "type": "Flyout",
