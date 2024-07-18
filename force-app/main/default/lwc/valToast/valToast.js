@@ -76,11 +76,11 @@ export default class ValToast extends OmniscriptBaseMixin(LightningElement) {
 
     showMultipleToast(messageArray, variant) {
 
-       messageArray.forEach(item => {
+        messageArray.forEach(item => {
             const toastParams ={
-            title: "",
-            message: item.message,
-             variant: variant
+                title: "",
+                message: item.message,
+                variant: variant
             };
             const event =  new ShowToastEvent(toastParams);
             this.dispatchEvent(event); 
@@ -102,5 +102,5 @@ export default class ValToast extends OmniscriptBaseMixin(LightningElement) {
 
     nextButton(evt) {
         this.omniNextStep();
-    }    
+    }
 }

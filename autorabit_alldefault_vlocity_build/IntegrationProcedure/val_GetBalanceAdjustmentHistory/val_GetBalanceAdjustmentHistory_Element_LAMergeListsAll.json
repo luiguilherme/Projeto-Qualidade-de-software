@@ -1,0 +1,65 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valGetBalanceAdjustmentHistory",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/GetBalanceAdjustmentHistory/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "additionalChainableResponse": {
+        },
+        "additionalInput": {
+        },
+        "additionalOutput": {
+        },
+        "advancedMerge": false,
+        "advancedMergeMap": [
+        ],
+        "allowMergeNulls": true,
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "dynamicOutputFields": "",
+        "executionConditionalFormula": "=%balanceOperation% == \"all\"",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "failureResponse": {
+        },
+        "filterListFormula": "",
+        "hasPrimary": false,
+        "label": "ListAction1",
+        "mergeFields": [
+        ],
+        "mergeListsOrder": [
+            "HTTPResponse:transactions:compensation",
+            "HTTPResponse:transactions:balanceAdjustment"
+        ],
+        "primaryListKey": "",
+        "responseJSONNode": "MergedOperationList",
+        "responseJSONPath": "",
+        "returnOnlyAdditionalOutput": false,
+        "returnOnlyFailureResponse": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "sendOnlyAdditionalInput": false,
+        "show": null,
+        "sortBy": [
+            "eventDateTime"
+        ],
+        "sortInDescendingOrder": false,
+        "updateFieldValue": {
+            "dateTime": "=CONCAT(FORMATDATETIME(%eventDateTime%, \"dd/MM/yyyy\",\"América/Sao_Paulo\"),\" \",SUBSTRING(%eventDateTime%, 11, 19))",
+            "operation": "=IF((%balanceOperation%==\"credit\"),\"Crédito\",\"Débito\")",
+            "validity": "=DATEDIFF(TODAY(),%usageEndDateTime%) + \" dias\"",
+            "value": "=CONCAT(IF(%unitOfMeasure%==\"BRL\",\"R$\",\"\"),IF(NOT(ISBLANK(%productCost%)),%productCost%,%adjustedAmount%),IF(%unitOfMeasure%==\"byte\",\"b\",IF(%unitOfMeasure%==\"second\",\" segundos\",IF(%unitOfMeasure%==\"event\",\" SMS\",\"\"))))"
+        },
+        "useFormulas": true
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "List Merge Action",
+    "Name": "LAMergeListsAll",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetBalanceAdjustmentHistory/Procedure/LAMergeListsAll"
+}
