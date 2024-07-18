@@ -9,7 +9,7 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "OrderId": "=%DREGetOrderObjectsWithMSISDN:OrderId%",
+            "OrderId": "=%DREGetOrderObjectsWithMSISDN|1:OrderId%",
             "Status": "Fechado",
             "Type": "Cadastro"
         },
@@ -18,7 +18,7 @@
         "bundle": "valCreateTimerRecord",
         "chainOnStep": false,
         "disOnTplt": false,
-        "executionConditionalFormula": "",
+        "executionConditionalFormula": "%DREGetOrderObjectsWithMSISDN:OrderType% != \"ChangeOwnership\"",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {
@@ -27,7 +27,7 @@
         "responseJSONNode": "",
         "responseJSONPath": "",
         "returnOnlyAdditionalOutput": false,
-        "returnOnlyFailureResponse": false,
+        "returnOnlyFailureResponse": true,
         "sendJSONNode": "",
         "sendJSONPath": "",
         "sendOnlyAdditionalInput": true,

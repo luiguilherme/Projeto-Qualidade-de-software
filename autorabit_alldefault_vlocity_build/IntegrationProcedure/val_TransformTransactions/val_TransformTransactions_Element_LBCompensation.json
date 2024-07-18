@@ -1,5 +1,5 @@
 {
-    "%vlocity_namespace%__Active__c": false,
+    "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__InternalNotes__c": "corrigir mapeamento",
     "%vlocity_namespace%__OmniScriptId__c": {
         "Name": "valTransformTransactions",
@@ -14,17 +14,22 @@
         "loopList": "compensation",
         "loopOutput": {
             "accountNumber": "%SubcriptionNumber%",
-            "amount": "=%compensation:productCost%",
-            "clientCategory": "=%compensation:networkNumberType%",
-            "csp": "",
-            "inpugnation": "",
-            "reason": "",
+            "adjustType": "=%compensation:balanceOperation%",
+            "adjustmentDate": "=FORMATDATE(%compensation:eventDateTime%, \"dd/MM/YYYY\")",
+            "amount": "=\"-\"",
+            "balanceType": "=\"-\"",
+            "channel": "=%compensation:channel%",
+            "lineNumber": "=%compensation:networkNumber%",
+            "offerPlan": "=%compensation:productName%",
+            "reason": "=%compensation:operationReason%",
+            "system": "=%compensation:channelId%",
             "systemUserId": "=%compensation:accountId%",
             "timeStamp": "=IF(ISNOTBLANK(%compensation:eventDateTime%),FORMATDATETIME(SUBSTRING(%compensation:eventDateTime%, 0, 23), \"dd/MM/YYYY HH:mm\", \"Etc/GMT\"),NULL)",
-            "transactionType": "=%recharge:operationReason%",
+            "transactionType": "Ajuste de Saldo",
             "type": "=\"compensation\"",
             "unit": "=%compensation:usageUnit%",
-            "userLogin": "=%compensation:userLogin%"
+            "userLogin": "=%compensation:userLogin%",
+            "validity": "=DATEDIFF(%compensation:usageStartDateTime%,%compensation:usageEndDateTime%) + \" dia(s)\""
         },
         "show": null
     },

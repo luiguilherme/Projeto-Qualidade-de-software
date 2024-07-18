@@ -21,14 +21,10 @@
         "extraPayload": {
             "AccountId": "%AccountId%",
             "InteractionId": "%ContextId%",
-            "channelName": "%TopicNameCompleteAndUserData:channelName%",
-            "customerInteractionValues": {
-                "resultValueMap": {
-                    "protocolNumber": "%interactionNumber%",
-                    "topicName": "%TopicNameByRequest%"
-                }
-            },
-            "topicName": "%TopicNameCompleteAndUserData:topicName2%"
+            "channelName": "%responseTopicsAuto:channelName%",
+            "interactionNumber": "%interactionNumber%",
+            "processName": "%TopicNameByRequest%",
+            "topicName": "%responseTopicsAuto:topicName2%"
         },
         "failureAbortLabel": "Abort",
         "failureAbortMessage": "Are you sure?",
@@ -107,6 +103,11 @@
                                             }
                                         ]
                                     }
+                                },
+                                {
+                                    "condition": "<>",
+                                    "data": null,
+                                    "field": "responseTopicsAuto:topicName2"
                                 }
                             ]
                         }

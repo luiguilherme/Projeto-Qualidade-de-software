@@ -19,14 +19,14 @@
         "event-0_0": {
             "contextVariables": [
                 {
-                    "id": 4,
-                    "name": "recordId",
-                    "val": "02i76000009Pdg3AAC"
-                },
-                {
                     "id": 1,
                     "name": "Parent.AssetId",
-                    "val": ""
+                    "val": "02i76000000MtkMAAS"
+                },
+                {
+                    "id": 8,
+                    "name": "Parent.InteractionId",
+                    "val": "a1c76000000DXzHAAW"
                 }
             ],
             "orderBy": {
@@ -35,13 +35,19 @@
             },
             "type": "IntegrationProcedures",
             "value": {
+                "bundleType": "Extract",
                 "dsDelay": "",
-                "ipMethod": "val_ValidateAllJourneys",
-                "jsonMap": "{\"recordId\":\"{recordId}\",\"Parent.AssetId\":\"{Parent.AssetId}\"}",
-                "optionsMap": {
+                "inputMap": {
                     "AssetId": "{Parent.AssetId}",
-                    "Functionallity": "ChangeOwnership"
+                    "CheckBiometric": "true",
+                    "Functionality": "ChangeOwnership",
+                    "InteractionId": "{Parent.InteractionId}",
+                    "PreSetValues": "true",
+                    "ValidateOrder": "true",
+                    "ValidatePortability": "true"
                 },
+                "ipMethod": "val_ValidateAllJourneys",
+                "jsonMap": "{\"Parent.AssetId\":\"{Parent.AssetId}\",\"Parent.InteractionId\":\"{Parent.InteractionId}\"}",
                 "resultVar": "",
                 "vlocityAsync": false
             }
