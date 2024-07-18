@@ -11,7 +11,7 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "RecordTypeName": "=IF(%ProductType%=='Fixed', 'FixedServiceQualification', IF(%ProductType%=='Mobile' && %SelectedRelationshipTargetFlow%=='InvoiceDispute' && %SelectedRelationshipLegacySystem%=='NEXT' && ( %ProductSourceSystem%=='Next' || %ProductSourceSystem%=='NEXT'), 'DisputeInvoiceCase', IF(%ProductType% == 'Mobile' , 'MobileServiceQualification', null)))"
+            "RecordTypeName": "=IF(%ProductType%=='Pre' && %RelationshipType%=='GPS', 'PreDefectAndRepair',IF(%ProductType%=='Pre' && %RelationshipType%!='GPS', 'PreCaseUnproductive',IF(%ProductType%=='Fixed', 'FixedServiceQualification', IF(%ProductType%=='Mobile' && %SelectedRelationshipTargetFlow%=='InvoiceDispute' && %SelectedRelationshipLegacySystem%=='NEXT' && ( %ProductSourceSystem%=='Next' || %ProductSourceSystem%=='NEXT'), 'DisputeInvoiceCase', IF(%ProductType% == 'Mobile' , 'MobileServiceQualification', null))))))"
         },
         "executionConditionalFormula": "",
         "failOnStepError": true,

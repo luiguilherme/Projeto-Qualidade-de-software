@@ -1,0 +1,113 @@
+<apex:page renderAs="pdf" showHeader="false"
+           applyHtmlTag="false" 
+           standardStylesheets="false"
+           controller="EventsSearchAsPdfController"
+           action="{!executeStatement}">
+    <html>
+        <head>
+            <style> 
+                p {
+                    text-align: center;
+                }
+                .tittle_block{
+                 text-align: left;
+                 font-weight: bold;
+                }
+                .container_body {
+                  font-family: Arial, sans-serif;
+                  font-size: 10px;
+                  width: 99%;
+                  display: block;
+                  outline: dashed 1px black;
+                }
+                .container_350_200 {
+                  font-family: Arial Unicode MS;
+                  margin: 25px;
+                  width: 350px;
+                  height: 200px;
+                  outline: dashed 1px black;
+                }
+                .container_width_100_height_100 {
+                  font-family: Arial Unicode MS;
+                  margin: 10px;
+                  width: 100px;
+                  height: 100px;
+                }
+                .wrapper {
+                  display: grid;
+                  grid-template-columns: 20% 20% 20%;
+                  grid-gap: 10px;
+                  color: #444;
+                }
+                .col1 {
+                    width: 1% !important;
+                }
+                .col3 {
+                    width: 45% !important;
+                }
+                .col4 {
+                    text-align: right;
+                }
+                .col_second_session_1 {
+                }
+                .col_second_session_3 {
+                    width: 35% !important;
+                }
+                .col_second_session_4 {
+                    text-align: right;
+                }
+                .coluna {
+                    margin-right: 20px;
+                    flex-grow: 1;
+                }
+                .container {
+                    display: flex;
+                }
+            </style>
+        </head>
+        <body class="container_body">
+            <div>
+                <p>DETALHAMENTO DE EVENTOS PARA SIMPLES CONFERÊNCIA - VIVO PRÉ-PAGO</p>
+            </div>
+            <apex:panelGrid columns="4" columnClasses="col1, col2, col3, col4" cellpadding="" width="100%">
+                    <apex:panelGroup >
+                        <apex:outputLabel ></apex:outputLabel>
+                    </apex:panelGroup>
+                    <apex:panelGroup >
+                        <img src="{!$Resource.LogoVivo}" alt="Vivo logo" width="130" height="50"/>
+                    </apex:panelGroup>
+                    <apex:panelGroup >
+                        <apex:outputLabel ></apex:outputLabel>
+                    </apex:panelGroup>
+                    <apex:panelGroup >
+                        <apex:outputLabel > Telefonica Brasil S.A</apex:outputLabel><BR/>
+                        <apex:outputLabel > Av. Engenheiro Luiz Carlos Berrini, 1376</apex:outputLabel><BR/>
+                        <apex:outputLabel > 0457198 São Paulo SP</apex:outputLabel><BR/>
+                        <apex:outputLabel > www.vivo.com.br</apex:outputLabel><BR/>
+                        <apex:outputLabel > 108383949112 - 0255815700162</apex:outputLabel>
+                    </apex:panelGroup>
+            </apex:panelGrid>
+           
+            <!--Todas as funções abaixo distribuem as  informações que vem pela controller, exibindo-as no pdf
+                grande parte esta dividida por titulos <h3> seguidos de <div> com o conjunto de informações referente ao titulo
+                US: PTI2283-5809
+                Created by: Felipe Silveira
+                Modified by: Felipe G 
+            -->    
+                <h3 class="tittle_block">Descrição Eventos</h3>
+                
+                    <div class="block_font" style="{!IF(ipOutput['consumptions'] != '-', 'display:block', 'display:none')}">
+                    <apex:pageBlock rendered="{!ipOutput['consumptions'] !='-'}" >
+                        <apex:pageBlockTable border="3px" value="{!ipOutput['consumptions']}" var="f" width="100%" styleClass="container">
+                            <apex:column headerValue="Número da Linha" value="{!f['sourceConcat']}" width="15%" styleClass="coluna"/>
+                            <apex:column headerValue="Tipo Evento" value="{!f['callType']}" width="20%" styleClass="coluna"/>
+                            <apex:column headerValue="Linha Destino" value="{!f['destinationConcat']}" width="15%" styleClass="coluna"/> 
+                            <apex:column headerValue="Data / Hora" value="{!f['eventDateTime']}" width="20%" styleClass="coluna"/>
+                            <apex:column headerValue="Duração" value="{!f['consumptionDuration']}" width="15%" styleClass="coluna"/>
+                            <apex:column headerValue="Efetuado/Erro" value="{!f['resultCode']}" width="15%" styleClass="coluna"/>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </div><br/>
+        </body>
+    </html>
+</apex:page>

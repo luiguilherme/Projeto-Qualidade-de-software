@@ -96,10 +96,10 @@
     "isFlex": true,
     "isRepeatable": false,
     "lwc": {
-        "DeveloperName": "cfValTopicsTreeFlowFlyout_3_TelefonicaBrasil_Valentina",
-        "Id": "0Rb8D000000uBCgSAM",
+        "DeveloperName": "cfValTopicsTreeFlowFlyout_4_TelefonicaBrasil_Valentina",
+        "Id": "0Rb760000000g0dCAA",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValTopicsTreeFlowFlyout_3_TelefonicaBrasil_Valentina",
+        "MasterLabel": "cfValTopicsTreeFlowFlyout_4_TelefonicaBrasil_Valentina",
         "NamespacePrefix": "c"
     },
     "selectableMode": "Multi",
@@ -372,6 +372,11 @@
                                 "cardName": "valTopicsTreeFlowFlyoutData",
                                 "cardNode": "{records}",
                                 "isChildCardTrackingEnabled": false,
+                                "parentAttribute": {
+                                    "Id": "{Parent.Id}",
+                                    "ProductType": "{Parent.ProductType}",
+                                    "ServiceTree": "{Parent.ServiceTree}"
+                                },
                                 "recordId": "{recordId}",
                                 "selectedState": "Active"
                             },
@@ -781,9 +786,9 @@
                                     "class": "slds-col ",
                                     "element": "action",
                                     "elementLabel": "Action-4",
-                                    "key": "element_element_block_4_0_action_1_0",
+                                    "key": "element_element_block_3_0_action_1_0",
                                     "name": "Action",
-                                    "parentElementKey": "element_block_4_0",
+                                    "parentElementKey": "element_block_3_0",
                                     "property": {
                                         "actionList": [
                                             {
@@ -910,28 +915,43 @@
                                     "class": "slds-col ",
                                     "element": "action",
                                     "elementLabel": "Action-5",
-                                    "key": "element_element_block_4_0_action_2_0",
+                                    "key": "element_element_block_3_0_action_2_0",
                                     "name": "Action",
+                                    "parentElementKey": "element_block_3_0",
                                     "property": {
                                         "actionList": [
                                             {
                                                 "actionIndex": 0,
-                                                "draggable": false,
+                                                "card": "{card}",
+                                                "draggable": true,
                                                 "isOpen": true,
-                                                "key": "1675090502779-w8lugcj5u",
-                                                "label": "Action",
+                                                "key": "1714052942799-5pijszmnb",
+                                                "label": "ActionValidateFlowInUse",
                                                 "stateAction": {
-                                                    "eventName": "TopicsTreeModal",
-                                                    "extraParams": {
-                                                        "flowDescription": "{flowDescription}",
-                                                        "flowId": "{flowId}"
+                                                    "Web Page": {
+                                                        "targetName": "/apex"
                                                     },
-                                                    "hasExtraParams": true,
-                                                    "id": "flex-action-1675107261466",
-                                                    "message": "setFlowId",
+                                                    "actionConditions": {
+                                                        "group": [
+                                                            {
+                                                                "field": "{Parent.ProductType}",
+                                                                "hasMergeField": true,
+                                                                "id": "state-new-condition-21",
+                                                                "operator": "==",
+                                                                "type": "custom",
+                                                                "value": "Pre"
+                                                            }
+                                                        ],
+                                                        "id": "state-condition-object",
+                                                        "isParent": true
+                                                    },
+                                                    "displayName": "Action",
+                                                    "id": "flex-action-1714056843011",
+                                                    "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"valGPSFlowInUse\",\"vlocityAsync\":false,\"inputMap\":{\"GPSId\":\"{flowId}\",\"Id\":\"{Parent.Id}\"},\"jsonMap\":\"{\\\"flowId\\\":\\\"{flowId}\\\",\\\"Parent.Id\\\":\\\"{Parent.Id}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"flowId\",\"val\":\"\",\"id\":1},{\"name\":\"Parent.Id\",\"val\":\"\",\"id\":4}]}",
                                                     "openUrlIn": "Current Window",
-                                                    "subType": "PubSub",
-                                                    "type": "Event"
+                                                    "targetType": "Web Page",
+                                                    "type": "DataAction",
+                                                    "vlocityIcon": "standard-default"
                                                 }
                                             },
                                             {
@@ -939,14 +959,108 @@
                                                 "card": "{card}",
                                                 "draggable": true,
                                                 "isOpen": true,
-                                                "key": "1675090590485-rc3kaabid",
-                                                "label": "Action",
+                                                "key": "1714056507900-1l1kxveoi",
+                                                "label": "ActionToastFlowInUse",
                                                 "stateAction": {
+                                                    "actionConditions": {
+                                                        "group": [
+                                                            {
+                                                                "field": "GPSFlowFound",
+                                                                "hasMergeField": false,
+                                                                "id": "state-new-condition-14",
+                                                                "operator": "==",
+                                                                "type": "custom",
+                                                                "value": "true"
+                                                            },
+                                                            {
+                                                                "field": "{Parent.ProductType}",
+                                                                "hasMergeField": true,
+                                                                "id": "state-new-condition-28",
+                                                                "logicalOperator": "&&",
+                                                                "operator": "==",
+                                                                "type": "custom",
+                                                                "value": "Pre"
+                                                            }
+                                                        ],
+                                                        "id": "state-condition-object",
+                                                        "isParent": true
+                                                    },
+                                                    "displayName": "Action",
+                                                    "eventName": "valToast",
+                                                    "extraParams": {
+                                                        "message": "{message}",
+                                                        "variant": "{variant}"
+                                                    },
+                                                    "hasExtraParams": true,
+                                                    "id": "flex-action-1714056864058",
+                                                    "message": "showToast",
+                                                    "openUrlIn": "Current Window",
+                                                    "subType": "PubSub",
+                                                    "type": "Event",
+                                                    "vlocityIcon": "standard-default"
+                                                }
+                                            },
+                                            {
+                                                "actionIndex": 1,
+                                                "draggable": true,
+                                                "isOpen": false,
+                                                "key": "1675090502779-w8lugcj5u",
+                                                "label": "ActionSetFlowId",
+                                                "stateAction": {
+                                                    "actionConditions": {
+                                                        "group": [
+                                                            {
+                                                                "field": "GPSFlowFound",
+                                                                "hasMergeField": false,
+                                                                "id": "state-new-condition-0",
+                                                                "operator": "==",
+                                                                "type": "custom",
+                                                                "value": "false"
+                                                            }
+                                                        ],
+                                                        "id": "state-condition-object",
+                                                        "isParent": true
+                                                    },
+                                                    "eventName": "TopicsTreeModal",
+                                                    "extraParams": {
+                                                        "flowDescription": "{flowDescription}",
+                                                        "flowId": "{flowId}"
+                                                    },
+                                                    "hasExtraParams": true,
+                                                    "id": "flex-action-1714054821370",
+                                                    "message": "setFlowId",
+                                                    "openUrlIn": "Current Window",
+                                                    "subType": "PubSub",
+                                                    "type": "Event"
+                                                }
+                                            },
+                                            {
+                                                "actionIndex": 2,
+                                                "card": "{card}",
+                                                "draggable": true,
+                                                "isOpen": true,
+                                                "key": "1675090590485-rc3kaabid",
+                                                "label": "ActionCloseModal",
+                                                "stateAction": {
+                                                    "actionConditions": {
+                                                        "group": [
+                                                            {
+                                                                "field": "GPSFlowFound",
+                                                                "hasMergeField": false,
+                                                                "id": "state-new-condition-7",
+                                                                "operator": "==",
+                                                                "type": "custom",
+                                                                "value": "false"
+                                                            }
+                                                        ],
+                                                        "id": "state-condition-object",
+                                                        "isParent": true
+                                                    },
                                                     "bubbles": true,
                                                     "composed": true,
                                                     "displayName": "Action",
                                                     "eventName": "closemodal",
-                                                    "id": "flex-action-1675090623099",
+                                                    "id": "flex-action-1714054872526",
                                                     "openUrlIn": "Current Window",
                                                     "subType": "Custom",
                                                     "type": "Event",
@@ -1205,6 +1319,24 @@
                                 }
                             ],
                             "type": "block"
+                        },
+                        {
+                            "class": "slds-col ",
+                            "element": "customLwc",
+                            "elementLabel": "Custom LWC-4",
+                            "name": "Custom LWC",
+                            "property": {
+                                "customlwcname": "valToast"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "element"
                         }
                     ]
                 }

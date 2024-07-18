@@ -25,7 +25,7 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "CheckShowCaseOpen2": "=FILTER(LIST(%DRTAGetOpenCase:CaseOpen%), 'CaseAssociatedPhone__c == \"' + %DREGetAccoutAndAssetDetails:ServiceIdentifier% + '\"')",
+            "CheckShowCaseOpen2": "=LIST(FILTER(LIST(%DRTAGetOpenCase:CaseOpen%), 'CaseAssociatedPhone__c == \"' + %DREGetAccoutAndAssetDetails:ServiceIdentifier% + '\"'))",
             "CheckShowCaseOpenOld": "=(%DRTAGetOpenCase:CaseOpen|1:AccountId%!=null &&  (%IPGetTopicDetails:FormType__c%=='Portabilidade' || (%IPGetTopicDetails:FormType__c%=='Processo e Retorno ao Cliente' && STRINGINDEXOF(%DRTAGetOpenCase:CaseOpen|1:CaseAssociatedPhone__c%, ';')==-1)))",
             "Document": "=SUBSTRING(%DRTAGetAccoutAndAssetDetails:AccountInfo|1:Account%,STRINGINDEXOF(%DRTAGetAccoutAndAssetDetails:AccountInfo|1:Account%,'DocumentNumberFormated__c')+26,STRINGINDEXOF(%DRTAGetAccoutAndAssetDetails:AccountInfo|1:Account%,'DocumentNumberFormated__c')+40)",
             "Name": "=SUBSTRING(%DRTAGetAccoutAndAssetDetails:AccountInfo|1:Account%,STRINGINDEXOF(%DRTAGetAccoutAndAssetDetails:AccountInfo|1:Account%,'Name')+5,STRINGINDEXOF(%DRTAGetAccoutAndAssetDetails:AccountInfo|1:Account%,',')-1)"

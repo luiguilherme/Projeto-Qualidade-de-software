@@ -1,0 +1,31 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__InternalNotes__c": "Executado quando não é retornado o InterctionNumber",
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valCreateCustomerInteractionAndTopic",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CreateCustomerInteractionAndTopic/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "protocolNumber": "=QUERY( \"SELECT InteractionNumber__c FROM %vlocity_namespace%__CustomerInteraction__c WHERE Id = '{0}'\",%InteractionId% )"
+        },
+        "executionConditionalFormula": "(%customerInteractionValues:resultValueMap:protocolNumber% == \"%interactionNumber%\" OR %customerInteractionValues:resultValueMap:protocolNumber% == NULL OR ISBLANK(%customerInteractionValues:resultValueMap:protocolNumber%) OR %customerInteractionValues:resultValueMap:protocolNumber% == \"NULL\" OR %customerInteractionValues:resultValueMap:protocolNumber% == \"null\" OR %customerInteractionValues:resultValueMap:protocolNumber% == \"Não Gerado\") AND ISNOTBLANK(%InteractionId%)",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues2",
+        "responseJSONNode": "customerInteractionValues:resultValueMap",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVInterctionNumber",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CreateCustomerInteractionAndTopic/Procedure/SVInterctionNumber"
+}

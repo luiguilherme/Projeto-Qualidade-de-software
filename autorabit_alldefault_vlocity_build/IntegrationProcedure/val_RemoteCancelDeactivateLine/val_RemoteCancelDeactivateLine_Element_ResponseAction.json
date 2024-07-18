@@ -8,6 +8,8 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
+            "errorCode": "=IF(%DREGetMonthlyStatementStatus:Status%==\"Cancelado\",200,400)",
+            "request": "=IF(%DREGetMonthlyStatementStatus:Status%==\"Cancelado\",\"Envio recorrente do extrato detalhado cancelado\",\"Não foi possivel cancelar o envio recorrente do extrato detalhado\",)"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",
@@ -18,7 +20,7 @@
         "responseJSONNode": "",
         "responseJSONPath": "",
         "returnFullDataJSON": false,
-        "returnOnlyAdditionalOutput": false,
+        "returnOnlyAdditionalOutput": true,
         "sendJSONNode": "",
         "sendJSONPath": "",
         "show": null,
