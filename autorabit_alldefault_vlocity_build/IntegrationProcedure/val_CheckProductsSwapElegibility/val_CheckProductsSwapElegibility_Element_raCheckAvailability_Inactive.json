@@ -8,10 +8,8 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "changePackage": true,
-            "changePromotion": "=%hasPromotion% == true && %promotionAvailable:changePromotion% == true",
-            "filteredPackage": "==IF(%hasPackage% == true && ISNOTBLANK(%packageAvailable:filteredPackage%), %packageAvailable:filteredPackage%, \"Sem Pacote disponível já contratado\") ",
-            "filteredPromotion": "=IF(%hasPromotion% == true && ISNOTBLANK(%promotionAvailable:filteredPromotion%), %promotionAvailable:filteredPromotion%, \"Sem Promoção disponível já contratada\") "
+            "changePromotion": "=%filteredPromotionNode:changePromotion%",
+            "filteredPromotion": "=IF(ISNOTBLANK(%filteredPromotionNode:filteredPromotion%), %filteredPromotionNode:filteredPromotion%, \"Sem Promoção disponível já contratada\")"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",
@@ -32,8 +30,8 @@
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
     "%vlocity_namespace%__Type__c": "Response Action",
-    "Name": "ResponseAction2",
+    "Name": "raCheckAvailability_Inactive",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CheckProductsSwapElegibility/Procedure/ResponseAction2"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CheckProductsSwapElegibility/Procedure/raCheckAvailability_Inactive"
 }

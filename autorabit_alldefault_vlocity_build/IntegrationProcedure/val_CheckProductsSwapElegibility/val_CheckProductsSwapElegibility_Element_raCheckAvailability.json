@@ -8,10 +8,8 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "changePackage": "=%hasPackage% == true && %packageAvailable:changePackage% == true",
-            "changePromotion": "=%hasPromotion% == true && %promotionAvailable:changePromotion% == true",
-            "filteredPackage": "==IF(%hasPackage% == true && ISNOTBLANK(%packageAvailable:filteredPackage%), %packageAvailable:filteredPackage%, \"Sem Pacote disponível já contratado\") ",
-            "filteredPromotion": "=IF(%hasPromotion% == true && ISNOTBLANK(%promotionAvailable:filteredPromotion%), %promotionAvailable:filteredPromotion%, \"Sem Promoção disponível já contratada\") "
+            "changePromotion": "=%promotionAvailable:changePromotion%",
+            "filteredPromotion": "=IF(ISNOTBLANK(%promotionAvailable:filteredPromotion%), %promotionAvailable:filteredPromotion%, \"Sem Promoção disponível já contratada\")"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",
