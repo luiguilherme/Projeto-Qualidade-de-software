@@ -1,5 +1,5 @@
 {
-    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__Active__c": false,
     "%vlocity_namespace%__OmniScriptId__c": {
         "Name": "valProcessRemoteCustomer",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
@@ -9,7 +9,8 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "msisdn": "%SVTrimmedMsisdn:msisdn%"
+            "msisdn": "%SVTrimmedMsisdn:msisdn%",
+            "status": "=IF(QUERY('select Type from order where id = {0}',))"
         },
         "additionalOutput": {
         },

@@ -20,7 +20,8 @@
         },
         "extraPayload": {
             "TopicName": "%TopicNameByRequest%",
-            "topicName2": "%TopicNameByRequest2%"
+            "topicName2": "%TopicNameByRequest2%",
+            "topicName3": "%TopicNameByRequest3%"
         },
         "failureAbortLabel": "Abort",
         "failureAbortMessage": "Are you sure?",
@@ -48,7 +49,7 @@
             "useFuture": false
         },
         "remoteTimeout": 30000,
-        "responseJSONNode": "TopicNameCompleteAndUserData",
+        "responseJSONNode": "responseTopicsAuto",
         "responseJSONPath": "",
         "sendJSONNode": "",
         "sendJSONPath": "",
@@ -70,6 +71,35 @@
                                     "condition": "=",
                                     "data": "SalesJourney",
                                     "field": "Functionality"
+                                },
+                                {
+                                    "group": {
+                                        "operator": "OR",
+                                        "rules": [
+                                            {
+                                                "condition": "<>",
+                                                "data": "true",
+                                                "field": "HasPortability"
+                                            },
+                                            {
+                                                "group": {
+                                                    "operator": "AND",
+                                                    "rules": [
+                                                        {
+                                                            "condition": "=",
+                                                            "data": "true",
+                                                            "field": "HasPortability"
+                                                        },
+                                                        {
+                                                            "condition": "=",
+                                                            "data": "true",
+                                                            "field": "UserPermission:GerarPalitoAutomaticoPortabilidade"
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
                                 }
                             ]
                         }
@@ -106,6 +136,11 @@
                                 {
                                     "condition": "=",
                                     "data": "ChangeSimCard",
+                                    "field": "Functionality"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "ChangeOwnership",
                                     "field": "Functionality"
                                 }
                             ]
