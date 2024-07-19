@@ -7,6 +7,7 @@ export default class MinimizeInteractionLauncher extends OmniscriptBaseMixin(Lig
     @wire(CurrentPageReference) pageRef;
     
     lineNumber=""; 
+    @api baseUrl; // URL base para a navegação
 
     @api get linenumber() {
         return this.lineNumber;
@@ -18,6 +19,6 @@ export default class MinimizeInteractionLauncher extends OmniscriptBaseMixin(Lig
     connectedCallback() {
         console.log('InteractionLauncherNotification sendMinimizeUtilityBarToAura', this.lineNumber);
         fireEvent(this.pageRef, 'minimizeutilitybar', {});
-window.location.replace("https://valentinatelefonica--uat.sandbox.lightning.force.com/lightning/cmp/vlocity_cmt__vlocityLWCOmniWrapper?c__target=c:valCreateAssociateRegistrationPortugueseBrazil&c__layout=lightning&c__tabIcon=custom:custom18&c__tabLabel=Associação de Cadastro&c__lineNumber="+ this.lineNumber +"");
+        window.location.replace(`${this.baseUrl}?c__target=c:valCreateAssociateRegistrationPortugueseBrazil&c__layout=lightning&c__tabIcon=custom:custom18&c__tabLabel=Associação de Cadastro&c__lineNumber=${this.lineNumber}`);
     }
 }
