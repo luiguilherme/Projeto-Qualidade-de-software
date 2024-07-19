@@ -1,6 +1,6 @@
 import { LightningElement, api, track, } from 'lwc';
-import { OmniscriptBaseMixin } from '%vlocity_namespace%/omniscriptBaseMixin';
-import pubsub from "%vlocity_namespace%/pubsub";
+import { OmniscriptBaseMixin } from 'vlocity_cmt/omniscriptBaseMixin';
+import pubsub from "vlocity_cmt/pubsub";
 
 export default class OmniCancelModal extends OmniscriptBaseMixin(LightningElement) {
 
