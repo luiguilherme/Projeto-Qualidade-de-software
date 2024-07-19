@@ -1,0 +1,64 @@
+{
+    "%vlocity_namespace%__Active__c": false,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valBulkReplace_Elegibilidade",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/BulkReplaceElegibilidade/Portuguese (Brazil)",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "HTMLTemplateId": "",
+        "controlWidth": 12,
+        "elementValueMap": {
+            "HasNoPlan": "=IF(%ResponsePlan:ParentOLI|1% != NULL, %ResponsePlan:ParentOLI|1%,true)"
+        },
+        "label": "HasNoPlan",
+        "message": {
+        },
+        "pubsub": false,
+        "show": {
+            "group": {
+                "operator": "AND",
+                "rules": [
+                    {
+                        "condition": "<>",
+                        "data": null,
+                        "field": "groupCartId"
+                    },
+                    {
+                        "condition": "<>",
+                        "data": null,
+                        "field": "selectedProduct"
+                    },
+                    {
+                        "condition": "<>",
+                        "data": "true",
+                        "field": "targetOffersDisqualified"
+                    },
+                    {
+                        "condition": "<>",
+                        "data": null,
+                        "field": "targetOfferId"
+                    },
+                    {
+                        "condition": "=",
+                        "data": "ChangePlanPromotion",
+                        "field": "StepSelectProcess:ProcessReason"
+                    }
+                ]
+            }
+        },
+        "showPersistentComponent": [
+            true,
+            false
+        ],
+        "ssm": false,
+        "wpm": false
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": true,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "HasNoPlan",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/BulkReplaceElegibilidade/Portuguese (Brazil)/HasNoPlan"
+}
