@@ -16,7 +16,7 @@
             "HaveCasePortability": "=%DRGetLineDetails:HaveCasePortability%",
             "ICCID": "=IF(%DRGetLineDetails:ICCID%,TOSTRING(%DRGetLineDetails:ICCID%),NULL)",
             "IMEI": "=TOSTRING(%RemoteTransformResourceResponse:result:IMEI%)",
-            "MSISDN": "%RemoteTransformResourceResponse:result:MSISDN%",
+            "MSISDN": "=IF(ISNOTBLANK(%RemoteTransformResourceResponse:result:MSISDN%),%RemoteTransformResourceResponse:result:MSISDN%,%DRGetLineDetails:ServiceIdentifier%",
             "Model": "%RemoteTransformResourceResponse:result:MODEL%",
             "Plan": "=%DRGetLineDetails:Plan%",
             "Platform": "=IF(%LAMergeTranslatedPlatform:AssetPlatform__cValue%, %LAMergeTranslatedPlatform:AssetPlatform__cValue%, %DRGetLineDetails:Platform%)",

@@ -11,9 +11,9 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "BypassFraude": "=IF(SUBSTRING(%HTTPMock:result:description%,6,28)==\"FALHA NO PROCESSAMENTO\" || %HTTPMock:result:description%==\"TIMEOUT LEGADO\",true,false)",
+            "BypassFraude": "=IF(SUBSTRING(%HTTPMockinfo:result:description%,6,28)==\"FALHA NO PROCESSAMENTO\" || %HTTPMock:result:description%==\"TIMEOUT LEGADO\",true,false)",
             "error": "=%HTTPMock:description%== \"REPROVADO\"",
-            "success": "=IF(SUBSTRING(%HTTMock:result:description%,6,28)==\"FALHA NO PROCESSAMENTO\" ||%HTTMock:result:description%==\"TIMEOUT LEGADO\" ||%HTTMock:description%==\"APROVADO\",true,false)"
+            "success": "=IF(SUBSTRING(%HTTMock:result:description%,6,28)==\"FALHA NO PROCESSAMENTO\" ||%HTTMock:result:description%==\"TIMEOUT LEGADO\"||%HTTMock:description%==\"APROVADO\",true,false)"
         },
         "executionConditionalFormula": "",
         "failOnStepError": true,
