@@ -24,10 +24,10 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
               @track _sessionApiVars = {};
 
               _regexPattern = /\{([a-zA-Z.0-9_]+)\}/g; //for {} fields by default
-              @track Label={OneTimeTotal:"One Time Total",
-      EffectiveOneTimeLoyaltyTotal:"Loyalty Total",
+              @track Label={EffectiveUsagePriceTotal:"Usage Price Total",
+      OneTimeTotal:"One Time Total",
       EffectiveCPQRecurringTotal:"Recurring Total",
-      EffectiveUsagePriceTotal:"Usage Price Total"
+      EffectiveOneTimeLoyaltyTotal:"Loyalty Total"
       };
               pubsubEvent = [];
               customEvent = [];
