@@ -8,23 +8,21 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "HTMLTemplateId": "",
-        "businessCategory": "",
-        "businessEvent": "",
         "controlWidth": 12,
-        "iconName": "standard-order",
-        "iconPosition": "left",
-        "iconVariant": "",
-        "label": "NavigateOrderDetails",
-        "loginAction": "login",
-        "message": {
+        "elementValueMap": {
+            "MessageFraude": "Solicitação de Troca realizada com sucesso"
         },
-        "objectAction": "home",
-        "pubsub": false,
-        "recordAction": "view",
-        "replace": true,
+        "label": "SVToastFraudApproved",
+        "message": {
+            "channelName": "valReviewOrder_ChangeSimJourney",
+            "eventName": "validationToast",
+            "message": "%MessageFraude%",
+            "variant": "success"
+        },
+        "pubsub": true,
         "show": {
             "group": {
-                "operator": "AND",
+                "operator": "OR",
                 "rules": [
                     {
                         "group": {
@@ -33,12 +31,12 @@
                                 {
                                     "condition": "=",
                                     "data": "true",
-                                    "field": "hasOptinValue"
+                                    "field": "MessageAprovadoBypass"
                                 },
                                 {
-                                    "condition": "=",
-                                    "data": "SalesJourney",
-                                    "field": "Functionality"
+                                    "condition": "<>",
+                                    "data": "eSim",
+                                    "field": "tipoChip"
                                 }
                             ]
                         }
@@ -48,14 +46,19 @@
                             "operator": "AND",
                             "rules": [
                                 {
-                                    "condition": "=",
-                                    "data": "ChangeOwnership",
-                                    "field": "Functionality"
+                                    "condition": "<>",
+                                    "data": "true",
+                                    "field": "ResponseICCIDReprovado"
                                 },
                                 {
                                     "condition": "=",
-                                    "data": "false",
-                                    "field": "result"
+                                    "data": "eSim",
+                                    "field": "tipoChip"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "true",
+                                    "field": "MessageAprovadoBypass"
                                 }
                             ]
                         }
@@ -63,21 +66,17 @@
                 ]
             }
         },
+        "showPersistentComponent": [
+            true,
+            false
+        ],
         "ssm": false,
-        "targetFilter": "Recent",
-        "targetId": "%ContextId%",
-        "targetLWC": "c:valOrderDetailsPageEnglish",
-        "targetLWCLayout": "lightning",
-        "targetLWCParams": "&c__tabLabel=%OrderNumber%&c__tabIcon=standard-order&c__customerId=%Parent.customerId%&c__accountId=%AccountId%&c__interactionId=%ContextId%&c__platform=%Platform%&c__ContextId=%OrderId%&c__interactionNumber=%interactionNumber%",
-        "targetType": "Vlocity OmniScript",
-        "validationRequired": "Submit",
-        "variant": "brand",
         "wpm": false
     },
     "%vlocity_namespace%__ReusableOmniScript__c": true,
-    "%vlocity_namespace%__Type__c": "Navigate Action",
-    "Name": "NavigateOrderDetails",
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVToastFraudApproved",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ReviewOrder/English/NavigateOrderDetails"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ReviewOrder/English/SVToastFraudApproved"
 }
