@@ -11,7 +11,7 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "BypassFraude": "=IF(%HTTPAPIantiFraude:code% != 0 || %HTTPAPIantiFraude:code% != 1, true, false)",
+            "BypassFraude": "=IF(%HTTPAPIantiFraude:code% != 0 && %HTTPAPIantiFraude:code% != 1, true, false)",
             "error": "=%HTTPAPIantiFraude:code%== 0",
             "success": "=IF(%HTTPAPIantiFraudeInfo:statusCode% == 200 && %HTTPAPIantiFraude:code% == 0, false, true)"
         },
