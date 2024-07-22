@@ -91,7 +91,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             when 'base64Decode'
             {output.put('result', base64Decode(arguments));}            
             when 'convertObjectToList'
-            {output.put('result', convertObjectToList(arguments));}                        
+            {output.put('result', convertObjectToList(arguments));} 
         }
         return true;
     }
@@ -888,15 +888,8 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         Integer  qtyDays		 	= Integer.valueOf(arguments[1]);
         String  func     		 	= String.valueOf(arguments[2]);
         Date    endDate;
-        
-        //if(func=='EndDate'){
-        //            qtyDays--;
-        //      }
-        
+               
         endDate = startDate.addDays(qtyDays);
-        //System.debug('startDate.: '+startDate);        
-        //System.debug('endDate  .: '+endDate);
-        //System.debug('func     .: '+func);        
         
         Map<Integer, Set<Date>> holidaysMap = new Map<Integer, Set<Date>>();
         
@@ -915,7 +908,6 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             holidaysSet.AddAll(holidaysMap.get(endDate.month()+1));
         }
         
-        System.debug('-----------------------------------------------');
         for (Date dt = startDate; dt <= endDate; dt = dt.addDays(1)) {
             DateTime currDate = DateTime.newInstance(dt.year(), dt.month(), dt.day());
             String weekDay = currDate.format('EEEE');
@@ -926,12 +918,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
                 endDate = endDate.AddDays(1);
             } else if (func == 'SegDom' && (holidaysSet.contains(dt))) {
                 endDate = endDate.AddDays(1);
-            }
-            
-            //system.debug('weekDay.: '+ weekDay);    
-            //system.debug('dt.: '+ dt);
-            //system.debug('holidaySet .: '+holidaysSet.contains(dt) );
-            //system.debug('endDate .: '+ endDate);
+            }            
         }
         return DateTime.newInstance(endDate.year(), endDate.month(), endDate.day(),0,0,0);
     }
@@ -1056,4 +1043,76 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             return new LIST<Map<String, Object>>();
         }    
     }
+
+    public static Boolean validaEid(List<Object> arguments) {
+        if(arguments == null) {
+            return false;
+        }
+        String numStr = String.valueOf(arguments[0]);
+        if (numStr == null || numStr.length() != 32) {
+            return false;
+        }
+        // Converter a string para Decimal para lidar com grandes números
+        Decimal numberValidate = Decimal.valueOf(numStr);
+        Decimal subtractedValue = numberValidate - 1;
+        Decimal result = subtractedValue / 97;
+        return result == result.setScale(0, RoundingMode.DOWN);
+    }
+    /*
+    * Autor....: Joao Quessada
+    * Projeto..: Valentina
+    * Descrição: Validacao de EID
+    * Data.....: 04/06/2024
+    */  
+    
+    public static Boolean validaImei(List<Object> arguments) {
+        if(arguments == null) {
+            return false;
+        }
+        
+        String imei = String.valueOf(arguments[0]);
+        if (imei == null || imei.length() != 15) {
+            return false;
+        }
+        Integer lastDigit = Integer.valueOf(imei.substring(imei.length() - 1));
+        Integer result = calculate(imei);
+        Integer roundedValue = roundUpToNextTen(result);
+        Integer finalResult = roundedValue - result;
+
+        return finalResult == lastDigit;
+    }
+
+    public static Integer calculate(String inputValue) {
+        Integer sum = 0;
+        
+        inputValue = inputValue.substring(0, inputValue.length() - 1);
+        
+        for (Integer i = 0; i < inputValue.length(); i++) {
+            Integer digit = Integer.valueOf(inputValue.substring(i, i + 1));
+            
+            if (Math.mod(i, 2) != 0) {
+                digit *= 2;
+                
+                if (digit >= 10) {
+                    sum += Integer.valueOf(Math.floor(digit / 10).intValue());
+                    sum += digit - (Integer.valueOf(Math.floor(digit / 10).intValue()) * 10);
+                } else {
+                    sum += digit;
+                }
+            } else {
+                sum += digit;
+            }
+        }
+        
+        return sum;
+    }
+    public static Integer roundUpToNextTen(Integer num) {
+        return (Integer)Math.ceil(num / 10.0) * 10;
+    }
+     /*
+    * Autor....: Joao Quessada
+    * Projeto..: Valentina
+    * Descrição: Validacao de IMEI
+    * Data.....: 04/06/2024
+    */  
 }

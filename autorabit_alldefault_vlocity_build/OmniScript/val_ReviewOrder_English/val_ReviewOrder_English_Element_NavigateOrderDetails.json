@@ -27,14 +27,38 @@
                 "operator": "AND",
                 "rules": [
                     {
-                        "condition": "=",
-                        "data": "true",
-                        "field": "hasOptinValue"
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "true",
+                                    "field": "hasOptinValue"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "SalesJourney",
+                                    "field": "Functionality"
+                                }
+                            ]
+                        }
                     },
                     {
-                        "condition": "=",
-                        "data": "SalesJourney",
-                        "field": "Functionality"
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "ChangeOwnership",
+                                    "field": "Functionality"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "false",
+                                    "field": "result"
+                                }
+                            ]
+                        }
                     }
                 ]
             }
