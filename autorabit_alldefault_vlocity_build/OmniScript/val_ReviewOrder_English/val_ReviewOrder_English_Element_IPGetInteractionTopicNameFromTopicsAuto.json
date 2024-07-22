@@ -20,7 +20,8 @@
         },
         "extraPayload": {
             "TopicName": "%TopicNameByRequest%",
-            "topicName2": "%TopicNameByRequest2%"
+            "topicName2": "%TopicNameByRequest2%",
+            "topicName3": "%TopicNameByRequest3%"
         },
         "failureAbortLabel": "Abort",
         "failureAbortMessage": "Are you sure?",
@@ -48,94 +49,111 @@
             "useFuture": false
         },
         "remoteTimeout": 30000,
-        "responseJSONNode": "TopicNameCompleteAndUserData",
+        "responseJSONNode": "responseTopicsAuto",
         "responseJSONPath": "",
         "sendJSONNode": "",
         "sendJSONPath": "",
         "sendOnlyExtraPayload": true,
         "show": {
             "group": {
-                "operator": "OR",
+                "operator": "AND",
                 "rules": [
                     {
-                        "group": {
-                            "operator": "AND",
-                            "rules": [
-                                {
-                                    "condition": "=",
-                                    "data": "true",
-                                    "field": "hasOptinValue"
-                                },
-                                {
-                                    "condition": "=",
-                                    "data": "SalesJourney",
-                                    "field": "Functionality"
-                                },
-                                {
-                                    "group": {
-                                        "operator": "OR",
-                                        "rules": [
-                                            {
-                                                "condition": "<>",
-                                                "data": "true",
-                                                "field": "HasPortability"
-                                            },
-                                            {
-                                                "group": {
-                                                    "operator": "AND",
-                                                    "rules": [
-                                                        {
-                                                            "condition": "=",
-                                                            "data": "true",
-                                                            "field": "HasPortability"
-                                                        },
-                                                        {
-                                                            "condition": "=",
-                                                            "data": "true",
-                                                            "field": "UserPermission:GerarPalitoAutomaticoPortabilidade"
-                                                        }
-                                                    ]
-                                                }
-                                            }
-                                        ]
-                                    }
-                                }
-                            ]
-                        }
+                        "condition": "<>",
+                        "data": "false",
+                        "field": "InteractionPermission:CreateInteraction"
                     },
                     {
                         "group": {
                             "operator": "OR",
                             "rules": [
                                 {
-                                    "condition": "=",
-                                    "data": "RechargeJourney",
-                                    "field": "Functionality"
+                                    "group": {
+                                        "operator": "AND",
+                                        "rules": [
+                                            {
+                                                "condition": "=",
+                                                "data": "true",
+                                                "field": "hasOptinValue"
+                                            },
+                                            {
+                                                "condition": "=",
+                                                "data": "SalesJourney",
+                                                "field": "Functionality"
+                                            },
+                                            {
+                                                "group": {
+                                                    "operator": "OR",
+                                                    "rules": [
+                                                        {
+                                                            "condition": "<>",
+                                                            "data": "true",
+                                                            "field": "HasPortability"
+                                                        },
+                                                        {
+                                                            "group": {
+                                                                "operator": "AND",
+                                                                "rules": [
+                                                                    {
+                                                                        "condition": "=",
+                                                                        "data": "true",
+                                                                        "field": "HasPortability"
+                                                                    },
+                                                                    {
+                                                                        "condition": "=",
+                                                                        "data": "true",
+                                                                        "field": "UserPermission:GerarPalitoAutomaticoPortabilidade"
+                                                                    }
+                                                                ]
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
                                 },
                                 {
-                                    "condition": "=",
-                                    "data": "AdditionalPackage",
-                                    "field": "Functionality"
-                                },
-                                {
-                                    "condition": "=",
-                                    "data": "Promotion",
-                                    "field": "Functionality"
-                                },
-                                {
-                                    "condition": "=",
-                                    "data": "ServiceManagement",
-                                    "field": "Functionality"
-                                },
-                                {
-                                    "condition": "=",
-                                    "data": "Reactivation",
-                                    "field": "Functionality"
-                                },
-                                {
-                                    "condition": "=",
-                                    "data": "ChangeSimCard",
-                                    "field": "Functionality"
+                                    "group": {
+                                        "operator": "OR",
+                                        "rules": [
+                                            {
+                                                "condition": "=",
+                                                "data": "RechargeJourney",
+                                                "field": "Functionality"
+                                            },
+                                            {
+                                                "condition": "=",
+                                                "data": "AdditionalPackage",
+                                                "field": "Functionality"
+                                            },
+                                            {
+                                                "condition": "=",
+                                                "data": "Promotion",
+                                                "field": "Functionality"
+                                            },
+                                            {
+                                                "condition": "=",
+                                                "data": "ServiceManagement",
+                                                "field": "Functionality"
+                                            },
+                                            {
+                                                "condition": "=",
+                                                "data": "Reactivation",
+                                                "field": "Functionality"
+                                            },
+                                            {
+                                                "condition": "=",
+                                                "data": "ChangeSimCard",
+                                                "field": "Functionality"
+                                            },
+                                            {
+                                                "condition": "=",
+                                                "data": "ChangeOwnership",
+                                                "field": "Functionality"
+                                            }
+                                        ]
+                                    }
                                 }
                             ]
                         }
