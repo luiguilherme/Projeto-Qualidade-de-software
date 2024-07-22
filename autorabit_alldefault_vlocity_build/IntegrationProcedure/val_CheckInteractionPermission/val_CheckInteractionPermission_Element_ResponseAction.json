@@ -1,15 +1,14 @@
 {
     "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "valCreateCustomerInteraction",
+        "Name": "valCheckInteractionPermission",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CreateCustomerInteraction/Procedure",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CheckInteractionPermission/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "InteractionId": "%DRTransformNewInteraction:NewInteraction:Id%",
-            "InteractionName": "%DRTransformNewInteraction:NewInteraction:Name%"
+            "CreateInteraction": "=IF(ISNOTBLANK(%DRGetServiceTree:CreateInteraction%), %DRGetServiceTree:CreateInteraction%, false)"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",
@@ -33,5 +32,5 @@
     "Name": "ResponseAction",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CreateCustomerInteraction/Procedure/ResponseAction"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CheckInteractionPermission/Procedure/ResponseAction"
 }

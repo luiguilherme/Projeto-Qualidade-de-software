@@ -9,21 +9,19 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "AccountId": "=IF(request:searchObjectName == \"%vlocity_namespace%__CustomerInteraction__c\", resultValueMap:%vlocity_namespace%__AccountId__c, IF(request:searchObjectName == \"Asset\",resultValueMap:AccountId, IF(request:searchObjectName == \"Contact\", resultValueMap:AccountId, IF(customerInteractionValues:request:searchObjectName == \"Account\",customerInteractionValues:resultValueMap:AccountId,recordId))))",
-            "launcherPhone": "=IF(%resultValueMap:%vlocity_namespace%__ServiceIdentifier__c% != \"\", %resultValueMap:%vlocity_namespace%__ServiceIdentifier__c%, \"\")"
         },
         "additionalOutput": {
         },
         "chainOnStep": false,
         "disOnTplt": false,
         "disableChainable": false,
-        "executionConditionalFormula": "%IPCheckInteractionPermission:CreateInteraction% != false",
-        "failOnStepError": false,
+        "executionConditionalFormula": "",
+        "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {
         },
-        "integrationProcedureKey": "val_CreateInteractionNumber",
-        "label": "IntegrationProcedureAction1",
+        "integrationProcedureKey": "val_CheckInteractionPermission",
+        "label": "IntegrationProcedureAction3",
         "remoteOptions": {
         },
         "responseJSONNode": "",
@@ -32,14 +30,14 @@
         "returnOnlyFailureResponse": false,
         "sendJSONNode": "",
         "sendJSONPath": "",
-        "sendOnlyAdditionalInput": true,
+        "sendOnlyAdditionalInput": false,
         "show": null,
         "useFormulas": true
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
     "%vlocity_namespace%__Type__c": "Integration Procedure Action",
-    "Name": "IPCreateInteractionNumber",
+    "Name": "IPCheckInteractionPermission",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CreateCustomerInteraction/Procedure/IPCreateInteractionNumber"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CreateCustomerInteraction/Procedure/IPCheckInteractionPermission"
 }

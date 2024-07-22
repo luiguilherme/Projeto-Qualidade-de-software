@@ -13,7 +13,7 @@
         "elementValueMap": {
             "AssetType": "=IF(%DRGetAssetDetails:Product:Type%==NULL,%ProductType%,IF(%DRGetAssetDetails:Product:Type%=='Fixa','Fixed',IF(%DRGetAssetDetails:Product:Type%=='Pre','Pre','Mobile')))",
             "CaseOpening": "=%DRGetServiceTree:CaseOpening%",
-            "ChannelName": "=IF(TOUPPERCASE(%DRGetUserData:ChannelName%)='LOJAS PROPRIAS','LOJAS PRÓPRIAS'TOUPPERCASE(%DRGetUserData:ChannelName%))",
+            "ChannelName": "=IF(TOUPPERCASE(%DRGetServiceTree:ChannelName%)='LOJAS PROPRIAS','LOJAS PRÓPRIAS',TOUPPERCASE(%DRGetServiceTree:ChannelName%))",
             "CustomerSegment": "=IF(ISNOTBLANK(%DRGetCustomerInteractionDetails:CustomerSegment%),TOUPPERCASE(%DRGetCustomerInteractionDetails:CustomerSegment%),%SVPlataformNotAnswared:Plataform%)",
             "CustomerType": "=IF(%DRGetCustomerInteractionDetails:CustomerType%='Customer','CLIENTE',TOUPPERCASE(%DRGetCustomerInteractionDetails:CustomerType%))",
             "Instance": "=TOUPPERCASE(%DRGetAssetDetails:Product:ProductType%)",

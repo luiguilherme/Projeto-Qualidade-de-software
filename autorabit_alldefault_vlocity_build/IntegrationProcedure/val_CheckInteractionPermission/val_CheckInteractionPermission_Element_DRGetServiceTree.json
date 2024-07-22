@@ -1,34 +1,31 @@
 {
     "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "valGetCustomerInteractionTopicTreeMenu",
+        "Name": "valCheckInteractionPermission",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/GetCustomerInteractionTopicTreeMenu/Procedure",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CheckInteractionPermission/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "ParentTopicId": "=%ParentTopicId%",
-            "ParmActive": "=%Active%",
-            "ProductType": "=%ProductType%",
-            "ServiceTree": "=%ServiceTree%"
+            "ProfileName": "=%SVRole:RoleName%"
         },
         "additionalOutput": {
         },
-        "bundle": "valGetCustomerInteractionTopicTreeMenu",
+        "bundle": "valGetFromToMapping",
         "chainOnStep": false,
         "dataRaptor Input Parameters": [
         ],
         "disOnTplt": false,
-        "executionConditionalFormula": "%SelectedFunction% == 'TopicsTree'  || %SelectedFunction% == 'TopicsAuto'",
+        "executionConditionalFormula": "ISNOTBLANK(%SVRole:RoleName%)",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {
         },
         "ignoreCache": false,
         "label": "DataRaptorExtractAction1",
-        "responseJSONNode": "dataResponseFull",
+        "responseJSONNode": "",
         "responseJSONPath": "",
         "returnOnlyAdditionalOutput": false,
         "returnOnlyFailureResponse": false,
@@ -40,8 +37,8 @@
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
     "%vlocity_namespace%__Type__c": "DataRaptor Extract Action",
-    "Name": "DRGetCustomerInteractionTopicTree",
+    "Name": "DRGetServiceTree",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetCustomerInteractionTopicTreeMenu/Procedure/DRGetCustomerInteractionTopicTree"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CheckInteractionPermission/Procedure/DRGetServiceTree"
 }
