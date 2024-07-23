@@ -1,0 +1,598 @@
+{
+    "dataSource": {
+        "contextVariables": [
+        ],
+        "orderBy": {
+            "isReverse": "",
+            "name": ""
+        },
+        "type": "Custom",
+        "value": {
+            "body": "{\n  \"currentPage\": \"1\",\n  \"invoices\": [\n    {\n      \"number\": 36390,\n      \"series\": 4,\n      \"date\": \"26062024100601\",\n      \"totalAmount\": 50,\n      \"paidAmount\": 50,\n      \"taxFreeAmount\": 0,\n      \"brazilianDateTime\": \"26062024100601\",\n      \"tributedInvoice\": null\n    }\n  ],\n  \"navigation\": \"\",\n  \"ErrorMessage\": \"\",\n  \"ListEmpty\": false,\n  \"ListError\": false,\n  \"Pagination\": {\n    \"TotalRecords\": 1,\n    \"TotalPages\": 1,\n    \"State\": 1,\n    \"CurrentPage\": 1\n  },\n  \"Topics\": {\n    \"ListView\": [\n      {\n        \"number\": 36390,\n        \"series\": 4,\n        \"date\": \"26062024100601\",\n        \"totalAmount\": 50,\n        \"paidAmount\": 50,\n        \"taxFreeAmount\": 0,\n        \"brazilianDateTime\": \"26062024100601\",\n        \"tributedInvoice\": null\n      }\n    ]\n  },\n  \"code\": 200,\n  \"messageError\": \"\",\n\"subscriptionId\":\"a538M000000Q0WY\"\n}",
+            "dsDelay": "",
+            "resultVar": ""
+        }
+    },
+    "enableLwc": true,
+    "events": [
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1704392123922-0eizbtrsa",
+                    "label": "IPChamaAPI",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "updatedatasource",
+                        "id": "flex-action-1717706302903",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_SearchInvoices\",\"vlocityAsync\":false,\"inputMap\":{\"AccountId\":\"{action.AccountId}\",\"AssetId\":\"{action.AssetId}\",\"NetworkNumber\":\"{action.NetworkNumber}\",\"topicname\":\"Consulta de Notas Fiscais\",\"InteractionId\":\"{action.InteractionId}\",\"EndDateTime\":\"{action.EndDateTime}\",\"StartDateTime\":\"{action.StartDateTime}\",\"RecordId\":\"{action.RecordId}\"},\"jsonMap\":\"{\\\"action.AccountId\\\":\\\"{action.AccountId}\\\",\\\"action.\\\":\\\"{action.}\\\",\\\"action.AssetId\\\":\\\"{action.AssetId}\\\",\\\"action.NetworkNumber\\\":\\\"{action.NetworkNumber}\\\",\\\"action.InteractionId\\\":\\\"{action.InteractionId}\\\",\\\"action.StartDateTime\\\":\\\"{action.StartDateTime}\\\",\\\"action.EndDateTime\\\":\\\"{action.EndDateTime}\\\",\\\"action.RecordId\\\":\\\"{action.RecordId}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"action.AccountId\",\"val\":\"\",\"id\":4},{\"name\":\"action.\",\"val\":\"\",\"id\":5},{\"name\":\"action.AssetId\",\"val\":\"\",\"id\":6},{\"name\":\"action.NetworkNumber\",\"val\":\"\",\"id\":7},{\"name\":\"action.InteractionId\",\"val\":\"\",\"id\":9},{\"name\":\"action.StartDateTime\",\"val\":\"\",\"id\":14},{\"name\":\"action.EndDateTime\",\"val\":\"\",\"id\":15},{\"name\":\"action.RecordId\",\"val\":\"\",\"id\":17}]}",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "DataAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "valSearchInvoicesTableView",
+            "displayLabel": "valSearchInvoicesTableView:DataSource",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "DataSource",
+            "eventtype": "pubsub",
+            "key": "event-0",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1703182322727-arujb672a",
+                    "label": "SetSpinner",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Spinner",
+                                "fieldValue": "true"
+                            }
+                        ],
+                        "id": "flex-action-1703182418453",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1703182437332-di4z4gytg",
+                    "label": "CallProcedureOnline",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "id": "flex-action-1703614444717",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_SearchInvoices\",\"vlocityAsync\":false,\"inputMap\":{\"currentPage\":\"{Pagination.CurrentPage}\",\"navigation\":\"next\",\"NetworkNumber\":\"{record.NetworkNumber}\"}},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"Pagination.CurrentPage\",\"val\":\"\",\"id\":6},{\"name\":\"record.NetworkNumber\",\"val\":\"\",\"id\":7}]}",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "DataAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "updatedatasource",
+            "displayLabel": "updatedatasource:nextpage",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "nextpage",
+            "eventtype": "pubsub",
+            "key": "event-1",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1703184937978-ldsus2swa",
+                    "label": "SetSpinner",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Spinner",
+                                "fieldValue": "true"
+                            }
+                        ],
+                        "id": "flex-action-1703184984231",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1703185006383-9u9mlix1b",
+                    "label": "CallProcedureOnline",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "id": "flex-action-1703618538095",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_SearchInvoices\",\"vlocityAsync\":false,\"inputMap\":{\"navigation\":\"previous\",\"RecordId\":\"{recordId}\",\"currentPage\":\"{Pagination.CurrentPage}\"},\"jsonMap\":\"{\\\"ProtocolNumberPagination\\\":\\\"{ProtocolNumberPagination}\\\",\\\"EndDatePagination\\\":\\\"{EndDatePagination}\\\",\\\"InitialDatePagination\\\":\\\"{InitialDatePagination}\\\",\\\"recordId\\\":\\\"{recordId}\\\",\\\"SetDays\\\":\\\"{SetDays}\\\",\\\"LineNumberPagination\\\":\\\"{LineNumberPagination}\\\",\\\"ControlPage.CurrentPage\\\":\\\"{ControlPage.CurrentPage}\\\",\\\"Pagination.CurrentPage\\\":\\\"{Pagination.CurrentPage}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"ProtocolNumberPagination\",\"val\":\"\",\"id\":8},{\"name\":\"EndDatePagination\",\"val\":\"\",\"id\":9},{\"name\":\"InitialDatePagination\",\"val\":\"\",\"id\":10},{\"name\":\"recordId\",\"val\":\"\",\"id\":11},{\"name\":\"SetDays\",\"val\":\"\",\"id\":12},{\"name\":\"LineNumberPagination\",\"val\":\"\",\"id\":13},{\"name\":\"ControlPage.CurrentPage\",\"val\":\"\",\"id\":14},{\"name\":\"Pagination.CurrentPage\",\"val\":\"\",\"id\":6}]}",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "DataAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "updatedatasource",
+            "displayLabel": "updatedatasource:previouspage",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "previouspage",
+            "eventtype": "pubsub",
+            "key": "event-2",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1703185935128-5nvp4xm84",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "reload",
+                        "id": "flex-action-1703185935248",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "updatedatasource",
+            "displayLabel": "updatedatasource:reloadcomponent",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "reloadcomponent",
+            "eventtype": "pubsub",
+            "key": "event-3",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1704829723319-koxpo7nxl",
+                    "label": "Action",
+                    "stateAction": {
+                        "cardName": "valSendInvoiceEmail",
+                        "cardNode": "{record}",
+                        "channelName": "close_modal",
+                        "displayName": "Action",
+                        "flyoutLwc": "valSendInvoiceEmail",
+                        "flyoutParams": {
+                            "AccountId": "{Parent.AccountId}",
+                            "AssetId": "{Parent.AssetId}",
+                            "EmailAddrNFSendEmail": "{action.EmailAddrNFSendEmail}",
+                            "InteractionId": "{Parent.InteractionId}",
+                            "NetworkNumber": "{Parent.NetworkNumber}",
+                            "NumeroDocumento": "{Parent.NumeroDocumento}",
+                            "emailUndefined": "{emailUndefined}",
+                            "emailValid": "{emailValid}",
+                            "number": "{action.number}",
+                            "series": "{action.series}"
+                        },
+                        "flyoutType": "childCard",
+                        "hasExtraParams": true,
+                        "id": "flex-action-1705499159881",
+                        "openFlyoutIn": "Modal",
+                        "openUrlIn": "Current Window",
+                        "type": "Flyout",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "valSearchInvoicesTableView",
+            "displayLabel": "valSearchInvoicesTableView:Flyout",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "Flyout",
+            "eventtype": "pubsub",
+            "key": "event-4",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1705497510985-zlcmni4l9",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "id": "flex-action-1705498242404",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_SendInvoiceByEmail\",\"vlocityAsync\":false,\"inputMap\":{\"EmailAddrNFSendEmail\":\"{action.EmailAddrNFSendEmail}\"},\"jsonMap\":\"{\\\"action.EmailAddrNFSendEmail\\\":\\\"{action.EmailAddrNFSendEmail}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"action.EmailAddrNFSendEmail\",\"val\":\"\",\"id\":1}]}",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "DataAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "valSendEmail",
+            "displayLabel": "valSendEmail:iPSendEmail",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "iPSendEmail",
+            "eventtype": "pubsub",
+            "key": "event-5",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        }
+    ],
+    "isFlex": true,
+    "lwc": {
+        "DeveloperName": "cfValSearchInvoicesTableView_5_Valentina",
+        "Id": "0Rb76000000521gCAA",
+        "ManageableState": "unmanaged",
+        "MasterLabel": "cfValSearchInvoicesTableView_5_Valentina",
+        "NamespacePrefix": "c"
+    },
+    "selectableMode": "Multi",
+    "states": [
+        {
+            "actions": [
+            ],
+            "childCards": [
+                "valSearchInvoicesHeader",
+                "valInvoicesData",
+                "valDataPagination",
+                "valMessageAlert",
+                "valMessageAlert"
+            ],
+            "components": {
+                "layer-0": {
+                    "children": [
+                        {
+                            "children": [
+                                {
+                                    "class": "slds-col ",
+                                    "element": "childCardPreview",
+                                    "elementLabel": "Block-2-FlexCard-0",
+                                    "key": "element_element_block_0_0_childCardPreview_0_0",
+                                    "name": "FlexCard",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "cardName": "valSearchInvoicesHeader",
+                                        "cardNode": "{record}",
+                                        "data-conditions": {
+                                            "group": [
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "isChildCardTrackingEnabled": false,
+                                        "recordId": "{recordId}",
+                                        "selectedState": "Active"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "sizeClass": "slds-size_12-of-12"
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "childCardPreview",
+                                    "elementLabel": "Block-2-FlexCard-1",
+                                    "key": "element_element_block_0_0_childCardPreview_1_0",
+                                    "name": "FlexCard",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "cardName": "valInvoicesData",
+                                        "cardNode": "{record.invoices}",
+                                        "isChildCardTrackingEnabled": false,
+                                        "parentAttribute": {
+                                            "AccountId": "{Parent.AccountId}",
+                                            "AssetId": "{Parent.AssetId}",
+                                            "InteractionId": "{Parent.InteractionId}",
+                                            "NetworkNumber": "{Parent.NetworkNumber}",
+                                            "NumeroDocumento": "{Parent.NumeroDocumento}",
+                                            "subscriptionId": "{subscriptionId}"
+                                        },
+                                        "recordId": "{recordId}",
+                                        "selectedState": "Active"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "sizeClass": "slds-size_12-of-12"
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "childCardPreview",
+                                    "elementLabel": "Block-2-FlexCard-3",
+                                    "key": "element_element_block_0_0_childCardPreview_2_0",
+                                    "name": "FlexCard",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "cardName": "valDataPagination",
+                                        "cardNode": "{record}",
+                                        "isChildCardTrackingEnabled": false,
+                                        "parentAttribute": {
+                                            "currentPage": "{Pagination.CurrentPage}",
+                                            "state": "{Pagination.State}",
+                                            "totalPages": "{Pagination.TotalPages}"
+                                        },
+                                        "recordId": "{recordId}",
+                                        "selectedState": "SinglePage"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "sizeClass": "slds-size_12-of-12"
+                                    },
+                                    "type": "element"
+                                }
+                            ],
+                            "class": "slds-col ",
+                            "element": "block",
+                            "elementLabel": "Block-1",
+                            "name": "Block",
+                            "property": {
+                                "card": "{card}",
+                                "collapsedByDefault": false,
+                                "collapsible": false,
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "code",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-31",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "200"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "label": "Block",
+                                "record": "{record}"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "class": "slds-p-around_x-small",
+                                "padding": [
+                                    {
+                                        "size": "x-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "block"
+                        },
+                        {
+                            "class": "slds-col ",
+                            "element": "childCardPreview",
+                            "elementLabel": "FlexCard-2",
+                            "name": "FlexCard",
+                            "property": {
+                                "cardName": "valMessageAlert",
+                                "cardNode": "{record}",
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "ListEmpty",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-8",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "true"
+                                        },
+                                        {
+                                            "field": "ListError",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-15",
+                                            "logicalOperator": "&&",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "false"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "isChildCardTrackingEnabled": false,
+                                "parentAttribute": {
+                                    "ErrorMessage": "{messageError}"
+                                },
+                                "recordId": "{recordId}",
+                                "selectedState": "WarningCustomAttribute"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "element"
+                        },
+                        {
+                            "class": "slds-col ",
+                            "element": "childCardPreview",
+                            "elementLabel": "FlexCard-3",
+                            "name": "FlexCard",
+                            "property": {
+                                "cardName": "valMessageAlert",
+                                "cardNode": "{record}",
+                                "data-conditions": {
+                                    "group": [
+                                        {
+                                            "field": "ListError",
+                                            "hasMergeField": false,
+                                            "id": "state-new-condition-25",
+                                            "operator": "==",
+                                            "type": "custom",
+                                            "value": "true"
+                                        }
+                                    ],
+                                    "id": "state-condition-object",
+                                    "isParent": true
+                                },
+                                "isChildCardTrackingEnabled": false,
+                                "parentAttribute": {
+                                    "ErrorMessage": "{ErrorMessage}"
+                                },
+                                "recordId": "{recordId}",
+                                "selectedState": "WarningCustomAttribute"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "sizeClass": "slds-size_12-of-12"
+                            },
+                            "type": "element"
+                        }
+                    ]
+                }
+            },
+            "conditions": {
+                "group": [
+                ],
+                "id": "state-condition-object",
+                "isParent": true
+            },
+            "definedActions": {
+                "actions": [
+                ]
+            },
+            "documents": [
+            ],
+            "fields": [
+            ],
+            "isSmartAction": false,
+            "name": "Active",
+            "omniscripts": [
+            ],
+            "smartAction": {
+            },
+            "styleObject": {
+                "class": "slds-card slds-p-around_x-small slds-m-bottom_x-small",
+                "container": {
+                    "class": "slds-card"
+                },
+                "margin": [
+                    {
+                        "size": "none",
+                        "type": "around"
+                    }
+                ],
+                "padding": [
+                    {
+                        "size": "x-small",
+                        "type": "around"
+                    }
+                ],
+                "size": {
+                    "default": "12",
+                    "isResponsive": false
+                },
+                "sizeClass": "slds-size_12-of-12"
+            }
+        }
+    ],
+    "theme": "slds",
+    "title": "valSearchInvoicesTableView",
+    "xmlJson": [
+    ],
+    "xmlObject": {
+        "apiVersion": 51,
+        "isExplicitImport": false,
+        "isExposed": true,
+        "masterLabel": "valSearchInvoicesTableView",
+        "runtimeNamespace": "%vlocity_namespace%",
+        "targets": {
+            "target": [
+                "lightning__AppPage",
+                "lightning__HomePage",
+                "lightning__RecordPage",
+                "lightningCommunity__Default",
+                "lightningCommunity__Page"
+            ]
+        }
+    }
+}

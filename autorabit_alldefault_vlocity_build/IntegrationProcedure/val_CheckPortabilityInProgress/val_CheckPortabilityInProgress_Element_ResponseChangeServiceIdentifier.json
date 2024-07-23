@@ -9,7 +9,7 @@
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
             "message": "=IF(ISNOTBLANK(%valGetPortabilityInProgressByAsset:HaveProvisionalNumber%), \"Este número é provisório. Verifique o histórico do pedido de portabilidade e informe ao cliente sobre o andamento.\",  IF(%valGetPortabilityInProgressByAsset:PortabilityInProgress% == false, true, \"Cliente com portabilidade em andamento com a Vivo. Verifique o histórico do pedido de portabilidade e informe ao cliente sobre o andamento.\"))",
-            "nextStep": "=IF(%valGetPortabilityInProgressByAsset:PortabilityInProgress% == true, false, true)"
+            "nextStep": "=IF(%valGetPortabilityInProgressByAsset:PortabilityInProgress% == true||ISNOTBLANK(%valGetPortabilityInProgressByAsset:HaveProvisionalNumber%),false,true)"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "%Functionality% = \"ChangeServiceIdentifier\"",
