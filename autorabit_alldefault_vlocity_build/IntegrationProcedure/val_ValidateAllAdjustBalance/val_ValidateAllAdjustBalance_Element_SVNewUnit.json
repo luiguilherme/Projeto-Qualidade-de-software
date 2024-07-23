@@ -11,7 +11,7 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "newUnit": "=IF(ISBLANK(%Unit%),IF(%SVMonetario:TipoMonetario|1:unit% = 'Monetário',\"R$\",IF(%SVMonetario:TipoMonetario|1:unit% = 'Eventos',\"SMS\",IF(%SVMonetario:TipoMonetario|1:unit% = 'Volume',\"GB\",IF(%SVMonetario:TipoMonetario|1:unit% = 'Minutos',\"Min\",'')))),%Unit%)"
+            "newUnit": "=IF(ISBLANK(%Unit%),IF(%SVMonetario:TipoMonetario|1:unit% = 'Monetário',\"R$\",IF(%SVMonetario:TipoMonetario|1:unit% = 'Eventos'|| %BalanceType% = 'PO_C_BONUS_SMS/MMS_ONNET_RESSARCIMENTO' || %BalanceType% = 'PO_C_BONUS_SMS/MMS_OFFNET_RESSARCIMENTO',\"SMS\",IF(%SVMonetario:TipoMonetario|1:unit% = 'Volume' || %BalanceType% = 'PO_C_BONUS_DADOS_RESSARCIMENTO',\"GB\",IF(%SVMonetario:TipoMonetario|1:unit% = 'Minutos' || %BalanceType% = 'PO_C_BONUS_VOZ_ONNET_RESSARCIMENTO' || %BalanceType% = 'PO_C_BONUS_VOZ_OFFNET_RESSARCIMENTO',\"Min\",'')))),%Unit%)"
         },
         "executionConditionalFormula": "",
         "failOnStepError": true,

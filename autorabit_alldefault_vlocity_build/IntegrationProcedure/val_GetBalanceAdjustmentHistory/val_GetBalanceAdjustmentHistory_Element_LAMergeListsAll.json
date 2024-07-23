@@ -51,8 +51,8 @@
         "updateFieldValue": {
             "dateTime": "=CONCAT(FORMATDATETIME(%eventDateTime%, \"dd/MM/yyyy\",\"América/Sao_Paulo\"),\" \",SUBSTRING(%eventDateTime%, 11, 19))",
             "operation": "=IF((%balanceOperation%==\"credit\"),\"Crédito\",\"Débito\")",
-            "validity": "=DATEDIFF(TODAY(),%usageEndDateTime%) + \" dias\"",
-            "value": "=CONCAT(IF(%unitOfMeasure%==\"BRL\",\"R$\",\"\"),IF(NOT(ISBLANK(%productCost%)),%productCost%,%adjustedAmount%),IF(%unitOfMeasure%==\"byte\",\"b\",IF(%unitOfMeasure%==\"second\",\" segundos\",IF(%unitOfMeasure%==\"event\",\" SMS\",\"\"))))"
+            "validity": "=DATEDIFF(%usageStartDateTime%,%usageEndDateTime%) + \" dias\"",
+            "value": "=CONCAT(IF(%unitOfMeasure%==\"BRL\",\"R$\",\"\"),IF(NOT(ISBLANK(%productCost%)),%productCost%,%adjustedAmount%),IF(%unitOfMeasure%==\"byte\",\" b\",IF(%unitOfMeasure%==\"second\",\" segundos\",IF(%unitOfMeasure%==\"event\",\" SMS\",\"\"))))"
         },
         "useFormulas": true
     },
