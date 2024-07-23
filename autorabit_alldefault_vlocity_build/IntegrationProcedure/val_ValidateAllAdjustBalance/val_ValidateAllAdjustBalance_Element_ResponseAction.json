@@ -27,7 +27,7 @@
             "externalId": "=%SVMonetario:TipoMonetario|1:externalId%",
             "maxValidity": "=%SVFilter:ValidityFilter:Validade%",
             "maxValue": "=IF(%TipoAjuste%=\"Credit\" && %SVNewUnit:newUnit% = \"KB\",%SVFilter:TipoUnidade:value%,IF(%TipoAjuste%=\"Credit\" && %SVNewUnit:newUnit% = \"MB\",%SVFilter:TipoUnidade:value% / 1024, IF(%TipoAjuste%=\"Credit\" && %SVNewUnit:newUnit% = \"GB\",%SVFilter:TipoUnidade:value% / (1024 * 1024),IF(%TipoAjuste%=\"Debt\",%SVMonetario:TipoMonetario|1:balanceValue%,%SVFilter:TipoUnidade:value%))))",
-            "unitOptions": "=IF(%SVMonetario:TipoMonetario|1:unit% = 'Monetário',LIST(%SVUnit:UnitMonetary%),IF(%SVMonetario:TipoMonetario|1:unit% = 'Eventos',LIST(%SVUnit:UnitEvent%),IF(%SVMonetario:TipoMonetario|1:unit% = 'Volume',LIST(%SVUnit:UnitData%),IF(%SVMonetario:TipoMonetario|1:unit% = 'Minutos',LIST(%SVUnit:UnitTime%),''))))"
+            "unitOptions": "=IF(%SVMonetario:TipoMonetario|1:unit% = 'Monetário',LIST(%SVUnit:UnitMonetary%),IF(%SVMonetario:TipoMonetario|1:unit% = 'Eventos' || %BalanceType% = 'PO_C_BONUS_SMS/MMS_ONNET_RESSARCIMENTO' || %BalanceType% = 'PO_C_BONUS_SMS/MMS_OFFNET_RESSARCIMENTO',LIST(%SVUnit:UnitEvent%),IF(%SVMonetario:TipoMonetario|1:unit% = 'Volume' || %BalanceType% = 'PO_C_BONUS_DADOS_RESSARCIMENTO',LIST(%SVUnit:UnitData%),IF(%SVMonetario:TipoMonetario|1:unit% = 'Minutos' || %BalanceType% = 'PO_C_BONUS_VOZ_ONNET_RESSARCIMENTO' || %BalanceType% = 'PO_C_BONUS_VOZ_OFFNET_RESSARCIMENTO',LIST(%SVUnit:UnitTime%),''))))"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",
