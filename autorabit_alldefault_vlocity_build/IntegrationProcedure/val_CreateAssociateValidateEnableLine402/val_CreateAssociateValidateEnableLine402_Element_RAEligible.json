@@ -15,9 +15,6 @@
             "Eligible": "=IF(%ProcessInstance%=='Aprovado', 1,IF(%IPValidateCPFBureau:Eligible% == 1 && %IPValidateCPFBureau:EligibleName% == 1 && %IPValidateCPFBureau:EligibleBureau% == 1 && %SVCompareBirthDateShowFields:BirthDateCompare% == false, 0, 1))",
             "FirstName": "%SVReturnNameBureau:firstName%",
             "LastName": "%SVReturnNameBureau:lastName%",
-            "StepRegister:DocumentBlock:DocumentNumberCPFRO": "=TOSTRING(%SVDocumentNumber:ResponseDocumentNumberCPF%)",
-            "StepRegister:DocumentBlock:DocumentNumberExtRO": "=TOSTRING(%SVDocumentNumber:ResponseDocumentNumberExt%)",
-            "StepRegister:DocumentBlock:DocumentNumberPassaportRO": "=TOSTRING(%SVDocumentNumber:ResponseDocumentNumberPassaport%)",
             "StepRegister:ShowValidate": "=IF(%ProcessInstance%=='Aprovado',false,IF(ISBLANK(%ProcessInstance%) && %IPValidateCPFBureau:BureauStatus%==\"12\",true, IF(%IPValidateCPFBureau:Eligible% == 1 && %IPValidateCPFBureau:EligibleName% == 1 && %IPValidateCPFBureau:EligibleBureau% == 1 && %SVCompareBirthDateShowFields:BirthDateCompare% == true && %IPValidateLine:limitQtyMonth%==0 && %IPValidateLine:totalLimit%==0, false, true)))",
             "ValidateLine": "%IPValidateLine%"
         },

@@ -33,6 +33,7 @@
         "hide": false,
         "inputWidth": 12,
         "label": "Número do Documento",
+        "lwcComponentOverride": "",
         "mask": "999.999.999-99",
         "maxLength": 255,
         "minLength": 0,
@@ -46,7 +47,7 @@
         "required": true,
         "show": {
             "group": {
-                "operator": "AND",
+                "operator": "OR",
                 "rules": [
                     {
                         "condition": "=",
@@ -54,14 +55,16 @@
                         "field": "ShowDataFields"
                     },
                     {
-                        "condition": "=",
-                        "data": "CPF",
-                        "field": "DocumentType"
-                    },
-                    {
-                        "condition": "=",
-                        "data": "false",
-                        "field": "ShowValidate"
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "true",
+                                    "field": "ShowValidate"
+                                }
+                            ]
+                        }
                     }
                 ]
             }
