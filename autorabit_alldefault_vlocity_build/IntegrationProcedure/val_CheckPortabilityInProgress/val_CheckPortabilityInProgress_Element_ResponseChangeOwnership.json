@@ -8,14 +8,11 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "message": "=IF(ISNOTBLANK(%valGetPortabilityInProgressByAsset:HaveProvisionalNumber%), \"Este número é provisório. Verifique o histórico do pedido de portabilidade e informe ao cliente sobre o andamento.\",  IF(%valGetPortabilityInProgressByAsset:PortabilityInProgress% == false, true, \"Cliente com portabilidade em andamento com a Vivo. Verifique o histórico do pedido de portabilidade e informe ao cliente sobre o andamento.\"))",
-            "nextStep": "=IF(%valGetPortabilityInProgressByAsset:PortabilityInProgress% == true||ISNOTBLANK(%valGetPortabilityInProgressByAsset:HaveProvisionalNumber%),false,true)",
-            "variables": {
-                "HaveProvisionalNumber": "%svProvisionalNumber:HaveProvisionalNumber%"
-            }
+            "message": "A linha está com um processo de portabilidade em andamento não permitindo realizar a Troca de Titularidade.",
+            "nextStep": "=IF(%valGetPortabilityInProgressByAsset:PortabilityInProgress% == true && %valGetPortabilityInProgressByAsset:SubscriptionStatus% != \"Suspenso a Roubo\" , false, true)"
         },
         "disOnTplt": false,
-        "executionConditionalFormula": "%Functionality% = \"CancelLine\"",
+        "executionConditionalFormula": "%Functionality% = \"ChangeOwnership\"",
         "label": "ResponseAction4",
         "responseDefaultData": {
         },
@@ -33,8 +30,8 @@
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
     "%vlocity_namespace%__Type__c": "Response Action",
-    "Name": "ResponseCancelLine",
+    "Name": "ResponseChangeOwnership",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CheckPortabilityInProgress/Procedure/ResponseCancelLine"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CheckPortabilityInProgress/Procedure/ResponseChangeOwnership"
 }
