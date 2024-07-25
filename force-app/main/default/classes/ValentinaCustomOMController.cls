@@ -85,10 +85,9 @@ global with sharing class ValentinaCustomOMController implements vlocity_cmt.Vlo
                 }
             }
         }
-
         outputMap.put('status', status);
     }   
-
+    
     public void getStatusBeforeChangeOwnership(Map<String,Object> inputMap, Map<String,Object> outputMap, Map<String,Object> options) {
         String status, ownwershipStatus;
         boolean apto = false;
