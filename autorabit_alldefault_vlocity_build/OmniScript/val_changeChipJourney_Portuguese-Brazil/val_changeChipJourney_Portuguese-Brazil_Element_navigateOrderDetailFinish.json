@@ -24,17 +24,36 @@
         "replace": true,
         "show": {
             "group": {
-                "operator": "AND",
+                "operator": "OR",
                 "rules": [
                     {
-                        "condition": "<>",
-                        "data": "false",
-                        "field": "formulaAvanca"
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "<>",
+                                    "data": "false",
+                                    "field": "formulaAvanca"
+                                },
+                                {
+                                    "condition": "<>",
+                                    "data": "true",
+                                    "field": "blockChipJourney"
+                                }
+                            ]
+                        }
                     },
                     {
-                        "condition": "<>",
-                        "data": "true",
-                        "field": "blockChipJourney"
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "eSim",
+                                    "field": "DecisaoChip"
+                                }
+                            ]
+                        }
                     }
                 ]
             }
