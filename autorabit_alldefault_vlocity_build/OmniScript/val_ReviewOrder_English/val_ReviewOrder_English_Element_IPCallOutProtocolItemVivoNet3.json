@@ -21,6 +21,7 @@
         "extraPayload": {
             "interactionId": "%responseProtocolItem:interactionId%",
             "interactionTopicId": "%responseProtocolItem:interactionTopicId%",
+            "orderId": "%OrderId%",
             "topicName": "%responseTopicsAuto:topicName3%"
         },
         "failureAbortLabel": "Abort",
@@ -56,55 +57,67 @@
         "sendOnlyExtraPayload": true,
         "show": {
             "group": {
-                "operator": "OR",
+                "operator": "AND",
                 "rules": [
                     {
+                        "condition": "<>",
+                        "data": "false",
+                        "field": "InteractionPermission:CreateInteraction"
+                    },
+                    {
                         "group": {
-                            "operator": "AND",
+                            "operator": "OR",
                             "rules": [
                                 {
-                                    "condition": "=",
-                                    "data": "true",
-                                    "field": "hasOptinValue"
-                                },
-                                {
-                                    "condition": "=",
-                                    "data": "SalesJourney",
-                                    "field": "Functionality"
-                                },
-                                {
                                     "group": {
-                                        "operator": "OR",
+                                        "operator": "AND",
                                         "rules": [
                                             {
-                                                "condition": "<>",
+                                                "condition": "=",
                                                 "data": "true",
-                                                "field": "HasPortability"
+                                                "field": "hasOptinValue"
+                                            },
+                                            {
+                                                "condition": "=",
+                                                "data": "SalesJourney",
+                                                "field": "Functionality"
                                             },
                                             {
                                                 "group": {
-                                                    "operator": "AND",
+                                                    "operator": "OR",
                                                     "rules": [
                                                         {
-                                                            "condition": "=",
+                                                            "condition": "<>",
                                                             "data": "true",
                                                             "field": "HasPortability"
                                                         },
                                                         {
-                                                            "condition": "=",
-                                                            "data": "true",
-                                                            "field": "UserPermission:GerarPalitoAutomaticoPortabilidade"
+                                                            "group": {
+                                                                "operator": "AND",
+                                                                "rules": [
+                                                                    {
+                                                                        "condition": "=",
+                                                                        "data": "true",
+                                                                        "field": "HasPortability"
+                                                                    },
+                                                                    {
+                                                                        "condition": "=",
+                                                                        "data": "true",
+                                                                        "field": "UserPermission:GerarPalitoAutomaticoPortabilidade"
+                                                                    }
+                                                                ]
+                                                            }
                                                         }
                                                     ]
                                                 }
+                                            },
+                                            {
+                                                "condition": "=",
+                                                "data": "true",
+                                                "field": "changeEmailFormula"
                                             }
                                         ]
                                     }
-                                },
-                                {
-                                    "condition": "=",
-                                    "data": "true",
-                                    "field": "changeEmailFormula"
                                 }
                             ]
                         }
