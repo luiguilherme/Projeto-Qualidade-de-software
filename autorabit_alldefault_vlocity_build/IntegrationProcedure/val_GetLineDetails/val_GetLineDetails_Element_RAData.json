@@ -15,7 +15,7 @@
             "EID": "=%DRGetLineDetails:EID%",
             "HaveCasePortability": "=%DRGetLineDetails:HaveCasePortability%",
             "ICCID": "=IF(%DRGetLineDetails:ICCID%,TOSTRING(%DRGetLineDetails:ICCID%),NULL)",
-            "IMEI": "=TOSTRING(%RemoteTransformResourceResponse:result:IMEI%)",
+            "IMEI": "==IF(%RemoteTransformResourceResponse:result:IMEI% == \"---\",%DRGetLineDetails:IMEI%,%RemoteTransformResourceResponse:result:IMEI%,",
             "MSISDN": "=IF(ISNOTBLANK(%RemoteTransformResourceResponse:result:MSISDN%),%RemoteTransformResourceResponse:result:MSISDN%,%DRGetLineDetails:ServiceIdentifier%",
             "Model": "%RemoteTransformResourceResponse:result:MODEL%",
             "Plan": "=%DRGetLineDetails:Plan%",
