@@ -20,10 +20,12 @@
         },
         "extraPayload": {
             "OrderId": "%OrderId%",
+            "TypeChip": "%tipoChip%",
             "channel": "%channel%",
             "chipSelectMaterial": "%chipSelectMaterial%",
             "chipTypeHRS": "%StepConfigureLine:chipTypeHRS%",
             "chipTypeTechnology": "%StepConfigureLine:chipTypeTechnology%",
+            "currentMSISDN": "%currentMSISDN%",
             "donate": "%donateMethody%",
             "idPesquisa": "%StepConfigureLine:Phones:idPesquisa%",
             "newICCID": "%newICCID%",
@@ -63,17 +65,36 @@
         "sendOnlyExtraPayload": true,
         "show": {
             "group": {
-                "operator": "AND",
+                "operator": "OR",
                 "rules": [
                     {
-                        "condition": "<>",
-                        "data": "false",
-                        "field": "formulaAvanca"
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "<>",
+                                    "data": "false",
+                                    "field": "formulaAvanca"
+                                },
+                                {
+                                    "condition": "<>",
+                                    "data": "true",
+                                    "field": "blockChipJourney"
+                                }
+                            ]
+                        }
                     },
                     {
-                        "condition": "<>",
-                        "data": "true",
-                        "field": "blockChipJourney"
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "eSim",
+                                    "field": "DecisaoChip"
+                                }
+                            ]
+                        }
                     }
                 ]
             }

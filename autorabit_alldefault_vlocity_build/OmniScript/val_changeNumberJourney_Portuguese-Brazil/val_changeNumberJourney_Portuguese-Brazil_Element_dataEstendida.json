@@ -23,10 +23,10 @@
     "%vlocity_namespace%__PropertySet__c": {
         "HTMLTemplateId": "",
         "controlWidth": 1,
-        "dataType": null,
+        "dataType": "Boolean",
         "dateFormat": "MM-dd-yyyy",
         "disOnTplt": false,
-        "expression": "IF(CONTAINS(\"Sunday:Monday:Tuesday:Wednesday\", %dayOfTheWeekToday%) && DATEDIFF(NOW(), %escolhaData%) > 3 , true, IF(CONTAINS(\"Thursday\", %dayOfTheWeekToday%) && DATEDIFF(NOW(), %escolhaData%) > 5 , true, IF(CONTAINS(\"Friday\", %dayOfTheWeekToday%) && DATEDIFF(NOW(), %escolhaData%) > 5 , true,IF(CONTAINS(\"Saturday\", %dayOfTheWeekToday%) && DATEDIFF(NOW(), %escolhaData%) > 4 , true, false))))",
+        "expression": "%escolherData% == \"true\" && %selectPortabilidade:Block3:dataSelectType-Block:dateNextWindow% && (%selectPortabilidade:Block3:dataSelectType-Block:dateNextWindow% != %availableWindow|1:dateNextWindow%)",
         "hide": true,
         "hideGroupSep": false,
         "inputWidth": 12,

@@ -30,17 +30,24 @@
                 "id": 5,
                 "name": "Session.LineNumber",
                 "val": "11950959900"
+            },
+            {
+                "id": 0,
+                "name": "Session.InteractionPermission",
+                "val": "true"
             }
         ],
         "orderBy": {
             "isReverse": "",
             "name": ""
         },
-        "type": "Custom",
+        "type": "IntegrationProcedures",
         "value": {
-            "body": "[{ \"remarkup__c\":\"\"}]",
             "dsDelay": "",
-            "resultVar": ""
+            "ipMethod": "val_CheckInteractionPermission",
+            "jsonMap": "{\"Session.SourceCalled\":\"{Session.SourceCalled}\",\"Session.CustomerInteractionId\":\"{Session.CustomerInteractionId}\",\"Session.OrderId\":\"{Session.OrderId}\",\"Session.AccountId\":\"{Session.AccountId}\",\"Session.AssetId\":\"{Session.AssetId}\",\"Session.LineNumber\":\"{Session.LineNumber}\",\"Session.InteractionPermission\":\"{Session.InteractionPermission}\"}",
+            "resultVar": "",
+            "vlocityAsync": false
         }
     },
     "enableLwc": true,
@@ -52,7 +59,7 @@
                     "card": "{card}",
                     "draggable": false,
                     "isOpen": true,
-                    "key": "1694812696923-rwi4qvfuv",
+                    "key": "1703608700698-196sm1mf8",
                     "label": "Action",
                     "stateAction": {
                         "Web Page": {
@@ -86,7 +93,7 @@
                                 "fieldValue": "{action.OtherProduct}"
                             }
                         ],
-                        "id": "flex-action-1695044135265",
+                        "id": "flex-action-1703608989388",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "cardAction",
@@ -175,10 +182,10 @@
     "globalCSS": false,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValAddRelationshipTopicModal_6_Deloitte_GuilhermeKaiser",
-        "Id": "0Rb78000000LT0kCAG",
+        "DeveloperName": "cfValAddRelationshipTopicModal_10_Deloitte_GuilhermeKaiser",
+        "Id": "0Rb76000000LA3ICAW",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValAddRelationshipTopicModal_6_Deloitte_GuilhermeKaiser",
+        "MasterLabel": "cfValAddRelationshipTopicModal_10_Deloitte_GuilhermeKaiser",
         "NamespacePrefix": "c"
     },
     "multilanguageSupport": true,
@@ -231,8 +238,7 @@
         },
         {
             "isApi": true,
-            "name": "LineNumber",
-            "val": ""
+            "name": "LineNumber"
         },
         {
             "isApi": true,
@@ -241,9 +247,866 @@
         {
             "isApi": true,
             "name": "InteractionNumber"
+        },
+        {
+            "isApi": true,
+            "name": "OrderNumber",
+            "val": ""
+        },
+        {
+            "isApi": true,
+            "name": "InteractionPermission"
         }
     ],
     "states": [
+        {
+            "actions": [
+            ],
+            "blankCardState": false,
+            "childCards": [
+            ],
+            "components": {
+                "layer-0": {
+                    "children": [
+                        {
+                            "children": [
+                                {
+                                    "class": "slds-col ",
+                                    "element": "flexIcon",
+                                    "elementLabel": "Block-0-Icon-0",
+                                    "key": "element_element_block_0_0_flexIcon_0_0",
+                                    "name": "Icon",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "extraclass": "slds-icon_container slds-icon__svg--default ",
+                                        "iconName": "utility:warning",
+                                        "iconType": "Salesforce SVG",
+                                        "imgsrc": "",
+                                        "record": "{record}",
+                                        "size": "medium",
+                                        "variant": "warning"
+                                    },
+                                    "size": {
+                                        "default": "1",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "slds-p-left_small slds-p-vertical_xx-small ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                            {
+                                                "label": "left:small",
+                                                "size": "small",
+                                                "type": "left"
+                                            },
+                                            {
+                                                "label": "vertical:xx-small",
+                                                "size": "xx-small",
+                                                "type": "vertical"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "1",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_1-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    },
+                                    "styleObjects": [
+                                        {
+                                            "conditionString": "",
+                                            "conditions": "default",
+                                            "draggable": false,
+                                            "key": 0,
+                                            "label": "Default",
+                                            "name": "Default",
+                                            "styleObject": {
+                                                "background": {
+                                                    "color": "",
+                                                    "image": "",
+                                                    "position": "",
+                                                    "repeat": "",
+                                                    "size": ""
+                                                },
+                                                "border": {
+                                                    "color": "",
+                                                    "radius": "",
+                                                    "style": "",
+                                                    "type": "",
+                                                    "width": ""
+                                                },
+                                                "class": "slds-p-left_small slds-p-vertical_xx-small ",
+                                                "container": {
+                                                    "class": ""
+                                                },
+                                                "elementStyleProperties": {
+                                                },
+                                                "inlineStyle": "",
+                                                "margin": [
+                                                ],
+                                                "padding": [
+                                                    {
+                                                        "label": "left:small",
+                                                        "size": "small",
+                                                        "type": "left"
+                                                    },
+                                                    {
+                                                        "label": "vertical:xx-small",
+                                                        "size": "xx-small",
+                                                        "type": "vertical"
+                                                    }
+                                                ],
+                                                "size": {
+                                                    "default": "1",
+                                                    "isResponsive": false
+                                                },
+                                                "sizeClass": "slds-size_1-of-12 ",
+                                                "style": "      \n         ",
+                                                "text": {
+                                                    "align": "",
+                                                    "color": ""
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "outputField",
+                                    "elementLabel": "Block-0-Text-1",
+                                    "key": "element_element_block_0_0_outputField_1_0",
+                                    "name": "Text",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "mergeField": "%3Cdiv%3EUsu&aacute;rio%20sem%20permiss&atilde;o.%3C/div%3E",
+                                        "record": "{record}"
+                                    },
+                                    "size": {
+                                        "default": 11,
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "slds-p-top_small ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                            {
+                                                "label": "top:small",
+                                                "size": "small",
+                                                "type": "top"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": 11,
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_11-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    },
+                                    "styleObjects": [
+                                        {
+                                            "conditionString": "",
+                                            "conditions": "default",
+                                            "draggable": false,
+                                            "key": 0,
+                                            "label": "Default",
+                                            "name": "Default",
+                                            "styleObject": {
+                                                "background": {
+                                                    "color": "",
+                                                    "image": "",
+                                                    "position": "",
+                                                    "repeat": "",
+                                                    "size": ""
+                                                },
+                                                "border": {
+                                                    "color": "",
+                                                    "radius": "",
+                                                    "style": "",
+                                                    "type": "",
+                                                    "width": ""
+                                                },
+                                                "class": "slds-p-top_small ",
+                                                "container": {
+                                                    "class": ""
+                                                },
+                                                "elementStyleProperties": {
+                                                },
+                                                "inlineStyle": "",
+                                                "margin": [
+                                                ],
+                                                "padding": [
+                                                    {
+                                                        "label": "top:small",
+                                                        "size": "small",
+                                                        "type": "top"
+                                                    }
+                                                ],
+                                                "size": {
+                                                    "default": 11,
+                                                    "isResponsive": false
+                                                },
+                                                "sizeClass": "slds-size_11-of-12 ",
+                                                "style": "      \n         ",
+                                                "text": {
+                                                    "align": "",
+                                                    "color": ""
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "type": "text"
+                                }
+                            ],
+                            "class": "slds-col ",
+                            "element": "block",
+                            "elementLabel": "Block-0",
+                            "name": "Block",
+                            "property": {
+                                "card": "{card}",
+                                "collapsedByDefault": false,
+                                "collapsible": false,
+                                "label": "Block",
+                                "record": "{record}"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "background": {
+                                    "color": "#fff5e8",
+                                    "image": "",
+                                    "position": "",
+                                    "repeat": "",
+                                    "size": ""
+                                },
+                                "border": {
+                                    "color": "#cccccc",
+                                    "radius": "5px",
+                                    "style": "",
+                                    "type": "",
+                                    "width": ""
+                                },
+                                "class": "",
+                                "container": {
+                                    "class": ""
+                                },
+                                "elementStyleProperties": {
+                                },
+                                "inlineStyle": "",
+                                "margin": [
+                                ],
+                                "padding": [
+                                ],
+                                "size": {
+                                    "default": "12",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_12-of-12 ",
+                                "style": "background-color:#fff5e8;      \n    border-radius:5px;     ",
+                                "text": {
+                                    "align": "",
+                                    "color": ""
+                                }
+                            },
+                            "styleObjects": [
+                                {
+                                    "conditionString": "",
+                                    "conditions": "default",
+                                    "draggable": false,
+                                    "key": 0,
+                                    "label": "Default",
+                                    "name": "Default",
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "#fff5e8",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "#cccccc",
+                                            "radius": "5px",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "background-color:#fff5e8;      \n    border-radius:5px;     ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    }
+                                }
+                            ],
+                            "type": "block"
+                        },
+                        {
+                            "children": [
+                                {
+                                    "children": [
+                                    ],
+                                    "class": "slds-col ",
+                                    "element": "block",
+                                    "elementLabel": "Block-1-Block-1",
+                                    "key": "element_element_block_1_0_block_0_0",
+                                    "name": "Block",
+                                    "parentElementKey": "element_block_1_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "collapsedByDefault": false,
+                                        "collapsible": false,
+                                        "label": "Block",
+                                        "record": "{record}"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "class": "slds-p-around_x-small",
+                                        "padding": [
+                                            {
+                                                "size": "x-small",
+                                                "type": "around"
+                                            }
+                                        ],
+                                        "sizeClass": "slds-size_12-of-12"
+                                    },
+                                    "type": "block"
+                                },
+                                {
+                                    "children": [
+                                        {
+                                            "class": "slds-col ",
+                                            "element": "action",
+                                            "elementLabel": "Block-1-Block-1-Action-0",
+                                            "key": "element_element_element_block_1_0_block_1_0_action_0_0",
+                                            "name": "Action",
+                                            "parentElementKey": "element_element_block_1_0_block_1_0",
+                                            "property": {
+                                                "actionList": [
+                                                    {
+                                                        "actionIndex": 0,
+                                                        "draggable": true,
+                                                        "isOpen": false,
+                                                        "key": "1721413841799-2q69v5u4d",
+                                                        "label": "ActionCloseModal",
+                                                        "stateAction": {
+                                                            "eventName": "close_modalrelationshiptopic",
+                                                            "id": "flex-action-1721413863590",
+                                                            "message": "close",
+                                                            "openUrlIn": "Current Window",
+                                                            "subType": "PubSub",
+                                                            "type": "Event"
+                                                        }
+                                                    },
+                                                    {
+                                                        "actionIndex": 1,
+                                                        "card": "{card}",
+                                                        "draggable": true,
+                                                        "isOpen": false,
+                                                        "key": "1721415082605-05mhfoa46",
+                                                        "label": "ActionNavigateSalesJourney",
+                                                        "stateAction": {
+                                                            "Record": {
+                                                                "targetAction": "view",
+                                                                "targetId": "{Session.CustomerInteractionId}",
+                                                                "targetName": "%vlocity_namespace%__CustomerInteraction__c"
+                                                            },
+                                                            "actionConditions": {
+                                                                "group": [
+                                                                    {
+                                                                        "field": "Session.SourceCalled",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-7",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "SalesJourney"
+                                                                    }
+                                                                ],
+                                                                "id": "state-condition-object",
+                                                                "isParent": true
+                                                            },
+                                                            "displayName": "Action",
+                                                            "id": "flex-action-1721416841648",
+                                                            "openUrlIn": "Current Window",
+                                                            "targetType": "Record",
+                                                            "type": "Custom",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    },
+                                                    {
+                                                        "actionIndex": 2,
+                                                        "card": "{card}",
+                                                        "contextId": "\\{Session.AccountId}",
+                                                        "draggable": true,
+                                                        "isOpen": true,
+                                                        "key": "1721416533095-ugrnchyfw",
+                                                        "label": "ActionNavigateSelectOptionRecharge",
+                                                        "stateAction": {
+                                                            "actionConditions": {
+                                                                "group": [
+                                                                    {
+                                                                        "field": "Session.SourceCalled",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-0",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "RechargeJourney"
+                                                                    }
+                                                                ],
+                                                                "id": "state-condition-object",
+                                                                "isParent": true
+                                                            },
+                                                            "displayName": "Action",
+                                                            "extraParams": {
+                                                                "c__ContextId": "{Session.AssetId}",
+                                                                "c__InteractionNumber": "{Session.InteractionNumber}",
+                                                                "c__accountId": "{Session.AccountId}",
+                                                                "c__assetId": "{Session.AssetId}",
+                                                                "c__customerId": "{Session.CustomerInteractionId}",
+                                                                "c__interactionId": "{Session.CustomerInteractionId}",
+                                                                "c__lineNumber": "{Session.LineNumber}"
+                                                            },
+                                                            "hasExtraParams": true,
+                                                            "id": "flex-action-1721416767482",
+                                                            "isLwcOS": true,
+                                                            "layoutType": "lightning",
+                                                            "omniType": {
+                                                                "Id": "a3076000000AKF0AAO",
+                                                                "Name": "val/SelectOptionRechargePage/English",
+                                                                "isLwcOs": true
+                                                            },
+                                                            "openUrlIn": "Current Window",
+                                                            "tabLabel": "Recarga",
+                                                            "type": "OmniScript",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    },
+                                                    {
+                                                        "actionIndex": 3,
+                                                        "card": "{card}",
+                                                        "contextId": "\\{Session.AssetId}",
+                                                        "draggable": true,
+                                                        "isOpen": true,
+                                                        "key": "1721651072204-3z5yjrd8r",
+                                                        "label": "ActionNavigateAssetDetails",
+                                                        "stateAction": {
+                                                            "actionConditions": {
+                                                                "group": [
+                                                                    {
+                                                                        "field": "Session.SourceCalled",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-7",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "RechargeJourney"
+                                                                    },
+                                                                    {
+                                                                        "field": "Session.SourceCalled",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-8",
+                                                                        "logicalOperator": "||",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "AdditionalPackage"
+                                                                    },
+                                                                    {
+                                                                        "field": "Session.SourceCalled",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-19",
+                                                                        "logicalOperator": "||",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "Change"
+                                                                    },
+                                                                    {
+                                                                        "field": "Session.SourceCalled",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-20",
+                                                                        "logicalOperator": "||",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "ServiceManagement"
+                                                                    },
+                                                                    {
+                                                                        "field": "Session.SourceCalled",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-67",
+                                                                        "logicalOperator": "||",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "Promotion"
+                                                                    }
+                                                                ],
+                                                                "id": "state-condition-object",
+                                                                "isParent": true
+                                                            },
+                                                            "displayName": "Action",
+                                                            "extraParams": {
+                                                                "c__accountId": "{Session.AccountId}",
+                                                                "c__customerId": "{Session.CustomerInteractionId}",
+                                                                "c__interactionId": "{Session.CustomerInteractionId}",
+                                                                "c__platform": "Prepaid"
+                                                            },
+                                                            "hasExtraParams": true,
+                                                            "id": "flex-action-1721651477125",
+                                                            "isLwcOS": true,
+                                                            "layoutType": "lightning",
+                                                            "omniType": {
+                                                                "Id": "a3076000000HRUWAA4",
+                                                                "Name": "val/AssetDetailsPage/English",
+                                                                "isLwcOs": true
+                                                            },
+                                                            "openUrlIn": "Current Window",
+                                                            "tabLabel": "{Session.LineNumber}",
+                                                            "type": "OmniScript",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    },
+                                                    {
+                                                        "actionIndex": 4,
+                                                        "card": "{card}",
+                                                        "contextId": "\\{Session.OrderId}",
+                                                        "draggable": true,
+                                                        "isOpen": true,
+                                                        "key": "1721651711813-uon1t4hhh",
+                                                        "label": "ActionNavigateOrderPage",
+                                                        "stateAction": {
+                                                            "actionConditions": {
+                                                                "group": [
+                                                                    {
+                                                                        "field": "Session.SourceCalled",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-92",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "OrderPage"
+                                                                    }
+                                                                ],
+                                                                "id": "state-condition-object",
+                                                                "isParent": true
+                                                            },
+                                                            "displayName": "Action",
+                                                            "extraParams": {
+                                                                "c__accountId": "{Session.AccountId}",
+                                                                "c__interactionId": "{Session.CustomerInteractionId}",
+                                                                "c__interactionNumber": "{Session.InteractionNumber}"
+                                                            },
+                                                            "hasExtraParams": true,
+                                                            "id": "flex-action-1721651852325",
+                                                            "isLwcOS": true,
+                                                            "layoutType": "lightning",
+                                                            "omniType": {
+                                                                "Id": "a3076000000Ar6xAAC",
+                                                                "Name": "val/OrderDetailsPage/English",
+                                                                "isLwcOs": true
+                                                            },
+                                                            "openUrlIn": "Current Window",
+                                                            "tabIcon": "standard:orders",
+                                                            "tabLabel": "{Session.OrderNumber}",
+                                                            "type": "OmniScript",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    }
+                                                ],
+                                                "ariaLabel": "Fechar",
+                                                "buttonVariant": "brand",
+                                                "card": "{card}",
+                                                "displayAsButton": true,
+                                                "flyoutDetails": {
+                                                },
+                                                "hideActionIcon": true,
+                                                "iconName": "standard-default",
+                                                "label": "Fechar",
+                                                "record": "{record}",
+                                                "showSpinner": "false",
+                                                "stateObj": "{record}"
+                                            },
+                                            "size": {
+                                                "default": "12",
+                                                "isResponsive": false
+                                            },
+                                            "stateIndex": 0,
+                                            "styleObject": {
+                                                "sizeClass": "slds-size_12-of-12"
+                                            },
+                                            "type": "element"
+                                        }
+                                    ],
+                                    "class": "slds-col ",
+                                    "element": "block",
+                                    "elementLabel": "Block-1-Block-1",
+                                    "key": "element_element_block_1_0_block_1_0",
+                                    "name": "Block",
+                                    "parentElementKey": "element_block_1_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "collapsedByDefault": false,
+                                        "collapsible": false,
+                                        "label": "Block",
+                                        "record": "{record}"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "class": "slds-p-around_x-small",
+                                        "padding": [
+                                            {
+                                                "size": "x-small",
+                                                "type": "around"
+                                            }
+                                        ],
+                                        "sizeClass": "slds-size_12-of-12"
+                                    },
+                                    "type": "block"
+                                }
+                            ],
+                            "class": "slds-col ",
+                            "element": "block",
+                            "elementLabel": "Block-1",
+                            "name": "Block",
+                            "property": {
+                                "card": "{card}",
+                                "collapsedByDefault": false,
+                                "collapsible": false,
+                                "label": "Block",
+                                "record": "{record}"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "background": {
+                                    "color": "",
+                                    "image": "",
+                                    "position": "",
+                                    "repeat": "",
+                                    "size": ""
+                                },
+                                "border": {
+                                    "color": "",
+                                    "radius": "",
+                                    "style": "",
+                                    "type": "",
+                                    "width": ""
+                                },
+                                "class": "",
+                                "container": {
+                                    "class": ""
+                                },
+                                "elementStyleProperties": {
+                                },
+                                "inlineStyle": "",
+                                "margin": [
+                                ],
+                                "padding": [
+                                ],
+                                "size": {
+                                    "default": "12",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_12-of-12 ",
+                                "style": "      \n         ",
+                                "text": {
+                                    "align": "",
+                                    "color": ""
+                                }
+                            },
+                            "styleObjects": [
+                                {
+                                    "conditionString": "",
+                                    "conditions": "default",
+                                    "draggable": false,
+                                    "key": 0,
+                                    "label": "Default",
+                                    "name": "Default",
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    }
+                                }
+                            ],
+                            "type": "block"
+                        }
+                    ]
+                }
+            },
+            "conditions": {
+                "group": [
+                    {
+                        "field": "CreateInteraction",
+                        "hasMergeField": false,
+                        "id": "state-new-condition-0",
+                        "operator": "==",
+                        "type": "custom",
+                        "value": "false"
+                    }
+                ],
+                "id": "state-condition-object",
+                "isParent": true
+            },
+            "documents": [
+            ],
+            "fields": [
+            ],
+            "isSmartAction": false,
+            "name": "NoInteractionPermission",
+            "omniscripts": [
+            ],
+            "smartAction": {
+            },
+            "styleObject": {
+                "background": {
+                    "color": "",
+                    "image": "",
+                    "position": "",
+                    "repeat": "",
+                    "size": ""
+                },
+                "border": {
+                    "color": "",
+                    "radius": "",
+                    "style": "",
+                    "type": "",
+                    "width": ""
+                },
+                "class": "slds-card ",
+                "container": {
+                    "class": "slds-card"
+                },
+                "elementStyleProperties": {
+                },
+                "inlineStyle": "",
+                "margin": [
+                ],
+                "padding": [
+                ],
+                "size": {
+                    "default": "9",
+                    "isResponsive": false
+                },
+                "sizeClass": "slds-size_9-of-12 ",
+                "style": "      \n         ",
+                "text": {
+                    "align": "",
+                    "color": ""
+                }
+            }
+        },
         {
             "actions": [
             ],
@@ -257,7 +1120,7 @@
                         {
                             "class": "slds-col ",
                             "element": "outputField",
-                            "elementLabel": "Text-0",
+                            "elementLabel": "Text-1",
                             "name": "Text",
                             "property": {
                                 "card": "{card}",
@@ -282,7 +1145,7 @@
                                 "default": "12",
                                 "isResponsive": false
                             },
-                            "stateIndex": 0,
+                            "stateIndex": 1,
                             "styleObject": {
                                 "background": {
                                     "color": "",
@@ -411,7 +1274,7 @@
                             ],
                             "class": "slds-col ",
                             "element": "block",
-                            "elementLabel": "Block-1",
+                            "elementLabel": "Block-2",
                             "name": "Block",
                             "property": {
                                 "card": "{card}",
@@ -424,7 +1287,7 @@
                                 "default": "12",
                                 "isResponsive": false
                             },
-                            "stateIndex": 0,
+                            "stateIndex": 1,
                             "styleObject": {
                                 "class": "slds-p-around_x-small",
                                 "padding": [
@@ -457,7 +1320,8 @@
                                             "HideAddBtn": "true",
                                             "ProductType": "Pre",
                                             "SelectedFunction": "RelationshipTopic",
-                                            "ServiceTree": "{Session.Channel}"
+                                            "ServiceTree": "{Session.Channel}",
+                                            "ShowOnlyAutomaticAndManual": "true"
                                         },
                                         "recordId": "{recordId}",
                                         "selectedState": "Active"
@@ -488,7 +1352,7 @@
                                 "default": "12",
                                 "isResponsive": false
                             },
-                            "stateIndex": 0,
+                            "stateIndex": 1,
                             "styleObject": {
                                 "background": {
                                     "color": "",
@@ -619,7 +1483,7 @@
                                 "default": "12",
                                 "isResponsive": false
                             },
-                            "stateIndex": 0,
+                            "stateIndex": 1,
                             "styleObject": {
                                 "background": {
                                     "color": "",
@@ -748,10 +1612,10 @@
                                     },
                                     "size": {
                                         "default": "10",
-                                        "isResponsive": true,
-                                        "large": "11",
-                                        "medium": "10",
-                                        "small": "10"
+                                        "isResponsive": false,
+                                        "large": "9",
+                                        "medium": "8",
+                                        "small": "8"
                                     },
                                     "stateIndex": 0,
                                     "styleObject": {
@@ -775,20 +1639,20 @@
                                         },
                                         "elementStyleProperties": {
                                         },
-                                        "inlineStyle": "width: 90%;",
+                                        "inlineStyle": "",
                                         "margin": [
                                         ],
                                         "padding": [
                                         ],
                                         "size": {
                                             "default": "10",
-                                            "isResponsive": true,
-                                            "large": "11",
-                                            "medium": "10",
-                                            "small": "10"
+                                            "isResponsive": false,
+                                            "large": "9",
+                                            "medium": "8",
+                                            "small": "8"
                                         },
-                                        "sizeClass": "slds-large-size_11-of-12 slds-medium-size_10-of-12 slds-small-size_10-of-12 slds-size_10-of-12 ",
-                                        "style": "      \n         width: 90%;",
+                                        "sizeClass": "slds-size_10-of-12 ",
+                                        "style": "      \n         ",
                                         "text": {
                                             "align": "",
                                             "color": ""
@@ -823,20 +1687,20 @@
                                                 },
                                                 "elementStyleProperties": {
                                                 },
-                                                "inlineStyle": "width: 90%;",
+                                                "inlineStyle": "",
                                                 "margin": [
                                                 ],
                                                 "padding": [
                                                 ],
                                                 "size": {
                                                     "default": "10",
-                                                    "isResponsive": true,
-                                                    "large": "11",
-                                                    "medium": "10",
-                                                    "small": "10"
+                                                    "isResponsive": false,
+                                                    "large": "9",
+                                                    "medium": "8",
+                                                    "small": "8"
                                                 },
-                                                "sizeClass": "slds-large-size_11-of-12 slds-medium-size_10-of-12 slds-small-size_10-of-12 slds-size_10-of-12 ",
-                                                "style": "      \n         width: 90%;",
+                                                "sizeClass": "slds-size_10-of-12 ",
+                                                "style": "      \n         ",
                                                 "text": {
                                                     "align": "",
                                                     "color": ""
@@ -868,8 +1732,8 @@
                                                             "Web Page": {
                                                                 "targetName": "/apex"
                                                             },
-                                                            "id": "flex-action-1692733499012",
-                                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_CreateManualCustomerInteractionTopic\",\"vlocityAsync\":false,\"inputMap\":{\"interactionId\":\"{Session.CustomerInteractionId}\",\"remarkup\":\"{remarkup__c}\",\"userId\":\"{User.userId}\",\"topicId\":\"{Session.SelectedRelationshipTopicId}\",\"ProductType\":\"{Session.SelectedRelationshipProductType}\",\"ServiceTree\":\"{Session.SelectedRelationshipServiceTree}\",\"AssetId\":\"{Session.SelectedRelationshipAssetId}\",\"OtherProduct\":\"{Session.SelectedRelationshipOtherProduct}\",\"OrderId\":\"{Session.OrderId}\",\"interactionTopicId\":\"{interactionTopicId}\"},\"jsonMap\":\"{\\\"Session.SelectedRelationshipTopicId\\\":\\\"{Session.SelectedRelationshipTopicId}\\\",\\\"User.userId\\\":\\\"{User.userId}\\\",\\\"remarkup__c\\\":\\\"{remarkup__c}\\\",\\\"recordId\\\":\\\"{recordId}\\\",\\\"Session.SelectedRelationshipProductType\\\":\\\"{Session.SelectedRelationshipProductType}\\\",\\\"Session.SelectedRelationshipServiceTree\\\":\\\"{Session.SelectedRelationshipServiceTree}\\\",\\\"Session.SelectedRelationshipAssetId\\\":\\\"{Session.SelectedRelationshipAssetId}\\\",\\\"Session.SelectedRelationshipOtherProduct\\\":\\\"{Session.SelectedRelationshipOtherProduct}\\\",\\\"Session.CustomerInteractionId\\\":\\\"{Session.CustomerInteractionId}\\\",\\\"Session.OrderId\\\":\\\"{Session.OrderId}\\\",\\\"interactionTopicId\\\":\\\"{interactionTopicId}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"Session.SelectedRelationshipTopicId\",\"val\":\"\",\"id\":20},{\"name\":\"User.userId\",\"val\":\"00576000001CcqTAAS\",\"id\":8},{\"name\":\"remarkup__c\",\"val\":\"\",\"id\":8},{\"name\":\"recordId\",\"val\":\"\",\"id\":8},{\"name\":\"Session.SelectedRelationshipProductType\",\"val\":\"\",\"id\":31},{\"name\":\"Session.SelectedRelationshipServiceTree\",\"val\":\"\",\"id\":32},{\"name\":\"Session.SelectedRelationshipAssetId\",\"val\":\"\",\"id\":33},{\"name\":\"Session.SelectedRelationshipOtherProduct\",\"val\":\"\",\"id\":16},{\"name\":\"Session.CustomerInteractionId\",\"val\":\"a1c76000001aqZxAAI\",\"id\":32},{\"name\":\"Session.OrderId\",\"val\":\"801760000023me3AAA\",\"id\":27},{\"name\":\"interactionTopicId\",\"val\":\"a1b76000000QcyaAAC\",\"id\":49}]}",
+                                                            "id": "flex-action-1715707477160",
+                                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_CreateManualCustomerInteractionTopic\",\"vlocityAsync\":false,\"inputMap\":{\"interactionId\":\"{Session.CustomerInteractionId}\",\"remarkup\":\"{remarkup__c}\",\"userId\":\"{User.userId}\",\"topicId\":\"{Session.SelectedRelationshipTopicId}\",\"ProductType\":\"{Session.SelectedRelationshipProductType}\",\"ServiceTree\":\"{Session.SelectedRelationshipServiceTree}\",\"AssetId\":\"{Session.SelectedRelationshipAssetId}\",\"OtherProduct\":\"{Session.SelectedRelationshipOtherProduct}\",\"OrderId\":\"{Session.OrderId}\",\"interactionTopicId\":\"{interactionTopicId}\",\"CreateCase\":\"false\"},\"jsonMap\":\"{\\\"Session.SelectedRelationshipTopicId\\\":\\\"{Session.SelectedRelationshipTopicId}\\\",\\\"User.userId\\\":\\\"{User.userId}\\\",\\\"remarkup__c\\\":\\\"{remarkup__c}\\\",\\\"recordId\\\":\\\"{recordId}\\\",\\\"Session.SelectedRelationshipProductType\\\":\\\"{Session.SelectedRelationshipProductType}\\\",\\\"Session.SelectedRelationshipServiceTree\\\":\\\"{Session.SelectedRelationshipServiceTree}\\\",\\\"Session.SelectedRelationshipAssetId\\\":\\\"{Session.SelectedRelationshipAssetId}\\\",\\\"Session.SelectedRelationshipOtherProduct\\\":\\\"{Session.SelectedRelationshipOtherProduct}\\\",\\\"Session.CustomerInteractionId\\\":\\\"{Session.CustomerInteractionId}\\\",\\\"Session.OrderId\\\":\\\"{Session.OrderId}\\\",\\\"interactionTopicId\\\":\\\"{interactionTopicId}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"Session.SelectedRelationshipTopicId\",\"val\":\"\",\"id\":20},{\"name\":\"User.userId\",\"val\":\"00576000001CcqTAAS\",\"id\":8},{\"name\":\"remarkup__c\",\"val\":\"\",\"id\":8},{\"name\":\"recordId\",\"val\":\"\",\"id\":8},{\"name\":\"Session.SelectedRelationshipProductType\",\"val\":\"\",\"id\":31},{\"name\":\"Session.SelectedRelationshipServiceTree\",\"val\":\"\",\"id\":32},{\"name\":\"Session.SelectedRelationshipAssetId\",\"val\":\"\",\"id\":33},{\"name\":\"Session.SelectedRelationshipOtherProduct\",\"val\":\"\",\"id\":16},{\"name\":\"Session.CustomerInteractionId\",\"val\":\"a1c76000001aqZxAAI\",\"id\":32},{\"name\":\"Session.OrderId\",\"val\":\"801760000023me3AAA\",\"id\":27},{\"name\":\"interactionTopicId\",\"val\":\"a1b76000000QcyaAAC\",\"id\":49}]}",
                                                             "openUrlIn": "Current Window",
                                                             "targetType": "Web Page",
                                                             "type": "DataAction"
@@ -1168,7 +2032,7 @@
                                                         "card": "{card}",
                                                         "contextId": "\\{Session.AccountId}",
                                                         "draggable": true,
-                                                        "isOpen": false,
+                                                        "isOpen": true,
                                                         "key": "1687435672805-avnosnp6t",
                                                         "label": "ActionNavigateSelectOptionRecharge",
                                                         "stateAction": {
@@ -1215,7 +2079,7 @@
                                                                 "c__lineNumber": "{Session.LineNumber}"
                                                             },
                                                             "hasExtraParams": true,
-                                                            "id": "flex-action-1701114098495",
+                                                            "id": "flex-action-1721245973996",
                                                             "isLwcOS": true,
                                                             "layoutType": "lightning",
                                                             "omniType": {
@@ -1233,7 +2097,7 @@
                                                         "actionIndex": 8,
                                                         "card": "{card}",
                                                         "contextId": "\\{Session.AssetId}",
-                                                        "draggable": false,
+                                                        "draggable": true,
                                                         "isOpen": true,
                                                         "key": "1692626099331-2wk10ygol",
                                                         "label": "ActionNavigateAssetDetails",
@@ -1297,7 +2161,7 @@
                                                                             {
                                                                                 "field": "Session.SourceCalled",
                                                                                 "hasMergeField": false,
-                                                                                "id": "state-new-condition-29",
+                                                                                "id": "state-new-condition-18",
                                                                                 "logicalOperator": "||",
                                                                                 "operator": "==",
                                                                                 "type": "custom",
@@ -1314,11 +2178,12 @@
                                                             "displayName": "Action",
                                                             "extraParams": {
                                                                 "c__accountId": "{Session.AccountId}",
+                                                                "c__customerId": "{Session.CustomerInteractionId}",
                                                                 "c__interactionId": "{Session.CustomerInteractionId}",
                                                                 "c__platform": "Prepaid"
                                                             },
                                                             "hasExtraParams": true,
-                                                            "id": "flex-action-1701368524457",
+                                                            "id": "flex-action-1704466532639",
                                                             "isLwcOS": true,
                                                             "layoutType": "lightning",
                                                             "omniType": {
@@ -1328,6 +2193,69 @@
                                                             },
                                                             "openUrlIn": "Current Window",
                                                             "tabLabel": "{Session.LineNumber}",
+                                                            "type": "OmniScript",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    },
+                                                    {
+                                                        "actionIndex": 9,
+                                                        "card": "{card}",
+                                                        "contextId": "\\{Session.OrderId}",
+                                                        "draggable": true,
+                                                        "isOpen": false,
+                                                        "key": "1704466139386-1n0947sxe",
+                                                        "label": "ActionNavigateOrderPage",
+                                                        "stateAction": {
+                                                            "actionConditions": {
+                                                                "group": [
+                                                                    {
+                                                                        "field": "Session.SourceCalled",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-0",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "OrderPage"
+                                                                    },
+                                                                    {
+                                                                        "field": "idAtendimento",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-7",
+                                                                        "logicalOperator": "&&",
+                                                                        "operator": "!=",
+                                                                        "type": "custom",
+                                                                        "value": ""
+                                                                    },
+                                                                    {
+                                                                        "field": "hasErrorGenerateInteractionNumber",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-17",
+                                                                        "logicalOperator": "&&",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "false"
+                                                                    }
+                                                                ],
+                                                                "id": "state-condition-object",
+                                                                "isParent": true
+                                                            },
+                                                            "displayName": "Action",
+                                                            "extraParams": {
+                                                                "c__accountId": "{Session.AccountId}",
+                                                                "c__interactionId": "{Session.CustomerInteractionId}",
+                                                                "c__interactionNumber": "{Session.InteractionNumber}"
+                                                            },
+                                                            "hasExtraParams": true,
+                                                            "id": "flex-action-1705418798148",
+                                                            "isLwcOS": true,
+                                                            "layoutType": "lightning",
+                                                            "omniType": {
+                                                                "Id": "a30760000008MdJAAU",
+                                                                "Name": "val/OrderDetailsPage/English",
+                                                                "isLwcOs": true
+                                                            },
+                                                            "openUrlIn": "Current Window",
+                                                            "tabIcon": "standard:orders",
+                                                            "tabLabel": "{Session.OrderNumber}",
                                                             "type": "OmniScript",
                                                             "vlocityIcon": "standard-default"
                                                         }
@@ -1361,17 +2289,104 @@
                                                 "stateObj": "{record}"
                                             },
                                             "size": {
-                                                "default": "1",
+                                                "default": "12",
                                                 "isResponsive": false
                                             },
                                             "stateIndex": 0,
                                             "styleObject": {
+                                                "background": {
+                                                    "color": "",
+                                                    "image": "",
+                                                    "position": "",
+                                                    "repeat": "",
+                                                    "size": ""
+                                                },
+                                                "border": {
+                                                    "color": "",
+                                                    "radius": "",
+                                                    "style": "",
+                                                    "type": "",
+                                                    "width": ""
+                                                },
+                                                "class": "slds-p-right_small ",
+                                                "container": {
+                                                    "class": ""
+                                                },
+                                                "elementStyleProperties": {
+                                                },
+                                                "inlineStyle": "",
+                                                "margin": [
+                                                ],
+                                                "padding": [
+                                                    {
+                                                        "label": "right:small",
+                                                        "size": "small",
+                                                        "type": "right"
+                                                    }
+                                                ],
                                                 "size": {
-                                                    "default": "1",
+                                                    "default": "12",
                                                     "isResponsive": false
                                                 },
-                                                "sizeClass": "slds-size_1-of-12 "
+                                                "sizeClass": "slds-size_12-of-12 ",
+                                                "style": "      \n         ",
+                                                "text": {
+                                                    "align": "",
+                                                    "color": ""
+                                                }
                                             },
+                                            "styleObjects": [
+                                                {
+                                                    "conditionString": "",
+                                                    "conditions": "default",
+                                                    "draggable": false,
+                                                    "key": 0,
+                                                    "label": "Default",
+                                                    "name": "Default",
+                                                    "styleObject": {
+                                                        "background": {
+                                                            "color": "",
+                                                            "image": "",
+                                                            "position": "",
+                                                            "repeat": "",
+                                                            "size": ""
+                                                        },
+                                                        "border": {
+                                                            "color": "",
+                                                            "radius": "",
+                                                            "style": "",
+                                                            "type": "",
+                                                            "width": ""
+                                                        },
+                                                        "class": "slds-p-right_small ",
+                                                        "container": {
+                                                            "class": ""
+                                                        },
+                                                        "elementStyleProperties": {
+                                                        },
+                                                        "inlineStyle": "",
+                                                        "margin": [
+                                                        ],
+                                                        "padding": [
+                                                            {
+                                                                "label": "right:small",
+                                                                "size": "small",
+                                                                "type": "right"
+                                                            }
+                                                        ],
+                                                        "size": {
+                                                            "default": "12",
+                                                            "isResponsive": false
+                                                        },
+                                                        "sizeClass": "slds-size_12-of-12 ",
+                                                        "style": "      \n         ",
+                                                        "text": {
+                                                            "align": "",
+                                                            "color": ""
+                                                        }
+                                                    }
+                                                }
+                                            ],
                                             "type": "element"
                                         },
                                         {
@@ -1410,7 +2425,7 @@
                                                 "type": "text"
                                             },
                                             "size": {
-                                                "default": "8",
+                                                "default": "12",
                                                 "isResponsive": false
                                             },
                                             "stateIndex": 0,
@@ -1429,7 +2444,7 @@
                                                     "type": "",
                                                     "width": ""
                                                 },
-                                                "class": "slds-p-around_xx-small moveButtonDisable1",
+                                                "class": "slds-p-around_xx-small slds-p-right_small moveButtonDisable1",
                                                 "container": {
                                                     "class": ""
                                                 },
@@ -1451,13 +2466,18 @@
                                                         "label": "around:xx-small",
                                                         "size": "xx-small",
                                                         "type": "around"
+                                                    },
+                                                    {
+                                                        "label": "right:small",
+                                                        "size": "small",
+                                                        "type": "right"
                                                     }
                                                 ],
                                                 "size": {
-                                                    "default": "8",
+                                                    "default": "12",
                                                     "isResponsive": false
                                                 },
-                                                "sizeClass": "slds-size_8-of-12 ",
+                                                "sizeClass": "slds-size_12-of-12 ",
                                                 "style": "background-color:#CDCDCD;      \n    border-radius:3px;     ",
                                                 "text": {
                                                     "align": "",
@@ -1487,7 +2507,7 @@
                                                             "type": "",
                                                             "width": ""
                                                         },
-                                                        "class": "slds-p-around_xx-small moveButtonDisable1",
+                                                        "class": "slds-p-around_xx-small slds-p-right_small moveButtonDisable1",
                                                         "container": {
                                                             "class": ""
                                                         },
@@ -1509,13 +2529,18 @@
                                                                 "label": "around:xx-small",
                                                                 "size": "xx-small",
                                                                 "type": "around"
+                                                            },
+                                                            {
+                                                                "label": "right:small",
+                                                                "size": "small",
+                                                                "type": "right"
                                                             }
                                                         ],
                                                         "size": {
-                                                            "default": "8",
+                                                            "default": "12",
                                                             "isResponsive": false
                                                         },
-                                                        "sizeClass": "slds-size_8-of-12 ",
+                                                        "sizeClass": "slds-size_12-of-12 ",
                                                         "style": "background-color:#CDCDCD;      \n    border-radius:3px;     ",
                                                         "text": {
                                                             "align": "",
@@ -1541,7 +2566,7 @@
                                         "record": "{record}"
                                     },
                                     "size": {
-                                        "default": "1",
+                                        "default": "2",
                                         "isResponsive": false
                                     },
                                     "stateIndex": 0,
@@ -1572,10 +2597,10 @@
                                         "padding": [
                                         ],
                                         "size": {
-                                            "default": "1",
+                                            "default": "2",
                                             "isResponsive": false
                                         },
-                                        "sizeClass": "slds-size_1-of-12 ",
+                                        "sizeClass": "slds-size_2-of-12 ",
                                         "style": "      \n         ",
                                         "text": {
                                             "align": "",
@@ -1617,10 +2642,10 @@
                                                 "padding": [
                                                 ],
                                                 "size": {
-                                                    "default": "1",
+                                                    "default": "2",
                                                     "isResponsive": false
                                                 },
-                                                "sizeClass": "slds-size_1-of-12 ",
+                                                "sizeClass": "slds-size_2-of-12 ",
                                                 "style": "      \n         ",
                                                 "text": {
                                                     "align": "",
@@ -1647,7 +2672,7 @@
                                 "default": "12",
                                 "isResponsive": false
                             },
-                            "stateIndex": 0,
+                            "stateIndex": 1,
                             "styleObject": {
                                 "background": {
                                     "color": "#EEEDED",
@@ -1746,7 +2771,7 @@
                                 "default": "12",
                                 "isResponsive": false
                             },
-                            "stateIndex": 0,
+                            "stateIndex": 1,
                             "styleObject": {
                                 "sizeClass": "slds-size_12-of-12"
                             },
@@ -1904,6 +2929,20 @@
                         "name": "cfInteractionNumber",
                         "type": "String"
                     }
+                },
+                {
+                    "@attributes": {
+                        "label": "OrderNumber",
+                        "name": "cfOrderNumber",
+                        "type": "String"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "label": "InteractionPermission",
+                        "name": "cfInteractionPermission",
+                        "type": "Boolean"
+                    }
                 }
             ]
         },
@@ -1974,6 +3013,20 @@
                         "name": "cfInteractionNumber",
                         "type": "String"
                     }
+                },
+                {
+                    "@attributes": {
+                        "label": "OrderNumber",
+                        "name": "cfOrderNumber",
+                        "type": "String"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "label": "InteractionPermission",
+                        "name": "cfInteractionPermission",
+                        "type": "Boolean"
+                    }
                 }
             ]
         },
@@ -2037,6 +3090,20 @@
                         "name": "cfInteractionNumber",
                         "type": "String"
                     }
+                },
+                {
+                    "@attributes": {
+                        "label": "OrderNumber",
+                        "name": "cfOrderNumber",
+                        "type": "String"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "label": "InteractionPermission",
+                        "name": "cfInteractionPermission",
+                        "type": "Boolean"
+                    }
                 }
             ]
         },
@@ -2050,6 +3117,13 @@
                         "name": "recordId",
                         "type": "String"
                     }
+                },
+                {
+                    "@attributes": {
+                        "label": "InteractionPermission",
+                        "name": "cfInteractionPermission",
+                        "type": "Boolean"
+                    }
                 }
             ]
         }
@@ -2060,13 +3134,12 @@
         "isExposed": true,
         "masterLabel": "valAddRelationshipTopicModal",
         "runtimeNamespace": "%vlocity_namespace%",
-        "targetConfigs": "PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nX19BcHBQYWdlIiB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIj48cHJvcGVydHkgIG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48cHJvcGVydHkgIGxhYmVsPSJDdXN0b21lckludGVyYWN0aW9uSWQiIG5hbWU9ImNmQ3VzdG9tZXJJbnRlcmFjdGlvbklkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PHByb3BlcnR5ICBsYWJlbD0iQ2hhbm5lbCIgbmFtZT0iY2ZDaGFubmVsIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PHByb3BlcnR5ICBsYWJlbD0iT3JkZXJJZCIgbmFtZT0iY2ZPcmRlcklkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PHByb3BlcnR5ICBsYWJlbD0iQWNjb3VudElkIiBuYW1lPSJjZkFjY291bnRJZCIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbGFiZWw9IkFzc2V0SWQiIG5hbWU9ImNmQXNzZXRJZCIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbGFiZWw9IkxpbmVOdW1iZXIiIG5hbWU9ImNmTGluZU51bWJlciIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbGFiZWw9IlNvdXJjZUNhbGxlZCIgbmFtZT0iY2ZTb3VyY2VDYWxsZWQiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48cHJvcGVydHkgIGxhYmVsPSJJbnRlcmFjdGlvbk51bWJlciIgbmFtZT0iY2ZJbnRlcmFjdGlvbk51bWJlciIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5PjwvdGFyZ2V0Q29uZmlnPjx0YXJnZXRDb25maWcgIHRhcmdldHM9ImxpZ2h0bmluZ19fUmVjb3JkUGFnZSIgeG1sbnM9Imh0dHA6Ly9zb2FwLnNmb3JjZS5jb20vMjAwNi8wNC9tZXRhZGF0YSI+PHByb3BlcnR5ICBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiI+PC9wcm9wZXJ0eT48cHJvcGVydHkgIGxhYmVsPSJDdXN0b21lckludGVyYWN0aW9uSWQiIG5hbWU9ImNmQ3VzdG9tZXJJbnRlcmFjdGlvbklkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PHByb3BlcnR5ICBsYWJlbD0iQ2hhbm5lbCIgbmFtZT0iY2ZDaGFubmVsIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PHByb3BlcnR5ICBsYWJlbD0iT3JkZXJJZCIgbmFtZT0iY2ZPcmRlcklkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PHByb3BlcnR5ICBsYWJlbD0iQWNjb3VudElkIiBuYW1lPSJjZkFjY291bnRJZCIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbGFiZWw9IkFzc2V0SWQiIG5hbWU9ImNmQXNzZXRJZCIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbGFiZWw9IkxpbmVOdW1iZXIiIG5hbWU9ImNmTGluZU51bWJlciIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbGFiZWw9IlNvdXJjZUNhbGxlZCIgbmFtZT0iY2ZTb3VyY2VDYWxsZWQiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48cHJvcGVydHkgIGxhYmVsPSJJbnRlcmFjdGlvbk51bWJlciIgbmFtZT0iY2ZJbnRlcmFjdGlvbk51bWJlciIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5PjwvdGFyZ2V0Q29uZmlnPjx0YXJnZXRDb25maWcgIHRhcmdldHM9ImxpZ2h0bmluZ19fSG9tZVBhZ2UiPjxwcm9wZXJ0eSAgbGFiZWw9IkN1c3RvbWVySW50ZXJhY3Rpb25JZCIgbmFtZT0iY2ZDdXN0b21lckludGVyYWN0aW9uSWQiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48cHJvcGVydHkgIGxhYmVsPSJDaGFubmVsIiBuYW1lPSJjZkNoYW5uZWwiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48cHJvcGVydHkgIGxhYmVsPSJPcmRlcklkIiBuYW1lPSJjZk9yZGVySWQiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48cHJvcGVydHkgIGxhYmVsPSJBY2NvdW50SWQiIG5hbWU9ImNmQWNjb3VudElkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PHByb3BlcnR5ICBsYWJlbD0iQXNzZXRJZCIgbmFtZT0iY2ZBc3NldElkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PHByb3BlcnR5ICBsYWJlbD0iTGluZU51bWJlciIgbmFtZT0iY2ZMaW5lTnVtYmVyIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PHByb3BlcnR5ICBsYWJlbD0iU291cmNlQ2FsbGVkIiBuYW1lPSJjZlNvdXJjZUNhbGxlZCIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbGFiZWw9IkludGVyYWN0aW9uTnVtYmVyIiBuYW1lPSJjZkludGVyYWN0aW9uTnVtYmVyIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nQ29tbXVuaXR5X19EZWZhdWx0Ij48cHJvcGVydHkgIG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+",
+        "targetConfigs": "PHRhcmdldENvbmZpZyAgeG1sbnM9Imh0dHA6Ly9zb2FwLnNmb3JjZS5jb20vMjAwNi8wNC9tZXRhZGF0YSIgdGFyZ2V0cz0ibGlnaHRuaW5nX19BcHBQYWdlIj48cHJvcGVydHkgIG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48cHJvcGVydHkgIGxhYmVsPSJDdXN0b21lckludGVyYWN0aW9uSWQiIG5hbWU9ImNmQ3VzdG9tZXJJbnRlcmFjdGlvbklkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PHByb3BlcnR5ICBsYWJlbD0iQ2hhbm5lbCIgbmFtZT0iY2ZDaGFubmVsIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PHByb3BlcnR5ICBsYWJlbD0iT3JkZXJJZCIgbmFtZT0iY2ZPcmRlcklkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PHByb3BlcnR5ICBuYW1lPSJjZkFjY291bnRJZCIgdHlwZT0iU3RyaW5nIiBsYWJlbD0iQWNjb3VudElkIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbmFtZT0iY2ZBc3NldElkIiB0eXBlPSJTdHJpbmciIGxhYmVsPSJBc3NldElkIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbmFtZT0iY2ZMaW5lTnVtYmVyIiB0eXBlPSJTdHJpbmciIGxhYmVsPSJMaW5lTnVtYmVyIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbmFtZT0iY2ZTb3VyY2VDYWxsZWQiIHR5cGU9IlN0cmluZyIgbGFiZWw9IlNvdXJjZUNhbGxlZCI+PC9wcm9wZXJ0eT48cHJvcGVydHkgIG5hbWU9ImNmSW50ZXJhY3Rpb25OdW1iZXIiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkludGVyYWN0aW9uTnVtYmVyIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbmFtZT0iY2ZPcmRlck51bWJlciIgdHlwZT0iU3RyaW5nIiBsYWJlbD0iT3JkZXJOdW1iZXIiPjwvcHJvcGVydHk+PHByb3BlcnR5ICBuYW1lPSJjZkludGVyYWN0aW9uUGVybWlzc2lvbiIgdHlwZT0iQm9vbGVhbiIgbGFiZWw9IkludGVyYWN0aW9uUGVybWlzc2lvbiI+PC9wcm9wZXJ0eT48L3RhcmdldENvbmZpZz48dGFyZ2V0Q29uZmlnICB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPjxwcm9wZXJ0eSAgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iPjwvcHJvcGVydHk+PHByb3BlcnR5ICBsYWJlbD0iQ3VzdG9tZXJJbnRlcmFjdGlvbklkIiBuYW1lPSJjZkN1c3RvbWVySW50ZXJhY3Rpb25JZCIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbGFiZWw9IkNoYW5uZWwiIG5hbWU9ImNmQ2hhbm5lbCIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbGFiZWw9Ik9yZGVySWQiIG5hbWU9ImNmT3JkZXJJZCIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbmFtZT0iY2ZBY2NvdW50SWQiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkFjY291bnRJZCI+PC9wcm9wZXJ0eT48cHJvcGVydHkgIG5hbWU9ImNmQXNzZXRJZCIgdHlwZT0iU3RyaW5nIiBsYWJlbD0iQXNzZXRJZCI+PC9wcm9wZXJ0eT48cHJvcGVydHkgIG5hbWU9ImNmTGluZU51bWJlciIgdHlwZT0iU3RyaW5nIiBsYWJlbD0iTGluZU51bWJlciI+PC9wcm9wZXJ0eT48cHJvcGVydHkgIG5hbWU9ImNmU291cmNlQ2FsbGVkIiB0eXBlPSJTdHJpbmciIGxhYmVsPSJTb3VyY2VDYWxsZWQiPjwvcHJvcGVydHk+PHByb3BlcnR5ICBuYW1lPSJjZkludGVyYWN0aW9uTnVtYmVyIiB0eXBlPSJTdHJpbmciIGxhYmVsPSJJbnRlcmFjdGlvbk51bWJlciI+PC9wcm9wZXJ0eT48cHJvcGVydHkgIG5hbWU9ImNmT3JkZXJOdW1iZXIiIHR5cGU9IlN0cmluZyIgbGFiZWw9Ik9yZGVyTnVtYmVyIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbmFtZT0iY2ZJbnRlcmFjdGlvblBlcm1pc3Npb24iIHR5cGU9IkJvb2xlYW4iIGxhYmVsPSJJbnRlcmFjdGlvblBlcm1pc3Npb24iPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nX19Ib21lUGFnZSI+PHByb3BlcnR5ICBsYWJlbD0iQ3VzdG9tZXJJbnRlcmFjdGlvbklkIiBuYW1lPSJjZkN1c3RvbWVySW50ZXJhY3Rpb25JZCIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbGFiZWw9IkNoYW5uZWwiIG5hbWU9ImNmQ2hhbm5lbCIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbGFiZWw9Ik9yZGVySWQiIG5hbWU9ImNmT3JkZXJJZCIgdHlwZT0iU3RyaW5nIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbmFtZT0iY2ZBY2NvdW50SWQiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkFjY291bnRJZCI+PC9wcm9wZXJ0eT48cHJvcGVydHkgIG5hbWU9ImNmQXNzZXRJZCIgdHlwZT0iU3RyaW5nIiBsYWJlbD0iQXNzZXRJZCI+PC9wcm9wZXJ0eT48cHJvcGVydHkgIG5hbWU9ImNmTGluZU51bWJlciIgdHlwZT0iU3RyaW5nIiBsYWJlbD0iTGluZU51bWJlciI+PC9wcm9wZXJ0eT48cHJvcGVydHkgIG5hbWU9ImNmU291cmNlQ2FsbGVkIiB0eXBlPSJTdHJpbmciIGxhYmVsPSJTb3VyY2VDYWxsZWQiPjwvcHJvcGVydHk+PHByb3BlcnR5ICBuYW1lPSJjZkludGVyYWN0aW9uTnVtYmVyIiB0eXBlPSJTdHJpbmciIGxhYmVsPSJJbnRlcmFjdGlvbk51bWJlciI+PC9wcm9wZXJ0eT48cHJvcGVydHkgIG5hbWU9ImNmT3JkZXJOdW1iZXIiIHR5cGU9IlN0cmluZyIgbGFiZWw9Ik9yZGVyTnVtYmVyIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbmFtZT0iY2ZJbnRlcmFjdGlvblBlcm1pc3Npb24iIHR5cGU9IkJvb2xlYW4iIGxhYmVsPSJJbnRlcmFjdGlvblBlcm1pc3Npb24iPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nQ29tbXVuaXR5X19EZWZhdWx0Ij48cHJvcGVydHkgIG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PHByb3BlcnR5ICBuYW1lPSJjZkludGVyYWN0aW9uUGVybWlzc2lvbiIgdHlwZT0iQm9vbGVhbiIgbGFiZWw9IkludGVyYWN0aW9uUGVybWlzc2lvbiI+PC9wcm9wZXJ0eT48L3RhcmdldENvbmZpZz4=",
         "targets": {
             "target": [
-                "lightning__RecordPage",
                 "lightning__AppPage",
+                "lightning__RecordPage",
                 "lightning__HomePage",
-                "lightningCommunity__Page",
                 "lightningCommunity__Default"
             ]
         }

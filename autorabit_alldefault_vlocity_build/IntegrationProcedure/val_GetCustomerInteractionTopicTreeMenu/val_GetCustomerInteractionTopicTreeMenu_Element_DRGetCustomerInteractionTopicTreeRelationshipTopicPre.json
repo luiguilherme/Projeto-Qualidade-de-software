@@ -6,30 +6,18 @@
         "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/GetCustomerInteractionTopicTreeMenu/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
-    "%vlocity_namespace%__ParentElementId__c": {
-        "%vlocity_namespace%__OmniScriptId__c": {
-            "Name": "valGetCustomerInteractionTopicTreeMenu",
-            "VlocityDataPackType": "VlocityMatchingKeyObject",
-            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/GetCustomerInteractionTopicTreeMenu/Procedure",
-            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
-        },
-        "Name": "CBValentinaCustomerInteractionData",
-        "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetCustomerInteractionTopicTreeMenu/Procedure/CBValentinaCustomerInteractionData",
-        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
-    },
-    "%vlocity_namespace%__ParentElementName__c": "CBValentinaCustomerInteractionData",
-    "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
+            "AssetId": "=%AssetId%",
             "Channel": "=%SVRelationshipTopic:Channel%",
             "CustomerType": "=%SVRelationshipTopic:CustomerType%",
             "LineType": "=%SVRelationshipTopic:LineType%",
             "ParentTopicId": "=%ParentTopicId%",
             "ProductType": "=%SVRelationshipTopic:AssetType%",
             "Segmentation": "=%SVRelationshipTopic:Segmentation%",
-            "ServiceTree": "%ServiceTree%"
+            "ServiceTree": "=%SVRelationshipTopic:ServiceTree%",
+            "VisibleTo": "=%SVRelationshipTopic:VisibleTo%"
         },
         "additionalOutput": {
         },
@@ -38,14 +26,14 @@
         "dataRaptor Input Parameters": [
         ],
         "disOnTplt": false,
-        "executionConditionalFormula": "(%SelectedFunction% == 'RelationshipTopic'|| %SelectedFunction% == 'RelationshipTopicFront')  && (%ProductType% == 'Pre' || %ProductType% == '')",
+        "executionConditionalFormula": "(%SelectedFunction% == 'RelationshipTopic'|| %SelectedFunction% == 'RelationshipTopicFront')  && (%SVRelationshipTopic:AssetType%=='Pre' || %SVRelationshipTopic:AssetType%=='') && %SVRelationshipTopic:ShowOnlyAutomaticAndManual%==false && %SVRelationshipTopic:ShowTopicsCaseOpening%==false",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {
         },
         "ignoreCache": false,
         "label": "DataRaptorExtractAction1",
-        "responseJSONNode": "dataResponse",
+        "responseJSONNode": "dataResponseFull",
         "responseJSONPath": "",
         "returnOnlyAdditionalOutput": false,
         "returnOnlyFailureResponse": false,

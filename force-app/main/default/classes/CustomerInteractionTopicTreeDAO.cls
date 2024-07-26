@@ -6,7 +6,8 @@ public class CustomerInteractionTopicTreeDAO {
                 Name,
                 GpsId__c,
                 Instance__c,
-                GPSFlow__c
+                GPSFlow__c,
+				ProductType__c
             FROM
                 CustomerInteractionTopicTree__c
             WHERE
