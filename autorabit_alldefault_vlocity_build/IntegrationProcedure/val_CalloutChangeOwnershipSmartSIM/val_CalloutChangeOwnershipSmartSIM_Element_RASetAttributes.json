@@ -11,7 +11,7 @@
         "additionalChainableResponse": {
         },
         "additionalInput": {
-            "AttributeCode": "'ATT_DC_NEW_SUBSCRIPTION_NUMBER'",
+            "AttributeCode": "ATT_DC_NEW_SUBSCRIPTION_NUMBER",
             "AttributeValue": "=QUERY(\"select NewSubscription__c from order where id = '{0}'\", %DREGetFRLId:OrderId%)",
             "FulfilmentRequestLineId": "%DREGetFRLId:FRLId%"
         },
@@ -19,7 +19,7 @@
         },
         "chainOnStep": false,
         "disOnTplt": false,
-        "executionConditionalFormula": "%RAGetAttributes:ATT_RT_ORDER_TYPE% == \"ChangeOwnership\"",
+        "executionConditionalFormula": "%DREGetFRLId:OrderType% == \"ChangeOwnership\"",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {
