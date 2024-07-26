@@ -1129,86 +1129,100 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     */  
     public List<Asset> cloneAsset(List<Object> arguments) {
         List<Asset> clonedAssets = new List<Asset>();
+        List<vlocity_cmt__InventoryItem__c> newInventoryItems = new List<vlocity_cmt__InventoryItem__c>();
         Map<String, Object> argMap = (Map<String, Object>)arguments[0];
-        System.debug('arguments ' + arguments);
+        System.debug('argMap: ' + argMap);
+        String oldCustomerAccount = (String) argMap.get('oldAccountId');
+        System.debug('oldCustomerAccount: ' + oldCustomerAccount);
+        String oldServiceAccount = (String) argMap.get('oldServiceAccount');
+        System.debug('oldServiceAccount: ' + oldServiceAccount);
         List<String> oldAssetIds = new List<String>();
         for (Object obj : (List<Object>) argMap.get('OldAssetId')) {
             oldAssetIds.add((String) obj);
         }
-        System.debug('oldAssetIds ' + oldAssetIds);
-        System.debug('oldAssetIds ' + oldAssetIds.size());
 
         List<String> consumerAccounts = new List<String>();
         for (Object obj : (List<Object>) argMap.get('ConsumerAccount')) {
             consumerAccounts.add((String) obj);
         }
-        System.debug('consumerAccounts ' + consumerAccounts);
 
         List<String> newBillingAccounts = new List<String>();
         for (Object obj : (List<Object>) argMap.get('NewBillingAccount')) {
             newBillingAccounts.add((String) obj);
         }
-        System.debug('newBillingAccounts ' + newBillingAccounts);
 
         List<String> newServiceAccounts = new List<String>();
         for (Object obj : (List<Object>) argMap.get('NewServiceAccount')) {
             newServiceAccounts.add((String) obj);
         }
-        System.debug('newServiceAccounts ' + newServiceAccounts);
 
         List<String> newSubscriptions = new List<String>();
         for (Object obj : (List<Object>) argMap.get('NewSubscription')) {
             newSubscriptions.add((String) obj);
         }
-        System.debug('newSubscriptions ' + newSubscriptions);
+
+        List<vlocity_cmt__InventoryItem__c> inventoryItems = [
+            SELECT Id,  vlocity_cmt__ServiceAccountId__c, vlocity_cmt__AccountId__c, vlocity_cmt__BillingAccountId__c 
+            FROM vlocity_cmt__InventoryItem__c 
+            WHERE vlocity_cmt__AccountId__c = :oldCustomerAccount
+            AND vlocity_cmt__ServiceAccountId__c = :oldServiceAccount
+        ];
+
+        System.debug('inventoryItems: ' + inventoryItems);
+
+        for (vlocity_cmt__InventoryItem__c inventoryItem :inventoryItems) {
+            inventoryItem.vlocity_cmt__AccountId__c = consumerAccounts[0];
+            inventoryItem.vlocity_cmt__BillingAccountId__c = newBillingAccounts[0];
+            inventoryItem.vlocity_cmt__ServiceAccountId__c = newServiceAccounts[0];
+            newInventoryItems.add(inventoryItem);
+        }
+        System.debug('newInventoryItems: ' + newInventoryItems);
 
          
-    List<Asset> originalAssets = [SELECT Id, AccountId, AssetLevel, AssetProvidedById, AssetServicedById, Cabinet__c,
-        ContactId, CreatedById, CreatedDate, Description, DigitalServices__c, ExternalId__c, 
-        HasBonus__c, HasBonusFormula__c, HasDiscount__c, HasDiscountFormula__c, 
-        HolderDependent__c, IMEI__c, InstallDate, Instance__c, IsCompetitorProduct, IsDeleted, 
-        IsHolder__c, IsInternal, LastModifiedById, LastModifiedDate, LastReferencedDate, LastViewedDate, 
-        LegacyAssetId__c, LegacyIdentifier__c, LegacySystem__c, MainProductDescription__c, 
-        Name, NRCAccount__c, OwnerId, ParentId, PhoneNumber__c, Platform__c, PortfolioType__c, 
-        Price, PriceCurrent__c, PriceOver__c, Product2Id, ProductCode, ProductType__c, PurchaseDate, Quantity, 
-        RootAssetId, SerialNumber, SourceSystem__c, Speed__c, Status, StockKeepingUnit, Streaming__c, 
-        TVOfferFormula__c ,Type__c, UsageEndDate, vlocity_cmt__Action__c, 
-        vlocity_cmt__ActivationDate__c, vlocity_cmt__ActivationName__c, vlocity_cmt__AssetReferenceId__c, 
-        vlocity_cmt__AttributeSelectedValues__c, vlocity_cmt__BaseOneTimeCharge__c, vlocity_cmt__BaseOneTimeTotal__c, 
-        vlocity_cmt__BaseRecurringCharge__c, vlocity_cmt__BaseRecurringTotal__c, vlocity_cmt__BillingAccountId__c, 
-        vlocity_cmt__BillingHold__c, vlocity_cmt__CatalogItemReferenceDateTime__c, vlocity_cmt__ConnectDate__c, 
-        vlocity_cmt__ContractId__c, vlocity_cmt__ContractNumber__c, vlocity_cmt__CurrencyPaymentMode__c, 
-        vlocity_cmt__DeregulationStatus__c, vlocity_cmt__DisconnectDate__c, vlocity_cmt__EffectiveBaseOneTimeTotal__c, 
-        vlocity_cmt__EffectiveBaseRecurringTotal__c, vlocity_cmt__EffectiveOneTimeCostTotal__c, 
-        vlocity_cmt__EffectiveOneTimeLoyaltyTotal__c, vlocity_cmt__EffectiveOneTimeTotal__c, 
-        vlocity_cmt__EffectiveQuantity__c, vlocity_cmt__EffectiveRecurringCostTotal__c, 
-        vlocity_cmt__EffectiveRecurringTotal__c, vlocity_cmt__EffectiveUsageCostTotal__c, 
-        vlocity_cmt__EffectiveUsagePriceTotal__c, vlocity_cmt__EffectiveUsageQuantity__c, 
-        vlocity_cmt__FinancedAmount__c, vlocity_cmt__FinancedAmountTotal__c, vlocity_cmt__FinancedInstallmentAmount__c, 
-        vlocity_cmt__InCartQuantityMap__c, vlocity_cmt__InventoryItemId__c, vlocity_cmt__ItemName__c, 
-        vlocity_cmt__LineNumber__c, vlocity_cmt__OneTimeCalculatedPrice__c, vlocity_cmt__OneTimeCharge__c, 
-        vlocity_cmt__OneTimeCost__c, vlocity_cmt__OneTimeCostTotal__c, vlocity_cmt__OneTimeDiscountPrice__c, 
-        vlocity_cmt__OneTimeLoyaltyPrice__c, vlocity_cmt__OneTimeLoyaltyTotal__c, vlocity_cmt__OneTimeManualDiscount__c, 
-        vlocity_cmt__OneTimeMargin__c, vlocity_cmt__OneTimeTotal__c, vlocity_cmt__OrderId__c, 
-        vlocity_cmt__OrderProductId__c, vlocity_cmt__ParentItemId__c, vlocity_cmt__Password__c, 
-        vlocity_cmt__PremisesId__c, vlocity_cmt__PricebookEntryId__c, vlocity_cmt__PriceListId__c, 
-        vlocity_cmt__PricingLogData__c, vlocity_cmt__ProductAttribXN__c, vlocity_cmt__ProductGroupKey__c, 
-        vlocity_cmt__ProductHierarchyGroupKeyPath__c, vlocity_cmt__ProductHierarchyPath__c, 
-        vlocity_cmt__ProvisioningStatus__c, vlocity_cmt__RecurringCalculatedPrice__c, vlocity_cmt__RecurringCharge__c, 
-        vlocity_cmt__RecurringCost__c, vlocity_cmt__RecurringCostTotal__c, vlocity_cmt__RecurringDiscountPrice__c, 
-        vlocity_cmt__RecurringManualDiscount__c, vlocity_cmt__RecurringMargin__c, vlocity_cmt__RecurringTotal__c, 
-        vlocity_cmt__RecurringUOM__c, vlocity_cmt__ReliesOnItemId__c, vlocity_cmt__RootItemId__c, 
-        vlocity_cmt__SequenceNumber__c, vlocity_cmt__ServiceAccountId__c, vlocity_cmt__ServiceIdentifier__c, 
-        vlocity_cmt__ServicePointId__c, vlocity_cmt__SubscriptionId__c, vlocity_cmt__UsageCostTotal__c, 
-        vlocity_cmt__UsageMargin__c, vlocity_cmt__UsageMeasurementId__c, vlocity_cmt__UsagePriceTotal__c, 
-        vlocity_cmt__UsageQuantity__c, vlocity_cmt__UsageUnitCost__c, vlocity_cmt__UsageUnitPrice__c, 
-        vlocity_cmt__Username__c 
-    FROM Asset 
-    WHERE Id IN :oldAssetIds 
-    LIMIT 3
-    ];
-    System.debug('originalAssets ' + originalAssets);
-    System.debug('originalAssets ' + originalAssets.size());
+        List<Asset> originalAssets = [SELECT Id, AccountId, AssetLevel, AssetProvidedById, AssetServicedById, Cabinet__c,
+            ContactId, CreatedById, CreatedDate, Description, DigitalServices__c, ExternalId__c, 
+            HasBonus__c, HasBonusFormula__c, HasDiscount__c, HasDiscountFormula__c, 
+            HolderDependent__c, IMEI__c, InstallDate, Instance__c, IsCompetitorProduct, IsDeleted, 
+            IsHolder__c, IsInternal, LastModifiedById, LastModifiedDate, LastReferencedDate, LastViewedDate, 
+            LegacyAssetId__c, LegacyIdentifier__c, LegacySystem__c, MainProductDescription__c, 
+            Name, NRCAccount__c, OwnerId, ParentId, PhoneNumber__c, Platform__c, PortfolioType__c, 
+            Price, PriceCurrent__c, PriceOver__c, Product2Id, ProductCode, ProductType__c, PurchaseDate, Quantity, 
+            RootAssetId, SerialNumber, SourceSystem__c, Speed__c, Status, StockKeepingUnit, Streaming__c, 
+            TVOfferFormula__c ,Type__c, UsageEndDate, vlocity_cmt__Action__c, 
+            vlocity_cmt__ActivationDate__c, vlocity_cmt__ActivationName__c, vlocity_cmt__AssetReferenceId__c, 
+            vlocity_cmt__AttributeSelectedValues__c, vlocity_cmt__BaseOneTimeCharge__c, vlocity_cmt__BaseOneTimeTotal__c, 
+            vlocity_cmt__BaseRecurringCharge__c, vlocity_cmt__BaseRecurringTotal__c, vlocity_cmt__BillingAccountId__c, 
+            vlocity_cmt__BillingHold__c, vlocity_cmt__CatalogItemReferenceDateTime__c, vlocity_cmt__ConnectDate__c, 
+            vlocity_cmt__ContractId__c, vlocity_cmt__ContractNumber__c, vlocity_cmt__CurrencyPaymentMode__c, 
+            vlocity_cmt__DeregulationStatus__c, vlocity_cmt__DisconnectDate__c, vlocity_cmt__EffectiveBaseOneTimeTotal__c, 
+            vlocity_cmt__EffectiveBaseRecurringTotal__c, vlocity_cmt__EffectiveOneTimeCostTotal__c, 
+            vlocity_cmt__EffectiveOneTimeLoyaltyTotal__c, vlocity_cmt__EffectiveOneTimeTotal__c, 
+            vlocity_cmt__EffectiveQuantity__c, vlocity_cmt__EffectiveRecurringCostTotal__c, 
+            vlocity_cmt__EffectiveRecurringTotal__c, vlocity_cmt__EffectiveUsageCostTotal__c, 
+            vlocity_cmt__EffectiveUsagePriceTotal__c, vlocity_cmt__EffectiveUsageQuantity__c, 
+            vlocity_cmt__FinancedAmount__c, vlocity_cmt__FinancedAmountTotal__c, vlocity_cmt__FinancedInstallmentAmount__c, 
+            vlocity_cmt__InCartQuantityMap__c, vlocity_cmt__InventoryItemId__c, vlocity_cmt__ItemName__c, 
+            vlocity_cmt__LineNumber__c, vlocity_cmt__OneTimeCalculatedPrice__c, vlocity_cmt__OneTimeCharge__c, 
+            vlocity_cmt__OneTimeCost__c, vlocity_cmt__OneTimeCostTotal__c, vlocity_cmt__OneTimeDiscountPrice__c, 
+            vlocity_cmt__OneTimeLoyaltyPrice__c, vlocity_cmt__OneTimeLoyaltyTotal__c, vlocity_cmt__OneTimeManualDiscount__c, 
+            vlocity_cmt__OneTimeMargin__c, vlocity_cmt__OneTimeTotal__c, vlocity_cmt__OrderId__c, 
+            vlocity_cmt__OrderProductId__c, vlocity_cmt__ParentItemId__c, vlocity_cmt__Password__c, 
+            vlocity_cmt__PremisesId__c, vlocity_cmt__PricebookEntryId__c, vlocity_cmt__PriceListId__c, 
+            vlocity_cmt__PricingLogData__c, vlocity_cmt__ProductAttribXN__c, vlocity_cmt__ProductGroupKey__c, 
+            vlocity_cmt__ProductHierarchyGroupKeyPath__c, vlocity_cmt__ProductHierarchyPath__c, 
+            vlocity_cmt__ProvisioningStatus__c, vlocity_cmt__RecurringCalculatedPrice__c, vlocity_cmt__RecurringCharge__c, 
+            vlocity_cmt__RecurringCost__c, vlocity_cmt__RecurringCostTotal__c, vlocity_cmt__RecurringDiscountPrice__c, 
+            vlocity_cmt__RecurringManualDiscount__c, vlocity_cmt__RecurringMargin__c, vlocity_cmt__RecurringTotal__c, 
+            vlocity_cmt__RecurringUOM__c, vlocity_cmt__ReliesOnItemId__c, vlocity_cmt__RootItemId__c, 
+            vlocity_cmt__SequenceNumber__c, vlocity_cmt__ServiceAccountId__c, vlocity_cmt__ServiceIdentifier__c, 
+            vlocity_cmt__ServicePointId__c, vlocity_cmt__SubscriptionId__c, vlocity_cmt__UsageCostTotal__c, 
+            vlocity_cmt__UsageMargin__c, vlocity_cmt__UsageMeasurementId__c, vlocity_cmt__UsagePriceTotal__c, 
+            vlocity_cmt__UsageQuantity__c, vlocity_cmt__UsageUnitCost__c, vlocity_cmt__UsageUnitPrice__c, 
+            vlocity_cmt__Username__c 
+        FROM Asset 
+        WHERE Id IN :oldAssetIds 
+        LIMIT 3
+        ];
 
         Map<String, Asset> assetMap =  new Map<String, Asset>();
         for (Asset asset : originalAssets) {
@@ -1255,15 +1269,22 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             if (originalAsset.Id!=null) {
                 assetsToUpdate.add(originalAsset);
             }
+            System.debug('assetsToUpdate: ' + originalAsset.vlocity_cmt__RootItemId__c);
+            System.debug('assetsToInsert: ' + clonedAsset.vlocity_cmt__RootItemId__c);
             assetsToInsert.add(clonedAsset);
             clonedAssets.add(clonedAsset);
         }
+
+
 
         if (!assetsToUpdate.isEmpty()) {
             update assetsToUpdate;
         }
         if (!assetsToInsert.isEmpty()) {
             insert assetsToInsert;
+        }
+        if(!newInventoryItems.isEmpty()) {
+            update newInventoryItems;
         }
 
         return clonedAssets;
