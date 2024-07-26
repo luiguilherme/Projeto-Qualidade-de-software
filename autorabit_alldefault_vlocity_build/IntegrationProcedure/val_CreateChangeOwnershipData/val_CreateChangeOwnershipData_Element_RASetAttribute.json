@@ -12,13 +12,14 @@
         },
         "additionalInput": {
             "AttributeCode": "=LIST('ATT_DC_NEW_SUBSCRIPTION_NUMBER')",
+            "AttributeValue": "=QUERY(\"select NewSubscription__c from order where id = '%DREGetFRLId:OrderId%'\")",
             "FulfilmentRequestLineId": "%DREGetFRLId:FRLId%"
         },
         "additionalOutput": {
         },
         "chainOnStep": false,
         "disOnTplt": false,
-        "executionConditionalFormula": "",
+        "executionConditionalFormula": "%RAGetAttributes:ATT_RT_ORDER_TYPE% == \"ChangeOwnership\"",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {
