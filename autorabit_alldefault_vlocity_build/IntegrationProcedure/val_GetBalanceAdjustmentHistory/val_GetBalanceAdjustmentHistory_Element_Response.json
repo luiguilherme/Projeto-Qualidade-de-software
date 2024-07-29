@@ -8,9 +8,9 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "code": "%HTTPResponse:code%",
+            "code": "IF(ISBLANK(%HTTPHistoryInfo:statusCode%), 200, %HTTPHistoryInfo:statusCode%)",
             "listHistory": "%MergedList%",
-            "message": "=IF((%HTTPResponse:code%=200)&&%ResponsePageControl:size%==0,\"Nenhuma Operação no período\",IF(%HTTPResponse:code%!=200&&NOT(ISBLANK(%HTTPResponse:code%)),\"Serviço Indisponível\",\"\"))",
+            "message": "=IF((ISBLANK(%HTTPHistoryInfo:statusCode%))&&%ResponsePageControl:size%==0,\"Nenhuma Operação no período\",IF(%HTTPHistoryInfo:statusCode%!=200&&NOT(ISBLANK(%HTTPHistoryInfo:statusCode%)),\"Serviço Indisponível\",\"\"))",
             "pageControl": "%ResponsePageControl%"
         },
         "disOnTplt": false,
