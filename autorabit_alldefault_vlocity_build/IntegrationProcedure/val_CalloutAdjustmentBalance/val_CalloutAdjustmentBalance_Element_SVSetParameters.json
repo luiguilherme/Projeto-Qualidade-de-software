@@ -11,12 +11,12 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "adjustmentServiceDescription": "==IF(%Unit% = \"KB\" || %Unit% = \"MB\" || %Unit% = \"GB\",\"Volume\",IF(%Unit% = \"R$\",\"Monetario\",IF(%Unit% = \"Min\",\"Voz\",\"Eventos\")))",
+            "adjustmentServiceDescription": "=IF(%Unit% = \"KB\" || %Unit% = \"MB\" || %Unit% = \"GB\",\"Volume\",IF(%Unit% = \"R$\",\"Monetario\",IF(%Unit% = \"Min\",\"Voz\",\"Eventos\")))",
             "adjustmentType": "=IF(%AdjustType% = \"Credit\",\"CRS\",\"DEB\")",
             "amountValue": "=TOSTRING(IF(%Unit% = \"KB\",(%BalanceValue% * 1024),IF(%Unit% = \"MB\",(%BalanceValue% * 1024 * 1024), IF(%Unit% = \"GB\",(%BalanceValue% * 1024 * 1024 * 1024),%BalanceValue%))))",
             "balanceUnit": "=IF(%Unit% = \"KB\" || %Unit% = \"MB\" || %Unit% = \"GB\",\"byte\",IF(%Unit% = \"R$\",\"BRL\",IF(%Unit% = \"Min\",\"Voz\",\"event\")))",
-            "endDate": "=FORMATDATETIME(ADDDAY(TODAY(),%BalanceValidate%), \"yyyy-MM-dd'T'23:59:59'-03:00'\", \"América/Sao_Paulo\")",
-            "externalId": "==CONCAT(%BalanceType%,%caseId%)",
+            "endDate": "=IF(%AdjustType% = \"Debt\",null,FORMATDATETIME(ADDDAY(TODAY(),%CurrentValidity%), \"yyyy-MM-dd'T'23:59:59'-03:00'\", \"América/Sao_Paulo\"))",
+            "externalId": "=CONCAT(%BalanceType%,%caseId%)",
             "name": "=IF(%BalanceType% == \"PO_C_BONUS_DADOS_RESSARCIMENTO\", \"Ressarcimento de Dados\", IF(%BalanceType% == \"PO_C_BONUS_VOZ_ONNET_RESSARCIMENTO\", \"Ressarcimento de Voz (Vivo para Vivo)\", IF(%BalanceType% == \"PO_C_BONUS_VOZ_OFFNET_RESSARCIMENTO\", \"Ressarcimento de Voz (Vivo para outras operadoras)\", IF(%BalanceType% == \"PO_C_BONUS_SMS/MMS_ONNET_RESSARCIMENTO\", \"Ressarcimento de SMS (Vivo para outras operadoras)\", \"Ressarcimento de SMS (Vivo para outras operadoras)\"))))",
             "startDate": "=FORMATDATETIME(NOW(), \"yyyy-MM-dd'T'HH:mm:ss'-03:00'\", \"América/Sao_Paulo\")"
         },
