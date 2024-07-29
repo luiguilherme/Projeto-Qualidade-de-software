@@ -11,15 +11,15 @@
         "additionalChainableResponse": {
         },
         "additionalInput": {
-            "AttributeCode": "=LIST('ATT_DC_NEW_SUBSCRIPTION_NUMBER')",
-            "AttributeValue": "=QUERY(\"select NewSubscription__c from order where id = '%RAGetAttributes:ATT_DC_ORDER_ID%'\")",
+            "AttributeCode": "ATT_DC_NEW_SUBSCRIPTION_NUMBER",
+            "AttributeValue": "=QUERY(\"select NewSubscription__c from order where id = '{0}'\", %DREGetFRLId:OrderId%)",
             "FulfilmentRequestLineId": "%DREGetFRLId:FRLId%"
         },
         "additionalOutput": {
         },
         "chainOnStep": false,
         "disOnTplt": false,
-        "executionConditionalFormula": "%RAGetAttributes:ATT_RT_ORDER_TYPE% == \"ChangeOwnership\"",
+        "executionConditionalFormula": "%DREGetFRLId:OrderType% == \"ChangeOwnership\"",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {
