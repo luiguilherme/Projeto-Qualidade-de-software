@@ -13,20 +13,148 @@
         {
             "actionList": [
                 {
+                    "actionIndex": 0,
                     "card": "{card}",
-                    "draggable": false,
-                    "isOpen": true,
+                    "draggable": true,
+                    "isOpen": false,
                     "key": "1717505891623-v56qzx94u",
-                    "label": "Action",
+                    "label": "ValidatePortability",
                     "stateAction": {
                         "Web Page": {
                             "targetName": "/apex"
                         },
                         "displayName": "Action",
-                        "id": "test-action",
+                        "id": "flex-action-1722349350004",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateAllJourneys\",\"vlocityAsync\":false,\"inputMap\":{\"ValidateOrder\":\"true\",\"ValidatePortability\":\"false\",\"AssetId\":\"{recordId}\",\"Functionality\":\"LineSyncFullPre\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"\",\"id\":3}]}",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
-                        "type": "Custom",
+                        "type": "DataAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1722349425157-ee7jmxvyp",
+                    "label": "ToastLineStatusNotActive",
+                    "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "blockJourney",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-0",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "true"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "valToast",
+                        "extraParams": {
+                            "message": "{message}",
+                            "variant": "{variant}"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1722349483020",
+                        "message": "showToast",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 2,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1722349511734-kl6gforji",
+                    "label": "ToastSyncAtLast24Hours",
+                    "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": " HasSyncFullActive",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-9",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "true"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "valToast",
+                        "extraParams": {
+                            "message": "Não foi possível realizar a solicitação, pois já existe um comando de sincronismo em fila para essa linha",
+                            "variant": "warning"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1722349660196",
+                        "message": "showToast",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 3,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1722350157597-ivpm3lkb0",
+                    "label": "ActionOS",
+                    "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "HasSyncFullActive",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-29",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "false"
+                                },
+                                {
+                                    "field": " blockJourney",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-36",
+                                    "logicalOperator": "&&",
+                                    "operator": "!=",
+                                    "type": "custom",
+                                    "value": "true"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "cardName": "valSyncFull",
+                        "cardNode": "{record}",
+                        "channelName": "close_modal",
+                        "displayName": "Action",
+                        "flyoutLwc": "valSyncFull",
+                        "flyoutParams": {
+                            "AccountId": "{Parent.AccountId}",
+                            "AssetId": "{Parent.AssetId}",
+                            "ContextId": "{Parent.ContextId}",
+                            "LineNumber": "{Products.LineNumber}",
+                            "SubscriptionId": "{Products.SubscriptionId}"
+                        },
+                        "flyoutType": "childCard",
+                        "hasExtraParams": true,
+                        "id": "flex-action-1722359023033",
+                        "openFlyoutIn": "Modal",
+                        "openUrlIn": "Current Window",
+                        "type": "Flyout",
                         "vlocityIcon": "standard-default"
                     }
                 }
