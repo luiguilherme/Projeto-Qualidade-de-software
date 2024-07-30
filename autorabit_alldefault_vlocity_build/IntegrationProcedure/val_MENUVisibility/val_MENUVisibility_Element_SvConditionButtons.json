@@ -35,8 +35,8 @@
             "showPreActivePackage": false,
             "showReactivationButton": "=IF(%Asset:SubscriptionStatus% == \"Cancelado\", true, false)",
             "showRechargeButton": "=IF((%IPCheckPermission:UserPermission:RealizarRecargaFisica% == True || %IPCheckPermission:UserPermission:RealizarRecargaOnline% == True) AND (%Asset:SubscriptionStatus% != \"Cancelado\" && %Asset:SubscriptionStatus% != \"Recém Portado\" && %Asset:SubscriptionStatus% != \"Desativado\" && %Asset:SubscriptionStatus% != \"Terminado\" && %Asset:SubscriptionStatus% != \"Suspenso a Fraude\" && %Asset:SubscriptionStatus% != \"Suspenso a Roubo\" && %Asset:SubscriptionStatus% != \"Suspenso a Pedido\"), True, False)",
-            "showSyncFullButton": "=(%IPCheckPermission:UserPermission:LineSyncFullPre% == true)",
-            "showSynchronize": false
+            "showSyncFullButton": "=IF(%IPCheckPermission:UserPermission:LineSyncFullPre% == true, true,false)",
+            "showSynchronize": "=IF(%IPCheckPermission:UserPermission:LineSyncFullPre% == true, true,false)"
         },
         "executionConditionalFormula": "",
         "failOnStepError": true,
