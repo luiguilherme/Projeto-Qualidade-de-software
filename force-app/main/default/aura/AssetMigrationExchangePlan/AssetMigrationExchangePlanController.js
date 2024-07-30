@@ -19,10 +19,8 @@
         var selectedTypeFromEvent = event.getParam("type");
 
         if (selectedTypeFromEvent == 'closeCanvas') {
-            if (interactionId != component.get('v.recordId')) {
-                component.set('v.showCanvas ', false);   
-                component.set('v.showResetButton', false);
-            }
+            component.set('v.showCanvas ', false);   
+            component.set('v.showResetButton', false);
         }
     },
 
