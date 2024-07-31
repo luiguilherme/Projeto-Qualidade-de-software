@@ -63,9 +63,7 @@ public with sharing class CaseManagementTest {
         JWTUtilityTest.setPublicTestKey();
         Account acc = [SELECT Id FROM Account];
         acc.DocumentNumber__c = '63542141747';
-        TriggerHandler.bypass('AccountTriggerHandler');
         update acc;
-        TriggerHandler.clearbypass('AccountTriggerHandler');
         String jwt = JWTUtilityTest.createValidJWT();
         RestRequest req = new RestRequest();
         RestResponse res = new RestResponse();
@@ -91,9 +89,7 @@ public with sharing class CaseManagementTest {
         JWTUtilityTest.setPublicTestKey();
         Account acc = [SELECT Id FROM Account];
         acc.DocumentNumber__c = '63542141747';
-        TriggerHandler.bypass('AccountTriggerHandler');
         update acc;
-        TriggerHandler.clearbypass('AccountTriggerHandler');
 
         String jwt = JWTUtilityTest.createValidJWT();
         Case caseRec = [SELECT Id FROM Case WHERE Subject = 'Test Case'];
@@ -120,9 +116,7 @@ public with sharing class CaseManagementTest {
         JWTUtilityTest.setPublicTestKey();
         Account acc = [SELECT Id FROM Account];
         acc.DocumentNumber__c = '63542141747';
-        TriggerHandler.bypass('AccountTriggerHandler');
         update acc;
-        TriggerHandler.clearbypass('AccountTriggerHandler');
         String jwt = JWTUtilityTest.createValidJWT();
 
         RestRequest req = new RestRequest();
