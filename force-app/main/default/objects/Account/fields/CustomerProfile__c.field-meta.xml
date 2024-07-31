@@ -3,8 +3,9 @@
     <fullName>CustomerProfile__c</fullName>
     <externalId>false</externalId>
     <formula>IF( 		
-				OR( OpenTicketBD__c = true,
-								TDNA__c = true,
+    OR(
+        OpenTicketBD__c = true,
+		TDNA__c = true,
         Recaller__c = true,
         Bottom__c = true,
         HighTemperature__c = true,
@@ -13,12 +14,15 @@
         TicketBDReincident__c = true,
         ODC__c = true,
         NCC__c = true,
-							 HDENoContact__c = true,
-								TEXT(CustomerMoodRating__c) = &quot;Sim&quot;),				
-				IMAGE(&quot;/resource/HDERed&quot;, &quot;Red&quot;),
-    IF(	HDELastUpdateDate__c +2 &gt;= today(), 
-        IMAGE(&quot;/resource/HDEGreen?&quot;, &quot;green&quot;),
-        IMAGE(&quot;/resource/HDEGray&quot;, &quot;Gray&quot;)))</formula>
+		HDENoContact__c = true,
+		TEXT(CustomerMoodRating__c) = &quot;Sim&quot;),				
+		IMAGE(&quot;/resource/HDERed&quot;, &quot;Cliente com Indicador Negativo&quot;),
+    IF(
+        HDELastUpdateDate__c +2 &gt;= today(), 
+        IMAGE(&quot;/resource/HDEGreen?&quot;, &quot;Cliente com Indicador Positivo&quot;),
+        IMAGE(&quot;/resource/HDEGray&quot;, &quot;Cliente sem Indicador para Avaliação&quot;)
+    )
+)</formula>
     <label>Perfil do cliente</label>
     <required>false</required>
     <trackHistory>false</trackHistory>
