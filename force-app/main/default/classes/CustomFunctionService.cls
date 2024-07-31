@@ -1127,8 +1127,8 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     * Descrição: Validacao de IMEI
     * Data.....: 04/06/2024
     */  
-    public List<Asset> cloneAsset(List<Object> arguments) {
-        List<Asset> clonedAssets = new List<Asset>();
+    public List<Map<String, String>> cloneAsset(List<Object> arguments) {
+        List<Map<String, String>> clonedAssets = new List<Map<String, String>>();
         List<vlocity_cmt__InventoryItem__c> newInventoryItems = new List<vlocity_cmt__InventoryItem__c>();
         Map<String, Object> argMap = (Map<String, Object>)arguments[0];
         System.debug('argMap: ' + argMap);
@@ -1243,36 +1243,35 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             
             // Clonar o Asset
             Asset clonedAsset = originalAsset.clone(false, false);
-            originalAsset.AccountId = consumerAccount;
-            originalAsset.vlocity_cmt__BillingAccountId__c = newBillingAccount;
-            originalAsset.vlocity_cmt__ServiceAccountId__c = newServiceAccount;
-            originalAsset.vlocity_cmt__SubscriptionId__c = newSubscription;
-            if (clonedAsset.LegacyIdentifier__c != null && clonedAsset.LegacyIdentifier__c.length() > 0) {
-                clonedAsset.LegacyIdentifier__c = 'X' + clonedAsset.LegacyIdentifier__c.substring(1);
+            clonedAsset.AccountId = consumerAccount;
+            clonedAsset.vlocity_cmt__BillingAccountId__c = newBillingAccount;
+            clonedAsset.vlocity_cmt__ServiceAccountId__c = newServiceAccount;
+            //clonedAsset.vlocity_cmt__SubscriptionId__c = newSubscription;
+            if (originalAsset.LegacyIdentifier__c != null && originalAsset.LegacyIdentifier__c.length() > 0) {
+                originalAsset.LegacyIdentifier__c = 'X' + originalAsset.LegacyIdentifier__c.substring(1);
             }
             // if (clonedAsset.ParentId != null) {
             //     clonedAsset.ParentId += '_OLD';
             // }
-            if (clonedAsset.vlocity_cmt__AssetReferenceId__c!= null) {
-                clonedAsset.vlocity_cmt__AssetReferenceId__c += '_OLD';
+            if (originalAsset.vlocity_cmt__AssetReferenceId__c!= null) {
+                originalAsset.vlocity_cmt__AssetReferenceId__c += '_OLD';
             }
-            if (clonedAsset.vlocity_cmt__ParentItemId__c!= null) {
-                clonedAsset.vlocity_cmt__ParentItemId__c += '_OLD';
+            if (originalAsset.vlocity_cmt__ParentItemId__c!= null) {
+                originalAsset.vlocity_cmt__ParentItemId__c += '_OLD';
             }
-            if (clonedAsset.vlocity_cmt__RootItemId__c!= null) {
-                clonedAsset.vlocity_cmt__RootItemId__c += '_OLD';
+            if (originalAsset.vlocity_cmt__RootItemId__c!= null) {
+                originalAsset.vlocity_cmt__RootItemId__c += '_OLD';
             }
-            clonedAsset.Status = 'Desativado';
-            clonedAsset.vlocity_cmt__Action__c = 'Disconnect';
-            clonedAsset.vlocity_cmt__DisconnectDate__c = Datetime.now();
+            originalAsset.Status = 'Desativado';
+            originalAsset.vlocity_cmt__Action__c = 'Disconnect';
+            originalAsset.vlocity_cmt__DisconnectDate__c = Datetime.now();
             // Inserir o novo Asset clonado
             if (originalAsset.Id!=null) {
                 assetsToUpdate.add(originalAsset);
             }
-            System.debug('assetsToUpdate: ' + originalAsset.vlocity_cmt__RootItemId__c);
-            System.debug('assetsToInsert: ' + clonedAsset.vlocity_cmt__RootItemId__c);
+            System.debug('Novo Asset: ' + originalAsset.vlocity_cmt__SubscriptionId__c);
+            System.debug('AssetHistórico clonado: ' + clonedAsset.vlocity_cmt__SubscriptionId__c);
             assetsToInsert.add(clonedAsset);
-            clonedAssets.add(clonedAsset);
         }
 
 
@@ -1285,6 +1284,12 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         }
         if(!newInventoryItems.isEmpty()) {
             update newInventoryItems;
+        }
+
+        for (Asset asset :assetsToInsert) {
+            Map<String, String> assetMapItem = new Map<String, String>();
+            assetMapItem.put('id', asset.Id);
+            clonedAssets.add(assetMapItem);
         }
 
         return clonedAssets;
