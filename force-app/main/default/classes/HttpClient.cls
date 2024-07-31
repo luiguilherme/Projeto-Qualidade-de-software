@@ -84,8 +84,10 @@ public class HttpClient {
             request.setBody(payload);
         }
 
-        IHttpRequestConfigurator requestConfigurator = RequestConfiguratorFactory.getConfigurator(wsConfig);
-        request = requestConfigurator.configure(request, wsConfig);
+        if(wsConfig.user__c == null || wsConfig.user__c == '' ){
+            IHttpRequestConfigurator requestConfigurator = RequestConfiguratorFactory.getConfigurator(wsConfig);
+            request = requestConfigurator.configure(request, wsConfig);
+        }
 
         ServiceTransaction serviceTransaction = instantiateServiceTransaction(request, wsConfig, wsConfig.Endpoint__c, method, customerInteractionId);
 

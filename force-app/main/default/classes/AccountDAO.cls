@@ -11,6 +11,7 @@ public with sharing class AccountDAO {
                 Id,
                 Name,
                 DocumentNumber__c,
+                DocumentType__c,
                 UserId__c,
                 RecordTypeId,
                 vlocity_cmt__CustomerValue__c, 
@@ -28,7 +29,9 @@ public with sharing class AccountDAO {
                 BillingPostalCode,
                 BillingCity,
                 BillingState,
-                BillingNumber__c
+                BillingNumber__c,
+                HighTemperature__c,
+                CustomerSegment__c
             FROM 
                 Account
             WHERE 
@@ -135,12 +138,17 @@ public with sharing class AccountDAO {
                 DocumentNumber__c,
                 UserId__c,
                 vlocity_cmt__PrimaryContactId__r.MotherName__c,
+                vlocity_cmt__PrimaryContactId__r.CPF__c,
+                vlocity_cmt__PrimaryContactId__r.Email,
+                vlocity_cmt__PrimaryContactId__r.FirstName,
+                vlocity_cmt__PrimaryContactId__r.LastName,
                 vlocity_cmt__PrimaryContactId__c,
                 CreditScoreDate__c,
                 RecordTypeId,
                 vlocity_cmt__CreditScore__c,
                 vlocity_cmt__CustomerValue__c,
-                Phone
+                Phone,
+                IsCustomerPortal
             FROM 
                 Account
             WHERE 
