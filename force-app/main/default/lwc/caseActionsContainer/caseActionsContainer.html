@@ -1,0 +1,63 @@
+<template>
+    <div class="slds-card">
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+
+        <!-- Action Buttons -->
+        <div class="slds-card__header slds-grid">
+            <lightning-button label="Notificar Cliente" class="slds-p-right_xx-small"
+                onclick={handleNotifyCustomerAction}></lightning-button>
+            <template if:false={caseIsClosed}>
+                <lightning-button label="Fechar o Caso" onclick={handleCloseTheCaseAction}></lightning-button>
+            </template>
+        </div>
+
+
+
+
+        <!-- Notify Customer Content -->
+        <template if:true={showNotifyCustomerContent}>
+
+            <template if:true={notificationsNotIsEmpty}>
+                <div style="position:absolute;top:30px;left:95%;">
+                    <lightning-button variant="base" icon-name="utility:close" class="slds-m-bottom_small"
+                        onclick={hiddenContent}></lightning-button>
+
+                </div>
+            </template>
+
+            <div class="notify_customer_content slds-card__body slds-scrollable">
+                <template for:each={notifications} for:item="notification">
+                    <div key={notification.id} class="slds-is-relative">
+                        <div class={notification.theme} role="status">
+                            <div class="slds-p-right_medium">
+                                <lightning-icon icon-name={notification.icon} size="small"
+                                    variant="inverse"></lightning-icon>
+                            </div>
+                            <div class="slds-notify__content">
+                                <h2 class="slds-text-heading_small">{notification.message}</h2>
+                                <p>{notification.messageDetail}</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+
+        <!-- Close The Case Content -->
+        <template if:true={showCloseTheCaseContent}>
+            <div class="slds-card__body">
+                <div class="slds-text-heading_medium slds-text-align_center slds-p-around_large">Tem certeza de que
+                    deseja
+                    fechar este Caso?</div>
+            </div>
+            <div class="slds-card__footer">
+                <lightning-button label="Sim" class="slds-p-right_small"
+                    onclick={handleConfirmCloseCase}></lightning-button>
+                <lightning-button label="Não" variant="brand" onclick={handlerefuseCloseCase}></lightning-button>
+            </div>
+        </template>
+    </div>
+</template>

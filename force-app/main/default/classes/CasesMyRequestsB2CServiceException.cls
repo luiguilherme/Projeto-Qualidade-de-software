@@ -1,0 +1,1 @@
+public with sharing class CasesMyRequestsB2CServiceException extends Exception{}

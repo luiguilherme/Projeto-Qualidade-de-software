@@ -59,6 +59,17 @@ public with sharing class ServiceFlowGPSService {
         return ServiceFlowGPSEngine.getCanvasParameters(recordId, serviceFlowId, assetInstance, caseId);
     }
 
+    public static CanvasResult getCanvasParametersFromCase (String caseId){
+        Case caseObj = CaseDAO.getCasebyId(caseId);
+        vlocity_cmt__CustomerInteractionTopic__c interactionTopic = CustomerInteractionTopicDAO.getByCaseId(caseId);
+
+        CanvasResult canvasResult = ServiceFlowGPSEngine.getCanvasParameters(caseObj.AccountId, caseObj.CustomerInteractionTopicTree__c, caseObj.ComplainedAsset__c, caseId);
+        canvasResult.parameters.put('CustomerInteractionId', interactionTopic.vlocity_cmt__CustomerInteractionId__c);
+        canvasResult.parameters.put('CustomerInteractionTopicId', interactionTopic.Id);
+        
+        return canvasResult;
+    }
+
     public static Map<String, Object> getURLToRedirect(String recordId){
         return ServiceFlowGPSEngine.getURLToRedirect(recordId);
     }

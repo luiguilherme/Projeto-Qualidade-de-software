@@ -75,7 +75,6 @@ public without sharing class RecordTypeUtil {
         return recordTypeInfoMapByDevName.get(sObjectNameKey);
     }
   
-  
     /**
      * Retorna map de RecordTypeInfo com base no sobjectType recebido, usando o Id do RecordType como chave
     */
@@ -119,5 +118,23 @@ public without sharing class RecordTypeUtil {
         return rtMap;
     }
   
-  
-  }
+    public static Set<Id> getIdsByDevNames(String objectName, Set<String> recordTypeDeveloperNames)
+    {
+        Set<Id> recordTypeIds = new Set<Id>();
+        try
+        {
+            for (String devName: recordTypeDeveloperNames)
+            {
+                SObjectType sObjectType = SchemaUtils.getSObjectTypeByName(objectName);
+                Map<String, RecordTypeInfo> rtInfoMapFrom = getRTInfoMapFrom(sObjectType);
+                String recordTypeId = rtInfoMapFrom.get(devName).getRecordTypeId(); 
+                recordTypeIds.add(recordTypeId);
+            }  
+        }
+        catch(Exception e)
+        {
+            System.debug(e.getStackTraceString());
+        }
+        return recordTypeIds;
+    }
+}

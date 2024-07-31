@@ -1,0 +1,32 @@
+<aura:component
+    implements="force:hasRecordId,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader"
+    controller="CaseMyRequestsController">
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="isLoading" type="Boolean" default="true" />
+    <aura:attribute name="notifications" type="List"/>
+    <aura:handler name="init" value="{!this}" action="{!c.handleInit}" />
+
+    <lightning:card>
+        <aura:renderIf isTrue="{!v.isLoading}">
+            
+            <div class="spinnerCotainer">
+                <lightning:spinner alternativeText="Loading" size="medium" variant="brand" style="padding: 10rem;" />
+            </div>
+
+            <aura:set attribute="else">
+                <aura:iteration items="{!v.notifications}" var="notification">
+                    <div class="slds-notify_container slds-is-relative">
+                        <div class="{!notification.theme}" style="padding: auto;">
+                            <div class="slds-p-right_medium">
+                                <lightning:icon iconName="{!notification.icon}" size="small" variant="inverse"/>
+                            </div>
+                            <div class="slds-notify__content ">
+                                <h2 class="slds-text-heading_small">{!notification.message}</h2>
+                            </div>  
+                        </div>
+                    </div>
+                </aura:iteration>
+            </aura:set>
+        </aura:renderIf>
+    </lightning:card>
+</aura:component>

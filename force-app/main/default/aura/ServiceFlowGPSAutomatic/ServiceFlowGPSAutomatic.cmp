@@ -1,0 +1,43 @@
+<aura:component controller="ServiceContainerController" access="global"
+                implements="flexipage:availableForAllPageTypes,force:hasRecordId,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes">
+    <aura:attribute name="hasGPSFlowId" type="Boolean" default="false" />
+    <aura:attribute name="canvasAppName" type="String" default="" />
+    <aura:attribute name="canvasParameters" type="String" default='' />
+    <aura:attribute name="canOpenCanvas" type="Boolean" default="false" />
+    <aura:attribute name="showButton" type="Boolean" default="true" />
+    <aura:attribute name="isLoading" type="Boolean" default="false" />
+    
+    <div class="slds-grid slds-wrap slds-box">
+        <div class="slds-size_1-of-1">
+            <span style="font-size: 14pt;">
+                <strong>Fluxo de Atendimento</strong>
+            </span>
+        </div>
+        
+        <div class="slds-card slds-align_absolute-center slds-grid slds-wrap slds-box" style="width: 100%;">
+            
+            <aura:renderIf isTrue="{!v.showButton}">
+                <lightning:button class="buttonAceitou" variant="brand" label="Abrir GPS" title="Brand action"
+                                  onclick="{!c.handleClick}" />
+                
+                <aura:set attribute="else">
+                    <aura:renderIf isTrue="{!v.isLoading}">
+                        <div class="slds-size_1-of-1 slds-card__body slds-card__body_inner spinnerClass">
+                            <lightning:spinner class="spinnerClass" variant="brand" alternativeText="Loading" size="medium" />
+                        </div>
+                    </aura:renderIf>
+
+                    <aura:renderIf isTrue="{!v.canOpenCanvas}">
+                        <c:ServiceFlowGPSCanvas canvasAppName="{!v.canvasAppName}" canOpenCanvas="{!v.canOpenCanvas}"
+                                                canvasParameters="{!v.canvasParameters}"></c:ServiceFlowGPSCanvas>
+                        <aura:set attribute="else">
+                            <div class="slds-size_1-of-1 slds-align_absolute-center">
+                                <p>Não tem fluxo GPS associado ao palito</p>
+                            </div>
+                        </aura:set>
+                    </aura:renderIf>
+                </aura:set>
+            </aura:renderIf>
+        </div>
+    </div>
+</aura:component>

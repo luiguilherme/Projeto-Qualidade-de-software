@@ -1,0 +1,29 @@
+<template>
+    <lightning-card title="Anexos" icon-name="utility:attach">
+        <div class="slds-p-horizontal_medium slds-p-bottom_small slds-scrollable_y" style={tableHeight}>
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </template>
+            <template if:false={isLoading}>
+                <template if:true={isEmpty}>
+                    <div class="slds-text-heading_small slds-text-align_center">Sem anexo.</div>
+                </template>
+                <template if:false={isEmpty}>
+                    <template for:each={attachments} for:item="attachment">
+                        <a class="row" href="#" key={attachment.id} data-attachment-id={attachment.id}
+                            onclick={handleShowAttachment}>
+                            <lightning-layout class="slds-p-bottom_small">
+                                <lightning-layout-item size="1" vertical-align="center">
+                                    <lightning-icon icon-name="doctype:attachment" size="xx-small"></lightning-icon>
+                                </lightning-layout-item>
+                                <lightning-layout-item class="slds-truncate">
+                                    <p class="slds-truncate" title={attachment.name}>{attachment.name}</p>
+                                </lightning-layout-item>
+                            </lightning-layout>
+                        </a>
+                    </template>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

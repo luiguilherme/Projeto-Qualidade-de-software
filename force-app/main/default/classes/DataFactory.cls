@@ -525,6 +525,14 @@ public class DataFactory {
         
         return orderIssued;
     }
+
+    public static Case createCase(String recordTypeApiName, String subject, String description) {
+        Case newCase = new Case();
+        newCase.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(recordTypeApiName).getrecordTypeId();
+        newCase.Subject = subject;
+        newCase.Description = description;
+        return newCase;
+    }
     
     // public static List<ServiceQualification__c> createServiceQualificationLevels() {
     //     String recordTypeFirstLevelId = Schema.SObjectType.ServiceQualification__c.getRecordTypeInfosByDeveloperName().

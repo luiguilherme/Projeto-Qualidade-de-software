@@ -17,18 +17,19 @@ public class OAuthEndUserRequestConfigurator implements IHttpRequestConfigurator
 
     public HttpRequest configure(HttpRequest request, Webservice__c wsConfig){
         request = destinationConfigurator.configure(request, wsConfig);
-
-        String accesstoken = getAccessToken();
-
+        
         if(!Test.isRunningtest()){
-            request.setHeader('Authorization', 'Bearer ' + accesstoken);
-            if(wsConfig.HasJwt__c  == true){
-                request.setHeader('jwt', accesstoken);
-            } else if(wsConfig.HasAuthToken__c == true){
-                request.setHeader('authToken', accesstoken);
-            }
-            if(wsConfig.HasAuthToken__c == true){
-                request.setHeader('authToken', accesstoken);
+            if (!wsConfig.ServiceAccountUser__c) {
+                String accesstoken = getAccessToken();
+                request.setHeader('Authorization', 'Bearer ' + accesstoken);
+                if(wsConfig.HasJwt__c  == true){
+                    request.setHeader('jwt', accesstoken);
+                } else if(wsConfig.HasAuthToken__c == true){
+                    request.setHeader('authToken', accesstoken);
+                }
+                if(wsConfig.HasAuthToken__c == true){
+                    request.setHeader('authToken', accesstoken);
+                }
             }
         } else {
             request.setHeader('Authorization', 'Bearer testBearer');

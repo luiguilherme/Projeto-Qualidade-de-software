@@ -72,4 +72,13 @@ public class ServiceContainerController {
             throw new AuraHandledException(e.getMessage());
         }
     }
+    
+    @AuraEnabled
+    public static CanvasResult getCanvasParametersFromCase(String caseId){
+        try {
+            return ServiceFlowGPSService.getCanvasParametersFromCase(caseId);
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
 }
