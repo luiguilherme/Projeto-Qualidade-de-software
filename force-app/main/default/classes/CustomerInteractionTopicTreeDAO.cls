@@ -52,4 +52,16 @@ public class CustomerInteractionTopicTreeDAO {
         return Database.Query(query);
 
     }
+
+    public static CustomerInteractionTopicTree__c getById(String id) {
+        return [
+            SELECT
+                Id,
+                ServiceTree__c
+            FROM
+                CustomerInteractionTopicTree__c
+            WHERE
+                Id = :id
+        ];
+    }
 }

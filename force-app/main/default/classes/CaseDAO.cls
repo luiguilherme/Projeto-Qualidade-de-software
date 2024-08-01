@@ -24,6 +24,7 @@ public without sharing class CaseDAO {
                 CaseNumber,
                 Protocol__c,
                 RecordTypeId,
+                RecordType.Name,
                 ProtocolURA__c,
                 CallerDDD__c,
                 CallerPhone__c,
@@ -31,7 +32,11 @@ public without sharing class CaseDAO {
                 AccountId,
                // ServiceQualificationMobile__c,
                 Closure__c,
-                TransferObservation__c
+                TransferObservation__c,
+                ComplainedAsset__c,
+                CustomerInteractionTopicTree__c,
+                Product__c,
+                Context__c
             FROM
                 Case
             WHERE
@@ -110,4 +115,46 @@ public without sharing class CaseDAO {
         ];
     }    
 
+    public static List<Case> get(Set<Id> recordTypesIds, Set<Id> accountsIds, Set<Id> assetsIds, Set<String> Statuses)
+    {
+        return [
+            SELECT Id, RecordTypeId, AccountId, ComplainedAsset__c
+            FROM Case
+            WHERE RecordTypeId IN :recordTypesIds
+            AND AccountId IN :accountsIds
+            AND ComplainedAsset__c IN :assetsIds
+            AND Status NOT IN :Statuses
+        ];
+    }
+
+    public static List<Case> getBy(Set<Id> accountsIds, Set<Id> assetsIds, Set<Id> topicTreeIds, Set<String> statuses)
+    {
+        return [
+            SELECT Id, AccountId, ComplainedAsset__c, CustomerInteractionTopicTree__c
+            FROM Case
+            WHERE AccountId IN :accountsIds
+            AND ComplainedAsset__c IN :assetsIds
+            AND CustomerInteractionTopicTree__c IN :topicTreeIds
+            AND Status NOT IN :statuses
+        ];
+    }
+
+    public static List<Case> get(Set<Id> caseIds) {
+        return[
+            SELECT
+                Id,
+                Status,
+                Protocol__c,
+                RecordTypeId,
+                RecordType.Name,
+                AccountId,
+                ComplainedAsset__c,
+            	Description,
+                ServiceReason__c
+            FROM
+                Case
+            WHERE
+                Id IN :caseIds
+        ];
+    }
 }

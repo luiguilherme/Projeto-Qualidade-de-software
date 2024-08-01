@@ -85,6 +85,80 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
         }
     }
     
+    public static List<Asset> createAssets(String accountId, String documentNumber, CreateCaseRequestWrapper.Payload lstProductsAPIBefore) {
+        List<Asset> lstAsset = [
+            SELECT
+                ExternalId__c, vlocity_cmt__ServiceIdentifier__c, StartDate__c, Platform__c
+            FROM Asset
+            WHERE
+                AccountId = :accountId
+                AND Platform__c != 'Prepaid'
+                AND Product2Id = null
+            ORDER BY StartDate__c DESC
+        ];
+
+        List<WrapperAPI> lstProductsAPI = new List<WrapperAPI>();
+        WrapperAPI wrapperAPIBefore = new WrapperAPI();
+        wrapperAPIBefore.identifiers = lstProductsAPIBefore.identifiers;
+        wrapperAPIBefore.start_date = lstProductsAPIBefore.start_date;
+        wrapperAPIBefore.subscription_type = lstProductsAPIBefore.subscription_type;
+        wrapperAPIBefore.product_type = lstProductsAPIBefore.product_type;
+        wrapperAPIBefore.display_name = lstProductsAPIBefore.display_name;
+        wrapperAPIBefore.status = lstProductsAPIBefore.status;
+        wrapperAPIBefore.status_description = lstProductsAPIBefore.status_description;
+
+        Connection newConnection = new Connection();
+        if(lstProductsAPIBefore.connection != null) {
+            newConnection.downlink_mbps = lstProductsAPIBefore.connection.downlink_mbps;
+            newConnection.uplink_mbps = lstProductsAPIBefore.connection.uplink_mbps;
+            newConnection.type = lstProductsAPIBefore.connection.type;
+        }
+
+        wrapperAPIBefore.connection = newConnection;
+        wrapperAPIBefore.tags = lstProductsAPIBefore.tags;
+       
+        List<Descriptions> listNewDescrptions = new List<Descriptions>();
+        if(lstProductsAPIBefore.descriptions != null) {
+            for(CreateCaseRequestWrapper.Descriptions thisDescrption: lstProductsAPIBefore.descriptions) {
+                Descriptions newDescription = new Descriptions();
+                newDescription.text = thisDescrption.text;
+                listNewDescrptions.add(newDescription);
+            }   
+        }
+
+        wrapperAPIBefore.descriptions = listNewDescrptions;
+        lstProductsAPI.add(wrapperAPIBefore);
+
+        List<WrapperAPI> assetsToCreateUpdate = new List<WrapperAPI>();
+        Map<String, Datetime> sfIds = new Map<String, Datetime>();
+        Map<String, List<String>> mapLegacy = new Map<String, List<String>>();
+        Map<String, WrapperAPI> apiIds = new Map<String, WrapperAPI>();
+        Map<String, List<String>> mapSVAProducts = new Map<String, List<String>>();
+        processProductsAndSubproducts(lstProductsAPI, apiIds, mapLegacy, mapSVAProducts, documentNumber);
+        for(Asset identifier : lstAsset)
+        {
+            sfIds.put(identifier.ExternalId__c, identifier.StartDate__c);
+        }
+        if(lstAsset.isEmpty())
+        {
+            for(WrapperAPI wrapperAPI : lstProductsAPI)
+            {
+                assetsToCreateUpdate.add(wrapperAPI);
+            }
+        } else {
+            for(WrapperAPI wrapperAPI : lstProductsAPI)
+            {
+                assetsToCreateUpdate.add(wrapperAPI);
+            }
+        }
+        List<Asset> assetsCreatedOrUpdated = new List<Asset>();
+        if(!assetsToCreateUpdate.isEmpty())
+        {
+            assetsCreatedOrUpdated = createUpdateAsset(assetsToCreateUpdate, accountId, documentNumber, mapSVAProducts, mapLegacy);
+        }
+        return assetsCreatedOrUpdated;
+    }
+
     public static void deleteAsset(List<String> lstAssetsToDelete)
     {
         List<Asset> lstAssets = [SELECT Id FROM Asset WHERE Id IN :lstAssetsToDelete AND Platform__c != 'Prepaid'
@@ -103,8 +177,8 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
         }
     }
     
-    public static void createUpdateAsset(List<WrapperAPI> lstAssetsToCreate, String accountId, String documentNumber, 
-                                         Map<String, List<String>> mapSVAProducts,Map<String, List<String>> mapLegacy)
+    public static List<Asset> createUpdateAsset(List<WrapperAPI> lstAssetsToCreate, String accountId, String documentNumber, 
+    Map<String, List<String>> mapSVAProducts,Map<String, List<String>> mapLegacy)
     {
         Asset asset;
         List<Asset> lstAssetToCreateUpdate = new List<Asset>();
@@ -154,7 +228,6 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
                     }
                     
                 } else {
-                    
                     if(assetToCreate.sub_products != null)
                     {
                         updateListAssetsToUpdate(assetToCreate.sub_products, setProducts, lstAssetToCreateUpdate, mapFromTo, accountId, documentNumber, mapSVAProducts, mapLegacy);
@@ -178,9 +251,12 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
                 update customer;
             }
             upsert lstAssetToCreateUpdate ExternalId__c;
+            return lstAssetToCreateUpdate;
         }catch(Exception e){
             System.debug('Erro no Upsert de Asset: ' + e.getMessage());
-        }                
+        }        
+        
+        return new List<Asset>();
     }
 
     private static void updateListAssetsToUpdate(List<WrapperAPI> listProduct, Set<String> setProducts, List<Asset> lstAssetToCreateUpdate, Map<String, String> mapFromTo, String accountId, String documentNumber, Map<String, List<String>> mapSVAProducts,Map<String, List<String>> mapLegacy){

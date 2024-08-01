@@ -1,0 +1,1 @@
+public with sharing class ContactCenterServiceException extends Exception {}

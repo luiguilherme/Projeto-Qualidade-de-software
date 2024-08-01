@@ -1,0 +1,35 @@
+<template>
+    <lightning-card title="Chat App Vivo" icon-name="utility:chat">
+        <div class="custom-container slds-m-horizontal_small">
+            <div class="imessage slds-scrollable_y" data-id="scrollable" style={chatContainerHeight}>
+                <template for:each={chatMessages} for:item="message"><br key={message.id}>
+                    <template if:false={message.fromCustomer}>
+                        <span class="from-me" key={message.id}>{message.bodyMessage}</span>
+                    </template>
+                    <template if:true={message.fromCustomer}>
+                        <div key={message.id} class="slds-grid">
+                            <img class="avatar" src={logoChat}>
+                            <span class="from-them">{message.bodyMessage}</span>
+                        </div>
+                    </template>
+                </template>
+            </div>
+            <div class="spinner-container" if:true={loading}>
+                <div class="spinner"></div>
+            </div>
+        </div>
+        <div class="slds-grid">
+            <div class="slds-col slds-size_11-of-12 slds-p-horizontal_small">
+                <lightning-input data-id="messageInput" type="text" label=" " placeholder="Digite aqui..."
+                    value={messageInput} onkeypress={handleKeyPress} disabled={buttomDisabled}
+                    tabindex="0"><label>Digite aqui...</label></lightning-input>
+            </div>
+            <div class="slds-col slds-size_1-of-12 slds-p-right_small " style="padding-top: 1.2rem;">
+                <lightning-button-icon icon-name="utility:send" size="large" alternative-text="Enviar Mensagem"
+                    variant="bare" onclick={storeMessageHandle} disabled={buttomDisabled}>
+                    <label>Enviar Mensagem</label>
+                </lightning-button-icon>
+            </div>
+        </div>
+    </lightning-card>
+</template>
