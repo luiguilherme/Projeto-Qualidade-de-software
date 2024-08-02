@@ -11,9 +11,8 @@
         "chainOnStep": true,
         "disOnTplt": false,
         "elementValueMap": {
-            "NewCustomerAccount": "=SUBSTRING(%DREGetUserData:NewCustomerAccount%, 0, 15)",
-            "OldAccountId": "=SUBSTRING(%DREGetUserData:OldAccountId%,0, 15)",
             "newSubscription": "=SUBSTRING(QUERY(\"select NewSubscription__c from order where id = '{0}'\", %DREGetFRLId:OrderId%),0,15)",
+            "newSubscriptionFull": "=(QUERY(\"select NewSubscription__c from order where id = '{0}'\", %DREGetFRLId:OrderId%)",
             "oldSubscription": "=SUBSTRING(%RAGetAttributes:ATT_DC_SUBSCRIPTION_NUMBER%,0,15)"
         },
         "executionConditionalFormula": "",
