@@ -1131,11 +1131,8 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         List<Map<String, String>> clonedAssets = new List<Map<String, String>>();
         List<vlocity_cmt__InventoryItem__c> newInventoryItems = new List<vlocity_cmt__InventoryItem__c>();
         Map<String, Object> argMap = (Map<String, Object>)arguments[0];
-        System.debug('argMap: ' + argMap);
         String oldCustomerAccount = (String) argMap.get('oldAccountId');
-        System.debug('oldCustomerAccount: ' + oldCustomerAccount);
         String oldServiceAccount = (String) argMap.get('oldServiceAccount');
-        System.debug('oldServiceAccount: ' + oldServiceAccount);
         List<String> oldAssetIds = new List<String>();
         for (Object obj : (List<Object>) argMap.get('OldAssetId')) {
             oldAssetIds.add((String) obj);
@@ -1168,16 +1165,12 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             AND vlocity_cmt__ServiceAccountId__c = :oldServiceAccount
         ];
 
-        System.debug('inventoryItems: ' + inventoryItems);
-
         for (vlocity_cmt__InventoryItem__c inventoryItem :inventoryItems) {
             inventoryItem.vlocity_cmt__AccountId__c = consumerAccounts[0];
             inventoryItem.vlocity_cmt__BillingAccountId__c = newBillingAccounts[0];
             inventoryItem.vlocity_cmt__ServiceAccountId__c = newServiceAccounts[0];
             newInventoryItems.add(inventoryItem);
         }
-        System.debug('newInventoryItems: ' + newInventoryItems);
-
          
         List<Asset> originalAssets = [SELECT Id, AccountId, AssetLevel, AssetProvidedById, AssetServicedById, Cabinet__c,
             ContactId, CreatedById, CreatedDate, Description, DigitalServices__c, ExternalId__c, 
@@ -1243,39 +1236,58 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             
             // Clonar o Asset
             Asset clonedAsset = originalAsset.clone(false, false);
-            clonedAsset.AccountId = consumerAccount;
-            clonedAsset.vlocity_cmt__BillingAccountId__c = newBillingAccount;
-            clonedAsset.vlocity_cmt__ServiceAccountId__c = newServiceAccount;
-            //clonedAsset.vlocity_cmt__SubscriptionId__c = newSubscription;
-            if (originalAsset.LegacyIdentifier__c != null && originalAsset.LegacyIdentifier__c.length() > 0) {
-                originalAsset.LegacyIdentifier__c = 'X' + originalAsset.LegacyIdentifier__c.substring(1);
+            originalAsset.AccountId = consumerAccount;
+            originalAsset.vlocity_cmt__BillingAccountId__c = newBillingAccount;
+            originalAsset.vlocity_cmt__ServiceAccountId__c = newServiceAccount;
+            if (originalAsset.vlocity_cmt__ParentItemId__c==null) {
+                originalAsset.vlocity_cmt__SubscriptionId__c = newSubscription;
+            }
+            if (clonedAsset.LegacyIdentifier__c != null && clonedAsset.LegacyIdentifier__c.length() > 0) {
+                clonedAsset.LegacyIdentifier__c = 'X' + clonedAsset.LegacyIdentifier__c.substring(1);
             }
             // if (clonedAsset.ParentId != null) {
             //     clonedAsset.ParentId += '_OLD';
             // }
-            if (originalAsset.vlocity_cmt__AssetReferenceId__c!= null) {
-                originalAsset.vlocity_cmt__AssetReferenceId__c += '_OLD';
+            if (clonedAsset.vlocity_cmt__AssetReferenceId__c!= null) {
+                clonedAsset.vlocity_cmt__AssetReferenceId__c += '_OLD';
             }
-            if (originalAsset.vlocity_cmt__ParentItemId__c!= null) {
-                originalAsset.vlocity_cmt__ParentItemId__c += '_OLD';
+            if (clonedAsset.vlocity_cmt__ParentItemId__c!= null) {
+                clonedAsset.vlocity_cmt__ParentItemId__c += '_OLD';
             }
-            if (originalAsset.vlocity_cmt__RootItemId__c!= null) {
-                originalAsset.vlocity_cmt__RootItemId__c += '_OLD';
+            if (clonedAsset.vlocity_cmt__RootItemId__c!= null) {
+                clonedAsset.vlocity_cmt__RootItemId__c += '_OLD';
             }
-            originalAsset.Status = 'Desativado';
-            originalAsset.vlocity_cmt__Action__c = 'Disconnect';
-            originalAsset.vlocity_cmt__DisconnectDate__c = Datetime.now();
+            clonedAsset.Status = 'Desativado';
+            clonedAsset.vlocity_cmt__Action__c = 'Disconnect';
+            clonedAsset.vlocity_cmt__DisconnectDate__c = Datetime.now();
             // Inserir o novo Asset clonado
             if (originalAsset.Id!=null) {
                 assetsToUpdate.add(originalAsset);
             }
-            System.debug('Novo Asset: ' + originalAsset.vlocity_cmt__SubscriptionId__c);
-            System.debug('AssetHistórico clonado: ' + clonedAsset.vlocity_cmt__SubscriptionId__c);
+            System.debug('assetsToUpdate: ' + originalAsset.vlocity_cmt__RootItemId__c);
+            System.debug('assetsToInsert: ' + clonedAsset.vlocity_cmt__RootItemId__c);
             assetsToInsert.add(clonedAsset);
         }
 
+        List<OrderItem> originalOrderItems = [SELECT Id, vlocity_cmt__AssetId__c, vlocity_cmt__ParentItemId__c,
+        vlocity_cmt__SubscriptionId__c
+        FROM OrderItem 
+        WHERE vlocity_cmt__AssetId__c IN :oldAssetIds 
+        ];
+        
+        List<OrderItem> orderItemToUpdate = new List<OrderItem>();
+
+        for (OrderItem originalOrderItem : originalOrderItems){
+            if (originalOrderItem.vlocity_cmt__ParentItemId__c == null) {
+                originalOrderItem.vlocity_cmt__SubscriptionId__c= newSubscriptions[0];
+                orderItemToUpdate.add(originalOrderItem);
+            }
+        }
 
 
+        if (!orderItemToUpdate.isEmpty()) {
+            update orderItemToUpdate;
+        }
         if (!assetsToUpdate.isEmpty()) {
             update assetsToUpdate;
         }
@@ -1286,7 +1298,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             update newInventoryItems;
         }
 
-        for (Asset asset :assetsToInsert) {
+        for (Asset asset :assetsToUpdate) {
             Map<String, String> assetMapItem = new Map<String, String>();
             assetMapItem.put('id', asset.Id);
             clonedAssets.add(assetMapItem);
