@@ -23,22 +23,22 @@
     "%vlocity_namespace%__PropertySet__c": {
         "HTMLTemplateId": "",
         "controlWidth": 12,
-        "dataType": null,
+        "dataType": "Boolean",
         "dateFormat": "MM-dd-yyyy",
         "disOnTplt": false,
-        "expression": "IF(%OmniAddressValid% && %FormulaOmniLGPDValid%, true, false)",
+        "expression": "IF(%SetupOmni:Journey% == \"HabilitacaoRemota\", IF(%StepRegistration:OptinOptout:ReviewPermission:optin:acceptContact% == NULL || %StepRegistration:OptinOptout:ReviewPermission:optin:acceptDataUse% == NULL, false , true), true)",
         "hide": true,
         "hideGroupSep": false,
         "inputWidth": 12,
-        "label": "showOmniNextStepGenericButton",
+        "label": "FormulaOmniLGPDValid",
         "mask": null,
         "show": null,
         "showInputWidth": false
     },
     "%vlocity_namespace%__ReusableOmniScript__c": true,
     "%vlocity_namespace%__Type__c": "Formula",
-    "Name": "showOmniNextStepGenericButton",
+    "Name": "FormulaOmniLGPDValid",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/UpdateLineAddress/English/showOmniNextStepGenericButton"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/UpdateLineAddress/English/FormulaOmniLGPDValid"
 }
