@@ -81,9 +81,21 @@
                         "field": "UserPermission:PortabilidadeExecutar"
                     },
                     {
-                        "condition": "=",
-                        "data": "Sim",
-                        "field": "SalesJourneyChipSelect:ChooseChip"
+                        "group": {
+                            "operator": "OR",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "Sim",
+                                    "field": "SalesJourneyChipSelect:ChooseChip"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "Não",
+                                    "field": "SalesJourneyChipSelect:ChooseChip"
+                                }
+                            ]
+                        }
                     }
                 ]
             }
