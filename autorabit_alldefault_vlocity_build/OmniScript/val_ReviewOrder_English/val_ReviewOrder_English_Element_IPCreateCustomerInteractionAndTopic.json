@@ -20,11 +20,11 @@
         },
         "extraPayload": {
             "AccountId": "%AccountId%",
-            "InteractionId": "%ContextId%",
-            "channelName": "%responseTopicsAuto:channelName%",
-            "interactionNumber": "%interactionNumber%",
+            "channelName": "%channelName%",
             "processName": "%TopicNameByRequest%",
-            "topicName": "%responseTopicsAuto:topicName%"
+            "InteractionNumber": "%interactionNumber%",
+            "InteractionId": "%interactionId%",
+            "topicName": "%topicName%"
         },
         "failureAbortLabel": "Abort",
         "failureAbortMessage": "Are you sure?",
@@ -59,84 +59,113 @@
         "sendOnlyExtraPayload": true,
         "show": {
             "group": {
-                "operator": "OR",
+                "operator": "AND",
                 "rules": [
                     {
-                        "group": {
-                            "operator": "AND",
-                            "rules": [
-                                {
-                                    "condition": "=",
-                                    "data": "true",
-                                    "field": "hasOptinValue"
-                                },
-                                {
-                                    "condition": "=",
-                                    "data": "SalesJourney",
-                                    "field": "Functionality"
-                                },
-                                {
-                                    "group": {
-                                        "operator": "OR",
-                                        "rules": [
-                                            {
-                                                "condition": "<>",
-                                                "data": "true",
-                                                "field": "HasPortability"
-                                            },
-                                            {
-                                                "group": {
-                                                    "operator": "AND",
-                                                    "rules": [
-                                                        {
-                                                            "condition": "=",
-                                                            "data": "true",
-                                                            "field": "HasPortability"
-                                                        },
-                                                        {
-                                                            "condition": "=",
-                                                            "data": "true",
-                                                            "field": "UserPermission:GerarPalitoAutomaticoPortabilidade"
-                                                        }
-                                                    ]
-                                                }
-                                            }
-                                        ]
-                                    }
-                                }
-                            ]
-                        }
+                        "condition": "<>",
+                        "data": "false",
+                        "field": "InteractionPermission:CreateInteraction"
                     },
                     {
                         "group": {
                             "operator": "OR",
                             "rules": [
                                 {
-                                    "condition": "=",
-                                    "data": "RechargeJourney",
-                                    "field": "Functionality"
+                                    "group": {
+                                        "operator": "AND",
+                                        "rules": [
+                                            {
+                                                "condition": "=",
+                                                "data": "true",
+                                                "field": "hasOptinValue"
+                                            },
+                                            {
+                                                "condition": "=",
+                                                "data": "SalesJourney",
+                                                "field": "Functionality"
+                                            },
+                                            {
+                                                "group": {
+                                                    "operator": "OR",
+                                                    "rules": [
+                                                        {
+                                                            "condition": "<>",
+                                                            "data": "true",
+                                                            "field": "HasPortability"
+                                                        },
+                                                        {
+                                                            "group": {
+                                                                "operator": "AND",
+                                                                "rules": [
+                                                                    {
+                                                                        "condition": "=",
+                                                                        "data": "true",
+                                                                        "field": "HasPortability"
+                                                                    },
+                                                                    {
+                                                                        "condition": "=",
+                                                                        "data": "true",
+                                                                        "field": "UserPermission:GerarPalitoAutomaticoPortabilidade"
+                                                                    }
+                                                                ]
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "group": {
+                                        "operator": "OR",
+                                        "rules": [
+                                            {
+                                                "condition": "=",
+                                                "data": "RechargeJourney",
+                                                "field": "Functionality"
+                                            },
+                                            {
+                                                "condition": "=",
+                                                "data": "ServiceManagement",
+                                                "field": "Functionality"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "group": {
+                                        "operator": "AND",
+                                        "rules": [
+                                            {
+                                                "condition": "=",
+                                                "data": "AdditionalPackage",
+                                                "field": "Functionality"
+                                            },
+                                            {
+                                                "condition": "=",
+                                                "data": "true",
+                                                "field": "OLIStatus:HasAddItem"
+                                            }
+                                        ]
+                                    }
                                 },
                                 {
                                     "condition": "=",
-                                    "data": "ServiceManagement",
-                                    "field": "Functionality"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "group": {
-                            "operator": "AND",
-                            "rules": [
-                                {
-                                    "condition": "=",
-                                    "data": "AdditionalPackage",
+                                    "data": "ChangeOwnership",
                                     "field": "Functionality"
                                 },
                                 {
-                                    "condition": "=",
-                                    "data": "true",
-                                    "field": "OLIStatus:HasAddItem"
+                                    "group": {
+                                        "operator": "AND",
+                                        "rules": [
+                                            {
+                                                "condition": "=",
+                                                "data": "ChangeSimCard",
+                                                "field": "Functionality"
+                                            }
+                                        ]
+                                    }
                                 }
                             ]
                         }
