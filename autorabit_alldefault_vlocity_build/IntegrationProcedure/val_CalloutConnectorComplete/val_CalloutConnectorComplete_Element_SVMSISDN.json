@@ -11,7 +11,7 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "networkNumber": "=IF(%DRTGetOrder:Type% == \"SwapNumber\", TOSTRING(%DRTGetOrder:Order|1:.CurrentMSISDN__c%),IF(%DRTGetOrder:Order|1:hasProvisonalNumber__c% == \"Sim\" || (%DRTGetOrder:Order|1:Type% == \"ChangeServiceIdentifier\" && %DRTGetOrder:Order|1:hasPortability__c% == \"Sim\"), TOSTRING(%DRTGetOrder:Order|1:NewMSISDN__c%), TOSTRING(%RAGetAttributes:ATT_RT_MSISDN%)))"
+            "networkNumber": "=IF(%DRTGetOrder:Order|1:hasProvisonalNumber__c% == \"Sim\" || (%DRTGetOrder:Order|1:Type% == \"ChangeServiceIdentifier\" && %DRTGetOrder:Order|1:hasPortability__c% == \"Sim\"), TOSTRING(%DRTGetOrder:Order|1:NewMSISDN__c%), TOSTRING(%RAGetAttributes:ATT_RT_MSISDN%))"
         },
         "executionConditionalFormula": "",
         "failOnStepError": true,
