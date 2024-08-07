@@ -11,7 +11,8 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "RequestId": "=SUBSTRING(orchestration_item_id, 0, 15)"
+            "RequestId": "=SUBSTRING(orchestration_item_id, 0, 15)",
+            "newSubscription": "=QUERY(\"SELECT NewSubscription__c FROM Order WHERE Id = '{0}'\",%DREGetFRLId:OrderId%)"
         },
         "executionConditionalFormula": "",
         "failOnStepError": false,
