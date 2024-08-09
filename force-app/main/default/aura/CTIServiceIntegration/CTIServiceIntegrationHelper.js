@@ -5,10 +5,14 @@
     
         var callback = $A.getCallback(function(event) {
             if (event.data.service == 'WDE_InitialResponse') {
+                console.log("WDE_InitialResponse listened");
                 // Set attributes with data sended in the message event
                 component.set('v.vfHost', event.data.vfHost);
                 component.set('v.caseId', event.data.caseId);
-
+                console.log("getParamsVisualforcePage > event " + JSON.stringify(event.data));
+                console.log("getParamsVisualforcePage > vfHost " + event.data.vfHost);
+                console.log("getParamsVisualforcePage > c.get " + component.get('v.vfHost'));
+                console.log("getParamsVisualforcePage > caseId " + event.data.caseId);
                 // Validates if caseId is returned from Visualforce Page
                 if (event.data.caseId && !component.get('v.caseRecord')) helper.validadeCase(component);
 
@@ -75,6 +79,21 @@
                             helper.navigationToHome(component);
                         }
                     }
+                } else if (eventType == 'WDE_CallDroppedDispute') { 
+                    event.stopPropagation();
+                    
+                    console.log('WDE_CallDroppedDispute');
+                    const evt = new CustomEvent('createdmobilenextdisputecaseonwde', {
+                        detail: event.data,
+                    });
+                    this.dispatchEvent(evt); 
+                } else if (eventType == 'WDE_CallDroppedDisputeAfterRegister') { 
+                    event.stopPropagation();
+
+                    const evt = new CustomEvent('updateddmobilenextdisputecaseonwde', {
+                        detail: event.data,
+                    });
+                    this.dispatchEvent(evt); 
                 } else if (eventType == 'WDE_IsCallActive') {
                     event.stopPropagation();
                     component.set('v.isCallActive', event.data.wdeResponse);
@@ -89,7 +108,7 @@
             }
         });
         this.onRemoveEventListener(component,eventId);
-        window.addEventListener('message', callback); 
+        window.addEventListener('message', callback);
     },
 
     handleVisualforceEvent: function(component, data, eventType) {
@@ -150,13 +169,19 @@
         if (recordLoader) recordLoader.reloadRecord();
     },
 
-    setParamsVisualforcePage: function(component, message) {    
-        let vfOrigin =  component.get('v.vfHost');
-        let vfWindow = component.find('vfFrame').getElement().contentWindow;
-
-        message.accountId = component.get('v.recordId');
-
-        vfWindow.postMessage(message, vfOrigin);
+    setParamsVisualforcePage: function(component, message) {
+        try {
+            console.log("setParamsVisualforcePage");
+            let vfOrigin =  component.get('v.vfHost');
+            let vfWindow = component.find('vfFrame').getElement().contentWindow;
+            message.accountId = component.get('v.recordId');
+            vfWindow.postMessage(message, vfOrigin);
+            console.log("setParamsVisualforcePage msg posted");
+        } catch (error) {
+            console.log("erro inesperado, verificar parâmetros postMessage!");
+            console.log(error);
+        }
+        
     },
 
     directTransfer: function(component, payload) {
@@ -277,6 +302,7 @@
     },
     
     callDropped: function(component, payload) {
+        console.log("on callDropped (helper)");
         let params = {
             service: 'CTIServiceIntegration_CallDropped',
             payload: payload
