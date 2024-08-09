@@ -1,19 +1,19 @@
 {
     "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "DisputeMobileInitialValidation",
+        "Name": "Concession",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/Dispute/DisputeMobileInitialValidation/English",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/Dispute/Concession/English",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
     "%vlocity_namespace%__PropertySet__c": {
         "HTMLTemplateId": "",
-        "allowSaveForLater": true,
+        "allowSaveForLater": false,
         "businessCategory": "",
         "businessEvent": "",
         "cancelLabel": "Cancel",
         "cancelMessage": "Are you sure?",
-        "chartLabel": "A) Item a ser Contestado",
+        "chartLabel": null,
         "completeLabel": "Complete",
         "completeMessage": "Are you sure you want to complete the script?",
         "conditionType": "Hide if False",
@@ -32,11 +32,11 @@
             "remoteTimeout": 30000,
             "typeFilter": ""
         },
-        "label": "PREVER012.1 MÓVEL",
+        "label": "",
         "message": {
         },
-        "nextLabel": "Próximo",
-        "nextWidth": 3,
+        "nextLabel": "",
+        "nextWidth": "0",
         "previousLabel": "Anterior",
         "previousWidth": 3,
         "pubsub": false,
@@ -49,17 +49,17 @@
         "saveMessage": "",
         "show": {
             "group": {
-                "operator": "AND",
+                "operator": "OR",
                 "rules": [
                     {
-                        "condition": "<>",
-                        "data": "PLANM",
-                        "field": "PREVER012_MOVEL:R_ ItemToDispute"
+                        "condition": "=",
+                        "data": "true",
+                        "field": "HTTPInvoiceCredits:error"
                     },
                     {
-                        "condition": "<>",
-                        "data": null,
-                        "field": "PREVER012_MOVEL:R_ ItemToDispute"
+                        "condition": "=",
+                        "data": "true",
+                        "field": "RAAccessTokenError:error"
                     }
                 ]
             }
@@ -74,8 +74,8 @@
     },
     "%vlocity_namespace%__ReusableOmniScript__c": true,
     "%vlocity_namespace%__Type__c": "Step",
-    "Name": "PREVER012.1_MOVEL",
+    "Name": "StepError",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Dispute/DisputeMobileInitialValidation/English/PREVER012.1_MOVEL"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Dispute/Concession/English/StepError"
 }
