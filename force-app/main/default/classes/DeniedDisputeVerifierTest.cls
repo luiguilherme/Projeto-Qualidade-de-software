@@ -38,7 +38,7 @@ public class DeniedDisputeVerifierTest {
             // args.put('input', uniqueMap);
             args.put('output', new Map<String, Object>());
             
-            String action = 'convert2';
+            String action = 'checkCases';
             DeniedDisputeVerifier h19Apex = new DeniedDisputeVerifier();
 
             Map<String, Object> result = (Map<String, Object>) h19Apex.call(action, args);
@@ -86,7 +86,7 @@ public class DeniedDisputeVerifierTest {
             args.put('input', uniqueMap);
             args.put('output', new Map<String, Object>());
             
-            String action = 'convert2';
+            String action = 'checkCases';
             DeniedDisputeVerifier a = new DeniedDisputeVerifier();
             
             Test.startTest();
@@ -123,7 +123,7 @@ public class DeniedDisputeVerifierTest {
             uniqueMap.put('DRgetInstanceFromCart', JSON.deserializeUntyped(VALID_CART_INSTANCE));
             uniqueMap.put('AccountId', acc.id);
 
-            String action = 'convert2';
+            String action = 'checkCases';
             Map<String, Object> args = new Map<String, Object>();
             args.put('input', uniqueMap);
             args.put('output', new Map<String, Object>());
@@ -175,7 +175,7 @@ public class DeniedDisputeVerifierTest {
             uniqueMap.put('DRgetInstanceFromCart', JSON.deserializeUntyped(VALID_CART_INSTANCE));
             uniqueMap.put('AccountId', acc.id);
 
-            String action = 'convert2';
+            String action = 'checkCases';
             Map<String, Object> args = new Map<String, Object>();
             args.put('input', uniqueMap);
             args.put('output', new Map<String, Object>());
@@ -223,7 +223,7 @@ public class DeniedDisputeVerifierTest {
             uniqueMap.put('DRgetInstanceFromCart', JSON.deserializeUntyped(VALID_CART_INSTANCE));
             uniqueMap.put('AccountId', acc.id);
 
-            String action = 'convert2';
+            String action = 'checkCases';
             Map<String, Object> args = new Map<String, Object>();
             args.put('input', uniqueMap);
             args.put('output', new Map<String, Object>());
@@ -308,7 +308,7 @@ public class DeniedDisputeVerifierTest {
             uniqueMap.put('DRgetInstanceFromCart', JSON.deserializeUntyped(VALID_CART_INSTANCE));
             uniqueMap.put('AccountId', acc.id);
 
-            String action = 'convert2';
+            String action = 'checkCases';
             Map<String, Object> args = new Map<String, Object>();
             args.put('input', uniqueMap);
             args.put('output', new Map<String, Object>());
@@ -361,7 +361,7 @@ public class DeniedDisputeVerifierTest {
             uniqueMap.put('DRgetInstanceFromCart', JSON.deserializeUntyped(INVALID_CART_INSTANCE_OTHER_CASE));
             uniqueMap.put('AccountId', acc.id);
 
-            String action = 'convert2';
+            String action = 'checkCases';
             Map<String, Object> args = new Map<String, Object>();
             args.put('input', uniqueMap);
             args.put('output', new Map<String, Object>());
@@ -409,7 +409,7 @@ public class DeniedDisputeVerifierTest {
             uniqueMap.put('DRgetInstanceFromCart', JSON.deserializeUntyped(VALID_CART_INSTANCE));
             uniqueMap.put('AccountId', acc.id);
 
-            String action = 'convert2';
+            String action = 'checkCases';
 
             Map<String, Object> argsToday = new Map<String, Object>();
             argsToday.put('input', uniqueMap);
