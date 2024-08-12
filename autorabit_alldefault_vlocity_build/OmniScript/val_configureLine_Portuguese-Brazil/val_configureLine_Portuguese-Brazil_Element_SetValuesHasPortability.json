@@ -10,7 +10,9 @@
         "HTMLTemplateId": "",
         "controlWidth": 12,
         "elementValueMap": {
-            "HasPortability": "=IF(%Radio2SelecionaPortabilidade% == \"ComPortabilidade\", true,false)"
+            "HasPortability": "=IF(%Radio2SelecionaPortabilidade% == \"ComPortabilidade\", true,false)",
+            "currentMsisdn": "=IF(%Radio2SelecionaPortabilidade% == 'SemPortabilidade', IF(%RadioSelectNumber% == 'Sim',%partialNum%, %randomNum%),IF(%Radio2SelecionaPortabilidade% == 'ComPortabilidade',IF(%RadioNumeroProvisorio% == 'numeroProvisorioSim',IF(%RadioNumeroEspecifico% == 'Sim',%partialNumPortab%, %randomNumPortab%),%portabilidadeNumberFormula%)))",
+            "newMsisdn": "=IF(%RadioNumeroProvisorio% == 'numeroProvisorioSim', %portabilidadeNumberFormula%, NULL)"
         },
         "label": "SetValuesHasPortability",
         "message": {

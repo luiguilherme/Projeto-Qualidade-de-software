@@ -8,7 +8,7 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "allowedProductActivation": "=IF(%valValidateAllJourneys:blockJourney% == true, false, true)",
+            "allowedProductActivation": "=IF(%valValidateAllJourneys:blockJourney% == true, \"N\", \"Y\")",
             "availableBalance": "%IPCalloutGetBalanceLine:totalMonetary%",
             "iccid": "%DRGetAssetByMSISDN:ICCID%",
             "outPromotion": "=%DRGetAssetByMSISDN:Product:subType:Sub-tipo% != Null",
@@ -29,7 +29,8 @@
         "show": null,
         "useFormulas": true,
         "vlcResponseHeaders": {
-            "status": 200
+            "Content-Type": "application/json",
+            "statusCode": 200
         }
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
