@@ -28,11 +28,12 @@
             "body": {
                 "action": "Relative",
                 "amount": "%SVSetParameters:amountValue%",
-                "balanceUnit": "%SVSetParameters:balanceUnit%",
-                "billingAccount": {
-                    "bucketSpecExternalId": "%bucketSpecExternalId%",
-                    "externalId": "%externalId%"
+                "balanceType": {
+                    "bucketSpecExternalId": "%externalId%",
+                    "externalId": "%bucketSpecExternalId%"
                 },
+                "balanceUnit": "%SVSetParameters:balanceUnit%",
+                "networkNumber": "%DRTGetLineNumber:Case|1:LineNumber__c%",
                 "validFor": {
                     "endDateTime": "%SVSetParameters:endDate%",
                     "startDateTime": "%SVSetParameters:startDate%"
@@ -43,7 +44,7 @@
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "label": "SetValues3",
-        "responseJSONNode": "",
+        "responseJSONNode": "SVBodyAdjustmentBalance",
         "responseJSONPath": "",
         "show": null
     },

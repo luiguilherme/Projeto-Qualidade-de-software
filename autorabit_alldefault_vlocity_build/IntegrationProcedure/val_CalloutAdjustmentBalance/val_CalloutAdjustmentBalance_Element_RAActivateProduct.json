@@ -8,13 +8,13 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "code": "%HTTPResponse:code%",
+            "code": "%HTTPActivateProductInfo:statusCode%",
             "description": "%HTTPResponse:description%",
-            "message": "=IF(%HTTPResponse:code% == 200, \"Ajuste de Saldo realizado com sucesso\", IF(%HTTPResponse:code% == 408,\"Tempo esgotado, por favor tente novamente\",\"Erro durante o processamento, por favor tente novamente\"))",
-            "variant": "=IF(%HTTPResponse:code% == 200, \"success\", \"error\")"
+            "message": "=IF(%HTTPActivateProductInfo:statusCode% == 200, \"Ajuste de Saldo realizado com sucesso\", IF(%HTTPActivateProductInfo:statusCode% == 408,\"Tempo esgotado, por favor tente novamente\",\"Erro durante o processamento, por favor tente novamente\"))",
+            "variant": "=IF(%HTTPActivateProductInfo:statusCode% == 200, \"success\", \"error\")"
         },
         "disOnTplt": false,
-        "executionConditionalFormula": "",
+        "executionConditionalFormula": "=%BalanceType% LIKE \"PO_C\"",
         "label": "ResponseAction1",
         "responseDefaultData": {
         },
@@ -32,8 +32,8 @@
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
     "%vlocity_namespace%__Type__c": "Response Action",
-    "Name": "ResponseAction",
+    "Name": "RAActivateProduct",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CalloutAdjustmentBalance/Procedure/ResponseAction"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CalloutAdjustmentBalance/Procedure/RAActivateProduct"
 }
