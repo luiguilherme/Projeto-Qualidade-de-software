@@ -526,6 +526,13 @@ public class DataFactory {
         return orderIssued;
     }
 
+    public static Product2 createProductPromotion() {
+        Product2 prod = new Product2();        
+        prod.name = 'Produto teste';
+        prod.vlocity_cmt__SubType__c = 'Promotion';
+        return prod;
+    }
+
     public static Case createCase(String recordTypeApiName, String subject, String description) {
         Case newCase = new Case();
         newCase.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(recordTypeApiName).getrecordTypeId();
