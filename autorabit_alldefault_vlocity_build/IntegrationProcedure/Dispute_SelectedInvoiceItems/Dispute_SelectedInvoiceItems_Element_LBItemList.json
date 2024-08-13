@@ -7,25 +7,19 @@
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
     "%vlocity_namespace%__PropertySet__c": {
-        "actionMessage": "",
-        "chainOnStep": false,
         "disOnTplt": false,
-        "elementValueMap": {
-            "FieldAllowList": "AllowList",
-            "selectedItems": "=LIST(%selectedItems%)"
-        },
         "executionConditionalFormula": "",
-        "failOnStepError": true,
-        "failureConditionalFormula": "",
-        "label": "SetValues2",
-        "responseJSONNode": "",
-        "responseJSONPath": "",
+        "label": "LoopBlock1",
+        "loopList": "SVSelectedItemsList:selectedItems",
+        "loopOutput": {
+            "AllowList": "=IF(%getGeneralSetting:AllowList% INCLUDES %SVSelectedItemsList:selectedItems:ChargeCategory%,\"yes\",\"no\")"
+        },
         "show": null
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
-    "%vlocity_namespace%__Type__c": "Set Values",
-    "Name": "SVSelectedItemsList",
+    "%vlocity_namespace%__Type__c": "Loop Block",
+    "Name": "LBItemList",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Dispute/SelectedInvoiceItems/Procedure/SVSelectedItemsList"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Dispute/SelectedInvoiceItems/Procedure/LBItemList"
 }

@@ -1,9 +1,9 @@
 {
     "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "IPDisputeSearchInvoiceCharges",
+        "Name": "IPSelectedInvoiceItems",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/IP/DisputeSearchInvoiceCharges/Procedure",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/Dispute/SelectedInvoiceItems/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
     "%vlocity_namespace%__PropertySet__c": {
@@ -16,38 +16,23 @@
         },
         "advancedMerge": false,
         "advancedMergeMap": [
-            {
-                "matchingPath": "Name",
-                "normalizeKey": "1"
-            },
-            {
-                "listKey": "IPEventsToChargesIntegration",
-                "matchingPath": "frontEndCode",
-                "normalizeKey": "1"
-            },
-            {
-                "listKey": "DRTDisputeSearchInvoiceCharges",
-                "matchingPath": "frontEndCode",
-                "normalizeKey": "1"
-            }
         ],
         "allowMergeNulls": true,
         "chainOnStep": false,
         "disOnTplt": false,
-        "dynamicOutputFields": "",
-        "executionConditionalFormula": "%Operation% != 'EvaluateAdditionalService'",
-        "failOnStepError": false,
+        "dynamicOutputFields": "SVSelectedItemsList:FieldAllowList",
+        "executionConditionalFormula": "",
+        "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {
         },
-        "filterListFormula": "",
+        "filterListFormula": "=AllowList != \"yes\"",
         "hasPrimary": false,
-        "label": "ListAction1",
+        "label": "ListAction2",
         "mergeFields": [
         ],
         "mergeListsOrder": [
-            "DRTDisputeSearchInvoiceCharges",
-            "IPEventsToChargesIntegration"
+            "LBItemList"
         ],
         "preventIntraListMerge": false,
         "primaryListKey": "",
@@ -68,8 +53,8 @@
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
     "%vlocity_namespace%__Type__c": "List Merge Action",
-    "Name": "LAEventsAndCharges",
+    "Name": "ListActionAllowList",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/IP/DisputeSearchInvoiceCharges/Procedure/LAEventsAndCharges"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Dispute/SelectedInvoiceItems/Procedure/ListActionAllowList"
 }
