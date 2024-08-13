@@ -14,6 +14,7 @@
             "adjustmentServiceDescription": "=IF(%Unit% = \"KB\" || %Unit% = \"MB\" || %Unit% = \"GB\",\"Volume\",IF(%Unit% = \"R$\",\"Monetario\",IF(%Unit% = \"Min\",\"Voz\",\"Eventos\")))",
             "adjustmentType": "=IF(%AdjustType% = \"Credit\",\"CRS\",\"DEB\")",
             "amountValue": "=TOSTRING(IF(%Unit% = \"KB\",(%BalanceValue% * 1024),IF(%Unit% = \"MB\",(%BalanceValue% * 1024 * 1024), IF(%Unit% = \"GB\",(%BalanceValue% * 1024 * 1024 * 1024),%BalanceValue%))))",
+            "amountValueDebt": "=CONCAT(\"-\",TOSTRING(IF(%Unit% = \"KB\",(%BalanceValue% * 1024),IF(%Unit% = \"MB\",(%BalanceValue% * 1024 * 1024), IF(%Unit% = \"GB\",(%BalanceValue% * 1024 * 1024 * 1024),%BalanceValue%)))))",
             "balanceUnit": "=IF(%Unit% = \"KB\" || %Unit% = \"MB\" || %Unit% = \"GB\",\"byte\",IF(%Unit% = \"R$\",\"BRL\",IF(%Unit% = \"Min\",\"Voz\",\"event\")))",
             "endDate": "=IF(%AdjustType% = \"Debt\",null,FORMATDATETIME(ADDDAY(TODAY(),%CurrentValidity%), \"yyyy-MM-dd'T'23:59:59'-03:00'\", \"América/Sao_Paulo\"))",
             "externalId": "=CONCAT(%BalanceType%,%caseId%)",
