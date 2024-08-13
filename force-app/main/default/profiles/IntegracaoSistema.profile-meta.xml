@@ -222,7 +222,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>AccountRetentionControllerTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>AccountRetentionEngine</apexClass>
@@ -250,7 +250,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>AssetMigrationExchangePlanControllerTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>AssetMigrationExchangePlanEngine</apexClass>
@@ -286,7 +286,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>BalanceLineControllerTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>BillingAccountDAO</apexClass>
@@ -310,7 +310,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CTIServiceIntegrationControllerTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CTIServiceIntegrationEngine</apexClass>
@@ -326,7 +326,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CTIServiceIntegrationVFControllerTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CanvasCPQController</apexClass>
@@ -26203,6 +26203,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.DateTimeStatusChanged__c</field>
+        <readable>true</readable>
+    </fieldPermissions>    
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Description</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -32226,6 +32231,21 @@
         <field>Order.Channel__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Order.ChangePlan__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Order.ChangeAdPackage__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Order.ChangePromotion__c</field>
+        <readable>true</readable>
+    </fieldPermissions>    
     <fieldPermissions>
         <editable>true</editable>
         <field>Order.ClientName__c</field>
@@ -57351,6 +57371,14 @@
         <recordType>Case.CallDroped</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Layout Case Portability</layout>
+        <recordType>Case.CasePortability</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Layout Case Process</layout>
+        <recordType>Case.CaseProcess</recordType>
+    </layoutAssignments>     
+    <layoutAssignments>
         <layout>Case-Case Layout</layout>
         <recordType>Case.MobileServiceQualification</recordType>
     </layoutAssignments>
@@ -65971,6 +65999,31 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
+        <recordType>Case.Portability_Ticket</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Case.CasePortability</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Case.CaseProcess</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>    
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Case.PreCaseUnproductive</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Case.PreDefectAndRepair</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
         <recordType>Case.CommunityOuvidoriaProcessesEscalation</recordType>
         <visible>false</visible>
     </recordTypeVisibilities>
@@ -68271,10 +68324,6 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
-        <name>ViewDataLeakageEvents</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
         <name>ViewDeveloperName</name>
     </userPermissions>
     <userPermissions>
@@ -68296,10 +68345,6 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>ViewMyTeamsDashboards</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>ViewPlatformEvents</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
