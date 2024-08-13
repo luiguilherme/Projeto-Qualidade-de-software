@@ -174,7 +174,8 @@ public with sharing class AccountDAO {
 
     public static List<Account> getAccountAndChildrenById(String accountId) {
         return [
-            SELECT    
+            SELECT 
+                Id, 
                 BillingAddress,
                 BillingStreet,
                 BillingPostalCode,

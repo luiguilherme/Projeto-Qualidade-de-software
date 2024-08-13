@@ -281,6 +281,45 @@ public without sharing class AssetDAO {
         ];
     }
 
+    public static List<Asset> getBySetAccountIdWithPromotionProduct(Set<Id> setAccId){
+        return[
+            SELECT  
+                Id,
+                Name,                
+                Account.Name,
+                LegacyAssetId__c,
+                Type__c,
+                Platform__c,
+                vlocity_cmt__ServiceIdentifier__c,
+                vlocity_cmt__ServiceAccountId__r.AcceptPromotion__c,
+                vlocity_cmt__ServiceAccountId__r.BillingAddressType__c,
+                vlocity_cmt__ServiceAccountId__r.BillingCity,
+                vlocity_cmt__ServiceAccountId__r.BillingComplement1__c,
+                vlocity_cmt__ServiceAccountId__r.BillingComplement2__c,
+                vlocity_cmt__ServiceAccountId__r.BillingComplement3__c,
+                vlocity_cmt__ServiceAccountId__r.BillingComplement4__c,
+                vlocity_cmt__ServiceAccountId__r.BillingComplementType1__c,
+                vlocity_cmt__ServiceAccountId__r.BillingComplementType2__c,
+                vlocity_cmt__ServiceAccountId__r.BillingComplementType3__c,
+                vlocity_cmt__ServiceAccountId__r.BillingComplementType4__c,
+                vlocity_cmt__ServiceAccountId__r.BillingNeighborhood__c,
+                vlocity_cmt__ServiceAccountId__r.BillingNumber__c,
+                vlocity_cmt__ServiceAccountId__r.BillingPostalCode,
+                vlocity_cmt__ServiceAccountId__r.BillingState,
+                vlocity_cmt__ServiceAccountId__r.BillingStreet,
+                vlocity_cmt__ServiceAccountId__r.Id,
+                vlocity_cmt__ServiceAccountId__r.RecordType.name
+
+            FROM 
+                Asset
+            WHERE
+                AccountId IN :setAccId AND
+                Status != 'Terminado' AND
+                Product2.vlocity_cmt__SubType__c = 'Promotion' AND
+                vlocity_cmt__ServiceIdentifier__c != ''
+        ];
+    }
+
    public static List<Asset> getAccountId(Id accountId){
         return[
             SELECT  
