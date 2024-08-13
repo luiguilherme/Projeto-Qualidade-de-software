@@ -36,7 +36,7 @@ export default class CtiCallDroppedButtonNotification extends  OmniscriptBaseMix
         this.recoveryIds = { "CustomerInteractionId__c" : this.customerinteractionid };                
         
         this.subscribeToEvent('Dispute', 'Open', this.setValuesFromEvent.bind(this));
-        this.subscribeToEvent('ctiCallDroppedButtonChild', 'recoveryids', this.getRecoveryIds.bind(this));
+        this.subscribeToEvent('ctiCallDroppedButtonChild', 'recoveryids', this.setValuesFromEventGPS.bind(this));
         // this.pubsubEvent[0] = {[interpolateWithRegex("recoveryids", this._allMergeFields, this._regexPattern, "noparse")]: this.getRecoveryIds.bind(this)};        
         // this.pubsubChannel0 = interpolateWithRegex("ctiCallDroppedButtonChild", this._allMergeFields, this._regexPattern, "noparse");
         // pubsub.register(this.pubsubChannel0, this.pubsubEvent[0]);
@@ -59,9 +59,18 @@ export default class CtiCallDroppedButtonNotification extends  OmniscriptBaseMix
         });
     }
     
-    getRecoveryIds(params) {
-        console.log("getRecoveryIds");
-        this.recoveryIds = params;
+
+    setValuesFromEventGPS(evt) {
+        console.log("setValuesFromEventGPS", JSON.stringify(evt));
+        this.payloadFromRegisterEvent = {
+            "AccountId__c" : evt.AccountId__c,
+            "CaseId__c": evt.CaseId__c,
+            "CustomerInteractionId__c": evt.CustomerInteractionId__c,
+            "ServiceIdentifier": evt.ServiceIdentifier,
+            "selectedAssetId" : evt.selectedAssetId,
+            "selectedTopicTreeId": evt.selectedTopicTreeId
+        }
+        console.log("this.payloadFromRegisterEvent", this.payloadFromRegisterEvent);
     }
 
     setValuesFromEvent(evt){
