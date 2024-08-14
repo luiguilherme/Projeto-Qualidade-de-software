@@ -1,0 +1,34 @@
+<template>
+  <div class="slds-box slds-theme_default">
+
+    <div class="slds-m-top_medium" style="font-size: medium; font-weight: bold; color:rgb(74, 73, 73)">
+      <p>Pesquisa de interações do cliente</p>
+    </div>
+
+    <br>
+
+    <div class="slds-align_absolute-center" style="align-items: end;">
+        <lightning-input label="Data inicial" type="date" class="start-date"></lightning-input>&nbsp;&nbsp;
+        <lightning-input label="Data final" type="date" class="end-date"></lightning-input>&nbsp;&nbsp;
+        <lightning-button variant="brand" label="Consultar" onclick={handleCustomerInteractions}></lightning-button>
+    </div>  
+
+    <br>
+
+    <div class="slds-theme_error" style="height: 47px; align-content: center; border-radius: 6px; background-color: #C23934;" if:true={displayError}>
+      &nbsp;&nbsp;&nbsp;
+      <lightning-icon icon-name="utility:error" variant="inverse" size="small"></lightning-icon>
+      <span class="slds-p-left_xx-small">{errorMessageDisplay}</span>
+    </div>
+    
+    <template if:true={displayTable}>
+
+      <div class="slds-m-top_medium">
+        <lightning-datatable key-field="id" data={pagedData} columns={columns} hide-checkbox-column="true">
+        </lightning-datatable>
+      </div>
+
+    </template>
+    
+  </div>
+</template>

@@ -7,20 +7,24 @@ public class RetrieveOrdersListFacade {
         WebService__c ws = WebService__c.getInstance(CONST_STRING_WEBSERVICENAME);
         ws.Endpoint__c = ws.Endpoint__c.replace('{accountId}', accountId);
 		
-        /*DateTime startDatedt = startDate;
-        DateTime endDatedt = endDate;
+        DateTime minOrderCreationDate = startDate != null ? DateTime.newInstance(startDate, Time.newInstance(00,00,00,0)) : null;
+        DateTime maxOrderCreationDate = endDate != null ? DateTime.newInstance(endDate, Time.newInstance(23,59,59,59)) : null;
         
-        Map<String, Object> filterCriteria = new Map<String, Object>{
-            'minOrderCreationDate' => startDatedt.getTime(),
-            'maxOrderCreationDate' => endDatedt.getTime(),
-            'statuses' => getStatuses(status),
-            'orders' => getOrders(types)
-        };*/
-            
-        Map<String, Object> filterCriteria = new Map<String, Object>{
-            'statuses' => getStatuses(status),
-            'orders' => getOrders(types)
-        };
+        Map<String, Object> filterCriteria = null;
+        
+        if (minOrderCreationDate != null && maxOrderCreationDate != null) {
+            filterCriteria = new Map<String, Object>{
+                'minOrderCreationDate' => String.valueOf(minOrderCreationDate.getTime()),
+                'maxOrderCreationDate' =>  String.valueOf(maxOrderCreationDate.getTime()),
+                'statuses' => getStatuses(status),
+                'orders' => getOrders(types)
+        	};
+        } else {
+            filterCriteria = new Map<String, Object>{
+                'statuses' => getStatuses(status),
+                'orders' => getOrders(types)
+        	};
+        }
 
         List<Map<String, Object>> sourceSystems = new List<Map<String, Object>>{
             new Map<String, Object>{ 'systemId' => 'AMDOCS' }
@@ -32,12 +36,13 @@ public class RetrieveOrdersListFacade {
         };
 
         String payload = JSON.serialize(payloadMap);
-		
+        System.debug('Retrieve orders list payload:' + JSON.serializePretty(payloadMap));
+        
         HttpClient hClient = new HttpClient();
         HttpResponse response = hClient.post(ws, payload);
 
         RetrieveOrdersListResponse result = (RetrieveOrdersListResponse)JSON.deserialize(response.getBody(), RetrieveOrdersListResponse.class);
-        if(result.orders == null){
+        if (result == null || result.orders == null) {
             return null;
         }
         

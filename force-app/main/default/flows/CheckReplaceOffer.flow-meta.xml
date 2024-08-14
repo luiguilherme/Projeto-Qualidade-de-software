@@ -32,7 +32,7 @@
         <inputParameters>
             <name>startDate</name>
             <value>
-                <elementReference>gtBuscaDisputedItem.BillingStartDate__c</elementReference>
+                <elementReference>billingStartdateMinus90Days</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -47,7 +47,9 @@
                 <elementReference>types</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>OrderManagementController</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>60.0</apiVersion>
     <assignments>
@@ -188,8 +190,8 @@
             <name>dcClienteTemPedidosVIVONextYes</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>ClienteTemPedidosVIVONext.orderItems</leftValueReference>
-                <operator>IsNull</operator>
+                <leftValueReference>ClienteTemPedidosVIVONext.orders</leftValueReference>
+                <operator>IsEmpty</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
                 </rightValue>
@@ -325,8 +327,14 @@
             <label>Sim</label>
         </rules>
     </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>billingStartdateMinus90Days</name>
+        <dataType>Date</dataType>
+        <expression>{!gtBuscaDisputedItem.BillingStartDate__c}-60</expression>
+    </formulas>
     <interviewLabel>Ação auto {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Ação Automática - Contestação - Verifique se houve alteração de plano para a fatura selecionada?</label>
+    <label>Ação Automática - Contestação - Houve alteração de plano no período contestado?</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -631,7 +639,7 @@
         <isInput>false</isInput>
         <isOutput>false</isOutput>
         <value>
-            <stringValue>Verifique se houve alteração de plano para a fatura selecionada?</stringValue>
+            <stringValue>Houve alteração de plano no período contestado?</stringValue>
         </value>
     </variables>
     <variables>

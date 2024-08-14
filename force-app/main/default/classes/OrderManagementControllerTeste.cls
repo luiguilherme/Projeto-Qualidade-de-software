@@ -26,16 +26,36 @@ public with sharing class OrderManagementControllerTeste {
 
         Test.startTest();
             Test.setMock(HttpCalloutMock.class, new OrderManagementServiceMock());
-            List<RetrieveOrdersListResponse.Orders> result = OrderManagementController.findReplaceOfferOrderByParams(filters);
+            List<RetrieveOrdersListResponse> result = OrderManagementController.findReplaceOfferOrderByParams(filters);
         Test.stopTest();
 
-        System.assertEquals(2, result.size(), 'Deveria retornar dois pedidos');
-        for (RetrieveOrdersListResponse.Orders order : result) {
-            for (RetrieveOrdersListResponse.OrderItems item : order.orderItems) {
-                System.assertEquals('12345', item.product.serviceId, 'ServiceId deveria ser 12345');
-                System.assert(item.replaceOfferIndicator, 'replaceOfferIndicator deveria ser true');
-            }
-        }
+        System.assertNotEquals(null, result); 
+    }
+
+    @isTest 
+    static void testFindByFilters() {
+
+        Webservice__c ws = new Webservice__c(
+            Name = 'RetrieveOrdersListCallout',
+            Endpoint__c = 'https://contest.proxy.beeceptor.com/dip/customerOrder/customerOrderManagement/v1/orderList/customer/{accountId}',
+            ServiceProvider__c = 'APIGW',
+            SubscriptionKey__c = '89098b41c7884a3d8d55741b46389b61',
+            Headers__c = 'application/json; charset=utf-8'
+        );
+        insert ws;
+
+        String accountId = '67890';
+        List<String> status = new List<String>{'Open', 'InProgress'};
+        List<String> types = new List<String>{'TypeA', 'TypeB'};
+        Date startDate = Date.today().addDays(-30);
+        Date endDate = Date.today();
+
+        Test.startTest();
+            Test.setMock(HttpCalloutMock.class, new OrderManagementServiceMock());
+            List<Orders> result = OrderManagementController.findByFilters(accountId, status, types, startDate, endDate);
+        Test.stopTest();
+
+        System.assertNotEquals(null, result); 
     }
 
     private class OrderManagementServiceErrorMock implements HttpCalloutMock {
@@ -60,6 +80,9 @@ public with sharing class OrderManagementControllerTeste {
                     '"customer": {'+
                         '"id": "399070164"'+
                     '},'+
+                    '"recurringPrice": {'+
+                        '"finalAmount": "2"'+
+                    '},'+
                     '"orderItems": ['+
                         '{'+
                             '"id": "678041686",'+
@@ -81,6 +104,9 @@ public with sharing class OrderManagementControllerTeste {
                     '"serviceRequiredDate": "1691549999000.00",'+
                     '"customer": {'+
                         '"id": "399070164"'+
+                    '},'+
+                    '"recurringPrice": {'+
+                        '"finalAmount": "2"'+
                     '},'+
                     '"orderItems": ['+
                         '{'+

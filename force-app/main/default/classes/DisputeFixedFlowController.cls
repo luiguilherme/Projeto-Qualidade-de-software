@@ -23,13 +23,46 @@ public with sharing class DisputeFixedFlowController {
         LIST<DisputedItem__c> itemsToDelete = DisputedItemDAO.getByCaseId(caseId);
 
         LIST<FlowExecutionStepHistory__c> stepsToDelete = FlowExecutionStepHistoryDAO.getByCaseId(caseId);
-        
+
+        DisputedInvoice__c invoiceToDelete = DisputedInvoiceDAO.findByCaseId(caseId);
+
         try {
             delete itemsToDelete;
             delete stepsToDelete;
+            delete invoiceToDelete;
         } catch (DmlException e) {
             System.debug('restartFlow Error:'+ e);
         }
         
+    }
+
+    @AuraEnabled(cacheable=false)
+    public static Map<String,String> getParamsByAccountId(Id accountId) {
+        Map<String,String> result = new Map<String,String>();
+
+        list<Asset> assets = AssetDAO.getAssetPhoneByAccount(accountId);
+        String phoneNumber = assets.size() > 0 && assets[0].vlocity_cmt__ServiceIdentifier__c.length() == 11 ? assets[0].vlocity_cmt__ServiceIdentifier__c : '';
+        result.put('customerPhoneNumber', phoneNumber);
+        return result;
+    }
+
+    @AuraEnabled(cacheable=false)
+    public static Case getCaseParam(Id caseId) {
+        return CaseDAO.getCasebyId(caseId);
+    }
+
+    @AuraEnabled(cacheable=false)
+    public static Map<String,String> getCustomerInteractions(Id caseId) {
+        Map<String,String> result = new Map<String,String>();
+
+        vlocity_cmt__CustomerInteractionTopic__c interactionTopic = CustomerInteractionTopicDAO.getByCaseId(caseId);
+        Case interaction = CaseDAO.getCustomerInteractionByCaseId(caseId);
+        result.put('caseNumber',interaction.CaseNumber);
+        result.put('protocolo',interaction.Protocol__c);
+        result.put('interactionTopicId',interactionTopic.Id);
+        result.put('statusLabel', interaction.Status);
+        result.put('interactionId', interaction.CustomerInteractionId__c);
+        
+        return result;
     }
 }

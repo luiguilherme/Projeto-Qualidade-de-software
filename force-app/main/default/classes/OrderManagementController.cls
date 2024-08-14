@@ -1,27 +1,53 @@
-public class OrderManagementController {
+public without sharing class OrderManagementController {
 
     @InvocableMethod(label='Order Management Controller' description='Classe utilizada para a busca de pedidos de clientes Vivo Next')
-    public static List<RetrieveOrdersListResponse.Orders> findReplaceOfferOrderByParams(List<RetrieveOrdersListFilter> filter){
+    public static List<RetrieveOrdersListResponse> findReplaceOfferOrderByParams(List<RetrieveOrdersListFilter> filter){
 
-        List<RetrieveOrdersListResponse.Orders> filteredOrders = OrderManagementService.findByFilter(filter[0].customerAccountId, filter[0].status, filter[0].types, filter[0].startDate, filter[0].endDate);
+        List<RetrieveOrdersListResponse.Orders> filteredOrders = OrderManagementService.findByFilter(
+            filter[0].customerAccountId, filter[0].status, filter[0].types, filter[0].startDate, filter[0].endDate);
+
+        System.debug('filteredOrders: ' + filteredOrders);
+
         if(filteredOrders == null){
             return null;
         }
         List<RetrieveOrdersListResponse.Orders> orders = new List<RetrieveOrdersListResponse.Orders>();
         for (RetrieveOrdersListResponse.Orders order : filteredOrders) {   
-            
             for (RetrieveOrdersListResponse.OrderItems item : order.orderItems) {
-
                 if (item.product.serviceId == filter[0].serviceId && item.replaceOfferIndicator) {
+
                     orders.add(order);
                 }
             }
 
         }
-
-        return orders;
+        
+        RetrieveOrdersListResponse response = new RetrieveOrdersListResponse();
+		response.orders = orders;
+        
+        return new List<RetrieveOrdersListResponse> { response };
     }
 
+    @AuraEnabled
+    public static List<Orders> findByFilters(String accountId, List<String> status, List<String> types, Date startDate, Date endDate){
+
+        List<RetrieveOrdersListResponse.Orders> orderFilters = OrderManagementService.findByFilter(accountId, status, types, startDate, endDate);
+
+        List<Orders> orders = new List<Orders>();
+        for(RetrieveOrdersListResponse.Orders order : orderFilters){
+            Orders orderObj = new Orders();
+            orderObj.creationDate = order.creationDate1.Date();
+            orderObj.referenceNumber = order.referenceNumber;
+            orderObj.status = order.status ;
+            orderObj.finalAmount = order.recurringPrice != null && order.recurringPrice.finalAmount != null ? Decimal.valueOf(order.recurringPrice.finalAmount) : 0;
+            orders.add(orderObj);
+
+        }
+    
+        return orders;
+
+    }
+   
     public class RetrieveOrdersListFilter {
         @InvocableVariable
         public String serviceId;
@@ -35,6 +61,6 @@ public class OrderManagementController {
         public Date startDate;
         @InvocableVariable
         public Date endDate;
-    
+
     }
 }
