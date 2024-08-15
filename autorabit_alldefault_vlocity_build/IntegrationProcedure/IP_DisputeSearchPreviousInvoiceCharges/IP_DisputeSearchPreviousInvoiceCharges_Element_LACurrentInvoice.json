@@ -40,7 +40,7 @@
         "failureConditionalFormula": "",
         "failureResponse": {
         },
-        "filterListFormula": "=type == \"RC\" && frontEndCode == \"PCTAD\" && datediffstart == %dateInvoice:selectedInvoiceStartDate% && datediffend == %dateInvoice:selectedInvoiceCloseDate%",
+        "filterListFormula": "=type == \"RC\" && ChargeCategory == \"Pacote Adicional\" || ChargeCategory == \"Pacote Adicional Serviços Eventuais\" &&  datediffstart == %dateInvoice:selectedInvoiceStartDate% && datediffend == %dateInvoice:selectedInvoiceCloseDate%",
         "hasPrimary": false,
         "label": "ListAction3",
         "mergeFields": [
@@ -49,6 +49,7 @@
             "selectedInvoiceIP:invoiceCharges",
             "previousInvoicesIP:invoiceCharges"
         ],
+        "preventIntraListMerge": false,
         "primaryListKey": "",
         "responseJSONNode": "",
         "responseJSONPath": "",
@@ -63,8 +64,8 @@
         ],
         "sortInDescendingOrder": true,
         "updateFieldValue": {
-            "datediffend": "=DATEDIFF(TODAY(),SUBSTRING(endDate ,0,10))",
-            "datediffstart": "=DATEDIFF(TODAY(),SUBSTRING(startDate,0,10))"
+            "datediffend": "=DATEDIFF(SUBSTRING(endDate ,0,10),TODAY())",
+            "datediffstart": "=DATEDIFF(SUBSTRING(startDate,0,10),TODAY())"
         },
         "useFormulas": true
     },

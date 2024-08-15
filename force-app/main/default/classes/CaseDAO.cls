@@ -36,7 +36,9 @@ public without sharing class CaseDAO {
                 ComplainedAsset__c,
                 CustomerInteractionTopicTree__c,
                 Product__c,
-                Context__c
+                Context__c,
+                toLabel(Status) statusLabel,
+                CaseNumberLegacySystem__c
             FROM
                 Case
             WHERE
@@ -157,4 +159,25 @@ public without sharing class CaseDAO {
                 Id IN :caseIds
         ];
     }
+    
+    public static List<Case> getCasesFromAccId(String AccountId, Integer days) {
+        String query = 'SELECT  id,OwnerId,CaseNumber,Status,RecordType.Name,AccountId,CreatedDate,Origin,RecordType.DeveloperName,ServiceDefinitionId__r.DisputeDenied__c,ServiceDefinitionId__r.RootCause__c,ComplainedAsset__r.Name FROM Case WHERE AccountId = :AccountId AND CreatedDate = LAST_N_DAYS:'+ days;
+           return Database.query(query);
+    }
+
+    public static Case getCustomerInteractionByCaseId(String caseId) {
+        return [
+            SELECT
+                CustomerInteractionId__c,
+                toLabel(Status),
+                Protocol__c,
+                CaseNumber
+			FROM
+            	Case
+            WHERE
+            	Id =: caseId
+            LIMIT 1
+
+		];
+	}
 }

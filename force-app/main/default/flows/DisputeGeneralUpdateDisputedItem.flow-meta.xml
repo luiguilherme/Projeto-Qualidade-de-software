@@ -25,6 +25,29 @@
         </connector>
     </assignments>
     <assignments>
+        <name>asSetDisputedItemAsClosed</name>
+        <label>Definir item contestado como: Fechado</label>
+        <locationX>842</locationX>
+        <locationY>242</locationY>
+        <assignmentItems>
+            <assignToReference>disputedItem.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>disputedItem.ServiceDefinitionId__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>serviceDefinition.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>upUpdateDisputedItem</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>asSetDisputedItemAsConcession</name>
         <label>Definir item contestado como: Concessão</label>
         <locationX>578</locationX>
@@ -41,6 +64,13 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>serviceDefinition.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>disputedItem.IsConcession__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
             </value>
         </assignmentItems>
         <connector>
@@ -73,7 +103,7 @@
     <decisions>
         <name>dcHowToUpdateDisputedItem</name>
         <label>Como o item contestado será atualizado?</label>
-        <locationX>446</locationX>
+        <locationX>578</locationX>
         <locationY>134</locationY>
         <defaultConnector>
             <targetReference>upUpdateDisputedItem</targetReference>
@@ -124,6 +154,21 @@
             </connector>
             <label>Concessão</label>
         </rules>
+        <rules>
+            <name>dcHowToUpdateDisputedItemClosed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>serviceDefinition.StatusItem__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>asSetDisputedItemAsClosed</targetReference>
+            </connector>
+            <label>Fechado</label>
+        </rules>
     </decisions>
     <environments>Default</environments>
     <interviewLabel>Contestação - Atendimento Geral - Atualizar Item Contestado {!$Flow.CurrentDateTime}</interviewLabel>
@@ -150,7 +195,7 @@
     <recordUpdates>
         <name>upUpdateDisputedItem</name>
         <label>Atualizar item contestado com status da definição de atendimento</label>
-        <locationX>446</locationX>
+        <locationX>578</locationX>
         <locationY>434</locationY>
         <connector>
             <targetReference>Atendimento_Geral_Defini_o_de_Atendimento_Fluxo_1</targetReference>
@@ -158,7 +203,7 @@
         <inputReference>disputedItem</inputReference>
     </recordUpdates>
     <start>
-        <locationX>320</locationX>
+        <locationX>452</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>dcHowToUpdateDisputedItem</targetReference>
@@ -168,7 +213,7 @@
     <subflows>
         <name>Atendimento_Geral_Defini_o_de_Atendimento_Fluxo_1</name>
         <label>Atendimento - Geral - Definição de Atendimento Fluxo 1</label>
-        <locationX>446</locationX>
+        <locationX>578</locationX>
         <locationY>542</locationY>
         <flowName>generalServiceDefinition</flowName>
         <inputAssignments>

@@ -1,0 +1,74 @@
+<template> 
+    <div>
+        <lightning-modal-header label="Contestação de Fatura"></lightning-modal-header>
+        <lightning-modal-body>
+            <div  style="max-height:32px !important;">
+                <lightning-progress-indicator current-step={currentStep} type="path" variant="base">
+                    <template for:each={progressSteps} for:item="step">
+                        <lightning-progress-step label={step.label} value={step.value} key={step.label}></lightning-progress-step>
+                    </template>
+                    <div if:true={isLastStep} style="max-height:0%">
+                        <lightning-progress-step style="visibility: hidden;" label='' value='step-99'></lightning-progress-step>
+                    </div>
+                </lightning-progress-indicator>
+            </div>
+            <div class="slds-grid slds-m-horizontal_small slds-m-vertical_medium" style="font-size: 14px !important;">
+                <div class="slds-col slds-grid slds-grid_vertical slds-size_2-of-10">
+                    <span class="slds-col">Protocolo VivoNet:</span>
+                    <span class="slds-col" style="font-weight: bold;">{protocol}</span>
+                </div>
+                <div class="slds-col slds-grid slds-grid_vertical slds-size_2-of-10"> 
+                    <span class="slds-col">Caso Salesforce:</span>
+                    <span class="slds-col" style="font-weight: bold;">{caseNumber}</span>
+                </div>
+                <div class="slds-col slds-grid slds-grid_vertical slds-size_2-of-10">
+                    <span class="slds-col">Status Caso Salesforce:</span>
+                    <span class="slds-col" style="font-weight: bold;">{caseStatus}</span>
+                </div>
+                <div class="slds-col slds-grid slds-grid_vertical slds-size_2-of-10">
+                    <span class="slds-col">Interação Next:</span>
+                    <span class="slds-col" style="font-weight: bold;">{interactionNext}</span>
+                </div>
+                <div class="slds-col slds-grid slds-grid_vertical slds-size_2-of-10">
+                    <span class="slds-col">Caso BKO:</span>
+                    <span class="slds-col" style="font-weight: bold;">{caseBKO}</span>
+                </div>
+            </div> 
+            <div if:true={haveSomeError} class="slds-theme_error slds-align_absolute-center slds-m-vertical_small slds-p-vertical_small">
+                <lightning-icon icon-name="utility:error" variant="inverse" size="small"></lightning-icon>
+                <span class="slds-text-heading_small">{errorMessage}</span>
+            </div>
+            <div if:true={finished} class="slds-theme_success slds-align_absolute-center slds-m-vertical_small slds-p-vertical_small">
+                <lightning-icon icon-name="utility:success" variant="inverse" size="small"></lightning-icon>
+                <span class="slds-text-heading_small">Contestação realizada com sucesso.</span>
+            </div>
+            <table class="slds-table slds-table_bordered slds-table_striped slds-table_col-bordered slds-m-vertical_small">
+                <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="slds-size_1-of-2" scope="col">
+                        Item
+                    </th>
+                    <th class="slds-size_1-of-2" scope="col">
+                        Status
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                    <template for:each={itemstabledata} for:item="item">
+                        <tr class="slds-hint-parent" key = {item._Id}>
+                            <td>
+                                <div class="slds-cell-wrap">{item.Description__c}</div>
+                            </td> 
+                            <td>
+                                <div class="slds-cell-wrap">{item.StatusPt}</div>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </lightning-modal-body>
+        <lightning-modal-footer>
+            <lightning-button class="slds-align_absolute-center slds-text-heading_small" style="min-width: 200px;" variant="brand" label={buttonLabel} onclick={handleOkay} disabled={disabledButton}></lightning-button>
+        </lightning-modal-footer>
+    </div>
+</template>

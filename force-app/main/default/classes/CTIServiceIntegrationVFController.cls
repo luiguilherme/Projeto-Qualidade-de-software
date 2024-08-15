@@ -13,10 +13,12 @@ global class CTIServiceIntegrationVFController {
     private static final String CUSTOM_SETTING_CALL_DROPPED = 'LigacaoCaiu';
     private static final String BUSINESS_RULE_CALL_DROPPED = 'LIGACAO CAIU';
     private static final String CASE_RECORD_TYPE_CALL_DROPPED = 'CallDroped';
+    private static final String CASE_RECORD_TYPE_MOBILE_CALL_DROPPED = 'CallDroped';
     private static final String CASE_STATUS_EM_ATENDIMENTO = 'Em Atendimento';
     private static final String CTI_INTEGRATION_QUEUE = 'CTIIntegrationQueue';
     private static final String CASE_CLOSURE_CALL_DROPPED = 'Informação > Atendimento > Ligação > Caiu';
     private static final String CASE_DESCRIPTION_CALL_DROPPED = 'Identificado queda da ligação durante o atendimento.';
+    private static final String CASE_ORIGIN_SFA_NEXT = 'SFA Script - Next';
 
     public void init() {
         pageURL = ApexPages.currentPage().getHeaders().get('referer');        
@@ -142,7 +144,126 @@ global class CTIServiceIntegrationVFController {
             return false;
         }
     }
+    @RemoteAction
+    global static Map<String, Object> createMobileNextDisputeCase(Map<String, Object> payload) {
+        Map<String, Object> response = new Map<String, Object>();
+        response.put('createdCase', false);
+        response.put('createdInteraction', false);
+        response.put('workflow', 'createCaseOnWDECallDrop');
 
+        try {
+            Id rtypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(CASE_RECORD_TYPE_MOBILE_CALL_DROPPED).getrecordTypeId();
+            String customerAccountId = CustomerInteractionDAO.getAccountIdById(String.valueOf(payload.get('CustomerInteractionId__c')));
+            Case callDroppedCase = new Case();
+
+            String serviceDefinitionId = null;
+
+            List<ServiceDefinition__c> serviceDefinitions = [
+                SELECT Id
+                FROM ServiceDefinition__c
+                WHERE ServiceDefinitionName__c = 'ATC-MVL-FIN-CONT-ENC-LIG-001'
+                LIMIT 1
+            ];
+
+            if (serviceDefinitions.size() > 0) {
+                serviceDefinitionId = serviceDefinitions[0].Id;
+            }
+
+            String currentLine = String.valueOf(payload.get('Line'));
+            String productNumber = String.valueOf(payload.get('ServiceIdentifier'));
+            String protocolNumber = String.valueOf(payload.get('protocolNumber'));
+            
+            String nextProtocolNumber = null;
+
+            vlocity_cmt__CustomerInteraction__c serviceIdentifier = CustomerInteractionDAO.getCustomerInteractionById(String.valueOf(payload.get('CustomerInteractionId__c')));
+
+            If (currentLine == null || String.isEmpty(currentLine) || String.isBlank(currentLine) || currentLine == '{Line}' || currentLine == '\'\'') {
+                currentLine = null;
+                productNumber = null;
+            }
+
+            if (protocolNumber == null || String.isEmpty(protocolNumber) || String.isBlank(protocolNumber) || protocolNumber == '{protocolNumber}' || protocolNumber == '\'\'') {
+                protocolNumber = null;
+            }
+
+            callDroppedCase.AccountId = customerAccountId;
+            callDroppedCase.RecordTypeId = rtypeId;
+            callDroppedCase.Origin = 'CallDropped';
+            callDroppedCase.CustomerInteractionId__c = payload.get('CustomerInteractionId__c') == null ? null : String.valueOf(payload.get('CustomerInteractionId__c'));
+            callDroppedCase.ComplainedAsset__c = currentLine;
+            callDroppedCase.Subject = 'Ligação Caiu';
+            callDroppedCase.Description = 'Identificado queda da ligação durante o atendimento.';
+            callDroppedCase.CallerDDD__c = serviceIdentifier.CallerDDD__c;
+            callDroppedCase.CallerPhone__c = serviceIdentifier.CallerPhone__c;
+            callDroppedCase.Closure__c = 'Informação > Atendimento > Ligação > Caiu';
+            callDroppedCase.Product__c = productNumber;
+            callDroppedCase.Protocol__c = protocolNumber;
+            callDroppedCase.ProtocolURA__c = serviceIdentifier.InteractionNumber__c;
+            callDroppedCase.ServiceQualificationMobile__c = 'Informação > Atendimento > Ligação > Caiu';
+            callDroppedCase.ServiceDefinitionId__c = serviceDefinitionId;
+            insert callDroppedCase;
+            
+            response.put('createdCase', true);
+            response.put('caseId', callDroppedCase.Id);
+            
+            vlocity_cmt__CustomerInteractionTopic__c customerInteractionTopic = new vlocity_cmt__CustomerInteractionTopic__c();
+            customerInteractionTopic.vlocity_cmt__AccountId__c = customerAccountId;
+            customerInteractionTopic.Origin__c = CASE_ORIGIN_SFA_NEXT;
+            customerInteractionTopic.TopicName__c = 'Informação > Atendimento > Ligação > Caiu';
+            customerInteractionTopic.vlocity_cmt__Reason__c = 'Ligação Caiu';
+            customerInteractionTopic.remarkup__c = 'Identificado queda da ligação durante o atendimento.';
+            customerInteractionTopic.vlocity_cmt__CaseId__c = callDroppedCase.Id;
+            customerInteractionTopic.vlocity_cmt__AssetId__c = currentLine;
+            customerInteractionTopic.vlocity_cmt__CustomerInteractionId__c = String.valueOf(payload.get('CustomerInteractionId__c'));
+            insert customerInteractionTopic;
+
+            response.put('createdInteraction', true);
+            response.put('customerInteractionTopicId', customerInteractionTopic.Id);
+            
+            response.put('error', false);
+
+            return response;
+
+        } catch (Exception e) {
+            response.put('error', true);
+            response.put('errorMessage', e.getMessage());
+
+            return response;
+        }
+    }
+
+    @RemoteAction
+    global static Map<String, Object> updateMobileNextDisputeCase(Map<String, Object> payload) {
+        Map<String, Object> response = new Map<String, Object>();
+        response.put('updatedCase', false);
+        response.put('workflow', 'updateCaseOnWDECallDrop');
+        
+        try {
+            String caseId = String.valueOf(payload.get('CaseId__c'));
+
+            if (caseId == null || String.isEmpty(caseId) || String.isBlank(caseId) || caseId == '{CaseId__c}' || caseId == '\'\'') {
+                caseId = null;
+            }
+
+            Case wdeCase = CaseDAO.getCasebyId(caseId);
+
+            wdeCase.Status = 'CallDropped';
+            wdeCase.Closure__c = 'Informação > Atendimento > Ligação > Caiu';
+
+            upsert wdeCase;
+
+            response.put('updatedCase', true);
+            response.put('error', false);
+
+            return response;
+
+        } catch (Exception e) {
+            response.put('error', true);
+            response.put('errorMessage', e.getMessage());
+
+            return response;
+        }
+    }
     @RemoteAction
     global static Boolean setCaseOwnerAsCurrentUser(Map<String, String> payload) {
 
@@ -187,7 +308,24 @@ global class CTIServiceIntegrationVFController {
             return false;
         }
     }
-    
+    private static void createCustomerInteractionTopic(String caseId, String customerInteractionId, String selectedAssetId, String accountId, String origin) {
+        try {
+            vlocity_cmt__CustomerInteractionTopic__c newCustomerInteractionTopic = new vlocity_cmt__CustomerInteractionTopic__c();
+            newCustomerInteractionTopic.vlocity_cmt__AccountId__c = accountId;
+            newCustomerInteractionTopic.vlocity_cmt__CustomerInteractionId__c = customerInteractionId;
+            newCustomerInteractionTopic.vlocity_cmt__AssetId__c = selectedAssetId;
+            newCustomerInteractionTopic.vlocity_cmt__CaseId__c = caseId;
+            newCustomerInteractionTopic.Origin__c = origin;
+            newCustomerInteractionTopic.vlocity_cmt__Reason__c = CASE_SUBJECT_CALL_DROPPED;
+            newCustomerInteractionTopic.remarkup__c = CASE_DESCRIPTION_CALL_DROPPED;
+            newCustomerInteractionTopic.TopicName__c = CASE_CLOSURE_CALL_DROPPED;
+            
+            insert newCustomerInteractionTopic;
+        } catch(Exception e) {
+            System.debug('Erro ao criar o palito: ' + e.getMessage());
+        }
+    }
+
     private static String createCase(String accountId, String customerInteractionId, String selectedAssetInstance, String selectedAssetId) {
         try {
         	Case newCase = new Case();
@@ -222,25 +360,6 @@ global class CTIServiceIntegrationVFController {
             return null;
         }	        
     }
-    
-    private static void createCustomerInteractionTopic(String caseId, String customerInteractionId, String selectedAssetId, String accountId, String origin) {
-        try {
-            vlocity_cmt__CustomerInteractionTopic__c newCustomerInteractionTopic = new vlocity_cmt__CustomerInteractionTopic__c();
-            newCustomerInteractionTopic.vlocity_cmt__AccountId__c = accountId;
-            newCustomerInteractionTopic.vlocity_cmt__CustomerInteractionId__c = customerInteractionId;
-            newCustomerInteractionTopic.vlocity_cmt__AssetId__c = selectedAssetId;
-            newCustomerInteractionTopic.vlocity_cmt__CaseId__c = caseId;
-            newCustomerInteractionTopic.Origin__c = origin;
-            newCustomerInteractionTopic.vlocity_cmt__Reason__c = CASE_SUBJECT_CALL_DROPPED;
-            newCustomerInteractionTopic.remarkup__c = CASE_DESCRIPTION_CALL_DROPPED;
-            newCustomerInteractionTopic.TopicName__c = CASE_CLOSURE_CALL_DROPPED;
-            
-            insert newCustomerInteractionTopic;
-        } catch(Exception e) {
-            System.debug('Erro ao criar o palito: ' + e.getMessage());
-        }
-    }
-
     @future(callout=true)
     private static void updateCallDroppedCase(String caseId, String cnpj, String selectedAssetInstance, String userAlias){
         try{

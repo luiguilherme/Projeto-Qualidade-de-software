@@ -22,7 +22,8 @@ export default class LwcContainerFlow extends LightningElement {
     connectedCallback() {
         this._myPubSubHandlers = {
             'openFlow': this.openEventHandler.bind(this),
-            'closeFlow': this.closeEventHandler.bind(this)
+            'closeFlow': this.closeEventHandler.bind(this),
+            'finishFlow': this.finishEventHandler.bind(this)
         };
         pubsub.register('FixedDispute', this._myPubSubHandlers);
         pubsub.register('omniscript_step', {
@@ -77,6 +78,10 @@ export default class LwcContainerFlow extends LightningElement {
         restartFlow({ caseId: this.caseId });
         this.caseId = '';
         this.flowApiName = '';
+        this.visivel = false;
+    }
+
+    finishEventHandler(event){
         this.visivel = false;
     }
 

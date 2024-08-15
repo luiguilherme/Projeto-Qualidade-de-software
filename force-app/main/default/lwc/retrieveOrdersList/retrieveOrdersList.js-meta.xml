@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__FlowScreen</target>
+        <target>lightning__Tab</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="accountId" type="String" label="Account Id do cliente" required="true" role="inputOnly" />
+            <property name="type" type="String" label="Siglas dos tipos das ordens separadas por virgula. Ex: CH,CE,DE" role="inputOnly" />
+            <property name="status" type="String" label="Status dos tipos das ordens separadas por virgula. Ex: CLOSED,OPEN,SUBMITTED,SUBMIT_REQUESTED" role="inputOnly" />
+            <property name="startDate" type="Date" label="Período de início da consulta" role="inputOnly" />
+            <property name="endDate" type="Date" label="Período de término da consulta" role="inputOnly" />
+            <property name="selectedOrder" label="Ordem Selecionada" type="apex://Orders" role="outputOnly" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

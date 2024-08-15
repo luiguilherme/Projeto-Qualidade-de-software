@@ -68,7 +68,7 @@
             <assignToReference>DisputedItem.Description__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>LoopAllCharges.codeDescription</elementReference>
+                <elementReference>trunkCodeDescriptionIn255Characters</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -103,7 +103,7 @@
             <assignToReference>DisputedItem.Name</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>LoopAllCharges.name</elementReference>
+                <elementReference>trunkNameIn80Characters</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -162,6 +162,20 @@
                 <elementReference>LoopAllCharges.haveDiscount</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>DisputedItem.Csp__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>LoopAllCharges.csp</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>DisputedItem.NameFull__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>trunkFullNameIn255Characters</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>AssignDisputedItemCollection</targetReference>
         </connector>
@@ -176,6 +190,21 @@
         <name>StartDateFormat</name>
         <dataType>Date</dataType>
         <expression>DATEVALUE({!LoopAllCharges.startDate})</expression>
+    </formulas>
+    <formulas>
+        <name>trunkCodeDescriptionIn255Characters</name>
+        <dataType>String</dataType>
+        <expression>IF (LEN({!LoopAllCharges.codeDescription}) &gt; 254, MID({!LoopAllCharges.codeDescription}, 1, 254), {!LoopAllCharges.codeDescription})</expression>
+    </formulas>
+    <formulas>
+        <name>trunkFullNameIn255Characters</name>
+        <dataType>String</dataType>
+        <expression>IF (LEN({!LoopAllCharges.name}) &gt; 254, MID({!LoopAllCharges.name}, 1, 254), {!LoopAllCharges.name})</expression>
+    </formulas>
+    <formulas>
+        <name>trunkNameIn80Characters</name>
+        <dataType>String</dataType>
+        <expression>IF (LEN({!LoopAllCharges.name}) &gt; 79, MID({!LoopAllCharges.name}, 1, 79), {!LoopAllCharges.name})</expression>
     </formulas>
     <interviewLabel>Contestação - Fixa/Convergente - Criar items de contestação {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Contestação - Fixa/Convergente - Criar items de contestação</label>

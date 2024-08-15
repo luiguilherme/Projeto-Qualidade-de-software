@@ -1,0 +1,65 @@
+<template>
+    <div class="slds-box slds-theme_default">
+
+        <div class="slds-m-top_medium" style="font-size: medium; font-weight: bold; color:rgb(74, 73, 73)">
+            <p>Pesquisa de pedidos do cliente</p>
+        </div>
+
+        <br>
+        <br>
+
+        <div class="slds-align_absolute-center">
+            <lightning-button variant="brand" label="Últimos 30 dias" onclick={handleSearchLast30Days}></lightning-button>&nbsp;&nbsp;
+            <lightning-button variant="brand" label="Últimos 60 dias" onclick={handleSearchLast60Days}></lightning-button>&nbsp;&nbsp;
+            <!-- <lightning-button variant="brand" label="Últimos 90 dias" onclick={handleSearchLast90Days}></lightning-button>&nbsp;&nbsp; -->
+            <lightning-button variant="brand" label="Outras datas" onclick={handleSearchOtherDates} disabled={isSearchButtonDisabled}></lightning-button>&nbsp;&nbsp;
+        </div>
+
+        <template if:true={otherDates}>
+            <div class="slds-align_absolute-center" style="align-items: end;">
+                <lightning-input type="date" placeholder="Início" value={startDate} onchange={handleStartDateChange}></lightning-input>&nbsp;&nbsp;
+                <lightning-input type="date" placeholder="Fim" value={endDate} onchange={handleEndDateChange}></lightning-input>&nbsp;&nbsp;
+                <lightning-button variant="brand" label="Pesquisar" onclick={handleCheckOrders}></lightning-button>
+            </div>
+            <template if:true={error}>
+                <div class="slds-text-color_error slds-align_absolute-center">{errorMessage}</div>
+            </template>
+        </template>
+
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="x-small"></lightning-spinner>
+        </template>
+        
+        <template if:true={viewDatatable}>
+            <div class="slds-m-top_medium">
+                <lightning-datatable
+                    key-field="id"
+                    data={orders}
+                    columns={columns}
+                    max-row-selection="1"
+                    onrowselection={getSelectedColumn}>
+                </lightning-datatable>
+            </div>
+        </template>
+
+        <template if:true={viewTableRelated}>
+            <br>
+            <div class="slds-m-top_medium" style="font-size: medium; font-weight: bold; color:rgb(74, 73, 73)">
+                <p>Detalhes do pedido selecionado </p>
+            </div>
+            <div class="slds-p-around_medium lgc-bg">
+                <lightning-tree-grid
+                    columns={gridColumns}
+                    data={orderDetails}
+                    key-field="instancia"
+                    hide-checkbox-column="true">
+                </lightning-tree-grid>
+            </div>
+        </template>
+
+        <template if:true={errorData}>
+            <div class="slds-text-color_error slds-align_absolute-center">{errorMessageData}</div>
+        </template>
+
+    </div> 
+</template>

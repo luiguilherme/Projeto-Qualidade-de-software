@@ -1,0 +1,221 @@
+<template>
+  <lightning-card>
+    <div class="slds-m-left_small slds-m-vertical_small custom-div slds-align_absolute-center">Informações esclarecidas durante o atendimento:</div>
+    <template for:each={cartItems} for:item="item">
+        <lightning-card key = {item._Id}>
+            <div class="slds-grid slds-grid_vertical slds-p-bottom_small slds-border_bottom" style="font-size: 12px !important;">
+                <div class="slds-col slds-grid slds-m-left_small">
+                    <div class="slds-col" style="max-width: 170px !important;">
+                        <span style="font-weight: bold;">Item contestado:</span>
+                    </div>
+                    <div class="slds-col slds-text-align_left">
+                        <span>{item.Description__c}</span>
+                    </div>
+                </div>
+                <div class="slds-col slds-grid slds-m-left_small ">
+                    <div class="slds-col" style="max-width: 170px !important;">
+                        <span style="font-weight: bold;" class="wide-combobox">Status da Contestação:</span>
+                    </div>
+                    <div class="slds-col slds-text-align_left"> 
+                        <span>{item.StatusPt}</span>
+                    </div>
+                </div>
+                <div class="slds-col slds-m-left_small slds-p-top_small">
+                    <span>{item.AttendantMessage}</span>
+                </div>
+                <div class="slds-col slds-m-left_small">
+                    <span style="font-weight: bold;">{item.StepCode}</span> 
+                </div>
+            </div>
+        </lightning-card>
+    </template>
+  </lightning-card>
+  <div class="demo-only" style="height:6rem;position:relative" if:true={showLoading} >
+    <div class="slds-spinner_container">
+      <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+        <span class="slds-assistive-text">Carregando Informações</span>
+        <div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+      </div>
+    </div>
+  </div>
+  <div if:true={showPage}>
+    <lightning-card>
+      <div class="custom-div slds-m-left_small slds-align_absolute-center">Formulário de Ajuste</div>
+      <div class="slds-m-around_medium table-container" lwc:ref="maincontainer">
+        <div class="slds-grid slds-wrap item-row header-row">
+          <div class="slds-col slds-size_1-of-12 max-width-100">Fatura</div>
+          <div class="slds-col slds-size_1-of-12">Descrição</div>
+          <div class="slds-col slds-size_1-of-12 max-width-100">Valor</div>
+          <div class="slds-col slds-size_1-of-12 max-width-100">Descontos</div>
+          <div class="slds-col slds-size_1-of-12 max-width-100">Valor Atual</div>
+          <div class="slds-col slds-size_1-of-12">Tipo de Ajuste</div>
+          <div class="slds-col slds-size_1-of-12 max-width-100">Valor Ajuste</div>
+          <div class="slds-col slds-size_1-of-12">Modalidade</div>
+          <div class="slds-col slds-size_1-of-12" style="min-width: 270px !important;">Motivo de Crédito</div>
+          <div class="slds-col slds-size_1-of-12 max-width-100">Valor a pagar</div>
+        </div>
+        <template for:each={adjustmentItemsFormated} for:item="item">
+          <div key={item.id} class="font-item-row wide-input slds-m-bottom_small slds-grid slds-wrap item-row">
+            <lightning-input class="font-item-row wide-input slds-col slds-size_1-of-12 max-width-100" type="text" value={item.fatura} readonly></lightning-input>
+            <lightning-input class="font-item-row wide-input slds-col slds-size_1-of-12" type="text" value={item.descricao} readonly></lightning-input>
+            <lightning-input class="font-item-row wide-input slds-col slds-size_1-of-12 max-width-100" type="text" value={item.valor} readonly></lightning-input>
+            <lightning-input class="font-item-row wide-input slds-col slds-size_1-of-12 max-width-100" type="text" value={item.descontos} readonly></lightning-input>
+            <lightning-input class="font-item-row wide-input slds-col slds-size_1-of-12 max-width-100" type="text" value={item.valorAtual} readonly></lightning-input>
+            <lightning-combobox
+              class="font-item-row wide-combobox slds-col slds-size_1-of-12"
+              name="tipoAjuste"
+              value={item.tipoAjuste}
+              placeholder="Selecione o Tipo de Ajuste"
+              options={optionsTipoAjuste}
+              disabled
+              data-item-id={item.id}
+            ></lightning-combobox>
+            <template if:true={item.isEvent}>
+                <lightning-input
+                    class="font-item-row wide-input slds-col slds-size_1-of-12 max-width-100"
+                    type="text"
+                    value={item.valor}
+                    data-item-id={item.id}
+                    readonly
+                ></lightning-input>
+            </template>
+            <template if:false={item.isEvent}>
+              <lightning-input
+                class="font-item-row wide-input slds-col slds-size_1-of-12 max-width-100"
+                type="text"
+                placeholder="R$0.00"
+                pattern="\d*[,\.]?\d{0,2}"
+                value={item.valorAjuste}
+                data-item-id={item.id}
+                onchange={handleAdjustmentChange}
+                oninput={handleInput}
+                onfocus={handleInputFocus}
+                onblur={handleInputBlur}
+                oninvalid={handleInvalidInput}
+                disabled={isDisabled}
+                read-only={item.isReadOnly}
+              ></lightning-input>
+            </template>
+            <lightning-combobox
+              class="font-item-row wide-combobox slds-col slds-size_1-of-12"
+              name="modalidade"
+              value={item.modalidade}
+              placeholder="Selecione a modalidade"
+              options={item.modalidades}
+              data-item-id={item.id}
+              disabled={isDisabled}
+              onchange={handleModalidadesChange}
+              onfocus={handleExpandPage}
+              onblur={handleCollapsePage}
+            ></lightning-combobox>
+            <lightning-combobox
+              style="min-width: 270px !important;"
+              data-item-id={item.id}
+              class="font-item-row wide-combobox slds-col slds-size_1-of-12 custom-combobox"
+              name="motivoCredito"
+              value={item.motivoCredito}
+              placeholder="Selecione o motivo"
+              options={item.motivoCreditoOptions}
+              disabled={isDisabled}
+              onchange={handleCreditReasonChange}
+              onfocus={handleExpandPage}
+              onblur={handleCollapsePage}
+            ></lightning-combobox>
+            <lightning-input class="font-item-row wide-input slds-col slds-size_1-of-12 max-width-100" type="text" value={item.valorPagar} readonly></lightning-input>
+          </div>
+        </template>
+        </div>
+        <div class="adjustment-outer-container">
+        <div class="adjustment-container">
+          <input type="text" id="ajusteTotal" name="ajusteTotal" value={totalAdjustmentAmount} readonly class="adjustment-input">
+          <label for="ajusteTotal" class="adjustment-label">Ajuste Total</label>
+        </div>
+        </div>
+    </lightning-card>
+    <div if:true={disableEmailCard}>
+      <lightning-card>
+        <div class="custom-div slds-m-left_small slds-align_absolute-center">Informações de e-mail</div>
+        <div class="slds-m-vertical_small slds-grid">
+          <lightning-combobox
+              class="slds-col slds-m-left_x-small slds-size_2-of-12"
+              name="selecioneEmail"
+              placeholder="Selecione o e-mail"
+              label="E-mail"
+              onchange={handleEmailChange}
+              options={emailsOptions}
+            ></lightning-combobox>
+          <lightning-input
+            class="slds-col slds-m-left_x-small slds-size_2-of-12"
+            label="Preencher e-mail"
+            disabled={disableEmailInput}
+            onchange={handleEmailInputChange}
+            onblur={handleInputedEmail}
+            lwc:ref="inputEmail"
+          ></lightning-input>
+        </div>
+      </lightning-card>
+    </div>
+    <div if:true={disableBankCard}>
+      <lightning-card>
+        <div class="custom-div slds-m-left_small slds-align_absolute-center">Informações Bancárias</div>
+        <div class="slds-grid slds-grid_vertical">
+          <div class="slds-col">
+            <lightning-input
+            class="slds-col slds-m-left_x-small slds-size_2-of-12"
+            label="Banco"
+            value={bank}
+            onblur={handleInputBank}
+            onchange={handleInputBank}
+            ></lightning-input>
+          </div>
+          <div class="slds-col slds-m-vertical_small slds-grid">
+            <lightning-input
+              class="slds-col slds-m-left_x-small slds-size_2-of-12"
+              label="Agência"
+              value={agency}
+              onblur={handleInputAgency}
+              onchange={handleInputAgency}
+            ></lightning-input>
+            <lightning-input
+              class="slds-col slds-m-left_x-small slds-size_2-of-12"
+              label="Conta"
+              value={accountBank}
+              onblur={handleInputCC}
+              onchange={handleInputCC}
+            ></lightning-input>
+          </div>
+          <div class="slds-col">
+            <lightning-input
+            class="slds-col slds-m-left_x-small slds-size_2-of-12"
+            label="Valor a ser ressarcido"
+            value={totalAdjustmentAmount}
+            readonly
+            ></lightning-input>
+          </div>
+        </div>
+      </lightning-card>
+    </div>
+  </div>
+  <div>
+    <lightning-card>
+      <div class="custom-div slds-m-left_small slds-align_absolute-center">Registro de atendimento</div>
+      <div class="slds-m-vertical_small">
+        <lightning-textarea
+          class="slds-col slds-p-horizontal_x-small slds-size_12-of-12"
+          label="Observação"
+          value={notes}
+          onblur={handleInputNote}
+        ></lightning-textarea>
+      </div>
+      <lightning-button
+      style="font-size: 14px; min-width: 200px !important; font-weigth:bold;" 
+      variant="brand" 
+      label="Registrar Atendimento" 
+      class="slds-size_2-of-12 slds-align_absolute-center slds-m-vertical_small"
+      onclick={handleSave}
+      stretch
+      ></lightning-button>
+    </lightning-card>
+  </div>
+</template>

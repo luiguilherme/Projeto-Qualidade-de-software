@@ -4,22 +4,56 @@ public class CTIServiceIntegrationVFControllerTest {
 	@testSetup
     static void setup(){
         Account nuAcc = DataFactory.createAccount();
-        
-        insert nuAcc;      
+        insert nuAcc;
+
+        Account fixedAccount = DataFactory.createAccount();
+        fixedAccount.Name = 'Fixed Test Account 1';
+        fixedAccount.ExternalId__c = '899941326813';
+        fixedAccount.DocumentNumber__c = '11111111111113';
+        insert fixedAccount;
+
+        Account mobileAccount = DataFactory.createAccount();
+        mobileAccount.Name = 'Mobile Test Account';
+        mobileAccount.ExternalId__c = '899941326812';
+        mobileAccount.DocumentNumber__c = '11111111111112';
+        insert mobileAccount;
         
         Case nuCase = new Case();
         nuCase.AccountId = nuAcc.Id;
-        nuCase.Origin = 'Transfer';        
+        nuCase.Origin = 'Transfer';
         
         insert nuCase;
         
         vlocity_cmt__CustomerInteraction__c nuCustomerInteraction = DataFactory.createCustomerInteraction(nuAcc.Id);
+        nuCustomerInteraction.IdentifierNumber__c = '123123';
         insert nuCustomerInteraction;
+
+        vlocity_cmt__CustomerInteraction__c fixedCustomerInteraction = DataFactory.createCustomerInteraction(fixedAccount.Id);
+        fixedCustomerInteraction.IdentifierNumber__c = '1231234';
+        insert fixedCustomerInteraction;
 
         insert new CustomerInteractionTopicTree__c( Type__c = 'Palito' );
 
         Asset testAsset = DataFactory.createAsset(nuAcc.Id, 'Fixa');
         insert testAsset;
+
+        Asset fixedTestAssetOne = DataFactory.createAsset(fixedAccount.Id, 'Fixa');
+        fixedTestAssetOne.vlocity_cmt__ServiceIdentifier__c = '1231234';
+        fixedTestAssetOne.SourceSystem__c = 'SIEBEL';
+        insert fixedTestAssetOne;
+
+        Asset mobileAsset = DataFactory.createAsset(nuAcc.Id, 'Movel');
+        mobileAsset.vlocity_cmt__ServiceIdentifier__c = '123123';
+        mobileAsset.SourceSystem__c = 'NEXT';
+        insert mobileAsset;
+
+        Id mobileRTId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('CallDroped').getrecordTypeId();
+        insert new Case (
+            Origin = 'SFA Script - Next',
+            Status = 'Aberto',
+            RecordTypeId = mobileRTId,
+            AccountId = mobileAccount.Id
+        );
 
         insert new Webservice__c(
             Name = 'ServiceFlowGPSCreateSSCallout',
@@ -204,6 +238,7 @@ public class CTIServiceIntegrationVFControllerTest {
         Account testAccount = [SELECT id FROM Account LIMIT 1];
         vlocity_cmt__CustomerInteraction__c testCustomerInteraction = [SELECT Id FROM vlocity_cmt__CustomerInteraction__c LIMIT 1];
 
+
         Test.StartTest();
             Test.setMock(HttpCalloutMock.class, new ServiceFlowGPSCalloutMock());
             CTIServiceIntegrationVFController controller = new CTIServiceIntegrationVFController();
@@ -217,5 +252,105 @@ public class CTIServiceIntegrationVFControllerTest {
 
             System.assert(response == true, 'Erro ao criar o caso.');
         Test.StopTest();
+    }
+
+    @isTest
+    public static void shouldCreateCaseOnWDECallDrop() {
+        CTIServiceIntegrationVFController serviceController = new CTIServiceIntegrationVFController();
+        Map<String, Object> payloadWithoutLine = new Map<String, String>();
+        Map<String, Object> payloadFullWithoutLine = new Map<String, String>();
+        Map<String, Object> payloadWithLine = new Map<String, String>();
+
+        Account account = [SELECT Id FROM Account WHERE Name = 'Mobile Test Account' LIMIT 1];
+        vlocity_cmt__CustomerInteraction__c customerInteraction = [SELECT Id, Name FROM vlocity_cmt__CustomerInteraction__c WHERE Name = 'Test Customer Interaction' LIMIT 1];
+        Asset mobileAsset = [SELECT Id, vlocity_cmt__ServiceIdentifier__c FROM Asset WHERE vlocity_cmt__ServiceIdentifier__c = '123123'];
+
+        vlocity_cmt__CustomerInteraction__c mobileCustomerInteraction = DataFactory.createCustomerInteraction(account.Id);
+        insert mobileCustomerInteraction;
+
+        payloadWithoutLine.put('Line', '{Line}');
+        payloadWithoutLine.put('CustomerInteractionId__c', mobileCustomerInteraction.Id);
+        
+        payloadFullWithoutLine.put('Line', '{Line}');
+        payloadFullWithoutLine.put('CustomerInteractionId__c', customerInteraction.Id);
+
+        payloadWithLine.put('Line', mobileAsset.Id);
+        payloadWithLine.put('CustomerInteractionId__c', customerInteraction.Id);
+
+        Test.startTest();
+
+        Map<String, Object> resultWithoutLine = CTIServiceIntegrationVFController.createMobileNextDisputeCase(payloadWithoutLine);
+        Map<String, Object> resultFullWithoutLine = CTIServiceIntegrationVFController.createMobileNextDisputeCase(payloadFullWithoutLine);
+        Map<String, Object> resultWithLine = CTIServiceIntegrationVFController.createMobileNextDisputeCase(payloadWithLine);
+
+        Test.stopTest();
+
+        System.assertEquals(false, resultWithoutLine.get('error'));
+        System.assertEquals(false, resultFullWithoutLine.get('error'));
+        System.assertEquals(false, resultWithLine.get('error'));
+    }
+
+    @isTest
+    public static void shouldTriggerExceptionOnWDECallDrop() {
+        CTIServiceIntegrationVFController serviceController = new CTIServiceIntegrationVFController();
+        Map<String, Object> payloadCreate = new Map<String, String>();
+        Map<String, Object> payloadUpdate = new Map<String, String>();
+
+        vlocity_cmt__CustomerInteraction__c customerInteraction = [SELECT Id, Name FROM vlocity_cmt__CustomerInteraction__c WHERE Name = 'Test Customer Interaction' LIMIT 1];
+
+        payloadCreate.put('Line', customerInteraction.Id);
+        payloadCreate.put('CustomerInteractionId__c', customerInteraction.Id);
+
+        Test.startTest();
+
+        Map<String, Object> resultCreate = CTIServiceIntegrationVFController.createMobileNextDisputeCase(payloadCreate);
+        Map<String, Object> resultUpdate = CTIServiceIntegrationVFController.updateMobileNextDisputeCase(payloadUpdate);
+
+        Test.stopTest();
+
+        System.assertEquals(true, resultCreate.get('error'));
+        System.assertEquals(true, resultCreate.get('error'));
+    }
+
+    @isTest
+    public static void shouldUpdateCaseOnWDECallDrop() {
+        Account mobileAccount = [SELECT Id FROM Account WHERE ExternalId__c = '899941326812' LIMIT 1];
+        Case originalCase = [SELECT Id FROM Case WHERE AccountId =: mobileAccount.Id LIMIT 1];
+        
+        Map<String, Object> payload = new Map<String, String>();
+        payload.put('CaseId__c', originalCase.Id);
+        
+        Test.startTest();
+        
+        Map<String, Object> response = CTIServiceIntegrationVFController.updateMobileNextDisputeCase(payload);
+        
+        Test.stopTest();
+
+        Case updatedCase = [SELECT Id, Status, Closure__c FROM Case WHERE AccountId =: mobileAccount.Id LIMIT 1];
+        
+        System.assertEquals(false, response.get('error'));
+        System.assertEquals(true, response.get('updatedCase'));
+
+        System.assertEquals('CallDropped', updatedCase.Status);
+        System.assertEquals('Informação > Atendimento > Ligação > Caiu', updatedCase.Closure__c);
+    }
+
+    @isTest
+    public static void shouldCreateCaseWithParameters(){
+
+        vlocity_cmt__CustomerInteraction__c testCustomerInteraction = [SELECT Id FROM vlocity_cmt__CustomerInteraction__c WHERE IdentifierNumber__c = '1231234' LIMIT 1];
+
+        Test.setMock(HttpCalloutMock.class, new ServiceFlowGPSCalloutMock());
+        
+        Test.StartTest();
+
+        CTIServiceIntegrationVFController controller = new CTIServiceIntegrationVFController();
+        Map<String, String> payload = new Map<String, String>();
+        payload.put('CustomerInteractionId__c', testCustomerInteraction.Id);
+        Boolean response = CTIServiceIntegrationVFController.createCase(payload);
+        
+        Test.StopTest();
+
+        System.assert(response == true, 'Erro ao criar o caso.');
     }
 }

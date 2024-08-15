@@ -4,7 +4,7 @@
     <assignments>
         <name>SelectedItensView</name>
         <label>SelectedItens</label>
-        <locationX>490</locationX>
+        <locationX>836</locationX>
         <locationY>458</locationY>
         <assignmentItems>
             <assignToReference>SelectedItens</assignToReference>
@@ -18,9 +18,84 @@
         </connector>
     </assignments>
     <decisions>
+        <name>AJU007Decision</name>
+        <label>A) Cliente possui débito automático?</label>
+        <locationX>556</locationX>
+        <locationY>1406</locationY>
+        <defaultConnector>
+            <targetReference>AJU008</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Sim</defaultConnectorLabel>
+        <rules>
+            <name>AJU007DecisionNot</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>AJU007.answear</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Não</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>sfDisputedFixedConvergent</targetReference>
+            </connector>
+            <label>Não</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>AJU008Decision</name>
+        <label>A) Fatura com débito automático está dentro do prazo para realização de ajuste?</label>
+        <locationX>710</locationX>
+        <locationY>1622</locationY>
+        <defaultConnector>
+            <targetReference>AJU009</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Não</defaultConnectorLabel>
+        <rules>
+            <name>AJU008DecisionYes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>AJU008.answear</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Sim</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>sfDisputedFixedConvergent</targetReference>
+            </connector>
+            <label>Sim</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>AJU009Decision</name>
+        <label>M) Cliente aceita?</label>
+        <locationX>842</locationX>
+        <locationY>1838</locationY>
+        <defaultConnector>
+            <targetReference>getATC_FX_FIN_CONT_ENC_AJU_001</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Não</defaultConnectorLabel>
+        <rules>
+            <name>AJU009DecisionYes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>AJU009.answear</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Sim</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>sfDisputedFixedConvergent</targetReference>
+            </connector>
+            <label>Sim</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>dcAreThereDisputedItens</name>
         <label>Carrinho de contestação já está preenchido?</label>
-        <locationX>402</locationX>
+        <locationX>748</locationX>
         <locationY>242</locationY>
         <defaultConnector>
             <targetReference>scFormSelectDisputeItens</targetReference>
@@ -45,10 +120,10 @@
     <decisions>
         <name>dcPREVER001_1</name>
         <label>A) O cliente é funcionário Telefônica?</label>
-        <locationX>226</locationX>
-        <locationY>1082</locationY>
+        <locationX>303</locationX>
+        <locationY>1190</locationY>
         <defaultConnector>
-            <targetReference>sfDisputedFixedConvergent</targetReference>
+            <targetReference>AJU007</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Não</defaultConnectorLabel>
         <rules>
@@ -70,8 +145,8 @@
     <decisions>
         <name>dcPREVER001PID</name>
         <label>dcPREVER001PID</label>
-        <locationX>402</locationX>
-        <locationY>866</locationY>
+        <locationX>748</locationX>
+        <locationY>974</locationY>
         <defaultConnector>
             <targetReference>Carregar_ATC_FX_FIN_CONT_NEG_VPR_001</targetReference>
         </defaultConnector>
@@ -96,7 +171,7 @@
         <name>Voc_pertence_um_grupo_com_escopo_para_atendimento_de_funcion_rio_Telef_nica</name>
         <label>A) Você pertence à um grupo com escopo para atendimento de funcionário Telefônica?</label>
         <locationX>50</locationX>
-        <locationY>1298</locationY>
+        <locationY>1406</locationY>
         <defaultConnector>
             <targetReference>grGetATC_FX_FIN_CONT_NEG_VPR_001</targetReference>
         </defaultConnector>
@@ -118,6 +193,36 @@
         </rules>
     </decisions>
     <environments>Default</environments>
+    <formulas>
+        <name>fml9CycleCloseDate</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(DATE(VALUE(RIGHT({!SelectedInvoice.l9CycleCloseDate}, 4)), VALUE(MID({!SelectedInvoice.l9CycleCloseDate}, 4, 2)), VALUE(LEFT({!SelectedInvoice.l9CycleCloseDate}, 2)))) + (3/24)</expression>
+    </formulas>
+    <formulas>
+        <name>fml9CycleStartDate</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(DATE(VALUE(RIGHT({!SelectedInvoice.l9CycleStartDate}, 4)), VALUE(MID({!SelectedInvoice.l9CycleStartDate}, 4, 2)), VALUE(LEFT({!SelectedInvoice.l9CycleStartDate}, 2)))) + (3/24)</expression>
+    </formulas>
+    <formulas>
+        <name>fml9InvoiceCloseDate</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(DATE(VALUE(RIGHT({!SelectedInvoice.l9InvoiceCloseDate}, 4)), VALUE(MID({!SelectedInvoice.l9InvoiceCloseDate}, 4, 2)), VALUE(LEFT({!SelectedInvoice.l9InvoiceCloseDate}, 2)))) + (3/24)</expression>
+    </formulas>
+    <formulas>
+        <name>fmOriginalPaymentDueDate</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(DATE(VALUE(RIGHT({!SelectedInvoice.originalPaymentDueDate}, 4)), VALUE(MID({!SelectedInvoice.originalPaymentDueDate}, 4, 2)), VALUE(LEFT({!SelectedInvoice.originalPaymentDueDate}, 2)))) + (3/24)</expression>
+    </formulas>
+    <formulas>
+        <name>fmPaymentDate</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(DATE(VALUE(RIGHT({!SelectedInvoice.paymentDate}, 4)), VALUE(MID({!SelectedInvoice.paymentDate}, 4, 2)), VALUE(LEFT({!SelectedInvoice.paymentDate}, 2)))) + (3/24)</expression>
+    </formulas>
+    <formulas>
+        <name>fmPaymentDueDate</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(DATE(VALUE(RIGHT({!SelectedInvoice.paymentDueDate}, 4)), VALUE(MID({!SelectedInvoice.paymentDueDate}, 4, 2)), VALUE(LEFT({!SelectedInvoice.paymentDueDate}, 2)))) + (3/24)</expression>
+    </formulas>
     <interviewLabel>Contestação - Fixa/Convergente - Validações inicais {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Contestação - Fixa/Convergente - Validações inicais</label>
     <processMetadataValues>
@@ -139,11 +244,160 @@
         </value>
     </processMetadataValues>
     <processType>Flow</processType>
+    <recordCreates>
+        <name>crCriaFaturaContestada</name>
+        <label>Cria Fatura Contestada</label>
+        <locationX>836</locationX>
+        <locationY>674</locationY>
+        <connector>
+            <targetReference>PREVER001</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>AccountHref__c</field>
+            <value>
+                <elementReference>accountHref</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Balance__c</field>
+            <value>
+                <elementReference>SelectedInvoice.balance</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>BillingAccountId__c</field>
+            <value>
+                <elementReference>SelectedInvoice.billingAccountId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>FinancialAccountId__c</field>
+            <value>
+                <elementReference>SelectedInvoice.financialAccountId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>adjustedPaymentAmount__c</field>
+            <value>
+                <elementReference>SelectedInvoice.adjustedPaymentAmount</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>amount__c</field>
+            <value>
+                <elementReference>SelectedInvoice.amount</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>barCode__c</field>
+            <value>
+                <elementReference>SelectedInvoice.barCode</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>billNo__c</field>
+            <value>
+                <elementReference>SelectedInvoice.billNo</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>billOrigin__c</field>
+            <value>
+                <elementReference>SelectedInvoice.billOrigin</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>case__c</field>
+            <value>
+                <elementReference>caseId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>cycleCode__c</field>
+            <value>
+                <elementReference>SelectedInvoice.cycleCode</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>imageNo__c</field>
+            <value>
+                <elementReference>SelectedInvoice.imageNo</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>imageType__c</field>
+            <value>
+                <elementReference>SelectedInvoice.imageType</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>invoiceNumber__c</field>
+            <value>
+                <elementReference>SelectedInvoice.invoiceNumber</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>l9CycleCloseDate__c</field>
+            <value>
+                <elementReference>fml9CycleCloseDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>l9CycleStartDate__c</field>
+            <value>
+                <elementReference>fml9CycleStartDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>l9InvoiceCloseDate__c</field>
+            <value>
+                <elementReference>fml9InvoiceCloseDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>originalPaymentDueDate__c</field>
+            <value>
+                <elementReference>fmOriginalPaymentDueDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>paymentAmount__c</field>
+            <value>
+                <elementReference>SelectedInvoice.paymentAmount</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>paymentDate__c</field>
+            <value>
+                <elementReference>fmPaymentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>paymentDueDate__c</field>
+            <value>
+                <elementReference>fmPaymentDueDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>referenceMonth__c</field>
+            <value>
+                <elementReference>SelectedInvoice.referenceMonth</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>status__c</field>
+            <value>
+                <elementReference>SelectedInvoice.status</elementReference>
+            </value>
+        </inputAssignments>
+        <object>DisputedInvoice__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
     <recordLookups>
         <name>Carregar_ATC_FX_FIN_CONT_NEG_VPR_001</name>
         <label>Carregar ATC-FX-FIN-CONT-NEG-VPR-001</label>
-        <locationX>578</locationX>
-        <locationY>974</locationY>
+        <locationX>1194</locationX>
+        <locationY>1082</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>attCasePREVER001PID</targetReference>
@@ -168,10 +422,38 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
+        <name>getATC_FX_FIN_CONT_ENC_AJU_001</name>
+        <label>Carregar ATC-FX-FIN-CONT-ENC-AJU-001</label>
+        <locationX>930</locationX>
+        <locationY>1946</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>attCaseAJU009</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>IsActive__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>StepCode__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>ATC-FX-FIN-CONT-ENC-AJU-001</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>ServiceDefinition__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>grGetATC_FX_FIN_CONT_NEG_VPR_001</name>
         <label>Carregar ATC-FX-FIN-CONT-NEG-VPR-001</label>
         <locationX>138</locationX>
-        <locationY>1406</locationY>
+        <locationY>1514</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>attCaseNEGVPR001</targetReference>
@@ -198,7 +480,7 @@
     <recordLookups>
         <name>grGetDusputedItens</name>
         <label>Buscar itens do carrinho de contestação</label>
-        <locationX>402</locationX>
+        <locationX>748</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -221,7 +503,7 @@
     <screens>
         <name>scFormSelectDisputeItens</name>
         <label>Formulário de contestação de faturas</label>
-        <locationX>490</locationX>
+        <locationX>836</locationX>
         <locationY>350</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -249,13 +531,21 @@
                 <assignToReference>isColab</assignToReference>
                 <name>isColab</name>
             </outputParameters>
+            <outputParameters>
+                <assignToReference>SelectedInvoice</assignToReference>
+                <name>disputedInvoice</name>
+            </outputParameters>
+            <outputParameters>
+                <assignToReference>accountHref</assignToReference>
+                <name>accountHref</name>
+            </outputParameters>
         </fields>
         <nextOrFinishButtonLabel>Próximo</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>276</locationX>
+        <locationX>622</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>grGetDusputedItens</targetReference>
@@ -263,10 +553,107 @@
     </start>
     <status>Active</status>
     <subflows>
+        <name>adjustmentForm</name>
+        <label>Ajustes</label>
+        <locationX>748</locationX>
+        <locationY>2972</locationY>
+        <flowName>disputeFinalizeDisputeProcess</flowName>
+        <inputAssignments>
+            <name>caseId</name>
+            <value>
+                <elementReference>caseId</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>AJU007</name>
+        <label>AJU007</label>
+        <locationX>556</locationX>
+        <locationY>1298</locationY>
+        <connector>
+            <targetReference>AJU007Decision</targetReference>
+        </connector>
+        <flowName>DisputeCheckDoesTheClientHaveAutomaticDebit</flowName>
+        <inputAssignments>
+            <name>billingAccountId</name>
+            <value>
+                <elementReference>SelectedInvoice.billingAccountId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>caseId</name>
+            <value>
+                <elementReference>caseId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>step</name>
+            <value>
+                <stringValue>AJU007</stringValue>
+            </value>
+        </inputAssignments>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </subflows>
+    <subflows>
+        <name>AJU008</name>
+        <label>AJU008</label>
+        <locationX>710</locationX>
+        <locationY>1514</locationY>
+        <connector>
+            <targetReference>AJU008Decision</targetReference>
+        </connector>
+        <flowName>DisputeCheckDoesTheInvoiceIsDueToDispute</flowName>
+        <inputAssignments>
+            <name>caseId</name>
+            <value>
+                <elementReference>caseId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>step</name>
+            <value>
+                <stringValue>AJU008</stringValue>
+            </value>
+        </inputAssignments>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </subflows>
+    <subflows>
+        <name>AJU009</name>
+        <label>AJU009</label>
+        <locationX>842</locationX>
+        <locationY>1730</locationY>
+        <connector>
+            <targetReference>AJU009Decision</targetReference>
+        </connector>
+        <flowName>BooleanGenericManualAction</flowName>
+        <inputAssignments>
+            <name>caseId</name>
+            <value>
+                <elementReference>caseId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>question</name>
+            <value>
+                <stringValue>Oriente o cliente a fazer o cancelamento pontual do débito automático agendado. Cliente aceita?</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>step</name>
+            <value>
+                <stringValue>AJU009</stringValue>
+            </value>
+        </inputAssignments>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </subflows>
+    <subflows>
         <name>ATC_CVG_FIN_CONT_PREVER_001</name>
         <label>ATC-CVG-FIN-CONT-PREVER-001</label>
-        <locationX>578</locationX>
-        <locationY>1190</locationY>
+        <locationX>1194</locationX>
+        <locationY>1298</locationY>
+        <connector>
+            <targetReference>adjustmentForm</targetReference>
+        </connector>
         <flowName>generalServiceDefinition</flowName>
         <inputAssignments>
             <name>definicaoAtendimento</name>
@@ -276,10 +663,32 @@
         </inputAssignments>
     </subflows>
     <subflows>
+        <name>attCaseAJU009</name>
+        <label>Atualizar caso AJU009</label>
+        <locationX>930</locationX>
+        <locationY>2054</locationY>
+        <connector>
+            <targetReference>subATC_FX_FIN_CONT_ENC_AJU_001</targetReference>
+        </connector>
+        <flowName>DisputeCaseUpdate</flowName>
+        <inputAssignments>
+            <name>caseId</name>
+            <value>
+                <elementReference>caseId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>serviceDefinition</name>
+            <value>
+                <elementReference>getATC_FX_FIN_CONT_ENC_AJU_001</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
         <name>attCaseNEGVPR001</name>
         <label>Atualizar Caso NEGVPR001</label>
         <locationX>138</locationX>
-        <locationY>1514</locationY>
+        <locationY>1622</locationY>
         <connector>
             <targetReference>sfPREVER001_3</targetReference>
         </connector>
@@ -300,8 +709,8 @@
     <subflows>
         <name>attCasePREVER001PID</name>
         <label>Atualizar caso PREVER001PID</label>
-        <locationX>578</locationX>
-        <locationY>1082</locationY>
+        <locationX>1194</locationX>
+        <locationY>1190</locationY>
         <connector>
             <targetReference>ATC_CVG_FIN_CONT_PREVER_001</targetReference>
         </connector>
@@ -323,7 +732,7 @@
         <name>B2C_Valida_Grupo_006</name>
         <label>B2C-Valida_Grupo_006</label>
         <locationX>50</locationX>
-        <locationY>1190</locationY>
+        <locationY>1298</locationY>
         <connector>
             <targetReference>Voc_pertence_um_grupo_com_escopo_para_atendimento_de_funcion_rio_Telef_nica</targetReference>
         </connector>
@@ -366,10 +775,10 @@
     <subflows>
         <name>CreateDisputeItens</name>
         <label>Criar Items de Contestação</label>
-        <locationX>490</locationX>
+        <locationX>836</locationX>
         <locationY>566</locationY>
         <connector>
-            <targetReference>PREVER001</targetReference>
+            <targetReference>crCriaFaturaContestada</targetReference>
         </connector>
         <flowName>CreateDisputeItems</flowName>
         <inputAssignments>
@@ -390,16 +799,13 @@
                 <elementReference>ServiceIdentifier</elementReference>
             </value>
         </inputAssignments>
-        <outputAssignments>
-            <assignToReference>CreatedItens</assignToReference>
-            <name>SavedCharges</name>
-        </outputAssignments>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
     </subflows>
     <subflows>
         <name>PREVER001</name>
         <label>PREVER001 - PID</label>
-        <locationX>402</locationX>
-        <locationY>758</locationY>
+        <locationX>748</locationX>
+        <locationY>866</locationY>
         <connector>
             <targetReference>dcPREVER001PID</targetReference>
         </connector>
@@ -430,8 +836,8 @@
     <subflows>
         <name>PREVER001_1</name>
         <label>PREVER001.1</label>
-        <locationX>226</locationX>
-        <locationY>974</locationY>
+        <locationX>303</locationX>
+        <locationY>1082</locationY>
         <connector>
             <targetReference>dcPREVER001_1</targetReference>
         </connector>
@@ -468,8 +874,11 @@
     <subflows>
         <name>sfDisputedFixedConvergent</name>
         <label>Contestação - Fixa/Convergente - Alçada Zero</label>
-        <locationX>226</locationX>
-        <locationY>2006</locationY>
+        <locationX>303</locationX>
+        <locationY>2672</locationY>
+        <connector>
+            <targetReference>sfMotivos</targetReference>
+        </connector>
         <flowName>DisputeFixedConvergentZeroElevation</flowName>
         <inputAssignments>
             <name>callActive</name>
@@ -485,10 +894,30 @@
         </inputAssignments>
     </subflows>
     <subflows>
+        <name>sfMotivos</name>
+        <label>Motivos</label>
+        <locationX>303</locationX>
+        <locationY>2780</locationY>
+        <connector>
+            <targetReference>adjustmentForm</targetReference>
+        </connector>
+        <flowName>DisputeFixedConvergentReasons</flowName>
+        <inputAssignments>
+            <name>caseId</name>
+            <value>
+                <elementReference>caseId</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
         <name>sfPREVER001_3</name>
         <label>PREVER001.3</label>
         <locationX>138</locationX>
-        <locationY>1622</locationY>
+        <locationY>1730</locationY>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>adjustmentForm</targetReference>
+        </connector>
         <flowName>generalServiceDefinition</flowName>
         <inputAssignments>
             <name>definicaoAtendimento</name>
@@ -497,6 +926,30 @@
             </value>
         </inputAssignments>
     </subflows>
+    <subflows>
+        <name>subATC_FX_FIN_CONT_ENC_AJU_001</name>
+        <label>ATC-FX-FIN-CONT-ENC-AJU-001</label>
+        <locationX>930</locationX>
+        <locationY>2162</locationY>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>adjustmentForm</targetReference>
+        </connector>
+        <flowName>generalServiceDefinition</flowName>
+        <inputAssignments>
+            <name>definicaoAtendimento</name>
+            <value>
+                <elementReference>getATC_FX_FIN_CONT_ENC_AJU_001</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <variables>
+        <name>accountHref</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
     <variables>
         <description>Itens de fatura selecionados</description>
         <name>AllSelections</name>
@@ -567,10 +1020,26 @@
         <objectType>DisputedItem__c</objectType>
     </variables>
     <variables>
+        <name>DisputeInvoice</name>
+        <apexClass>DisputeInvoiceModel</apexClass>
+        <dataType>Apex</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
         <name>isColab</name>
         <dataType>Boolean</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>SelectedInvoice</name>
+        <apexClass>DisputeInvoiceModel</apexClass>
+        <dataType>Apex</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
