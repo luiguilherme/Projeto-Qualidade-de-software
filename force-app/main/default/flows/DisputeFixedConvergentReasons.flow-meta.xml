@@ -1,0 +1,832 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <decisions>
+        <name>dcPREVER012_CONVERGENTE</name>
+        <label>A) Quais os motivos da contestação?</label>
+        <locationX>3344</locationX>
+        <locationY>458</locationY>
+        <defaultConnector>
+            <targetReference>lpForEachDusputedItem</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>dcPREVER012_CONVERGENTE_PLANOS_FIXA</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_CONVERGENTE</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>PLANOS (FIXA)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>sfPREVER012_PLANOS_FIXA</targetReference>
+            </connector>
+            <label>PLANOS (FIXA)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_CONVERGENTE_TV_FIXA</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_CONVERGENTE</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>TV (FIXA)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>lpForEachDusputedItem</targetReference>
+            </connector>
+            <label>TV (FIXA)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_CONVERGENTE_LIGACOES_FIXA</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_CONVERGENTE</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>LIGAÇÕES (FIXA)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>sfLigacoesFixa</targetReference>
+            </connector>
+            <label>LIGAÇÕES (FIXA)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_CONVERGENTE_SEGURO_FIXA</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_CONVERGENTE</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>SEGURO (FIXA)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>lpForEachDusputedItem</targetReference>
+            </connector>
+            <label>SEGURO(FIXA)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_CONVERGENTE_SVA_AVULSO_DOACOES_FIXA</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_CONVERGENTE</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>SVA AVULSO DOAÇÕES (FIXA)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>lpForEachDusputedItem</targetReference>
+            </connector>
+            <label>SVA AVULSO DOAÇÕES (FIXA)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_CONVERGENTE_MULTA_FIXA</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_CONVERGENTE</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>MULTA (FIXA)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>lpForEachDusputedItem</targetReference>
+            </connector>
+            <label>MULTA (FIXA)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_CONVERGENTE_DESCONTO_FIXA</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_CONVERGENTE</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>DESCONTO (FIXA)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>sfDisputeFixedValidateDiscounts</targetReference>
+            </connector>
+            <label>DESCONTO (FIXA)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_CONVERGENTE_HOME_ASSIST_FIXA</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_CONVERGENTE</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>HOME ASSIST (FIXA)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>sfDisputedFixedHomeAssit</targetReference>
+            </connector>
+            <label>HOME ASSIST (FIXA)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_CONVERGENTE_PLANOS_MOVEL</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_CONVERGENTE</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>PLANOS (MÓVEL)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>sfPREVER012_PLANOS_MOVEL</targetReference>
+            </connector>
+            <label>PLANOS (MÓVEL)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_CONVERGENTE_SVA_AVULSO_DOACOES_MOVEL</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_CONVERGENTE</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>SVA AVULSO DOAÇÕES (MÓVEL)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>lpForEachDusputedItem</targetReference>
+            </connector>
+            <label>SVA AVULSO DOAÇÕES (MÓVEL)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_CONVERGENTE_LIGACOES_MOVEL</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_CONVERGENTE</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>LIGAÇÕES (MÓVEL)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>lpForEachDusputedItem</targetReference>
+            </connector>
+            <label>LIGAÇÕES (MÓVEL)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_CONVERGENTE_MULTA_MOVEL</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_CONVERGENTE</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>MULTA (MÓVEL)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>lpForEachDusputedItem</targetReference>
+            </connector>
+            <label>MULTA (MÓVEL)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_CONVERGENTE_SEGUROS_MOVEL</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_CONVERGENTE</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>SEGUROS (MÓVEL)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>lpForEachDusputedItem</targetReference>
+            </connector>
+            <label>SEGUROS (MÓVEL)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_CONVERGENTE_BUNDLE_MOVEL</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_CONVERGENTE</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>BUNDLE (MÓVEL)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>lpForEachDusputedItem</targetReference>
+            </connector>
+            <label>BUNDLE (MÓVEL)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_CONVERGENTE_MULTIVIVO_MOVEL</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_CONVERGENTE</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>MULTIVIVO (MÓVEL)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>lpForEachDusputedItem</targetReference>
+            </connector>
+            <label>MULTIVIVO (MÓVEL)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_CONVERGENTE_TRAVEL_MOVEL</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_CONVERGENTE</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>TRAVEL (MÓVEL)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>lpForEachDusputedItem</targetReference>
+            </connector>
+            <label>TRAVEL (MÓVEL)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_CONVERGENTE_PACOTE_ADICIONAL_MOVEL</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_CONVERGENTE</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>PACOTE ADICIONAL (MÓVEL)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>lpForEachDusputedItem</targetReference>
+            </connector>
+            <label>PACOTE ADICIONAL (MÓVEL)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_CONVERGENTE_DESCONTO_MOVEL</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_CONVERGENTE</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>DESCONTO (MÓVEL)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>lpForEachDusputedItem</targetReference>
+            </connector>
+            <label>DESCONTO (MÓVEL)</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>dcPREVER012_PLANOS_FIXA</name>
+        <label>M) Qual o motivo de contestação de plano fixa?</label>
+        <locationX>880</locationX>
+        <locationY>674</locationY>
+        <defaultConnector>
+            <targetReference>lpForEachDusputedItem</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>dcPREVER012_PLANOS_FIXA_Defeito</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_PLANOS_FIXA</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>ALEGA QUE FOI COBRADO EM PERÍODO QUE NÃO PÔDE UTILIZAR SERVIÇOS (Defeito)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>sfContesta_o_Fixa_Convergente_Planos_N_o_p_de_utilizar_por_Defeito</targetReference>
+            </connector>
+            <label>ALEGA QUE FOI COBRADO EM PERÍODO QUE NÃO PÔDE UTILIZAR SERVIÇOS (Defeito)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_PLANOS_FIXA_Cancelou</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_PLANOS_FIXA</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>ALEGA QUE JÁ CANCELOU (DESCONECTOU) PRODUTOS (Planos Fixa - Cancelou)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>sfContesta_o_Fixa_Convergente_Plano_Fixa_Cancelou</targetReference>
+            </connector>
+            <label>ALEGA QUE JÁ CANCELOU (DESCONECTOU) PRODUTOS (Planos Fixa - Cancelou)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_PLANOS_FIXA_Nao_Solicitou</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_PLANOS_FIXA</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>ALEGA QUE NÃO SOLICITOU ou DESCONHECE PRODUTO COBRADO (Planos Fixa - Não solicitou)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>lpForEachDusputedItem</targetReference>
+            </connector>
+            <label>ALEGA QUE NÃO SOLICITOU ou DESCONHECE PRODUTO COBRADO (Planos Fixa - Não solicitou)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_PLANOS_FIXA_Cobrado_2_Planos</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_PLANOS_FIXA</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>ALEGA QUE ESTÁ SENDO COBRADO POR DOIS PLANOS (Planos Fixa - Cobrado 2 planos)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>sfContesta_o_Fixa_Convergente_Valida_o_de_plano_duplicado</targetReference>
+            </connector>
+            <label>ALEGA QUE ESTÁ SENDO COBRADO POR DOIS PLANOS (Planos Fixa - Cobrado 2 planos)</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_PLANOS_FIXA_Valor_Incorreto</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_PLANOS_FIXA</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>ALEGA QUE O VALOR DE SUA FATURA NÃO ESTÁ CORRETO (Valor Incorreto)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>sfDisputeFixedIncorrectValue</targetReference>
+            </connector>
+            <label>ALEGA QUE O VALOR DE SUA FATURA NÃO ESTÁ CORRETO (Valor Incorreto)</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>dcPREVER012_PLANOS_MOVEL</name>
+        <label>M) Qual o motivo de contestação de plano Móvel?</label>
+        <locationX>3608</locationX>
+        <locationY>674</locationY>
+        <defaultConnector>
+            <targetReference>lpForEachDusputedItem</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Resultado padrão</defaultConnectorLabel>
+        <rules>
+            <name>dcPREVER012_PLANOS_MOVEL_COBRANCA_DUPLICADA</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_PLANOS_MOVEL</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>COBRANÇA DUPLICADA</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>lpForEachDusputedItem</targetReference>
+            </connector>
+            <label>COBRANÇA DUPLICADA</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_PLANOS_MOVEL_N_RECONHECE_OU_TROCA_PLANO</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_PLANOS_MOVEL</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>NÃO RECONHECE HABILITAÇÃO OU TROCA DE PLANO</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>lpForEachDusputedItem</targetReference>
+            </connector>
+            <label>NÃO RECONHECE HABILITAÇÃO OU TROCA DE PLANO</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_PLANOS_MOVEL_AUMENTO_VALOR_FATURA</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_PLANOS_MOVEL</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>AUMENTO VALOR DA FATURA</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>lpForEachDusputedItem</targetReference>
+            </connector>
+            <label>AUMENTO VALOR DA FATURA</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_PLANOS_MOVEL_VALOR_DIFERENTE_NEGOCIADO</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_PLANOS_MOVEL</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>VALOR DIFERENTE DO NEGOCIADO</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>lpForEachDusputedItem</targetReference>
+            </connector>
+            <label>VALOR DIFERENTE DO NEGOCIADO</label>
+        </rules>
+        <rules>
+            <name>dcPREVER012_PLANOS_MOVEL_CANCELAMENTO_DE_ASSINATURA</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>answearPREVER012_PLANOS_MOVEL</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>CANCELAMENTO DE ASSINATURA</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>lpForEachDusputedItem</targetReference>
+            </connector>
+            <label>CANCELAMENTO DE ASSINATURA</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <interviewLabel>Contestação - Fixa/Convergente - Motivos {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Contestação - Fixa/Convergente - Motivos</label>
+    <loops>
+        <name>lpForEachDusputedItem</name>
+        <label>Para cada item do carrinho de contestação</label>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
+        <collectionReference>Carregar_itengrGetDusputedItenss_do_carrinho_de_contesta_o</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>sfPREVER012_CONVERGENTE</targetReference>
+        </nextValueConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <name>Carregar_itengrGetDusputedItenss_do_carrinho_de_contesta_o</name>
+        <label>Carregar itens do carrinho de contestação</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>lpForEachDusputedItem</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>CaseId__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>caseId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Denied</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>DisputedItem__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Carregar_itengrGetDusputedItenss_do_carrinho_de_contesta_o</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>sfContesta_o_Fixa_Convergente_Plano_Fixa_Cancelou</name>
+        <label>Contestação - Fixa/Convergente - Plano Fixa - Cancelou</label>
+        <locationX>528</locationX>
+        <locationY>782</locationY>
+        <connector>
+            <targetReference>lpForEachDusputedItem</targetReference>
+        </connector>
+        <flowName>DisputeFixedCancelledPlan</flowName>
+        <inputAssignments>
+            <name>caseId</name>
+            <value>
+                <elementReference>caseId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>disputedItemId</name>
+            <value>
+                <elementReference>lpForEachDusputedItem.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>sfContesta_o_Fixa_Convergente_Planos_N_o_p_de_utilizar_por_Defeito</name>
+        <label>Contestação - Fixa/Convergente - Planos - Não pôde utilizar por Defeito</label>
+        <locationX>264</locationX>
+        <locationY>782</locationY>
+        <connector>
+            <targetReference>lpForEachDusputedItem</targetReference>
+        </connector>
+        <flowName>DisputeFixedDefectPlan</flowName>
+        <inputAssignments>
+            <name>caseId</name>
+            <value>
+                <elementReference>caseId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>disputedItemId</name>
+            <value>
+                <elementReference>lpForEachDusputedItem.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>sfContesta_o_Fixa_Convergente_Valida_o_de_plano_duplicado</name>
+        <label>Contestação - Fixa/Convergente - Validação de plano duplicado</label>
+        <locationX>968</locationX>
+        <locationY>782</locationY>
+        <connector>
+            <targetReference>lpForEachDusputedItem</targetReference>
+        </connector>
+        <flowName>DisputeFixedCheckDuplicatedPlans</flowName>
+        <inputAssignments>
+            <name>caseId</name>
+            <value>
+                <elementReference>caseId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>disputedItemId</name>
+            <value>
+                <elementReference>lpForEachDusputedItem.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>sfDisputedFixedHomeAssit</name>
+        <label>Contestação - Fixa/Convergente - Planos - HOME ASSIT</label>
+        <locationX>2904</locationX>
+        <locationY>566</locationY>
+        <connector>
+            <targetReference>lpForEachDusputedItem</targetReference>
+        </connector>
+        <flowName>DisputedFixedHomeAssit</flowName>
+        <inputAssignments>
+            <name>caseId</name>
+            <value>
+                <elementReference>caseId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>disputItemId</name>
+            <value>
+                <elementReference>lpForEachDusputedItem.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>sfDisputeFixedIncorrectValue</name>
+        <label>Contestação - Fixa/Convergente - Valor Incorreto</label>
+        <locationX>1232</locationX>
+        <locationY>782</locationY>
+        <connector>
+            <targetReference>lpForEachDusputedItem</targetReference>
+        </connector>
+        <flowName>DisputeFixedIncorrectValue</flowName>
+        <inputAssignments>
+            <name>caseId</name>
+            <value>
+                <elementReference>caseId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>disputedItemId</name>
+            <value>
+                <elementReference>lpForEachDusputedItem.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>sfDisputeFixedValidateDiscounts</name>
+        <label>Contestação - Fixa/Convergente - Validações de descontos</label>
+        <locationX>2640</locationX>
+        <locationY>566</locationY>
+        <connector>
+            <targetReference>lpForEachDusputedItem</targetReference>
+        </connector>
+        <flowName>DisputeFixedValidateDiscounts</flowName>
+        <inputAssignments>
+            <name>caseId</name>
+            <value>
+                <elementReference>caseId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>disputedItemId</name>
+            <value>
+                <elementReference>lpForEachDusputedItem.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>sfLigacoesFixa</name>
+        <label>Ligações Fixa</label>
+        <locationX>1848</locationX>
+        <locationY>566</locationY>
+        <connector>
+            <targetReference>lpForEachDusputedItem</targetReference>
+        </connector>
+        <flowName>DisputeFixedConvergentPlanFixedConnections</flowName>
+        <inputAssignments>
+            <name>caseId</name>
+            <value>
+                <elementReference>caseId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>disputItemId</name>
+            <value>
+                <elementReference>lpForEachDusputedItem.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>sfPREVER012_CONVERGENTE</name>
+        <label>PREVER012 CONVERGENTE</label>
+        <locationX>3344</locationX>
+        <locationY>350</locationY>
+        <connector>
+            <targetReference>dcPREVER012_CONVERGENTE</targetReference>
+        </connector>
+        <flowName>DisputeCheckReasonType</flowName>
+        <inputAssignments>
+            <name>allowReExecution</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>caseId</name>
+            <value>
+                <elementReference>caseId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>disputItemId</name>
+            <value>
+                <elementReference>lpForEachDusputedItem.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>question</name>
+            <value>
+                <stringValue>Quais os motivos da contestação?</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>step</name>
+            <value>
+                <stringValue>PREVER012 CONVERGENTE</stringValue>
+            </value>
+        </inputAssignments>
+        <outputAssignments>
+            <assignToReference>answearPREVER012_CONVERGENTE</assignToReference>
+            <name>answear</name>
+        </outputAssignments>
+    </subflows>
+    <subflows>
+        <name>sfPREVER012_PLANOS_FIXA</name>
+        <label>PREVER012 PLANOS FIXA</label>
+        <locationX>880</locationX>
+        <locationY>566</locationY>
+        <connector>
+            <targetReference>dcPREVER012_PLANOS_FIXA</targetReference>
+        </connector>
+        <flowName>DisputeCheckFixedReasonTypeV2</flowName>
+        <inputAssignments>
+            <name>caseId</name>
+            <value>
+                <elementReference>caseId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>disputItemId</name>
+            <value>
+                <elementReference>lpForEachDusputedItem.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>question</name>
+            <value>
+                <stringValue>Qual o motivo de contestação de plano fixa?</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>step</name>
+            <value>
+                <stringValue>PREVER012 PLANOS FIXA</stringValue>
+            </value>
+        </inputAssignments>
+        <outputAssignments>
+            <assignToReference>answearPREVER012_PLANOS_FIXA</assignToReference>
+            <name>answear</name>
+        </outputAssignments>
+    </subflows>
+    <subflows>
+        <name>sfPREVER012_PLANOS_MOVEL</name>
+        <label>PREVER012 PLANOS MÓVEL</label>
+        <locationX>3608</locationX>
+        <locationY>566</locationY>
+        <connector>
+            <targetReference>dcPREVER012_PLANOS_MOVEL</targetReference>
+        </connector>
+        <flowName>DisputeCheckMobileReasonTypeV2</flowName>
+        <inputAssignments>
+            <name>caseId</name>
+            <value>
+                <elementReference>caseId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>disputItemId</name>
+            <value>
+                <elementReference>lpForEachDusputedItem.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>question</name>
+            <value>
+                <stringValue>Qual o motivo de contestação de plano Móvel?</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>step</name>
+            <value>
+                <stringValue>PREVER012 PLANOS MÓVEL</stringValue>
+            </value>
+        </inputAssignments>
+        <outputAssignments>
+            <assignToReference>answearPREVER012_PLANOS_MOVEL</assignToReference>
+            <name>answear</name>
+        </outputAssignments>
+    </subflows>
+    <variables>
+        <name>answearPREVER012_CONVERGENTE</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>answearPREVER012_PLANOS_FIXA</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>answearPREVER012_PLANOS_MOVEL</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>caseId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

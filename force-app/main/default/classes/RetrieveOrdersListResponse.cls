@@ -1,12 +1,18 @@
-public class RetrieveOrdersListResponse {
+global  without sharing class RetrieveOrdersListResponse {
 
-	public class SalesChannel {
-        @InvocableVariable
-		public String salesChannel;
-        @InvocableVariable
-		public String originatingSalesChannel;
+	global class SalesChannel {
+        @AuraEnabled
+		@InvocableVariable
+		global String salesChannel;
+        @AuraEnabled
+		@InvocableVariable
+		global String originatingSalesChannel;
 
-		public SalesChannel(JSONParser parser) {
+		global SalesChannel(){
+
+		}
+
+		global SalesChannel(JSONParser parser) {
 			while (parser.nextToken() != System.JSONToken.END_OBJECT) {
 				if (parser.getCurrentToken() == System.JSONToken.FIELD_NAME) {
 					String text = parser.getText();
@@ -25,39 +31,49 @@ public class RetrieveOrdersListResponse {
 		}
 	}
 
-	public class Order {
+	global class Orders {
+        @AuraEnabled
 		@InvocableVariable
-		public Orders orders;
-	}
-
-	public class Orders {
-        @InvocableVariable
-		public SalesChannel salesChannel; 
-        @InvocableVariable
-		public String creationDate;
-        @InvocableVariable
-		public String currency_Z;
-        @InvocableVariable
-		public String referenceNumber;
-        @InvocableVariable
-		public String serviceRequiredDate;
-        @InvocableVariable
-		public String status;
-        @InvocableVariable
-		public Customer customer;
-        @InvocableVariable
-		public RecurringPrice recurringPrice; 
-        @InvocableVariable
-		public RecurringPrice oneTimePrice;
-        @InvocableVariable
-		public List<OrderItems> orderItems;
-
+		global SalesChannel salesChannel; 
+        @AuraEnabled
 		@InvocableVariable
-		public Datetime creationDate1;
+		global String creationDate;
+        @AuraEnabled
 		@InvocableVariable
-		public Datetime serviceRequiredDate1;
+		global String currency_Z;
+        @AuraEnabled
+		@InvocableVariable
+		global String referenceNumber;
+        @AuraEnabled
+		@InvocableVariable
+		global String serviceRequiredDate;
+        @AuraEnabled
+		@InvocableVariable
+		global String status;
+        @AuraEnabled
+		@InvocableVariable
+		global Customer customer;
+        @AuraEnabled
+		@InvocableVariable
+		global RecurringPrice recurringPrice; 
+        @AuraEnabled
+		@InvocableVariable
+		global RecurringPrice oneTimePrice;
+        @AuraEnabled
+		@InvocableVariable
+		global List<OrderItems> orderItems;
+		@AuraEnabled
+		@InvocableVariable
+		global Datetime creationDate1;
+		@AuraEnabled
+		@InvocableVariable
+		global Datetime serviceRequiredDate1;
 
-		public Orders(JSONParser parser) {
+		global Orders(){
+
+		}
+
+		global Orders(JSONParser parser) {
 			while (parser.nextToken() != System.JSONToken.END_OBJECT) {
 				if (parser.getCurrentToken() == System.JSONToken.FIELD_NAME) {
 					String text = parser.getText();
@@ -92,41 +108,64 @@ public class RetrieveOrdersListResponse {
 		}
 	}
 	
-	public class OrderItems {
-        @InvocableVariable
-		public String id;
-        @InvocableVariable
-		public String createdBy; 
-        @InvocableVariable
-		public Boolean isPartOfBundle;
-        @InvocableVariable
-		public String lineOfBusiness;
-        @InvocableVariable
-		public Product product;
-        @InvocableVariable
-		public String actionType; 
-        @InvocableVariable
-		public String referenceNumber;
-        @InvocableVariable
-		public String serviceRequiredDate;
-        @InvocableVariable
-		public String status;
-        @InvocableVariable
-		public String implActionTypeX9;
-        @InvocableVariable
-		public String implOrderTypeX9;
-        @InvocableVariable
-		public String provisioningDate;
-        @InvocableVariable
-		public String oacloseDate;
-        @InvocableVariable
-		public String reasonCode; 
-        @InvocableVariable
-		public Boolean replaceOfferIndicator;
-        @InvocableVariable
-		public BusinessType businessType; 
+	global class OrderItems {
+        @AuraEnabled
+		@InvocableVariable
+		global String id;
+        @AuraEnabled
+		@InvocableVariable
+		global String createdBy; 
+        @AuraEnabled
+		@InvocableVariable
+		global Boolean isPartOfBundle;
+        @AuraEnabled
+		@InvocableVariable
+		global String lineOfBusiness;
+        @AuraEnabled
+		@InvocableVariable
+		global Product product;
+        @AuraEnabled
+		@InvocableVariable
+		global String actionType; 
+        @AuraEnabled
+		@InvocableVariable
+		global String referenceNumber;
+        @AuraEnabled
+		@InvocableVariable
+		global String serviceRequiredDate;
+        @AuraEnabled
+		@InvocableVariable
+		global String status;
+        @AuraEnabled
+		@InvocableVariable
+		global String implActionTypeX9;
+        @AuraEnabled
+		@InvocableVariable
+		global String implOrderTypeX9;
+        @AuraEnabled
+		@InvocableVariable
+		global String provisioningDate;
+        @AuraEnabled
+		@InvocableVariable
+		global String oacloseDate;
+        @AuraEnabled
+		@InvocableVariable
+		global String reasonCode; 
+        @AuraEnabled
+		@InvocableVariable
+		global Boolean replaceOfferIndicator;
+        @AuraEnabled
+		@InvocableVariable
+		global BusinessType businessType; 
+		@AuraEnabled
+		@InvocableVariable
+		global String workOrderIdX9;
 
-		public OrderItems(JSONParser parser) {
+		global OrderItems(){
+
+		}
+
+		global OrderItems(JSONParser parser) {
 			while (parser.nextToken() != System.JSONToken.END_OBJECT) {
 				if (parser.getCurrentToken() == System.JSONToken.FIELD_NAME) {
 					String text = parser.getText();
@@ -173,11 +212,16 @@ public class RetrieveOrdersListResponse {
 		}
 	}
 	
-	public class Customer {
-        @InvocableVariable
-		public String id;
+	global class Customer {
+        @AuraEnabled
+		@InvocableVariable
+		global String id;
 
-		public Customer(JSONParser parser) {
+		global Customer(){
+
+		}
+
+		global Customer(JSONParser parser) {
 			while (parser.nextToken() != System.JSONToken.END_OBJECT) {
 				if (parser.getCurrentToken() == System.JSONToken.FIELD_NAME) {
 					String text = parser.getText();
@@ -194,11 +238,16 @@ public class RetrieveOrdersListResponse {
 		}
 	}
 	
-	public class RecurringPrice {
-        @InvocableVariable
-		public String finalAmount; 
+	global class RecurringPrice {
+        @AuraEnabled
+		@InvocableVariable
+		global String finalAmount; 
 
-		public RecurringPrice(JSONParser parser) {
+		global RecurringPrice(){
+
+		}
+
+		global RecurringPrice(JSONParser parser) {
 			while (parser.nextToken() != System.JSONToken.END_OBJECT) {
 				if (parser.getCurrentToken() == System.JSONToken.FIELD_NAME) {
 					String text = parser.getText();
@@ -215,9 +264,13 @@ public class RetrieveOrdersListResponse {
 		}
 	}
 	
-	public class BusinessType {
+	global class BusinessType {
 
-		public BusinessType(JSONParser parser) {
+		global BusinessType(){
+
+		}
+
+		global BusinessType(JSONParser parser) {
 			while (parser.nextToken() != System.JSONToken.END_OBJECT) {
 				if (parser.getCurrentToken() == System.JSONToken.FIELD_NAME) {
 					String text = parser.getText();
@@ -232,21 +285,31 @@ public class RetrieveOrdersListResponse {
 		}
 	}
 	
-	public class Product {
-        @InvocableVariable
-		public String id;
-        @InvocableVariable
-		public String catalogId;
-        @InvocableVariable
-		public String offeringInstanceId; 
-        @InvocableVariable
-		public String offeringName;
-        @InvocableVariable
-		public String name;
-        @InvocableVariable
-		public String serviceId; 
+	global class Product {
+		@InvocableVariable
+        @AuraEnabled
+		global String id;
+		@InvocableVariable
+        @AuraEnabled
+		global String catalogId;
+        @AuraEnabled
+		@InvocableVariable
+		global String offeringInstanceId; 
+        @AuraEnabled
+		@InvocableVariable
+		global String offeringName;
+        @AuraEnabled
+		@InvocableVariable
+		global String name;
+        @AuraEnabled
+		@InvocableVariable
+		global String serviceId; 
 
-		public Product(JSONParser parser) {
+		global Product(){
+
+		}
+
+		global Product(JSONParser parser) {
 			while (parser.nextToken() != System.JSONToken.END_OBJECT) {
 				if (parser.getCurrentToken() == System.JSONToken.FIELD_NAME) {
 					String text = parser.getText();
@@ -272,18 +335,28 @@ public class RetrieveOrdersListResponse {
 			}
 		}
 	}
-	@InvocableVariable
-	public String itemsPerPage; 
-    @InvocableVariable
-	public String startIndex; 
-    @InvocableVariable
-	public String totalResults;
-    @InvocableVariable
-	public String totalOrdersWithReservations; 
-    @InvocableVariable
-	public List<Orders> orders;
 
-	public RetrieveOrdersListResponse(JSONParser parser) {
+	@AuraEnabled
+	@InvocableVariable
+	global String itemsPerPage; 
+    @AuraEnabled
+	@InvocableVariable
+	global String startIndex; 
+    @AuraEnabled
+	@InvocableVariable
+	global String totalResults;
+    @AuraEnabled
+	@InvocableVariable
+	global String totalOrdersWithReservations; 
+    @AuraEnabled
+	@InvocableVariable
+	global List<Orders> orders;
+
+	global RetrieveOrdersListResponse() {
+
+	}
+
+	global RetrieveOrdersListResponse(JSONParser parser) {
 		while (parser.nextToken() != System.JSONToken.END_OBJECT) {
 			if (parser.getCurrentToken() == System.JSONToken.FIELD_NAME) {
 				String text = parser.getText();
@@ -308,12 +381,12 @@ public class RetrieveOrdersListResponse {
 	}
 	
 	
-	public static RetrieveOrdersListResponse parse(String json) {
+	global static RetrieveOrdersListResponse parse(String json) {
 		System.JSONParser parser = System.JSON.createParser(json);
 		return new RetrieveOrdersListResponse(parser);
 	}
 	
-	public static void consumeObject(System.JSONParser parser) {
+	global static void consumeObject(System.JSONParser parser) {
 		Integer depth = 0;
 		do {
 			System.JSONToken curr = parser.getCurrentToken();
@@ -327,7 +400,7 @@ public class RetrieveOrdersListResponse {
 		} while (depth > 0 && parser.nextToken() != null);
 	}
 	
-    private static List<OrderItems> arrayOfOrderItems(System.JSONParser p) {
+    global static List<OrderItems> arrayOfOrderItems(System.JSONParser p) {
         List<OrderItems> res = new List<OrderItems>();
         if (p.getCurrentToken() == null) p.nextToken();
         while (p.nextToken() != System.JSONToken.END_ARRAY) {
@@ -336,7 +409,7 @@ public class RetrieveOrdersListResponse {
         return res;
     }
     
-    private static List<Orders> arrayOfOrders(System.JSONParser p) {
+    global static List<Orders> arrayOfOrders(System.JSONParser p) {
         List<Orders> res = new List<Orders>();
         if (p.getCurrentToken() == null) p.nextToken();
         while (p.nextToken() != System.JSONToken.END_ARRAY) {

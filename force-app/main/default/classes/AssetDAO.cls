@@ -280,7 +280,7 @@ public without sharing class AssetDAO {
                 AccountId = :accountId 
         ];
     }
-
+    
     public static List<Asset> getBySetAccountIdWithPromotionProduct(Set<Id> setAccId){
         return[
             SELECT  
@@ -469,5 +469,17 @@ public without sharing class AssetDAO {
             FROM Asset
             WHERE Id = :assetIds
         ];
-    }    
+    }
+    
+    public static List<Asset> getAssetPhoneByAccount(String accountId) {
+        return [
+            SELECT
+                id,
+                vlocity_cmt__ServiceIdentifier__c
+            FROM Asset
+            WHERE SourceSystem__c = 'NEXT'
+            AND ProductType__c IN ('Voz', 'Pós-Pago')
+            AND AccountId = :accountId
+        ];
+    }
 }

@@ -64,6 +64,12 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
     @track isSuccess;
     @track _actionUtil;
 
+    //Variavel de saida com dados da fatura selecionada
+    @api disputedInvoice = [];
+    
+
+    @api accountHref; 
+
     columns1 = columns1;
     columns2 = columns2;
     
@@ -119,10 +125,11 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
                 this.responseIP = response.result.IPResult;
                 this.isSuccess = response.result.IPResult.isSuccess;
                 this.generalSetting = this.responseIP.GeneralSetting 
-                    && this.responseIP.GeneralSetting.generalSetting 
-                    && Array.isArray(this.responseIP.GeneralSetting.generalSetting) ? this.responseIP.GeneralSetting.generalSetting : [ this.responseIP.GeneralSetting.generalSetting ];
+                && this.responseIP.GeneralSetting.generalSetting 
+                && Array.isArray(this.responseIP.GeneralSetting.generalSetting) ? this.responseIP.GeneralSetting.generalSetting : [ this.responseIP.GeneralSetting.generalSetting ];
                 this.invoicesApi = Array.isArray(this.responseIP.InvoicesApi) ? this.responseIP.InvoicesApi : [this.responseIP.InvoicesApi];
                 this.accountId = this.responseIP.CustomerIds.customerAccountId;
+                this.accountHref = this.responseIP.CustomerIds.accountHref;
 
                 console.log('Retorno IP - General Settings', JSON.stringify(this.generalSetting));
 
@@ -256,7 +263,7 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
         this.selectedRow = [JSON.parse(JSON.stringify(event.detail.selectedRows[0]))];
         this.divVisible = true;
         this.tableVisible = false;
-        this.selectionsByType = {};
+        this.selectionsByType = {}; 
         this.fullSelectionsByType = {};
         this.isColab = false;       
         
@@ -298,7 +305,9 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
                     credits = Array.isArray(this.responseIP.invoiceCredits.invoiceCredits.credits) ? this.responseIP.invoiceCredits.invoiceCredits.credits : [this.responseIP.invoiceCredits.invoiceCredits.credits];
                 }
                 console.log('credits', JSON.stringify(credits)); //<------ Subir isso
+                console.log('Charges antes de transformar', JSON.stringify(charges));
                 this.productList = this.normalizeCharges(charges ?? []);
+                console.log('Charges depois de transformar', JSON.stringify(this.productList));
 
                 let types = [];
                 this.productListByType= [];
@@ -312,8 +321,6 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
                         console.log('product',JSON.stringify(product)); //<------ Subir isso
                         let type;
                         let generalSettingItem = this.generalSetting.find(item => item && item.Name && item.Name == product.frontEndCode); //<------ Subir isso
-                        console.log('GeneralSettingItem', JSON.stringify(generalSettingItem));
-                        console.log('Todas generalSettings', JSON.stringify(this.generalSetting));
                         if(chargeCodes.includes(product.code)){
                             this.isColab = true;
                         }
@@ -348,6 +355,7 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
             }).finally(()=>{
                 console.log('Não entrou no evento');
                 console.log(JSON.stringify(this.selectedRow));
+                this.disputedInvoice = this.selectedRow;
                 if(this.selectedRow && this.selectedRow[0] && this.selectedRow[0].financialAccountId){
                     console.log('Entrou no evento');
                     const selectedEvent = new CustomEvent('selected', {
@@ -362,31 +370,15 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
     }     
 
     normalizeCharges(charges = []){
-        const chargesMapper = {}
-        let check = JSON.stringify(charges);
-        if(check != '[null]') {
-            charges.forEach(charge => {
-                if(chargesMapper[charge.id]){
-                    const mappedCharge = chargesMapper[charge.id];
-                    if(mappedCharge.totalAmount < 0) {
-                        charge.discount = charge.discount ? charge.discount : 0
-                        charge.discount += parseFloat(mappedCharge.totalAmount);
-                        chargesMapper[charge.id] = charge;
-                    }
-                    if (charge.totalAmount < 0) {
-                        mappedCharge.discount += parseFloat(charge.totalAmount);
-                    }
-                }
-                else{
-                    chargesMapper[charge.id] = charge;
-                    charge.discount = 0;
-                }
-            });
-            Object.values(chargesMapper).map(invoice => {
-                invoice.discount = invoice.discount.toString()
-            });
-        }
-        return Object.values(chargesMapper);
+        let chargesNormalized = [];
+		if (charges && Array.isArray(charges) && charges.length > 0) {
+			charges.forEach(charge => {
+				let chargeNormalized = Object.assign({}, charge);
+				chargeNormalized.uniqueId = charge.id + charge.codeDescription;
+				chargesNormalized.push(chargeNormalized);
+			});
+		}
+		return chargesNormalized;
     }
     
     handleTabChange(event) {
@@ -423,9 +415,9 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
         this.selectionsByType[this.selectedType] = [];
         this.fullSelectionsByType[this.selectedType] = [];
     
-        this.selectedTypeProducts.forEach((product) => {
-            if (event.detail.selectedRows.some((row) => row.id === product.id)) {
-                this.selectionsByType[this.selectedType].push(product.id);
+                this.selectedTypeProducts.forEach((product) => {
+            if (event.detail.selectedRows.some((row) => row.uniqueId === product.uniqueId)) {
+                this.selectionsByType[this.selectedType].push(product.uniqueId);
                 this.fullSelectionsByType[this.selectedType].push(product);
             }
         });
