@@ -20,7 +20,7 @@ const columns2 = [
     { label: 'Instância/Produto', fieldName: 'instance', initialWidth: 175 },
     { label: 'Descrição', fieldName: 'codeDescription', initialWidth: 200 },
     { label: 'Valor', fieldName: 'totalAmount', type: 'currency', initialWidth: 150 },
-    { label: 'Ajustes', fieldName: 'amountCredits', type: 'currency', initialWidth: 150 },
+    { label: 'Ajustes', fieldName: 'amountCredits', type: 'currency', initialWidth: 150},
     { label: 'Descontos', fieldName: 'discount', type: 'currency', initialWidth: 150 },
     { label: 'Valor Atual', fieldName: 'availableAmount', type: 'currency', initialWidth: 150 },
     { label: 'Data/Hora', fieldName: 'startTime', initialWidth: 150 }
@@ -60,9 +60,7 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
     columns1 = columns1;
     columns2 = columns2;
     
-    
     _ns = getNamespaceDotNotation();
-
 
     yearOptions = Array.from({ length: 3 }, (_, i) => {
         const year = new Date().getFullYear() - i;
@@ -111,6 +109,11 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
         this._actionUtil = new OmniscriptActionCommonUtil();
         this._invoices = this.sortedInvoices.slice(0, 36);
         this.filterInvoices();
+
+
+        console.log('invoicesApi:',JSON.stringify(this.invoicesApi));
+        console.log('generalSetting:',JSON.stringify(this.generalSetting));
+        console.log('accountId',JSON.stringify(this.accountId));
     }
 
     formatDate(dateString) {
@@ -215,19 +218,21 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
         }
     }
 
-    //ChargeCategory
     getTabByFrontEndCode(frontEndCode) {
         let item = this.generalSetting.find(entry => entry.Name == frontEndCode);
         return item ? item.ChargeCategory : null;
     }
 
-    handleSelection(event) {   
+    handleSelection(event) {
+        //Tratamento erro em produção
+        if(!event || !event.detail || !event.detail.selectedRows[0]){
+            return;
+        }
         this.selectedRow = [JSON.parse(JSON.stringify(event.detail.selectedRows[0]))];
         this.divVisible = true;
         this.tableVisible = false;
         this.omniApplyCallResp({"selectedItems": null }); 
         this.omniApplyCallResp({"selectedInvoice": this.selectedRow});        
-        
         let index = this.filteredInvoices.findIndex(i => i.billNo === this.selectedRow[0]?.billNo); 
         let indexAnterior = index - 1;
 
@@ -261,8 +266,8 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
             accountId: this.accountId
         };
 
-       const options = {
-          //"isDebug":true, "chainable":false, "resetCache":false, "ignoreCache":true, "queueableChainable":false, "useQueueableApexRemoting":false
+    const options = {
+        //"isDebug":true, "chainable":false, "resetCache":false, "ignoreCache":true, "queueableChainable":false, "useQueueableApexRemoting":false
         };
     
         const params = {
@@ -278,6 +283,13 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
                 this.tableVisible = true;
                 this.responseIP = response.result.IPResult;
                 this.isSuccess = response.result.IPResult.isSuccess;
+                if(this.responseIP && this.responseIP.invoiceCharges){
+                    this.responseIP.invoiceCharges = Array.isArray(this.responseIP.invoiceCharges) ? this.responseIP.invoiceCharges : [this.responseIP.invoiceCharges];
+                    this.responseIP.invoiceCharges = this.responseIP.invoiceCharges.map(item => {
+                        item.ChargeCategory = this.getTabByFrontEndCode(item.frontEndCode);
+                        return item;
+                    });
+                }
                 this.omniApplyCallResp({"responseIP": this.responseIP});
 
                 const processedCharges = this.processCharges(this.responseIP.invoiceCharges);
@@ -291,28 +303,35 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
                 
                 for (let i = 0; i < this.productList.length; i++) {
                     let product = this.productList[i];
-                    let type;
-                    this.generalSetting = Array.isArray(this.generalSetting) ? this.generalSetting : [this.generalSetting];
-                    let generalSettingItem = this.generalSetting.find(item => item.Name == product.frontEndCode);
-                    if(generalSettingItem){
-                        type = generalSettingItem.TabValue;
-                    }
-                    if(type != undefined){
-                        if (!this.productListByType[type]) {
-                            this.productListByType[type] = []; 
+                    try {
+                        let type;
+                        this.generalSetting = Array.isArray(this.generalSetting) ? this.generalSetting : [this.generalSetting];
+                        let generalSettingItem = this.generalSetting.find(item => item.Name == product.frontEndCode);
+                        if(generalSettingItem){
+                            type = generalSettingItem.TabValue;
                         }
-                        if (!product.totalAmount) product.totalAmount = '0';
-                        if (!product.amountCredits) product.amountCredits = '0';
-                        if (!product.discount) product.discount = '0';
-                        if (!product.availableAmount) product.availableAmount = '0';
-                        if (!product.startTime) product.startTime = '---';
-                        this.productListByType[type].push(product);
-                        if (!types.includes(type)) {
-                            types.push(type);
-                        };
-                    }
-                }       
-                this.selectedType = types[0];
+                        if(type != undefined){
+                            if (!this.productListByType[type]) {
+                                this.productListByType[type] = []; 
+                            }
+                            if (!product.totalAmount) product.totalAmount = '0';
+                            if (!product.amountCredits) product.amountCredits = '0';
+                            if (!product.discount) product.discount = '0';
+                            if (!product.availableAmount) product.availableAmount = '0';
+                            if (!product.startTime) product.startTime = '---';
+                            this.productListByType[type].push(product);
+                            if (!types.includes(type)) {
+                                types.push(type);
+                            };
+                        }
+                    } catch (e) {
+                        console.log('Erro ao tentar exibir o produto: ' + e);
+                        console.log('product', JSON.stringify(this.product));
+                    }    
+                } 
+
+            this.selectedType = types[0];
+                
             })
             .catch((error) => {
                 console.log('Error Items Grid: ' + error);
@@ -330,7 +349,7 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
                     });
                     this.dispatchEvent(selectedEvent);
                 }
-            });      
+            });
     }     
 
     // Função para garantir que os dados estejam no formato de array
@@ -341,8 +360,7 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
     // Função para processar charges, completando informações que podem estar faltando
     processCharges(charges) {
         charges = this.ensureArray(charges);
-        const offerMapping = {};
-
+        const offerMapping = {};      
         return charges.map(charge => {
             if (!charge) {
                 return charge;
@@ -363,7 +381,7 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
             return charges.map(charge => {
                 if (parseFloat(charge.totalAmount) >= 0) {
                     const correspondingCredit = credits.find(credit => 
-                        (credit.reversalReason === null || credit.reversalReason === "") && (credit.l9ChargeInvoiceId === charge.id || credit.l9EventId === charge.id || credit.l9BillingChargeSeqNo === charge.id)
+                         (credit.reversalReason === null || credit.reversalReason === "") && (credit.l9ChargeInvoiceId === charge.id || credit.l9EventId === charge.id || credit.l9BillingChargeSeqNo === charge.id)
                     );
                     if (correspondingCredit) {
                         return { ...charge, amountCredits: correspondingCredit.amount };
@@ -421,7 +439,7 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
         return Object.keys(this.productListByType);
     }
 
-    get selectedTypeProducts() {    
+    get selectedTypeProducts() { 
         return this.productListByType[this.selectedType] || [];
     }    
 
@@ -463,11 +481,6 @@ export default class DisputeInvoicesDataTable extends OmniscriptBaseMixin(Lightn
         if (allSelections.length === 0) {
             this.omniApplyCallResp({"selectedItems": null });
         } else {
-            allSelections = Array.isArray(allSelections) ? allSelections : [allSelections];
-            allSelections = allSelections.map(item => {
-                item.ChargeCategory = this.getTabByFrontEndCode(item.frontEndCode);
-                return item;
-            });
             this.omniApplyCallResp({"selectedItems": JSON.parse(JSON.stringify(allSelections)) });
         }
     }  

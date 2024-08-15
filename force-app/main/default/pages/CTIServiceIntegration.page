@@ -2,10 +2,10 @@
     <script>
         window.onload = function () {
             try {
+                console.log("on VFPAGE");
                 let caseId;
-
                 if (typeof external.isCallActive === "function") {
-
+                    console.log("Funcionalidades WDE atrubuídas");
                     if (typeof external.getCaseId === "function") {
                         caseId = external.getCaseId();
                     }                    
@@ -20,20 +20,21 @@
                         vfHost: window.location.origin,
                         caseId: caseId
                     };
-
+                    console.log("message", message);
                     var lexOrigin = "{!pageURL}";
-
+                    console.log("lexOrigin", lexOrigin);
                     parent.postMessage(message, lexOrigin);
+                    console.log("WDE_InitialResponse posted");
 
                     // Add listener and setting callback to get data from Aura component
                     window.removeEventListener("message", receiveMessage);
                     window.addEventListener("message", receiveMessage);
+                    console.log("listener added");
 
                     function receiveMessage(event) {
+                        console.log("on receiveMessage");
                         let type = event.data.service;
                         let payload = event.data.payload;
-
-                        console.log('function receiveMessage payload: ' + JSON.stringify(payload));
                         
                         if (!payload) {
                             payload = {
@@ -51,11 +52,11 @@
                             event.stopPropagation();
 
                             payload.service = 'WDE_AssistedTransfer';
-							console.log('Assisted Transfer Params:' + payload.DestinyCell__c+ '+  CaseID: '+ payload.CaseId__c +'  + CustomerInteractionID:'+ payload.CustomerInteractionId__c );
+
                             let wdeResponse = external.transferInit(payload.DestinyCell__c, payload.CaseId__c, payload.CustomerInteractionId__c);
-							console.log('WDE Response: '+wdeResponse);
+
                             payload.wdeResponse = wdeResponse;
-							debugger;
+
                             if (wdeResponse) {
                                 doUpdateWdeCase(payload);
                                 return;
@@ -142,23 +143,38 @@
                             }
 
                         } else if (type == 'CTIServiceIntegration_CallDropped') {
+                            console.log("on CTIServiceIntegration_CallDropped");
                             event.stopPropagation();
                             payload.service = "WDE_CallDropped";
 
                             let wdeResponse = external.isCallActive();
-
                             payload.wdeResponse = wdeResponse;
 
                             if (wdeResponse) {
                                 parent.postMessage(payload, lexOrigin);
-                            } else {                                
-                                if (payload.CaseId__c) {                                    
-                                    payload.OperationType__c = 'CallDropped';
-                                    doUpdateWdeCaseAndMarkDone(payload);
+                            } else {
+                                console.log("no active call");
+                                if(payload.isProductNextAndMobile) {
+                                    if (payload.CaseId__c && payload.CaseId__c != "{Session.CaseId}") { //customerInteraction   
+                                        console.log("update case");                                
+                                        payload.OperationType__c = 'CallDropped';
+                                        doUpdateMobileNextDisputeCaseOnWde(payload);
+                                    } else {
+                                        payload.CaseId__c = '';
+                                        console.log("create case");
+                                        doCreateMobileNextDisputeCaseOnWde(payload);
+                                    }
                                 } else {
-                                    doCreateCaseAndMarkDone(payload);
+                                    if (payload.CaseId__c && payload.CaseId__c != "{Session.CaseId}") {                                    
+                                        payload.OperationType__c = 'CallDropped';
+                                        doUpdateWdeCaseAndMarkDone(payload);
+                                    } else {
+                                        doCreateCaseAndMarkDone(payload);
+                                    }
                                 }
+                                
                             }
+                            console.log("out CTIServiceIntegration_CallDropped");
                         } else if (type == 'CTIServiceIntegration_NewService') {
                             event.stopPropagation();
                             payload.service = "WDE_NewService";
@@ -303,6 +319,29 @@
                         payload.updateWdeCase = result;
                         payload.markDone = external.markDone();
 
+                        parent.postMessage(payload, "{!pageURL}");
+                    },
+                    { escape: true }
+                )
+            );
+        };
+
+        function doUpdateMobileNextDisputeCaseOnWde(payload) {
+            console.log("doUpdateMobileNextDisputeCaseOnWde");
+            payload.service = 'WDE_CallDroppedDisputeAfterRegister';
+            parent.postMessage(payload, "{!pageURL}");
+        };
+
+        function doCreateMobileNextDisputeCaseOnWde(payload) {
+            Visualforce.remoting.Manager.invokeAction(
+                CTIServiceIntegrationVFController.createMobileNextDisputeCase(
+                    payload,
+                    function (result, event) {
+
+                        console.log("Response From VFController ", JSON.stringify(result));
+
+                        payload.createMobileNextDisputeCase = result;
+                        payload.service = 'WDE_CallDroppedDispute';
                         parent.postMessage(payload, "{!pageURL}");
                     },
                     { escape: true }

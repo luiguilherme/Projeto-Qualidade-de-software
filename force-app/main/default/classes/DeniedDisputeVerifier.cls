@@ -28,12 +28,10 @@ global without sharing class DeniedDisputeVerifier implements Callable {
     }
     
     global Object invokeMethod(String methodName, Map<String, Object> inputs, Map<String, Object> output, Map<String, Object> options) {
-		if (methodName == 'convert2') {
+		if (methodName == 'checkCases') {
             try {
-                List<Object> DRgetCasesFromAccId = (List<Object>) inputs.get('DRgetCasesFromAccId');
-                List<Object> DRgetInstanceFromCart = (List<Object>) inputs.get('DRgetInstanceFromCart');
                 String AccountId = (String) inputs.get('AccountId');
-                output.put('result', convert2(DRgetCasesFromAccId, DRgetInstanceFromCart, AccountId));
+                output.put('result', checkCases(AccountId));
                 output.put('error', false);
             } catch (Exception e) {
                 System.debug(e.getMessage());
@@ -45,9 +43,9 @@ global without sharing class DeniedDisputeVerifier implements Callable {
         return output;
     }
     
-	private String convert2(List<Object> DRgetCasesFromAccId, List<Object> DRgetInstanceFromCart, String AccountId) {
+	private String checkCases(String AccountId) {
 
-        List<Case> lCase = DRgetCasesAndAssociatedTasksFromAccId(AccountId);
+        List<Case> lCase = CaseDAO.getCasesFromAccId(AccountId, 60);
         for (Case currentCase : lCase) {
             if(areAllPrivateMembersTrue()){
                 break;
@@ -77,26 +75,6 @@ global without sharing class DeniedDisputeVerifier implements Callable {
 
     private Boolean areAllPrivateMembersTrue() {
         return this.isDisputeCase && this.isRootCauseCase;
-    }
-
-    private List<Case> DRgetCasesAndAssociatedTasksFromAccId(String AccountId) {
-        //what if someone call this IP without the AccountId param?
-        return [SELECT  id,
-                        OwnerId,
-                        CaseNumber,
-                        Status,
-                        RecordType.Name,
-                        AccountId,
-                        CreatedDate,
-                        HDEOtherProducts__c,
-                        IsHDE__c,
-                        Origin,
-                        RecordType.DeveloperName,
-                        ServiceDefinitionId__r.DisputeDenied__c,
-                        ServiceDefinitionId__r.RootCause__c,
-                        ComplainedAsset__r.Name
-                        FROM case 
-                        WHERE AccountId = :AccountId AND CreatedDate = LAST_N_DAYS:60];
     }
 
     //h19 rules
