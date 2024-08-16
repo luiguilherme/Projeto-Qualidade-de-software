@@ -1,0 +1,186 @@
+{
+    "%vlocity_namespace%__Author__c": "Lucas",
+    "%vlocity_namespace%__CardType__c": "flex",
+    "%vlocity_namespace%__Datasource__c": {
+        "dataSource": {
+            "contextVariables": [
+                {
+                    "id": 3,
+                    "name": "Parent.recordId",
+                    "val": "02i76000000Ms9DAAS"
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "recordId": "{Parent.recordId}"
+                },
+                "ipMethod": "val_GetLineDetails",
+                "jsonMap": "{\"Parent.recordId\":\"{Parent.recordId}\"}",
+                "optionsMap": {
+                    "chainable": "true"
+                },
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        },
+        "state0element0block_element2block_element0_0": {
+            "contextVariables": [
+                {
+                    "id": 4,
+                    "name": "Parent.interactionId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "TopicName": "Consulta PUK",
+                    "interactionId": "{Parent.interactionId}"
+                },
+                "ipMethod": "val_GetTopicIdAndTopicName",
+                "jsonMap": "{\"Parent.interactionId\":\"{Parent.interactionId}\"}",
+                "vlocityAsync": false
+            }
+        },
+        "state0element0block_element2block_element0_1": {
+            "contextVariables": [
+                {
+                    "id": 14,
+                    "name": "TopicNameComplete.topicName",
+                    "val": ""
+                },
+                {
+                    "id": 15,
+                    "name": "Parent.interactionId",
+                    "val": ""
+                },
+                {
+                    "id": 16,
+                    "name": "TopicNameComplete.channelName",
+                    "val": ""
+                },
+                {
+                    "id": 17,
+                    "name": "Parent.accountId",
+                    "val": ""
+                },
+                {
+                    "id": 18,
+                    "name": "Parent.interactionNumber",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "AccountId": "{Parent.accountId}",
+                    "InteractionId": "{Parent.interactionId}",
+                    "channelName": "{TopicNameComplete.channelName}",
+                    "interactionNumber": "{Parent.interactionNumber}",
+                    "processName": "Consulta PUK",
+                    "topicName": "{TopicNameComplete.topicName}"
+                },
+                "ipMethod": "val_CreateCustomerInteractionAndTopic",
+                "vlocityAsync": false
+            }
+        },
+        "state0element0block_element2block_element0_2": {
+            "contextVariables": [
+                {
+                    "id": 9,
+                    "name": "TopicNameComplete.topicName",
+                    "val": ""
+                },
+                {
+                    "id": 10,
+                    "name": "interactionId",
+                    "val": ""
+                },
+                {
+                    "id": 11,
+                    "name": "interactionTopicId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "interactionId": "{interactionId}",
+                    "interactionTopicId": "{interactionTopicId}",
+                    "topicName": "{TopicNameComplete.topicName}"
+                },
+                "ipMethod": "val_CallOutProtocolItemVivoNet",
+                "vlocityAsync": false
+            }
+        },
+        "state0element0block_element2block_element0_3": {
+            "contextVariables": [
+                {
+                    "id": 13,
+                    "name": "ServiceIdentifier",
+                    "val": ""
+                },
+                {
+                    "id": 6,
+                    "name": "Parent.interactionId",
+                    "val": ""
+                },
+                {
+                    "id": 8,
+                    "name": "Parent.accountId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "CustomerInteractionId": "{Parent.interactionId}",
+                    "accountId": "{Parent.accountId}",
+                    "msisdn": "{ServiceIdentifier}"
+                },
+                "ipMethod": "val_CalloutGetPUK",
+                "jsonMap": "{\"ServiceIdentifier\":\"{ServiceIdentifier}\",\"Parent.interactionId\":\"{Parent.interactionId}\",\"Parent.accountId\":\"{Parent.accountId}\"}",
+                "vlocityAsync": false
+            }
+        }
+    },
+    "%vlocity_namespace%__Definition__c": "valReviewLineData.json",
+    "%vlocity_namespace%__Description__c": "BugFIX BL20 -",
+    "%vlocity_namespace%__GlobalKey__c": "valReviewLineData/Lucas/11/1701798086186",
+    "%vlocity_namespace%__IsChildCard__c": true,
+    "%vlocity_namespace%__ParentID__c": "valReviewPersonalData/Lucas/1/1642094252611",
+    "%vlocity_namespace%__SampleData__c": "{\"ICCID\":\"89551099160100036714\",\"Plan\":\"Vivo Pré Diário\",\"Platform\":\"Pré-pago\",\"ServiceIdentifier\":\"11997209290\",\"Status\":null,\"SubscriptionNumber\":\"a5376000000LFvJAAW\",\"hasError\":true,\"providerId\":null,\"IMEI\":\"012616003114400\",\"SubscriptionStatus\":\"Desativado\",\"SubscriptionId\":\"a5376000000LFvJAAW\",\"SubscriptionNextStatus\":\"---\",\"SubscriptionDateNextStatus\":\"---\",\"ProductType\":\"Pré-pago\",\"ActivationDate\":\"24/06/2024\",\"CreatedDate\":\"24/06/2024\",\"Model\":\"\",\"Vendor\":\"ALCATEL\",\"Device\":\"OT-255\",\"HaveCasePortability\":\"Não\",\"SimCardType\":\"eSIM\",\"MSISDN\":5511997209290,\"EID\":\"89001012012341234012345678901224\",\"ActivationDateESIM\":\"29/07/2024\"}",
+    "%vlocity_namespace%__Styles__c": "",
+    "%vlocity_namespace%__Type__c": "",
+    "%vlocity_namespace%__Version__c": 13,
+    "Name": "valReviewLineData",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityCard__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__VlocityCard__c/valReviewLineData"
+}
