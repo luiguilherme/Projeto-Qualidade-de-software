@@ -2,23 +2,18 @@
     "dataSource": {
         "contextVariables": [
             {
-                "id": 6,
-                "name": "Session.OrderId",
-                "val": "80176000002H3n6AAC"
+                "id": 7,
+                "name": "OrderId",
+                "val": "80176000002Ve5MAAS"
             },
             {
-                "id": 4,
-                "name": "Session.Functionality",
-                "val": "SalesJourney"
-            },
-            {
-                "id": 36,
+                "id": 9,
                 "name": "Parent.OrderId",
-                "val": "80176000002HAPqAAO"
+                "val": "80176000002Ve5MAAS"
             }
         ],
         "orderBy": {
-            "isReverse": false,
+            "isReverse": "",
             "name": ""
         },
         "type": "IntegrationProcedures",
@@ -28,7 +23,7 @@
                 "OrderId": "{Parent.OrderId}"
             },
             "ipMethod": "val_GetReviewOrder",
-            "jsonMap": "{\"Session.OrderId\":\"{Session.OrderId}\",\"Session.Functionality\":\"{Session.Functionality}\",\"Parent.OrderId\":\"{Parent.OrderId}\"}",
+            "jsonMap": "{\"OrderId\":\"{OrderId}\",\"Parent.OrderId\":\"{Parent.OrderId}\"}",
             "resultVar": "",
             "vlocityAsync": false
         }
@@ -71,12 +66,11 @@
                                         "cardNode": "",
                                         "isChildCardTrackingEnabled": false,
                                         "parentAttribute": {
-                                            "AssetId": "{Parent.AssetId}",
-                                            "Functionality": "{Parent.Functionality}",
                                             "Imei": "{Parent.Imei}",
                                             "Model": "{Parent.Model}",
-                                            "OrderId": "{Parent.OrderId}",
-                                            "Vendor": "{Parent.Vendor}"
+                                            "Vendor": "{Parent.Vendor}",
+                                            "assetId": "{Parent.AssetId}",
+                                            "functionality": "{Parent.Functionality}"
                                         },
                                         "recordId": "{recordId}",
                                         "selectedState": "Active"
@@ -138,7 +132,7 @@
                                     "parentElementKey": "element_block_1_0",
                                     "property": {
                                         "cardName": "valLineandDeviceBlockingData",
-                                        "cardNode": "{record.Address}",
+                                        "cardNode": "{record.Order}",
                                         "isChildCardTrackingEnabled": false,
                                         "parentAttribute": {
                                             "functionality": "{Parent.Functionality}"
@@ -284,9 +278,11 @@
         "isExposed": true,
         "masterLabel": "valReviewOrder_DeviceBlockJourney",
         "runtimeNamespace": "%vlocity_namespace%",
-        "targetConfigs": "PHRhcmdldENvbmZpZyAgeG1sbnM9Imh0dHA6Ly9zb2FwLnNmb3JjZS5jb20vMjAwNi8wNC9tZXRhZGF0YSIgdGFyZ2V0cz0ibGlnaHRuaW5nX19BcHBQYWdlIj48cHJvcGVydHkgIG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIj48L3Byb3BlcnR5Pjxwcm9wZXJ0eSAgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48L3RhcmdldENvbmZpZz48dGFyZ2V0Q29uZmlnICB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPjxwcm9wZXJ0eSAgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+",
+        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiIvPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIi8+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiIvPjwvdGFyZ2V0Q29uZmlnPg==",
         "targets": {
             "target": [
+                "lightning__HomePage",
+                "lightningCommunity__Page",
                 "lightning__AppPage",
                 "lightning__RecordPage"
             ]

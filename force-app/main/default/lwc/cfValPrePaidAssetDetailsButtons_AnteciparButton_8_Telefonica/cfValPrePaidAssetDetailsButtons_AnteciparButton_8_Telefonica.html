@@ -1,0 +1,63 @@
+<template>
+            <div class="slds-grid slds-wrap slds-is-relative ">
+            <div style="position: fixed;z-index: 999999;top: 0;right: 0;">
+  <vlocity_cmt-toast class="flexcard-toast-element" theme="slds" title="" message="" styletype=""> </vlocity_cmt-toast>
+</div>
+            <div if:true={showLoader} class="slds-is-absolute vloc-loader_override" style="height: 100%; width: 100%; min-height:50px; background: transparent; z-index: 99;">
+  <div>
+   <vlocity_cmt-spinner
+      variant="brand"
+      alternative-text="Loading content..."
+      size="medium"
+      theme="slds"
+      ></vlocity_cmt-spinner>
+  </div>
+</div>
+            <template if:false={hasPermission}>
+              You don't have required permissions to view this card.
+            </template>
+            <template if:true={hasPermission}>
+              <template if:true={hasRecords}>
+                        <template for:each={_records} for:item="record" for:index="rindex">
+                            <vlocity_cmt-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card " style="      
+         height: 55px;">
+          <div data-style-id="state0element0" class="slds-col  slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-left_small slds-p-top_small  slds-size_12-of-12  " data-rindex={rindex} style="     border-top: #DDDDDD 1px solid;border-right: #DDDDDD 1px solid;border-bottom: #DDDDDD 1px solid;border-left: #DDDDDD 1px solid; 
+    border-radius:4;     height: 55px;" ><vlocity_cmt-flex-action data-style-id="state0element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0_child flexActionElement" 
+        data-action-element-class="state0element0_child" data-action-key="state0element0" onexecuteaction={performAction} data-show-spinner="true"
+        data-element-label="blockanteciparpromocaobutton2"   state-obj={record}  card={card}  record={record}  label="Antecipar promoção 2"  icon-name="utility:push"  action-list='\[{"stateAction":{"id":"flex-action-1721268971827","type":"Event","openUrlIn":"Current Window","subType":"PubSub","eventName":"valPrePaidAssetDetailsButtons_AnteciparButton","message":"AnteciparPromocao"},"key":"1721261287621-rnxjsse0n","label":"Action","draggable":true,"isOpen":true,"actionIndex":0}]'  display-as-button="false"  hide-action-icon="false"  styles='\{"label":{"color":"#792BA4"}}'  icon-color="#792BA4"  flyout-details='\{}'  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element1" class="slds-col  slds-card  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1_child"   card={card}  record={record}  merge-field="%3Cdiv%3ETest%3Cbr%20/%3E%3Cbr%20/%3EBalanceLine%20&gt;&gt;&gt;%20%7BValidateBalanceLine.InsufficientBallance%7D%3C/div%3E%0A%3Cdiv%3EblockJourney%20&gt;&gt;&gt;%7BblockJourney%7D%3C/div%3E%0A%3Cdiv%3EStatus%20&gt;&gt;&gt;%20%7BProducts.SubscriptionStatus%7D%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                        </template>
+                      </template>
+                      <template if:false={hasRecords}>
+                            <vlocity_cmt-flex-card-state  record={record} data-statue="false"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card " style="      
+         height: 55px;">
+          <div data-style-id="state0element0" class="slds-col  slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-left_small slds-p-top_small  slds-size_12-of-12  " data-rindex={rindex} style="     border-top: #DDDDDD 1px solid;border-right: #DDDDDD 1px solid;border-bottom: #DDDDDD 1px solid;border-left: #DDDDDD 1px solid; 
+    border-radius:4;     height: 55px;" ><vlocity_cmt-flex-action data-style-id="state0element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0_child flexActionElement" 
+        data-action-element-class="state0element0_child" data-action-key="state0element0" onexecuteaction={performAction} data-show-spinner="true"
+        data-element-label="blockanteciparpromocaobutton2"   state-obj={record}  card={card}  record={record}  label="Antecipar promoção 2"  icon-name="utility:push"  action-list='\[{"stateAction":{"id":"flex-action-1721268971827","type":"Event","openUrlIn":"Current Window","subType":"PubSub","eventName":"valPrePaidAssetDetailsButtons_AnteciparButton","message":"AnteciparPromocao"},"key":"1721261287621-rnxjsse0n","label":"Action","draggable":true,"isOpen":true,"actionIndex":0}]'  display-as-button="false"  hide-action-icon="false"  styles='\{"label":{"color":"#792BA4"}}'  icon-color="#792BA4"  flyout-details='\{}'  theme="slds"  ></vlocity_cmt-flex-action>
+      </div><div data-style-id="state0element1" class="slds-col  slds-card  slds-size_12-of-12  " data-rindex={rindex} style="      
+         " ><vlocity_cmt-output-field data-style-id="state0element1_child"   card={card}  record={record}  merge-field="%3Cdiv%3ETest%3Cbr%20/%3E%3Cbr%20/%3EBalanceLine%20&gt;&gt;&gt;%20%7BValidateBalanceLine.InsufficientBallance%7D%3C/div%3E%0A%3Cdiv%3EblockJourney%20&gt;&gt;&gt;%7BblockJourney%7D%3C/div%3E%0A%3Cdiv%3EStatus%20&gt;&gt;&gt;%20%7BProducts.SubscriptionStatus%7D%3C/div%3E"  theme="slds"  ></vlocity_cmt-output-field>
+      </div>
+        </div>
+      </vlocity_cmt-flex-card-state>
+                      </template>
+            </template>
+            <template if:true={hasError}>
+            {error}
+            </template>
+            
+      <vlocity_cmt-action action-wrapperclass="slds-hide" re-render-flyout class="action-trigger slds-col" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+      <div slot="flyout" class="listener0action5 " if:true={action.listener0action5}> <c-cf-val-antecipate-promotion-flyout data-style-id="state0element1_child"  card-node="\{record}"  parent-record={record}  records={_records}  parent-mergefields={card}  record-id={recordId}  object-api-name={objectApiName}  parent-attribute='\{"AccountId":"{Products.AccountId}","InteractionId":"{Products.InteractionId}","InteractionNumber":"{Products.InteractionNumber}","LineNumber":"{Products.LineNumber}","PO":"{Products.Attributes.ATT_DC_RM_PROMO_PO_1}"}'  ></c-cf-val-antecipate-promotion-flyout></div>
+      </vlocity_cmt-action>
+  
+            <vlocity_cmt-action class="execute-action" re-render-flyout action-wrapperclass="slds-hide" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+            
+            </vlocity_cmt-action>
+            </div>
+          </template>
