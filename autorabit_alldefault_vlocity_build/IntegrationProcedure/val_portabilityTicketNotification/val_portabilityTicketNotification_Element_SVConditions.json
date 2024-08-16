@@ -12,7 +12,7 @@
         "disOnTplt": false,
         "elementValueMap": {
             "PortInConflict": "=(%event:eventType% = \"portin\" AND %event:adminEntityStatus% = \"conflict\" AND %event:transactionStatus% = \"aguardando-habilitacao-com-autorizacao-negada\")",
-            "PortinAuthorize": "=(%event:eventType% = \"portin\" AND %PortInput:TransactionStatus__c% = \"aguardando-habilitacao-com-autorizacao\" AND %event:adminEntityStatus% = \"pending\")",
+            "PortinAuthorize": "=(%event:eventType% = \"portin\" AND (%PortInput:TransactionStatus__c% = \"aguardando-habilitacao-com-autorizacao\" OR %PortInput:TransactionStatus__c% = \"aguardando-janela\") AND %event:adminEntityStatus% = \"pending\")",
             "PortinCancel": "=(%event:eventType% = \"portin\" AND %event:adminEntityStatus% = \"cancelled\"AND ISBLANK(%PortInput:CorrelatedId%))",
             "PortinChargebackCancel": "=(%event:eventType% = \"portout\" AND %event:adminEntityStatus% = \"cancelled\" AND ISNOTBLANK(%PortInput:CorrelatedId%))",
             "PortinChargebackRequest": "=(%event:eventType% = \"portout\" AND ISBLANK(%DREPortDetails:TicketStatus%) AND ISNOTBLANK(%PortInput:CorrelatedId%))",

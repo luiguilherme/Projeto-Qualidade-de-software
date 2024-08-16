@@ -6,7 +6,6 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
 {
     global Boolean invokeMethod(String methodName, Map<String, Object> inputs, Map<String, Object> output, Map<String, Object> options)
     {
-        System.Debug('Entrou no CustomFunctionService');  
         List<Object> arguments = (List<Object>) inputs.get('arguments');
         
         switch on methodName {
@@ -91,7 +90,15 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             when 'base64Decode'
             {output.put('result', base64Decode(arguments));}            
             when 'convertObjectToList'
-            {output.put('result', convertObjectToList(arguments));}                        
+            {output.put('result', convertObjectToList(arguments));}
+            when 'validaEid'
+            {output.put('result', validaEid(arguments));} 
+            when 'validaImei'
+            {output.put('result', validaImei(arguments));}             
+            when 'cloneAsset' 
+            {output.put('result', cloneAsset(arguments));}               
+            when 'productEligibilityQuery' 
+            {output.put('result', productEligibilityQuery(arguments));}
         }
         return true;
     }
@@ -679,9 +686,13 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     
     public static List<String> reorderComplements(List<Object> arguments) {
         String vlocityString = String.valueOf(arguments[0]);
+        System.debug('vlocityString ' + vlocityString);
         String vlocityStringFormated = vlocityString.subString(23, vlocityString.length()-2);
+        System.debug('vlocityStringFormated ' + vlocityStringFormated);
+
         
         List<String> items = vlocityStringFormated.split(', ');
+        System.debug('items ' + items);
         
         Integer size = items.size();
         List<String> result = new List<String>();
@@ -694,7 +705,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         }
         
         while (result.size() < 8) result.add('');
-        
+        System.debug('result ' + result);
         return result;
     }
     
@@ -888,15 +899,8 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         Integer  qtyDays		 	= Integer.valueOf(arguments[1]);
         String  func     		 	= String.valueOf(arguments[2]);
         Date    endDate;
-        
-        //if(func=='EndDate'){
-        //            qtyDays--;
-        //      }
-        
+               
         endDate = startDate.addDays(qtyDays);
-        //System.debug('startDate.: '+startDate);        
-        //System.debug('endDate  .: '+endDate);
-        //System.debug('func     .: '+func);        
         
         Map<Integer, Set<Date>> holidaysMap = new Map<Integer, Set<Date>>();
         
@@ -915,7 +919,6 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             holidaysSet.AddAll(holidaysMap.get(endDate.month()+1));
         }
         
-        System.debug('-----------------------------------------------');
         for (Date dt = startDate; dt <= endDate; dt = dt.addDays(1)) {
             DateTime currDate = DateTime.newInstance(dt.year(), dt.month(), dt.day());
             String weekDay = currDate.format('EEEE');
@@ -926,12 +929,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
                 endDate = endDate.AddDays(1);
             } else if (func == 'SegDom' && (holidaysSet.contains(dt))) {
                 endDate = endDate.AddDays(1);
-            }
-            
-            //system.debug('weekDay.: '+ weekDay);    
-            //system.debug('dt.: '+ dt);
-            //system.debug('holidaySet .: '+holidaysSet.contains(dt) );
-            //system.debug('endDate .: '+ endDate);
+            }            
         }
         return DateTime.newInstance(endDate.year(), endDate.month(), endDate.day(),0,0,0);
     }
@@ -1056,4 +1054,279 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             return new LIST<Map<String, Object>>();
         }    
     }
+
+    public static Boolean validaEid(List<Object> arguments) {
+        if(arguments == null) {
+            return false;
+        }
+        String numStr = String.valueOf(arguments[0]);
+        System.debug('numStr ' +numStr);
+        System.debug('numStr ' +numStr.length());
+        if (numStr == null || numStr.length() != 32) {
+            return false;
+        }
+        // Converter a string para Decimal para lidar com grandes números
+        Decimal numberValidate = Decimal.valueOf(numStr);
+        Decimal subtractedValue = numberValidate - 1;
+        Decimal result = subtractedValue / 97;
+        System.debug('result ' +result);
+        return result == result.setScale(0, RoundingMode.DOWN);
+    }
+    /*
+    * Autor....: Joao Quessada
+    * Projeto..: Valentina
+    * Descrição: Validacao de EID
+    * Data.....: 04/06/2024
+    */  
+    
+    public static Boolean validaImei(List<Object> arguments) {
+        if(arguments == null) {
+            return false;
+        }
+        
+        String imei = String.valueOf(arguments[0]);
+        if (imei == null || imei.length() != 15) {
+            return false;
+        }
+        Integer lastDigit = Integer.valueOf(imei.substring(imei.length() - 1));
+        Integer result = calculate(imei);
+        Integer roundedValue = roundUpToNextTen(result);
+        Integer finalResult = roundedValue - result;
+
+        return finalResult == lastDigit;
+    }
+
+    public static Integer calculate(String inputValue) {
+        Integer sum = 0;
+        
+        inputValue = inputValue.substring(0, inputValue.length() - 1);
+        
+        for (Integer i = 0; i < inputValue.length(); i++) {
+            Integer digit = Integer.valueOf(inputValue.substring(i, i + 1));
+            
+            if (Math.mod(i, 2) != 0) {
+                digit *= 2;
+                
+                if (digit >= 10) {
+                    sum += Integer.valueOf(Math.floor(digit / 10).intValue());
+                    sum += digit - (Integer.valueOf(Math.floor(digit / 10).intValue()) * 10);
+                } else {
+                    sum += digit;
+                }
+            } else {
+                sum += digit;
+            }
+        }
+        
+        return sum;
+    }
+    public static Integer roundUpToNextTen(Integer num) {
+        return (Integer)Math.ceil(num / 10.0) * 10;
+    }
+         /*
+    * Autor....: Joao Quessada
+    * Projeto..: Valentina
+    * Descrição: Validacao de IMEI
+    * Data.....: 04/06/2024
+    */  
+    public List<Map<String, String>> cloneAsset(List<Object> arguments) {
+        List<Map<String, String>> clonedAssets = new List<Map<String, String>>();
+        List<vlocity_cmt__InventoryItem__c> newInventoryItems = new List<vlocity_cmt__InventoryItem__c>();
+        Map<String, Object> argMap = (Map<String, Object>)arguments[0];
+        String oldCustomerAccount = (String) argMap.get('oldAccountId');
+        String oldServiceAccount = (String) argMap.get('oldServiceAccount');
+        List<String> oldAssetIds = new List<String>();
+        for (Object obj : (List<Object>) argMap.get('OldAssetId')) {
+            oldAssetIds.add((String) obj);
+        }
+
+        List<String> consumerAccounts = new List<String>();
+        for (Object obj : (List<Object>) argMap.get('ConsumerAccount')) {
+            consumerAccounts.add((String) obj);
+        }
+
+        List<String> newBillingAccounts = new List<String>();
+        for (Object obj : (List<Object>) argMap.get('NewBillingAccount')) {
+            newBillingAccounts.add((String) obj);
+        }
+
+        List<String> newServiceAccounts = new List<String>();
+        for (Object obj : (List<Object>) argMap.get('NewServiceAccount')) {
+            newServiceAccounts.add((String) obj);
+        }
+
+        List<String> newSubscriptions = new List<String>();
+        for (Object obj : (List<Object>) argMap.get('NewSubscription')) {
+            newSubscriptions.add((String) obj);
+        }
+
+        List<vlocity_cmt__InventoryItem__c> inventoryItems = [
+            SELECT Id,  vlocity_cmt__ServiceAccountId__c, vlocity_cmt__AccountId__c, vlocity_cmt__BillingAccountId__c 
+            FROM vlocity_cmt__InventoryItem__c 
+            WHERE vlocity_cmt__AccountId__c = :oldCustomerAccount
+            AND vlocity_cmt__ServiceAccountId__c = :oldServiceAccount
+        ];
+
+        for (vlocity_cmt__InventoryItem__c inventoryItem :inventoryItems) {
+            inventoryItem.vlocity_cmt__AccountId__c = consumerAccounts[0];
+            inventoryItem.vlocity_cmt__BillingAccountId__c = newBillingAccounts[0];
+            inventoryItem.vlocity_cmt__ServiceAccountId__c = newServiceAccounts[0];
+            newInventoryItems.add(inventoryItem);
+        }
+         
+        List<Asset> originalAssets = [SELECT Id, AccountId, AssetLevel, AssetProvidedById, AssetServicedById, Cabinet__c,
+            ContactId, CreatedById, CreatedDate, Description, DigitalServices__c, ExternalId__c, 
+            HasBonus__c, HasBonusFormula__c, HasDiscount__c, HasDiscountFormula__c, 
+            HolderDependent__c, IMEI__c, InstallDate, Instance__c, IsCompetitorProduct, IsDeleted, 
+            IsHolder__c, IsInternal, LastModifiedById, LastModifiedDate, LastReferencedDate, LastViewedDate, 
+            LegacyAssetId__c, LegacyIdentifier__c, LegacySystem__c, MainProductDescription__c, 
+            Name, NRCAccount__c, OwnerId, ParentId, PhoneNumber__c, Platform__c, PortfolioType__c, 
+            Price, PriceCurrent__c, PriceOver__c, Product2Id, ProductCode, ProductType__c, PurchaseDate, Quantity, 
+            RootAssetId, SerialNumber, SourceSystem__c, Speed__c, Status, StockKeepingUnit, Streaming__c, 
+            TVOfferFormula__c ,Type__c, UsageEndDate, vlocity_cmt__Action__c, 
+            vlocity_cmt__ActivationDate__c, vlocity_cmt__ActivationName__c, vlocity_cmt__AssetReferenceId__c, 
+            vlocity_cmt__AttributeSelectedValues__c, vlocity_cmt__BaseOneTimeCharge__c, vlocity_cmt__BaseOneTimeTotal__c, 
+            vlocity_cmt__BaseRecurringCharge__c, vlocity_cmt__BaseRecurringTotal__c, vlocity_cmt__BillingAccountId__c, 
+            vlocity_cmt__BillingHold__c, vlocity_cmt__CatalogItemReferenceDateTime__c, vlocity_cmt__ConnectDate__c, 
+            vlocity_cmt__ContractId__c, vlocity_cmt__ContractNumber__c, vlocity_cmt__CurrencyPaymentMode__c, 
+            vlocity_cmt__DeregulationStatus__c, vlocity_cmt__DisconnectDate__c, vlocity_cmt__EffectiveBaseOneTimeTotal__c, 
+            vlocity_cmt__EffectiveBaseRecurringTotal__c, vlocity_cmt__EffectiveOneTimeCostTotal__c, 
+            vlocity_cmt__EffectiveOneTimeLoyaltyTotal__c, vlocity_cmt__EffectiveOneTimeTotal__c, 
+            vlocity_cmt__EffectiveQuantity__c, vlocity_cmt__EffectiveRecurringCostTotal__c, 
+            vlocity_cmt__EffectiveRecurringTotal__c, vlocity_cmt__EffectiveUsageCostTotal__c, 
+            vlocity_cmt__EffectiveUsagePriceTotal__c, vlocity_cmt__EffectiveUsageQuantity__c, 
+            vlocity_cmt__FinancedAmount__c, vlocity_cmt__FinancedAmountTotal__c, vlocity_cmt__FinancedInstallmentAmount__c, 
+            vlocity_cmt__InCartQuantityMap__c, vlocity_cmt__InventoryItemId__c, vlocity_cmt__ItemName__c, 
+            vlocity_cmt__LineNumber__c, vlocity_cmt__OneTimeCalculatedPrice__c, vlocity_cmt__OneTimeCharge__c, 
+            vlocity_cmt__OneTimeCost__c, vlocity_cmt__OneTimeCostTotal__c, vlocity_cmt__OneTimeDiscountPrice__c, 
+            vlocity_cmt__OneTimeLoyaltyPrice__c, vlocity_cmt__OneTimeLoyaltyTotal__c, vlocity_cmt__OneTimeManualDiscount__c, 
+            vlocity_cmt__OneTimeMargin__c, vlocity_cmt__OneTimeTotal__c, vlocity_cmt__OrderId__c, 
+            vlocity_cmt__OrderProductId__c, vlocity_cmt__ParentItemId__c, vlocity_cmt__Password__c, 
+            vlocity_cmt__PremisesId__c, vlocity_cmt__PricebookEntryId__c, vlocity_cmt__PriceListId__c, 
+            vlocity_cmt__PricingLogData__c, vlocity_cmt__ProductAttribXN__c, vlocity_cmt__ProductGroupKey__c, 
+            vlocity_cmt__ProductHierarchyGroupKeyPath__c, vlocity_cmt__ProductHierarchyPath__c, 
+            vlocity_cmt__ProvisioningStatus__c, vlocity_cmt__RecurringCalculatedPrice__c, vlocity_cmt__RecurringCharge__c, 
+            vlocity_cmt__RecurringCost__c, vlocity_cmt__RecurringCostTotal__c, vlocity_cmt__RecurringDiscountPrice__c, 
+            vlocity_cmt__RecurringManualDiscount__c, vlocity_cmt__RecurringMargin__c, vlocity_cmt__RecurringTotal__c, 
+            vlocity_cmt__RecurringUOM__c, vlocity_cmt__ReliesOnItemId__c, vlocity_cmt__RootItemId__c, 
+            vlocity_cmt__SequenceNumber__c, vlocity_cmt__ServiceAccountId__c, vlocity_cmt__ServiceIdentifier__c, 
+            vlocity_cmt__ServicePointId__c, vlocity_cmt__SubscriptionId__c, vlocity_cmt__UsageCostTotal__c, 
+            vlocity_cmt__UsageMargin__c, vlocity_cmt__UsageMeasurementId__c, vlocity_cmt__UsagePriceTotal__c, 
+            vlocity_cmt__UsageQuantity__c, vlocity_cmt__UsageUnitCost__c, vlocity_cmt__UsageUnitPrice__c, 
+            vlocity_cmt__Username__c 
+        FROM Asset 
+        WHERE Id IN :oldAssetIds 
+        LIMIT 3
+        ];
+
+        Map<String, Asset> assetMap =  new Map<String, Asset>();
+        for (Asset asset : originalAssets) {
+            assetMap.put(asset.Id, asset);
+        }
+
+        List<Asset> assetsToUpdate = new List<Asset>();
+        List<Asset> assetsToInsert = new List<Asset>();
+
+        for (Integer i =0; i<oldAssetIds.size(); i++){
+            String assetId = oldAssetIds[i];
+            String consumerAccount = consumerAccounts[i];
+            String newBillingAccount = newBillingAccounts[i];
+            String newServiceAccount = newServiceAccounts[i];
+            String newSubscription = newSubscriptions[i];
+
+            Asset originalAsset =  assetMap.get(assetId);
+            
+            // Clonar o Asset
+            Asset clonedAsset = originalAsset.clone(false, false);
+            originalAsset.AccountId = consumerAccount;
+            originalAsset.vlocity_cmt__BillingAccountId__c = newBillingAccount;
+            originalAsset.vlocity_cmt__ServiceAccountId__c = newServiceAccount;
+            if (originalAsset.vlocity_cmt__ParentItemId__c==null) {
+                originalAsset.vlocity_cmt__SubscriptionId__c = newSubscription;
+            }
+            if (clonedAsset.LegacyIdentifier__c != null && clonedAsset.LegacyIdentifier__c.length() > 0) {
+                clonedAsset.LegacyIdentifier__c = 'X' + clonedAsset.LegacyIdentifier__c.substring(1);
+            }
+            // if (clonedAsset.ParentId != null) {
+            //     clonedAsset.ParentId += '_OLD';
+            // }
+            if (clonedAsset.vlocity_cmt__AssetReferenceId__c!= null) {
+                clonedAsset.vlocity_cmt__AssetReferenceId__c += '_OLD';
+            }
+            if (clonedAsset.vlocity_cmt__ParentItemId__c!= null) {
+                clonedAsset.vlocity_cmt__ParentItemId__c += '_OLD';
+            }
+            if (clonedAsset.vlocity_cmt__RootItemId__c!= null) {
+                clonedAsset.vlocity_cmt__RootItemId__c += '_OLD';
+            }
+            clonedAsset.Status = 'Desativado';
+            clonedAsset.vlocity_cmt__Action__c = 'Disconnect';
+            clonedAsset.vlocity_cmt__DisconnectDate__c = Datetime.now();
+            // Inserir o novo Asset clonado
+            if (originalAsset.Id!=null) {
+                assetsToUpdate.add(originalAsset);
+            }
+            System.debug('assetsToUpdate: ' + originalAsset.vlocity_cmt__RootItemId__c);
+            System.debug('assetsToInsert: ' + clonedAsset.vlocity_cmt__RootItemId__c);
+            assetsToInsert.add(clonedAsset);
+        }
+
+        List<OrderItem> originalOrderItems = [SELECT Id, vlocity_cmt__AssetId__c, vlocity_cmt__ParentItemId__c,
+        vlocity_cmt__SubscriptionId__c
+        FROM OrderItem 
+        WHERE vlocity_cmt__AssetId__c IN :oldAssetIds 
+        ];
+        
+        List<OrderItem> orderItemToUpdate = new List<OrderItem>();
+
+        for (OrderItem originalOrderItem : originalOrderItems){
+            if (originalOrderItem.vlocity_cmt__ParentItemId__c == null) {
+                originalOrderItem.vlocity_cmt__SubscriptionId__c= newSubscriptions[0];
+                orderItemToUpdate.add(originalOrderItem);
+            }
+        }
+
+
+        if (!orderItemToUpdate.isEmpty()) {
+            update orderItemToUpdate;
+        }
+        if (!assetsToUpdate.isEmpty()) {
+            update assetsToUpdate;
+        }
+        if (!assetsToInsert.isEmpty()) {
+            insert assetsToInsert;
+        }
+        if(!newInventoryItems.isEmpty()) {
+            update newInventoryItems;
+        }
+
+        for (Asset asset :assetsToUpdate) {
+            Map<String, String> assetMapItem = new Map<String, String>();
+            assetMapItem.put('id', asset.Id);
+            clonedAssets.add(assetMapItem);
+        }
+
+        return clonedAssets;
+    }
+    /*
+    * Autor....: Guilherme Kaiser - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método retornar os produtos elegiveis
+    * Data.....: 09/08/2024
+    */
+    public List<ProductEligibility__c> productEligibilityQuery(List<Object> arguments) {       
+        String ddd         = (String) arguments[0];
+        String productName = (String) arguments[1];
+        String productCode = (String) arguments[2];
+        productCode = '%'+productCode + '%';
+
+            // Montando a query com os valores fornecidos         
+            List<ProductEligibility__c> productEligibility= [SELECT Id, ProductId__c
+                                                               FROM ProductEligibility__c
+                                                              WHERE DDD__c INCLUDES ( :ddd )
+                                                                AND ProductId__r.Name =  :productName
+                                                                AND ProductId__r.ProductCode LIKE :productCode ];
+                                 
+            return productEligibility;
+	}
 }
