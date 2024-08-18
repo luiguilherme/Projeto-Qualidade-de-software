@@ -197,11 +197,8 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             userRecord.LocaleSidKey         = 'pt_BR';
             userRecord.TimeZoneSidKey       = 'America/Sao_Paulo';
             userRecord.LocaleSidKey         = 'pt_BR';
-            userRecord.EmailEncodingKey     = 'UTF-8';
-            
-            //Recuperar CNPJ atravês do código Adabas
-            userRecord.AdabasAssignedDocument__c = getAdabasAssignedDocumentByAdabasCode(userRecord.ChannelName__c, userRecord.Site__c, userRecord.Adabas__c);
-            
+            userRecord.EmailEncodingKey     = 'UTF-8';           
+           
             if (userRecord.Id == null) {
                 insert userRecord;
             } else{
