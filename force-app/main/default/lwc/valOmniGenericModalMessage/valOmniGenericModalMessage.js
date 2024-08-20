@@ -1,5 +1,6 @@
 import { LightningElement, api, track, } from 'lwc';
 import { OmniscriptBaseMixin } from 'vlocity_cmt/omniscriptBaseMixin';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import pubsub from "vlocity_cmt/pubsub";
 
 export default class ValOmniGenericModalMessage extends OmniscriptBaseMixin(LightningElement) {
@@ -10,6 +11,8 @@ export default class ValOmniGenericModalMessage extends OmniscriptBaseMixin(Ligh
 
     @api title;
     @api message;
+    @api messageToast;
+    @api variant;
     @api labelButtonLeft;
     @api labelButtonRight;
     showModal = false;
@@ -27,6 +30,7 @@ export default class ValOmniGenericModalMessage extends OmniscriptBaseMixin(Ligh
     }
 
     handleButtonRight() {
+        this.showToast("", this.messageToast, this.variant);
         this.next_step_omni();
         this.closeModal();
     }
@@ -34,5 +38,19 @@ export default class ValOmniGenericModalMessage extends OmniscriptBaseMixin(Ligh
     openModal(){
         this.showModal = true;
         console.log("showModal" + this.showModal);
+    }
+
+    showToast(title, message, variant) {
+        console.log('showToast ' + message + variant);
+        if(message!=null){
+            const toastParams ={
+                title: title,
+                message: message,
+                variant: variant
+            };
+            console.log('JSONtoastParams ' + JSON.stringify(toastParams));
+            const event =  new ShowToastEvent(toastParams);
+            this.dispatchEvent(event);
+        }
     }
 }
