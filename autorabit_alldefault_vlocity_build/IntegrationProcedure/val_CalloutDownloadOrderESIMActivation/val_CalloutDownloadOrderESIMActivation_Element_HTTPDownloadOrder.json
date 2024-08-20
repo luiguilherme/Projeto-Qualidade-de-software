@@ -1,9 +1,9 @@
 {
-    "%vlocity_namespace%__Active__c": false,
+    "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "valGetLineDetails",
+        "Name": "CalloutDownloadOrderESIMActivation",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/GetLineDetails/Procedure",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CalloutDownloadOrderESIMActivation/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
     "%vlocity_namespace%__PropertySet__c": {
@@ -19,31 +19,31 @@
         "failureConditionalFormula": "",
         "failureResponse": {
         },
-        "label": "HTTPAction3",
-        "namedCredential": "APITelefonica",
+        "label": "HTTPAction2",
+        "namedCredential": "APITelefonicaESim",
         "postActionLogging": "",
         "preActionLogging": "%endpoint%",
-        "responseJSONNode": "",
+        "responseJSONNode": "RespApi",
         "responseJSONPath": "",
-        "restMethod": "GET",
+        "restMethod": "POST",
         "restOptions": {
             "clientCertificateName": "",
             "headers": {
-                "system": "VALENTINA"
+                "Content-Type": "application/json;charset=utf-8"
             },
             "isCompressed": false,
             "params": {
             },
-            "sendBody": false,
+            "sendBody": true,
             "timeout": 0,
             "xmlEscapeResponse": false
         },
-        "restPath": "/odp/ResourceActivationAndConfiguration/v1/resource?ro.type=R_MOBILE&roi.name=RETRIEVE_DEVICE_HISTORY_IMEI&roi.characteristic=%SVMSISDN:msisdn%",
+        "restPath": "/ooap/gsmaE2Plus/v1/downloadOrder",
         "retryCount": 0,
         "returnOnlyAdditionalOutput": false,
         "returnOnlyFailureResponse": false,
-        "sendJSONNode": "response",
-        "sendJSONPath": "",
+        "sendJSONNode": "",
+        "sendJSONPath": "bodyDownloadOrder",
         "sendOnlyAdditionalInput": false,
         "show": null,
         "type": "Integration",
@@ -51,8 +51,8 @@
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
     "%vlocity_namespace%__Type__c": "Rest Action",
-    "Name": "HTTPResourceMain",
+    "Name": "HTTPDownloadOrder",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetLineDetails/Procedure/HTTPResourceMain"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CalloutDownloadOrderESIMActivation/Procedure/HTTPDownloadOrder"
 }
