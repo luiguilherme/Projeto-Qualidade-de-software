@@ -44,15 +44,16 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
           return this._sessionApiVars["OrderType"] || "";
         }
       
-              @track Label={Close:"Close",
-      CPQDelete:"Delete",
-      CPQCartPreview:"Cart Preview"
-      };
+              @track Label={CPQCartPreview:"Ver Carrinho",
+        CPQDelete:"Remover",
+        Close:"Fechar"
+        };
               pubsubEvent = [];
               customEvent = [];
               
               connectedCallback() {
                 super.connectedCallback();
+                this.setThemeClass(data);
                 this.setStyleDefinition(styleDef);
                 data.Session = {} //reinitialize on reload
                 
