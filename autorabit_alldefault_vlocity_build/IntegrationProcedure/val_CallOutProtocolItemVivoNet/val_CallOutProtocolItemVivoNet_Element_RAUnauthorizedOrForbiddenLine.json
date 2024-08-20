@@ -1,0 +1,55 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valCallOutProtocolItemVivoNet",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CallOutProtocolItemVivoNet/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__ParentElementId__c": {
+        "%vlocity_namespace%__OmniScriptId__c": {
+            "Name": "valCallOutProtocolItemVivoNet",
+            "VlocityDataPackType": "VlocityMatchingKeyObject",
+            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CallOutProtocolItemVivoNet/Procedure",
+            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+        },
+        "Name": "CBLineNumber",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CallOutProtocolItemVivoNet/Procedure/CBLineNumber",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
+    },
+    "%vlocity_namespace%__ParentElementName__c": "CBLineNumber",
+    "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
+    "%vlocity_namespace%__PropertySet__c": {
+        "additionalOutput": {
+            "idAtendimento": false,
+            "interactionId": "%interactionId%",
+            "message": "Não foi possível gerar o registro de relacionamento com o cliente (Palitagem). Realize o registro de forma manual",
+            "status": "Unauthorized or Forbidden",
+            "variant": "error"
+        },
+        "disOnTplt": false,
+        "executionConditionalFormula": "IF(%HTTPCreateInteractionTopicLine:errorCode% == 401 || %HTTPCreateInteractionTopicLine:errorCode% == 403 || %HTTPCreateInteractionTopicInfoLine:statusCode% == 401 || %HTTPCreateInteractionTopicInfoLine:statusCode% == 403, true, false)",
+        "label": "ResponseAction3",
+        "responseDefaultData": {
+        },
+        "responseFormat": "JSON",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "returnFullDataJSON": false,
+        "returnOnlyAdditionalOutput": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "show": null,
+        "useFormulas": true,
+        "vlcResponseHeaders": {
+            "statusCode": 403
+        }
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Response Action",
+    "Name": "RAUnauthorizedOrForbiddenLine",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CallOutProtocolItemVivoNet/Procedure/RAUnauthorizedOrForbiddenLine"
+}
