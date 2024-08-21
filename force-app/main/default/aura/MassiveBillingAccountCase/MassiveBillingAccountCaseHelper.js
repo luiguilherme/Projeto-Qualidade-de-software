@@ -1,12 +1,12 @@
 ({
     loadColumsAsset: function(component){
 		component.set('v.columnsAsset', [
-            {label: 'Plano', fieldName: 'MainProductDescription__c', type: 'text'},
-            {label: 'Instância', fieldName: 'Instance__c', type: 'text'},
-            {label: 'Massiva Fixa', type: 'button', initialWidth: 150, typeAttributes:
-                { label: { fieldName: 'actionLabelFixed'}, title: 'Click para visualizar casos de massiva fixa', name: 'viewFixedMassive', label: 'Verificar', iconName: 'utility:preview', disabled: {fieldName: 'actionDisabledFixed'}, class: 'btn_next'}},
-            {label: 'Suspeita de Massiva', type: 'button', initialWidth: 150, typeAttributes:
-                { label: { fieldName: 'actionLabelSuspect'}, title: 'Click para visualizar casos de suspeita de massivas', name: 'viewSuspicionMassive', label: 'Verificar', iconName: 'utility:preview', disabled: {fieldName: 'actionDisabledSuspicion'}, class: 'btn_next'}}
+            {label: 'Plano', fieldName: 'MainProductDescription__c', type: 'text', fixedWidth: 228, hideDefaultActions: true},
+            {label: 'Instância', fieldName: 'Instance__c', type: 'text', fixedWidth: 228, hideDefaultActions: true},
+            {label: 'Massiva Fixa', type: 'button', fixedWidth: 150, typeAttributes:
+             { label: { fieldName: 'actionLabelFixed'}, title: 'Click para visualizar casos de massiva fixa', name: 'viewFixedMassive', label: 'Verificar', iconName: 'utility:preview', disabled: {fieldName: 'actionDisabledFixed'}, class: 'btn_next'}},
+            {label: 'Suspeita de Massiva', type: 'button', fixedWidth: 150, typeAttributes:
+             { label: { fieldName: 'actionLabelSuspect'}, title: 'Click para visualizar casos de suspeita de massivas', name: 'viewSuspicionMassive', label: 'Verificar', iconName: 'utility:preview', disabled: {fieldName: 'actionDisabledSuspicion'}, class: 'btn_next'}}
         ]);
 	},
 

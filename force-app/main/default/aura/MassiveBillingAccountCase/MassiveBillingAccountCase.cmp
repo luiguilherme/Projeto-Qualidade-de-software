@@ -23,15 +23,13 @@
                 <div class="slds-card__header slds-grid slds-align_absolute-center">
                     <header class="slds-media slds-media_center slds-has-flexi-truncate">
                         <div class="slds-media__figure">
-                            <span class="slds-icon_container slds-icon-standard-account" title="account">
-                                <lightning:icon iconName="standard:related_list" title="Massivo Fixa" />
+                            <span class="slds-icon_container slds-icon-standard-account">
+                                <lightning:icon iconName="standard:related_list"/>
                             </span>
                         </div>
                         <div class="slds-media__body">
-                            <h2 class="slds-card__header-title">
-                                <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" style="font-size: 14pt;" title="Massivo Fixa">
-                                    <span>Incidência de Massiva Fixa</span>
-                                </a>
+                            <h2 class="slds-card__header-title" style="font-size: 14pt;">
+                            	<span>Incidência de Massiva Fixa</span>
                             </h2>
                         </div>
                     </header>
@@ -58,8 +56,8 @@
                                                 <dt class="slds-item_label slds-text-color_weak slds-truncate" title="First Label">Plano:</dt>
                                                 <dd class="slds-item_detail slds-truncate" title="Description for first label">{!descr.MainProductDescription__c}</dd>
                                             </dl>
-                                            <lightning:button title = "Click para visualizar casos de suspeita de massivas" name= "viewSuspicionMassive" label= "Suspeita de Massiva" iconName= "utility:preview" class= "btn_next" onclick = "{! c.handleClickAction }" value = "{!descr}"> </lightning:button>
-                                        <lightning:button title = "Click para visualizar casos de massiva fixa" name= "viewFixedMassive" label= "Massiva Fixa" iconName= "utility:preview" class= "btn_next" onclick = "{! c.handleClickAction }" value = "{!descr}"> </lightning:button>
+                                            <lightning:button title = "Click para visualizar casos de suspeita de massivas" name= "viewSuspicionMassive" label= "Suspeita de Massiva" iconName= "utility:preview" class= "btn_next" onclick = "{! c.handleClickAction }" value = "{!descr}" > </lightning:button>
+                                        	<lightning:button title = "Click para visualizar casos de massiva fixa" name= "viewFixedMassive" label= "Massiva Fixa" iconName= "utility:preview" class= "btn_next" onclick = "{! c.handleClickAction }" value = "{!descr}" > </lightning:button>
                                           </div>
                                         </article>
                                     </aura:iteration>
@@ -69,7 +67,9 @@
                                         data="{! accBilling.ltAsset }" 
                                         columns="{! v.columnsAsset }" 
                                         hideCheckboxColumn="true"
-                                        onrowaction="{! c.handleRowAction }"/>
+                                        onrowaction="{! c.handleRowAction }"
+                                        aria-label="Incidência de Massiva Fixa"                   
+                                        />
                                       </aura:set>
                                 </aura:if>
                                 
@@ -118,7 +118,9 @@
                                                         keyField="id" 
                                                         data="{!v.ltMassive}" 
                                                         columns="{!v.columnsTicket}" 
-                                                        hideCheckboxColumn="true"/>
+                                                        hideCheckboxColumn="true"
+                                                        aria-label="Incidência de Massiva Fixa"               
+                                                        />
                                                       </aura:set>
                                                 </aura:if>
 
