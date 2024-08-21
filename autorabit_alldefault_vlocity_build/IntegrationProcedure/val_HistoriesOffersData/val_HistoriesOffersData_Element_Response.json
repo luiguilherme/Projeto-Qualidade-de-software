@@ -8,7 +8,7 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "code": "%code%",
+            "code": "=IF(%code%==200&&%ResponsePageControl:size%==0,\"EmptySuccess\",%code%)",
             "message": "=IF(%code%==200&&%ResponsePageControl:size%==0,\"Nenhum registro no período\", IF(%code%!=200,\"Serviço Indisponível\",\"\"))",
             "offers": "%Offers%",
             "pageControl": "%ResponsePageControl%"
