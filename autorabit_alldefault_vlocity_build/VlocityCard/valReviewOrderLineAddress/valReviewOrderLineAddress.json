@@ -5,6 +5,11 @@
                 "id": 3,
                 "name": "Parent.serviceIdentifier",
                 "val": "11973366638"
+            },
+            {
+                "id": 4,
+                "name": "Parent.OrderId",
+                "val": ""
             }
         ],
         "orderBy": {
@@ -15,10 +20,11 @@
         "value": {
             "dsDelay": "",
             "inputMap": {
+                "OrderId": "{Parent.OrderId}",
                 "serviceIdentifier": "{Parent.serviceIdentifier}"
             },
             "ipMethod": "val_OrderReviewLineAddress",
-            "jsonMap": "{\"Parent.serviceIdentifier\":\"{Parent.serviceIdentifier}\"}",
+            "jsonMap": "{\"Parent.serviceIdentifier\":\"{Parent.serviceIdentifier}\",\"Parent.OrderId\":\"{Parent.OrderId}\"}",
             "resultVar": "",
             "vlocityAsync": false
         }
@@ -33,6 +39,13 @@
         "NamespacePrefix": "c"
     },
     "selectableMode": "Multi",
+    "sessionVars": [
+        {
+            "isApi": true,
+            "name": "AssetId",
+            "val": ""
+        }
+    ],
     "states": [
         {
             "actions": [
@@ -3480,6 +3493,48 @@
                     }
                 }
             ]
+        },
+        {
+            "@attributes": {
+                "targets": "lightning__HomePage"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "label": "AssetId",
+                        "name": "cfAssetId",
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        {
+            "@attributes": {
+                "targets": "lightning__AppPage"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "label": "AssetId",
+                        "name": "cfAssetId",
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        {
+            "@attributes": {
+                "targets": "lightning__RecordPage"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "label": "AssetId",
+                        "name": "cfAssetId",
+                        "type": "String"
+                    }
+                }
+            ]
         }
     ],
     "xmlObject": {
@@ -3488,14 +3543,13 @@
         "isExposed": true,
         "masterLabel": "valReviewOrderLineAddress",
         "runtimeNamespace": "%vlocity_namespace%",
-        "targetConfigs": "PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdDb21tdW5pdHlfX0RlZmF1bHQiPgogICAgICA8cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPgogICAgPC90YXJnZXRDb25maWc+",
+        "targetConfigs": "PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nQ29tbXVuaXR5X19EZWZhdWx0Ij48cHJvcGVydHkgIG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nX19Ib21lUGFnZSI+PHByb3BlcnR5ICBuYW1lPSJjZkFzc2V0SWQiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkFzc2V0SWQiPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nX19BcHBQYWdlIj48cHJvcGVydHkgIG5hbWU9ImNmQXNzZXRJZCIgdHlwZT0iU3RyaW5nIiBsYWJlbD0iQXNzZXRJZCI+PC9wcm9wZXJ0eT48L3RhcmdldENvbmZpZz48dGFyZ2V0Q29uZmlnICB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPjxwcm9wZXJ0eSAgbmFtZT0iY2ZBc3NldElkIiB0eXBlPSJTdHJpbmciIGxhYmVsPSJBc3NldElkIj48L3Byb3BlcnR5PjwvdGFyZ2V0Q29uZmlnPg==",
         "targets": {
             "target": [
-                "lightningCommunity__Page",
-                "lightning__AppPage",
+                "lightningCommunity__Default",
                 "lightning__HomePage",
-                "lightning__RecordPage",
-                "lightningCommunity__Default"
+                "lightning__AppPage",
+                "lightning__RecordPage"
             ]
         }
     }
