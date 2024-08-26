@@ -70,28 +70,18 @@
             }
         };
 
-        let listIdPhoneNumber = [];
-        phoneNumber.forEach(item => {
-            listIdPhoneNumber.push(item.Id);
-        });
-  
         LightningUtil.callApex(
             component,
             'getCanvasData',
-            { 
-                'listRecordId': listIdPhoneNumber,
-                'tipoOferta' : phoneNumber[0].tipoOferta 
-            },
+            { 'recordId': phoneNumber.Id },
             (result) => {
-                let assetObj = component.get('v.phoneNumber')[0];
-                result.parameters.protocoloAtendimento = assetObj.customerInteractionNumber;
-                result.parameters.telefoneMigracao = assetObj.Name;
+                let assetObj = component.get('v.phoneNumber');
+                result.parameters.telefoneMigracao = assetObj.PhoneNumber__c;
                 result.parameters.tipoProduto = assetObj.ProductType__c;
                 result.parameters.idInteracao = assetObj.topicId;
-                                
                 component.set("v.isloading", false);
                 console.log('CanvasCPQController.onInit - action.callback - returnValue', result);
-                
+                   
                 component.set("v.canOpenCanvas",    result.canOpenCanvas);
                 component.set("v.message",          result.message);
                 component.set("v.canvasAppName",    result.canvasAppName);
@@ -99,6 +89,7 @@
             },
             callbackError
         );
+
         
 
     },
