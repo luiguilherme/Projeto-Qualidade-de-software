@@ -8,15 +8,15 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "Status": "=IF(HTTPAntecipateInfo:statusCode != 200, false, true)",
+            "Status": "=IF(HTTPAntecipateInfo:statusCode >= 300, false, true)",
             "interactionTopicId": "=IPCreateCustomerInteractionAndTopic:interactionTopicId",
-            "message": "=IF(HTTPAntecipateInfo:statusCode != 200, \"Antecipação da promoção não pode ser realizada. Tente novamente mais tarde.\", \"Promoção antecipada com sucesso.\")",
+            "message": "=IF(HTTPAntecipateInfo:statusCode >= 300, \"Antecipação da promoção não pode ser realizada. Tente novamente mais tarde.\", \"Promoção antecipada com sucesso.\")",
             "orderResult": "%RACreateOrder%",
             "orderStatus": "%DRUpdateOrderGeneric%",
             "responseProtocolItem": "%IPCalloutProtocolItemVivoNet%",
             "statusCode": "=HTTPAntecipateInfo:statusCode",
             "topicName": "=IPGetTopicDetails:topicName",
-            "variant": "=IF(HTTPAntecipateInfo:statusCode != 200, \"error\", \"success\")"
+            "variant": "=IF(HTTPAntecipateInfo:statusCode >= 300, \"error\", \"success\")"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",
