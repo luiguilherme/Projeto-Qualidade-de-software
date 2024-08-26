@@ -2,14 +2,9 @@
     "dataSource": {
         "contextVariables": [
             {
-                "id": 16,
-                "name": "objectApiName",
-                "val": "Account"
-            },
-            {
-                "id": 17,
+                "id": 4,
                 "name": "recordId",
-                "val": "0017600000NxNmrAAF"
+                "val": ""
             }
         ],
         "orderBy": {
@@ -20,11 +15,10 @@
         "value": {
             "dsDelay": "",
             "inputMap": {
-                "objectApiName": "{objectApiName}",
                 "recordId": "{recordId}"
             },
             "ipMethod": "val_GetAccountData",
-            "jsonMap": "{\"objectApiName\":\"{objectApiName}\",\"recordId\":\"{recordId}\"}",
+            "jsonMap": "{\"recordId\":\"{recordId}\"}",
             "resultVar": "",
             "vlocityAsync": false
         }
@@ -38,15 +32,16 @@
     "globalCSS": true,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValPrePaidAssetDetailsButtons_RechargeButton_3_Telefonica",
-        "Id": "0Rb76000000DQT6CAO",
+        "DeveloperName": "cfValChildReviewCustomerDetailButtons_12_Telefonica",
+        "Id": "0Rb76000000L6RQCA0",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValPrePaidAssetDetailsButtons_RechargeButton_3_Telefonica",
+        "MasterLabel": "cfValChildReviewCustomerDetailButtons_12_Telefonica",
         "NamespacePrefix": "c"
     },
     "multilanguageSupport": true,
     "osSupport": true,
     "selectableMode": "Multi",
+    "selectedCardsLabel": "",
     "sessionVars": [
         {
             "name": "ProtocolNumber",
@@ -418,15 +413,21 @@
                                                         "actionIndex": 0,
                                                         "card": "{card}",
                                                         "draggable": true,
-                                                        "isOpen": true,
+                                                        "isOpen": false,
                                                         "key": "1708450698666-e5kcrxsjf",
                                                         "label": "CheckBiometric",
                                                         "stateAction": {
                                                             "Web Page": {
                                                                 "targetName": "/apex"
                                                             },
+                                                            "actionConditions": {
+                                                                "group": [
+                                                                ],
+                                                                "id": "state-condition-object",
+                                                                "isParent": true
+                                                            },
                                                             "displayName": "Action",
-                                                            "id": "flex-action-1712011058377",
+                                                            "id": "flex-action-1713302104748",
                                                             "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateAllJourneys\",\"vlocityAsync\":false,\"inputMap\":{\"serviceType\":\"500\",\"InteractionId\":\"{recordId}\",\"CheckBiometric\":\"true\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":false},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"\",\"id\":4}]}",
                                                             "openUrlIn": "Current Window",
                                                             "targetType": "Web Page",
@@ -463,7 +464,7 @@
                                                                 "variant": "{variant}"
                                                             },
                                                             "hasExtraParams": true,
-                                                            "id": "flex-action-1712009803830",
+                                                            "id": "flex-action-1713302073440",
                                                             "message": "showToast",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -474,8 +475,45 @@
                                                     {
                                                         "actionIndex": 2,
                                                         "card": "{card}",
-                                                        "draggable": true,
-                                                        "isOpen": false,
+                                                        "draggable": false,
+                                                        "isOpen": true,
+                                                        "key": "1715606118149-1e6y8xfb6",
+                                                        "label": "ToastAccountData",
+                                                        "stateAction": {
+                                                            "actionConditions": {
+                                                                "group": [
+                                                                    {
+                                                                        "field": "AccountDataValidation",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-494",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "false"
+                                                                    }
+                                                                ],
+                                                                "id": "state-condition-object",
+                                                                "isParent": true
+                                                            },
+                                                            "displayName": "Action",
+                                                            "eventName": "valToast",
+                                                            "extraParams": {
+                                                                "message": "Verificar o cadastro do cliente",
+                                                                "variant": "error"
+                                                            },
+                                                            "hasExtraParams": true,
+                                                            "id": "flex-action-1715610291736",
+                                                            "message": "showToast",
+                                                            "openUrlIn": "Current Window",
+                                                            "subType": "PubSub",
+                                                            "type": "Event",
+                                                            "vlocityIcon": "standard-default"
+                                                        }
+                                                    },
+                                                    {
+                                                        "actionIndex": 3,
+                                                        "card": "{card}",
+                                                        "draggable": false,
+                                                        "isOpen": true,
                                                         "key": "1678474230737-uy21m2u00",
                                                         "label": "ValidateEnableLineIP",
                                                         "stateAction": {
@@ -497,7 +535,16 @@
                                                                         "hasMergeField": false,
                                                                         "id": "state-new-condition-0",
                                                                         "logicalOperator": "&&",
-                                                                        "operator": "==",
+                                                                        "operator": "!=",
+                                                                        "type": "custom",
+                                                                        "value": "true"
+                                                                    },
+                                                                    {
+                                                                        "field": "AccountDataValidation",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-501",
+                                                                        "logicalOperator": "&&",
+                                                                        "operator": "!=",
                                                                         "type": "custom",
                                                                         "value": "false"
                                                                     }
@@ -506,7 +553,7 @@
                                                                 "isParent": true
                                                             },
                                                             "displayName": "Action",
-                                                            "id": "flex-action-1712009982181",
+                                                            "id": "flex-action-1722953903235",
                                                             "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateEnableLine\",\"vlocityAsync\":false,\"inputMap\":{\"UserId\":\"{User.userId}\",\"Phone\":\"{CustomerDetails.ContactDetails.ContactPhone}\",\"Protocol\":\"{InteractionNumberResponse}\",\"CPF\":\"{CustomerDetails.Documents.DocumentNumberRaw}\",\"CustomerName\":\"{CustomerDetails.PersonalData.CustomerName}\"},\"jsonMap\":\"{\\\"User.userId\\\":\\\"{User.userId}\\\",\\\"InteractionNumberResponse\\\":\\\"{InteractionNumberResponse}\\\",\\\"CustomerDetails.Documents.DocumentNumberRaw\\\":\\\"{CustomerDetails.Documents.DocumentNumberRaw}\\\",\\\"CustomerDetails.ContactDetails.ContactPhone\\\":\\\"{CustomerDetails.ContactDetails.ContactPhone}\\\",\\\"CustomerDetails.PersonalData.CustomerName\\\":\\\"{CustomerDetails.PersonalData.CustomerName}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":false},\"contextVariables\":[{\"name\":\"User.userId\",\"val\":\"00576000001Zf7mAAC\",\"id\":5},{\"name\":\"InteractionNumberResponse\",\"val\":\"0\",\"id\":10},{\"name\":\"CustomerDetails.Documents.DocumentNumberRaw\",\"val\":\"47991921832\",\"id\":14},{\"name\":\"CustomerDetails.ContactDetails.ContactPhone\",\"val\":\"0\",\"id\":14},{\"name\":\"CustomerDetails.PersonalData.CustomerName\",\"val\":\"ALEXSANDER DE ANDRADE\",\"id\":9}]}",
                                                             "openUrlIn": "Current Window",
                                                             "responseNode": "EnableLine",
@@ -518,8 +565,8 @@
                                                     {
                                                         "actionIndex": 3,
                                                         "card": "{card}",
-                                                        "draggable": true,
-                                                        "isOpen": false,
+                                                        "draggable": false,
+                                                        "isOpen": true,
                                                         "key": "1678458727873-rdbz7ed8m",
                                                         "label": "ToastSuccess",
                                                         "stateAction": {
@@ -554,11 +601,11 @@
                                                                     {
                                                                         "field": "blockJourney",
                                                                         "hasMergeField": false,
-                                                                        "id": "state-new-condition-10",
+                                                                        "id": "state-new-condition-0",
                                                                         "logicalOperator": "&&",
-                                                                        "operator": "==",
+                                                                        "operator": "!=",
                                                                         "type": "custom",
-                                                                        "value": "false"
+                                                                        "value": "true"
                                                                     }
                                                                 ],
                                                                 "id": "state-condition-object",
@@ -571,7 +618,7 @@
                                                                 "variant": "success"
                                                             },
                                                             "hasExtraParams": true,
-                                                            "id": "flex-action-1712010013398",
+                                                            "id": "flex-action-1713302220149",
                                                             "message": "showToast",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -582,8 +629,8 @@
                                                     {
                                                         "actionIndex": 4,
                                                         "card": "{card}",
-                                                        "draggable": true,
-                                                        "isOpen": false,
+                                                        "draggable": false,
+                                                        "isOpen": true,
                                                         "key": "1681132236941-ajapq1m0p",
                                                         "label": "ToastError",
                                                         "stateAction": {
@@ -618,11 +665,11 @@
                                                                     {
                                                                         "field": "blockJourney",
                                                                         "hasMergeField": false,
-                                                                        "id": "state-new-condition-29",
+                                                                        "id": "state-new-condition-16",
                                                                         "logicalOperator": "&&",
-                                                                        "operator": "==",
+                                                                        "operator": "!=",
                                                                         "type": "custom",
-                                                                        "value": "false"
+                                                                        "value": "true"
                                                                     }
                                                                 ],
                                                                 "id": "state-condition-object",
@@ -635,7 +682,7 @@
                                                                 "variant": "error"
                                                             },
                                                             "hasExtraParams": true,
-                                                            "id": "flex-action-1712010030006",
+                                                            "id": "flex-action-1713302243832",
                                                             "message": "showToast",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -644,10 +691,10 @@
                                                         }
                                                     },
                                                     {
-                                                        "actionIndex": 5,
+                                                        "actionIndex": 6,
                                                         "card": "{card}",
-                                                        "draggable": true,
-                                                        "isOpen": false,
+                                                        "draggable": false,
+                                                        "isOpen": true,
                                                         "key": "1679083119100-vujmgvr6h",
                                                         "label": "ValidateLineEnablement",
                                                         "stateAction": {
@@ -659,8 +706,17 @@
                                                                     {
                                                                         "field": "blockJourney",
                                                                         "hasMergeField": false,
-                                                                        "id": "state-new-condition-45",
-                                                                        "operator": "==",
+                                                                        "id": "state-new-condition-40",
+                                                                        "operator": "!=",
+                                                                        "type": "custom",
+                                                                        "value": "true"
+                                                                    },
+                                                                    {
+                                                                        "field": "AccountDataValidation",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-514",
+                                                                        "logicalOperator": "&&",
+                                                                        "operator": "!=",
                                                                         "type": "custom",
                                                                         "value": "false"
                                                                     }
@@ -669,7 +725,7 @@
                                                                 "isParent": true
                                                             },
                                                             "displayName": "Action",
-                                                            "id": "flex-action-1712010053087",
+                                                            "id": "flex-action-1715610396338",
                                                             "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateCustomerLineEnablement\",\"vlocityAsync\":false,\"inputMap\":{\"ContextId\":\"{recordId}\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":false},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"a1c76000001LvuVAAS\",\"id\":17}]}",
                                                             "openUrlIn": "Current Window",
                                                             "responseNode": "",
@@ -679,11 +735,11 @@
                                                         }
                                                     },
                                                     {
-                                                        "actionIndex": 6,
+                                                        "actionIndex": 7,
                                                         "card": "{card}",
                                                         "contextId": "\\{recordId}",
                                                         "draggable": true,
-                                                        "isOpen": false,
+                                                        "isOpen": true,
                                                         "key": "1679083377835-11xmb4q95",
                                                         "label": "StartSalesJourneyApprovalProcess",
                                                         "stateAction": {
@@ -698,25 +754,29 @@
                                                                         "value": "CPF"
                                                                     },
                                                                     {
-                                                                        "group": [
-                                                                            {
-                                                                                "field": "EnableLine.Eligible",
-                                                                                "hasMergeField": false,
-                                                                                "id": "state-new-condition-95",
-                                                                                "operator": "==",
-                                                                                "type": "custom",
-                                                                                "value": "1"
-                                                                            }
-                                                                        ],
-                                                                        "id": "state-new-group-96",
-                                                                        "logicalOperator": "&&"
+                                                                        "field": "EnableLine.Eligible",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-327",
+                                                                        "logicalOperator": "&&",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "1"
                                                                     },
                                                                     {
                                                                         "field": "blockJourney",
                                                                         "hasMergeField": false,
-                                                                        "id": "state-new-condition-52",
+                                                                        "id": "state-new-condition-47",
                                                                         "logicalOperator": "&&",
-                                                                        "operator": "==",
+                                                                        "operator": "!=",
+                                                                        "type": "custom",
+                                                                        "value": "true"
+                                                                    },
+                                                                    {
+                                                                        "field": "AccountDataValidation",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-8",
+                                                                        "logicalOperator": "&&",
+                                                                        "operator": "!=",
                                                                         "type": "custom",
                                                                         "value": "false"
                                                                     }
@@ -728,14 +788,17 @@
                                                             "extraParams": {
                                                                 "c__birthDate": "{EnableLine.birthDate}",
                                                                 "c__bureauName": "{EnableLine.name}",
+                                                                "c__cpf": "{CustomerDetails.Documents.DocumentNumberRaw}",
                                                                 "c__customerName": "{CustomerDetails.PersonalData.CustomerName}",
                                                                 "c__eligible": "{Eligible}",
+                                                                "c__email": "{CustomerDetails.ContactDetails.Email}",
                                                                 "c__errorMessage": "{ErrorMessage}",
                                                                 "c__limitQtyMonth": "{limitQtyMonth}",
+                                                                "c__otherEmail": "{CustomerDetails.ContactDetails.OtherEmail}",
                                                                 "c__totalLimit": "{totalLimit}"
                                                             },
                                                             "hasExtraParams": true,
-                                                            "id": "flex-action-1712010078811",
+                                                            "id": "flex-action-1722953945347",
                                                             "isLwcOS": true,
                                                             "layoutType": "lightning",
                                                             "omniType": {
@@ -751,7 +814,7 @@
                                                         }
                                                     },
                                                     {
-                                                        "actionIndex": 7,
+                                                        "actionIndex": 8,
                                                         "card": "{card}",
                                                         "contextId": "\\{recordId}",
                                                         "draggable": true,
@@ -764,7 +827,7 @@
                                                                     {
                                                                         "field": "CustomerDetails.Documents.DocumentType",
                                                                         "hasMergeField": false,
-                                                                        "id": "state-new-condition-39",
+                                                                        "id": "state-new-condition-351",
                                                                         "operator": "!=",
                                                                         "type": "custom",
                                                                         "value": "CPF"
@@ -772,9 +835,18 @@
                                                                     {
                                                                         "field": "blockJourney",
                                                                         "hasMergeField": false,
-                                                                        "id": "state-new-condition-68",
+                                                                        "id": "state-new-condition-60",
                                                                         "logicalOperator": "&&",
-                                                                        "operator": "==",
+                                                                        "operator": "!=",
+                                                                        "type": "custom",
+                                                                        "value": "true"
+                                                                    },
+                                                                    {
+                                                                        "field": "AccountDataValidation",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-524",
+                                                                        "logicalOperator": "&&",
+                                                                        "operator": "!=",
                                                                         "type": "custom",
                                                                         "value": "false"
                                                                     }
@@ -783,7 +855,13 @@
                                                                 "isParent": true
                                                             },
                                                             "displayName": "Action",
-                                                            "id": "flex-action-1712010105843",
+                                                            "extraParams": {
+                                                                "c__cpf": "{CustomerDetails.Documents.DocumentNumberRaw}",
+                                                                "c__email": "{CustomerDetails.ContactDetails.Email}",
+                                                                "c__otherEmail": "{CustomerDetails.ContactDetails.OtherEmail}"
+                                                            },
+                                                            "hasExtraParams": true,
+                                                            "id": "flex-action-1720543336388",
                                                             "isLwcOS": true,
                                                             "layoutType": "lightning",
                                                             "omniType": {
@@ -799,50 +877,7 @@
                                                         }
                                                     },
                                                     {
-                                                        "actionIndex": 8,
-                                                        "card": "{card}",
-                                                        "draggable": true,
-                                                        "isOpen": false,
-                                                        "key": "1701865523882-z4u8nkoje",
-                                                        "label": "ValidateEmailAction",
-                                                        "stateAction": {
-                                                            "Web Page": {
-                                                                "targetName": "/apex"
-                                                            },
-                                                            "actionConditions": {
-                                                                "group": [
-                                                                    {
-                                                                        "field": "1",
-                                                                        "hasMergeField": false,
-                                                                        "id": "state-new-condition-0",
-                                                                        "operator": "==",
-                                                                        "type": "custom",
-                                                                        "value": "2"
-                                                                    },
-                                                                    {
-                                                                        "field": "blockJourney",
-                                                                        "hasMergeField": false,
-                                                                        "id": "state-new-condition-78",
-                                                                        "logicalOperator": "&&",
-                                                                        "operator": "==",
-                                                                        "type": "custom",
-                                                                        "value": "false"
-                                                                    }
-                                                                ],
-                                                                "id": "state-condition-object",
-                                                                "isParent": true
-                                                            },
-                                                            "displayName": "Action",
-                                                            "id": "flex-action-1712010135937",
-                                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ExternalValidateEmail\",\"vlocityAsync\":false,\"inputMap\":{\"attendentCode\":\"{userAdabas}\",\"attendentName\":\"{User.userName}\",\"channel\":\"{userChannel}\",\"cpf\":\"{CustomerDetails.Documents.DocumentNumberRaw}\",\"protocol\":\"{Session.InteractionNumber}\",\"system\":\"SALESFORCE\",\"email\":\"{CustomerDetails.ContactDetails.Email}\",\"otherEmail\":\"{CustomerDetails.ContactDetails.OtherEmail}\"},\"jsonMap\":\"{\\\"CustomerDetails.ContactDetails.OtherEmail\\\":\\\"{CustomerDetails.ContactDetails.OtherEmail}\\\",\\\"CustomerDetails.ContactDetails.Email\\\":\\\"{CustomerDetails.ContactDetails.Email}\\\",\\\"Session.InteractionNumber\\\":\\\"{Session.InteractionNumber}\\\",\\\"User.userName\\\":\\\"{User.userName}\\\",\\\"userAdabas\\\":\\\"{userAdabas}\\\",\\\"userChannel\\\":\\\"{userChannel}\\\",\\\"CustomerDetails.Documents.DocumentNumberRaw\\\":\\\"{CustomerDetails.Documents.DocumentNumberRaw}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":false},\"contextVariables\":[{\"name\":\"CustomerDetails.ContactDetails.OtherEmail\",\"val\":\"\",\"id\":8},{\"name\":\"CustomerDetails.ContactDetails.Email\",\"val\":\"\",\"id\":9},{\"name\":\"Session.InteractionNumber\",\"val\":\"\",\"id\":16},{\"name\":\"User.userName\",\"val\":\"\",\"id\":17},{\"name\":\"userAdabas\",\"val\":\"\",\"id\":16},{\"name\":\"userChannel\",\"val\":\"\",\"id\":17},{\"name\":\"CustomerDetails.Documents.DocumentNumberRaw\",\"val\":\"\",\"id\":18}]}",
-                                                            "openUrlIn": "Current Window",
-                                                            "targetType": "Web Page",
-                                                            "type": "DataAction",
-                                                            "vlocityIcon": "standard-default"
-                                                        }
-                                                    },
-                                                    {
-                                                        "actionIndex": 9,
+                                                        "actionIndex": 11,
                                                         "card": "{card}",
                                                         "contextId": "\\{Parent.InteractionId}",
                                                         "draggable": true,
@@ -874,7 +909,7 @@
                                                                 "c__lineNumber": "{Products.LineNumber}"
                                                             },
                                                             "hasExtraParams": true,
-                                                            "id": "flex-action-1708534487253",
+                                                            "id": "flex-action-1712689989060",
                                                             "isLwcOS": true,
                                                             "layoutType": "lightning",
                                                             "omniType": {
@@ -902,6 +937,8 @@
                                                 "iconName": "utility:cart",
                                                 "iconSize": "x-small",
                                                 "label": "Habilitar Linha",
+                                                "preloadFlyout": true,
+                                                "reRenderFlyout": true,
                                                 "record": "{record}",
                                                 "showSpinner": "true",
                                                 "stateObj": "{record}"
@@ -1498,7 +1535,8 @@
     "xmlJson": [
         {
             "@attributes": {
-                "targets": "lightning__AppPage"
+                "targets": "lightning__AppPage",
+                "xmlns": "http://soap.sforce.com/2006/04/metadata"
             },
             "property": [
                 {
@@ -1524,7 +1562,8 @@
         },
         {
             "@attributes": {
-                "targets": "lightning__RecordPage"
+                "targets": "lightning__RecordPage",
+                "xmlns": "http://soap.sforce.com/2006/04/metadata"
             },
             "property": [
                 {
@@ -1558,7 +1597,8 @@
         },
         {
             "@attributes": {
-                "targets": "lightningCommunity__Default"
+                "targets": "lightningCommunity__Default",
+                "xmlns": "http://soap.sforce.com/2006/04/metadata"
             },
             "property": [
                 {
@@ -1586,13 +1626,14 @@
     ],
     "xmlObject": {
         "apiVersion": 51,
-        "id": "0Rb7600000090L1CAI",
         "isExplicitImport": false,
         "isExposed": true,
         "masterLabel": "valChildReviewCustomerDetailButtons",
-        "targetConfigs": "PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiI+PC9wcm9wZXJ0eT48cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48cHJvcGVydHkgbmFtZT0iY2ZJbnRlcmFjdGlvbk51bWJlciIgbGFiZWw9IkludGVyYWN0aW9uTnVtYmVyIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiI+PC9wcm9wZXJ0eT48cHJvcGVydHkgbmFtZT0iY2ZJbnRlcmFjdGlvbk51bWJlciIgbGFiZWw9IkludGVyYWN0aW9uTnVtYmVyIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PHN1cHBvcnRlZEZvcm1GYWN0b3JzPjxzdXBwb3J0ZWRGb3JtRmFjdG9yIHR5cGU9IlNtYWxsIj48L3N1cHBvcnRlZEZvcm1GYWN0b3I+PHN1cHBvcnRlZEZvcm1GYWN0b3IgdHlwZT0iTGFyZ2UiPjwvc3VwcG9ydGVkRm9ybUZhY3Rvcj48L3N1cHBvcnRlZEZvcm1GYWN0b3JzPjwvdGFyZ2V0Q29uZmlnPjx0YXJnZXRDb25maWcgdGFyZ2V0cz0ibGlnaHRuaW5nQ29tbXVuaXR5X19EZWZhdWx0Ij48cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48L3RhcmdldENvbmZpZz48dGFyZ2V0Q29uZmlnIHRhcmdldHM9ImxpZ2h0bmluZ19fSG9tZVBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJjZkludGVyYWN0aW9uTnVtYmVyIiBsYWJlbD0iSW50ZXJhY3Rpb25OdW1iZXIiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48L3RhcmdldENvbmZpZz4=",
+        "runtimeNamespace": "%vlocity_namespace%",
+        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgogICAgICA8cHJvcGVydHkgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iLz4KICAgICAgPHByb3BlcnR5IG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciLz4KICAgICAgPHByb3BlcnR5IG5hbWU9ImNmSW50ZXJhY3Rpb25OdW1iZXIiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkludGVyYWN0aW9uTnVtYmVyIi8+CiAgICA8L3RhcmdldENvbmZpZz4KICAgIDx0YXJnZXRDb25maWcgeG1sbnM9Imh0dHA6Ly9zb2FwLnNmb3JjZS5jb20vMjAwNi8wNC9tZXRhZGF0YSIgdGFyZ2V0cz0ibGlnaHRuaW5nX19SZWNvcmRQYWdlIj4KICAgICAgPHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIi8+CiAgICAgIDxwcm9wZXJ0eSBuYW1lPSJjZkludGVyYWN0aW9uTnVtYmVyIiB0eXBlPSJTdHJpbmciIGxhYmVsPSJJbnRlcmFjdGlvbk51bWJlciIvPgogICAgICA8c3VwcG9ydGVkRm9ybUZhY3RvcnM+CiAgICAgICAgPHN1cHBvcnRlZEZvcm1GYWN0b3IgdHlwZT0iU21hbGwiLz4KICAgICAgICA8c3VwcG9ydGVkRm9ybUZhY3RvciB0eXBlPSJMYXJnZSIvPgogICAgICA8L3N1cHBvcnRlZEZvcm1GYWN0b3JzPgogICAgPC90YXJnZXRDb25maWc+CiAgICA8dGFyZ2V0Q29uZmlnIHhtbG5zPSJodHRwOi8vc29hcC5zZm9yY2UuY29tLzIwMDYvMDQvbWV0YWRhdGEiIHRhcmdldHM9ImxpZ2h0bmluZ0NvbW11bml0eV9fRGVmYXVsdCI+CiAgICAgIDxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIi8+CiAgICA8L3RhcmdldENvbmZpZz4KICAgIDx0YXJnZXRDb25maWcgdGFyZ2V0cz0ibGlnaHRuaW5nX19Ib21lUGFnZSI+CiAgICAgIDxwcm9wZXJ0eSBuYW1lPSJjZkludGVyYWN0aW9uTnVtYmVyIiB0eXBlPSJTdHJpbmciIGxhYmVsPSJJbnRlcmFjdGlvbk51bWJlciIvPgogICAgPC90YXJnZXRDb25maWc+",
         "targets": {
             "target": [
+                "lightningCommunity__Page",
                 "lightning__AppPage",
                 "lightning__RecordPage",
                 "lightningCommunity__Default",
