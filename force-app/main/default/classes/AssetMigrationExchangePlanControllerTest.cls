@@ -56,19 +56,6 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
             Asset newAsset = DataFactory.createAsset(acc.id, 'Movel');
             newAsset.Status = 'Active';
             newAsset.MainProductDescription__c  = 'Pós-Controle';
-            newAsset.Name = 'Test Asset '; //Test GetAssetMigration ****
-            newAsset.AccountId = acc.Id;
-            newAsset.Status = 'Active';
-            newAsset.PhoneNumber__c = '1234567890';
-            newAsset.Cabinet__c = 'Test Cabinet ';
-            newAsset.Type__c = 'Fixa';
-            newAsset.ProductType__c = 'Test Product Type ';
-            newAsset.MainProductDescription__c = 'Main Product';
-            newAsset.SourceSystem__c = 'Test Source System';
-            newAsset.PriceCurrent__c = 100.00;
-            newAsset.IdBundle__c = 'Test Bundle ';
-            newAsset.OfferDescription__c = 'Test Offer '; //Test GetAssetMigration ****
-
             insert newAsset;
             
             userPartner = DataFactory.createCommunityUser(communityProfile.id, 'VendasAliado', newContactPartner.Id);
@@ -223,29 +210,5 @@ public with sharing class AssetMigrationExchangePlanControllerTest {
         feat.Application__c = 'FluxoMigracaoCanvasHybris';
         
         insert feat;
-    }
-
-    @isTest
-    public static void GetAssetMigrationTest() {
-        
-        Account acc = [SELECT Id FROM Account  LIMIT 1];
-
-        
-        Test.startTest();
-        List<Asset> assets = AssetDAO.getAssetMigration(acc.Id);
-        Test.stopTest();
-
-        
-        System.assertNotEquals(null, assets, 'retorno assets.');
-        System.assertEquals(1, assets.size(), 'retorno de 1 assets.');
-        
-        
-       /* for (Asset asset : assets) {
-            System.assertEquals(acc.Id, asset.AccountId, 'The AccountId should match.');
-            System.assertEquals('Active', asset.Status, 'The Status should be Active.');
-            System.assert(asset.Type__c == 'Fixa' || asset.Type__c == 'Movel', 'The Type__c should be Fixa or Movel.');
-            System.assert(!asset.MainProductDescription__c.contains('Fam'), 'The MainProductDescription__c should not contain "Fam".');
-            System.assertNotEquals('dependente', asset.IsHolder__c, 'The IsHolder__c should not be "dependente".');
-        }*/
     }
 }

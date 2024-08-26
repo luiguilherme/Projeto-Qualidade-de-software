@@ -1,19 +1,20 @@
 public with sharing class CanvasCPQController {
     
     @AuraEnabled
-    public static CanvasResult getCanvasData(List<String> listRecordId, String tipoOferta){
+    public static CanvasResult getCanvasData(String recordId){
         CanvasResult result = new CanvasResult();
-        if (listRecordId.size() == 0){
+
+        if (String.isBlank(recordId)){
             result.canOpenCanvas    = false;
             result.message          = 'Erro';
             return result;
         }
 
-        // Id recordIdValue = Id.valueOf(recordId);
+        Id recordIdValue = Id.valueOf(recordId);
 
-        CanvasService canvasService = new CanvasService(listRecordId[0], listRecordId);
+        CanvasService canvasService = new CanvasService(recordIdValue);
         result.canvasAppName        = canvasService.getConnectedAppName();
-        result.parameters           = canvasService.getParameters(tipoOferta);
+        result.parameters           = canvasService.getParameters();
         result.canOpenCanvas        = true;
 
         System.debug(result);
