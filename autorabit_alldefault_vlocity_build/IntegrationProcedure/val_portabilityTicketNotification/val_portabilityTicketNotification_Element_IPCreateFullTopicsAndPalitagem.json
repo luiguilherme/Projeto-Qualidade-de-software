@@ -9,7 +9,12 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "TopicName": "=IF(%SVConditions:PortoutRequest%, \"Solicitação de Port-out\",  IF(%SVConditions:PortoutCancel%, \"Solicitação de Cancelamento de Port-out\", IF(%SVConditions:PortoutSuspend%, \"Solicitação de Suspensão de Port-out\",  IF(%SVConditions:PortoutReschedule%, \"Solicitação de Reagendamento de Port-out\",  IF(%SVConditions:PortinChargebackRequest%, \"Solicitação de Estorno de Port-in\", IF(%SVConditions:PortinRemoveSuspend%, \"Solicitação de Remoção de Suspensão\", IF(%SVConditions:PortinSuspend%,\"Solicitação de suspensão de Port-In\", IF(%SVConditions:PortoutConflict%, \"Solicitação de Remoção de Conflito\", IF(%SVConditions:WindowStartPortout%, \"Solicitação de Port-out\", null)))))))))"
+            "AccountId": "%DREPortDetails:AccountId%",
+            "PrimaryContactId": "%DREPortDetails:PrimaryContactId%",
+            "TopicName": "=IF(%SVConditions:PortoutRequest%, \"Solicitação de Port-out\",  IF(%SVConditions:PortoutCancel%, \"Solicitação de Cancelamento de Port-out\", IF(%SVConditions:PortoutSuspend%, \"Solicitação de Suspensão de Port-out\",  IF(%SVConditions:PortoutReschedule%, \"Solicitação de Reagendamento de Port-out\",  IF(%SVConditions:PortinChargebackRequest%, \"Solicitação de Estorno de Port-in\", IF(%SVConditions:PortinRemoveSuspend%, \"Solicitação de Remoção de Suspensão\", IF(%SVConditions:PortinSuspend%,\"Solicitação de suspensão de Port-In\", IF(%SVConditions:PortoutConflict%, \"Solicitação de Remoção de Conflito\", IF(%SVConditions:WindowStartPortout%, \"Solicitação de Port-out\", null)))))))))",
+            "assetId": "%DREPortDetails:AssetId%",
+            "channelName": "%IPGetInteractionTopicName:channelName%",
+            "subscriptionId": "%DREPortDetails:SubscriptionId%"
         },
         "additionalOutput": {
         },
@@ -21,9 +26,10 @@
         "failureConditionalFormula": "",
         "failureResponse": {
         },
-        "integrationProcedureKey": "val_GetInteractionTopicNameFromTopicsAuto",
+        "integrationProcedureKey": "val_CreateFullTopicsAndPalitagem",
         "label": "IntegrationProcedureAction4",
         "remoteOptions": {
+            "useQueueable": true
         },
         "responseJSONNode": "",
         "responseJSONPath": "",
@@ -37,8 +43,8 @@
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
     "%vlocity_namespace%__Type__c": "Integration Procedure Action",
-    "Name": "IPGetInteractionTopicName",
+    "Name": "IPCreateFullTopicsAndPalitagem",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/portabilityTicketNotification/Procedure/IPGetInteractionTopicName"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/portabilityTicketNotification/Procedure/IPCreateFullTopicsAndPalitagem"
 }
