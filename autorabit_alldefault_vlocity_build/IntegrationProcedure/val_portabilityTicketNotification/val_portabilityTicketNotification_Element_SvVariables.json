@@ -11,7 +11,7 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "MSISDN": "=TOSTRING(IF(%PortInput:LineNumber__c% != NULL, %PortInput:LineNumber__c%, IF(%valPortabilitySFInfo_GetTicket:ticketLineNumber% != NULL, %valPortabilitySFInfo_GetTicket:ticketLineNumber%, IF(%valPortabilitySFInfo_GetTicket:ticketOrderCurrentMsisdn% != NULL, %valPortabilitySFInfo_GetTicket:ticketOrderCurrentMsisdn%))))",
+            "MSISDN": "=TOSTRING(IF(%valPortabilitySFInfo_GetTicket:ticketOrderCurrentMsisdn% != NULL, %valPortabilitySFInfo_GetTicket:ticketOrderCurrentMsisdn%, IF(%valPortabilitySFInfo_GetTicket:ticketLineNumber% != NULL, %valPortabilitySFInfo_GetTicket:ticketLineNumber%, IF(%PortInput:LineNumber__c% != NULL, %PortInput:LineNumber__c%))))",
             "ticketId": "%valPortabilitySFInfo_GetTicket:TicketId%"
         },
         "executionConditionalFormula": "",
