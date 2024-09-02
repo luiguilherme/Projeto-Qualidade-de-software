@@ -13,51 +13,62 @@
             "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/TransactionsDetailsData/Procedure",
             "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
         },
-        "Name": "Default",
+        "Name": "BlocoNgin",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/TransactionsDetailsData/Procedure/Default",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/TransactionsDetailsData/Procedure/BlocoNgin",
         "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
     },
-    "%vlocity_namespace%__ParentElementName__c": "Default",
+    "%vlocity_namespace%__ParentElementName__c": "BlocoNgin",
     "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
+        "additionalChainableResponse": {
+        },
         "additionalInput": {
-            "endDate": "%endDate%",
-            "operation": "%filter%",
-            "operationType": "%historyType%",
-            "page": "%ResponsePageControl:pageNumber%",
-            "startDate": "%startDate%",
-            "subscriptionId": "%subscription:Id%"
         },
         "additionalOutput": {
         },
+        "advancedMerge": false,
+        "advancedMergeMap": [
+        ],
+        "allowMergeNulls": false,
         "chainOnStep": false,
         "disOnTplt": false,
-        "disableChainable": false,
+        "dynamicOutputFields": "",
         "executionConditionalFormula": "",
-        "failOnStepError": false,
+        "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {
         },
-        "integrationProcedureKey": "val_GetEventManagementHistory",
-        "label": "IntegrationProcedureAction5",
-        "remoteOptions": {
-        },
-        "responseJSONNode": "getListByType",
+        "filterListFormula": "=AND((FORMATDATETIME(TOSTRING(rechargeDate),\"yyyy-MM-dd\",\"America/Sao_Paulo\")) <= endDate, (FORMATDATETIME(TOSTRING(rechargeDate),\"yyyy-MM-dd\",\"America/Sao_Paulo\")) >= startDate)",
+        "hasPrimary": false,
+        "label": "ListAction1",
+        "mergeFields": [
+        ],
+        "mergeListsOrder": [
+            "SingleReturnLA"
+        ],
+        "preventIntraListMerge": false,
+        "primaryListKey": "",
+        "responseJSONNode": "SingleReturn",
         "responseJSONPath": "",
         "returnOnlyAdditionalOutput": false,
         "returnOnlyFailureResponse": false,
         "sendJSONNode": "",
         "sendJSONPath": "",
-        "sendOnlyAdditionalInput": true,
+        "sendOnlyAdditionalInput": false,
         "show": null,
+        "sortBy": [
+        ],
+        "sortInDescendingOrder": false,
+        "updateFieldValue": {
+        },
         "useFormulas": true
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
-    "%vlocity_namespace%__Type__c": "Integration Procedure Action",
-    "Name": "IPGetEventManagementHistory",
+    "%vlocity_namespace%__Type__c": "List Merge Action",
+    "Name": "LAFilterDate",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/TransactionsDetailsData/Procedure/IPGetEventManagementHistory"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/TransactionsDetailsData/Procedure/LAFilterDate"
 }
