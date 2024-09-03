@@ -1,9 +1,9 @@
 {
     "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "valCalloutDesactivatePromoRM",
+        "Name": "valCalloutPromotionProductRM",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CalloutDesactivatePromoRM/Procedure",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CalloutPromotionProductRM/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
     "%vlocity_namespace%__PropertySet__c": {
@@ -11,9 +11,9 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "promo": "=FILTER(LIST(%HTTPGetProductBalanceAndStatus:product%), 'productSpecificationId LIKE \"PO_C_PROMO_VT_%\" AND 'status == \"ProductActive\"')"
+            "bucket": "=FILTER(LIST(%HTTPGetDataConsumption:balanceList%), 'bucket:id = \"' + %SetRequestId:LegacyIdentifier% + '\"')\""
         },
-        "executionConditionalFormula": "",
+        "executionConditionalFormula": "IF(%DREGetFRLId:OrderType% == \"ChangeServiceIdentifier\", true, false)",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "label": "SetValues2",
@@ -23,8 +23,8 @@
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
     "%vlocity_namespace%__Type__c": "Set Values",
-    "Name": "SVGetPromoByPOName",
+    "Name": "SVGetBucketByLegacyIdentifier",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CalloutDesactivatePromoRM/Procedure/SVGetPromoByPOName"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CalloutPromotionProductRM/Procedure/SVGetBucketByLegacyIdentifier"
 }

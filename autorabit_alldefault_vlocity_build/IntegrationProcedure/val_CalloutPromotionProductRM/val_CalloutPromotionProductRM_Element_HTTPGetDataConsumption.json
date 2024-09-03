@@ -1,9 +1,9 @@
 {
     "%vlocity_namespace%__Active__c": true,
     "%vlocity_namespace%__OmniScriptId__c": {
-        "Name": "valCalloutDesactivatePromoRM",
+        "Name": "valCalloutPromotionProductRM",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
-        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CalloutDesactivatePromoRM/Procedure",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CalloutPromotionProductRM/Procedure",
         "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
     },
     "%vlocity_namespace%__PropertySet__c": {
@@ -14,12 +14,10 @@
         },
         "chainOnStep": false,
         "disOnTplt": false,
-        "executionConditionalFormula": "",
-        "failOnStepError": false,
+        "executionConditionalFormula": "IF(%DREGetFRLId:OrderType% == \"ChangeServiceIdentifier\", true, false)",
+        "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {
-            "response": "=%HTTPGetProductBalanceAndStatusInfo%",
-            "statusCode": "=%HTTPGetProductBalanceAndStatusInfo:statusCode%"
         },
         "label": "HTTPAction2",
         "namedCredential": "APITelefonica",
@@ -31,20 +29,20 @@
         "restOptions": {
             "clientCertificateName": "",
             "headers": {
-                "application": "Salesforce",
-                "requestId": "%SetRequestId:RequestId%"
+                "Content-Type": "application/json; charset=utf-8"
             },
             "isCompressed": false,
             "params": {
+                "networkNumber": "%DREOrderItemAttributes:RAGetAttributes:ATT_RT_MSISDN%"
             },
             "sendBody": true,
             "timeout": 0,
             "xmlEscapeResponse": false
         },
-        "restPath": "/productInventory/productInventoryManagement/v8/customer/%RAGetOrigAttributes:ATT_RT_MSISDN%/products",
+        "restPath": "/prepayBalanceManagement/v7/customerInformationManagement/prepayBalanceManagement/v7/balance/detailed",
         "retryCount": 0,
         "returnOnlyAdditionalOutput": false,
-        "returnOnlyFailureResponse": true,
+        "returnOnlyFailureResponse": false,
         "sendJSONNode": "",
         "sendJSONPath": "",
         "sendOnlyAdditionalInput": false,
@@ -54,8 +52,8 @@
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
     "%vlocity_namespace%__Type__c": "Rest Action",
-    "Name": "HTTPGetProductBalanceAndStatus",
+    "Name": "HTTPGetDataConsumption",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CalloutDesactivatePromoRM/Procedure/HTTPGetProductBalanceAndStatus"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CalloutPromotionProductRM/Procedure/HTTPGetDataConsumption"
 }
