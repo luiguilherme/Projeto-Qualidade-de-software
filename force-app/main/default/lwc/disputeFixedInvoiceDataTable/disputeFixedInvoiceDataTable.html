@@ -17,15 +17,30 @@
             </div>
         </div>
         <div class="slds-m-top_medium">
-            <lightning-datatable
-                key-field="invoiceNumber"
-                data={pagedInvoices}
-                columns={columns1}
-                disabled={isPageChanging}
-                max-row-selection="1"
-                onrowselection={handleSelection}
-                selected-rows={selectedRow}>
-            </lightning-datatable>
+            <div if:true={invoiceError} class="slds-theme_error slds-align_absolute-center slds-m-vertical_small slds-p-vertical_small">
+                <lightning-icon icon-name="utility:error" variant="inverse" size="small"></lightning-icon>
+                <span class="slds-text-heading_small">{invoiceErrorMessage}</span>
+            </div>
+            <div if:true={invoiceSpinner}  class="demo-only" style="height:6rem;position:relative" >
+                <div class="slds-spinner_container">
+                  <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                  </div>
+                </div>
+              </div>
+            <div if:true={invoiceTable}>
+                <lightning-datatable
+                    key-field="invoiceNumber"
+                    data={pagedInvoices}
+                    columns={columns1}
+                    disabled={isPageChanging}
+                    max-row-selection="1"
+                    onrowselection={handleSelection}
+                    selected-rows={selectedRow}>
+                </lightning-datatable>
+            </div>
         </div>
         <div class="pagination">
             <lightning-button 

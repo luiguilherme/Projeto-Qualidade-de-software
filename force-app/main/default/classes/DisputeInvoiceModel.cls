@@ -47,17 +47,17 @@ public class DisputeInvoiceModel {
 	@AuraEnabled
     public String barCode;
 	@AuraEnabled
-    public Decimal adjustedPaymentAmount;
+    public String adjustedPaymentAmount;
 	@AuraEnabled
-    public Boolean adjusted;
+    public String adjusted;
     @AuraEnabled
 	public String cycleReferenceDate;
     @AuraEnabled
-    public Decimal paymentAmount;
+    public String paymentAmount;
     @AuraEnabled
-    public Decimal balance;
+    public String balance;
     @AuraEnabled
     public String l9InvoiceCloseDate;
     @AuraEnabled
-    public Decimal amount;
+    public String amount;
 }
