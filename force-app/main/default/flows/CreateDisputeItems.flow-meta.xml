@@ -5,7 +5,7 @@
         <name>AssignDisputedItemCollection</name>
         <label>AssignDisputedItemCollection</label>
         <locationX>264</locationX>
-        <locationY>350</locationY>
+        <locationY>458</locationY>
         <assignmentItems>
             <assignToReference>DisputedItemCollection</assignToReference>
             <operator>Add</operator>
@@ -21,7 +21,7 @@
         <name>AssignDisputedItemValues</name>
         <label>AssignDisputedItemValues</label>
         <locationX>264</locationX>
-        <locationY>242</locationY>
+        <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>DisputedItem.Status__c</assignToReference>
             <operator>Assign</operator>
@@ -47,7 +47,7 @@
             <assignToReference>DisputedItem.AvailableAmount__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>LoopAllCharges.availableAmount</elementReference>
+                <elementReference>convertAvailableAmountAsCurrency</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -82,7 +82,7 @@
             <assignToReference>DisputedItem.Discounts__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>LoopAllCharges.discount</elementReference>
+                <elementReference>convertDiscountAsCurrency</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -131,7 +131,7 @@
             <assignToReference>DisputedItem.TotalAmount__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>LoopAllCharges.totalAmount</elementReference>
+                <elementReference>convertTotalAmountAsCurrency</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -159,7 +159,7 @@
             <assignToReference>DisputedItem.HaveDiscount__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>LoopAllCharges.haveDiscount</elementReference>
+                <elementReference>convertHaveDiscountAsBoolean</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -176,11 +176,46 @@
                 <elementReference>trunkFullNameIn255Characters</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>DisputedItem.RecordTypeId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>rgRecordTypeByDeveloperName.Id</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>AssignDisputedItemCollection</targetReference>
         </connector>
     </assignments>
     <environments>Default</environments>
+    <formulas>
+        <name>convertAvailableAmountAsCurrency</name>
+        <dataType>Currency</dataType>
+        <expression>VALUE(BLANKVALUE({!LoopAllCharges.availableAmount}, &apos;0.00&apos;))</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <name>convertDiscountAsCurrency</name>
+        <dataType>Currency</dataType>
+        <expression>VALUE(BLANKVALUE({!LoopAllCharges.discount}, &apos;0.00&apos;))</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <name>convertHaveDiscountAsBoolean</name>
+        <dataType>Boolean</dataType>
+        <expression>IF(UPPER(BLANKVALUE({!LoopAllCharges.haveDiscount}, &apos;false&apos;)) = &apos;TRUE&apos;, true, false)</expression>
+    </formulas>
+    <formulas>
+        <name>convertTotalAmountAsCurrency</name>
+        <dataType>Currency</dataType>
+        <expression>VALUE(BLANKVALUE({!LoopAllCharges.totalAmount}, &apos;0.00&apos;))</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <name>defaultItemName</name>
+        <dataType>String</dataType>
+        <expression>BLANKVALUE({!LoopAllCharges.name}, {!LoopAllCharges.codeDescription})</expression>
+    </formulas>
     <formulas>
         <name>EndDateFormat</name>
         <dataType>Date</dataType>
@@ -204,7 +239,7 @@
     <formulas>
         <name>trunkNameIn80Characters</name>
         <dataType>String</dataType>
-        <expression>IF (LEN({!LoopAllCharges.name}) &gt; 79, MID({!LoopAllCharges.name}, 1, 79), {!LoopAllCharges.name})</expression>
+        <expression>IF (LEN({!defaultItemName}) &gt; 79, MID({!defaultItemName}, 1, 79), {!defaultItemName})</expression>
     </formulas>
     <interviewLabel>Contestação - Fixa/Convergente - Criar items de contestação {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Contestação - Fixa/Convergente - Criar items de contestação</label>
@@ -212,7 +247,7 @@
         <name>LoopAllCharges</name>
         <label>LoopAllCharges</label>
         <locationX>176</locationX>
-        <locationY>134</locationY>
+        <locationY>242</locationY>
         <collectionReference>AllCharges.charges</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -245,7 +280,7 @@
         <name>CreateDisputedItems</name>
         <label>CreateDisputedItems</label>
         <locationX>176</locationX>
-        <locationY>542</locationY>
+        <locationY>650</locationY>
         <connector>
             <targetReference>GetDisputedItems</targetReference>
         </connector>
@@ -255,7 +290,7 @@
         <name>GetDisputedItems</name>
         <label>GetDisputedItems</label>
         <locationX>176</locationX>
-        <locationY>650</locationY>
+        <locationY>758</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <filterLogic>and</filterLogic>
         <filters>
@@ -279,11 +314,32 @@
         <queriedFields>BillingStartDate__c</queriedFields>
         <queriedFields>Description__c</queriedFields>
     </recordLookups>
+    <recordLookups>
+        <name>rgRecordTypeByDeveloperName</name>
+        <label>Carregar RecordType para os itens contestação</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>LoopAllCharges</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>DisputedItemsBillingAmdocs</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RecordType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <start>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>LoopAllCharges</targetReference>
+            <targetReference>rgRecordTypeByDeveloperName</targetReference>
         </connector>
     </start>
     <status>Active</status>

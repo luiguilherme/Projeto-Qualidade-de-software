@@ -62,6 +62,9 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
 
     @track responseIP;
     @track isSuccess;
+    @track invoiceError = false;
+    @track invoiceErrorMessage;
+    @track invoiceSpinner = true;
     @track _actionUtil;
 
     //Variavel de saida com dados da fatura selecionada
@@ -102,6 +105,18 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
         return Math.ceil(this.filteredInvoices.length / this.displayAmount);
     }
 
+    get invoiceError() {
+        return this.invoiceError;
+    }
+
+    get invoiceSpinner() {
+        return this.invoiceSpinner;
+    }
+
+    get invoiceTable() {
+        return !this.invoiceError && !this.invoiceSpinner;
+    }
+
     connectedCallback() {
         console.log('ConnectedCallback DisputeFixedInvoiceDataTable:',this.serviceIdentifier);
 
@@ -123,11 +138,28 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
                 console.log('Result',JSON.stringify(response));
                 this.tableVisible = true;
                 this.responseIP = response.result.IPResult;
-                this.isSuccess = response.result.IPResult.isSuccess;
+
+                if(this.responseIP.InvoicesApi.searchLastOpenInvoice && this.responseIP.InvoicesApi.searchLastOpenInvoice.error){
+                    this.invoiceError = true;
+                    this.invoiceErrorMessage = 'Ocorreu um erro ao consultar as últimas faturas do cliente.';
+                    console.log(this.responseIP.InvoicesApi.searchLastOpenInvoice.errorMessage);
+                    return;
+                }else if(this.responseIP.InvoicesApi.searchCustomerKeys && this.responseIP.InvoicesApi.searchCustomerKeys.error){
+                    this.invoiceError = true;
+                    this.invoiceErrorMessage = 'Ocorreu um erro ao consultar as informações do cliente.';
+                    console.log(this.responseIP.InvoicesApi.searchCustomerKeys.errorMessage);
+                    return;
+                }else if(this.responseIP.InvoicesApi.RAServiceIdentifierError && this.responseIP.InvoicesApi.RAServiceIdentifierError.error){
+                    this.invoiceError = true;
+                    this.invoiceErrorMessage = this.responseIP.InvoicesApi.RAServiceIdentifierError.errorMessage;
+                    return;
+                }
+
                 this.generalSetting = this.responseIP.GeneralSetting 
                 && this.responseIP.GeneralSetting.generalSetting 
                 && Array.isArray(this.responseIP.GeneralSetting.generalSetting) ? this.responseIP.GeneralSetting.generalSetting : [ this.responseIP.GeneralSetting.generalSetting ];
                 this.invoicesApi = Array.isArray(this.responseIP.InvoicesApi) ? this.responseIP.InvoicesApi : [this.responseIP.InvoicesApi];
+                this.customerIds = this.responseIP.CustomerIds;
                 this.accountId = this.responseIP.CustomerIds.customerAccountId;
                 this.accountHref = this.responseIP.CustomerIds.accountHref;
 
@@ -152,8 +184,13 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
             })
             .catch((error) => {
                 console.log('Error Invoices Table: ' + error);
+                this.invoiceError = true;
+                this.invoiceErrorMessage = 'Ocorreu um erro ao consultar as faturas do cliente.';
                 this.responseIP = null;
                 this.isSuccess = null;
+            })
+            .finally(() => {
+                this.invoiceSpinner = false;
             });
     }
 
@@ -292,8 +329,8 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
         this._actionUtil
             .executeAction(params, null, this, null, null)
             .then((response) => {
-                console.log('Resultado da IP_DisputeSearchInvoiceCharges',JSON.stringify(response));
-                
+				console.log('Resultado da IP_DisputeSearchInvoiceCharges',JSON.stringify(response));
+
                 this.tableVisible = true;
                 this.responseIP = response.result.IPResult;
                 this.isSuccess = response.result.IPResult.isSuccess;
@@ -445,7 +482,7 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
             this.allSelections = { charges: allSelections };
             console.log('AllSelections: '+JSON.stringify(this.allSelections)); 
         }
-    }
+      }
     
     @api
     validate() {

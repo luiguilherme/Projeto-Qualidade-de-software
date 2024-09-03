@@ -194,6 +194,30 @@
     </decisions>
     <environments>Default</environments>
     <formulas>
+        <name>convertAdjustPaymentAmountAsCurrency</name>
+        <dataType>Currency</dataType>
+        <expression>VALUE(BLANKVALUE({!SelectedInvoice.adjustedPaymentAmount}, &apos;0.00&apos;))</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <name>convertAmountAsCurrency</name>
+        <dataType>Currency</dataType>
+        <expression>VALUE(BLANKVALUE({!SelectedInvoice.amount}, &apos;0.00&apos;))</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <name>convertBalanceAsCurrency</name>
+        <dataType>Currency</dataType>
+        <expression>VALUE(BLANKVALUE({!SelectedInvoice.balance}, &apos;0.00&apos;))</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <name>convertPaymentAmountAsCurrency</name>
+        <dataType>Currency</dataType>
+        <expression>VALUE(BLANKVALUE({!SelectedInvoice.paymentAmount}, &apos;0.00&apos;))</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
         <name>fml9CycleCloseDate</name>
         <dataType>DateTime</dataType>
         <expression>DATETIMEVALUE(DATE(VALUE(RIGHT({!SelectedInvoice.l9CycleCloseDate}, 4)), VALUE(MID({!SelectedInvoice.l9CycleCloseDate}, 4, 2)), VALUE(LEFT({!SelectedInvoice.l9CycleCloseDate}, 2)))) + (3/24)</expression>
@@ -261,7 +285,7 @@
         <inputAssignments>
             <field>Balance__c</field>
             <value>
-                <elementReference>SelectedInvoice.balance</elementReference>
+                <elementReference>convertBalanceAsCurrency</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -279,13 +303,13 @@
         <inputAssignments>
             <field>adjustedPaymentAmount__c</field>
             <value>
-                <elementReference>SelectedInvoice.adjustedPaymentAmount</elementReference>
+                <elementReference>convertAdjustPaymentAmountAsCurrency</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>amount__c</field>
             <value>
-                <elementReference>SelectedInvoice.amount</elementReference>
+                <elementReference>convertAmountAsCurrency</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -363,7 +387,7 @@
         <inputAssignments>
             <field>paymentAmount__c</field>
             <value>
-                <elementReference>SelectedInvoice.paymentAmount</elementReference>
+                <elementReference>convertPaymentAmountAsCurrency</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
