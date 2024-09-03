@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Asset$vlocity_cmt__ServiceAccountId__c.Id</field>
+    </columns>
+    <columns>
+        <field>Asset$vlocity_cmt__ServiceIdentifier__c</field>
+    </columns>
+    <columns>
+        <field>Asset$vlocity_cmt__ServiceAccountId__c</field>
+    </columns>
+    <columns>
+        <field>Asset$vlocity_cmt__ServiceAccountId__c.LastModifiedDate</field>
+    </columns>
+    <description>Bloco 19 - J125 - Histórico de Alteração de Cadastral
+Relatório auxiliar do Histórico de Endereço de Linha para extração do campo Número de Linha.</description>
+    <filter>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <criteriaItems>
+            <column>Asset$Product2.vlocity_cmt__SubType__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Promotion</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Asset$vlocity_cmt__ServiceAccountId__c.RecordType</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Account.vlocity_cmt__Service</value>
+        </criteriaItems>
+        <language>pt_BR</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Relatório Ativos - Número de Linha</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Ativos_Auxiliar__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Asset$vlocity_cmt__ServiceAccountId__c.LastModifiedDate</dateColumn>
+        <endDate>2024-08-27</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2024-07-27</startDate>
+    </timeFrameFilter>
+</Report>
