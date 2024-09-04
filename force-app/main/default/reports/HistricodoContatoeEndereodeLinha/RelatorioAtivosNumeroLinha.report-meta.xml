@@ -15,7 +15,7 @@
     <description>Bloco 19 - J125 - Histórico de Alteração de Cadastral
 Relatório auxiliar do Histórico de Endereço de Linha para extração do campo Número de Linha.</description>
     <filter>
-        <booleanFilter>1 AND 2</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3</booleanFilter>
         <criteriaItems>
             <column>Asset$Product2.vlocity_cmt__SubType__c</column>
             <columnToColumn>false</columnToColumn>
@@ -29,6 +29,13 @@ Relatório auxiliar do Histórico de Endereço de Linha para extração do campo
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>Account.vlocity_cmt__Service</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Asset$vlocity_cmt__ServiceAccountId__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value></value>
         </criteriaItems>
         <language>pt_BR</language>
     </filter>
@@ -45,8 +52,6 @@ Relatório auxiliar do Histórico de Endereço de Linha para extração do campo
     <showSubTotals>true</showSubTotals>
     <timeFrameFilter>
         <dateColumn>Asset$vlocity_cmt__ServiceAccountId__c.LastModifiedDate</dateColumn>
-        <endDate>2024-08-27</endDate>
-        <interval>INTERVAL_CUSTOM</interval>
-        <startDate>2024-07-27</startDate>
+        <interval>INTERVAL_LAST30</interval>
     </timeFrameFilter>
 </Report>
