@@ -42,6 +42,7 @@ public with sharing class JWTUtilityTest {
         return jwt;
     }
     
+    
     public static String createInvalidJWT() {
         String algorithmName = 'RSA-SHA512';
         Blob privateKeyBlob = EncodingUtil.base64Decode(PRIVATE_KEY);
@@ -61,13 +62,12 @@ public with sharing class JWTUtilityTest {
         urlSafeSignatureBase64 = urlSafeSignatureBase64.replace('=', '');
         String tokenPart3 = urlSafeSignatureBase64;
         
-        String fakeTokenPart2 = '{"sub":"0123456789","name":"John Doe","iat":1516239022,"iss":"user"}';
+        String fakeTokenPart2 = '{"sub":"0123456789","name":"John Doe","iat":1516239022,"iss":"user" }';
         String fakeTokenHeader = tokenPart1Blob + separator + tokenPart2Blob;
 
         String jwt = fakeTokenHeader + separator + tokenPart3;
         return jwt;
     }
-
     
     @IsTest
     public static void deveValidarJWT() {
