@@ -1,33 +1,13 @@
-// {
-//     "availableAmount": "14.9900",
-//     "chargeCategory": "VAS",
-//     "code": "UWEMPFACIVFVASF",
-//     "codeDescription": "GUIA EMPRESA FACIL",
-//     "csp": "0",
-//     "endDate": "2222-01-01 19:00:00",
-//     "frontEndCode": "2462069",
-//     "id": "136508165021000013",
-//     "startDate": "1960-01-01 19:50:00",
-//     "startTime": "24/04/2024",
-//     "totalAmount": "14.9900",
-//     "instance": "4130060851",
-//     "subscriberId": "51261965",
-//     "name": "Listas",
-//     "bundleId": "",
-//     "comboIndicator": "",
-//     "cspOperatorName": "",
-//     "discount": "0",
-//     "offerId": "0",
-//     "offerType": "",
-//     "type": "",
-//     "ChargeCategory": "VAS"
-//   }
-public class DisputeChargeModel{
+public class DisputeChargeModel {
+    
+    @AuraEnabled
+    public String uniqueId;
+    
     @AuraEnabled
     public String type;
 
     @AuraEnabled
-	public Decimal totalAmount;
+	public String totalAmount;
 
     @AuraEnabled
     public String subscriberId;
@@ -54,7 +34,7 @@ public class DisputeChargeModel{
     public String endDate;
 
     @AuraEnabled
-    public Boolean comboIndicator;
+    public String comboIndicator;
 
     @AuraEnabled
     public String codeDescription;
@@ -66,10 +46,10 @@ public class DisputeChargeModel{
     public String bundleId;
 
     @AuraEnabled
-    public Decimal availableAmount;
+    public String availableAmount;
 
     @AuraEnabled
-    public Decimal discount;
+    public String discount;
 
     @AuraEnabled
     public String ChargeCategory;
@@ -87,7 +67,7 @@ public class DisputeChargeModel{
     public String startTime;
 
     @AuraEnabled
-    public Boolean haveDiscount;
+    public String haveDiscount;
 
     @AuraEnabled
     public String customerAccountId;

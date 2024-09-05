@@ -47,7 +47,7 @@
             <assignToReference>DisputedItem.AvailableAmount__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>LoopAllCharges.availableAmount</elementReference>
+                <elementReference>convertAvailableAmountAsCurrency</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -82,7 +82,7 @@
             <assignToReference>DisputedItem.Discounts__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>LoopAllCharges.discount</elementReference>
+                <elementReference>convertDiscountAsCurrency</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -131,7 +131,7 @@
             <assignToReference>DisputedItem.TotalAmount__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>LoopAllCharges.totalAmount</elementReference>
+                <elementReference>convertTotalAmountAsCurrency</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -159,7 +159,7 @@
             <assignToReference>DisputedItem.HaveDiscount__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>LoopAllCharges.haveDiscount</elementReference>
+                <elementReference>convertHaveDiscountAsBoolean</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -181,6 +181,34 @@
         </connector>
     </assignments>
     <environments>Default</environments>
+    <formulas>
+        <name>convertAvailableAmountAsCurrency</name>
+        <dataType>Currency</dataType>
+        <expression>VALUE(BLANKVALUE({!LoopAllCharges.availableAmount}, &apos;0.00&apos;))</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <name>convertDiscountAsCurrency</name>
+        <dataType>Currency</dataType>
+        <expression>VALUE(BLANKVALUE({!LoopAllCharges.discount}, &apos;0.00&apos;))</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <name>convertHaveDiscountAsBoolean</name>
+        <dataType>Boolean</dataType>
+        <expression>IF(UPPER(BLANKVALUE({!LoopAllCharges.haveDiscount}, &apos;false&apos;)) = &apos;TRUE&apos;, true, false)</expression>
+    </formulas>
+    <formulas>
+        <name>convertTotalAmountAsCurrency</name>
+        <dataType>Currency</dataType>
+        <expression>VALUE(BLANKVALUE({!LoopAllCharges.totalAmount}, &apos;0.00&apos;))</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <name>defaultItemName</name>
+        <dataType>String</dataType>
+        <expression>BLANKVALUE({!LoopAllCharges.name}, {!LoopAllCharges.codeDescription})</expression>
+    </formulas>
     <formulas>
         <name>EndDateFormat</name>
         <dataType>Date</dataType>
@@ -204,7 +232,7 @@
     <formulas>
         <name>trunkNameIn80Characters</name>
         <dataType>String</dataType>
-        <expression>IF (LEN({!LoopAllCharges.name}) &gt; 79, MID({!LoopAllCharges.name}, 1, 79), {!LoopAllCharges.name})</expression>
+        <expression>IF (LEN({!defaultItemName}) &gt; 79, MID({!defaultItemName}, 1, 79), {!defaultItemName})</expression>
     </formulas>
     <interviewLabel>Contestação - Fixa/Convergente - Criar items de contestação {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Contestação - Fixa/Convergente - Criar items de contestação</label>

@@ -17,7 +17,7 @@ public with sharing class JWTUtility {
         return verified;
     }
 
-    public static PayLoadJwtWrapper getJWTBody(String jwt){
+    public static PayLoadJwtWrapper getJWTBody(String jwt){  
 
         String jwtBase64 = jwt.split('\\.')[1];
         Blob blobJwt = EncodingUtil.base64Decode(jwtBase64);
@@ -32,9 +32,8 @@ public with sharing class JWTUtility {
         public String sub {get;set;}
         public String name {get;set;}
         public String iat {get;set;}
-        public String iss {get;set;}    
+        public String iss {get;set;}   
+        public String identifier {get;set;}
+        public String nrdocumento {get;set;}
     }
-
-
-    
 }
