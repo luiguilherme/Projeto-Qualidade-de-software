@@ -99,6 +99,10 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             {output.put('result', cloneAsset(arguments));}               
             when 'productEligibilityQuery' 
             {output.put('result', productEligibilityQuery(arguments));}
+            when 'getContestPicklists' 
+            {output.put('result', getContestPicklists(arguments));}
+            when 'removeNullValues'
+            {output.put('result', removeNullValues(inputs));}                      
         }
         return true;
     }
@@ -1329,4 +1333,85 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
                                  
             return productEligibility;
 	}
+
+    /*
+    * Autor....: Otávio Fonseca - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método retornar as picklist de motivo de contestação
+    * Data.....: 09/08/2024
+    */
+    public Map<String, Object> getContestPicklists(List<Object> arguments) {         
+        Boolean ProductWithdrawal = (Boolean)arguments[0];
+        Boolean ImproperActivation = (Boolean)arguments[1];
+        Boolean CustomerRequest = (Boolean)arguments[2];
+        Boolean InternalProcedure = (Boolean)arguments[3];  
+
+        Map<String, Object> mapPickListOptions = new Map<String, Object>();
+
+        List<Map<String, String>> listLabelValuesAuto = new List<Map<String, String>>();
+        Map<String, String> mapItensAuto = new Map<String, String>();
+        
+        List<Map<String, String>> listLabelValuesManual = new List<Map<String, String>>();
+        Map<String, String> mapItensManual = new Map<String, String>();  
+        
+        // Primeiro item vazio
+        mapItensAuto.put('value', '');
+        mapItensAuto.put('label', '--');
+        listLabelValuesAuto.add(mapItensAuto);	
+
+        // Primeiro item vazio
+        mapItensManual.put('value', '');
+        mapItensManual.put('label', '--');
+        listLabelValuesManual.add(mapItensManual);        
+
+        // Impugnação automatica - Trocar campo
+        if (ProductWithdrawal) {
+            mapItensAuto = new Map<String, String>();
+            mapItensAuto.put('value', 'Desistência do Produto');
+            mapItensAuto.put('label', 'Desistência do Produto');
+            listLabelValuesAuto.add(mapItensAuto);            
+        }
+
+        if (ImproperActivation) {
+            mapItensAuto = new Map<String, String>();
+            mapItensAuto.put('value', 'Ativação Indevida');
+            mapItensAuto.put('label', 'Ativação Indevida');
+            listLabelValuesAuto.add(mapItensAuto);            
+        }
+        
+        // Impugnação manual
+        if (CustomerRequest) {
+            mapItensManual = new Map<String, String>();
+            mapItensManual.put('value', 'A Pedido do Cliente');
+            mapItensManual.put('label', 'A Pedido do Cliente');
+            listLabelValuesManual.add(mapItensManual);            
+        }
+
+        if (InternalProcedure) {
+            mapItensManual = new Map<String, String>();
+            mapItensManual.put('value', 'Procedimento Interno');
+            mapItensManual.put('label', 'Procedimento Interno');
+            listLabelValuesManual.add(mapItensManual);            
+        }        
+        
+        mapPickListOptions.put('AutoPicklistValues', listLabelValuesAuto);
+        mapPickListOptions.put('ManualPicklistValues', listLabelValuesManual);
+
+        return mapPickListOptions;
+	}      
+    
+    public static Map<String, Object> removeNullValues(Map<String, Object> inputs) {
+        Map<String, Object> balanceData = (Map<String, Object>) inputs.get('balanceData'); 
+        List<Object> attributesList = (List<Object>) balanceData.get('attributesList');
+        List<Object> filteredList = new List<Object>();
+        for (Object obj : attributesList) {
+            System.debug(obj);
+            if (obj != null) {
+                filteredList.add(obj);
+            }
+        }
+        System.debug(filteredList);
+        balanceData.put('attributesList', filteredList);
+        return inputs;
+    }
 }
