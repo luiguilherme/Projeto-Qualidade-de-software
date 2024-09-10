@@ -95,10 +95,12 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             {output.put('result', validaEid(arguments));} 
             when 'validaImei'
             {output.put('result', validaImei(arguments));}             
-            when 'cloneAsset' 
-            {output.put('result', cloneAsset(arguments));}               
+//            when 'cloneAsset' 
+//            {output.put('result', cloneAsset(arguments));}               
             when 'productEligibilityQuery' 
             {output.put('result', productEligibilityQuery(arguments));}
+//            when 'getContestPicklists' 
+//            {output.put('result', getContestPicklists(arguments));}                     
         }
         return true;
     }
@@ -1129,7 +1131,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
     * Descrição: Validacao de IMEI
     * Data.....: 04/06/2024
     */  
-    public List<Map<String, String>> cloneAsset(List<Object> arguments) {
+/*    public List<Map<String, String>> cloneAsset(List<Object> arguments) {
         List<Map<String, String>> clonedAssets = new List<Map<String, String>>();
         List<vlocity_cmt__InventoryItem__c> newInventoryItems = new List<vlocity_cmt__InventoryItem__c>();
         Map<String, Object> argMap = (Map<String, Object>)arguments[0];
@@ -1308,6 +1310,7 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
 
         return clonedAssets;
     }
+*/
     /*
     * Autor....: Guilherme Kaiser - Deloitte
     * Projeto..: Vivo - VALENTINA
@@ -1329,4 +1332,71 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
                                  
             return productEligibility;
 	}
+
+    /*
+    * Autor....: Otávio Fonseca - Deloitte
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Método retornar as picklist de motivo de contestação
+    * Data.....: 09/08/2024
+    */
+/*    public Map<String, Object> getContestPicklists(List<Object> arguments) {         
+        Boolean ProductWithdrawal = (Boolean)arguments[0];
+        Boolean ImproperActivation = (Boolean)arguments[1];
+        Boolean CustomerRequest = (Boolean)arguments[2];
+        Boolean InternalProcedure = (Boolean)arguments[3];  
+
+        Map<String, Object> mapPickListOptions = new Map<String, Object>();
+
+        List<Map<String, String>> listLabelValuesAuto = new List<Map<String, String>>();
+        Map<String, String> mapItensAuto = new Map<String, String>();
+        
+        List<Map<String, String>> listLabelValuesManual = new List<Map<String, String>>();
+        Map<String, String> mapItensManual = new Map<String, String>();  
+        
+        // Primeiro item vazio
+        mapItensAuto.put('value', '');
+        mapItensAuto.put('label', '--');
+        listLabelValuesAuto.add(mapItensAuto);	
+
+        // Primeiro item vazio
+        mapItensManual.put('value', '');
+        mapItensManual.put('label', '--');
+        listLabelValuesManual.add(mapItensManual);        
+
+        // Impugnação automatica - Trocar campo
+        if (ProductWithdrawal) {
+            mapItensAuto = new Map<String, String>();
+            mapItensAuto.put('value', 'Desistência do Produto');
+            mapItensAuto.put('label', 'Desistência do Produto');
+            listLabelValuesAuto.add(mapItensAuto);            
+        }
+
+        if (ImproperActivation) {
+            mapItensAuto = new Map<String, String>();
+            mapItensAuto.put('value', 'Ativação Indevida');
+            mapItensAuto.put('label', 'Ativação Indevida');
+            listLabelValuesAuto.add(mapItensAuto);            
+        }
+        
+        // Impugnação manual
+        if (CustomerRequest) {
+            mapItensManual = new Map<String, String>();
+            mapItensManual.put('value', 'A Pedido do Cliente');
+            mapItensManual.put('label', 'A Pedido do Cliente');
+            listLabelValuesManual.add(mapItensManual);            
+        }
+
+        if (InternalProcedure) {
+            mapItensManual = new Map<String, String>();
+            mapItensManual.put('value', 'Procedimento Interno');
+            mapItensManual.put('label', 'Procedimento Interno');
+            listLabelValuesManual.add(mapItensManual);            
+        }        
+        
+        mapPickListOptions.put('AutoPicklistValues', listLabelValuesAuto);
+        mapPickListOptions.put('ManualPicklistValues', listLabelValuesManual);
+
+        return mapPickListOptions;
+	}      
+*/
 }

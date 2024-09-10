@@ -15,40 +15,20 @@
                 {
                     "actionIndex": 0,
                     "card": "{card}",
-                    "draggable": true,
-                    "isOpen": false,
-                    "key": "1717505891623-v56qzx94u",
-                    "label": "ValidatePortability",
-                    "stateAction": {
-                        "Web Page": {
-                            "targetName": "/apex"
-                        },
-                        "displayName": "Action",
-                        "id": "flex-action-1722349350004",
-                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateAllJourneys\",\"vlocityAsync\":false,\"inputMap\":{\"ValidateOrder\":\"true\",\"ValidatePortability\":\"false\",\"AssetId\":\"{recordId}\",\"Functionality\":\"LineSyncFullPre\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"\",\"id\":3}]}",
-                        "openUrlIn": "Current Window",
-                        "targetType": "Web Page",
-                        "type": "DataAction",
-                        "vlocityIcon": "standard-default"
-                    }
-                },
-                {
-                    "actionIndex": 1,
-                    "card": "{card}",
-                    "draggable": true,
-                    "isOpen": false,
+                    "draggable": false,
+                    "isOpen": true,
                     "key": "1722349425157-ee7jmxvyp",
                     "label": "ToastLineStatusNotActive",
                     "stateAction": {
                         "actionConditions": {
                             "group": [
                                 {
-                                    "field": "blockJourney",
+                                    "field": "Products.SubscriptionStatus",
                                     "hasMergeField": false,
                                     "id": "state-new-condition-0",
-                                    "operator": "==",
+                                    "operator": "!=",
                                     "type": "custom",
-                                    "value": "true"
+                                    "value": "Ativo"
                                 }
                             ],
                             "id": "state-condition-object",
@@ -57,11 +37,11 @@
                         "displayName": "Action",
                         "eventName": "valToast",
                         "extraParams": {
-                            "message": "{message}",
-                            "variant": "{variant}"
+                            "message": "Estado da linha não permite realizar Sincronismo Full.",
+                            "variant": "warning"
                         },
                         "hasExtraParams": true,
-                        "id": "flex-action-1722349483020",
+                        "id": "flex-action-1725557614601",
                         "message": "showToast",
                         "openUrlIn": "Current Window",
                         "subType": "PubSub",
@@ -107,10 +87,10 @@
                     }
                 },
                 {
-                    "actionIndex": 3,
+                    "actionIndex": 2,
                     "card": "{card}",
-                    "draggable": false,
-                    "isOpen": true,
+                    "draggable": true,
+                    "isOpen": false,
                     "key": "1722350157597-ivpm3lkb0",
                     "label": "ActionOS",
                     "stateAction": {
@@ -125,13 +105,13 @@
                                     "value": "false"
                                 },
                                 {
-                                    "field": " blockJourney",
+                                    "field": "Products.SubscriptionStatus",
                                     "hasMergeField": false,
                                     "id": "state-new-condition-36",
                                     "logicalOperator": "&&",
-                                    "operator": "!=",
+                                    "operator": "==",
                                     "type": "custom",
-                                    "value": "true"
+                                    "value": "Ativo"
                                 }
                             ],
                             "id": "state-condition-object",
@@ -151,7 +131,7 @@
                         },
                         "flyoutType": "childCard",
                         "hasExtraParams": true,
-                        "id": "flex-action-1722359023033",
+                        "id": "flex-action-1725557322946",
                         "openFlyoutIn": "Modal",
                         "openUrlIn": "Current Window",
                         "type": "Flyout",
@@ -159,8 +139,8 @@
                     }
                 }
             ],
-            "channelname": "valPrePaidAssetDetailsButtons_ChannelNameButtons",
-            "displayLabel": "valPrePaidAssetDetailsButtons_ChannelNameButtons:Sincronizar",
+            "channelname": "valPrePaidAssetDetailsButtons_ChannelNameButtons_{recordId}",
+            "displayLabel": "valPrePaidAssetDetailsButtons_ChannelNameButtons_{recordId}:Sincronizar",
             "element": "action",
             "eventLabel": "pubsub",
             "eventname": "Sincronizar",
@@ -199,13 +179,13 @@
                                 "actionList": [
                                     {
                                         "actionIndex": 0,
-                                        "draggable": true,
+                                        "draggable": false,
                                         "isOpen": true,
                                         "key": "1717505837000-xzrmvkwv8",
                                         "label": "event",
                                         "stateAction": {
-                                            "eventName": "valPrePaidAssetDetailsButtons_ChannelNameButtons",
-                                            "id": "flex-action-1717695261856",
+                                            "eventName": "valPrePaidAssetDetailsButtons_ChannelNameButtons_{recordId}",
+                                            "id": "flex-action-1725559657543",
                                             "message": "Sincronizar",
                                             "openUrlIn": "Current Window",
                                             "subType": "PubSub",

@@ -1203,7 +1203,7 @@ public class CustomFunctionServiceTest {
         System.assertEquals(false, resultNullArguments, 'O EID deve ser inválido devido a argumentos nulos');
     }
     
-    @isTest
+/*   @isTest
     public static void testCloneAsset() {
         // Criar uma conta de teste
         Account testAccount = new Account(Name='Test Account');
@@ -1254,6 +1254,7 @@ public class CustomFunctionServiceTest {
         System.assertEquals(testAccount.Id, updatedOriginalAsset.vlocity_cmt__ServiceAccountId__c, 'O ID da nova conta de serviço do Asset original deve ser atualizado');
         System.assertEquals(newSubscription.Id, updatedOriginalAsset.vlocity_cmt__SubscriptionId__c, 'O ID da nova assinatura do Asset original deve ser atualizado');
     }
+*/
     
  
 /*    @isTest
@@ -1273,5 +1274,19 @@ public class CustomFunctionServiceTest {
         System.assertEquals('({DDD=21},{DDD=22},{DDD=23})', String.valueOf(output.get('result')));
         
     }    
+*/
+
+/*    @isTest
+    static void testGetContestPicklists() {    
+        List<Object> arguments = new List<Object>();
+
+        arguments.add(true);  
+        arguments.add(true); 
+        arguments.add(true); 
+        arguments.add(true); 
+        
+        CustomFunctionService cfs = new CustomFunctionService();
+        Map<String,Object> items = cfs.getContestPicklists(arguments);
+    }
 */
 }
