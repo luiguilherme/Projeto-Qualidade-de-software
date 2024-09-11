@@ -8,10 +8,12 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "EVE": "=LIST(%Response:EVE%)",
-            "MIN": "=LIST(%Response:MIN%)",
+            "EVE": "=IF(%Response:EVETotal:isUnlimitedSMS%, LIST(%DRTFormatUnlimitedNginSMS%), %Response:EVE%)",
+            "MIN": "=IF(%Response:MINTotal:isUnlimitedMIN%, LIST(%DRTFormatUnlimitedNginMIN%), %Response:MIN%)",
             "MON": "=IF(ISNOTBLANK(%Response:MON%), LIST(%Response:MON%), LIST(%emptymon:mon%))",
-            "VOL": "=LIST(%Response:VOL%)"
+            "VOL": "=LIST(%Response:VOL%)",
+            "isUnlimitedMIN": "%Response:MINTotal:isUnlimitedMIN%",
+            "isUnlimitedSMS": "%Response:EVETotal:isUnlimitedSMS%"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",

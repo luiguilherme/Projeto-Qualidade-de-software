@@ -99,6 +99,8 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             {output.put('result', cloneAsset(arguments));}               
             when 'productEligibilityQuery' 
             {output.put('result', productEligibilityQuery(arguments));}
+            when 'removeNullValues'
+            {output.put('result', removeNullValues(inputs));}                      
         }
         return true;
     }
@@ -1329,4 +1331,19 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
                                  
             return productEligibility;
 	}
+    
+    public static Map<String, Object> removeNullValues(Map<String, Object> inputs) {
+        Map<String, Object> balanceData = (Map<String, Object>) inputs.get('balanceData'); 
+        List<Object> attributesList = (List<Object>) balanceData.get('attributesList');
+        List<Object> filteredList = new List<Object>();
+        for (Object obj : attributesList) {
+            System.debug(obj);
+            if (obj != null) {
+                filteredList.add(obj);
+            }
+        }
+        System.debug(filteredList);
+        balanceData.put('attributesList', filteredList);
+        return inputs;
+    }
 }
