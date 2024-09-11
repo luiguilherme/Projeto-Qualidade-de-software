@@ -4,7 +4,17 @@
             {
                 "id": 6,
                 "name": "Parent.networkNumber",
-                "val": "11950959900"
+                "val": "11972820482"
+            },
+            {
+                "id": 5,
+                "name": "SourceSystem",
+                "val": ""
+            },
+            {
+                "id": 6,
+                "name": "Parent.SourceSystem",
+                "val": ""
             }
         ],
         "orderBy": {
@@ -15,10 +25,11 @@
         "value": {
             "dsDelay": "",
             "inputMap": {
+                "SourceSystem": "{Parent.SourceSystem}",
                 "networkNumber": "{Parent.networkNumber}"
             },
             "ipMethod": "val_GetPrepaidBalanceDetails",
-            "jsonMap": "{\"Parent.networkNumber\":\"{Parent.networkNumber}\"}",
+            "jsonMap": "{\"Parent.networkNumber\":\"{Parent.networkNumber}\",\"SourceSystem\":\"{SourceSystem}\",\"Parent.SourceSystem\":\"{Parent.SourceSystem}\"}",
             "resultVar": "",
             "vlocityAsync": false
         }
@@ -68,8 +79,8 @@
     "globalCSS": true,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValPrePaidAssetDetailsButtons_RechargeButton_1_Telefonica",
-        "Id": "0Rb76000000DQTQCA4",
+        "DeveloperName": "cfValBalanceDetailsInfo_9_Lucas",
+        "Id": "0Rb5f000002WsQ7CAK",
         "ManageableState": "unmanaged",
         "MasterLabel": "cfValPrePaidAssetDetailsButtons_RechargeButton_1_Telefonica",
         "NamespacePrefix": "c"
@@ -1400,7 +1411,17 @@
                                     "property": {
                                         "cardName": "valBalanceDetailsTypeMessage",
                                         "cardNode": "{record.balanceData[0]}",
-                                        "isChildCardTrackingEnabled": false,
+                                        "data-conditions": {
+                                            "group": [
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
+                                        "isChildCardTrackingEnabled": true,
+                                        "parentAttribute": {
+                                            "SourceSystem": "{Parent.SourceSystem}",
+                                            "isUnlimitedSMS": "{isUnlimitedSMS}"
+                                        },
                                         "recordId": "{recordId}",
                                         "selectedState": "Active"
                                     },
@@ -1664,6 +1685,10 @@
                                         "cardName": "valBalanceDetailsTypeVoice",
                                         "cardNode": "{record.balanceData[1]}",
                                         "isChildCardTrackingEnabled": false,
+                                        "parentAttribute": {
+                                            "SourceSystem": "{Parent.SourceSystem}",
+                                            "isUnlimitedMIN": "{isUnlimitedMIN}"
+                                        },
                                         "recordId": "{recordId}",
                                         "selectedState": "Active"
                                     },
