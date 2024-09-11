@@ -1004,4 +1004,40 @@ public class CustomFunctionServiceTest {
         
     }    
 */
+
+    @isTest
+    static void testGetContestPicklists() {    
+        List<Object> arguments = new List<Object>();
+
+        arguments.add(true);  
+        arguments.add(true); 
+        arguments.add(true); 
+        arguments.add(true); 
+        
+        CustomFunctionService cfs = new CustomFunctionService();
+        Map<String,Object> items = cfs.getContestPicklists(arguments);
+    }
+
+    @isTest
+    static void testRemoveNullValues() {
+        Map<String, Object> inputs = new Map<String, Object>();
+        Map<String, Object> balanceData = new Map<String, Object>();
+        Map<String, Object> output = new Map<String, Object>();
+        Map<String, Object> options = new Map<String, Object>();
+
+        List<Object> attributesList = new List<Object>{'Value1', null, 'Value2', null, 'Value3'};
+        balanceData.put('attributesList', attributesList);
+        inputs.put('balanceData', balanceData);
+
+        CustomFunctionService c = new CustomFunctionService();
+        c.invokeMethod('removeNullValues', inputs, output, options);
+
+        List<Object> expectedResult = new List<Object>{'Value1', 'Value2', 'Value3'};
+
+        Map<String, Object> result = (Map<String, Object>) output.get('result');
+        Map<String, Object> resultBalanceData = (Map<String, Object>) result.get('balanceData');
+        List<Object> resultList = (List<Object>) resultBalanceData.get('attributesList');
+
+        Assert.areEqual(expectedResult, resultList);
+    }
 }
