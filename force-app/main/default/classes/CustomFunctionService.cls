@@ -99,8 +99,6 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             {output.put('result', cloneAsset(arguments));}               
             when 'productEligibilityQuery' 
             {output.put('result', productEligibilityQuery(arguments));}
-            when 'getContestPicklists' 
-            {output.put('result', getContestPicklists(arguments));}
             when 'removeNullValues'
             {output.put('result', removeNullValues(inputs));}                      
         }
