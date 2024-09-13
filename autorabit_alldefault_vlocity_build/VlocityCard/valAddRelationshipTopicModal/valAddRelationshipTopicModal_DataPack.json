@@ -33,17 +33,24 @@
                     "id": 5,
                     "name": "Session.LineNumber",
                     "val": "11950959900"
+                },
+                {
+                    "id": 0,
+                    "name": "Session.InteractionPermission",
+                    "val": "true"
                 }
             ],
             "orderBy": {
                 "isReverse": "",
                 "name": ""
             },
-            "type": "Custom",
+            "type": "IntegrationProcedures",
             "value": {
-                "body": "[{ \"remarkup__c\":\"\"}]",
                 "dsDelay": "",
-                "resultVar": ""
+                "ipMethod": "val_CheckInteractionPermission",
+                "jsonMap": "{\"Session.SourceCalled\":\"{Session.SourceCalled}\",\"Session.CustomerInteractionId\":\"{Session.CustomerInteractionId}\",\"Session.OrderId\":\"{Session.OrderId}\",\"Session.AccountId\":\"{Session.AccountId}\",\"Session.AssetId\":\"{Session.AssetId}\",\"Session.LineNumber\":\"{Session.LineNumber}\",\"Session.InteractionPermission\":\"{Session.InteractionPermission}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
             }
         },
         "state0element4block_element1block_element0_0": {
@@ -170,17 +177,142 @@
                 "resultVar": "",
                 "vlocityAsync": false
             }
+        },
+        "state1element4block_element1block_element0_0": {
+            "contextVariables": [
+                {
+                    "id": 20,
+                    "name": "Session.SelectedRelationshipTopicId",
+                    "val": ""
+                },
+                {
+                    "id": 8,
+                    "name": "User.userId",
+                    "val": "00576000001CcqTAAS"
+                },
+                {
+                    "id": 8,
+                    "name": "remarkup__c",
+                    "val": ""
+                },
+                {
+                    "id": 8,
+                    "name": "recordId",
+                    "val": ""
+                },
+                {
+                    "id": 31,
+                    "name": "Session.SelectedRelationshipProductType",
+                    "val": ""
+                },
+                {
+                    "id": 32,
+                    "name": "Session.SelectedRelationshipServiceTree",
+                    "val": ""
+                },
+                {
+                    "id": 33,
+                    "name": "Session.SelectedRelationshipAssetId",
+                    "val": ""
+                },
+                {
+                    "id": 16,
+                    "name": "Session.SelectedRelationshipOtherProduct",
+                    "val": ""
+                },
+                {
+                    "id": 32,
+                    "name": "Session.CustomerInteractionId",
+                    "val": "a1c76000001aqZxAAI"
+                },
+                {
+                    "id": 27,
+                    "name": "Session.OrderId",
+                    "val": "801760000023me3AAA"
+                },
+                {
+                    "id": 49,
+                    "name": "interactionTopicId",
+                    "val": "a1b76000000QcyaAAC"
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "AssetId": "{Session.SelectedRelationshipAssetId}",
+                    "CreateCase": "false",
+                    "OrderId": "{Session.OrderId}",
+                    "OtherProduct": "{Session.SelectedRelationshipOtherProduct}",
+                    "ProductType": "{Session.SelectedRelationshipProductType}",
+                    "ServiceTree": "{Session.SelectedRelationshipServiceTree}",
+                    "interactionId": "{Session.CustomerInteractionId}",
+                    "interactionTopicId": "{interactionTopicId}",
+                    "remarkup": "{remarkup__c}",
+                    "topicId": "{Session.SelectedRelationshipTopicId}",
+                    "userId": "{User.userId}"
+                },
+                "ipMethod": "val_CreateManualCustomerInteractionTopic",
+                "jsonMap": "{\"Session.SelectedRelationshipTopicId\":\"{Session.SelectedRelationshipTopicId}\",\"User.userId\":\"{User.userId}\",\"remarkup__c\":\"{remarkup__c}\",\"recordId\":\"{recordId}\",\"Session.SelectedRelationshipProductType\":\"{Session.SelectedRelationshipProductType}\",\"Session.SelectedRelationshipServiceTree\":\"{Session.SelectedRelationshipServiceTree}\",\"Session.SelectedRelationshipAssetId\":\"{Session.SelectedRelationshipAssetId}\",\"Session.SelectedRelationshipOtherProduct\":\"{Session.SelectedRelationshipOtherProduct}\",\"Session.CustomerInteractionId\":\"{Session.CustomerInteractionId}\",\"Session.OrderId\":\"{Session.OrderId}\",\"interactionTopicId\":\"{interactionTopicId}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        },
+        "state1element4block_element1block_element0_1": {
+            "contextVariables": [
+                {
+                    "id": 1,
+                    "name": "recordId",
+                    "val": ""
+                },
+                {
+                    "id": 6,
+                    "name": "interactionTopicId",
+                    "val": "a1b76000000QcyaAAC"
+                },
+                {
+                    "id": 13,
+                    "name": "Session.SelectedRelationshipTopicId",
+                    "val": ""
+                },
+                {
+                    "id": 6,
+                    "name": "Session.CustomerInteractionId",
+                    "val": "a1c76000001aqZxAAI"
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "interactionId": "{Session.CustomerInteractionId}",
+                    "interactionTopicId": "{interactionTopicId}",
+                    "topicId": "{Session.SelectedRelationshipTopicId}"
+                },
+                "ipMethod": "val_CallOutProtocolItemVivoNet",
+                "jsonMap": "{\"recordId\":\"{recordId}\",\"interactionTopicId\":\"{interactionTopicId}\",\"Session.SelectedRelationshipTopicId\":\"{Session.SelectedRelationshipTopicId}\",\"Session.CustomerInteractionId\":\"{Session.CustomerInteractionId}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
         }
     },
     "%vlocity_namespace%__Definition__c": "valAddRelationshipTopicModal.json",
-    "%vlocity_namespace%__Description__c": "[BL9-CopyV7] J71-Abertura de Defeito e Reparo [Guilherme Kaiser]",
+    "%vlocity_namespace%__Description__c": "[BL15-Copy v8] - USs PTI4240-178 e PTI4240-179 - Não gerar protocolo. [BL9-CopyV7] J71-Abertura de Defeito e Reparo [Guilherme Kaiser]",
     "%vlocity_namespace%__GlobalKey__c": "valAddRelationshipTopicModal/Deloitte_GuilhermeKaiser/7/1704465949038",
     "%vlocity_namespace%__IsChildCard__c": true,
     "%vlocity_namespace%__ParentID__c": "",
-    "%vlocity_namespace%__SampleData__c": "[{\"remarkup__c\":\"\"}]",
+    "%vlocity_namespace%__SampleData__c": "{\"CreateInteraction\":true}",
     "%vlocity_namespace%__Styles__c": "{\"customStyles\":\".moveButtonDisable1 {\\r\\n    width: 84px;\\r\\n    height:32px;\\r\\n    color: var(--lwc-colorTextButtonBrandDisabled,rgb(255, 255, 255));\\r\\n}\\r\\n\\r\\n.slds-textarea { resize: none;}\"}",
     "%vlocity_namespace%__Type__c": "",
-    "%vlocity_namespace%__Version__c": 8,
+    "%vlocity_namespace%__Version__c": 10,
     "Name": "valAddRelationshipTopicModal",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityCard__c",

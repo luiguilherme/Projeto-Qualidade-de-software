@@ -11,7 +11,7 @@
         "additionalInput": {
             "orcPlanId": "%DRERequestOrchestration:orcPlanId%",
             "returnCode": "=IF(ISBLANK(%CriticalError:returnCode%),%callbackCode%,%CriticalError:returnCode%)",
-            "returnMessage": "=%CriticalError:returnMessage%",
+            "returnMessage": "=IF(ISBLANK(%DREGetCriticalErrorByErrorCode%), %returnList:returnMessage%, IF(ISNOTBLANK(%CriticalError:returnMessage%), %CriticalError:returnMessage%, \"\"))",
             "source": "%System:source%",
             "transactionId": "%transactionId%"
         },

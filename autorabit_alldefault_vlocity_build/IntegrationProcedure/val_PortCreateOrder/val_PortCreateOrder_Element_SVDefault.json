@@ -13,8 +13,12 @@
         "elementValueMap": {
             "CurrentDateOrder": "=TODAY()",
             "CurrentDateTimeOrder": "=FORMATDATETIMEGMT(NOW(), \"America/Sao_Paulo\", \"yyyy-MM-dd'T'HH:mm:ss.SSSZ\")",
-            "PriceListCode": "PRICELIST_B2C",
-            "ProductCode": "PRE_OFFER_BUNDLE_PRE"
+            "PriceBookId": "=QUERY(\"Select %vlocity_namespace%__Pricebook2Id__c FROM %vlocity_namespace%__PriceList__c WHERE %vlocity_namespace%__Code__c = 'PRICELIST_B2C'\")",
+            "PriceListId": "=QUERY(\"Select Id FROM %vlocity_namespace%__PriceList__c WHERE %vlocity_namespace%__Code__c = 'PRICELIST_B2C'\")",
+            "ProductCode": "PRE_OFFER_BUNDLE_PRE",
+            "adabas": "=QUERY(\"SELECT Adabas__c FROM User Where Id = '{0}'\",$Vlocity.UserId)",
+            "center": "=QUERY(\"SELECT Center__c FROM User Where Id = '{0}'\",$Vlocity.UserId)",
+            "channel": "=QUERY(\"SELECT ChannelName__c FROM User Where Id = '{0}'\",$Vlocity.UserId)"
         },
         "executionConditionalFormula": "",
         "failOnStepError": true,

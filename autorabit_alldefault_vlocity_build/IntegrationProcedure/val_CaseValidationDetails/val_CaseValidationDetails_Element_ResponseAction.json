@@ -8,9 +8,10 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
+            "ShowAdjustBalanceButton": "=IF((%DREGetCaseData:RecordTypeDeveloperName%=='PreCaseReimbursement' && (%DREGetCaseData:currentGroup%=='Grupo de Atend. Ajuste Saldo - Lojas'|| %DREGetCaseData:currentGroup%=='Grupo de Atend. Ajuste Saldo - Atend'))&& %SVPermission:HasAccessToSameCaseGroup%,true, false)",
             "ShowChangeCaseOwner": "=%SVPermission:HasAccessToSameCaseGroup%",
-            "ShowCloseCaseButton": "=IF((%DREGetCaseData:currentGroup%=='Grupo de Retorno - GT Unificado/Atend'||\r\n%DREGetCaseData:currentGroup%=='Grupo de Retorno - Resgate de Gravação'||\r\n%DREGetCaseData:currentGroup%=='Grupo de Retorno - Solução Online/Atend'||\r\n%DREGetCaseData:currentGroup%=='Grupo de Retorno - Ouvidoria') && %SVPermission:HasAccessToSameCaseGroup%,true, false)",
-            "ShowCloseCaseTreatment": "=IF((%DREGetCaseData:currentGroup%=='Grupo de Atendimento - Fraude'||\r\n%DREGetCaseData:currentGroup%=='Grupo de Atendimento - GT Unificado'||\r\n%DREGetCaseData:currentGroup%=='Grupo de Atendimento - Solução Online'||\r\n%DREGetCaseData:currentGroup%=='Grupo de Atendimento - Resgate Gravação'||%DREGetCaseData:currentGroup%=='Grupo de Atendimento - Ouvidoria') && %SVPermission:HasAccessToSameCaseGroup%,true, false)",
+            "ShowCloseCaseButton": "=IF((%DREGetCaseData:currentGroup%=='Grupo de Retorno - GT Unificado/Atend'||%DREGetCaseData:currentGroup%=='Grupo de Retorno - Resgate de Gravação'||%DREGetCaseData:currentGroup%=='Grupo de Retorno - Solução Online/Atend'||%DREGetCaseData:currentGroup%=='Grupo de Retorno - Ouvidoria') && %SVPermission:HasAccessToSameCaseGroup%,true, false)",
+            "ShowCloseCaseTreatment": "=IF((%DREGetCaseData:currentGroup%=='Grupo de Atendimento - Fraude'||%DREGetCaseData:currentGroup%=='Grupo de Atendimento - GT Unificado'||%DREGetCaseData:currentGroup%=='Grupo de Atendimento - Solução Online'||%DREGetCaseData:currentGroup%=='Grupo de Atendimento - Resgate Gravação'||%DREGetCaseData:currentGroup%=='Grupo de Atendimento - Ouvidoria') && %SVPermission:HasAccessToSameCaseGroup%,true, false)",
             "Status": "%DREGetCaseData:status%"
         },
         "disOnTplt": false,

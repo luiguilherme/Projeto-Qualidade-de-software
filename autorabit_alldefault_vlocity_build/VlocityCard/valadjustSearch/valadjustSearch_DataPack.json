@@ -1,0 +1,232 @@
+{
+    "%vlocity_namespace%__Author__c": "Valentina",
+    "%vlocity_namespace%__CardType__c": "flex",
+    "%vlocity_namespace%__Datasource__c": {
+        "dataSource": {
+            "contextVariables": [
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "ipMethod": "val_DateUtilitiesOneMonth",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        },
+        "state0element2block_element0_0": {
+            "contextVariables": [
+                {
+                    "id": 10,
+                    "name": "Session.AccountId",
+                    "val": ""
+                },
+                {
+                    "id": 11,
+                    "name": "Session.LineNumbe",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "AccountId": "{Session.AccountId}",
+                    "FormType": "Ajuste de Saldo",
+                    "ServiceIdentifier": "{Session.LineNumbe}",
+                    "TopicName": "Ajuste de Saldo",
+                    "Type": "Case"
+                },
+                "ipMethod": "val_GetInteractionTopicNameFromTopicsAuto",
+                "jsonMap": "{\"Session.AccountId\":\"{Session.AccountId}\",\"Session.LineNumbe\":\"{Session.LineNumbe}\"}",
+                "vlocityAsync": false
+            }
+        },
+        "state0element6block_element4_0": {
+            "contextVariables": [
+                {
+                    "id": 4,
+                    "name": "todayUtil",
+                    "val": "11/06/2024"
+                },
+                {
+                    "id": 5,
+                    "name": "minus1MonthUtil",
+                    "val": "13/05/2024"
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "InputFinalDate": "{todayUtil}",
+                    "InputInitialDate": "{minus1MonthUtil}",
+                    "executed": "true"
+                },
+                "ipMethod": "val_DateUtilitiesOneMonth",
+                "jsonMap": "{\"todayUtil\":\"{todayUtil}\",\"minus1MonthUtil\":\"{minus1MonthUtil}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        },
+        "state1element0block_element0_2": {
+            "contextVariables": [
+                {
+                    "id": 20,
+                    "name": "Session.SelectedRelationshipTopicId",
+                    "val": ""
+                },
+                {
+                    "id": 8,
+                    "name": "User.userId",
+                    "val": ""
+                },
+                {
+                    "id": 8,
+                    "name": "remarkup__c",
+                    "val": ""
+                },
+                {
+                    "id": 8,
+                    "name": "recordId",
+                    "val": ""
+                },
+                {
+                    "id": 31,
+                    "name": "Session.SelectedRelationshipProductType",
+                    "val": ""
+                },
+                {
+                    "id": 32,
+                    "name": "Session.SelectedRelationshipServiceTree",
+                    "val": ""
+                },
+                {
+                    "id": 33,
+                    "name": "Session.SelectedRelationshipAssetId",
+                    "val": ""
+                },
+                {
+                    "id": 16,
+                    "name": "Session.SelectedRelationshipOtherProduct",
+                    "val": ""
+                },
+                {
+                    "id": 36,
+                    "name": "Session.SelectedRelationshipFolderName",
+                    "val": ""
+                },
+                {
+                    "id": 28,
+                    "name": "Parent.Restart",
+                    "val": ""
+                },
+                {
+                    "id": 36,
+                    "name": "Parent.ProductSourceSystem",
+                    "val": ""
+                },
+                {
+                    "id": 23,
+                    "name": "Session.SelectedRelationshipTargetFlow",
+                    "val": ""
+                },
+                {
+                    "id": 24,
+                    "name": "Session.SelectedRelationshipLegacySystem",
+                    "val": ""
+                },
+                {
+                    "id": 37,
+                    "name": "Session.SelectedRelationshipRelationshipType",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "AssetId": "{Session.SelectedRelationshipAssetId}",
+                    "FolderName": "{Session.SelectedRelationshipFolderName}",
+                    "OtherProduct": "{Session.SelectedRelationshipOtherProduct}",
+                    "ProductSourceSystem": "{Parent.ProductSourceSystem}",
+                    "ProductType": "{Session.SelectedRelationshipProductType}",
+                    "RelationshipType": "{Session.SelectedRelationshipRelationshipType}",
+                    "SelectedRelationshipLegacySystem": "{Session.SelectedRelationshipLegacySystem}",
+                    "SelectedRelationshipTargetFlow": "{Session.SelectedRelationshipTargetFlow}",
+                    "ServiceTree": "{Session.SelectedRelationshipServiceTree}",
+                    "interactionId": "{recordId}",
+                    "remarkup": "{remarkup__c}",
+                    "topicId": "{Session.SelectedRelationshipTopicId}",
+                    "userId": "{User.userId}"
+                },
+                "ipMethod": "val_CreateManualCustomerInteractionTopic",
+                "jsonMap": "{\"Session.SelectedRelationshipTopicId\":\"{Session.SelectedRelationshipTopicId}\",\"User.userId\":\"{User.userId}\",\"remarkup__c\":\"{remarkup__c}\",\"recordId\":\"{recordId}\",\"Session.SelectedRelationshipProductType\":\"{Session.SelectedRelationshipProductType}\",\"Session.SelectedRelationshipServiceTree\":\"{Session.SelectedRelationshipServiceTree}\",\"Session.SelectedRelationshipAssetId\":\"{Session.SelectedRelationshipAssetId}\",\"Session.SelectedRelationshipOtherProduct\":\"{Session.SelectedRelationshipOtherProduct}\",\"Session.SelectedRelationshipFolderName\":\"{Session.SelectedRelationshipFolderName}\",\"Parent.Restart\":\"{Parent.Restart}\",\"Parent.ProductSourceSystem\":\"{Parent.ProductSourceSystem}\",\"Session.SelectedRelationshipTargetFlow\":\"{Session.SelectedRelationshipTargetFlow}\",\"Session.SelectedRelationshipLegacySystem\":\"{Session.SelectedRelationshipLegacySystem}\",\"Session.SelectedRelationshipRelationshipType\":\"{Session.SelectedRelationshipRelationshipType}\"}",
+                "resultVar": "",
+                "vlocityAsync": false
+            }
+        },
+        "state1element0block_element0_3": {
+            "contextVariables": [
+                {
+                    "id": 1,
+                    "name": "recordId",
+                    "val": ""
+                },
+                {
+                    "id": 6,
+                    "name": "interactionTopicId",
+                    "val": ""
+                },
+                {
+                    "id": 13,
+                    "name": "Session.SelectedRelationshipTopicId",
+                    "val": ""
+                }
+            ],
+            "orderBy": {
+                "isReverse": "",
+                "name": ""
+            },
+            "type": "IntegrationProcedures",
+            "value": {
+                "dsDelay": "",
+                "inputMap": {
+                    "interactionId": "{recordId}",
+                    "interactionTopicId": "{interactionTopicId}",
+                    "topicId": "{Session.SelectedRelationshipTopicId}"
+                },
+                "ipMethod": "val_CallOutProtocolItemVivoNet",
+                "vlocityAsync": false
+            }
+        }
+    },
+    "%vlocity_namespace%__Definition__c": "valadjustSearch.json",
+    "%vlocity_namespace%__Description__c": "Flexcard Pai da tela principal de pesquisa de Ajuste de Saldo por meio do tipo de ajuste e Datas [Erik, Lucas, Gustavo]",
+    "%vlocity_namespace%__GlobalKey__c": "valadjustSearch/Valentina/1/1718028207049",
+    "%vlocity_namespace%__IsChildCard__c": false,
+    "%vlocity_namespace%__ParentID__c": "",
+    "%vlocity_namespace%__SampleData__c": "{\"errorDate\":false,\"errorMessage\":null,\"minStartDate\":\"2019-07-01\",\"minus1Month\":\"01/06/2024\",\"minus1MonthUtil\":\"01/06/2024\",\"today\":\"01/07/2024\",\"todayUtil\":\"01/07/2024\",\"viewData\":false}",
+    "%vlocity_namespace%__Styles__c": "",
+    "%vlocity_namespace%__Type__c": "",
+    "%vlocity_namespace%__Version__c": 2,
+    "Name": "valadjustSearch",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityCard__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__VlocityCard__c/valadjustSearch"
+}

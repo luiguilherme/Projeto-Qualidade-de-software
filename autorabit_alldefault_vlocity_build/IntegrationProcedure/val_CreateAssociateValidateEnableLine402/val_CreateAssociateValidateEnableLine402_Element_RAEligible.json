@@ -15,10 +15,7 @@
             "Eligible": "=IF(%ProcessInstance%=='Aprovado', 1,IF(%IPValidateCPFBureau:Eligible% == 1 && %IPValidateCPFBureau:EligibleName% == 1 && %IPValidateCPFBureau:EligibleBureau% == 1 && %SVCompareBirthDateShowFields:BirthDateCompare% == false, 0, 1))",
             "FirstName": "%SVReturnNameBureau:firstName%",
             "LastName": "%SVReturnNameBureau:lastName%",
-            "StepRegistration:DocumentBlock:DocumentNumberCPFRO": "=TOSTRING(%SVDocumentNumber:ResponseDocumentNumberCPF%)",
-            "StepRegistration:DocumentBlock:DocumentNumberExtRO": "=TOSTRING(%SVDocumentNumber:ResponseDocumentNumberExt%)",
-            "StepRegistration:DocumentBlock:DocumentNumberPassaportRO": "=TOSTRING(%SVDocumentNumber:ResponseDocumentNumberPassaport%)",
-            "StepRegistration:ShowValidate": "=IF(%ProcessInstance%=='Aprovado',false,IF(ISBLANK(%ProcessInstance%) && %IPValidateCPFBureau:BureauStatus%==\"12\",true, IF(%IPValidateCPFBureau:Eligible% == 1 && %IPValidateCPFBureau:EligibleName% == 1 && %IPValidateCPFBureau:EligibleBureau% == 1 && %SVCompareBirthDateShowFields:BirthDateCompare% == true && %IPValidateLine:limitQtyMonth%==0 && %IPValidateLine:totalLimit%==0, false, true)))",
+            "StepRegister:ShowValidate": "=IF(%ProcessInstance%=='Aprovado',false,IF(ISBLANK(%ProcessInstance%) && %IPValidateCPFBureau:BureauStatus%==\"12\",true, IF(%IPValidateCPFBureau:Eligible% == 1 && %IPValidateCPFBureau:EligibleName% == 1 && %IPValidateCPFBureau:EligibleBureau% == 1 && %SVCompareBirthDateShowFields:BirthDateCompare% == true && %IPValidateLine:limitQtyMonth%==0 && %IPValidateLine:totalLimit%==0, false, true)))",
             "ValidateLine": "%IPValidateLine%"
         },
         "disOnTplt": false,

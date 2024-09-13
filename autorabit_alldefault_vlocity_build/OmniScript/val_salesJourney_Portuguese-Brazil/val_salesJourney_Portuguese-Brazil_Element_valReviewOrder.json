@@ -12,26 +12,60 @@
         "Type": "val",
         "show": {
             "group": {
-                "operator": "AND",
+                "operator": "OR",
                 "rules": [
                     {
-                        "condition": "=",
-                        "data": "true",
-                        "field": "showOmniNextStepGenericButton"
-                    },
-                    {
                         "group": {
-                            "operator": "OR",
+                            "operator": "AND",
                             "rules": [
                                 {
                                     "condition": "=",
                                     "data": "true",
-                                    "field": "validLine"
+                                    "field": "showOmniNextStepGenericButton"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "false",
+                                    "field": "donateMethod"
+                                },
+                                {
+                                    "group": {
+                                        "operator": "OR",
+                                        "rules": [
+                                            {
+                                                "condition": "=",
+                                                "data": "true",
+                                                "field": "validLine"
+                                            },
+                                            {
+                                                "condition": "=",
+                                                "data": "true",
+                                                "field": "validLine2"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "true",
+                                    "field": "donateMethod"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "false",
+                                    "field": "IsRejected"
                                 },
                                 {
                                     "condition": "=",
                                     "data": "true",
-                                    "field": "validLine2"
+                                    "field": "IsApproved"
                                 }
                             ]
                         }
