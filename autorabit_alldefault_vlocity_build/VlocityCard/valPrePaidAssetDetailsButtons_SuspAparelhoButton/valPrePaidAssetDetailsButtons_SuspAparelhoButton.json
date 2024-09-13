@@ -18,6 +18,176 @@
     },
     "enableLwc": true,
     "events": [
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1718582085096-5i45r86uj",
+                    "label": "CheckBiometric",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "id": "flex-action-1720120005680",
+                        "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateAllJourneys\",\"vlocityAsync\":false,\"inputMap\":{\"serviceType\":\"509\",\"InteractionId\":\"{Parent.InteractionId}\",\"AccountId\":\"{Parent.AccountId}\",\"AssetId\":\"{Parent.AssetId}\",\"PreSetValues\":\"true\",\"CheckBiometric\":\"true\",\"ValidatePortability\":\"true\",\"ValidatePermission\":\"true\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"Parent.InteractionId\\\":\\\"{Parent.InteractionId}\\\",\\\"Parent.AccountId\\\":\\\"{Parent.AccountId}\\\",\\\"Parent.AssetId\\\":\\\"{Parent.AssetId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"02i76000009Pdg3AAC\",\"id\":4},{\"name\":\"Parent.InteractionId\",\"val\":\"\",\"id\":2},{\"name\":\"Parent.AccountId\",\"val\":\"\",\"id\":4},{\"name\":\"Parent.AssetId\",\"val\":\"\",\"id\":6}]}",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "DataAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1718733227970-uesemkoyb",
+                    "label": "valToast",
+                    "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "blockJourney",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-0",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "true"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "valToast",
+                        "extraParams": {
+                            "message": "{message}",
+                            "variant": "{variant}"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1718733280225",
+                        "message": "showToast",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 2,
+                    "card": "{card}",
+                    "contextId": "\\{Parent.AssetId}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1718733313320-n8g9limd3",
+                    "label": "Omni Suspensão de Aparelho",
+                    "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "blockJourney",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-7",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "false"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "extraParams": {
+                            "c__accountId": "{Parent.AccountId}",
+                            "c__assetId": "{Parent.AssetId}",
+                            "c__channelName": "{ChannelName}",
+                            "c__documentNumber": "{Products.BillingAccountDocumentNumber}",
+                            "c__functionality": "DeviceBlockJourney",
+                            "c__interactionId": "{Parent.InteractionId}",
+                            "c__interactionNumber": "{Parent.InteractionNumber}",
+                            "c__lineNumber": "{Products.LineNumber}",
+                            "c__subscriptionId": "{Parent.SubscriptionId}",
+                            "c__subscriptionStatus": "{Products.SubscriptionStatus}"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1720060011953",
+                        "isLwcOS": true,
+                        "layoutType": "lightning",
+                        "omniType": {
+                            "Id": "a3076000000PPWXAA4",
+                            "Name": "val/DeviceBlockJourney/English",
+                            "isLwcOs": true
+                        },
+                        "openUrlIn": "New Tab/Window",
+                        "tabIcon": "utility:offline",
+                        "tabLabel": "Suspender Aparelho",
+                        "type": "OmniScript",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 3,
+                    "card": "{card}",
+                    "contextId": "\\{Parent.InteractionId}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1718733490985-cd2ek3ns5",
+                    "label": "PalitagemManual",
+                    "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "palitagem",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-14",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "true"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "extraParams": {
+                            "c__AccountId": "{Parent.AccountId}",
+                            "c__AssetId": "{Parent.AssetId}",
+                            "c__CustomerInteractionId": "{Parent.InteractionId}",
+                            "c__InteractionNumber": "{Parent.InteractionNumber}",
+                            "c__SourceCalled": "SalesJourney",
+                            "c__lineNumber": "{Products.LineNumber}"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1718733584045",
+                        "isLwcOS": true,
+                        "layoutType": "lightning",
+                        "omniType": {
+                            "Id": "a3076000000AsWyAAK",
+                            "Name": "val/AddRelationShipTopic/English",
+                            "isLwcOs": true
+                        },
+                        "openUrlIn": "Current Window",
+                        "tabIcon": "standard:cancel_checkout",
+                        "tabLabel": "Palitar",
+                        "type": "OmniScript",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "valPrePaidAssetDetailsButtons_ChannelNameButtons",
+            "displayLabel": "valPrePaidAssetDetailsButtons_ChannelNameButtons:Suspender Aparelho",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "Suspender Aparelho",
+            "eventtype": "pubsub",
+            "key": "event-0",
+            "recordIndex": "0",
+            "showSpinner": "true"
+        }
     ],
     "globalCSS": false,
     "isFlex": true,
@@ -33,7 +203,8 @@
     "sessionVars": [
         {
             "isApi": true,
-            "name": "AssetId"
+            "name": "AssetId",
+            "val": ""
         }
     ],
     "states": [
@@ -55,161 +226,18 @@
                                     {
                                         "actionIndex": 0,
                                         "card": "{card}",
-                                        "draggable": true,
+                                        "draggable": false,
                                         "isOpen": true,
-                                        "key": "1708438402395-79mv1luou",
-                                        "label": "CheckBiometric",
+                                        "key": "1717174812129-rme82nhmh",
+                                        "label": "event",
                                         "stateAction": {
-                                            "Web Page": {
-                                                "targetName": "/apex"
-                                            },
-                                            "actionConditions": {
-                                                "group": [
-                                                ],
-                                                "id": "state-condition-object",
-                                                "isParent": true
-                                            },
                                             "displayName": "Action",
-                                            "eventName": "reload",
-                                            "id": "flex-action-1711394554911",
-                                            "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_ValidateAllJourneys\",\"vlocityAsync\":false,\"inputMap\":{\"serviceType\":\"509\",\"InteractionId\":\"{Parent.InteractionId}\",\"AccountId\":\"{Parent.AccountId}\",\"AssetId\":\"{Parent.AssetId}\",\"Functionality\":\"ChangeServiceIdentifier\",\"PreSetValues\":\"true\",\"CheckBiometric\":\"true\",\"ValidatePortability\":\"true\",\"ValidateOrder\":\"true\",\"ValidatePermission\":\"true\"},\"jsonMap\":\"{\\\"recordId\\\":\\\"{recordId}\\\",\\\"Parent.InteractionId\\\":\\\"{Parent.InteractionId}\\\",\\\"Parent.AccountId\\\":\\\"{Parent.AccountId}\\\",\\\"Parent.AssetId\\\":\\\"{Parent.AssetId}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"recordId\",\"val\":\"02i7600000EUYtQAAX\",\"id\":4},{\"name\":\"Parent.InteractionId\",\"val\":\"\",\"id\":2},{\"name\":\"Parent.AccountId\",\"val\":\"\",\"id\":5},{\"name\":\"Parent.AssetId\",\"val\":\"02i7600000EUYtQAAX\",\"id\":7}]}",
-                                            "openUrlIn": "Current Window",
-                                            "targetType": "Web Page",
-                                            "type": "DataAction",
-                                            "vlocityIcon": "standard-default"
-                                        }
-                                    },
-                                    {
-                                        "actionIndex": 1,
-                                        "card": "{card}",
-                                        "draggable": true,
-                                        "isOpen": false,
-                                        "key": "1708438404730-rqi6nw0kp",
-                                        "label": "valToast",
-                                        "stateAction": {
-                                            "actionConditions": {
-                                                "group": [
-                                                    {
-                                                        "field": "blockJourney",
-                                                        "hasMergeField": false,
-                                                        "id": "state-new-condition-17",
-                                                        "operator": "==",
-                                                        "type": "custom",
-                                                        "value": "true"
-                                                    }
-                                                ],
-                                                "id": "state-condition-object",
-                                                "isParent": true
-                                            },
-                                            "displayName": "Action",
-                                            "eventName": "valToast",
-                                            "extraParams": {
-                                                "message": "{message}",
-                                                "variant": "{variant}"
-                                            },
-                                            "hasExtraParams": true,
-                                            "id": "flex-action-1711386037475",
-                                            "message": "showToast",
+                                            "eventName": "valPrePaidAssetDetailsButtons_ChannelNameButtons",
+                                            "id": "flex-action-1718582099637",
+                                            "message": "Suspender Aparelho",
                                             "openUrlIn": "Current Window",
                                             "subType": "PubSub",
                                             "type": "Event",
-                                            "vlocityIcon": "standard-default"
-                                        }
-                                    },
-                                    {
-                                        "actionIndex": 2,
-                                        "contextId": "\\{Parent.AssetId}",
-                                        "draggable": true,
-                                        "isOpen": false,
-                                        "key": "1697746324017-1vjoshcv8",
-                                        "label": "Omni Suspensão de Aparelho",
-                                        "stateAction": {
-                                            "actionConditions": {
-                                                "group": [
-                                                    {
-                                                        "field": "blockJourney",
-                                                        "hasMergeField": false,
-                                                        "id": "state-new-condition-0",
-                                                        "operator": "==",
-                                                        "type": "custom",
-                                                        "value": "false"
-                                                    }
-                                                ],
-                                                "id": "state-condition-object",
-                                                "isParent": true
-                                            },
-                                            "extraParams": {
-                                                "c__accountId": "{Parent.AccountId}",
-                                                "c__assetId": "{Parent.AssetId}",
-                                                "c__channelName": "{ChannelName}",
-                                                "c__documentNumber": "{Products.BillingAccountDocumentNumber}",
-                                                "c__functionality": "DeviceBlockJourney",
-                                                "c__interactionId": "{Parent.InteractionId}",
-                                                "c__interactionNumber": "{Parent.InteractionNumber}",
-                                                "c__lineNumber": "{Products.LineNumber}",
-                                                "c__subscriptionId": "{Parent.SubscriptionId}",
-                                                "c__subscriptionStatus": "{Products.SubscriptionStatus}"
-                                            },
-                                            "hasExtraParams": true,
-                                            "id": "flex-action-1711386181883",
-                                            "isLwcOS": true,
-                                            "layoutType": "lightning",
-                                            "omniType": {
-                                                "Id": "a3076000000PHILAA4",
-                                                "Name": "val/DeviceBlockJourney/English",
-                                                "isLwcOs": true
-                                            },
-                                            "openUrlIn": "New Tab/Window",
-                                            "tabIcon": "utility:offline",
-                                            "tabLabel": "Suspensão de Aparelho",
-                                            "type": "OmniScript"
-                                        }
-                                    },
-                                    {
-                                        "actionIndex": 3,
-                                        "card": "{card}",
-                                        "contextId": "\\{Parent.InteractionId}",
-                                        "draggable": true,
-                                        "isOpen": false,
-                                        "key": "1708536982642-pth65f6dr",
-                                        "label": "PalitagemManual",
-                                        "stateAction": {
-                                            "actionConditions": {
-                                                "group": [
-                                                    {
-                                                        "field": "palitagem",
-                                                        "hasMergeField": false,
-                                                        "id": "state-new-condition-21",
-                                                        "operator": "==",
-                                                        "type": "custom",
-                                                        "value": "true"
-                                                    }
-                                                ],
-                                                "id": "state-condition-object",
-                                                "isParent": true
-                                            },
-                                            "displayName": "Action",
-                                            "extraParams": {
-                                                "c__AccountId": "{Parent.AccountId}",
-                                                "c__AssetId": "{Parent.AssetId}",
-                                                "c__CustomerInteractionId": "{Parent.InteractionId}",
-                                                "c__InteractionNumber": "{Parent.InteractionNumber}",
-                                                "c__SourceCalled": "SalesJourney",
-                                                "c__lineNumber": "{Products.LineNumber}"
-                                            },
-                                            "hasExtraParams": true,
-                                            "id": "flex-action-1711128781057",
-                                            "isLwcOS": true,
-                                            "layoutType": "lightning",
-                                            "omniType": {
-                                                "Id": "a3076000000PNwjAAG",
-                                                "Name": "val/AddRelationShipTopic/English",
-                                                "isLwcOs": true
-                                            },
-                                            "openUrlIn": "Current Window",
-                                            "tabIcon": "standard:cancel_checkout",
-                                            "tabLabel": "Palitar",
-                                            "type": "OmniScript",
                                             "vlocityIcon": "standard-default"
                                         }
                                     }
@@ -223,14 +251,20 @@
                                 },
                                 "flyoutDetails": {
                                 },
-                                "iconColor": "#dddbda",
+                                "iconColor": "#792BA4",
                                 "iconName": "utility:offline",
-                                "iconOnly": true,
-                                "iconSize": "x-small",
-                                "label": "Suspensão de Aparelho",
+                                "iconOnly": false,
+                                "iconSize": "small",
+                                "label": "Suspender Aparelho",
                                 "record": "{record}",
                                 "showSpinner": "true",
-                                "stateObj": "{record}"
+                                "stateObj": "{record}",
+                                "styles": {
+                                    "label": {
+                                        "color": "#792BA4",
+                                        "fontSize": "12px"
+                                    }
+                                }
                             },
                             "size": {
                                 "default": "12",
@@ -257,28 +291,34 @@
                                     ],
                                     "width": "1"
                                 },
-                                "class": "slds-text-align_center slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-top_xx-small slds-m-right_x-small editButton",
+                                "class": "slds-text-align_left slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-top_small slds-p-left_small ",
                                 "container": {
                                     "class": ""
                                 },
-                                "customClass": "editButton",
+                                "customClass": "",
                                 "elementStyleProperties": {
-                                    "iconColor": "#dddbda",
-                                    "iconSize": "x-small"
-                                },
-                                "inlineStyle": "width: 35px;",
-                                "margin": [
-                                    {
-                                        "label": "right:x-small",
-                                        "size": "x-small",
-                                        "type": "right"
+                                    "iconColor": "#792BA4",
+                                    "iconSize": "small",
+                                    "styles": {
+                                        "label": {
+                                            "color": "#792BA4",
+                                            "fontSize": "12px"
+                                        }
                                     }
+                                },
+                                "inlineStyle": "height: 55px;",
+                                "margin": [
                                 ],
                                 "padding": [
                                     {
-                                        "label": "top:xx-small",
-                                        "size": "xx-small",
+                                        "label": "top:small",
+                                        "size": "small",
                                         "type": "top"
+                                    },
+                                    {
+                                        "label": "left:small",
+                                        "size": "small",
+                                        "type": "left"
                                     }
                                 ],
                                 "size": {
@@ -286,9 +326,9 @@
                                     "isResponsive": false
                                 },
                                 "sizeClass": "slds-size_12-of-12 ",
-                                "style": "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5px;     width: 35px;",
+                                "style": "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5px;     height: 55px;",
                                 "text": {
-                                    "align": "center",
+                                    "align": "left",
                                     "color": ""
                                 }
                             },
@@ -320,28 +360,34 @@
                                             ],
                                             "width": "1"
                                         },
-                                        "class": "slds-text-align_center slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-top_xx-small slds-m-right_x-small editButton",
+                                        "class": "slds-text-align_left slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-top_small slds-p-left_small ",
                                         "container": {
                                             "class": ""
                                         },
-                                        "customClass": "editButton",
+                                        "customClass": "",
                                         "elementStyleProperties": {
-                                            "iconColor": "#dddbda",
-                                            "iconSize": "x-small"
-                                        },
-                                        "inlineStyle": "width: 35px;",
-                                        "margin": [
-                                            {
-                                                "label": "right:x-small",
-                                                "size": "x-small",
-                                                "type": "right"
+                                            "iconColor": "#792BA4",
+                                            "iconSize": "small",
+                                            "styles": {
+                                                "label": {
+                                                    "color": "#792BA4",
+                                                    "fontSize": "12px"
+                                                }
                                             }
+                                        },
+                                        "inlineStyle": "height: 55px;",
+                                        "margin": [
                                         ],
                                         "padding": [
                                             {
-                                                "label": "top:xx-small",
-                                                "size": "xx-small",
+                                                "label": "top:small",
+                                                "size": "small",
                                                 "type": "top"
+                                            },
+                                            {
+                                                "label": "left:small",
+                                                "size": "small",
+                                                "type": "left"
                                             }
                                         ],
                                         "size": {
@@ -349,9 +395,9 @@
                                             "isResponsive": false
                                         },
                                         "sizeClass": "slds-size_12-of-12 ",
-                                        "style": "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5px;     width: 35px;",
+                                        "style": "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5px;     height: 55px;",
                                         "text": {
-                                            "align": "center",
+                                            "align": "left",
                                             "color": ""
                                         }
                                     }
@@ -479,6 +525,20 @@
                     }
                 }
             ]
+        },
+        {
+            "@attributes": {
+                "targets": "lightning__RecordPage"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "label": "AssetId",
+                        "name": "cfAssetId",
+                        "type": "String"
+                    }
+                }
+            ]
         }
     ],
     "xmlObject": {
@@ -487,12 +547,13 @@
         "isExposed": true,
         "masterLabel": "valPrePaidAssetDetailsButtons_SuspAparelhoButton",
         "runtimeNamespace": "%vlocity_namespace%",
-        "targetConfigs": "PHRhcmdldENvbmZpZyAgeG1sbnM9Imh0dHA6Ly9zb2FwLnNmb3JjZS5jb20vMjAwNi8wNC9tZXRhZGF0YSIgdGFyZ2V0cz0ibGlnaHRuaW5nX19BcHBQYWdlIj48cHJvcGVydHkgIG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyAgeG1sbnM9IiIgdGFyZ2V0cz0ibGlnaHRuaW5nQ29tbXVuaXR5X19EZWZhdWx0Ij48cHJvcGVydHkgIG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyAgdGFyZ2V0cz0ibGlnaHRuaW5nX19Ib21lUGFnZSI+PHByb3BlcnR5ICBuYW1lPSJjZkFzc2V0SWQiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkFzc2V0SWQiPjwvcHJvcGVydHk+PC90YXJnZXRDb25maWc+",
+        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJyZWNvcmRJZCIgdHlwZT0iU3RyaW5nIi8+PHByb3BlcnR5IG5hbWU9ImNmQXNzZXRJZCIgdHlwZT0iU3RyaW5nIiBsYWJlbD0iQXNzZXRJZCIvPjwvdGFyZ2V0Q29uZmlnPjx0YXJnZXRDb25maWcgeG1sbnM9IiIgdGFyZ2V0cz0ibGlnaHRuaW5nQ29tbXVuaXR5X19EZWZhdWx0Ij48cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPjwvdGFyZ2V0Q29uZmlnPjx0YXJnZXRDb25maWcgdGFyZ2V0cz0ibGlnaHRuaW5nX19Ib21lUGFnZSI+PHByb3BlcnR5IG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciLz48cHJvcGVydHkgbmFtZT0iY2ZBc3NldElkIiB0eXBlPSJTdHJpbmciIGxhYmVsPSJBc3NldElkIi8+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJjZkFzc2V0SWQiIHR5cGU9IlN0cmluZyIgbGFiZWw9IkFzc2V0SWQiLz48L3RhcmdldENvbmZpZz4=",
         "targets": {
             "target": [
                 "lightning__AppPage",
                 "lightningCommunity__Default",
-                "lightning__HomePage"
+                "lightning__HomePage",
+                "lightning__RecordPage"
             ]
         }
     }

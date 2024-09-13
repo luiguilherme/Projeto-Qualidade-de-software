@@ -11,7 +11,7 @@
         "additionalInput": {
             "ClientEmail": "%DREPortDetails:Email%",
             "ClientName": "%PortInput:User__c%",
-            "EventType": "=IF(%SVConditions:PortinAuthorize%, \"EmailBpAprovPre\", IF(%SVConditions:PortinCancel%, \"EmailCancelPre\", %DREGetPortabilityError:EventType%))",
+            "EventType": "=IF(%SVConditions:PortinAuthorize% , \"EmailBpAprovPre\", IF(%SVConditions:PortinCancel%, \"EmailCancelPre\", IF(%SVConditions:PortoutChargebackCancel%, \"EmailCancelPre\", %DREGetPortabilityError:EventType%)))",
             "PhoneNumber": "%PortInput:LineNumber__c%",
             "UniqueKey": "%PortInput:UniqueId%"
         },
@@ -20,7 +20,7 @@
         "bundle": "valTransformSmartMessagingPortability",
         "chainOnStep": false,
         "disOnTplt": false,
-        "executionConditionalFormula": "%DREGetPortabilityError:Active% OR %SVConditions:PortinAuthorize% OR %SVConditions:PortinCancel%",
+        "executionConditionalFormula": "%DREGetPortabilityError:Active% OR %SVConditions:PortinAuthorize% OR %SVConditions:PortinCancel% OR %SVConditions:PortoutChargebackCancel%",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "failureResponse": {

@@ -9,7 +9,8 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "msisdn": "%customerInformation:msisdn%"
+            "msisdn": "%customerInformation:msisdn%",
+            "status": "=IF(QUERY(\"SELECT Type FROM order WHERE id = {0}\",%OrderId%) == \"ChangeOwnership\", 'Ready To Submit', 'In Progress')"
         },
         "additionalOutput": {
         },

@@ -7,6 +7,8 @@ export default class OmniNextStepGenericButton extends OmniscriptBaseMixin(Light
     @api openModalButtonLabel;
     @api title;
     @api message;
+    @api messageToast;
+    @api variant;
     @api labelButtonLeft;
     @api labelButtonRight;
     @api showModalContainer;

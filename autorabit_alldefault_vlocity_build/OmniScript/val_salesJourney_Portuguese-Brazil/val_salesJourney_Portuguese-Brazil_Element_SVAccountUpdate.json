@@ -1,0 +1,41 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "Sales Journey",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/salesJourney/Portuguese (Brazil)",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "HTMLTemplateId": "",
+        "controlWidth": 12,
+        "elementValueMap": {
+            "MSNAltenativeEmail": "=IF(%MSNOtherEmail%==NULL, %ReturnMSNOtherEmail:MSNOtherEmail%, %MSNOtherEmail%)",
+            "MSNMainEmail": "=IF(%MSNEmail%==NULL, %ReturnMSNEmail:MSNMainEmail%, %MSNEmail%)",
+            "accountId": "%Order:AccountId%",
+            "blackListEmail": "=IF(%ReturnMSNEmail:BlackListMainEmail%==true || %ReturnMSNOtherEmail:BlackListOtherEmail%==true, true, false)",
+            "interactionId": "%ContextId%",
+            "mainEmailNOK": "=IF(%ReturnMSNEmail:statusCodeMainEmail%==\"NOK\", %AccountDetails:Account:MainEmail%, \"\")",
+            "otherEmailNOK": "=IF(%ReturnMSNOtherEmail:statusCodeOtherEmail%==\"NOK\", %AccountDetails:Account:OtherEmail%, \"\")",
+            "protocolNumber": "%OrderApproved:InteractionNumber%",
+            "startAccountUpdate": "=IF(%ReturnMSNEmail:statusCodeMainEmail%==\"NOK\" || %ReturnMSNOtherEmail:statusCodeOtherEmail%==\"NOK\", true, false)"
+        },
+        "label": "SVAccountUpdate",
+        "message": {
+        },
+        "pubsub": false,
+        "show": null,
+        "showPersistentComponent": [
+            true,
+            false
+        ],
+        "ssm": false,
+        "wpm": false
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVAccountUpdate",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/salesJourney/Portuguese (Brazil)/SVAccountUpdate"
+}

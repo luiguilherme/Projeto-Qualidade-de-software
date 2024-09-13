@@ -64,10 +64,17 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
 
               registerEvents() {
                 
+        this.pubsubEvent[0] = {
+          [interpolateWithRegex(`Pacotes Adicionais`,this._allMergeFields,this._regexPattern,"noparse")]: this.handleEventAction.bind(this, data.events[0],0)
+        };
+        this.pubsubChannel0 = interpolateWithRegex(`valPrePaidAssetDetailsButtons_ChannelNameButtons`,this._allMergeFields,this._regexPattern,"noparse");
+        pubsub.register(this.pubsubChannel0,this.pubsubEvent[0]);
+
               }
 
               unregisterEvents(){
-                
+                pubsub.unregister(this.pubsubChannel0,this.pubsubEvent[0]);
+
               }
             
               renderedCallback() {

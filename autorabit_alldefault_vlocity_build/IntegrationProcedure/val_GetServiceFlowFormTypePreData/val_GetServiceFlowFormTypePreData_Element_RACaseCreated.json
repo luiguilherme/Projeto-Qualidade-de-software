@@ -35,9 +35,10 @@
             "ServiceIdentifier": "%DREGetAccoutAndAssetDetails:ServiceIdentifier%",
             "SourceSelectedCustomerFeedback": "%IPGetTopicDetailsFilters:SelectedValues:CustomerFeedback%",
             "SourceSelectedLine": "%IPGetTopicDetailsFilters:SelectedValues:Lines%",
-            "Title": "=IF(%IPGetTopicDetails:FormType__c%=='Processo e Retorno ao Cliente'||%IPGetTopicDetails:FormType__c%=='Portabilidade','Formulário de Abertura de Caso','')",
+            "Title": "=IF(%IPGetTopicDetails:FormType__c%=='Processo e Retorno ao Cliente'||%IPGetTopicDetails:FormType__c%=='Portabilidade','Formulário de Abertura de Caso',IF(%IPGetTopicDetails:FormType__c%=='Ajuste de Saldo','Formulário de Ajuste de Saldo','Formulário de Constestação'))",
             "optionsorder": "=LIST(%DREGetOrderNumberKeyValue%)",
-            "optionsticket": "=LIST(%DREGetPortabilityTicket%)"
+            "optionsticket": "=LIST(%DREGetPortabilityTicket%)",
+            "selectedLineTitle": "=IF(%IPGetTopicDetails:FormType__c%=='Processo e Retorno ao Cliente','Número da Linha','Linha Associada ao Processo')"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",

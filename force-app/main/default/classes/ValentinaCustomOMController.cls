@@ -22,7 +22,10 @@ global with sharing class ValentinaCustomOMController implements vlocity_cmt.Vlo
                 }   
                 when 'getStatusBeforePortout' {
                     getStatusBeforePortout(inputMap, outMap, options); 
-                }                                            
+                }
+                when 'getStatusBeforeChangeOwnership' {
+                    getStatusBeforeChangeOwnership(inputMap, outMap, options);
+                }
             }
 
         } catch(Exception e) {
@@ -82,10 +85,40 @@ global with sharing class ValentinaCustomOMController implements vlocity_cmt.Vlo
                 }
             }
         }
-
         outputMap.put('status', status);
     }   
+    
+    public void getStatusBeforeChangeOwnership(Map<String,Object> inputMap, Map<String,Object> outputMap, Map<String,Object> options) {
+        String status, ownwershipStatus;
+        boolean apto = false;
+        List<Object> listStatusHistory = (List<Object>) inputMap.get('statusHistory');            
+        
+        if (listStatusHistory != null) {
+            Integer historySize = listStatusHistory.size();
 
+            for(Integer i=historySize; i>0; i--) {
+                Map<String,Object> statusHistory = (Map<String,Object>) listStatusHistory.get(i-1);
+                ownwershipStatus = (String) statusHistory.get('status');
+
+                 if(StatusHistory.get('status') == 'SuspAFraude' && 
+                 StatusHistory.get('status') == 'SuspAPedido' &&
+                 StatusHistory.get('status') == 'SuspCadastro' &&
+                 StatusHistory.get('status') == 'SuspARoubo') {
+                    statusHistory = (Map<String,Object>) listStatusHistory.get(i-2);
+                    if (statusHistory != null) {
+                        status = (String) statusHistory.get('status');                    
+                    }
+                }
+                else{
+                    apto = true;
+                }
+            }
+        }
+
+        outputMap.put('status', status);
+        outputMap.put('apto', apto);
+    }   
+    
     public void getHistoryStatus(Map<String,Object> inputMap, Map<String,Object> outputMap, Map<String,Object> options) {
         String actualStatus, lastStatus;
         List<Object> listStatusHistory = (List<Object>) inputMap.get('statusHistory');

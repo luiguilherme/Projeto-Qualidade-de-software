@@ -1,0 +1,412 @@
+{
+    "dataSource": {
+        "contextVariables": [
+        ],
+        "orderBy": {
+        },
+        "type": null,
+        "value": {
+        }
+    },
+    "enableLwc": true,
+    "events": [
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1722349425157-ee7jmxvyp",
+                    "label": "ToastLineStatusNotActive",
+                    "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "Products.SubscriptionStatus",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-0",
+                                    "operator": "!=",
+                                    "type": "custom",
+                                    "value": "Ativo"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "valToast",
+                        "extraParams": {
+                            "message": "Estado da linha não permite realizar Sincronismo Full.",
+                            "variant": "warning"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1725557614601",
+                        "message": "showToast",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 2,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1722349511734-kl6gforji",
+                    "label": "ToastSyncAtLast24Hours",
+                    "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": " HasSyncFullActive",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-9",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "true"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "valToast",
+                        "extraParams": {
+                            "message": "Não foi possível realizar a solicitação, pois já existe um comando de sincronismo em fila para essa linha",
+                            "variant": "warning"
+                        },
+                        "hasExtraParams": true,
+                        "id": "flex-action-1722349660196",
+                        "message": "showToast",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 2,
+                    "card": "{card}",
+                    "draggable": true,
+                    "isOpen": false,
+                    "key": "1722350157597-ivpm3lkb0",
+                    "label": "ActionOS",
+                    "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "HasSyncFullActive",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-29",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "false"
+                                },
+                                {
+                                    "field": "Products.SubscriptionStatus",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-36",
+                                    "logicalOperator": "&&",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "Ativo"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "cardName": "valSyncFull",
+                        "cardNode": "{record}",
+                        "channelName": "close_modal",
+                        "displayName": "Action",
+                        "flyoutLwc": "valSyncFull",
+                        "flyoutParams": {
+                            "AccountId": "{Parent.AccountId}",
+                            "AssetId": "{Parent.AssetId}",
+                            "ContextId": "{Parent.ContextId}",
+                            "LineNumber": "{Products.LineNumber}",
+                            "SubscriptionId": "{Products.SubscriptionId}"
+                        },
+                        "flyoutType": "childCard",
+                        "hasExtraParams": true,
+                        "id": "flex-action-1725557322946",
+                        "openFlyoutIn": "Modal",
+                        "openUrlIn": "Current Window",
+                        "type": "Flyout",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "valPrePaidAssetDetailsButtons_ChannelNameButtons_{recordId}",
+            "displayLabel": "valPrePaidAssetDetailsButtons_ChannelNameButtons_{recordId}:Sincronizar",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "Sincronizar",
+            "eventtype": "pubsub",
+            "key": "event-0",
+            "recordIndex": "0",
+            "showSpinner": "true"
+        }
+    ],
+    "isFlex": true,
+    "lwc": {
+        "DeveloperName": "cfValPrePaidAssetDetailsButtons_synchronize_1_Telefonica",
+        "Id": "0Rb76000000L7T3CAK",
+        "ManageableState": "unmanaged",
+        "MasterLabel": "cfValPrePaidAssetDetailsButtons_synchronize_1_Telefonica",
+        "NamespacePrefix": "c"
+    },
+    "multilanguageSupport": true,
+    "osSupport": true,
+    "selectableMode": "Multi",
+    "states": [
+        {
+            "actions": [
+            ],
+            "childCards": [
+            ],
+            "components": {
+                "layer-0": {
+                    "children": [
+                        {
+                            "class": "slds-col ",
+                            "element": "action",
+                            "elementLabel": "Sincronizar",
+                            "name": "Action",
+                            "property": {
+                                "actionList": [
+                                    {
+                                        "actionIndex": 0,
+                                        "draggable": false,
+                                        "isOpen": true,
+                                        "key": "1717505837000-xzrmvkwv8",
+                                        "label": "event",
+                                        "stateAction": {
+                                            "eventName": "valPrePaidAssetDetailsButtons_ChannelNameButtons_{recordId}",
+                                            "id": "flex-action-1725559657543",
+                                            "message": "Sincronizar",
+                                            "openUrlIn": "Current Window",
+                                            "subType": "PubSub",
+                                            "type": "Event"
+                                        }
+                                    }
+                                ],
+                                "card": "{card}",
+                                "flyoutDetails": {
+                                },
+                                "iconColor": "#792BA4",
+                                "iconName": "utility:rules",
+                                "label": "Sincronizar",
+                                "record": "{record}",
+                                "showSpinner": "true",
+                                "stateObj": "{record}",
+                                "styles": {
+                                    "label": {
+                                        "color": "#792BA4",
+                                        "fontSize": "12PX"
+                                    }
+                                }
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "background": {
+                                    "color": "",
+                                    "image": "",
+                                    "position": "",
+                                    "repeat": "",
+                                    "size": ""
+                                },
+                                "border": {
+                                    "color": "#cccccc",
+                                    "radius": "5px",
+                                    "style": "",
+                                    "type": [
+                                        "border_top",
+                                        "border_right",
+                                        "border_bottom",
+                                        "border_left"
+                                    ],
+                                    "width": "1"
+                                },
+                                "class": "slds-text-align_left slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-top_small slds-p-left_small ",
+                                "container": {
+                                    "class": ""
+                                },
+                                "elementStyleProperties": {
+                                    "iconColor": "#792BA4",
+                                    "styles": {
+                                        "label": {
+                                            "color": "#792BA4",
+                                            "fontSize": "12PX"
+                                        }
+                                    }
+                                },
+                                "inlineStyle": "height: 55px;",
+                                "margin": [
+                                ],
+                                "padding": [
+                                    {
+                                        "label": "top:small",
+                                        "size": "small",
+                                        "type": "top"
+                                    },
+                                    {
+                                        "label": "left:small",
+                                        "size": "small",
+                                        "type": "left"
+                                    }
+                                ],
+                                "size": {
+                                    "default": "12",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_12-of-12 ",
+                                "style": "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5px;     height: 55px;",
+                                "text": {
+                                    "align": "left",
+                                    "color": ""
+                                }
+                            },
+                            "styleObjects": [
+                                {
+                                    "conditionString": "",
+                                    "conditions": "default",
+                                    "draggable": false,
+                                    "key": 0,
+                                    "label": "Default",
+                                    "name": "Default",
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "#cccccc",
+                                            "radius": "5px",
+                                            "style": "",
+                                            "type": [
+                                                "border_top",
+                                                "border_right",
+                                                "border_bottom",
+                                                "border_left"
+                                            ],
+                                            "width": "1"
+                                        },
+                                        "class": "slds-text-align_left slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-top_small slds-p-left_small ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                            "iconColor": "#792BA4",
+                                            "styles": {
+                                                "label": {
+                                                    "color": "#792BA4",
+                                                    "fontSize": "12PX"
+                                                }
+                                            }
+                                        },
+                                        "inlineStyle": "height: 55px;",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                            {
+                                                "label": "top:small",
+                                                "size": "small",
+                                                "type": "top"
+                                            },
+                                            {
+                                                "label": "left:small",
+                                                "size": "small",
+                                                "type": "left"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5px;     height: 55px;",
+                                        "text": {
+                                            "align": "left",
+                                            "color": ""
+                                        }
+                                    }
+                                }
+                            ],
+                            "type": "element",
+                            "userUpdatedElementLabel": true
+                        }
+                    ]
+                }
+            },
+            "conditions": {
+                "group": [
+                ],
+                "id": "state-condition-object",
+                "isParent": true
+            },
+            "definedActions": {
+                "actions": [
+                ]
+            },
+            "documents": [
+            ],
+            "fields": [
+            ],
+            "isSmartAction": false,
+            "name": "Active",
+            "omniscripts": [
+            ],
+            "smartAction": {
+            },
+            "styleObject": {
+                "background": {
+                    "color": "",
+                    "image": "",
+                    "position": "",
+                    "repeat": "",
+                    "size": ""
+                },
+                "border": {
+                    "color": "",
+                    "radius": "",
+                    "style": "",
+                    "type": "",
+                    "width": ""
+                },
+                "class": "",
+                "container": {
+                    "class": ""
+                },
+                "elementStyleProperties": {
+                },
+                "inlineStyle": "",
+                "margin": [
+                ],
+                "padding": [
+                ],
+                "size": {
+                    "default": "12",
+                    "isResponsive": false
+                },
+                "sizeClass": "slds-size_12-of-12 ",
+                "style": "      \n         ",
+                "text": {
+                    "align": "",
+                    "color": ""
+                }
+            }
+        }
+    ],
+    "theme": "slds",
+    "title": "valPrePaidAssetDetailsButtons_synchronize"
+}
