@@ -113,6 +113,30 @@
                         "type": "Event",
                         "vlocityIcon": "standard-default"
                     }
+                },
+                {
+                    "actionIndex": 3,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1713387900869-fz7dn2sw2",
+                    "label": "RefreshPage",
+                    "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "valPortabilityActionsPage",
+                        "id": "flex-action-1713556033203",
+                        "message": "RefreshPage",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
                 }
             ],
             "channelname": "omniscript_action",
@@ -122,6 +146,84 @@
             "eventname": "data",
             "eventtype": "pubsub",
             "key": "event-0",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1713386814632-jtixntowi",
+                    "label": "RefreshCommunity",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/{recordId}"
+                        },
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "UserInCommunity",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-0",
+                                    "operator": "==",
+                                    "type": "custom",
+                                    "value": "true"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "id": "flex-action-1713386837685",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "Custom",
+                        "vlocityIcon": "standard-default"
+                    }
+                },
+                {
+                    "actionIndex": 1,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1713386883800-xyr7k97v5",
+                    "label": "RedirectConsole",
+                    "stateAction": {
+                        "actionConditions": {
+                            "group": [
+                                {
+                                    "field": "UserInCommunity",
+                                    "hasMergeField": false,
+                                    "id": "state-new-condition-7",
+                                    "operator": "!=",
+                                    "type": "custom",
+                                    "value": "true"
+                                }
+                            ],
+                            "id": "state-condition-object",
+                            "isParent": true
+                        },
+                        "displayName": "Action",
+                        "eventName": "refreshTab",
+                        "id": "flex-action-1713386914821",
+                        "message": "refresh",
+                        "openUrlIn": "Current Window",
+                        "subType": "PubSub",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "valPortabilityActionsPage",
+            "displayLabel": "valPortabilityActionsPage:RefreshPage",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "RefreshPage",
+            "eventtype": "pubsub",
+            "key": "event-1",
             "recordIndex": "0",
             "showSpinner": "false"
         }
@@ -1763,8 +1865,8 @@
                                                                 {
                                                                     "actionIndex": 1,
                                                                     "card": "{card}",
-                                                                    "draggable": true,
-                                                                    "isOpen": false,
+                                                                    "draggable": false,
+                                                                    "isOpen": true,
                                                                     "key": "1711379799436-grbbudvj2",
                                                                     "label": "Toast Status",
                                                                     "stateAction": {
@@ -1798,7 +1900,7 @@
                                                                             "variant": "error"
                                                                         },
                                                                         "hasExtraParams": true,
-                                                                        "id": "flex-action-1715101127523",
+                                                                        "id": "flex-action-1720204989261",
                                                                         "message": "showToast",
                                                                         "openUrlIn": "Current Window",
                                                                         "subType": "PubSub",
@@ -1809,8 +1911,8 @@
                                                                 {
                                                                     "actionIndex": 2,
                                                                     "card": "{card}",
-                                                                    "draggable": false,
-                                                                    "isOpen": true,
+                                                                    "draggable": true,
+                                                                    "isOpen": false,
                                                                     "key": "1711379536795-bkuwxj90e",
                                                                     "label": "RemoveConflict48HrsBefore",
                                                                     "stateAction": {
@@ -1866,8 +1968,8 @@
                                                                 {
                                                                     "actionIndex": 3,
                                                                     "card": "{card}",
-                                                                    "draggable": false,
-                                                                    "isOpen": true,
+                                                                    "draggable": true,
+                                                                    "isOpen": false,
                                                                     "key": "1701718959692-aglx5xfk3",
                                                                     "label": "valRemoveConflict",
                                                                     "stateAction": {
@@ -4599,6 +4701,19 @@
                     }
                 }
             ]
+        },
+        {
+            "@attributes": {
+                "targets": "lightningCommunity__Default"
+            },
+            "property": [
+                {
+                    "@attributes": {
+                        "name": "recordId",
+                        "type": "String"
+                    }
+                }
+            ]
         }
     ],
     "xmlObject": {
@@ -4607,12 +4722,14 @@
         "isExposed": true,
         "masterLabel": "valPortabilityActionsPage",
         "runtimeNamespace": "%vlocity_namespace%",
-        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgogICAgICA8cHJvcGVydHkgdHlwZT0iU3RyaW5nIiBuYW1lPSJjZkN1c3RvbWVySW50ZXJhY3Rpb24iIGxhYmVsPSJ2bG9jaXR5X2NtdF9fQ3VzdG9tZXJJbnRlcmFjdGlvbl9fYyIgZGVmYXVsdD0ie3Zsb2NpdHlfY210X19DdXN0b21lckludGVyYWN0aW9uX19jfSIvPgogICAgPC90YXJnZXRDb25maWc+CiAgICA8dGFyZ2V0Q29uZmlnIHhtbG5zPSJodHRwOi8vc29hcC5zZm9yY2UuY29tLzIwMDYvMDQvbWV0YWRhdGEiIHRhcmdldHM9ImxpZ2h0bmluZ19fSG9tZVBhZ2UiPgogICAgICA8cHJvcGVydHkgdHlwZT0iU3RyaW5nIiBuYW1lPSJjZkN1c3RvbWVySW50ZXJhY3Rpb24iIGxhYmVsPSJ2bG9jaXR5X2NtdF9fQ3VzdG9tZXJJbnRlcmFjdGlvbl9fYyIgZGVmYXVsdD0ie3Zsb2NpdHlfY210X19DdXN0b21lckludGVyYWN0aW9uX19jfSIvPgogICAgPC90YXJnZXRDb25maWc+CiAgICA8dGFyZ2V0Q29uZmlnIHhtbG5zPSJodHRwOi8vc29hcC5zZm9yY2UuY29tLzIwMDYvMDQvbWV0YWRhdGEiIHRhcmdldHM9ImxpZ2h0bmluZ19fUmVjb3JkUGFnZSI+CiAgICAgIDxwcm9wZXJ0eSB0eXBlPSJTdHJpbmciIG5hbWU9ImNmQ3VzdG9tZXJJbnRlcmFjdGlvbiIgbGFiZWw9InZsb2NpdHlfY210X19DdXN0b21lckludGVyYWN0aW9uX19jIiBkZWZhdWx0PSJ7dmxvY2l0eV9jbXRfX0N1c3RvbWVySW50ZXJhY3Rpb25fX2N9Ii8+CiAgICA8L3RhcmdldENvbmZpZz4=",
+        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPjxwcm9wZXJ0eSB0eXBlPSJTdHJpbmciIG5hbWU9ImNmQ3VzdG9tZXJJbnRlcmFjdGlvbiIgbGFiZWw9InZsb2NpdHlfY210X19DdXN0b21lckludGVyYWN0aW9uX19jIiBkZWZhdWx0PSJ7dmxvY2l0eV9jbXRfX0N1c3RvbWVySW50ZXJhY3Rpb25fX2N9Ii8+PC90YXJnZXRDb25maWc+PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0hvbWVQYWdlIj48cHJvcGVydHkgdHlwZT0iU3RyaW5nIiBuYW1lPSJjZkN1c3RvbWVySW50ZXJhY3Rpb24iIGxhYmVsPSJ2bG9jaXR5X2NtdF9fQ3VzdG9tZXJJbnRlcmFjdGlvbl9fYyIgZGVmYXVsdD0ie3Zsb2NpdHlfY210X19DdXN0b21lckludGVyYWN0aW9uX19jfSIvPjwvdGFyZ2V0Q29uZmlnPjx0YXJnZXRDb25maWcgeG1sbnM9Imh0dHA6Ly9zb2FwLnNmb3JjZS5jb20vMjAwNi8wNC9tZXRhZGF0YSIgdGFyZ2V0cz0ibGlnaHRuaW5nX19SZWNvcmRQYWdlIj48cHJvcGVydHkgdHlwZT0iU3RyaW5nIiBuYW1lPSJjZkN1c3RvbWVySW50ZXJhY3Rpb24iIGxhYmVsPSJ2bG9jaXR5X2NtdF9fQ3VzdG9tZXJJbnRlcmFjdGlvbl9fYyIgZGVmYXVsdD0ie3Zsb2NpdHlfY210X19DdXN0b21lckludGVyYWN0aW9uX19jfSIvPjwvdGFyZ2V0Q29uZmlnPjx0YXJnZXRDb25maWcgdGFyZ2V0cz0ibGlnaHRuaW5nQ29tbXVuaXR5X19EZWZhdWx0Ij48cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyIvPjwvdGFyZ2V0Q29uZmlnPg==",
         "targets": {
             "target": [
                 "lightning__AppPage",
                 "lightning__HomePage",
-                "lightning__RecordPage"
+                "lightning__RecordPage",
+                "lightningCommunity__Page",
+                "lightningCommunity__Default"
             ]
         }
     }

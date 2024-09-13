@@ -13,6 +13,14 @@ export default class ValToast extends OmniscriptBaseMixin(LightningElement) {
         this._message = value;
         console.log('value..'+ value);
     }
+    @api mode= '';
+    get mode() {
+        return this._mode;
+    };
+    set mode(value) {
+        this._message = value;
+        console.log('value..'+ value);
+    }
     @api variant='';
     get variant() {
         return this._variant;
@@ -46,41 +54,50 @@ export default class ValToast extends OmniscriptBaseMixin(LightningElement) {
                 console.log('NÃO É PUSH: ');
                 data.variant.forEach((variant, index) => {
                     const message = data.Message[index];
-                    this.showToast("", message.message, variant.variant);
+                    this.showToast("", message.message, variant.variant, mode.mode);
                 });
             }else{
                 console.log('É PUSH: ');
                 data.variant.forEach((variant, index) => {
                     const message = data.message[index];
-                    this.showToast("", message.message, variant.variant);
+                    this.showToast("", message.message, variant.variant, mode.mode);
                 });
             }
         } else {
-            this.showToast("", data.message, data.variant);
+            if(data.message!=undefined){
+                console.log('data.message!=undefined ');
+                this.showToast("", data.message, data.variant, data.mode);
+            }
+            else{
+                console.log('data.messag=undefined ');
+                this.showToast("", this.message, this.variant,"");
+            }
         }
 
     }
 
     showMultipleToast(messageArray, variant) {
 
-       messageArray.forEach(item => {
+        messageArray.forEach(item => {
             const toastParams ={
-            title: "",
-            message: item.message,
-             variant: variant
+                title: "",
+                message: item.message,
+                variant: variant
             };
             const event =  new ShowToastEvent(toastParams);
             this.dispatchEvent(event); 
         });
     }
 
-    showToast(title, message, variant) {
-        console.log('showToast ' + message + variant);
+    showToast(title, message, variant, mode) {
         const toastParams ={
             title: title,
             message: message,
-            variant: variant
+            variant: variant,
+            mode: 'stick',
+            label: 'valtoast'
         };
+        console.log('showToast ' + JSON.stringify(toastParams))
 
         const event =  new ShowToastEvent(toastParams);
         this.dispatchEvent(event);        
@@ -88,5 +105,5 @@ export default class ValToast extends OmniscriptBaseMixin(LightningElement) {
 
     nextButton(evt) {
         this.omniNextStep();
-    }    
+    }
 }
