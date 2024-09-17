@@ -1,6 +1,6 @@
 {
     "%vlocity_namespace%__Active__c": true,
-    "%vlocity_namespace%__InternalNotes__c": "ajustado para receber o json do SVMergeUpdateFieldAndDRGetTopicDetails - Bug 2520550 [Dalvino]",
+    "%vlocity_namespace%__InternalNotes__c": "Criado apenas para atualizar valor do LineInstance  - Bug 2520550 [Dalvino]",
     "%vlocity_namespace%__OmniScriptId__c": {
         "Name": "GetInteractionTopicDetails",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
@@ -15,18 +15,8 @@
         },
         "additionalOutput": {
         },
-        "advancedMerge": true,
+        "advancedMerge": false,
         "advancedMergeMap": [
-            {
-                "listKey": "SVMergeUpdateFieldAndDRGetTopicDetails",
-                "matchingPath": "SVMergeUpdateFieldAndDRGetTopicDetails:Topic:ServiceTree",
-                "normalizeKey": "1"
-            },
-            {
-                "listKey": "SVTranslatedLists:Topic",
-                "matchingPath": "%vlocity_namespace%__CustomerInteractionTopic__cServiceTree__cKey",
-                "normalizeKey": "1"
-            }
         ],
         "allowMergeNulls": true,
         "chainOnStep": false,
@@ -38,16 +28,15 @@
         "failureResponse": {
         },
         "filterListFormula": "",
-        "hasPrimary": true,
-        "label": "ListAction4",
+        "hasPrimary": false,
+        "label": "ListAction2",
         "mergeFields": [
         ],
         "mergeListsOrder": [
-            "SVMergeUpdateFieldAndDRGetTopicDetails",
-            "SVTranslatedLists:Topic"
+            "DRGetTopicDetails:Topic"
         ],
-        "primaryListKey": "SVMergeUpdateFieldAndDRGetTopicDetails",
-        "responseJSONNode": "ListTranslatedValues",
+        "primaryListKey": "",
+        "responseJSONNode": "",
         "responseJSONPath": "",
         "returnOnlyAdditionalOutput": false,
         "returnOnlyFailureResponse": false,
@@ -59,14 +48,14 @@
         ],
         "sortInDescendingOrder": false,
         "updateFieldValue": {
-            "ServiceTree": "=%%vlocity_namespace%__CustomerInteractionTopic__cServiceTree__cValue%"
+            "LineInstance": "=IF(Origin==\"Palitagem Pré\"||Origin==\"GPS Pré\",CONCAT(LineInstancePre),CONCAT(LineInstance))"
         },
         "useFormulas": true
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
     "%vlocity_namespace%__Type__c": "List Merge Action",
-    "Name": "ListAction1",
+    "Name": "LAUpdateField",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/getInteractionTopicDetails/Procedure/ListAction1"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/getInteractionTopicDetails/Procedure/LAUpdateField"
 }
