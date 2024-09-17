@@ -83,4 +83,121 @@ public with sharing class MergeAssetControllerTest {
         System.assert(assetToUpdate.StartDate__c == Datetime.newInstanceGMT(2022,04,16,09,00,00), 'O campo StartDate__c não foi atualizado como deveria.');        
         System.assert(assetToDelete.isEmpty(), 'O asset foi deletado.');
     }
+
+    @isTest
+    public static void getPlatformWhenMobileAndPostpaidTest(){
+        MergeAssetController.WrapperAPI assetToCreate = new MergeAssetController.WrapperAPI();
+
+        assetToCreate.product_type = 'mobile';
+        assetToCreate.subscription_type = 'postpaid';
+       
+        Test.startTest();
+        String result = MergeAssetController.getPlatform(assetToCreate);
+        Test.stopTest();
+
+        Assert.areEqual('Postpaid', result, 'O resultado deve ser igual a Postpaid');
+    }
+
+    @isTest
+    public static void getPlatformWhenMobileAndPrepaidTest(){
+        MergeAssetController.WrapperAPI assetToCreate = new MergeAssetController.WrapperAPI();
+
+        assetToCreate.product_type = 'mobile';
+        assetToCreate.subscription_type = 'prepaid';
+
+        Test.startTest();
+        String result = MergeAssetController.getPlatform(assetToCreate);
+        Test.stopTest();
+
+        Assert.areEqual('Prepaid', result, 'O resultado deve ser igual a Prepaid');
+    }
+
+    @isTest
+    public static void getPlatformWhenMobileAndEmptyTest(){
+        MergeAssetController.WrapperAPI assetToCreate = new MergeAssetController.WrapperAPI();
+
+        assetToCreate.product_type = 'mobile';
+        assetToCreate.subscription_type = '';
+
+        Test.startTest();
+        String result = MergeAssetController.getPlatform(assetToCreate);
+        Test.stopTest();
+
+        Assert.areEqual('', result, 'O resultado deve ser igual a uma string vazia');
+    }
+
+    @isTest
+    public static void getPlatformWhenEmptyTest(){
+        MergeAssetController.WrapperAPI assetToCreate = new MergeAssetController.WrapperAPI();
+
+        assetToCreate.product_type = '';
+        assetToCreate.subscription_type = '';
+
+        Test.startTest();
+        String result = MergeAssetController.getPlatform(assetToCreate);
+        Test.stopTest();
+
+        Assert.areEqual('', result, 'O resultado deve ser igual a uma string vazia');
+    }
+
+    @isTest
+    public static void getMainProductDescriptionWhenSourceSystemNginTest(){
+        MergeAssetController.WrapperAPI assetToCreate = new MergeAssetController.WrapperAPI();
+        List<MergeAssetController.Descriptions> descLst = new List<MergeAssetController.Descriptions>();
+        assetToCreate.descriptions = descLst;
+        assetToCreate.display_name = 'Teste';
+        String sourceSystem = 'Ngin';
+
+        Test.startTest();
+        String result = MergeAssetController.getMainProductDescription(assetToCreate, sourceSystem);
+        Test.stopTest();
+
+        Assert.areEqual('', result, 'O resultado deve ser igual a uma string vazia');
+    }
+
+    @isTest
+    public static void getMainProductDescriptionWhenSourceSystemNotEqualsToNginTest(){
+        MergeAssetController.WrapperAPI assetToCreate = new MergeAssetController.WrapperAPI();
+        List<MergeAssetController.Descriptions> descLst = new List<MergeAssetController.Descriptions>();
+        assetToCreate.descriptions = descLst;
+        assetToCreate.display_name = 'Teste';
+        String sourceSystem = 'Test';
+
+        Test.startTest();
+        String result = MergeAssetController.getMainProductDescription(assetToCreate, sourceSystem);
+        Test.stopTest();
+
+        Assert.areEqual(assetToCreate.display_name, result, 'O resultado deve ser igual ao displayName');
+    }
+
+    @isTest
+    public static void getMainProductDescriptionWhenDescriptionNotNullTest(){
+        MergeAssetController.Descriptions description = new MergeAssetController.Descriptions();
+        description.text = 'Teste';
+        List<MergeAssetController.Descriptions> descLst = new List<MergeAssetController.Descriptions>();
+        descLst.add(description);
+        MergeAssetController.WrapperAPI assetToCreate = new MergeAssetController.WrapperAPI();
+        assetToCreate.descriptions = descLst;
+        String sourceSystem = 'Test';
+
+        Test.startTest();
+        String result = MergeAssetController.getMainProductDescription(assetToCreate, sourceSystem);
+        Test.stopTest();
+
+        Assert.areEqual(descLst[0].text, result, 'O resultado deve ser igual a lista na posiçao 0');
+    }
+
+    @isTest
+    public static void getMainProductDescriptionWhenDescriptionListIsEmpty(){
+        MergeAssetController.WrapperAPI assetToCreate = new MergeAssetController.WrapperAPI();
+        List<MergeAssetController.Descriptions> descLst = new List<MergeAssetController.Descriptions>();
+        assetToCreate.descriptions = descLst;
+        String sourceSystem = 'Test';
+
+        Test.startTest();
+        String result = MergeAssetController.getMainProductDescription(assetToCreate, sourceSystem);
+        Test.stopTest();
+
+        Assert.areEqual('', result, 'O resultado deve ser igual a uma string vazia');
+    }
 }

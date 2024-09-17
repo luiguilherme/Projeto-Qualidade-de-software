@@ -185,6 +185,7 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
         Map<String, String> mapFromTo = createFromToMapping();
         String type;
         String product_type;
+        String sourceSystem;
         List<WrapperAPI> lstSubproducts = new List<WrapperAPI>();
         Set<String> setProducts = new Set<String>();
         Account customer = AccountDAO.getByIds(accountId);
@@ -203,6 +204,7 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
                 {
                     setProducts.add(strIdentifier);                     
                     type = mapFromTo.get(assetToCreate.product_type + 'Type__c');
+                    sourceSystem = getLegacySystem(mapLegacy.get(assetToCreate.identifiers[0]), mapFromTo);
                     
                     asset = new Asset();            
                     asset.vlocity_cmt__ServiceIdentifier__c = assetToCreate.identifiers[0].startsWith('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : assetToCreate.identifiers[0];                               
@@ -212,15 +214,16 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
                     asset.Status = assetToCreate.status;
                   	asset.StatusDescription__c = assetToCreate.status_description;
                     asset.IsHolder__c = assetToCreate.tags != null ? getStringValue(assetToCreate.tags, 'multivivo:') : 'TIT';
-                    asset.MainProductDescription__c = getMainProductDescription(assetToCreate);
+                    asset.MainProductDescription__c = getMainProductDescription(assetToCreate, sourceSystem);
                     asset.AccountId = accountId;
                     asset.Type__c = type;
                     asset.Technology__c = type == 'Movel' ? type : ''; 
                     asset.Speed__c = assetToCreate.connection != null ? assetToCreate.connection.downlink_mbps : null;
                     asset.ExternalId__c = assetToCreate.identifiers[0].startsWith('+55') ? documentNumber + assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : documentNumber + assetToCreate.identifiers[0];
                     asset.PhoneNumber__c = assetToCreate.identifiers[0].startsWith('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : '';
-                    asset.SourceSystem__c = getLegacySystem(mapLegacy.get(assetToCreate.identifiers[0]), mapFromTo);
+                    asset.SourceSystem__c = sourceSystem;
                     asset.DigitalServices__c = mapSVAProducts.get(assetToCreate.identifiers[0]) != null ? String.join(mapSVAProducts.get(assetToCreate.identifiers[0]),';') : null;
+                    asset.Platform__c = getPlatform(assetToCreate);
                                                          
                     if(!lstAssetToCreateUpdate.contains(asset))
                     {
@@ -273,7 +276,8 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
                 setProducts.add(strIdentifier);
                 
                 String type = mapFromTo.get(assetToCreate.product_type + 'Type__c');
-                
+                String sourceSystem = getLegacySystem(mapLegacy.get(assetToCreate.identifiers[0]), mapFromTo);
+
                 asset = new Asset();            
         
                 asset.vlocity_cmt__ServiceIdentifier__c = assetToCreate.identifiers[0].startsWith('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : assetToCreate.identifiers[0];                               
@@ -283,16 +287,16 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
                 asset.Status = assetToCreate.status;
                 asset.StatusDescription__c = assetToCreate.status_description;
                 asset.IsHolder__c = assetToCreate.tags != null ? getStringValue(assetToCreate.tags, 'multivivo:') : 'TIT';
-                asset.MainProductDescription__c = getMainProductDescription(assetToCreate);
+                asset.MainProductDescription__c = getMainProductDescription(assetToCreate, sourceSystem);
                 asset.AccountId = accountId;
                 asset.Type__c = type;
                 asset.Technology__c = type == 'Movel' ? type : ''; 
                 asset.Speed__c = assetToCreate.connection != null ? assetToCreate.connection.downlink_mbps : null;
                 asset.ExternalId__c = assetToCreate.identifiers[0].startsWith('+55') ? documentNumber + assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : documentNumber + assetToCreate.identifiers[0];
                 asset.PhoneNumber__c = assetToCreate.identifiers[0].startsWith('+55') ? assetToCreate.identifiers[0].substring(3, assetToCreate.identifiers[0].length()) : '';
-                asset.SourceSystem__c = getLegacySystem(mapLegacy.get(assetToCreate.identifiers[0]), mapFromTo);
+                asset.SourceSystem__c = sourceSystem;
                 asset.DigitalServices__c = mapSVAProducts.get(assetToCreate.identifiers[0]) != null ? String.join(mapSVAProducts.get(assetToCreate.identifiers[0]),';') : null;
-                
+                asset.Platform__c = getPlatform(assetToCreate);
 
                 if(!lstAssetToCreateUpdate.contains(asset)){
                     lstAssetToCreateUpdate.add(asset);
@@ -301,10 +305,9 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
                 updateListAssetsToUpdate(assetToCreate.sub_products, setProducts, lstAssetToCreateUpdate, mapFromTo, accountId, documentNumber, mapSVAProducts, mapLegacy);
             }
         }
-        
     }
     
-    public static String getMainProductDescription(WrapperAPI assetToCreate){
+    public static String getMainProductDescription(WrapperAPI assetToCreate, String sourceSystem){
         String description = assetToCreate.descriptions.isEmpty() ? '' : assetToCreate.descriptions[0].text;
         String displayName = assetToCreate.display_name;
         
@@ -312,15 +315,22 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
             return assetToCreate.descriptions.size() == 1 ? description : displayName;
         }
         
-        if(displayName != null){
-            return displayName;
-        }  
-        
-        if(description != ''){
-            return description;
-        } 
-            
-        return '';
+        switch on sourceSystem {
+            when 'Ngin' {
+                return description;
+            }
+            when else {
+                if(displayName != null){
+                    return displayName;
+                }  
+                
+                if(description != ''){
+                    return description;
+                } 
+
+                return '';
+            }
+        }
     }
 
     public static Map<String,String> createFromToMapping()
@@ -443,20 +453,60 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
         
         return returnAssetName;
     }
+
+    public static String getPlatform(WrapperAPI assetToCreate) {
+        String subsType = assetToCreate.subscription_type;
+        String prodType = assetToCreate.product_type;
+
+        if (prodType == 'mobile') {
+            switch on subsType {
+                when  'postpaid'{
+                    return 'Postpaid';
+                }
+                when 'prepaid' {
+                    return 'Prepaid';
+                }
+                when else {
+                    return '';
+                }
+            }
+        } else {
+            return '';
+        }
+
+    }
     
+    @TestVisible
     private class WrapperAPI
     {
+        @TestVisible
         private List<String> identifiers {get; set;}
+        @TestVisible
         private DateTime start_date {get; set;}
+        @TestVisible
         private String subscription_type {get; set;}
+        @TestVisible
         private List<WrapperAPI> sub_products {get; set;}
+        @TestVisible
         private String product_type {get; set;}
+        @TestVisible
         private String display_name {get; set;}
+        @TestVisible
         private String status {get; set;}
+        @TestVisible
 		private String status_description {get;set;}
+        @TestVisible
+        private String id {get;set;}
+        @TestVisible
         private Connection connection {get; set;}
+        @TestVisible
         private List<String> tags {get; set;}
+        @TestVisible
         private List<Descriptions> descriptions {get;set;}
+        @TestVisible
+        private String idBundle {get;set;}
+        @TestVisible
+        private String offerDescription {get;set;}
     }
     
     private class Connection
@@ -466,8 +516,10 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
         private String type {get; set;}
     }
     
+    @TestVisible
     private class Descriptions
     {
+        @TestVisible
         private String text {get;set;}
     }
 }
