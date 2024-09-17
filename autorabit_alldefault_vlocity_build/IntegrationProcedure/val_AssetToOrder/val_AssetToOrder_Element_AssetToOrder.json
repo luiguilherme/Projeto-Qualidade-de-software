@@ -11,7 +11,7 @@
         "additionalChainableResponse": {
         },
         "additionalInput": {
-            "accountId": "%AccountId%",
+            "accountId": "=IF(ISBLANK(%AccountId%),%DRTGetAccountByAssetId:Account|1:AccountId%,%AccountId%)",
             "id": "%RootId%",
             "requestDateTime": "=FORMATDATETIMEGMT(NOW(), \"America/Sao_Paulo\", \"yyyy-MM-dd'T'HH:mm:ss.SSSZ\")",
             "subaction": "assetToOrder"
