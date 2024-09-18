@@ -5,6 +5,16 @@
                 "id": 6,
                 "name": "Parent.networkNumber",
                 "val": "11972820482"
+            },
+            {
+                "id": 5,
+                "name": "SourceSystem",
+                "val": ""
+            },
+            {
+                "id": 6,
+                "name": "Parent.SourceSystem",
+                "val": ""
             }
         ],
         "orderBy": {
@@ -15,10 +25,11 @@
         "value": {
             "dsDelay": "",
             "inputMap": {
+                "SourceSystem": "{Parent.SourceSystem}",
                 "networkNumber": "{Parent.networkNumber}"
             },
             "ipMethod": "val_GetPrepaidBalanceDetails",
-            "jsonMap": "{\"Parent.networkNumber\":\"{Parent.networkNumber}\"}",
+            "jsonMap": "{\"Parent.networkNumber\":\"{Parent.networkNumber}\",\"SourceSystem\":\"{SourceSystem}\",\"Parent.SourceSystem\":\"{Parent.SourceSystem}\"}",
             "resultVar": "",
             "vlocityAsync": false
         }
@@ -69,7 +80,7 @@
     "isFlex": true,
     "lwc": {
         "DeveloperName": "cfValBalanceDetailsInfo_9_Lucas",
-        "Id": "0Rb76000000LA7oCAG",
+        "Id": "0Rb5f000002WsQ7CAK",
         "ManageableState": "unmanaged",
         "MasterLabel": "cfValBalanceDetailsInfo_9_Lucas",
         "NamespacePrefix": "c"
@@ -120,8 +131,8 @@
                                                         "id": "state-condition-object",
                                                         "isParent": true
                                                     },
-                                                    "id": "flex-action-1726665188620",
-                                                    "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_CreateCustomerInteractionTopic\",\"vlocityAsync\":false,\"inputMap\":{\"topicName\":\"Início > Informação > Crédito > Saldo Detalhado\",\"interactionId\":\"{Parent.interactionId}\",\"process\":\"Consultar Consumo de Mensagens, Voz, Bonus\",\"assetId\":\"{Parent.assetId}\",\"origin\":\"Salesforce\",\"reason\":\"Palitagem Pré\"},\"jsonMap\":\"{\\\"Parent.interactionId\\\":\\\"{Parent.interactionId}\\\",\\\"Parent.assetId\\\":\\\"{Parent.assetId}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"Parent.interactionId\",\"val\":\"\",\"id\":7},{\"name\":\"Parent.assetId\",\"val\":\"\",\"id\":15}]}",
+                                                    "id": "flex-action-1721853986875",
+                                                    "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_CreateCustomerInteractionTopic\",\"vlocityAsync\":false,\"inputMap\":{\"topicName\":\"Início > Informação > Crédito > Saldo Detalhado\",\"interactionId\":\"{Parent.interactionId}\",\"process\":\"Consultar Consumo de Mensagens, Voz, Bonus\",\"assetId\":\"{Parent.assetId}\",\"origin\":\"Salesforce\",\"reason\":\"Palitagem Pré\"},\"jsonMap\":\"{\\\"Parent.interactionId\\\":\\\"{Parent.interactionId}\\\",\\\"Parent.assetId\\\":\\\"{Parent.assetId}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"Parent.interactionId\",\"val\":\"\",\"id\":7},{\"name\":\"Parent.assetId\",\"val\":\"\",\"id\":15}]}",
                                                     "openUrlIn": "Current Window",
                                                     "responseNode": "ProtocolResponse",
                                                     "targetType": "Web Page",
@@ -132,7 +143,7 @@
                                                 "actionIndex": 1,
                                                 "card": "{card}",
                                                 "draggable": true,
-                                                "isOpen": false,
+                                                "isOpen": true,
                                                 "key": "1683226218703-6ur1rxj3u",
                                                 "label": "palito",
                                                 "stateAction": {
@@ -158,7 +169,7 @@
                                                 "actionIndex": 2,
                                                 "card": "{card}",
                                                 "draggable": true,
-                                                "isOpen": false,
+                                                "isOpen": true,
                                                 "key": "1683296815147-uc27i76gr",
                                                 "label": "ShowTrue",
                                                 "stateAction": {
@@ -1408,6 +1419,10 @@
                                             "isParent": true
                                         },
                                         "isChildCardTrackingEnabled": true,
+                                        "parentAttribute": {
+                                            "SourceSystem": "{Parent.SourceSystem}",
+                                            "isUnlimitedSMS": "{isUnlimitedSMS}"
+                                        },
                                         "recordId": "{recordId}",
                                         "selectedState": "Active"
                                     },
@@ -1677,6 +1692,10 @@
                                             "isParent": true
                                         },
                                         "isChildCardTrackingEnabled": false,
+                                        "parentAttribute": {
+                                            "SourceSystem": "{Parent.SourceSystem}",
+                                            "isUnlimitedMIN": "{isUnlimitedMIN}"
+                                        },
                                         "recordId": "{recordId}",
                                         "selectedState": "Active"
                                     },
