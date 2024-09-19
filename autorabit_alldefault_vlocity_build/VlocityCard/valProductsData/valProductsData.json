@@ -1,6 +1,11 @@
 {
     "dataSource": {
         "contextVariables": [
+            {
+                "id": 0,
+                "name": "recordId",
+                "val": "a1c760000008bsEAAQ"
+            }
         ],
         "orderBy": {
         },
@@ -11,10 +16,10 @@
     "enableLwc": true,
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfValProductsData_23_Telefonica",
-        "Id": "0Rb76000000L6BDCA0",
+        "DeveloperName": "cfValCustomerProductsSearch_3_GiovaniSouza",
+        "Id": "0Rb6t000000OMXDCA4",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValProductsData_23_Telefonica",
+        "MasterLabel": "cfValCustomerProductsSearch_3_GiovaniSouza",
         "NamespacePrefix": "c"
     },
     "selectableMode": "Multi",
@@ -39,7 +44,7 @@
                                 "record": "{record}",
                                 "size": "large",
                                 "stateImg": {
-                                    "alternativeText": "Image description",
+                                    "alternativeText": "",
                                     "imgsrc": "/resource/EmptyStateTree"
                                 }
                             },
@@ -783,6 +788,7 @@
                                                 }
                                             }
                                         ],
+                                        "ariaLabel": "\\Abrir Página do Produto {LineNumber}",
                                         "card": "{card}",
                                         "displayAsButton": false,
                                         "flyoutChannel": "close_modal",
@@ -796,8 +802,9 @@
                                         "stateObj": "{record}",
                                         "styles": {
                                             "label": {
-                                                "color": "#0070D2",
-                                                "textAlign": "left"
+                                                "color": "#792BA4",
+                                                "textAlign": "left",
+                                                "textDecoration": "underline"
                                             }
                                         }
                                     },
@@ -831,8 +838,9 @@
                                         "elementStyleProperties": {
                                             "styles": {
                                                 "label": {
-                                                    "color": "#0070D2",
-                                                    "textAlign": "left"
+                                                    "color": "#792BA4",
+                                                    "textAlign": "left",
+                                                    "textDecoration": "underline"
                                                 }
                                             }
                                         },
@@ -890,8 +898,9 @@
                                                 "elementStyleProperties": {
                                                     "styles": {
                                                         "label": {
-                                                            "color": "#0070D2",
-                                                            "textAlign": "left"
+                                                            "color": "#792BA4",
+                                                            "textAlign": "left",
+                                                            "textDecoration": "underline"
                                                         }
                                                     }
                                                 },
@@ -2369,15 +2378,13 @@
                                                 "record": "{record}",
                                                 "styles": {
                                                     "label": {
-                                                        "color": "",
                                                         "fontFamily": "",
-                                                        "fontSize": "",
-                                                        "textAlign": ""
+                                                        "fontSize": ""
                                                     },
                                                     "value": {
                                                         "color": "#FFF",
                                                         "fontFamily": "var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol');",
-                                                        "fontSize": "7pt"
+                                                        "fontSize": "9pt"
                                                     }
                                                 },
                                                 "type": "text",
@@ -2390,7 +2397,7 @@
                                             "stateIndex": 2,
                                             "styleObject": {
                                                 "background": {
-                                                    "color": "#9D9595",
+                                                    "color": "#1B7742",
                                                     "image": "",
                                                     "position": "",
                                                     "repeat": "",
@@ -2408,23 +2415,19 @@
                                                     "class": ""
                                                 },
                                                 "elementStyleProperties": {
-                                                    "labelclass": "",
                                                     "styles": {
                                                         "label": {
-                                                            "color": "",
                                                             "fontFamily": "",
-                                                            "fontSize": "",
-                                                            "textAlign": ""
+                                                            "fontSize": ""
                                                         },
                                                         "value": {
                                                             "color": "#FFF",
                                                             "fontFamily": "var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol');",
-                                                            "fontSize": "7pt"
+                                                            "fontSize": "9pt"
                                                         }
-                                                    },
-                                                    "valueclass": ""
+                                                    }
                                                 },
-                                                "inlineStyle": "font-weight: bold",
+                                                "inlineStyle": "font-weight: bold;",
                                                 "margin": [
                                                 ],
                                                 "padding": [
@@ -2434,7 +2437,7 @@
                                                     "isResponsive": false
                                                 },
                                                 "sizeClass": "slds-size_12-of-12 ",
-                                                "style": "background-color:#9D9595;      \n    border-radius:3px;     font-weight: bold",
+                                                "style": "background-color:#1B7742;      \n    border-radius:3px;     font-weight: bold;",
                                                 "text": {
                                                     "align": "center",
                                                     "color": ""
@@ -2565,7 +2568,7 @@
                                                         "isParent": true
                                                     },
                                                     "draggable": true,
-                                                    "isSetForDesignTime": false,
+                                                    "isSetForDesignTime": true,
                                                     "isopen": true,
                                                     "key": 1,
                                                     "label": "Ativo",
@@ -2803,7 +2806,7 @@
                                                     }
                                                 },
                                                 {
-                                                    "conditionString": "SubscriptionStatus == Cancelado",
+                                                    "conditionString": "SubscriptionStatus == Cancelado || (SubscriptionStatus == Cancelled)",
                                                     "conditions": {
                                                         "group": [
                                                             {
@@ -2813,6 +2816,20 @@
                                                                 "operator": "==",
                                                                 "type": "custom",
                                                                 "value": "Cancelado"
+                                                            },
+                                                            {
+                                                                "group": [
+                                                                    {
+                                                                        "field": "SubscriptionStatus",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-0",
+                                                                        "operator": "==",
+                                                                        "type": "custom",
+                                                                        "value": "Cancelled"
+                                                                    }
+                                                                ],
+                                                                "id": "state-new-group-1",
+                                                                "logicalOperator": "||"
                                                             }
                                                         ],
                                                         "id": "state-condition-object",
@@ -2890,7 +2907,7 @@
                                                         "isParent": true
                                                     },
                                                     "draggable": true,
-                                                    "isSetForDesignTime": true,
+                                                    "isSetForDesignTime": false,
                                                     "isopen": true,
                                                     "key": 5,
                                                     "label": "Recém Portado",
@@ -3019,7 +3036,7 @@
                                                     }
                                                 },
                                                 {
-                                                    "conditionString": "SubscriptionStatus == Desativado || SubscriptionStatus == Inativo || SubscriptionsStatus == Inactive",
+                                                    "conditionString": "SubscriptionStatus == Desativado",
                                                     "conditions": {
                                                         "group": [
                                                             {
@@ -3029,24 +3046,6 @@
                                                                 "operator": "==",
                                                                 "type": "custom",
                                                                 "value": "Desativado"
-                                                            },
-                                                            {
-                                                                "field": "SubscriptionStatus",
-                                                                "hasMergeField": false,
-                                                                "id": "state-new-condition-10",
-                                                                "logicalOperator": "||",
-                                                                "operator": "==",
-                                                                "type": "custom",
-                                                                "value": "Inativo"
-                                                            },
-                                                            {
-                                                                "field": "SubscriptionsStatus",
-                                                                "hasMergeField": false,
-                                                                "id": "state-new-condition-26",
-                                                                "logicalOperator": "||",
-                                                                "operator": "==",
-                                                                "type": "custom",
-                                                                "value": "Inactive"
                                                             }
                                                         ],
                                                         "id": "state-condition-object",
@@ -3169,81 +3168,6 @@
                                                             "color": ""
                                                         }
                                                     }
-                                                },
-                                                {
-                                                    "conditionString": "SubscriptionStatus == Pré Ativo",
-                                                    "conditions": {
-                                                        "group": [
-                                                            {
-                                                                "field": "SubscriptionStatus",
-                                                                "hasMergeField": false,
-                                                                "id": "state-new-condition-16",
-                                                                "operator": "==",
-                                                                "type": "custom",
-                                                                "value": "Pré Ativo"
-                                                            }
-                                                        ],
-                                                        "id": "state-condition-object",
-                                                        "isParent": true
-                                                    },
-                                                    "draggable": true,
-                                                    "isSetForDesignTime": false,
-                                                    "isopen": true,
-                                                    "key": 9,
-                                                    "label": "Pré Ativo",
-                                                    "name": "Pré Ativo",
-                                                    "styleObject": {
-                                                        "background": {
-                                                            "color": "#9D9595",
-                                                            "image": "",
-                                                            "position": "",
-                                                            "repeat": "",
-                                                            "size": ""
-                                                        },
-                                                        "border": {
-                                                            "color": "#cccccc",
-                                                            "radius": "3px",
-                                                            "style": "",
-                                                            "type": "",
-                                                            "width": ""
-                                                        },
-                                                        "class": "slds-text-align_center ",
-                                                        "container": {
-                                                            "class": ""
-                                                        },
-                                                        "elementStyleProperties": {
-                                                            "labelclass": "",
-                                                            "styles": {
-                                                                "label": {
-                                                                    "color": "",
-                                                                    "fontFamily": "",
-                                                                    "fontSize": "",
-                                                                    "textAlign": ""
-                                                                },
-                                                                "value": {
-                                                                    "color": "#FFF",
-                                                                    "fontFamily": "var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol');",
-                                                                    "fontSize": "9pt"
-                                                                }
-                                                            },
-                                                            "valueclass": ""
-                                                        },
-                                                        "inlineStyle": "font-weight: bold",
-                                                        "margin": [
-                                                        ],
-                                                        "padding": [
-                                                        ],
-                                                        "size": {
-                                                            "default": "12",
-                                                            "isResponsive": false
-                                                        },
-                                                        "sizeClass": "slds-size_12-of-12 ",
-                                                        "style": "background-color:#9D9595;      \n    border-radius:3px;     font-weight: bold",
-                                                        "text": {
-                                                            "align": "center",
-                                                            "color": ""
-                                                        }
-                                                    }
                                                 }
                                             ],
                                             "type": "element"
@@ -3272,22 +3196,20 @@
                                                     "isParent": true
                                                 },
                                                 "fieldName": "{Status}",
-                                                "labelclass": "",
+                                                "labelclass": {
+                                                },
                                                 "placeholder": "{Status}",
                                                 "record": "{record}",
                                                 "styles": {
-                                                    "label": {
-                                                        "fontFamily": "",
-                                                        "fontSize": ""
-                                                    },
                                                     "value": {
                                                         "color": "#FFF",
-                                                        "fontFamily": "var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol');",
+                                                        "fontFamily": "",
                                                         "fontSize": "9pt"
                                                     }
                                                 },
                                                 "type": "text",
-                                                "valueclass": ""
+                                                "valueclass": {
+                                                }
                                             },
                                             "size": {
                                                 "default": "12",
@@ -3296,37 +3218,32 @@
                                             "stateIndex": 2,
                                             "styleObject": {
                                                 "background": {
-                                                    "color": "#1B7742",
+                                                    "color": "",
                                                     "image": "",
                                                     "position": "",
                                                     "repeat": "",
                                                     "size": ""
                                                 },
                                                 "border": {
-                                                    "color": "#cccccc",
-                                                    "radius": "3px",
+                                                    "color": "",
+                                                    "radius": "",
                                                     "style": "",
                                                     "type": "",
                                                     "width": ""
                                                 },
-                                                "class": "slds-text-align_center ",
                                                 "container": {
                                                     "class": ""
                                                 },
                                                 "elementStyleProperties": {
                                                     "styles": {
-                                                        "label": {
-                                                            "fontFamily": "",
-                                                            "fontSize": ""
-                                                        },
                                                         "value": {
                                                             "color": "#FFF",
-                                                            "fontFamily": "var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol');",
+                                                            "fontFamily": "",
                                                             "fontSize": "9pt"
                                                         }
                                                     }
                                                 },
-                                                "inlineStyle": "font-weight: bold;",
+                                                "inlineStyle": "",
                                                 "margin": [
                                                 ],
                                                 "padding": [
@@ -3335,10 +3252,9 @@
                                                     "default": "12",
                                                     "isResponsive": false
                                                 },
-                                                "sizeClass": "slds-size_12-of-12 ",
-                                                "style": "background-color:#1B7742;      \n    border-radius:3px;     font-weight: bold;",
+                                                "sizeClass": "slds-size_12-of-12",
                                                 "text": {
-                                                    "align": "center",
+                                                    "align": "",
                                                     "color": ""
                                                 }
                                             },
@@ -3440,7 +3356,7 @@
                                                         "isParent": true
                                                     },
                                                     "draggable": true,
-                                                    "isSetForDesignTime": true,
+                                                    "isSetForDesignTime": false,
                                                     "isopen": true,
                                                     "key": 1,
                                                     "label": "Ativo",
@@ -4009,70 +3925,6 @@
                                                             "color": ""
                                                         }
                                                     }
-                                                },
-                                                {
-                                                    "conditionString": "Status == Pré Ativo",
-                                                    "conditions": {
-                                                        "group": [
-                                                            {
-                                                                "field": "Status",
-                                                                "hasMergeField": false,
-                                                                "id": "state-new-condition-9",
-                                                                "operator": "==",
-                                                                "type": "custom",
-                                                                "value": "Pré Ativo"
-                                                            }
-                                                        ],
-                                                        "id": "state-condition-object",
-                                                        "isParent": true
-                                                    },
-                                                    "draggable": true,
-                                                    "isSetForDesignTime": false,
-                                                    "key": 9,
-                                                    "label": "Pré Ativo",
-                                                    "name": "Pré Ativo",
-                                                    "styleObject": {
-                                                        "background": {
-                                                            "color": "",
-                                                            "image": "",
-                                                            "position": "",
-                                                            "repeat": "",
-                                                            "size": ""
-                                                        },
-                                                        "border": {
-                                                            "color": "",
-                                                            "radius": "",
-                                                            "style": "",
-                                                            "type": "",
-                                                            "width": ""
-                                                        },
-                                                        "container": {
-                                                            "class": ""
-                                                        },
-                                                        "elementStyleProperties": {
-                                                            "styles": {
-                                                                "value": {
-                                                                    "color": "#FFF",
-                                                                    "fontFamily": "",
-                                                                    "fontSize": "9pt"
-                                                                }
-                                                            }
-                                                        },
-                                                        "inlineStyle": "",
-                                                        "margin": [
-                                                        ],
-                                                        "padding": [
-                                                        ],
-                                                        "size": {
-                                                            "default": "12",
-                                                            "isResponsive": false
-                                                        },
-                                                        "sizeClass": "slds-size_12-of-12",
-                                                        "text": {
-                                                            "align": "",
-                                                            "color": ""
-                                                        }
-                                                    }
                                                 }
                                             ],
                                             "type": "element"
@@ -4088,7 +3940,7 @@
                                         "card": "{card}",
                                         "collapsedByDefault": false,
                                         "collapsible": false,
-                                        "label": "Block",
+                                        "label": "",
                                         "record": "{record}"
                                     },
                                     "size": {
@@ -4241,6 +4093,7 @@
                                                 }
                                             }
                                         ],
+                                        "ariaLabel": "\\Abrir Página do Produto {LineNumber}",
                                         "card": "{card}",
                                         "flyoutDetails": {
                                         },
@@ -4252,9 +4105,10 @@
                                         "stateObj": "{record}",
                                         "styles": {
                                             "label": {
-                                                "color": "#1589EE",
+                                                "color": "#792BA4",
                                                 "fontFamily": "",
-                                                "fontSize": "20px"
+                                                "fontSize": "20px",
+                                                "textDecoration": "underline"
                                             }
                                         }
                                     },
@@ -4285,9 +4139,10 @@
                                         "elementStyleProperties": {
                                             "styles": {
                                                 "label": {
-                                                    "color": "#1589EE",
+                                                    "color": "#792BA4",
                                                     "fontFamily": "",
-                                                    "fontSize": "20px"
+                                                    "fontSize": "20px",
+                                                    "textDecoration": "underline"
                                                 }
                                             }
                                         },
@@ -4342,9 +4197,10 @@
                                                 "elementStyleProperties": {
                                                     "styles": {
                                                         "label": {
-                                                            "color": "#1589EE",
+                                                            "color": "#792BA4",
                                                             "fontFamily": "",
-                                                            "fontSize": "20px"
+                                                            "fontSize": "20px",
+                                                            "textDecoration": "underline"
                                                         }
                                                     }
                                                 },
@@ -4376,7 +4232,7 @@
                                 {
                                     "class": "slds-col ",
                                     "element": "outputField",
-                                    "elementLabel": "Block-0-Text-3",
+                                    "elementLabel": "Block-0-Text-2",
                                     "key": "element_element_block_0_2_outputField_2_2",
                                     "name": "Text",
                                     "parentElementKey": "element_block_0_2",
@@ -4503,116 +4359,13 @@
                                                 {
                                                     "class": "slds-col ",
                                                     "element": "outputField",
-                                                    "elementLabel": "Block-5-Text-0",
+                                                    "elementLabel": "Block-5-Text-1",
                                                     "key": "element_element_element_element_block_0_2_block_3_2_block_0_2_outputField_0_2",
                                                     "name": "Text",
                                                     "parentElementKey": "element_element_element_block_0_2_block_3_2_block_0_2",
                                                     "property": {
                                                         "card": "{card}",
-                                                        "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3E%3Cstrong%3ETipo%3C/strong%3E%3C/span%3E%3C/div%3E",
-                                                        "record": "{record}"
-                                                    },
-                                                    "size": {
-                                                        "default": "4",
-                                                        "isResponsive": false
-                                                    },
-                                                    "stateIndex": 2,
-                                                    "styleObject": {
-                                                        "background": {
-                                                            "color": "",
-                                                            "image": "",
-                                                            "position": "",
-                                                            "repeat": "",
-                                                            "size": ""
-                                                        },
-                                                        "border": {
-                                                            "color": "",
-                                                            "radius": "",
-                                                            "style": "",
-                                                            "type": "",
-                                                            "width": ""
-                                                        },
-                                                        "class": "",
-                                                        "container": {
-                                                            "class": ""
-                                                        },
-                                                        "elementStyleProperties": {
-                                                        },
-                                                        "inlineStyle": "",
-                                                        "margin": [
-                                                        ],
-                                                        "padding": [
-                                                        ],
-                                                        "size": {
-                                                            "default": "4",
-                                                            "isResponsive": false
-                                                        },
-                                                        "sizeClass": "slds-size_4-of-12 ",
-                                                        "style": "      \n         ",
-                                                        "text": {
-                                                            "align": "",
-                                                            "color": ""
-                                                        }
-                                                    },
-                                                    "styleObjects": [
-                                                        {
-                                                            "conditionString": "",
-                                                            "conditions": "default",
-                                                            "draggable": false,
-                                                            "key": 0,
-                                                            "label": "Default",
-                                                            "name": "Default",
-                                                            "styleObject": {
-                                                                "background": {
-                                                                    "color": "",
-                                                                    "image": "",
-                                                                    "position": "",
-                                                                    "repeat": "",
-                                                                    "size": ""
-                                                                },
-                                                                "border": {
-                                                                    "color": "",
-                                                                    "radius": "",
-                                                                    "style": "",
-                                                                    "type": "",
-                                                                    "width": ""
-                                                                },
-                                                                "class": "",
-                                                                "container": {
-                                                                    "class": ""
-                                                                },
-                                                                "elementStyleProperties": {
-                                                                },
-                                                                "inlineStyle": "",
-                                                                "margin": [
-                                                                ],
-                                                                "padding": [
-                                                                ],
-                                                                "size": {
-                                                                    "default": "4",
-                                                                    "isResponsive": false
-                                                                },
-                                                                "sizeClass": "slds-size_4-of-12 ",
-                                                                "style": "      \n         ",
-                                                                "text": {
-                                                                    "align": "",
-                                                                    "color": ""
-                                                                }
-                                                            }
-                                                        }
-                                                    ],
-                                                    "type": "text"
-                                                },
-                                                {
-                                                    "class": "slds-col ",
-                                                    "element": "outputField",
-                                                    "elementLabel": "Block-5-Text-1",
-                                                    "key": "element_element_element_element_block_0_2_block_3_2_block_0_2_outputField_1_2",
-                                                    "name": "Text",
-                                                    "parentElementKey": "element_element_element_block_0_2_block_3_2_block_0_2",
-                                                    "property": {
-                                                        "card": "{card}",
-                                                        "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3E%3Cstrong%3ETipo%20de%20Produto%3C/strong%3E%3C/span%3E%3C/div%3E",
+                                                        "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3E%3Cstrong%3ETipo%3C/strong%3E%3C/span%3E%3C/div%3E%0A%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3E%7BType%7D%3C/span%3E%3C/div%3E",
                                                         "record": "{record}"
                                                     },
                                                     "size": {
@@ -4710,12 +4463,115 @@
                                                     "class": "slds-col ",
                                                     "element": "outputField",
                                                     "elementLabel": "Block-5-Text-2",
+                                                    "key": "element_element_element_element_block_0_2_block_3_2_block_0_2_outputField_1_2",
+                                                    "name": "Text",
+                                                    "parentElementKey": "element_element_element_block_0_2_block_3_2_block_0_2",
+                                                    "property": {
+                                                        "card": "{card}",
+                                                        "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3E%3Cstrong%3ETipo%20de%20Produto%3C/strong%3E%3C/span%3E%3C/div%3E%0A%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3E%7BProductType%7D%3C/span%3E%3C/div%3E",
+                                                        "record": "{record}"
+                                                    },
+                                                    "size": {
+                                                        "default": "4",
+                                                        "isResponsive": false
+                                                    },
+                                                    "stateIndex": 2,
+                                                    "styleObject": {
+                                                        "background": {
+                                                            "color": "",
+                                                            "image": "",
+                                                            "position": "",
+                                                            "repeat": "",
+                                                            "size": ""
+                                                        },
+                                                        "border": {
+                                                            "color": "",
+                                                            "radius": "",
+                                                            "style": "",
+                                                            "type": "",
+                                                            "width": ""
+                                                        },
+                                                        "class": "",
+                                                        "container": {
+                                                            "class": ""
+                                                        },
+                                                        "elementStyleProperties": {
+                                                        },
+                                                        "inlineStyle": "",
+                                                        "margin": [
+                                                        ],
+                                                        "padding": [
+                                                        ],
+                                                        "size": {
+                                                            "default": "4",
+                                                            "isResponsive": false
+                                                        },
+                                                        "sizeClass": "slds-size_4-of-12 ",
+                                                        "style": "      \n         ",
+                                                        "text": {
+                                                            "align": "",
+                                                            "color": ""
+                                                        }
+                                                    },
+                                                    "styleObjects": [
+                                                        {
+                                                            "conditionString": "",
+                                                            "conditions": "default",
+                                                            "draggable": false,
+                                                            "key": 0,
+                                                            "label": "Default",
+                                                            "name": "Default",
+                                                            "styleObject": {
+                                                                "background": {
+                                                                    "color": "",
+                                                                    "image": "",
+                                                                    "position": "",
+                                                                    "repeat": "",
+                                                                    "size": ""
+                                                                },
+                                                                "border": {
+                                                                    "color": "",
+                                                                    "radius": "",
+                                                                    "style": "",
+                                                                    "type": "",
+                                                                    "width": ""
+                                                                },
+                                                                "class": "",
+                                                                "container": {
+                                                                    "class": ""
+                                                                },
+                                                                "elementStyleProperties": {
+                                                                },
+                                                                "inlineStyle": "",
+                                                                "margin": [
+                                                                ],
+                                                                "padding": [
+                                                                ],
+                                                                "size": {
+                                                                    "default": "4",
+                                                                    "isResponsive": false
+                                                                },
+                                                                "sizeClass": "slds-size_4-of-12 ",
+                                                                "style": "      \n         ",
+                                                                "text": {
+                                                                    "align": "",
+                                                                    "color": ""
+                                                                }
+                                                            }
+                                                        }
+                                                    ],
+                                                    "type": "text"
+                                                },
+                                                {
+                                                    "class": "slds-col ",
+                                                    "element": "outputField",
+                                                    "elementLabel": "Block-5-Text-3",
                                                     "key": "element_element_element_element_block_0_2_block_3_2_block_0_2_outputField_2_2",
                                                     "name": "Text",
                                                     "parentElementKey": "element_element_element_block_0_2_block_3_2_block_0_2",
                                                     "property": {
                                                         "card": "{card}",
-                                                        "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3E%3Cstrong%3EOrigem%3C/strong%3E%3C/span%3E%3C/div%3E",
+                                                        "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3E%3Cstrong%3EOrigem%3C/strong%3E%3C/span%3E%3C/div%3E%0A%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3E%7BSourceSystem%7D%3C/span%3E%3C/div%3E",
                                                         "record": "{record}"
                                                     },
                                                     "size": {
@@ -4811,318 +4667,10 @@
                                                 },
                                                 {
                                                     "children": [
-                                                        {
-                                                            "class": "slds-col ",
-                                                            "element": "outputField",
-                                                            "elementLabel": "Block-3-clone-0-Text-0",
-                                                            "key": "element_element_element_element_element_block_0_2_block_3_2_block_0_2_block_3_2_outputField_0_2",
-                                                            "name": "Text",
-                                                            "parentElementKey": "element_element_element_element_block_0_2_block_3_2_block_0_2_block_3_2",
-                                                            "property": {
-                                                                "card": "{card}",
-                                                                "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3E%7BType%7D%3C/span%3E%3C/div%3E",
-                                                                "record": "{record}"
-                                                            },
-                                                            "size": {
-                                                                "default": "4",
-                                                                "isResponsive": false
-                                                            },
-                                                            "stateIndex": 2,
-                                                            "styleObject": {
-                                                                "background": {
-                                                                    "color": "",
-                                                                    "image": "",
-                                                                    "position": "",
-                                                                    "repeat": "",
-                                                                    "size": ""
-                                                                },
-                                                                "border": {
-                                                                    "color": "",
-                                                                    "radius": "",
-                                                                    "style": "",
-                                                                    "type": "",
-                                                                    "width": ""
-                                                                },
-                                                                "class": "",
-                                                                "container": {
-                                                                    "class": ""
-                                                                },
-                                                                "elementStyleProperties": {
-                                                                },
-                                                                "inlineStyle": "",
-                                                                "margin": [
-                                                                ],
-                                                                "padding": [
-                                                                ],
-                                                                "size": {
-                                                                    "default": "4",
-                                                                    "isResponsive": false
-                                                                },
-                                                                "sizeClass": "slds-size_4-of-12 ",
-                                                                "style": "      \n         ",
-                                                                "text": {
-                                                                    "align": "",
-                                                                    "color": ""
-                                                                }
-                                                            },
-                                                            "styleObjects": [
-                                                                {
-                                                                    "conditionString": "",
-                                                                    "conditions": "default",
-                                                                    "draggable": false,
-                                                                    "key": 0,
-                                                                    "label": "Default",
-                                                                    "name": "Default",
-                                                                    "styleObject": {
-                                                                        "background": {
-                                                                            "color": "",
-                                                                            "image": "",
-                                                                            "position": "",
-                                                                            "repeat": "",
-                                                                            "size": ""
-                                                                        },
-                                                                        "border": {
-                                                                            "color": "",
-                                                                            "radius": "",
-                                                                            "style": "",
-                                                                            "type": "",
-                                                                            "width": ""
-                                                                        },
-                                                                        "class": "",
-                                                                        "container": {
-                                                                            "class": ""
-                                                                        },
-                                                                        "elementStyleProperties": {
-                                                                        },
-                                                                        "inlineStyle": "",
-                                                                        "margin": [
-                                                                        ],
-                                                                        "padding": [
-                                                                        ],
-                                                                        "size": {
-                                                                            "default": "4",
-                                                                            "isResponsive": false
-                                                                        },
-                                                                        "sizeClass": "slds-size_4-of-12 ",
-                                                                        "style": "      \n         ",
-                                                                        "text": {
-                                                                            "align": "",
-                                                                            "color": ""
-                                                                        }
-                                                                    }
-                                                                }
-                                                            ],
-                                                            "type": "text"
-                                                        },
-                                                        {
-                                                            "class": "slds-col ",
-                                                            "element": "outputField",
-                                                            "elementLabel": "Block-3-clone-0-Text-0-clone-0",
-                                                            "key": "element_element_element_element_element_block_0_2_block_3_2_block_0_2_block_3_2_outputField_2_2",
-                                                            "name": "Text",
-                                                            "property": {
-                                                                "card": "{card}",
-                                                                "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3E%7BProductType%7D%3C/span%3E%3C/div%3E",
-                                                                "record": "{record}"
-                                                            },
-                                                            "size": {
-                                                                "default": "4",
-                                                                "isResponsive": false
-                                                            },
-                                                            "stateIndex": 2,
-                                                            "styleObject": {
-                                                                "background": {
-                                                                    "color": "",
-                                                                    "image": "",
-                                                                    "position": "",
-                                                                    "repeat": "",
-                                                                    "size": ""
-                                                                },
-                                                                "border": {
-                                                                    "color": "",
-                                                                    "radius": "",
-                                                                    "style": "",
-                                                                    "type": "",
-                                                                    "width": ""
-                                                                },
-                                                                "class": "",
-                                                                "container": {
-                                                                    "class": ""
-                                                                },
-                                                                "elementStyleProperties": {
-                                                                },
-                                                                "inlineStyle": "",
-                                                                "margin": [
-                                                                ],
-                                                                "padding": [
-                                                                ],
-                                                                "size": {
-                                                                    "default": "4",
-                                                                    "isResponsive": false
-                                                                },
-                                                                "sizeClass": "slds-size_4-of-12 ",
-                                                                "style": "      \n         ",
-                                                                "text": {
-                                                                    "align": "",
-                                                                    "color": ""
-                                                                }
-                                                            },
-                                                            "styleObjects": [
-                                                                {
-                                                                    "conditionString": "",
-                                                                    "conditions": "default",
-                                                                    "draggable": false,
-                                                                    "key": 0,
-                                                                    "label": "Default",
-                                                                    "name": "Default",
-                                                                    "styleObject": {
-                                                                        "background": {
-                                                                            "color": "",
-                                                                            "image": "",
-                                                                            "position": "",
-                                                                            "repeat": "",
-                                                                            "size": ""
-                                                                        },
-                                                                        "border": {
-                                                                            "color": "",
-                                                                            "radius": "",
-                                                                            "style": "",
-                                                                            "type": "",
-                                                                            "width": ""
-                                                                        },
-                                                                        "class": "",
-                                                                        "container": {
-                                                                            "class": ""
-                                                                        },
-                                                                        "elementStyleProperties": {
-                                                                        },
-                                                                        "inlineStyle": "",
-                                                                        "margin": [
-                                                                        ],
-                                                                        "padding": [
-                                                                        ],
-                                                                        "size": {
-                                                                            "default": "4",
-                                                                            "isResponsive": false
-                                                                        },
-                                                                        "sizeClass": "slds-size_4-of-12 ",
-                                                                        "style": "      \n         ",
-                                                                        "text": {
-                                                                            "align": "",
-                                                                            "color": ""
-                                                                        }
-                                                                    }
-                                                                }
-                                                            ],
-                                                            "type": "text"
-                                                        },
-                                                        {
-                                                            "class": "slds-col ",
-                                                            "element": "outputField",
-                                                            "elementLabel": "Block-5-Block-3-Text-1-clone-0",
-                                                            "key": "element_element_element_element_element_block_0_2_block_3_2_block_0_2_block_3_2_outputField_2_2",
-                                                            "name": "Text",
-                                                            "parentElementKey": "element_element_element_element_block_0_2_block_3_2_block_0_2_block_3_2",
-                                                            "property": {
-                                                                "card": "{card}",
-                                                                "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3E%7BSourceSystem%7D%3C/span%3E%3C/div%3E",
-                                                                "record": "{record}"
-                                                            },
-                                                            "size": {
-                                                                "default": "4",
-                                                                "isResponsive": false
-                                                            },
-                                                            "stateIndex": 2,
-                                                            "styleObject": {
-                                                                "background": {
-                                                                    "color": "",
-                                                                    "image": "",
-                                                                    "position": "",
-                                                                    "repeat": "",
-                                                                    "size": ""
-                                                                },
-                                                                "border": {
-                                                                    "color": "",
-                                                                    "radius": "",
-                                                                    "style": "",
-                                                                    "type": "",
-                                                                    "width": ""
-                                                                },
-                                                                "class": "",
-                                                                "container": {
-                                                                    "class": ""
-                                                                },
-                                                                "elementStyleProperties": {
-                                                                },
-                                                                "inlineStyle": "",
-                                                                "margin": [
-                                                                ],
-                                                                "padding": [
-                                                                ],
-                                                                "size": {
-                                                                    "default": "4",
-                                                                    "isResponsive": false
-                                                                },
-                                                                "sizeClass": "slds-size_4-of-12 ",
-                                                                "style": "      \n         ",
-                                                                "text": {
-                                                                    "align": "",
-                                                                    "color": ""
-                                                                }
-                                                            },
-                                                            "styleObjects": [
-                                                                {
-                                                                    "conditionString": "",
-                                                                    "conditions": "default",
-                                                                    "draggable": false,
-                                                                    "key": 0,
-                                                                    "label": "Default",
-                                                                    "name": "Default",
-                                                                    "styleObject": {
-                                                                        "background": {
-                                                                            "color": "",
-                                                                            "image": "",
-                                                                            "position": "",
-                                                                            "repeat": "",
-                                                                            "size": ""
-                                                                        },
-                                                                        "border": {
-                                                                            "color": "",
-                                                                            "radius": "",
-                                                                            "style": "",
-                                                                            "type": "",
-                                                                            "width": ""
-                                                                        },
-                                                                        "class": "",
-                                                                        "container": {
-                                                                            "class": ""
-                                                                        },
-                                                                        "elementStyleProperties": {
-                                                                        },
-                                                                        "inlineStyle": "",
-                                                                        "margin": [
-                                                                        ],
-                                                                        "padding": [
-                                                                        ],
-                                                                        "size": {
-                                                                            "default": "4",
-                                                                            "isResponsive": false
-                                                                        },
-                                                                        "sizeClass": "slds-size_4-of-12 ",
-                                                                        "style": "      \n         ",
-                                                                        "text": {
-                                                                            "align": "",
-                                                                            "color": ""
-                                                                        }
-                                                                    }
-                                                                }
-                                                            ],
-                                                            "type": "text"
-                                                        }
                                                     ],
                                                     "class": "slds-col ",
                                                     "element": "block",
-                                                    "elementLabel": "Block-5-Block-3",
+                                                    "elementLabel": "Block-5-Block-4",
                                                     "key": "element_element_element_element_block_0_2_block_3_2_block_0_2_block_3_2",
                                                     "name": "Block",
                                                     "parentElementKey": "element_element_element_block_0_2_block_3_2_block_0_2",
@@ -5130,7 +4678,7 @@
                                                         "card": "{card}",
                                                         "collapsedByDefault": false,
                                                         "collapsible": false,
-                                                        "label": "Block",
+                                                        "label": "",
                                                         "record": "{record}"
                                                     },
                                                     "size": {
@@ -5227,13 +4775,13 @@
                                                 {
                                                     "class": "slds-col ",
                                                     "element": "outputField",
-                                                    "elementLabel": "Block-5-Text-4",
+                                                    "elementLabel": "Block-5-Text-5",
                                                     "key": "element_element_element_element_block_0_2_block_3_2_block_0_2_outputField_4_2",
                                                     "name": "Text",
                                                     "parentElementKey": "element_element_element_block_0_2_block_3_2_block_0_2",
                                                     "property": {
                                                         "card": "{card}",
-                                                        "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3E%3Cstrong%3ETecnologia%3C/strong%3E%3C/span%3E%3C/div%3E",
+                                                        "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3E%3Cstrong%3ETecnologia%3C/strong%3E%3C/span%3E%3C/div%3E%0A%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3E%7BTechnology%7D%3C/span%3E%3C/div%3E",
                                                         "record": "{record}"
                                                     },
                                                     "size": {
@@ -5340,13 +4888,13 @@
                                                 {
                                                     "class": "slds-col ",
                                                     "element": "outputField",
-                                                    "elementLabel": "Block-5-Text-5",
+                                                    "elementLabel": "Block-5-Text-6",
                                                     "key": "element_element_element_element_block_0_2_block_3_2_block_0_2_outputField_5_2",
                                                     "name": "Text",
                                                     "parentElementKey": "element_element_element_block_0_2_block_3_2_block_0_2",
                                                     "property": {
                                                         "card": "{card}",
-                                                        "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3E%3Cstrong%3EConta%20Faturamento%3C/strong%3E%3C/span%3E%3C/div%3E",
+                                                        "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3E%3Cstrong%3EConta%20Faturamento%3C/strong%3E%3C/span%3E%3C/div%3E%0A%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3E%7BBillingAccountName%7D%3C/span%3E%3C/div%3E",
                                                         "record": "{record}"
                                                     },
                                                     "size": {
@@ -5452,216 +5000,10 @@
                                                 },
                                                 {
                                                     "children": [
-                                                        {
-                                                            "class": "slds-col ",
-                                                            "element": "outputField",
-                                                            "elementLabel": "Block-5-Block-6-Text-0",
-                                                            "key": "element_element_element_element_element_block_0_2_block_3_2_block_0_2_block_6_2_outputField_0_2",
-                                                            "name": "Text",
-                                                            "parentElementKey": "element_element_element_element_block_0_2_block_3_2_block_0_2_block_6_2",
-                                                            "property": {
-                                                                "card": "{card}",
-                                                                "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3E%7BTechnology%7D%3C/span%3E%3C/div%3E",
-                                                                "record": "{record}"
-                                                            },
-                                                            "size": {
-                                                                "default": "4",
-                                                                "isResponsive": false
-                                                            },
-                                                            "stateIndex": 2,
-                                                            "styleObject": {
-                                                                "background": {
-                                                                    "color": "",
-                                                                    "image": "",
-                                                                    "position": "",
-                                                                    "repeat": "",
-                                                                    "size": ""
-                                                                },
-                                                                "border": {
-                                                                    "color": "",
-                                                                    "radius": "",
-                                                                    "style": "",
-                                                                    "type": "",
-                                                                    "width": ""
-                                                                },
-                                                                "class": "",
-                                                                "container": {
-                                                                    "class": ""
-                                                                },
-                                                                "elementStyleProperties": {
-                                                                },
-                                                                "inlineStyle": "",
-                                                                "margin": [
-                                                                ],
-                                                                "padding": [
-                                                                ],
-                                                                "size": {
-                                                                    "default": "4",
-                                                                    "isResponsive": false
-                                                                },
-                                                                "sizeClass": "slds-size_4-of-12 ",
-                                                                "style": "      \n         ",
-                                                                "text": {
-                                                                    "align": "",
-                                                                    "color": ""
-                                                                }
-                                                            },
-                                                            "styleObjects": [
-                                                                {
-                                                                    "conditionString": "",
-                                                                    "conditions": "default",
-                                                                    "draggable": false,
-                                                                    "key": 0,
-                                                                    "label": "Default",
-                                                                    "name": "Default",
-                                                                    "styleObject": {
-                                                                        "background": {
-                                                                            "color": "",
-                                                                            "image": "",
-                                                                            "position": "",
-                                                                            "repeat": "",
-                                                                            "size": ""
-                                                                        },
-                                                                        "border": {
-                                                                            "color": "",
-                                                                            "radius": "",
-                                                                            "style": "",
-                                                                            "type": "",
-                                                                            "width": ""
-                                                                        },
-                                                                        "class": "",
-                                                                        "container": {
-                                                                            "class": ""
-                                                                        },
-                                                                        "elementStyleProperties": {
-                                                                        },
-                                                                        "inlineStyle": "",
-                                                                        "margin": [
-                                                                        ],
-                                                                        "padding": [
-                                                                        ],
-                                                                        "size": {
-                                                                            "default": "4",
-                                                                            "isResponsive": false
-                                                                        },
-                                                                        "sizeClass": "slds-size_4-of-12 ",
-                                                                        "style": "      \n         ",
-                                                                        "text": {
-                                                                            "align": "",
-                                                                            "color": ""
-                                                                        }
-                                                                    }
-                                                                }
-                                                            ],
-                                                            "type": "text"
-                                                        },
-                                                        {
-                                                            "class": "slds-col ",
-                                                            "element": "outputField",
-                                                            "elementLabel": "Block-5-Block-6-Text-1",
-                                                            "key": "element_element_element_element_element_block_0_2_block_3_2_block_0_2_block_6_2_outputField_1_2",
-                                                            "name": "Text",
-                                                            "parentElementKey": "element_element_element_element_block_0_2_block_3_2_block_0_2_block_6_2",
-                                                            "property": {
-                                                                "card": "{card}",
-                                                                "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2010pt;%22%3E%7BBillingAccountName%7D%3C/span%3E%3C/div%3E",
-                                                                "record": "{record}"
-                                                            },
-                                                            "size": {
-                                                                "default": "8",
-                                                                "isResponsive": false
-                                                            },
-                                                            "stateIndex": 2,
-                                                            "styleObject": {
-                                                                "background": {
-                                                                    "color": "",
-                                                                    "image": "",
-                                                                    "position": "",
-                                                                    "repeat": "",
-                                                                    "size": ""
-                                                                },
-                                                                "border": {
-                                                                    "color": "",
-                                                                    "radius": "",
-                                                                    "style": "",
-                                                                    "type": "",
-                                                                    "width": ""
-                                                                },
-                                                                "class": "",
-                                                                "container": {
-                                                                    "class": ""
-                                                                },
-                                                                "elementStyleProperties": {
-                                                                },
-                                                                "inlineStyle": "",
-                                                                "margin": [
-                                                                ],
-                                                                "padding": [
-                                                                ],
-                                                                "size": {
-                                                                    "default": "8",
-                                                                    "isResponsive": false
-                                                                },
-                                                                "sizeClass": "slds-size_8-of-12 ",
-                                                                "style": "      \n         ",
-                                                                "text": {
-                                                                    "align": "",
-                                                                    "color": ""
-                                                                }
-                                                            },
-                                                            "styleObjects": [
-                                                                {
-                                                                    "conditionString": "",
-                                                                    "conditions": "default",
-                                                                    "draggable": false,
-                                                                    "key": 0,
-                                                                    "label": "Default",
-                                                                    "name": "Default",
-                                                                    "styleObject": {
-                                                                        "background": {
-                                                                            "color": "",
-                                                                            "image": "",
-                                                                            "position": "",
-                                                                            "repeat": "",
-                                                                            "size": ""
-                                                                        },
-                                                                        "border": {
-                                                                            "color": "",
-                                                                            "radius": "",
-                                                                            "style": "",
-                                                                            "type": "",
-                                                                            "width": ""
-                                                                        },
-                                                                        "class": "",
-                                                                        "container": {
-                                                                            "class": ""
-                                                                        },
-                                                                        "elementStyleProperties": {
-                                                                        },
-                                                                        "inlineStyle": "",
-                                                                        "margin": [
-                                                                        ],
-                                                                        "padding": [
-                                                                        ],
-                                                                        "size": {
-                                                                            "default": "8",
-                                                                            "isResponsive": false
-                                                                        },
-                                                                        "sizeClass": "slds-size_8-of-12 ",
-                                                                        "style": "      \n         ",
-                                                                        "text": {
-                                                                            "align": "",
-                                                                            "color": ""
-                                                                        }
-                                                                    }
-                                                                }
-                                                            ],
-                                                            "type": "text"
-                                                        }
                                                     ],
                                                     "class": "slds-col ",
                                                     "element": "block",
-                                                    "elementLabel": "Block-5-Block-6",
+                                                    "elementLabel": "Block-5-Block-7",
                                                     "key": "element_element_element_element_block_0_2_block_3_2_block_0_2_block_6_2",
                                                     "name": "Block",
                                                     "parentElementKey": "element_element_element_block_0_2_block_3_2_block_0_2",
@@ -5669,7 +5011,7 @@
                                                         "card": "{card}",
                                                         "collapsedByDefault": false,
                                                         "collapsible": false,
-                                                        "label": "Block",
+                                                        "label": "",
                                                         "record": "{record}"
                                                     },
                                                     "size": {
@@ -5879,7 +5221,7 @@
                                         "card": "{card}",
                                         "collapsedByDefault": false,
                                         "collapsible": false,
-                                        "label": "Block",
+                                        "label": "",
                                         "record": "{record}"
                                     },
                                     "size": {
@@ -5994,7 +5336,7 @@
                                 "card": "{card}",
                                 "collapsedByDefault": false,
                                 "collapsible": false,
-                                "label": "Block",
+                                "label": "",
                                 "record": "{record}"
                             },
                             "size": {
@@ -6193,8 +5535,7 @@
     "xmlJson": [
         {
             "@attributes": {
-                "targets": "lightning__AppPage",
-                "xmlns": "http://soap.sforce.com/2006/04/metadata"
+                "targets": "lightning__AppPage"
             },
             "property": [
                 {
@@ -6213,8 +5554,7 @@
         },
         {
             "@attributes": {
-                "targets": "lightning__RecordPage",
-                "xmlns": "http://soap.sforce.com/2006/04/metadata"
+                "targets": "lightning__RecordPage"
             },
             "property": [
                 {
@@ -6227,13 +5567,13 @@
         }
     ],
     "xmlObject": {
-        "apiVersion": 51,
-        "description": "Clone [V20] - bug Visap 360 linha pre ativa sem legenda visivel - Gustavo",
+        "apiVersion": 56,
+        "description": "PTI5054 - Update de Acessibilidade",
+        "id": "0Rb5f000002jCqqCAE",
         "isExplicitImport": false,
         "isExposed": true,
         "masterLabel": "valProductsData",
-        "runtimeNamespace": "%vlocity_namespace%",
-        "targetConfigs": "PHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPgogICAgICA8cHJvcGVydHkgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iLz4KICAgICAgPHByb3BlcnR5IG5hbWU9InJlY29yZElkIiB0eXBlPSJTdHJpbmciLz4KICAgIDwvdGFyZ2V0Q29uZmlnPgogICAgPHRhcmdldENvbmZpZyB4bWxucz0iaHR0cDovL3NvYXAuc2ZvcmNlLmNvbS8yMDA2LzA0L21ldGFkYXRhIiB0YXJnZXRzPSJsaWdodG5pbmdfX1JlY29yZFBhZ2UiPgogICAgICA8cHJvcGVydHkgbmFtZT0iZGVidWciIHR5cGU9IkJvb2xlYW4iLz4KICAgIDwvdGFyZ2V0Q29uZmlnPg==",
+        "targetConfigs": "PHRhcmdldENvbmZpZyB0YXJnZXRzPSJsaWdodG5pbmdfX0FwcFBhZ2UiPjxwcm9wZXJ0eSBuYW1lPSJkZWJ1ZyIgdHlwZT0iQm9vbGVhbiI+PC9wcm9wZXJ0eT48cHJvcGVydHkgbmFtZT0icmVjb3JkSWQiIHR5cGU9IlN0cmluZyI+PC9wcm9wZXJ0eT48L3RhcmdldENvbmZpZz48dGFyZ2V0Q29uZmlnIHRhcmdldHM9ImxpZ2h0bmluZ19fUmVjb3JkUGFnZSI+PHByb3BlcnR5IG5hbWU9ImRlYnVnIiB0eXBlPSJCb29sZWFuIj48L3Byb3BlcnR5PjwvdGFyZ2V0Q29uZmlnPg==",
         "targets": {
             "target": [
                 "lightning__RecordPage",
