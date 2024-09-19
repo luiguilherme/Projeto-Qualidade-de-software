@@ -9,7 +9,6 @@ public class ServiceRequestsHandlerTest {
         wsSetting.Endpoint__c = 'callout:APITelefonicaESim/camundaTicketInformation/v1';
         wsSetting.Timeout__c = 60000; // Valor fictício para o Timeout (Decimal)
         wsSetting.Headers__c = 'Authorization: Bearer token'; // Valor fictício para os Headers
-        wsSetting.RequestId__c = true; // Defina conforme necessário
         wsSetting.CommitTransactionsList__c = true; // Defina conforme necessário
          wsSetting.SubscriptionKey__c='re';
         insert wsSetting;
@@ -24,12 +23,7 @@ public class ServiceRequestsHandlerTest {
         sr.OwnerId = UserInfo.getUserId();
         sr.RecordTypeId = rt.Id;
         insert sr;
- ServiceRequest__c sr2 = new ServiceRequest__c();
-        sr2.Status__c = 'InProgress';
-        sr2.VivoMaestro_ID__c = '123456789';
-        sr2.OwnerId = UserInfo.getUserId();
-        sr2.RecordTypeId = rt.Id;
-        insert sr2;
+ 
         // Recupera o registro para obter o campo `Name` gerado
         sr = [SELECT Id, Name FROM ServiceRequest__c WHERE Id = :sr.Id LIMIT 1];
         
@@ -48,12 +42,10 @@ public class ServiceRequestsHandlerTest {
         servico.nrSolicitacaoServico = '123456';
         servico.status = 'Pendente';
         servico.owner = true;
-ServiceRequest__c sr3 = new ServiceRequest__c();
-        sr3.Status__c = 'InProgress';
-        sr3.VivoMaestro_ID__c = '123456789';
-        sr3.OwnerId = UserInfo.getUserId();
-        //sr3.RecordTypeId = rt.Id;
-        insert sr3;
+                ServiceRequest__c serviceRequests2 = [SELECT Id, Status__c, Name, VivoMaestro_ID__c, OwnerId FROM ServiceRequest__c WHERE Status__c = 'NotStarted' limit 1];
+
+serviceRequests2.Status__c = 'InProgress';
+        update serviceRequests2;
         List<ServiceRequest__c> serviceRequests = [SELECT Id, Status__c, Name, VivoMaestro_ID__c, OwnerId FROM ServiceRequest__c WHERE Status__c = 'InProgress'];
 
         Test.startTest();
