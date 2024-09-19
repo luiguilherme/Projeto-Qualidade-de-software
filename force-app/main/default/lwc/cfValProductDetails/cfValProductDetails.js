@@ -28,6 +28,62 @@ import { FlexCardMixin } from "vlocity_cmt/flexCardMixin";
                   }
               @track record;
               @track _sessionApiVars = {};
+        @api set cfAssetId(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["AssetId"] = val;
+          }
+        } get cfAssetId() {
+          return this._sessionApiVars["AssetId"] || "";
+        }
+      
+        @api set cfSourceComponent(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["SourceComponent"] = val;
+          }
+        } get cfSourceComponent() {
+          return this._sessionApiVars["SourceComponent"] || "";
+        }
+      
+        @api set cfAccountId(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["AccountId"] = val;
+          }
+        } get cfAccountId() {
+          return this._sessionApiVars["AccountId"] || "";
+        }
+      
+        @api set cfInteractionNumber(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["InteractionNumber"] = val;
+          }
+        } get cfInteractionNumber() {
+          return this._sessionApiVars["InteractionNumber"] || "";
+        }
+      
+        @api set cfCustomerId(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["CustomerId"] = val;
+          }
+        } get cfCustomerId() {
+          return this._sessionApiVars["CustomerId"] || "";
+        }
+      
+        @api set cfInteractionId(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["InteractionId"] = val;
+          }
+        } get cfInteractionId() {
+          return this._sessionApiVars["InteractionId"] || "";
+        }
+      
+        @api set cfSearchSubscription(val) {
+          if(typeof val !== "undefined") {
+            this._sessionApiVars["SearchSubscription"] = val;
+          }
+        } get cfSearchSubscription() {
+          return this._sessionApiVars["SearchSubscription"] || "";
+        }
+      
               
               pubsubEvent = [];
               customEvent = [];

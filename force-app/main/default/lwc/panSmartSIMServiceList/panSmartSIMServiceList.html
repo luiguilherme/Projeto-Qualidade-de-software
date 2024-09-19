@@ -1,0 +1,28 @@
+<!--
+  @description       : 
+  @author            : Kauan Cordeiro
+  @group             : 
+  @last modified on  : 05-08-2024
+  @last modified by  : Kauan Cordeiro
+-->
+<template>
+	<lightning-card>
+		<ul class="slds-m-around_medium">		
+			<template for:each={serviceList} for:item="service">
+				<li key={service.id} style="display: inline-block; padding: 10px; width:200px"> 
+					<lightning-combobox
+						name={service.id}
+						label={service.name}
+						value={service.status}
+						options={options}
+						onchange={handleChange}
+						required
+					></lightning-combobox>
+				</li>
+			</template>
+		</ul>
+
+		<lightning-button variant="brand" label="Salvar" style="--slds-c-button-brand-color-background: #792ba4; --slds-c-button-brand-color: #fff" onclick={handleClick}></lightning-button>
+		<!-- <button class="slds-button" style="background-color: #792ba4; color: white; border-radius: 15px; width: 40px" onclick={handleClick}>Salvar</button> -->
+	</lightning-card>
+</template>
