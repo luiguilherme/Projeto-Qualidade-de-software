@@ -168,7 +168,7 @@ public with sharing class MergeAssetControllerTest {
         String result = MergeAssetController.getMainProductDescription(assetToCreate, sourceSystem);
         Test.stopTest();
 
-        Assert.areEqual(description2.text, result, 'O resultado esperado é correct_value');
+        Assert.areEqual(description2.text, result, 'O resultado esperado é correct value');
     }
 
     @isTest
@@ -213,7 +213,7 @@ public with sharing class MergeAssetControllerTest {
         String result = MergeAssetController.getMainProductDescription(assetToCreate, sourceSystem);
         Test.stopTest();
 
-        Assert.areEqual(description2.text, result, 'O resultado esperado é correct_value');
+        Assert.areEqual(description2.text, result, 'O resultado esperado é correct value');
     }
 
     @isTest
