@@ -308,7 +308,13 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
     }
     
     public static String getMainProductDescription(WrapperAPI assetToCreate, String sourceSystem){
-        String description = assetToCreate.descriptions.isEmpty() ? '' : assetToCreate.descriptions[0].text;
+        String description = '';
+        for (Descriptions assetDesc : assetToCreate.descriptions) {
+            if (assetDesc.title == 'commercial_name') {
+                description = assetDesc.text;
+                break;
+            }
+        }
         String displayName = assetToCreate.display_name;
         
         if(LST_PRODUCT_TYPE_TO_GET_DESC.contains(assetToCreate.product_type)){
@@ -521,5 +527,7 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
     {
         @TestVisible
         private String text {get;set;}
+        @TestVisible
+        private String title {get;set;}
     }
 }

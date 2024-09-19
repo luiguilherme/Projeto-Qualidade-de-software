@@ -174,6 +174,7 @@ public with sharing class MergeAssetControllerTest {
     public static void getMainProductDescriptionWhenDescriptionNotNullTest(){
         MergeAssetController.Descriptions description = new MergeAssetController.Descriptions();
         description.text = 'Teste';
+        description.title = 'commercial_name';
         List<MergeAssetController.Descriptions> descLst = new List<MergeAssetController.Descriptions>();
         descLst.add(description);
         MergeAssetController.WrapperAPI assetToCreate = new MergeAssetController.WrapperAPI();
