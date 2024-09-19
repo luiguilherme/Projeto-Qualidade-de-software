@@ -142,8 +142,24 @@ public with sharing class MergeAssetControllerTest {
 
     @isTest
     public static void getMainProductDescriptionWhenSourceSystemNginTest(){
-        MergeAssetController.WrapperAPI assetToCreate = new MergeAssetController.WrapperAPI();
         List<MergeAssetController.Descriptions> descLst = new List<MergeAssetController.Descriptions>();
+
+        MergeAssetController.Descriptions description = new MergeAssetController.Descriptions();
+        description.text = 'wrong value';
+        description.title = 'wrong_value';
+        descLst.add(description);
+
+        MergeAssetController.Descriptions description2 = new MergeAssetController.Descriptions();
+        description2.text = 'correct value';
+        description2.title = 'commercial_name';
+        descLst.add(description2);
+
+        MergeAssetController.Descriptions description3 = new MergeAssetController.Descriptions();
+        description3.text = 'wrong value';    
+        description3.title = 'notthisvalue';
+        descLst.add(description3);
+
+        MergeAssetController.WrapperAPI assetToCreate = new MergeAssetController.WrapperAPI();
         assetToCreate.descriptions = descLst;
         assetToCreate.display_name = 'Teste';
         String sourceSystem = 'Ngin';
@@ -152,7 +168,7 @@ public with sharing class MergeAssetControllerTest {
         String result = MergeAssetController.getMainProductDescription(assetToCreate, sourceSystem);
         Test.stopTest();
 
-        Assert.areEqual('', result, 'O resultado deve ser igual a uma string vazia');
+        Assert.areEqual(description2.text, result, 'O resultado esperado é correct_value');
     }
 
     @isTest
@@ -172,11 +188,23 @@ public with sharing class MergeAssetControllerTest {
 
     @isTest
     public static void getMainProductDescriptionWhenDescriptionNotNullTest(){
-        MergeAssetController.Descriptions description = new MergeAssetController.Descriptions();
-        description.text = 'Teste';
-        description.title = 'commercial_name';
         List<MergeAssetController.Descriptions> descLst = new List<MergeAssetController.Descriptions>();
+
+        MergeAssetController.Descriptions description = new MergeAssetController.Descriptions();
+        description.text = 'wrong value';
+        description.title = 'wrong_value';
         descLst.add(description);
+
+        MergeAssetController.Descriptions description2 = new MergeAssetController.Descriptions();
+        description2.text = 'correct value';
+        description2.title = 'commercial_name';
+        descLst.add(description2);
+
+        MergeAssetController.Descriptions description3 = new MergeAssetController.Descriptions();
+        description3.text = 'wrong value';    
+        description3.title = 'notthisvalue';
+        descLst.add(description3);
+ 
         MergeAssetController.WrapperAPI assetToCreate = new MergeAssetController.WrapperAPI();
         assetToCreate.descriptions = descLst;
         String sourceSystem = 'Test';
@@ -185,7 +213,7 @@ public with sharing class MergeAssetControllerTest {
         String result = MergeAssetController.getMainProductDescription(assetToCreate, sourceSystem);
         Test.stopTest();
 
-        Assert.areEqual(descLst[0].text, result, 'O resultado deve ser igual a lista na posiçao 0');
+        Assert.areEqual(description2.text, result, 'O resultado esperado é correct_value');
     }
 
     @isTest
