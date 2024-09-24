@@ -19,46 +19,50 @@
  *
  * See the Apex Language Reference for more information about Testing and Code Coverage.
  */
-@isTest
-private class DocumentControllerTest
-{
+@IsTest
+public class DocumentControllerTest {
     @TestSetup
-    static void makeData()
-    {
+    static void makeData() {
         FileLink__c fileLinkRec = new FileLink__c();
-        fileLinkRec.IDGedoc__c = 'link:anexo_abc';
+        fileLinkRec.IDGedoc__c = '651100';
         fileLinkRec.FileDescription__c = 'Anexo ABC';
         insert fileLinkRec;
     }
 
-    @isTest
-    static void ducumentControllerInstantiationDocumentIdIsEmptyTest()
-    {
-        try
-        {
-            DocumentController documentController = new DocumentController();
-        }
-        catch (Exception e)
-        {
-            String errorMessage = e.getMessage();
-            System.debug(errorMessage);
-            System.assert(errorMessage.contains('documentId não pode ser nulo.'));
+    @IsTest
+    public static void testGetDocumentDocumentIdNull() {
+        DocumentController controller = new DocumentController();
+
+        try {
+            controller.getDocument();
+        } catch (IllegalArgumentException e) {
+            Assert.areEqual('documentId não pode ser nulo.', e.getMessage());
         }
     }
 
-    @isTest
-    static void ducumentControllerInstantiationTest()
-    {
-        String documentId = [SELECT Id FROM FileLink__c WHERE IDGedoc__c = 'link:anexo_abc' LIMIT 1].Id;
-        DocumentController documentController = new DocumentController();
-        documentController.getVisualForcePageDocumentId();
-        documentController.documentId = documentId;
-        documentController.getDocument();
+    @IsTest
+    public static void getBase64EncodedDocumentSuccess() {
+        String mockDocumentId = [SELECT Id FROM FileLink__c WHERE IDGedoc__c = '651100' LIMIT 1].Id;
+        DocumentController controller = new DocumentController();
+        controller.documentId = mockDocumentId;
 
-        System.debug(documentController);
-        System.debug(documentController.base64EncodedDocument);
+        controller.getBase64EncodedDocument();
 
-        System.assert(documentController != null);
-        System.assert(documentController.base64EncodedDocument != null);
+        Assert.isTrue(String.isNotBlank(controller.base64EncodedDocument));
+        Assert.areEqual(mockDocumentId, controller.documentId);
+    }
+
+    @IsTest
+    public static void getBase64EncodedDocumentFailEmptyId() {
+        DocumentController controller = new DocumentController();
+
+        try {
+            controller.getDocument();
+        } catch (IllegalArgumentException e) {
+            Assert.areEqual('documentId não pode ser nulo.', e.getMessage());
+        }
+
+        Assert.isTrue(String.isBlank(controller.base64EncodedDocument));
+        Assert.isTrue(String.isBlank(controller.documentId));
     }
 }

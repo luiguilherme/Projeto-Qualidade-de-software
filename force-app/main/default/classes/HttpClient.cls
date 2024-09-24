@@ -63,22 +63,7 @@ public class HttpClient {
         }
 
 
-        if(wsConfig.Headers__c != null){
-            List<String> ltHeader = new List<String>();
-        
-            if(wsConfig.Headers__c.contains(';')){
-                ltHeader = wsConfig.Headers__c.split(';');
-            }else if(String.isNotBlank(wsConfig.Headers__c)){
-                ltHeader.add(wsConfig.Headers__c);
-            }
-            
-            for(String header : ltHeader){
-                if(header.contains(':')){
-                    List<String> ltSplitedHeader = header.split(':');
-                    request.setHeader(ltSplitedHeader[0], ltSplitedHeader[1]);
-                }
-            }
-        }
+        setRequestHeaders(wsConfig, request);
         
         if(new String[]{'POST', 'PATCH', 'PUT'}.contains( method )){
             request.setBody(payload);
@@ -140,6 +125,8 @@ public class HttpClient {
             throw new AuraHandledException(e.getMessage());
         }
 
+        setRequestHeaders(wsConfig, request);
+
         ServiceTransaction serviceTransaction = instantiateServiceTransaction(request, wsConfig, endpoint, method, customerInteractionId);
 
         HttpResponse response = new HttpResponse();
@@ -158,12 +145,31 @@ public class HttpClient {
 
         if (wsConfig.CommitTransactionsList__c) {
             serviceTransaction.addToList();
-
+       
         } else {
             serviceTransaction.commitSync();
         }
 
         return (response);
+    }
+
+    public static void setRequestHeaders(Webservice__c wsConfig, HttpRequest request) {
+        if(wsConfig.Headers__c != null){
+            List<String> ltHeader = new List<String>();
+        
+            if(wsConfig.Headers__c.contains(';')){
+                ltHeader = wsConfig.Headers__c.split(';');
+            }else if(String.isNotBlank(wsConfig.Headers__c)){
+                ltHeader.add(wsConfig.Headers__c);
+            }
+            
+            for(String header : ltHeader){
+                if(header.contains(':')){
+                    List<String> ltSplitedHeader = header.split(':');
+                    request.setHeader(ltSplitedHeader[0], ltSplitedHeader[1]);
+                }
+            }
+        }
     }
 
     private ServiceTransaction instantiateServiceTransaction(HttpRequest request, WebService__c wsConfig, String endpoint, String method, String customerInteractionId) {
