@@ -229,7 +229,7 @@ global with sharing class CaseManagement {
             if(isId){
                 String caseId = urlLastPartWithoutParameter;
                 String query = '';
-                Case[] caseReferenceList = [SELECT Id,ComplainedAsset__c,ComplainedAsset__r.MainProductDescription__c,ContactPhone__c,CustomerInteractionTopicTree__c,CustomerInteractionTopicTree__r.Name,StatusOmniChannel__c,Protocol__c,ContactPhone,Origin,RecordType.DeveloperName,RecordType.Name,CreatedDate,Status,account.DocumentNumber__c, Description FROM Case WHERE Id = :caseId];
+                Case[] caseReferenceList = [SELECT Id,ComplainedAsset__c,ComplainedAsset__r.MainProductDescription__c,ComplainedAsset__r.Name,ContactPhone__c,CustomerInteractionTopicTree__c,CustomerInteractionTopicTree__r.Name,StatusOmniChannel__c,Protocol__c,ContactPhone,Origin,RecordType.DeveloperName,RecordType.Name,CreatedDate,Status,account.DocumentNumber__c, Description FROM Case WHERE Id = :caseId];
                 GetCasesRequestWrapper.Cases responseWrapperReturn = new GetCasesRequestWrapper.Cases();
                 if(caseReferenceList.size() > 0){
                     Case caseReference = caseReferenceList[0];
@@ -246,7 +246,7 @@ global with sharing class CaseManagement {
                 GetCasesRequestWrapper responseBody = new GetCasesRequestWrapper();
                 String orderStatus = RestContext.request.params.get('orderStatus');
                 Boolean isPrePaid = service.isPrePaid(); 
-                String query = 'SELECT Id,ComplainedAsset__c,ComplainedAsset__r.MainProductDescription__c,ContactPhone__c,CustomerInteractionTopicTree__c,CustomerInteractionTopicTree__r.Name,StatusOmniChannel__c,Protocol__c,ContactPhone,Origin,RecordType.Name,RecordType.DeveloperName,CreatedDate,Status,account.DocumentNumber__c,Description FROM case';                query += buildQueryParameters(isPrePaid);
+                String query = 'SELECT Id,ComplainedAsset__c,ComplainedAsset__r.MainProductDescription__c,ComplainedAsset__r.Name,ContactPhone__c,CustomerInteractionTopicTree__c,CustomerInteractionTopicTree__r.Name,StatusOmniChannel__c,Protocol__c,ContactPhone,Origin,RecordType.Name,RecordType.DeveloperName,CreatedDate,Status,account.DocumentNumber__c,Description FROM case';                query += buildQueryParameters(isPrePaid);
                 List<Case> listCases = Database.query(query);
                 if(listCases.size() > 0){
                     List<Case> listTodoMundoOrdenado = new List<Case>();
@@ -346,7 +346,7 @@ global with sharing class CaseManagement {
         GetCasesRequestWrapper.Cases responseList = new GetCasesRequestWrapper.Cases();
         responseList.assetRef = new GetCasesRequestWrapper.AssetRef();
         responseList.assetRef.displayName = String.valueOf(cases.ComplainedAsset__r.MainProductDescription__c);
-        responseList.assetRef.Id = String.valueOf(cases.ComplainedAsset__c);
+        responseList.assetRef.Id = String.valueOf(cases.ComplainedAsset__r.Name);
         responseList.topicTree = new GetCasesRequestWrapper.TopicTree();
         responseList.topicTree.id = cases.CustomerInteractionTopicTree__c;
         responseList.topicTree.name = cases.CustomerInteractionTopicTree__r.Name;

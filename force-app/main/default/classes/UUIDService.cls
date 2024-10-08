@@ -9,7 +9,7 @@ public with sharing class UUIDService {
     
     public UUIDService (String uUID,String cpf) {
         Webservice__c wsConfig = Webservice__c.getInstance(WEBSERVICE_NAME);
-        String endpoint = wsConfig.Endpoint__c + uUID;
+        String endpoint = wsConfig.Endpoint__c + '/' + uUID;
         HttpClient client = new HttpClient();
         this.response = client.get(wsConfig, endpoint);
         this.uID = uUID;

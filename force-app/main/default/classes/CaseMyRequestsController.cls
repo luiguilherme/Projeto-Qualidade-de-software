@@ -1,5 +1,59 @@
 public with sharing class CaseMyRequestsController
 {
+
+    @TestVisible
+    private static NotificadorCallOut notificadorCallOut;
+
+    @TestVisible
+    private static NotificadorPushSMS notificadorPushSms;
+
+    @TestVisible 
+    private static CanalNotificacoesMinhasSolicitacoes canalNotificacoes;
+    
+    static {
+        notificadorCallOut = new NotificadorCallOut(GATILHO_DISPARO_NOTIFICACAO.BOTAO_NOTIFICAR_CLIENTE);
+        notificadorPushSms = new NotificadorPushSMS();
+        canalNotificacoes = new CanalNotificacoesMinhasSolicitacoes();
+    }
+
+    @AuraEnabled
+    public static string sendCallOutNotificationWhenCaseIsManuallyUpdated(String caseId){
+        List<CanalNotificacoesMinhasSolicitacoes__mdt>  canalNotificacoesMetadata = 
+            canalNotificacoes.getMetadataByFuncionalidadeControlada('BotaoNotificarCliente');
+        CanalNotificacoesMinhasSolicitacoes__mdt metadata = canalNotificacoesMetadata.get(0);
+        
+        if (!metadata.CallOut__c) { return ''; }
+
+        HttpResponse response = notificadorCallOut.sendNotification(caseId);
+        Integer statusCode = response.getStatusCode();
+        String status = response.getStatus();
+
+        System.debug(LoggingLevel.INFO, 'Envio de callout.');
+        System.debug(LoggingLevel.INFO, 'StatusCode: ' + statusCode);
+        System.debug(LoggingLevel.INFO, 'Status: ' + status);
+        if (statusCode == 201) { return 'SUCCESS'; }
+        throw new AuraHandledException(status);
+    }
+
+    @AuraEnabled
+    public static string sendPushSmsNotificationWhenCaseIsManuallyUpdated(String caseId) {
+            List<CanalNotificacoesMinhasSolicitacoes__mdt>  canalNotificacoesMetadata =
+                canalNotificacoes.getMetadataByFuncionalidadeControlada('BotaoNotificarCliente');
+            CanalNotificacoesMinhasSolicitacoes__mdt metadata = canalNotificacoesMetadata.get(0);
+            
+            if (!metadata.PushSMS__c ) { return ''; }
+
+            HttpResponse response = notificadorPushSms.sendNotification(caseId);
+            Integer statusCode = response.getStatusCode();
+            String status = response.getStatus();
+
+            System.debug(LoggingLevel.INFO, 'Envio de push/sms.');
+            System.debug(LoggingLevel.INFO, 'StatusCode: ' + statusCode);
+            System.debug(LoggingLevel.INFO, 'Status: ' + status);
+            if (statusCode == 201) { return 'SUCCESS'; }
+            throw new AuraHandledException(status);
+    }
+
     @AuraEnabled
     public static String sendEmailNotificationWhenCaseStatusUpdatedManually(String caseId) {
         String templateId = 'EMAIL_MS_SOLICITACAO_ATUALIZADA';
@@ -16,26 +70,17 @@ public with sharing class CaseMyRequestsController
             
         EmailMessagePayload payload = CustomerCommunicationService.buildEmailPaylod(caseRec, accountRec, assetRec, contactRec, templateId);
         CustomerCommunicationService.validadePayload(payload);
-        String emailNotification;
-        try {
-            HttpResponse response = CustomerCommunicationService.sendEmailMessage(payload);
-            Integer statusCode = response.getStatusCode();
-            String status = response.getStatus();
-            
-            CustomerCommunicationService.validadeStatusCode(statusCode);
-            CustomerCommunicationService.validadeStatus(status);
-            
-            System.debug(LoggingLevel.INFO, 'Envio de email.');
-            System.debug(LoggingLevel.INFO, 'StatusCode: ' + statusCode);
-            System.debug(LoggingLevel.INFO, 'Status: ' + status);
-            
-            if (status == 'OK') { emailNotification = 'SUCCESS'; }
-        } catch (CustomerCommunicationException e) {   
-            String errorMessage  = e.getMessage();
-            System.debug(LoggingLevel.ERROR, errorMessage);
-            throw new AuraException(errorMessage);
-        }
-        return emailNotification;
+
+        HttpResponse response = CustomerCommunicationService.sendEmailMessage(payload);
+        Integer statusCode = response.getStatusCode();
+        String status = response.getStatus();
+        
+        System.debug(LoggingLevel.INFO, 'Envio de email.');
+        System.debug(LoggingLevel.INFO, 'StatusCode: ' + statusCode);
+        System.debug(LoggingLevel.INFO, 'Status: ' + status);
+        
+        if (statusCode == 200) { return 'SUCCESS'; }
+        throw new AuraHandledException(status);
     }
 
     private static void hasDependencies(Case caseRec, Account accountRec, Asset assetRec, Contact contactRec) {

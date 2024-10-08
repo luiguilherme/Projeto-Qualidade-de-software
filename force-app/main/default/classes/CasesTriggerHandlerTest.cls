@@ -115,6 +115,13 @@ private class CasesTriggerHandlerTest
     @isTest
     static void isAfterUpdateTest()
     { 
+        List<CanalNotificacoesMinhasSolicitacoes__mdt> canais = new List<CanalNotificacoesMinhasSolicitacoes__mdt>();
+        CanalNotificacoesMinhasSolicitacoes canalSelecionado = (CanalNotificacoesMinhasSolicitacoes) Test.createStub(
+            CanalNotificacoesMinhasSolicitacoes.class,
+            new CanalNotificacoesMinhasSolicitacoesStub(canais)
+        );
+        NotificadorMinhasSolicitacoes.canalSelector = canalSelecionado;
+        
         Case oldCase1 = DataFactory.createCase(CasesMyRequestsB2C.HELP_WITH_BILLING_RECORD_TYPE_API_NAME, 'Test Case 1 After Update', 'add new case test');
         oldCase1.Id = TestingUtils.getFakeId(Case.getSObjectType(), 1);
         oldCase1.Status = 'New';

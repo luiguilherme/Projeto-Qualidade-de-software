@@ -21,10 +21,8 @@
  */
 @isTest private class CaseMyRequestsControllerTest
 {
-    @isTest
-    static void sendNotificationForCasesWithUpdatedStatusTest()
-    {
-
+    @TestSetup
+    static void makeData(){
         Account accountRec = new Account();
         accountRec.Name = 'Test Account';
         accountRec.DocumentNumber__c = '1234';
@@ -42,6 +40,13 @@
         assetRec.Name = 'Test Asset';
         assetRec.MainProductDescription__c = 'Vivo Fibra';
         insert assetRec;
+    }
+
+    @isTest
+    static void sendNotificationForCasesWithUpdatedStatusTest()
+    {
+        Account accountRec = [SELECT Id FROM Account WHERE DocumentNumber__c = '1234'];
+        Asset assetRec = [SELECT Id FROM Asset WHERE Name = 'Test Asset'];
 
         Case caseRec = DataFactory.createCase(CasesMyRequestsB2C.HELP_WITH_BILLING_RECORD_TYPE_API_NAME, 'Test new Case 1', 'add new case test');
         caseRec.Protocol__c = '1234';
@@ -59,23 +64,8 @@
     static void sendNotificationForCasesWithUpdatedStatusFailProtocolTest()
     {
 
-        Account accountRec = new Account();
-        accountRec.Name = 'Test Account';
-        accountRec.DocumentNumber__c = '1234';
-        insert accountRec;
-
-        Contact contactRec = new Contact();
-        contactRec.AccountId = accountRec.Id;
-        contactRec.LastName = 'Test Contact';
-        contactRec.Email = 'contact@test.com';
-        contactRec.ExternalId__c = '1234';
-        insert contactRec;
-
-        Asset assetRec = new Asset();
-        assetRec.AccountId = accountRec.Id;
-        assetRec.Name = 'Test Asset';
-        assetRec.MainProductDescription__c = 'Vivo Fibra';
-        insert assetRec;
+        Account accountRec = [SELECT Id FROM Account WHERE DocumentNumber__c = '1234'];
+        Asset assetRec = [SELECT Id FROM Asset WHERE Name = 'Test Asset'];
 
         Case caseRec = DataFactory.createCase(CasesMyRequestsB2C.HELP_WITH_BILLING_RECORD_TYPE_API_NAME, 'Test new Case 1', 'add new case test');
         caseRec.AccountId = accountRec.Id;
@@ -95,19 +85,6 @@
     @isTest
     static void sendNotificationForCasesWithUpdatedStatusFailRecordDependencyTest()
     {
-
-        Account accountRec = new Account();
-        accountRec.Name = 'Test Account';
-        accountRec.DocumentNumber__c = '1234';
-        insert accountRec;
-
-        Contact contactRec = new Contact();
-        contactRec.AccountId = accountRec.Id;
-        contactRec.LastName = 'Test Contact';
-        contactRec.Email = 'contact@test.com';
-        contactRec.ExternalId__c = '1234';
-        insert contactRec;
-
         Case caseRec = DataFactory.createCase(CasesMyRequestsB2C.HELP_WITH_BILLING_RECORD_TYPE_API_NAME, 'Test new Case 1', 'add new case test');
         caseRec.Protocol__c = '1234';
         insert caseRec;
@@ -125,23 +102,8 @@
     @isTest
     static void sendNotificationForCasesWithUpdatedStatusFailEmailTest()
     {
-
-        Account accountRec = new Account();
-        accountRec.Name = 'Test Account';
-        accountRec.DocumentNumber__c = '1234';
-        insert accountRec;
-
-        Contact contactRec = new Contact();
-        contactRec.AccountId = accountRec.Id;
-        contactRec.LastName = 'Test Contact';
-        contactRec.ExternalId__c = '1234';
-        insert contactRec;
-
-        Asset assetRec = new Asset();
-        assetRec.AccountId = accountRec.Id;
-        assetRec.Name = 'Test Asset';
-        assetRec.MainProductDescription__c = 'Vivo Fibra';
-        insert assetRec;
+        Account accountRec = [SELECT Id FROM Account WHERE DocumentNumber__c = '1234'];
+        Asset assetRec = [SELECT Id FROM Asset WHERE Name = 'Test Asset'];
 
         Case caseRec = DataFactory.createCase(CasesMyRequestsB2C.HELP_WITH_BILLING_RECORD_TYPE_API_NAME, 'Test new Case 1', 'add new case test');
         caseRec.Protocol__c = '1234';
@@ -161,23 +123,8 @@
 
     @isTest
     static void getCaseTest() {
-
-        Account accountRec = new Account();
-        accountRec.Name = 'Test Account';
-        accountRec.DocumentNumber__c = '1234';
-        insert accountRec;
-
-        Contact contactRec = new Contact();
-        contactRec.AccountId = accountRec.Id;
-        contactRec.LastName = 'Test Contact';
-        contactRec.ExternalId__c = '1234';
-        insert contactRec;
-
-        Asset assetRec = new Asset();
-        assetRec.AccountId = accountRec.Id;
-        assetRec.Name = 'Test Asset';
-        assetRec.MainProductDescription__c = 'Vivo Fibra';
-        insert assetRec;
+        Account accountRec = [SELECT Id FROM Account WHERE DocumentNumber__c = '1234'];
+        Asset assetRec = [SELECT Id FROM Asset WHERE Name = 'Test Asset'];
 
         Case caseRec = DataFactory.createCase(CasesMyRequestsB2C.HELP_WITH_BILLING_RECORD_TYPE_API_NAME, 'Test new Case 1', 'add new case test');
         caseRec.Protocol__c = '1234';
@@ -185,7 +132,6 @@
         caseRec.ComplainedAsset__c = assetRec.Id;
         insert caseRec;
 
-        
         Case caseRec2 = CaseMyRequestsController.getCase(caseRec.Id);
 
         Assert.areEqual(caseRec.Id, caseRec2.Id);
@@ -204,22 +150,16 @@
 
     @isTest
     static void updateCaseStatusTest() {
-        Account accountRec = new Account();
-        accountRec.Name = 'Test Account';
-        accountRec.DocumentNumber__c = '1234';
-        insert accountRec;
 
-        Contact contactRec = new Contact();
-        contactRec.AccountId = accountRec.Id;
-        contactRec.LastName = 'Test Contact';
-        contactRec.ExternalId__c = '1234';
-        insert contactRec;
+        List<CanalNotificacoesMinhasSolicitacoes__mdt> canais = new List<CanalNotificacoesMinhasSolicitacoes__mdt>();
+        CanalNotificacoesMinhasSolicitacoes canalSelecionado = (CanalNotificacoesMinhasSolicitacoes) Test.createStub(
+            CanalNotificacoesMinhasSolicitacoes.class,
+            new CanalNotificacoesMinhasSolicitacoesStub(canais)
+        );
+        NotificadorMinhasSolicitacoes.canalSelector = canalSelecionado;
 
-        Asset assetRec = new Asset();
-        assetRec.AccountId = accountRec.Id;
-        assetRec.Name = 'Test Asset';
-        assetRec.MainProductDescription__c = 'Vivo Fibra';
-        insert assetRec;
+        Account accountRec = [SELECT Id FROM Account WHERE DocumentNumber__c = '1234'];
+        Asset assetRec = [SELECT Id FROM Asset WHERE Name = 'Test Asset'];
 
         Case caseRec = DataFactory.createCase(CasesMyRequestsB2C.HELP_WITH_BILLING_RECORD_TYPE_API_NAME, 'Test new Case 1', 'add new case test');
         caseRec.Status = 'New';
@@ -228,11 +168,12 @@
         caseRec.ComplainedAsset__c = assetRec.Id;
         insert caseRec;
 
-        String newStatus = 'Closed';  
+        String newStatus = 'Closed';
+        Test.startTest();
         String result = CaseMyRequestsController.updateCaseStatus(caseRec.Id, newStatus);
-
         Case caseRec2 = CaseMyRequestsController.getCase(caseRec.Id);
-
+        Test.stopTest();
+        
         Assert.areEqual(newStatus, caseRec2.Status);
     }
 
@@ -241,6 +182,144 @@
         try {
             String result = CaseMyRequestsController.updateCaseStatus(null, null);
         } catch (Exception e) {
+            String errorMessage = e.getMessage();
+            System.debug(LoggingLevel.DEBUG, errorMessage);
+            Assert.isNotNull(errorMessage);
+        }
+    }
+
+    @isTest
+    static void sendCallOutNotificationWhenCaseIsManuallyUpdatedTest()
+    {
+        List<CanalNotificacoesMinhasSolicitacoes__mdt> canais = NotificadorMinhasSolicitacoesTest.obterCanaisNotificacao();
+        CanalNotificacoesMinhasSolicitacoes canalSelecionado = (CanalNotificacoesMinhasSolicitacoes) Test.createStub(
+            CanalNotificacoesMinhasSolicitacoes.class,
+            new CanalNotificacoesMinhasSolicitacoesStub(canais)
+        );
+        NotificadorMinhasSolicitacoes.canalSelector = canalSelecionado;
+        
+        Integer responseStatusCode = 201;
+        NotificadorCallOut notificadorCallOut = (NotificadorCallOut) Test.createStub(
+            NotificadorCallOut.class, new NotificadorCallOutStub(responseStatusCode)
+        );
+        CaseMyRequestsController.notificadorCallOut = notificadorCallOut;
+
+        Account accountRec = [SELECT Id FROM Account WHERE DocumentNumber__c = '1234'];
+        Asset assetRec = [SELECT Id FROM Asset WHERE Name = 'Test Asset'];
+
+        Case caseRec = DataFactory.createCase(CasesMyRequestsB2C.HELP_WITH_BILLING_RECORD_TYPE_API_NAME, 'Test new Case 1', 'add new case test');
+        caseRec.Protocol__c = '1234';
+        caseRec.AccountId = accountRec.Id;
+        caseRec.ComplainedAsset__c = assetRec.Id;
+        insert caseRec;
+
+        Test.startTest();
+        String notificationMessage = CaseMyRequestsController.sendCallOutNotificationWhenCaseIsManuallyUpdated(caseRec.Id);
+        Test.stopTest();
+
+        Assert.isTrue(!String.isBlank(notificationMessage));
+        Assert.areEqual('SUCCESS', notificationMessage);
+    }
+    
+    @isTest
+    static void sendCallOutNotificationWhenCaseIsManuallyUpdatedFailTest()
+    {
+        List<CanalNotificacoesMinhasSolicitacoes__mdt> canais = NotificadorMinhasSolicitacoesTest.obterCanaisNotificacao();
+        CanalNotificacoesMinhasSolicitacoes canalSelecionado = (CanalNotificacoesMinhasSolicitacoes) Test.createStub(
+            CanalNotificacoesMinhasSolicitacoes.class,
+            new CanalNotificacoesMinhasSolicitacoesStub(canais)
+        );
+        NotificadorMinhasSolicitacoes.canalSelector = canalSelecionado;
+
+        Integer responseStatusCode = 500;
+        NotificadorCallOut notificadorCallOut = (NotificadorCallOut) Test.createStub(
+            NotificadorCallOut.class, new NotificadorCallOutStub(responseStatusCode)
+        );
+        CaseMyRequestsController.notificadorCallOut = notificadorCallOut;
+
+        Account accountRec = [SELECT Id FROM Account WHERE DocumentNumber__c = '1234'];
+        Asset assetRec = [SELECT Id FROM Asset WHERE Name = 'Test Asset'];
+
+        Case caseRec = DataFactory.createCase(CasesMyRequestsB2C.HELP_WITH_BILLING_RECORD_TYPE_API_NAME, 'Test new Case 1', 'add new case test');
+        caseRec.Protocol__c = '1234';
+        caseRec.AccountId = accountRec.Id;
+        caseRec.ComplainedAsset__c = assetRec.Id;
+        insert caseRec;
+
+        try {
+			Test.startTest();
+            String notificationMessage = CaseMyRequestsController.sendCallOutNotificationWhenCaseIsManuallyUpdated(caseRec.Id);
+	        Test.stopTest();   
+        } catch (AuraHandledException e) {
+            String errorMessage = e.getMessage();
+            System.debug(LoggingLevel.DEBUG, errorMessage);
+            Assert.isNotNull(errorMessage);
+        }
+    }
+
+    @isTest
+    static void sendPushSmsNotificationWhenCaseIsManuallyUpdatedTest()
+    {
+        List<CanalNotificacoesMinhasSolicitacoes__mdt> canais = NotificadorMinhasSolicitacoesTest.obterCanaisNotificacao();
+        CanalNotificacoesMinhasSolicitacoes canalSelecionado = (CanalNotificacoesMinhasSolicitacoes) Test.createStub(
+            CanalNotificacoesMinhasSolicitacoes.class,
+            new CanalNotificacoesMinhasSolicitacoesStub(canais)
+        );
+        NotificadorMinhasSolicitacoes.canalSelector = canalSelecionado;
+        
+        Integer responseStatusCode = 201;
+        NotificadorPushSMS notificadorPushSms = (NotificadorPushSMS) Test.createStub(
+            NotificadorPushSMS.class, new NotificadorPushSmsStub(responseStatusCode)
+        );
+        CaseMyRequestsController.notificadorPushSms = notificadorPushSms;
+        
+        Account accountRec = [SELECT Id FROM Account WHERE DocumentNumber__c = '1234'];
+        Asset assetRec = [SELECT Id FROM Asset WHERE Name = 'Test Asset'];
+
+        Case caseRec = DataFactory.createCase(CasesMyRequestsB2C.HELP_WITH_BILLING_RECORD_TYPE_API_NAME, 'Test new Case 1', 'add new case test');
+        caseRec.Protocol__c = '1234';
+        caseRec.AccountId = accountRec.Id;
+        caseRec.ComplainedAsset__c = assetRec.Id;
+        insert caseRec;
+
+        Test.startTest();
+        String notificationMessage = CaseMyRequestsController.sendPushSmsNotificationWhenCaseIsManuallyUpdated(caseRec.Id);
+        Test.stopTest();
+
+        Assert.isTrue(!String.isBlank(notificationMessage));
+        Assert.areEqual('SUCCESS', notificationMessage);
+    }
+    
+    @isTest
+    static void sendPushSmsNotificationWhenCaseIsManuallyUpdatedFailTest()
+    {
+        List<CanalNotificacoesMinhasSolicitacoes__mdt> canais = NotificadorMinhasSolicitacoesTest.obterCanaisNotificacao();
+        CanalNotificacoesMinhasSolicitacoes canalSelecionado = (CanalNotificacoesMinhasSolicitacoes) Test.createStub(
+            CanalNotificacoesMinhasSolicitacoes.class,
+            new CanalNotificacoesMinhasSolicitacoesStub(canais)
+        );
+        NotificadorMinhasSolicitacoes.canalSelector = canalSelecionado;
+        
+        Integer responseStatusCode = 500;
+        NotificadorPushSMS notificadorPushSms = (NotificadorPushSMS) Test.createStub(
+            NotificadorPushSMS.class, new NotificadorPushSmsStub(responseStatusCode)
+        );
+        CaseMyRequestsController.notificadorPushSms = notificadorPushSms;
+        
+        Account accountRec = [SELECT Id FROM Account WHERE DocumentNumber__c = '1234'];
+        Asset assetRec = [SELECT Id FROM Asset WHERE Name = 'Test Asset'];
+
+        Case caseRec = DataFactory.createCase(CasesMyRequestsB2C.HELP_WITH_BILLING_RECORD_TYPE_API_NAME, 'Test new Case 1', 'add new case test');
+        caseRec.Protocol__c = '1234';
+        caseRec.AccountId = accountRec.Id;
+        caseRec.ComplainedAsset__c = assetRec.Id;
+        insert caseRec;
+        
+        try {
+			Test.startTest();
+            String notificationMessage = CaseMyRequestsController.sendPushSmsNotificationWhenCaseIsManuallyUpdated(caseRec.Id);
+	        Test.stopTest();   
+        } catch (AuraHandledException e) {
             String errorMessage = e.getMessage();
             System.debug(LoggingLevel.DEBUG, errorMessage);
             Assert.isNotNull(errorMessage);

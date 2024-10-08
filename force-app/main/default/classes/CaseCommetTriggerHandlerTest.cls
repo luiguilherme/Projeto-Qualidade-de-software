@@ -24,6 +24,13 @@ private class CaseCommetTriggerHandlerTest {
 
     @isTest
     static void updateParentCasesTest() {
+        List<CanalNotificacoesMinhasSolicitacoes__mdt> canais = new List<CanalNotificacoesMinhasSolicitacoes__mdt>();
+        CanalNotificacoesMinhasSolicitacoes canalSelecionado = (CanalNotificacoesMinhasSolicitacoes) Test.createStub(
+            CanalNotificacoesMinhasSolicitacoes.class,
+            new CanalNotificacoesMinhasSolicitacoesStub(canais)
+        );
+        NotificadorMinhasSolicitacoes.canalSelector = canalSelecionado;
+
         Case caseObj = new Case();
         caseObj.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(CasesMyRequestsB2C.CHARGE_OF_ADDRESS_RECORD_TYPE_API_NAME).getrecordTypeId();
         caseObj.Status = 'Aguardando informação';

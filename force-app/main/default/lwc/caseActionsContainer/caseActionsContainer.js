@@ -1,5 +1,7 @@
 import { LightningElement, api, track } from 'lwc';
 import sendEmailNotification from '@salesforce/apex/CaseMyRequestsController.sendEmailNotificationWhenCaseStatusUpdatedManually';
+import sendCallOutNotification from '@salesforce/apex/CaseMyRequestsController.sendCallOutNotificationWhenCaseIsManuallyUpdated';
+import sendPushSmsNotification from '@salesforce/apex/CaseMyRequestsController.sendPushSmsNotificationWhenCaseIsManuallyUpdated';
 import getCase from '@salesforce/apex/CaseMyRequestsController.getCase';
 import updateCaseStatus from '@salesforce/apex/CaseMyRequestsController.updateCaseStatus';
 
@@ -43,31 +45,48 @@ export default class CaseActionsContainer extends LightningElement {
     async handleNotifyCustomerAction() {
         this.hiddenContent();
         this.showNotifyCustomerContent = true;
-
         this.isLoading = true;
-
         this.notifications = [];
-        await sendEmailNotification({ caseId: this.recordId })
-            .then(data => {
-                if (data == 'SUCCESS') {
-                    let notificationsTemp = [];
-                    let emailNotification = this.buildNotification((new Date()).getTime(), 'Email enviado.', '', 'success');
-                    notificationsTemp.push(emailNotification);
-                    this.notifications = [...notificationsTemp];
-                }
-            })
-            .catch(error => {
-                var notificationsTemp = [];
-                let emailNotification = this.buildNotification((new Date()).getTime(), 'Erro no envio do Email.', error.body.message, 'error');
-                notificationsTemp.push(emailNotification);
-                this.notifications = [...notificationsTemp];
 
-                console.error('sendEmailNotification');
-                console.error('error => ', error);
-                console.error('error.body.exceptionType => ', error.body.exceptionType);
-                console.error('error.body.message => ', error.body.message);
-                console.error('error.body.stackTrace => ', error.body.stackTrace);
-            });
+        let emailNotification;
+        try {
+            const emailResult = await sendEmailNotification({ caseId: this.recordId });
+            if (emailResult == 'SUCCESS') {
+                emailNotification = this.buildNotification((new Date()).getTime(), 'Email enviado.', '', 'success');
+            }
+        } catch (emailError) {
+            emailNotification = this.buildNotification((new Date()).getTime(), 'Erro no envio do Email.', emailError.body.message, 'error');
+            console.error('Erro ao enviar email:', emailError);
+        } finally {
+            this.notifications.push(emailNotification);
+        }
+
+        let callOutNotification;
+        try {
+            const callOutResult = await sendCallOutNotification({ caseId: this.recordId });
+            if (callOutResult == 'SUCCESS') {
+                callOutNotification = this.buildNotification((new Date()).getTime(), 'CallOut enviado.', '', 'success');
+            }
+        } catch (callOutError) {
+            callOutNotification = this.buildNotification((new Date()).getTime(), 'Erro no envio do CallOut.', callOutError.body.message, 'error');
+            console.error('Erro ao enviar email:', callOutError);
+        } finally {
+            this.notifications.push(callOutNotification);
+        }
+
+        let pushSmsNotification;
+        try {
+            const pushSmsResult = await sendPushSmsNotification({ caseId: this.recordId });
+            if (pushSmsResult == 'SUCCESS') {
+                pushSmsNotification = this.buildNotification((new Date()).getTime(), 'Push/SMS enviado.', '', 'success');
+            }
+        } catch (pushSmsError) {
+            pushSmsNotification = this.buildNotification((new Date()).getTime(), 'Erro no envio do Push/SMS.', pushSmsError.body.message, 'error');
+            console.error('Erro ao enviar Push/SMS:', pushSmsError);
+        } finally {
+            this.notifications.push(pushSmsNotification);
+        }
+
         this.isLoading = false;
     }
 
@@ -96,12 +115,6 @@ export default class CaseActionsContainer extends LightningElement {
                 let notification = this.buildNotification((new Date()).getTime(), 'Erro ao fechar o Caso.', error.body.message, 'error');
                 notifcationsTemp.push(notification);
                 this.notifications = [...notifcationsTemp];
-
-                console.error('updateCaseStatus');
-                console.error('error => ', error);
-                console.error('error.body.exceptionType => ', error.body.exceptionType);
-                console.error('error.body.message => ', error.body.message);
-                console.error('error.body.stackTrace => ', error.body.stackTrace);
             })
         this.isLoading = false;
     }
