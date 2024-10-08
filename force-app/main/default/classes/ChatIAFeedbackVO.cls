@@ -5,6 +5,10 @@ public with sharing class ChatIAFeedbackVO {
         @AuraEnabled public String correlator {get;set;}
     }
     public virtual class FeedbackResponse{
-        @AuraEnabled public String message {get;set;}
+        @AuraEnabled public Boolean response { get; set; }
+        @AuraEnabled public String code { get; set; }
+        @AuraEnabled public String message { get; set; }
+        @AuraEnabled public String service { get; set; }
+        
     }
 }

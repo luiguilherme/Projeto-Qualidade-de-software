@@ -1,3 +1,10 @@
+/*
+@author - Flavio Tobias
+@company - Everymind 
+@date - 16/09/2024
+@description - Classe responsável por realizar integrações com APIs externas para autenticação,
+envio de feedback, consulta de histórico de chat e exclusão de históricos de chat.
+*/
 public with sharing class ChatIAInterfaceAPI {
    
     public static ChatIAAuthenticationVO.BodyToReceive getAuthentication(){
@@ -15,119 +22,28 @@ public with sharing class ChatIAInterfaceAPI {
             req.setMethod('POST');
             req.setTimeout(120000);
             req.setBody(JSON.serialize(body));
-            Http http = new Http();
             HTTPResponse res = new Http().send(req);
-            
-            System.debug('body => ' + JSON.serialize(body));
-            System.debug('response => ' + res.getBody());
 
             if(res.getStatusCode() >= 200 && res.getStatusCode() <= 202){
                 retorno = (ChatIAAuthenticationVO.BodyToReceive)  System.JSON.deserialize(res.getBody(), ChatIAAuthenticationVO.BodyToReceive.class);
-                System.debug('retorno => '+ retorno);
             }
             return retorno;
         } catch(JSONException ex) {
-            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
+            System.debug(LoggingLevel.Error, 'API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
             throw new AuraHandledException('Erro ao consultar dados, procure seu administrador. Código 400');
         } catch(Exception ex) {
-            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
+            System.debug(LoggingLevel.Error, 'API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
             throw ex;
         }
     }
-
-    public static ChatIAHistoryVO.CreateNewChatResponse CreateNewChat(ChatIAHistoryVO.CreateNewChat body, String token){
-        try{
-            String bodyToSend = JSON.serialize(body);
-            bodyToSend = bodyToSend.replace('x_date', 'date');
-            bodyToSend = bodyToSend.replace('x_id', '_id');
-            ChatIAHistoryVO.CreateNewChatResponse retorno = new ChatIAHistoryVO.CreateNewChatResponse();
-            ChatIASubscriptionId__c subscription = ChatIASubscriptionId__c.getValues('SubscriptionId');
-            HttpRequest req = new HttpRequest();
-            req.setEndpoint('https://ai-br-pro.telefonicabigdata.com/flow/chat/12345');
-            req.setHeader('Content-Type', 'application/json');
-            req.setHeader('user_id', UserInfo.getUserId());
-            req.setHeader('token', token);
-            req.setHeader('session_id', '123456');
-            req.setHeader('subscription_id', subscription.SubscriptionId__c);
-            req.setHeader('_id', '123456');
-            req.setHeader('User-Agent', 'Mozilla');
-            req.setMethod('PUT');
-            req.setTimeout(120000);
-            req.setBody(bodyToSend);
-            Http http = new Http();
-            HTTPResponse res = new Http().send(req);
-            
-            System.debug('request => ' + bodyToSend);
-            System.debug('response => ' + res.getBody());
-
-            if(res.getStatusCode() >= 200 && res.getStatusCode() <= 202){
-                String response = res.getBody();
-                response = response.replace('_id', 'x_id');
-                response = response.replace('date', 'x_date');
-                System.debug('retorno => '+ retorno);
-                retorno = (ChatIAHistoryVO.CreateNewChatResponse)  System.JSON.deserialize(response, ChatIAHistoryVO.CreateNewChatResponse.class);
-            }
-            else {
-                if(res.getBody().contains('CHAT_DOESNT_EXISTS')){
-                    return null;
-                }
-            }
-            return retorno;
-        } catch(JSONException ex) {
-            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
-            throw new AuraHandledException('Erro ao consultar dados, procure seu administrador. Código 400');
-        } catch(Exception ex) {
-            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
-            throw ex;
-        }
-    }
-    public static ChatIAHistoryVO.CreateNewChatResponse UpdateFeedback(ChatIAHistoryVO.Feedback body, String token, String chatId){
-        try{
-            String bodyToSend = JSON.serialize(body);
-            ChatIAHistoryVO.CreateNewChatResponse retorno = new ChatIAHistoryVO.CreateNewChatResponse();
-            ChatIASubscriptionId__c subscription = ChatIASubscriptionId__c.getValues('SubscriptionId');
-            HttpRequest req = new HttpRequest();
-            req.setEndpoint('https://ai-br-pro.telefonicabigdata.com/flow/chat/feedback/12345');
-            req.setHeader('Content-Type', 'application/json');
-            req.setHeader('user_id', UserInfo.getUserId());
-            req.setHeader('token', token);
-            req.setHeader('session_id', '132456');
-            req.setHeader('subscription_id', subscription.SubscriptionId__c);
-            req.setHeader('_id', chatId);
-            req.setHeader('User-Agent', 'Mozilla');
-            req.setMethod('PUT');
-            req.setTimeout(120000);
-            req.setBody(bodyToSend);
-            Http http = new Http();
-            HTTPResponse res = new Http().send(req);
-            
-            System.debug('request => ' + bodyToSend);
-            System.debug('response => ' + res.getBody());
-
-            if(res.getStatusCode() >= 200 && res.getStatusCode() <= 202){
-                String response = res.getBody();
-                response = response.replace('_id', 'x_id');
-                response = response.replace('date', 'x_date');
-
-                retorno = (ChatIAHistoryVO.CreateNewChatResponse)  System.JSON.deserialize(response, ChatIAHistoryVO.CreateNewChatResponse.class);
-                System.debug('retorno => '+ retorno);
-            }
-            return retorno;
-        } catch(JSONException ex) {
-            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
-            throw new AuraHandledException('Erro ao consultar dados, procure seu administrador. Código 400');
-        } catch(Exception ex) {
-            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
-            throw ex;
-        }
-    }
-    public static ChatIAFeedbackVO.FeedbackResponse sendFeedback(ChatIAFeedbackVO.Feedback body, String token){
-        try{
+    public static ChatIAFeedbackVO.FeedbackResponse sendFeedback(ChatIAFeedbackVO.Feedback body, String token) {
+        ChatIAFeedbackVO.FeedbackResponse retorno = new ChatIAFeedbackVO.FeedbackResponse();
+        try {
             String bodyToSend = JSON.serialize(body);
             User user = ChatIASelector.getInstance().getUser(UserInfo.getUserId());
             String login = user.Login__c != null ? user.Login__c : user.Id;
-            ChatIAFeedbackVO.FeedbackResponse retorno = new ChatIAFeedbackVO.FeedbackResponse();
             ChatIASubscriptionId__c subscription = ChatIASubscriptionId__c.getValues('SubscriptionId');
+            
             HttpRequest req = new HttpRequest();
             req.setEndpoint('https://ai-br-pro.telefonicabigdata.com/v1/feedback');
             req.setHeader('Content-Type', 'application/json');
@@ -140,194 +56,100 @@ public with sharing class ChatIAInterfaceAPI {
             req.setMethod('POST');
             req.setTimeout(120000);
             req.setBody(bodyToSend);
-            Http http = new Http();
             HTTPResponse res = new Http().send(req);
-            if(res.getStatusCode() >= 200 && res.getStatusCode() <= 202){
-                String response = res.getBody();
-                retorno = (ChatIAFeedbackVO.FeedbackResponse)  System.JSON.deserialize(response, ChatIAFeedbackVO.FeedbackResponse.class);
-                System.debug('retorno => '+ retorno);
+    
+            if (res.getStatusCode() >= 200 && res.getStatusCode() <= 202) {
+                retorno = (ChatIAFeedbackVO.FeedbackResponse) System.JSON.deserialize(res.getBody(), ChatIAFeedbackVO.FeedbackResponse.class);
+                retorno.response = true;
+            } else {
+                retorno.response = false;
+                retorno.code = String.valueOf(res.getStatusCode());
+                retorno.message = res.getStatus();
             }
-            return retorno;
-        }catch(JSONException ex) {
-            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
-            throw new AuraHandledException('Erro ao consultar dados, procure seu administrador. Código 400');
-        } catch(Exception ex) {
-            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
-            throw ex;
+        } catch (JSONException ex) {
+            System.debug(LoggingLevel.Error, 'API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
+            retorno.response = false;
+            retorno.message = 'Erro ao processar JSON. ' + ex.getMessage();
+        } catch (Exception ex) {
+            System.debug(LoggingLevel.Error, 'API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
+            retorno.response = false;
+            retorno.message = 'Erro inesperado. ' + ex.getMessage();
         }
+        return retorno;
     }
-    public static ChatIAHistoryVO.CreateNewChatResponse AddConversation(ChatIAHistoryVO.CreateNewChat body, String token, String idChat){
-        try{
-            String flow_id = '12345';
-            if(Test.isRunningTest()){
-                flow_id = 'TESTE';
-            }
-            String bodyToSend = JSON.serialize(body);
-            bodyToSend = bodyToSend.replace('x_date', 'date');
-            bodyToSend = bodyToSend.replace('x_id', '_id');
-            ChatIAHistoryVO.CreateNewChatResponse retorno = new ChatIAHistoryVO.CreateNewChatResponse();
-            ChatIASubscriptionId__c subscription = ChatIASubscriptionId__c.getValues('SubscriptionId');
-
+    public static ChatIAHistoryVO.GetHistoryByIdResponse getHistoryById(String token) {
+        ChatIAHistoryVO.GetHistoryByIdResponse retorno = new ChatIAHistoryVO.GetHistoryByIdResponse();
+        retorno.history = new List<ChatIAHistoryVO.History>();
+        try {
+            String chatId = 'Salesforce';
+            ChatIASubscriptionId__c subscriptionObj = ChatIASubscriptionId__c.getValues('SubscriptionId');
+            String subscription = subscriptionObj.SubscriptionId__c;
+            User user = ChatIASelector.getInstance().getUser(UserInfo.getUserId());
+            String login = user.Login__c != null ? user.Login__c : user.Id;     
             HttpRequest req = new HttpRequest();
-            req.setEndpoint('https://ai-br-pro.telefonicabigdata.com/flow/chat/'+ flow_Id);
+            req.setEndpoint('https://ai-br-pro.telefonicabigdata.com/v2/history/' + login + '/' + subscription);
             req.setHeader('Content-Type', 'application/json');
-            req.setHeader('user_id', UserInfo.getUserId());
+            req.setHeader('user_id', login);
             req.setHeader('token', token);
-            req.setHeader('session_id', '123456');
-            req.setHeader('subscription_id', subscription.SubscriptionId__c);
-            req.setHeader('_id', idChat);
-            req.setHeader('User-Agent', 'Mozilla');
-            req.setMethod('PUT');
-            req.setTimeout(120000);
-            req.setBody(bodyToSend);
-            Http http = new Http();
-            HTTPResponse res = new Http().send(req);
-            
-            System.debug('request => ' + bodyToSend);
-            System.debug('response => ' + res.getBody());
-
-            if(res.getStatusCode() >= 200 && res.getStatusCode() <= 202){
-                String response = res.getBody();
-                response = response.replace('_id', 'x_id');
-                response = response.replace('date', 'x_date');
-
-                retorno = (ChatIAHistoryVO.CreateNewChatResponse)  System.JSON.deserialize(response, ChatIAHistoryVO.CreateNewChatResponse.class);
-                System.debug('retorno => '+ retorno);
-            }
-            return retorno;
-        } catch(JSONException ex) {
-            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
-            throw new AuraHandledException('Erro ao consultar dados, procure seu administrador. Código 400');
-        } catch(Exception ex) {
-            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
-            throw ex;
-        }
-    }
-
-    public static ChatIAHistoryVO.GetHistoryByIdResponse GetHistoryById(String token, String chatId){
-        try{
-            ChatIAHistoryVO.GetHistoryByIdResponse retorno = new ChatIAHistoryVO.GetHistoryByIdResponse();
-            ChatIASubscriptionId__c subscription = ChatIASubscriptionId__c.getValues('SubscriptionId');
-
-            HttpRequest req = new HttpRequest();
-            req.setEndpoint('https://ai-br-pro.telefonicabigdata.com/flow/chat/12345');
-            req.setHeader('Content-Type', 'application/json');
-            req.setHeader('user_id', UserInfo.getUserId());
-            req.setHeader('token', token);
-            req.setHeader('session_id', '123456');
-            req.setHeader('subscription_id', subscription.SubscriptionId__c);
-            req.setHeader('flow_id', '12345');
-            req.setHeader('_id', chatId);
+            req.setHeader('session_id', chatId);
+            req.setHeader('subscription_id', subscription);
+            req.setHeader('service', 'QNA_MOBILE_PRODUCTS');
             req.setHeader('User-Agent', 'Mozilla');
             req.setMethod('GET');
             req.setTimeout(120000);
-            Http http = new Http();
             HTTPResponse res = new Http().send(req);
-            
-            System.debug('response => ' + res.getBody());
-
-            if(res.getStatusCode() >= 200 && res.getStatusCode() <= 202){
+    
+            if (res.getStatusCode() >= 200 && res.getStatusCode() <= 202) {
                 String response = res.getBody();
-                response = response.replace('_id', 'x_id');
-                response = response.replace('date', 'x_date');
-
-                retorno = (ChatIAHistoryVO.GetHistoryByIdResponse)  System.JSON.deserialize(response, ChatIAHistoryVO.GetHistoryByIdResponse.class);
-                retorno.chatFound = true;
-                System.debug('retorno => '+ retorno);
-            } else{
-                if(res.getBody().contains('CHAT_DOESNT_EXISTS')){
-                    retorno.chatFound = false;
-                }
+                retorno.history = (List<ChatIAHistoryVO.History>) System.JSON.deserialize(response, List<ChatIAHistoryVO.History>.class);
+                retorno.response = true;
+            } else {
+                retorno.response = false;
+                retorno.code = String.valueOf(res.getStatusCode());
+                retorno.message = 'Erro: ' + res.getStatus() + ' - ' + res.getStatusCode();
             }
-            return retorno;
-        } catch(JSONException ex) {
-            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
-            throw new AuraHandledException('Erro ao consultar dados, procure seu administrador. Código 400');
-        } catch(Exception ex) {
-            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
-            throw ex;
+        } catch (Exception ex) {
+            System.debug(LoggingLevel.Error, 'API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
+            retorno.response = false;
+            retorno.message = ex.getMessage();
         }
+        return retorno;
     }
+    
 
-    public static Boolean DeleteChatById(String token, String chatId){
+    public static ChatIAHistoryVO.DeleteChatByIdResponse deleteChatById(String token){
         try{
-            Boolean retorno = false;
-            ChatIASubscriptionId__c subscription = ChatIASubscriptionId__c.getValues('SubscriptionId');
-
+            ChatIAHistoryVO.DeleteChatByIdResponse retorno = new ChatIAHistoryVO.DeleteChatByIdResponse();
+            String chatId = 'Salesforce';
+            ChatIASubscriptionId__c subscriptionObj = ChatIASubscriptionId__c.getValues('SubscriptionId');
+            String subscription = subscriptionObj.SubscriptionId__c;
+            User user = ChatIASelector.getInstance().getUser(UserInfo.getUserId());
+            String login = user.Login__c != null ? user.Login__c : user.Id;
             HttpRequest req = new HttpRequest();
-            req.setEndpoint('https://ai-br-pro.telefonicabigdata.com/flow/chat/12345');
+            req.setEndpoint('https://ai-br-pro.telefonicabigdata.com/v2/history/'+login+'/'+subscription);
             req.setHeader('Content-Type', 'application/json');
-            req.setHeader('subscription_id', subscription.SubscriptionId__c);
+            req.setHeader('user_id', login);
             req.setHeader('token', token);
-            req.setHeader('user_id', UserInfo.getUserId());
-            req.setHeader('session_id', '123456');
-            req.setHeader('chat_id', chatId);
+            req.setHeader('session_id', chatId);
+            req.setHeader('subscription_id', subscription);
+            req.setHeader('service', 'QNA_MOBILE_PRODUCTS');
             req.setHeader('User-Agent', 'Mozilla');
             req.setMethod('DELETE');
             req.setTimeout(120000);
-            Http http = new Http();
             HTTPResponse res = new Http().send(req);
-            
-            System.debug('response => ' + res.getBody());
 
             if(res.getStatusCode() >= 200 && res.getStatusCode() <= 204){
-                retorno = true;
-                System.debug('retorno => '+ retorno);
-            } 
-            return retorno;
-        } catch(JSONException ex) {
-            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
-            throw new AuraHandledException('Erro ao consultar dados, procure seu administrador. Código 400');
-        } catch(Exception ex) {
-            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
-            throw ex;
-        }
-    }
-
-    /**
-    * Date: 18-01-2024
-    * Author: nicholas.cinto@everymind.com.br
-    * Description: Criação de novo método para geração do histórico por usuário
-    */
-    public static ChatIAHistoryVO.CreateNewHistoryResponse CreateNewHistory(ChatIAHistoryVO.CreateNewHistory body, String token){
-        try{
-            String bodyToSend = JSON.serialize(body);
-            bodyToSend = bodyToSend.replace('x_date', 'date');
-            bodyToSend = bodyToSend.replace('x_id', '_id');
-            ChatIAHistoryVO.CreateNewHistoryResponse retorno = new ChatIAHistoryVO.CreateNewHistoryResponse();
-            ChatIASubscriptionId__c subscription = ChatIASubscriptionId__c.getValues('SubscriptionId');
-
-            HttpRequest req = new HttpRequest();
-            req.setEndpoint('https://ai-br-pro.telefonicabigdata.com/flow/chat/12345');
-            req.setHeader('Content-Type', 'application/json');
-            req.setHeader('user_id', UserInfo.getUserId());
-            req.setHeader('token', token);
-            req.setHeader('session_id', '132456');
-            req.setHeader('subscription_id', subscription.SubscriptionId__c);
-            req.setHeader('flow_id', '12345');
-            req.setHeader('User-Agent', 'Mozilla');
-            req.setMethod('POST');
-            req.setTimeout(120000);
-            req.setBody(bodyToSend);
-            Http http = new Http();
-            HTTPResponse res = new Http().send(req);
-
-            if(res.getStatusCode() >= 200 && res.getStatusCode() <= 202){
-                String response = res.getBody();
-                response = response.replace('_id', 'x_id');
-                response = response.replace('date', 'x_date');
-
-                retorno = (ChatIAHistoryVO.CreateNewHistoryResponse)  System.JSON.deserialize(response, ChatIAHistoryVO.CreateNewHistoryResponse.class);
-                System.debug('retorno => '+ retorno);
+                retorno.response = true;
+            } else {
+                retorno = (ChatIAHistoryVO.DeleteChatByIdResponse) System.JSON.deserialize(res.getBody(), ChatIAHistoryVO.DeleteChatByIdResponse.class);
+                retorno.response = false;
             }
             return retorno;
-
         } catch(JSONException ex) {
-            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
+            System.debug(LoggingLevel.Error, 'API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
             throw new AuraHandledException('Erro ao consultar dados, procure seu administrador. Código 400');
-
         } catch(Exception ex) {
-            System.debug('API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
+            System.debug(LoggingLevel.Error, 'API Erro => ' + ex.getMessage() + ' | ' + ex.getStackTraceString());
             throw ex;
         }
     }

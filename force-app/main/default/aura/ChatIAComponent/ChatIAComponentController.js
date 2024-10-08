@@ -1,10 +1,11 @@
 ({
     setUtilityHeigth : function(component, event, helper) {
-        let windowSize = window.screen.height * 0.7;
+        let windowSize = window.innerHeight * 0.825;
         let windowSizeText = windowSize.toString();
         console.log(windowSize);
         var utilityAPI = component.find("ChatIAutilitybar");
         utilityAPI.setPanelHeight({heightPX: windowSizeText});
+        
 
         var eventHandler = function(response){
             component.find("chatIA").forceScroll();
