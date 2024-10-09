@@ -9,7 +9,7 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "AccountId": "%DREGetOrderObjectsWithMSISDN:ServiceAccountId%"
+            "AccountId": "=IF(%DREGetOrderObjectsWithMSISDN:ServiceAccountId% != null,%DREGetOrderObjectsWithMSISDN:ServiceAccountId%, IF (%DREAccountIdsByServiceIdentifier:ServiceAccountId% != null, %DREAccountIdsByServiceIdentifier:ServiceAccountId%, %DREAccountIdsByServiceIdentifier:AccountId%))"
         },
         "additionalOutput": {
         },
