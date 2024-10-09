@@ -1,9 +1,11 @@
 public with sharing class OpenMediaInteractionPayload
 {
+    public String action;
     public String caseId;
     public String protocolNumber;
     public CustomerWrapper customer;
     public CustomerInteractionWrapper customerInteraction;
+    public EmployeeIdentificationWrapper employeeIdentification;
     public ProductWrapper product;
     public PolicyApplicationWrapper policyApplication;
 
@@ -45,4 +47,10 @@ public with sharing class OpenMediaInteractionPayload
         public String systemId;
         public String systemIdInteraction;
     }
+
+    public class EmployeeIdentificationWrapper 
+    {
+        public String employeeNr;
+    }
+
 }

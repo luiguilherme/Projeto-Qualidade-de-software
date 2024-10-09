@@ -1,6 +1,7 @@
 public with sharing class ContactCenterService {
     private static final String ORIGIN_SYSTEM = 'SALESFORCE_B2C';
     private static final String ORIGIN_INTERACTION = 'APP_VIVO';
+    public static final String ACTION_AGENT_QUEUE = 'agent_queue';
 
     public static OpenMediaInteractionPayload buildOpenMediaInteractionPayLoad(Case caseRec, Account accountRec, Asset assetRec) {
         OpenMediaInteractionPayload payload = new OpenMediaInteractionPayload();
@@ -48,6 +49,12 @@ public with sharing class ContactCenterService {
         payload.policyApplication = new OpenMediaInteractionPayload.PolicyApplicationWrapper();
         payload.policyApplication.systemId = originSystem;
         payload.policyApplication.systemIdInteraction = originInteraction;
+    }
+
+    public static void populateRountingFields(OpenMediaInteractionPayload payload, String agent, String action) {
+        payload.employeeIdentification = new OpenMediaInteractionPayload.EmployeeIdentificationWrapper();
+        payload.employeeIdentification.employeeNr = agent;
+        payload.action = action;
     }
 
     @future(callout=true)
