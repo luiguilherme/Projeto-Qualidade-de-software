@@ -1,10 +1,8 @@
 @isTest
-public with sharing class OrderManagementControllerTeste {
+private class NewProductHighOrdersControllerTeste {
 
-    
     @isTest 
-    public static void testFindReplaceOfferOrderByParams() {
-
+    static void testFindReplaceOfferOrderByParams() {
         Webservice__c ws = new Webservice__c(
             Name = 'RetrieveOrdersListCallout',
             Endpoint__c = 'https://contest.proxy.beeceptor.com/dip/customerOrder/customerOrderManagement/v1/orderList/customer/{accountId}',
@@ -14,48 +12,23 @@ public with sharing class OrderManagementControllerTeste {
         );
         insert ws;
 
-        List<OrderManagementController.RetrieveOrdersListFilter> filters = new List<OrderManagementController.RetrieveOrdersListFilter>();
-        OrderManagementController.RetrieveOrdersListFilter filter = new OrderManagementController.RetrieveOrdersListFilter();
-        filter.serviceId = '12345';
+        List<NewProductHighOrdersController.RetrieveOrdersListFilter> filters = new List<NewProductHighOrdersController.RetrieveOrdersListFilter>();
+        NewProductHighOrdersController.RetrieveOrdersListFilter filter = new NewProductHighOrdersController.RetrieveOrdersListFilter();
         filter.customerAccountId = '67890';
-        filter.status = new List<String>{'Open', 'InProgress'};
-        filter.types = new List<String>{'TypeA', 'TypeB'};
+        filter.instanceProductId = '12345';
+        filter.status = new List<String>{'CLOSED', 'DONE'};
+        filter.types = new List<String>{'PR','CH'};
         filter.startDate = Date.today().addDays(-30);
         filter.endDate = Date.today();
         filters.add(filter);
 
         Test.startTest();
             Test.setMock(HttpCalloutMock.class, new OrderManagementServiceMock());
-            List<AbstractOrderManagementController.RetrieveOrdersListResponse> result = OrderManagementController.findReplaceOfferOrderByParams(filters);
+            List<NewProductHighOrdersController.NewProductHighOrdersResponse> result = NewProductHighOrdersController.findNewProductHighOrdersByFilters(filters);
         Test.stopTest();
 
         System.assertNotEquals(null, result); 
-    }
 
-    @isTest 
-    public static void testFindByFilters() {
-
-        Webservice__c ws = new Webservice__c(
-            Name = 'RetrieveOrdersListCallout',
-            Endpoint__c = 'https://contest.proxy.beeceptor.com/dip/customerOrder/customerOrderManagement/v1/orderList/customer/{accountId}',
-            ServiceProvider__c = 'APIGW',
-            SubscriptionKey__c = '89098b41c7884a3d8d55741b46389b61',
-            Headers__c = 'application/json; charset=utf-8'
-        );
-        insert ws;
-
-        String accountId = '67890';
-        List<String> status = new List<String>{'Open', 'InProgress'};
-        List<String> types = new List<String>{'TypeA', 'TypeB'};
-        Date startDate = Date.today().addDays(-30);
-        Date endDate = Date.today();
-
-        Test.startTest();
-            Test.setMock(HttpCalloutMock.class, new OrderManagementServiceMock());
-            List<Orders> result = OrderManagementController.findByFilters(accountId, status, types, startDate, endDate);
-        Test.stopTest();
-
-        System.assertNotEquals(null, result); 
     }
 
     private class OrderManagementServiceErrorMock implements HttpCalloutMock {
@@ -80,9 +53,6 @@ public with sharing class OrderManagementControllerTeste {
                     '"customer": {'+
                         '"id": "399070164"'+
                     '},'+
-                    '"recurringPrice": {'+
-                        '"finalAmount": "2"'+
-                    '},'+
                     '"orderItems": ['+
                         '{'+
                             '"id": "678041686",'+
@@ -104,9 +74,6 @@ public with sharing class OrderManagementControllerTeste {
                     '"serviceRequiredDate": "1691549999000.00",'+
                     '"customer": {'+
                         '"id": "399070164"'+
-                    '},'+
-                    '"recurringPrice": {'+
-                        '"finalAmount": "2"'+
                     '},'+
                     '"orderItems": ['+
                         '{'+

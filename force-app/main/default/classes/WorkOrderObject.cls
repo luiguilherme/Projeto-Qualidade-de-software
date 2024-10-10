@@ -20,5 +20,11 @@ public class WorkOrderObject {
     public String category;
     @AuraEnabled
     @InvocableVariable
+    public Datetime completionDate;
+    @AuraEnabled
+    @InvocableVariable
+    public Datetime cancellationDate;
+    @AuraEnabled
+    @InvocableVariable
     public List<WorkOrderItemObject> items;
 }

@@ -171,7 +171,8 @@ public without sharing class CaseDAO {
                 CustomerInteractionId__c,
                 toLabel(Status),
                 Protocol__c,
-                CaseNumber
+                CaseNumber,
+                CustomerInteractionId__r.InteractionNumber__c
 			FROM
             	Case
             WHERE
