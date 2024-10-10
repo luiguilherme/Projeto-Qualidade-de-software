@@ -50,12 +50,17 @@
         "saveMessage": "Are you sure you want to save it for later?",
         "show": {
             "group": {
-                "operator": "AND",
+                "operator": "OR",
                 "rules": [
                     {
                         "condition": "=",
                         "data": "no",
                         "field": "ValidateCartItemStatus:isLastItem"
+                    },
+                    {
+                        "condition": "=",
+                        "data": "true",
+                        "field": "calledByFlow"
                     }
                 ]
             }
