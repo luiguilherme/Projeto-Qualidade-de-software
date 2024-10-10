@@ -251,11 +251,12 @@ export default class DisputeFixedAdjustmentForm extends OmniscriptBaseMixin(Ligh
     }
     
     // Montar Motivos do Crédito de acordo com o Tipo de Ajuste (Combobox)
-    getCreditReasonOptions(newTipoAjuste) {
+    getCreditReasonOptions(newTipoAjuste, isEvent) {
+        let itemType = isEvent ? 'EVENT' : 'CHARGE';
         let adjustmentTypeKey = Object.keys(this.creditReasonMapping).find(key => this.creditReasonMapping[key] === newTipoAjuste);
         let creditReasonOptions = [];
         for (let creditReason in this.creditReasonDescriptionMapping) {
-            if (this.creditReasonDescriptionMapping[creditReason].CATEGORY_CODE === adjustmentTypeKey) {
+            if (this.creditReasonDescriptionMapping[creditReason].CATEGORY_CODE === adjustmentTypeKey && this.creditReasonDescriptionMapping[creditReason].TYPE === itemType) {
                 creditReasonOptions.push({
                     label: creditReason,
                     value: this.creditReasonDescriptionMapping[creditReason].CREDIT_REASON_CODE
@@ -411,11 +412,7 @@ export default class DisputeFixedAdjustmentForm extends OmniscriptBaseMixin(Ligh
         this.adjustmentItems = Array.isArray(this.adjustmentItems) ? this.adjustmentItems : [this.adjustmentItems];
         let adjustmentItemsCopy = [...this.adjustmentItems];
         adjustmentItemsCopy.forEach(item => {
-            if(!item.isEvent && newModalidade == 'Crédito em conta futura' && item.tipoAjuste == 'Retificação'){
-                item.valorAjuste = item.valorAtual * 2;
-                item.isReadOnly = true;
-                item.valorPagar = item.valorAtual;
-            }else{
+            if(!item.isEvent){
                 item.valorPagar = 0;
                 item.valorAjuste = 0;
                 item.isReadOnly = false;
@@ -423,9 +420,9 @@ export default class DisputeFixedAdjustmentForm extends OmniscriptBaseMixin(Ligh
             item.modalidade = newModalidade;
             item.modalidadeSelecionada = newModalidade;
         });
-        this.calculateTotalAdjustmentAmount();
         this.adjustmentItems = adjustmentItemsCopy;
-        this.adjustmentItemsFormated = this.formatNumberForHtml(adjustmentItemsCopy,true);
+        this.calculateTotalAdjustmentAmount();
+        this.adjustmentItemsFormated = this.formatNumberForHtml(this.adjustmentItems,true);
         this.disableBankCard = newModalidade == 'Reembolso';
         this.disableEmailCard = (newModalidade == 'Boleto' && this.adjustmentItems.reduce((total, item) => total + (item.valorAjuste || 0), 0).toFixed(2) > 0);
         console.log('this.totalAdjustmentAmountInitial',this.totalAdjustmentAmountInitial);
@@ -512,6 +509,7 @@ export default class DisputeFixedAdjustmentForm extends OmniscriptBaseMixin(Ligh
             });
             let allItemsValid = true;
             let nonAdjustmentValue = true;
+            let haveEvents = false;
             for (const item of filteredAdjustmentItems) {
                 if (!item.tipoAjuste || item.valorAjuste === undefined || !item.modalidadeSelecionada || !item.motivoCreditoSelecionado || !item.motivoCreditoCode) {
                     allItemsValid = false;
@@ -521,6 +519,9 @@ export default class DisputeFixedAdjustmentForm extends OmniscriptBaseMixin(Ligh
                     nonAdjustmentValue = false;
                     break;
                 }
+                if(item.isEvent){
+                    haveEvents = true;
+                }
             }
             if(!allItemsValid){
                 return this.openAlertModal('Campos obrigatórios!', 'Todos os campos do Formulário devem ser preenchidos antes de Registrar o Atendimento.', 'error');
@@ -529,33 +530,40 @@ export default class DisputeFixedAdjustmentForm extends OmniscriptBaseMixin(Ligh
             } else if (this.sessionFields){
                 const subscriber = this.adjustmentItems[0].SubscriberId__c;
 
-                const createRequestObject = (creditType, subscriber) => ({
-                    billingSystem: "AMDOCS",
-                    countryCode: "BRA",
-                    languageCode: "por",
-                    billingAccountId: this.billingAccountId,
-                    financialAccountId: this.financialAccountId,
-                    flagToCreateCase: false,
-                    creditType: creditType,
-                    notes: this.notes,
-                    userId: '',
-                    subscriberId : subscriber,
-                    invoiceDetails: {
-                        invoiceId: this.selectedInvoice.imageNo,
-                        billingInvoiceNumber: this.selectedInvoice.invoiceNumber,
-                        documentId: this.selectedInvoice.billNo,
-                        cycleStartDate: this.selectedInvoice.l9CycleStartDate,
-                        cycleCloseDate: this.selectedInvoice.l9CycleCloseDate,
-                        amount: this.selectedInvoice.amount,
-                        adjustedPaymentAmount: this.selectedInvoice.adjustedPaymentAmount,
-                        balance: this.selectedInvoice.balance
-                    },
-                    charges: [],
-                    events: []
-                });
+                const createRequestObject = (creditType, subscriber, isEvent) => {
+                    let requestObject = {
+                        billingSystem: "AMDOCS",
+                        countryCode: "BRA",
+                        languageCode: "por",
+                        billingAccountId: this.billingAccountId,
+                        financialAccountId: this.financialAccountId,
+                        flagToCreateCase: false,
+                        creditType: creditType,
+                        notes: this.notes,
+                        userId: '',
+                        subscriberId : subscriber,
+                        invoiceDetails: {
+                            invoiceId: this.selectedInvoice.imageNo,
+                            billingInvoiceNumber: this.selectedInvoice.invoiceNumber,
+                            documentId: this.selectedInvoice.billNo,
+                            cycleStartDate: this.selectedInvoice.l9CycleStartDate,
+                            cycleCloseDate: this.selectedInvoice.l9CycleCloseDate,
+                            amount: this.selectedInvoice.amount,
+                            adjustedPaymentAmount: this.selectedInvoice.adjustedPaymentAmount,
+                            balance: this.selectedInvoice.balance
+                        },
+                        charges: [],
+                        events: []
+                    }
+                    if(isEvent){
+                        requestObject.invoiceDetails.startDate = this.selectedInvoice.l9CycleStartDate;
+                        requestObject.invoiceDetails.endDate = this.selectedInvoice.l9CycleCloseDate;
+                    }
+                    return requestObject;
+                };
 
-                const procedenteRequest = createRequestObject("C", subscriber);
-                const concessaoRequest = createRequestObject("S", subscriber);
+                const procedenteRequest = createRequestObject("C", subscriber, haveEvents);
+                const concessaoRequest = createRequestObject("S", subscriber, haveEvents);
 
                 const prepareNotesRequestArray = [];
                 
@@ -678,9 +686,11 @@ export default class DisputeFixedAdjustmentForm extends OmniscriptBaseMixin(Ligh
                 console.log(' handleGetItems getDisputedItens: ',response);
                 let responseArray = Array.isArray(response) ? response : [response];
                 // Transformação dos dados recebidos para se adequar ao formato esperado
-                this.cartItems = responseArray.map(item => ({
+                this.cartItems = responseArray.map(item => {
+                    const isEvent = !!item.Csp__c;
+                    let adjustmentItens = {
                     _Id: item.Id,
-                    isEvent: !isNaN(item.Csp__c),
+                    isEvent: isEvent,
                     invoiceNumber: this.invoiceNumber,
                     Description__c: item.Description__c,
                     TotalAmount__c: item.TotalAmount__c,
@@ -697,7 +707,9 @@ export default class DisputeFixedAdjustmentForm extends OmniscriptBaseMixin(Ligh
                     StatusPt: item.statusLabel,
                     AttendantMessage: item.ServiceDefinitionId__r.AttendantMessage__c,
                     StepCode: item.ServiceDefinitionId__r.StepCode__c
-                }));
+                    }
+                    return adjustmentItens;
+                });
                 // Verificar se 'status' != 'Procedente' ou 'Concessão'
                const statusIsValid = this.cartItems.some(item => item.StatusPt === 'Procedente' || item.StatusPt === 'Concessão');
                 if (!statusIsValid) {
@@ -709,7 +721,6 @@ export default class DisputeFixedAdjustmentForm extends OmniscriptBaseMixin(Ligh
                         .filter(item => item.StatusPt === 'Procedente' || item.StatusPt === 'Concessão') // Separar apenas os Status 'Procedente' e 'Concessão'
                         .map(item => {
                             let adjustmentType = item.StatusPt === 'Procedente' ? 'Retificação' : 'Concessão';
-                            const isEvent = !isNaN(item.FrontEndCode__c);
                             const isReadOnly = false;
                             let adjustmentItem = {
                                 id: item._Id,
@@ -718,13 +729,13 @@ export default class DisputeFixedAdjustmentForm extends OmniscriptBaseMixin(Ligh
                                 valor: this.convertToFloat(item.TotalAmount__c),
                                 descontos: this.convertToFloat(item.Discounts__c),
                                 valorAtual: this.convertToFloat(item.AvailableAmount__c),
-                                valorPagar: isEvent ? this.convertToFloat(item.AvailableAmount__c) - this.convertToFloat(item.TotalAmount__c) : this.convertToFloat(item.AvailableAmount__c),
-                                valorAjuste: isEvent ? this.convertToFloat(item.TotalAmount__c) : '',
-                                isEvent: isEvent,
+                                valorPagar: item.isEvent ? this.convertToFloat(item.AvailableAmount__c) - this.convertToFloat(item.TotalAmount__c) : this.convertToFloat(item.AvailableAmount__c),
+                                valorAjuste: item.isEvent ? this.convertToFloat(item.TotalAmount__c) : '',
+                                isEvent: item.isEvent,
                                 isReadOnly: isReadOnly,
                                 tipoAjuste: adjustmentType,
                                 modalidades: this.getModalidadesOptions(),
-                                motivoCreditoOptions: this.getCreditReasonOptions(adjustmentType),
+                                motivoCreditoOptions: this.getCreditReasonOptions(adjustmentType, item.isEvent),
                                 ItemId__c: item.ItemId__c,
                                 FrontEndCode__c: item.FrontEndCode__c,
                                 StartTime__c: item.StartTime__c,

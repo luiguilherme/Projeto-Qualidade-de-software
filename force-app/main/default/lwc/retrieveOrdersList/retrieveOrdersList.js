@@ -20,6 +20,7 @@ const gridColumns = [
 ];
 
 export default class RetrieveOrdersList extends LightningElement {
+    @api orderItemRequired = false;
     @api accountId;
     @api type;
     @api status;
@@ -57,19 +58,15 @@ export default class RetrieveOrdersList extends LightningElement {
         this.startDate = this.calculateStartDate(30);
         this.endDate = new Date().toISOString();
         this.loadOrders();
+        this.otherDates = false;
     }
 
     handleSearchLast60Days(){
-        this.startDate = this.calculateStartDate(60);
+        this.startDate = this.calculateStartDate(59);
         this.endDate = new Date().toISOString();
         this.loadOrders();
+        this.otherDates = false;
     }
-
-    // handleSearchLast90Days(){
-    //     this.startDate = this.calculateStartDate(90);
-    //     this.endDate = new Date().toISOString();
-    //     this.loadOrders();
-    // }
 
     handleSearchOtherDates(){
         this.otherDates = true;
@@ -112,7 +109,7 @@ export default class RetrieveOrdersList extends LightningElement {
 
        findByFilters({accountId: this.accountId, status: statusArray, types: typeArray, startDate: this.startDate, endDate: this.endDate})
             .then(result => {
-                console.log('Orders Encontradas:' + JSON.stringify(result));
+                console.log('Result:' + JSON.stringify(result));
                 if(result != null && result.length > 0){
                     this.orders = result.map(order => ({
                         referenceNumber: order.referenceNumber,
@@ -120,6 +117,7 @@ export default class RetrieveOrdersList extends LightningElement {
                         finalAmount: order.finalAmount,
                         status: this.getStatusDescription(order.status)
                     }));
+                    console.log('Result:' + JSON.stringify(this.orders));
                     this.viewDatatable = true;
                     this.isLoading = false;
                 } else {
@@ -214,4 +212,35 @@ export default class RetrieveOrdersList extends LightningElement {
             })
         );
     }
+
+    @api
+    validate() {
+        if (this.orderItemRequired == true){
+
+            if (this.orders.length === 0 || this.orders === null) {
+                console.log('Nenhuma ordem encontrada, permitindo seguir.');
+                return {
+                    isValid: true
+                };
+            }
+    
+            if (this.orders != null && !this.selectedOrder) {
+                console.log('Ordem não selecionada, impedindo fluxo.');
+                return {
+                    isValid: false,
+                    errorMessage: 'Selecione ao menos um pedido antes de continuar.'
+                };
+            }
+    
+            console.log('Ordem selecionada, permitindo seguir.');
+            return {
+                isValid: true
+            };
+        }
+        return{
+            isValid: true
+        };
+    }
+
+
 }

@@ -8,12 +8,8 @@ const chargeCodes = ['RCMBASICFUNCMP','RCOBASICFUNCMP','RMBASICFUNCMP'];
 const columns1 = [
     { label: 'Número', fieldName: 'invoiceNumber', type: 'text' },
     { label: 'Conta pós paga', fieldName: 'billingAccountId', type: 'text' }, //Exibe o valor de billingAccountId
-    { label: 'Período de apuração', fieldName: 'Entrega2_Periodo', type: 'text' },
     { label: 'Data de vencimento', fieldName: 'paymentDueDate', type: 'text' },
-    { label: 'Baixa', fieldName: 'Entrega2_Baixa', type: 'text' },
     { label: 'Valor', fieldName: 'amount', type: 'currency' },
-    { label: 'Ajustes', fieldName: 'Entrega2_Ajustes', type: 'text' },
-    { label: 'Pagamento', fieldName: 'Entrega2_Pagamento', type: 'text' },
     { label: 'Saldo', fieldName: 'balance', type: 'currency' },
 ];
 
@@ -32,6 +28,10 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
     @api allSelections;
     @api isColab = false;
     @api haveDiscount = false;
+    @api selectedInvoice;
+    @api previousInvoices;
+    @api prefill;
+    customerIds;
     //Variáveis que eram recebidas agora vão ser recuperadas
     // dentro do LWC em uma chamada para IP IPInvoiceDisputeIntegration
     @track invoicesApi = [];
@@ -66,6 +66,9 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
     @track invoiceErrorMessage;
     @track invoiceSpinner = true;
     @track _actionUtil;
+
+    @track chargeError;
+    @track chargeErrorMessage;
 
     //Variavel de saida com dados da fatura selecionada
     @api disputedInvoice = [];
@@ -115,6 +118,18 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
 
     get invoiceTable() {
         return !this.invoiceError && !this.invoiceSpinner;
+    }
+
+    get chargeTable(){
+        return this.tableVisible;
+    }
+
+    get chargeError(){
+        return this.chargeError;
+    }
+
+    get chargeSpinner(){
+        return !this.tableVisible && !this.chargeError;
     }
 
     connectedCallback() {
@@ -297,6 +312,10 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
             return; 
         }
 
+        // console.log('# event 3: ' + JSON.stringify(event.detail.selectedRows[0]));
+        // this.disputedInvoice = JSON.stringify(event.detail.selectedRows[0]);
+        // console.log('# this.disputedInvoice: ' + this.disputedInvoice);
+
         this.selectedRow = [JSON.parse(JSON.stringify(event.detail.selectedRows[0]))];
         this.divVisible = true;
         this.tableVisible = false;
@@ -306,6 +325,25 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
         
         let index = this.filteredInvoices.findIndex(i => i.billNo === this.selectedRow[0]?.billNo); 
         let indexAnterior = index - 1;
+        console.log('index', index , 'indexAnterior', indexAnterior);
+        this.selectedInvoice = {
+            billNo: this.selectedRow[0]?.billNo || '',
+            invoiceNumber: this.selectedRow[0]?.invoiceNumber || '',
+            imageNo: this.selectedRow[0]?.imageNo || '',
+            financialAccountId: this.selectedRow[0]?.financialAccountId || '', //billingAccountId:MS precisa dessa Chave, mas o valor está em financialAccountId
+            billingSystem: 'AMDOCS',
+            cycleEndDate:  this.selectedRow[0]?.l9CycleCloseDate || ''
+        };
+
+        if (indexAnterior >= 0 ){
+            this.previousInvoices = {
+                billNo: this.filteredInvoices[indexAnterior]?.billNo || '',
+                invoiceNumber: this.filteredInvoices[indexAnterior]?.invoiceNumber || '',
+                imageNo: this.filteredInvoices[indexAnterior]?.imageNo || '',
+                financialAccountId: this.filteredInvoices[indexAnterior]?.financialAccountId || '', //billingAccountId:MS precisa dessa Chave, mas o valor está em financialAccountId
+                billingSystem: 'AMDOCS'
+            }
+        };
        
         let obj = {
             billNo: this.selectedRow[0]?.billNo || '',
@@ -330,10 +368,16 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
             .executeAction(params, null, this, null, null)
             .then((response) => {
 				console.log('Resultado da IP_DisputeSearchInvoiceCharges',JSON.stringify(response));
-
                 this.tableVisible = true;
                 this.responseIP = response.result.IPResult;
                 this.isSuccess = response.result.IPResult.isSuccess;
+
+                if(this.responseIP.HTTPSearchInvoiceCharges && this.responseIP.HTTPSearchInvoiceCharges.error){
+                    this.chargeError = true;
+                    this.chargeErrorMessage = 'Erro ao carregar itens da fatura: '+ this.responseIP.HTTPSearchInvoiceCharges.errorMessage;
+                    this.tableVisible = false;
+                    return;
+                }
 
                 const charges = Array.isArray(this.responseIP.invoiceCharges) ? this.responseIP.invoiceCharges : [this.responseIP.invoiceCharges]; 
                 console.log('charges', JSON.stringify(charges)); //<------ Subir isso
@@ -376,6 +420,8 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
                     } catch (e) {
                         console.log('Erro ao tentar exibir o produto: ' + e);
                         console.log('product', JSON.stringify(this.product));
+                        this.chargeError = true;
+                        this.chargeErrorMessage = 'Erro ao carregar itens da fatura: '+ e;
                     }
                 }       
                 console.log('productList', JSON.stringify(this.productList));
@@ -383,25 +429,16 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
                 this.selectedType = types[0];
             })
             .catch((error) => {
-                console.log('Error Items Grid: ' + error);
+                console.log('Erro ao carregar itens da fatura: ' + error);
                 this.tableVisible = false;
+                this.chargeError = true;
+                this.chargeErrorMessage = 'Erro ao carregar itens da fatura: '+ error;
                 this.responseIP = null;
                 this.isSuccess = null;
                 this.productList = [];
                 this.productListByType = [];
             }).finally(()=>{
-                console.log('Não entrou no evento');
-                console.log(JSON.stringify(this.selectedRow));
                 this.disputedInvoice = this.selectedRow;
-                if(this.selectedRow && this.selectedRow[0] && this.selectedRow[0].financialAccountId){
-                    console.log('Entrou no evento');
-                    const selectedEvent = new CustomEvent('selected', {
-                        detail: this.selectedRow[0].financialAccountId,
-                        bubbles: true,
-                        composed: true,
-                    });
-                    this.dispatchEvent(selectedEvent);
-                }
             });      
 
     }     
@@ -481,6 +518,22 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
             });
             this.allSelections = { charges: allSelections };
             console.log('AllSelections: '+JSON.stringify(this.allSelections)); 
+        }
+        this.prefill = JSON.stringify(this.createPrefill());
+        console.log('prefill', this.prefill);
+    }
+
+    createPrefill(){
+        return {
+          'ServiceIdentifier': this.serviceIdentifier,
+          'CustomerIds': this.customerIds,
+          'selectedItems': this.allSelections.charges,
+          'selectedInvoice': this.disputedInvoice,
+          'invoicesForAddSerVerification':{
+            'selectedInvoice': this.selectedInvoice,
+            'previousInvoice': this.previousInvoices
+           },
+           'responseIP' : this.responseIP
         }
       }
     

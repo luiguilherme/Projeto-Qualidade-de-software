@@ -13,7 +13,6 @@ export default class LwcContainerFlow extends LightningElement {
 
     @track visivel = false;
     _myPubSubHandlers;
-    disputeType;
 
     get flowInputVariables() {
         return this.inputVariables;
@@ -85,51 +84,32 @@ export default class LwcContainerFlow extends LightningElement {
         this.visivel = false;
     }
 
+    reloadHistorics(){
+        // Recarregar Histórico de Passos
+        this.template.querySelector("c-flow-step-history").recarregarHistorico();
+        //Recarregar Carrinho de Itens Contesdados
+        this.template.querySelector("c-disputed-itens-history").reloadDisputedItens();
+    }
+
     handleFlowStatusChange(event) {
+        this.reloadHistorics();
+
         console.log('Event Flow',event.detail);
-        console.log('Event Flow Active Stages',JSON.stringify(event.detail.activeStages));
-        console.log('Event Flow Current Stages',event.detail.currentStage);
-        console.log('Event Flow OutputVariables',event.detail.outputVariables);
-        console.log('Event Flow OutputVariables Type',typeof(event.detail.outputVariables));
-        console.log('Event Flow Status',JSON.stringify(event.detail.status));
         if (event.detail.status === "FINISHED") {
             this.visivel = false;
-            if(this.disputeType == 'Móvel'){
-                console.log({
-                    "OpenDispute":true,
-                    "LegacySystemTopicTree":this.eventParams.LegacySystemTopicTree? this.eventParams.LegacySystemTopicTree: "",
-                    "AssetId":this.eventParams.AssetId? this.eventParams.AssetId: "",
-                    "ServiceIdentifier":this.eventParams.ServiceIdentifier? this.eventParams.ServiceIdentifier: "",
-                    "CaseId":this.caseId,
-                    "AccountId":this.eventParams.AccountId? this.eventParams.AccountId: "",
-                    "InteractionId":this.eventParams.InteractionId? this.eventParams.InteractionId: "",
-                    "InteractionTopicId":this.eventParams.InteractionTopicId? this.eventParams.InteractionTopicId: "",
-                    "ContactId":this.eventParams.ContactId? this.eventParams.ContactId: ""
+            pubsub.fire('FixedDispute','finishFlow',{});
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: "Success",
+                    message: "O fluxo foi executado com sucesso!",
+                    variant: "success",
                 })
-                pubsub.fire('Dispute', 'Open', {
-                    "OpenDispute":true,
-                    "LegacySystemTopicTree":this.eventParams.LegacySystemTopicTree? this.eventParams.LegacySystemTopicTree: "",
-                    "AssetId":this.eventParams.AssetId? this.eventParams.AssetId: "",
-                    "ServiceIdentifier":this.eventParams.ServiceIdentifier? this.eventParams.ServiceIdentifier: "",
-                    "CaseId":this.caseId,
-                    "AccountId":this.eventParams.AccountId? this.eventParams.AccountId: "",
-                    "InteractionId":this.eventParams.InteractionId? this.eventParams.InteractionId: "",
-                    "InteractionTopicId":this.eventParams.InteractionTopicId? this.eventParams.InteractionTopicId: "",
-                    "ContactId":this.eventParams.ContactId? this.eventParams.ContactId: ""
-                });
-            }else{
-                pubsub.fire('FixedDispute','finishFlow',{});
-                this.dispatchEvent(
-                    new ShowToastEvent({
-                        title: "Success",
-                        message: "O fluxo foi executado com sucesso!",
-                        variant: "success",
-                    })
-                );
-            }
-			
-		}else if(event.detail.status === "STARTED" && event.detail.locationName === 'scAutomaticAction' && event.detail.outputVariables[2].value == 'PREVER001.2'){
-            this.disputeType = event.detail.outputVariables[0].value;
+            );  
+		}else if(event.detail.status === "STARTED" && event.detail.locationName === 'scFormSelectDisputeItens'){
+            restartFlow({ caseId: this.caseId })
+            .finally(() => {
+                this.reloadHistorics();
+            });
         }
     }
 }

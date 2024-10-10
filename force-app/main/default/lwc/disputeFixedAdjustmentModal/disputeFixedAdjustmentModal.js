@@ -166,6 +166,7 @@ export default class DisputeFixedAdjustmentModal extends OmniscriptBaseMixin(Lig
                 
             };
             const options = {};
+            console.log('Dispute_PrepareVivoNetProtocolRequest: ', obj);
             const params = {
                 input: JSON.stringify(obj),
                 sClassName: 'vlocity_cmt.IntegrationProcedureService',
@@ -215,6 +216,7 @@ export default class DisputeFixedAdjustmentModal extends OmniscriptBaseMixin(Lig
             totalAdjustmentAmount: this.content.TotalAdjustmentAmount
         };
 
+        console.log('Dispute_CreateCreditForChargeAndEvent: ', obj);
         const options = {};
         const params = {
             input: JSON.stringify(obj),
@@ -270,7 +272,8 @@ export default class DisputeFixedAdjustmentModal extends OmniscriptBaseMixin(Lig
     
         this._actionUtil.executeAction(params, null, this, null, null)
             .then((response) => {
-                const disputedItems = response.result.IPResult;
+                let disputedItems = response.result.IPResult;
+                disputedItems = Array.isArray(disputedItems) ? disputedItems : [disputedItems];
                 const obj = {
                     CaseId: this.content.CaseId,
                     ConvertNotesToStringApproved: this.content.ConvertNotesToStringApproved,
@@ -281,9 +284,9 @@ export default class DisputeFixedAdjustmentModal extends OmniscriptBaseMixin(Lig
                     InteractionId: this.interactionId,
                     InteractionTopicId: this.interactionTopicId,
                     Notes: this.content.Notes,
-                    disputedItems: [disputedItems]
+                    disputedItems: disputedItems
                 }
-
+                console.log('Dispute_CaseClosureDefinition: ', obj);
                 const params1 = {
                     input: obj,
                     sClassName: 'vlocity_cmt.IntegrationProcedureService',
