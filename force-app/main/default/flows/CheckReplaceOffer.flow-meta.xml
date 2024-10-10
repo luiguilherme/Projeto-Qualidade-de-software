@@ -10,6 +10,9 @@
         <connector>
             <targetReference>dcClienteTemPedidosVIVONext</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>asSetErrorMessage</targetReference>
+        </faultConnector>
         <flowTransactionModel>NewTransaction</flowTransactionModel>
         <inputParameters>
             <name>customerAccountId</name>
@@ -32,7 +35,7 @@
         <inputParameters>
             <name>startDate</name>
             <value>
-                <elementReference>billingStartdateMinus90Days</elementReference>
+                <elementReference>gtBuscaDisputedItem.BillingStartDate__c</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -48,7 +51,10 @@
             </value>
         </inputParameters>
         <nameSegment>OrderManagementController</nameSegment>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <outputParameters>
+            <assignToReference>order</assignToReference>
+            <name>order</name>
+        </outputParameters>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>60.0</apiVersion>
@@ -79,6 +85,23 @@
         </assignmentItems>
         <connector>
             <targetReference>dcIsNecessaryStepReExecution</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>asSetErrorMessage</name>
+        <label>Recuperar mensagem de erro</label>
+        <locationX>842</locationX>
+        <locationY>1982</locationY>
+        <assignmentItems>
+            <assignToReference>errorMessage</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Existe_hist_rico_de_execu_o_de_a_o</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -190,8 +213,8 @@
             <name>dcClienteTemPedidosVIVONextYes</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>ClienteTemPedidosVIVONext.orders</leftValueReference>
-                <operator>IsEmpty</operator>
+                <leftValueReference>order</leftValueReference>
+                <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
                 </rightValue>
@@ -327,12 +350,6 @@
             <label>Sim</label>
         </rules>
     </decisions>
-    <environments>Default</environments>
-    <formulas>
-        <name>billingStartdateMinus90Days</name>
-        <dataType>Date</dataType>
-        <expression>{!gtBuscaDisputedItem.BillingStartDate__c}-60</expression>
-    </formulas>
     <interviewLabel>Ação auto {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Ação Automática - Contestação - Houve alteração de plano no período contestado?</label>
     <processMetadataValues>
@@ -575,6 +592,18 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <name>error</name>
+            <value>
+                <elementReference>errorMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>hint</name>
+            <value>
+                <stringValue>A consulta é realizada no período de 90 dias a partir da data de fechamento do ciclo da fatura atual, considerando a alteração mais recente.</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <name>question</name>
             <value>
                 <elementReference>question</elementReference>
@@ -610,6 +639,9 @@
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>true</isOutput>
+        <value>
+            <stringValue>Não</stringValue>
+        </value>
     </variables>
     <variables>
         <name>caseId</name>
@@ -626,6 +658,13 @@
         <isOutput>false</isOutput>
     </variables>
     <variables>
+        <name>errorMessage</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
         <name>flowStepHistoryId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
@@ -633,10 +672,25 @@
         <isOutput>false</isOutput>
     </variables>
     <variables>
+        <name>hint</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>order</name>
+        <apexClass>Orders</apexClass>
+        <dataType>Apex</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
         <name>question</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
-        <isInput>false</isInput>
+        <isInput>true</isInput>
         <isOutput>false</isOutput>
         <value>
             <stringValue>Houve alteração de plano no período contestado?</stringValue>

@@ -67,7 +67,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>dcIsThereActionStepHistory2</targetReference>
+            <targetReference>grGetActionStepHistoryAfterPreview</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -83,7 +83,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>dcIsThereActionStepHistory2</targetReference>
+            <targetReference>grGetActionStepHistoryAfterPreview</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -221,7 +221,7 @@
         <name>dcIsThereActionStepHistory2</name>
         <label>Existe histórico de execução de ação?</label>
         <locationX>402</locationX>
-        <locationY>2174</locationY>
+        <locationY>2282</locationY>
         <defaultConnector>
             <targetReference>crCreateActionStepHistory</targetReference>
         </defaultConnector>
@@ -318,7 +318,7 @@
         <name>crCreateActionStepHistory</name>
         <label>Criar histórico de execução de ação</label>
         <locationX>534</locationX>
-        <locationY>2282</locationY>
+        <locationY>2390</locationY>
         <assignRecordIdToReference>actionStepHistoryId</assignRecordIdToReference>
         <inputAssignments>
             <field>Answer__c</field>
@@ -425,6 +425,36 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
+        <name>grGetActionStepHistoryAfterPreview</name>
+        <label>Buscar histórico de execução de ação depois de voltar</label>
+        <locationX>402</locationX>
+        <locationY>2174</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>dcIsThereActionStepHistory2</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>FlowExecutionStepHistory__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>flowStepHistoryId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>question</elementReference>
+            </value>
+        </filters>
+        <object>FlowExecutionActionHistory__c</object>
+        <outputAssignments>
+            <assignToReference>actionStepHistoryId</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
         <name>grGetStepHistoryByCaseId</name>
         <label>Buscar histórico de execução pelo caso</label>
         <locationX>534</locationX>
@@ -491,7 +521,7 @@
         <name>urUpdateActionStepHistory</name>
         <label>Atualizar histórico de execução de ação</label>
         <locationX>270</locationX>
-        <locationY>2282</locationY>
+        <locationY>2390</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -570,7 +600,7 @@
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
         </fields>
-        <nextOrFinishButtonLabel>Avançar</nextOrFinishButtonLabel>
+        <nextOrFinishButtonLabel>Próximo</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
     </screens>

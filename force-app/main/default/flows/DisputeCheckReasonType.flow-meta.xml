@@ -14,7 +14,7 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>itemFrontEndCode</assignToReference>
+            <assignToReference>itemChargeCategory</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Carregar_item_contstado.ChargeCategory__c</elementReference>
@@ -115,9 +115,9 @@
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>disputItemId</leftValueReference>
-                <operator>EqualTo</operator>
+                <operator>IsNull</operator>
                 <rightValue>
-                    <stringValue>$GlobalConstant.False</stringValue>
+                    <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -230,29 +230,42 @@
     <formulas>
         <name>formulaParaTipoItemContestado</name>
         <dataType>String</dataType>
-        <expression>IF ({!itemFrontEndCode} = &quot;Plano&quot;, &quot;PLANOS&quot;, 
-IF ({!itemFrontEndCode} = &quot;Doação&quot;, &quot;SVA AVULSO DOAÇÕES&quot;, 
-IF ({!itemFrontEndCode} = &quot;Ligacao&quot;, &quot;LIGAÇÕES&quot;, 
-IF ({!itemFrontEndCode} = &quot;Multa&quot;, &quot;MULTA&quot;, 
-IF ({!itemFrontEndCode} = &quot;Multivo (Linha dependente)&quot;, &quot;MULTA&quot;, 
-IF ({!itemFrontEndCode} = &quot;Pacote Adicional&quot;, &quot;PACOTE ADICIONAL&quot;, 
-IF ({!itemFrontEndCode} = &quot;Des&quot;, &quot;DESCONTO&quot;, 
-IF ({!itemFrontEndCode} = &quot;Seguros&quot;, &quot;SEGURO&quot;, 
-IF ({!itemFrontEndCode} = &quot;SVA&quot;, &quot;SVA AVULSO DOAÇÕES&quot;, 
-IF ({!itemFrontEndCode} = &quot;Travel&quot;, &quot;TRAVEL&quot;, 
-IF ({!itemFrontEndCode} = &quot;TV&quot;, &quot;TV&quot;, 
-IF ({!itemFrontEndCode} = &quot;Home assist&quot;, &quot;HOME ASSIST&quot;, 
-IF ({!itemFrontEndCode} = &quot;Bundle&quot;, &quot;BUNDLE&quot;, &quot;OUTROS&quot;
-)))))))))))))</expression>
+        <expression>IF ({!itemChargeCategory} = &quot;Plano&quot;, &quot;PLANOS&quot;,
+IF ({!itemChargeCategory} = &quot;Planos Serviços Eventuais&quot;, &quot;PLANOS&quot;,
+IF ({!itemChargeCategory} = &quot;Ligacao&quot;, &quot;LIGAÇÕES&quot;,
+IF ({!itemChargeCategory} = &quot;Cobilling&quot;, &quot;LIGAÇÕES&quot;,
+IF ({!itemChargeCategory} = &quot;COBILLING&quot;, &quot;LIGAÇÕES&quot;,
+IF ({!itemChargeCategory} = &quot;Ligacao Serviços Eventuais&quot;, &quot;LIGAÇÕES&quot;,
+IF ({!itemChargeCategory} = &quot;Multa&quot;, &quot;MULTA&quot;,
+IF ({!itemChargeCategory} = &quot;Multa Serviços Eventuais&quot;, &quot;MULTA&quot;,
+IF ({!itemChargeCategory} = &quot;Multi Vivo&quot;, &quot;MULTIVIVO&quot;,
+IF ({!itemChargeCategory} = &quot;Multi Vivo Serviços Eventuais&quot;, &quot;MULTIVIVO&quot;,
+IF ({!itemChargeCategory} = &quot;Pacote Adicional&quot;, &quot;PACOTE ADICIONAL&quot;,
+IF ({!itemChargeCategory} = &quot;Pacote Adicional Serviços Eventuais&quot;, &quot;PACOTE ADICIONAL&quot;,
+IF ({!itemChargeCategory} = &quot;Des&quot;, &quot;DESCONTO&quot;,
+IF ({!itemChargeCategory} = &quot;Des Serviços Eventuais&quot;, &quot;DESCONTO&quot;,
+IF ({!itemChargeCategory} = &quot;Seguro&quot;, &quot;SEGURO&quot;,
+IF ({!itemChargeCategory} = &quot;Seguro Serviços Eventuais&quot;, &quot;SEGURO&quot;,
+IF ({!itemChargeCategory} = &quot;SVA Avulso Doações&quot;, &quot;SVA AVULSO DOAÇÕES&quot;,
+IF ({!itemChargeCategory} = &quot;SVA Avulso Doações Serviços Eventuais&quot;, &quot;SVA AVULSO DOAÇÕES&quot;,
+IF ({!itemChargeCategory} = &quot;VAS&quot;, &quot;SVA AVULSO DOAÇÕES&quot;,
+IF ({!itemChargeCategory} = &quot;Travel&quot;, &quot;TRAVEL&quot;,
+IF ({!itemChargeCategory} = &quot;Travel Serviços Eventuais&quot;, &quot;TRAVEL&quot;,
+IF ({!itemChargeCategory} = &quot;Tv&quot;, &quot;TV&quot;,
+IF ({!itemChargeCategory} = &quot;Tv Serviços Eventuais&quot;, &quot;TV&quot;,
+IF ({!itemChargeCategory} = &quot;Home assist&quot;, &quot;HOME ASSIST&quot;,
+IF ({!itemChargeCategory} = &quot;Bundle&quot;, &quot;BUNDLE&quot;,
+IF ({!itemChargeCategory} = &quot;Outros Serviços Eventuais&quot;, &quot;OUTROS&quot;, &quot;OUTROS&quot;
+))))))))))))))))))))))))))</expression>
     </formulas>
     <formulas>
         <name>formulaParaTipoItemFixaOuMovel</name>
         <dataType>String</dataType>
-        <expression>IF ({!tipoItemFixaOuMovel} = &quot;VOIP&quot;, &quot;FIXA&quot;, 
-	IF ({!tipoItemFixaOuMovel} = &quot;GPON&quot;, &quot;FIXA&quot;, 
-		IF ({!tipoItemFixaOuMovel} = &quot;IPTV&quot;, &quot;FIXA&quot;, &quot;MÓVEL&quot;)
-	)
-)</expression>
+        <expression>IF({!formulaParaTipoItemContestado} = &quot;SVA AVULSO DOAÇÕES&quot; || {!formulaParaTipoItemContestado} = &quot;LIGAÇÕES&quot; , &quot;FIXA E MÓVEL&quot;,
+	IF ({!tipoItemFixaOuMovel} = &quot;VOIP&quot;, &quot;FIXA&quot;, 
+		IF ({!tipoItemFixaOuMovel} = &quot;GPON&quot;, &quot;FIXA&quot;, 
+			IF ({!tipoItemFixaOuMovel} = &quot;IPTV&quot;, &quot;FIXA&quot;, &quot;MÓVEL&quot;)
+)))</expression>
     </formulas>
     <formulas>
         <name>formulaResposta</name>
@@ -501,6 +514,12 @@ IF ({!itemFrontEndCode} = &quot;Bundle&quot;, &quot;BUNDLE&quot;, &quot;OUTROS&q
             </value>
         </inputAssignments>
         <inputAssignments>
+            <name>hint</name>
+            <value>
+                <stringValue>Ação que valida o item da fatura selecionado pelo representante.</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <name>question</name>
             <value>
                 <elementReference>question</elementReference>
@@ -560,7 +579,7 @@ IF ({!itemFrontEndCode} = &quot;Bundle&quot;, &quot;BUNDLE&quot;, &quot;OUTROS&q
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <name>itemFrontEndCode</name>
+        <name>itemChargeCategory</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -570,8 +589,11 @@ IF ({!itemFrontEndCode} = &quot;Bundle&quot;, &quot;BUNDLE&quot;, &quot;OUTROS&q
         <name>question</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
-        <isInput>true</isInput>
+        <isInput>false</isInput>
         <isOutput>false</isOutput>
+        <value>
+            <stringValue>Quais os motivos da contestação?</stringValue>
+        </value>
     </variables>
     <variables>
         <name>respostaFinal</name>

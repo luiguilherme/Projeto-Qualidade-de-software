@@ -87,13 +87,6 @@
                 <leftValueReference>answearB2CSMNPUBLOQ001</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Suspender perdidos e roubados</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>answearB2CSMNPUBLOQ001</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
                     <stringValue>Suspensão por limite de crédito</stringValue>
                 </rightValue>
             </conditions>
@@ -107,7 +100,7 @@
             <connector>
                 <targetReference>sfB2C_SM_NPU_BLOQ_008</targetReference>
             </connector>
-            <label>Bloqueio por Suspensão de Retenção / Suspensão por limite de crédito / Suspender perdidos e roubados</label>
+            <label>Bloqueio por Suspensão de Retenção / Suspensão por limite de crédito</label>
         </rules>
     </decisions>
     <decisions>
@@ -216,7 +209,7 @@
         <locationX>710</locationX>
         <locationY>566</locationY>
         <defaultConnector>
-            <targetReference>grATC_FX_FIN_CONT_AJ_BLOQ_005</targetReference>
+            <targetReference>grATC_FX_FIN_CONT_NEG_BLOQ_002</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Não</defaultConnectorLabel>
         <rules>
@@ -343,34 +336,6 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <name>grATC_FX_FIN_CONT_AJ_BLOQ_005</name>
-        <label>Carregar ATC-FX-FIN-CONT-AJ-BLOQ-005</label>
-        <locationX>842</locationX>
-        <locationY>674</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Contesta_o_Atendimento_Geral_Atualizar_Item_Contestado_Flow_3</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>StepCode__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>ATC-FX-FIN-CONT-AJ-BLOQ-005</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>IsActive__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>ServiceDefinition__c</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
         <name>grATC_FX_FIN_CONT_NEG_BLOQ_001</name>
         <label>Carregar  ATC-FX-FIN-CONT-NEG-BLOQ-001</label>
         <locationX>314</locationX>
@@ -385,6 +350,34 @@
             <operator>EqualTo</operator>
             <value>
                 <stringValue>ATC-FX-FIN-CONT-NEG-BLOQ-001</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>IsActive__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>ServiceDefinition__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>grATC_FX_FIN_CONT_NEG_BLOQ_002</name>
+        <label>Carregar ATC-FX-FIN-CONT-NEG-BLOQ-002</label>
+        <locationX>842</locationX>
+        <locationY>674</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Contesta_o_Atendimento_Geral_Atualizar_Item_Contestado_Flow_3</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>StepCode__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>ATC-FX-FIN-CONT-NEG-BLOQ-002</stringValue>
             </value>
         </filters>
         <filters>
@@ -564,7 +557,7 @@
         <inputAssignments>
             <name>serviceDefinition</name>
             <value>
-                <elementReference>grATC_FX_FIN_CONT_AJ_BLOQ_005</elementReference>
+                <elementReference>grATC_FX_FIN_CONT_NEG_BLOQ_002</elementReference>
             </value>
         </inputAssignments>
     </subflows>
@@ -681,6 +674,36 @@
                 <elementReference>grGetDusputedItens.Id</elementReference>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <name>sdCodeForCallTransfer</name>
+            <value>
+                <stringValue>ATC-FX-FIN-CONT-TRANSF-PLA-BLOQ-002</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>sdCodeForConcession</name>
+            <value>
+                <stringValue>ATC-FX-FIN-CONT-AC-BLOQ-002</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>sdCodeForCustomerSegment</name>
+            <value>
+                <stringValue>ATC-FX-FIN-CONT-NEG-PLA-BLOQ-004</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>sdCodeForDeniedRetention</name>
+            <value>
+                <stringValue>ATC-FX-FIN-CONT-NEG-RET-PLA-BLOQ-002</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>sdCodeForReincidentCon</name>
+            <value>
+                <stringValue>ATC-FX-FIN-CONT-NEG-REINC-PLA-BLOQ-002</stringValue>
+            </value>
+        </inputAssignments>
     </subflows>
     <subflows>
         <name>Contesta_o_Fixa_Convergente_Concess_o_Flow_2</name>
@@ -698,6 +721,36 @@
             <name>disputedItemId</name>
             <value>
                 <elementReference>grGetDusputedItens.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>sdCodeForCallTransfer</name>
+            <value>
+                <stringValue>ATC-FX-FIN-CONT-TRANSF-PLA-BLOQ-001</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>sdCodeForConcession</name>
+            <value>
+                <stringValue>ATC-FX-FIN-CONT-AC-PLA-BLOQ-001</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>sdCodeForCustomerSegment</name>
+            <value>
+                <stringValue>ATC-FX-FIN-CONT-NEG-PLA-BLOQ-004</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>sdCodeForDeniedRetention</name>
+            <value>
+                <stringValue>ATC-FX-FIN-CONT-NEG-RET-PLA-BLOQ-001</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>sdCodeForReincidentCon</name>
+            <value>
+                <stringValue>ATC-FX-FIN-CONT-NEG-REINC-PLA-BLOQ-001</stringValue>
             </value>
         </inputAssignments>
     </subflows>
@@ -801,7 +854,7 @@
         <inputAssignments>
             <name>question</name>
             <value>
-                <stringValue>Existe cobrança em período de bloqueio?</stringValue>
+                <stringValue>Houve cobrança em período de bloqueio?</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -877,19 +930,19 @@
         <inputAssignments>
             <name>question</name>
             <value>
-                <stringValue>Houve cobrança em período de bloqueio?</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>step</name>
-            <value>
-                <stringValue>B2C-SM-NPU-BLOQ-012</stringValue>
+                <stringValue>Cliente estava com bloqueio TOTAL em algum produto durante o período contestado?</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
             <name>selectedOrder</name>
             <value>
                 <elementReference>orderResponse</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>step</name>
+            <value>
+                <stringValue>B2C-SM-NPU-BLOQ-012</stringValue>
             </value>
         </inputAssignments>
         <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -956,7 +1009,7 @@
         <inputAssignments>
             <name>hint</name>
             <value>
-                <stringValue>Ação que valida se existe Bloqueio de Fraude, Suspensão à pedido/Temporária, relativo à régua de cobrança, Suspensão de Retenção, Suspensão por limite de crédito, Suspender perdidos e roubados que impactou o uso do serviço durante o ciclo de faturamento.</stringValue>
+                <stringValue>Ação que valida se existe Bloqueio de Fraude, Suspensão à pedido/Temporária, relativo à régua de cobrança, Suspensão de Retenção, Suspensão por limite de crédito, que impactou o uso do serviço durante o ciclo de faturamento.</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
