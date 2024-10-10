@@ -131,4 +131,8 @@ public with sharing class CasesMyRequestsB2CService
     public static void putTheCaseInTheRouting(Case caseObj, String  queueId) {
         caseObj.Status = 'Em fila';
     }
+
+    public static Boolean theCaseHasAlreadyBeenHandledByAnAgent(CaseDetail__c caseDetailRec) {
+        return caseDetailRec?.LastSourceSystemAgent__c != null;
+    }
 }

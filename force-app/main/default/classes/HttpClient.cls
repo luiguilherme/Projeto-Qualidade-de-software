@@ -74,83 +74,110 @@ public class HttpClient {
             request = requestConfigurator.configure(request, wsConfig);
         }
 
-        ServiceTransaction serviceTransaction = instantiateServiceTransaction(request, wsConfig, wsConfig.Endpoint__c, method, customerInteractionId);
+        ServiceTransaction serviceTransaction;
+        if(wsConfig.LogServiceTransaction__c) {
+            serviceTransaction = instantiateServiceTransaction(request, wsConfig, wsConfig.Endpoint__c, method, customerInteractionId);
+        }
 
         HttpResponse response = new HttpResponse();
         response = http.send(request);
-        
-        serviceTransaction.setResponse(response.getBody());
-        serviceTransaction.setStatusCode(String.valueOf(response.getStatusCode()));  
+
+        if(wsConfig.LogServiceTransaction__c) {
+            serviceTransaction.setResponse(response.getBody());
+            serviceTransaction.setStatusCode(String.valueOf(response.getStatusCode()));  
+        }
 
         if (response.getStatusCode()/100 == 2) {
             String result = response.getBody();
-			serviceTransaction.complete();
+            if(wsConfig.LogServiceTransaction__c) {
+                serviceTransaction.complete();
+            }
 
         } else {
-            serviceTransaction.setResponse(response.toString());
-            serviceTransaction.fail();
+            if(wsConfig.LogServiceTransaction__c) {
+                serviceTransaction.setResponse(response.toString());
+                serviceTransaction.fail();
+            }
         }
 
         if(wsConfig.CommitTransactionsList__c){
-            serviceTransaction.addToList();
+            if(wsConfig.LogServiceTransaction__c) {
+                serviceTransaction.addToList();
+            }
         } else {
-            serviceTransaction.commitSync();
+            if(wsConfig.LogServiceTransaction__c) {
+                if(wsConfig.AsyncLogServiceTransaction__c) {
+                    serviceTransaction.commitAsync();
+                } else {
+                    serviceTransaction.commitSync();
+                }
+            }
         }
 
         return response;
     }
 
     private HttpResponse callout(WebService__c wsConfig, String payload, String method, String endpoint, Id customerInteractionId) {
-
         Http http = new Http();
         HttpRequest request = new HttpRequest();
-
+    
         request.setEndpoint(endpoint);
         request.setMethod(method);
-
+    
         if (wsConfig.Timeout__c != null) {
             request.setTimeout(Integer.valueOf(wsConfig.Timeout__c));
         }
-
+    
         IHttpRequestConfigurator requestConfigurator;
-
+    
         try {
             requestConfigurator = RequestConfiguratorFactory.getConfigurator(wsConfig);
-        
             request = requestConfigurator.configure(request, wsConfig);
-
         } catch (Exception e) {
             registerHttpClientError(e, wsConfig, endpoint, method, request);
-
             throw new AuraHandledException(e.getMessage());
         }
 
         setRequestHeaders(wsConfig, request);
 
-        ServiceTransaction serviceTransaction = instantiateServiceTransaction(request, wsConfig, endpoint, method, customerInteractionId);
-
+        ServiceTransaction serviceTransaction;
+        if(wsConfig.LogServiceTransaction__c) {
+            serviceTransaction = instantiateServiceTransaction(request, wsConfig, endpoint, method, customerInteractionId);
+        }
+    
         HttpResponse response = new HttpResponse();
-
         response = http.send(request);
-        
-        serviceTransaction.setResponse(response.getBody());
-        serviceTransaction.setStatusCode(String.valueOf(response.getStatusCode()));  
-
+            
+        if(wsConfig.LogServiceTransaction__c) {
+            serviceTransaction.setResponse(response.getBody());
+            serviceTransaction.setStatusCode(String.valueOf(response.getStatusCode()));
+        }
+    
         if ((response.getStatusCode() / 100) == 2) {
-            serviceTransaction.complete();
-
+            if(wsConfig.LogServiceTransaction__c) {
+                serviceTransaction.complete();
+            }
         } else {
-            serviceTransaction.fail();
+            if(wsConfig.LogServiceTransaction__c) {
+                serviceTransaction.fail();
+            }
         }
-
+    
         if (wsConfig.CommitTransactionsList__c) {
-            serviceTransaction.addToList();
-       
+            if(wsConfig.LogServiceTransaction__c) {
+                serviceTransaction.addToList();
+            }
         } else {
-            serviceTransaction.commitSync();
+            if(wsConfig.LogServiceTransaction__c) {
+                if(wsConfig.AsyncLogServiceTransaction__c) {
+                    serviceTransaction.commitAsync();
+                } else {
+                    serviceTransaction.commitSync();
+                }
+            }
         }
-
-        return (response);
+    
+        return response;
     }
 
     public static void setRequestHeaders(Webservice__c wsConfig, HttpRequest request) {
@@ -202,7 +229,11 @@ public class HttpClient {
             serviceTransaction.addToList();
 
         } else {
-            serviceTransaction.commitSync();
+            if(wsConfig.AsyncLogServiceTransaction__c) {
+                serviceTransaction.commitAsync();
+            } else {
+                serviceTransaction.commitSync();
+            }
         }
     }
 }

@@ -130,7 +130,7 @@ public with sharing class CaseManagementTest {
         req.addParameter('filterStatus', filterStatusValues);
         req.addParameter('orderStatus','Em andamento,Expirada,Concluída');     
         req.addParameter('initCreatedDate', '2024-01-01T00:00:00.000-00:00');
-        req.addParameter('finalCreatedDate','2024-10-08T00:00:00.000-00:00');
+        req.addParameter('finalCreatedDate','4024-10-08T00:00:00.000-00:00');
         RestContext.request = req;
         RestContext.response = res;
 

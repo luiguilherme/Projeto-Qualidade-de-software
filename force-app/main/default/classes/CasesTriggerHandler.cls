@@ -25,6 +25,7 @@ public with sharing class CasesTriggerHandler
         }
     }
 
+
     private void splitOldCases()
     {        
         for (Case oldCase: this.oldCases.values())
@@ -44,6 +45,7 @@ public with sharing class CasesTriggerHandler
 
     public void isAfterInsert()
     {
+        NotificadorMinhasSolicitacoes.handleNotifications(newCases, null);
         this.casesMyRequestsB2C.sendNotificationForCreatedCases();
         this.casesMyRequestsB2C.processFieldsAfterInsert();
     }
@@ -55,6 +57,7 @@ public with sharing class CasesTriggerHandler
 
     public void isAfterUpdate()
     {
+        NotificadorMinhasSolicitacoes.handleNotifications(newCases, oldCases);
         this.casesMyRequestsB2C.sendNotificationForCasesWithUpdatedStatus();
         this.casesMyRequestsB2C.requestAllocationOfAttendantsForCasesWithUpdatedStatus();
     }

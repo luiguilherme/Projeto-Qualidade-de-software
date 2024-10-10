@@ -294,13 +294,27 @@ public with sharing class CasesMyRequestsB2C
 		Map<Id, Case> cases = new Map<Id, Case>(CaseDAO.get(caseIds));
         Map<Id, Account> accounts = new Map<Id, Account>(AccountDAO.getByIds(accountIds));
         Map<Id, Asset> assets = new Map<Id, Asset>(AssetDAO.getBy(assetIds));
+        
+        Map<Id, CaseDetail__c> caseDetails = new Map<Id, CaseDetail__c>();
+        for (CaseDetail__c caseDetailRec: CaseDetailsDAO.getByCaseIds(caseIds)) {
+            caseDetails.put(caseDetailRec.Case__c, caseDetailRec);
+        }
 
         for (Case caseRec : cases.values()) {
             Account accountRec = accounts.get(caseRec.AccountId);
             Asset assetRec = assets.get(caseRec.ComplainedAsset__c);
+            CaseDetail__c caseDetailRec = caseDetails.get(caseRec.Id);
                 
             if (hasDependencies(caseRec, accountRec, assetRec)) {
-                OpenMediaInteractionPayload payload = ContactCenterService.buildOpenMediaInteractionPayLoad(caseRec, accountRec, assetRec);
+                // Defines routing parameters
+                String action = CasesMyRequestsB2CService.theCaseHasAlreadyBeenHandledByAnAgent(caseDetailRec) 
+                    ? ContactCenterService.ACTION_AGENT_QUEUE : '';
+                String agentLogin = CasesMyRequestsB2CService.theCaseHasAlreadyBeenHandledByAnAgent(caseDetailRec) 
+                    ? caseDetailRec.LastSourceSystemAgent__r.Login__c : '';
+            
+                OpenMediaInteractionPayload payload;
+                payload = ContactCenterService.buildOpenMediaInteractionPayLoad(caseRec, accountRec, assetRec);
+                ContactCenterService.populateRountingFields(payload, agentLogin, action);
                 ContactCenterService.validadePayload(payload);
                 String payloadSerialized = JSON.serialize(payload);
                 System.debug(LoggingLevel.INFO, payloadSerialized);

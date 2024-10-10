@@ -503,6 +503,13 @@ public with sharing class CasesMyRequestsB2CTest
 
     @isTest
     public static void processFieldsTest() {
+        List<CanalNotificacoesMinhasSolicitacoes__mdt> canais = new List<CanalNotificacoesMinhasSolicitacoes__mdt>();
+        CanalNotificacoesMinhasSolicitacoes canalSelecionado = (CanalNotificacoesMinhasSolicitacoes) Test.createStub(
+            CanalNotificacoesMinhasSolicitacoes.class,
+            new CanalNotificacoesMinhasSolicitacoesStub(canais)
+        );
+        NotificadorMinhasSolicitacoes.canalSelector = canalSelecionado;
+        
 		Test.startTest();
         
         String waitingforRoutingQueueId = CasesMyRequestsB2CService.getWaitingForRoutingQueueId();

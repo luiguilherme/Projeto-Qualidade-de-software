@@ -17,10 +17,10 @@
             "UserLicenseName": "%Channel|1:Profile:UserLicense:Name%",
             "WaitingApproval": "=IF(%OrderInApproval:ApproverUserId% == NULL, IF(%IsApproved%==true,true,false), true)",
             "channel": "=%Channel|1:ChannelName__c%",
-            "firstMessage": "=IF(DATEDIFF(%birthDate%,  TODAY() ,\"d\") >=  6574, NULL, %messageMinorAge%)",
+            "firstMessage": "=IF(%bureauStatus% <> 12, NULL, %messageMinorAge%)",
             "fourthMessage": "=IF(%totalLimit% == 0, NULL ,%messageTotalLimit%)",
-            "legalAge": "=IF(DATEDIFF(%birthDate%,  TODAY() ,\"d\") >=  6574, true, false)",
-            "secondMessage": "=IF(%NameUpper% == %bureauName%, NULL ,%messageNameWithDifference%)",
+            "legalAge": "=IF(%bureauStatus% <> 12, true, false)",
+            "secondMessage": "=IF(OR(%NameUpper% == %bureauName%, %bureauStatus% == 12), NULL ,%messageNameWithDifference%)",
             "thirdMessage": "=IF(%limitQtyMonth% == 0, NULL ,%messageLimitQtyMonth%)",
             "validName": "=IF(%NameUpper% == %bureauName%, true ,false)"
         },

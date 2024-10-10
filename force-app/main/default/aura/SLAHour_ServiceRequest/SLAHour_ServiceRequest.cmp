@@ -1,0 +1,107 @@
+<aura:component implements="force:hasRecordId,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes"
+                access="global" controller="SlaHourController">
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="simpleRecord" type="Object" />
+    <aura:attribute name="recordLoadError" type="String" />
+    <aura:attribute name="tempoRestante" type="String" />
+    <aura:attribute name="tempoDecorrido" type="String" />
+    <aura:attribute name="stopInterval" type="Boolean" />
+    <aura:attribute name="iConName" type="String" />
+    <aura:attribute name="title" type="String" />
+    <aura:attribute name="titleSlaRestante" type="String" />
+    <aura:attribute name="workflowPreSales" type="Boolean" default="false" />
+    <aura:attribute name="hideValues" type="Boolean" default="false" />
+    <aura:attribute name="diffUtilDays" type="Boolean" />
+
+    <force:recordData aura:id="recordLoader" recordId="{!v.recordId}"
+                      fields="DueDate__c,OpeningDateTime__c,ClosingDateTime__c,isPausedTime__c"
+                      targetFields="{!v.simpleRecord}" targetError="{!v.recordLoadError}" />
+    <aura:handler name="change" value="{!v.simpleRecord}" action="{!c.calculateSLA}" />
+
+    <lightning:card iconName="{!v.iConName}" title="{!v.title}">
+
+        <div class="slds-grid slds-wrap" style="padding: 10px;">
+            <aura:if isTrue="{! v.workflowPreSales }">
+                <div class="slds-col slds-size_1-of-2" style="padding: 5px;">
+                    <lightning:tile label="Data Alvo" class="slds-page-header slds-text-body_regular">
+                        <lightning:formattedDateTime class="slds-text-body_regular" value="{!v.simpleRecord.DueDate__c}"
+                                                     year="numeric" month="numeric" day="numeric" hour="2-digit"
+                                                     minute="2-digit" />
+                    </lightning:tile>
+                </div>
+                <div class="slds-col slds-size_1-of-2" style="padding: 5px;">
+                    <lightning:tile label="Dias Úteis Restantes" class="slds-page-header slds-text-body_regular">
+                        <div class="slds-text-body_regular">{!v.diffUtilDays}</div>
+                        <!-- <lightning:formattedDateTime class="slds-text-body_regular" value="{!v.diffUtilDays}"
+                                                     year="numeric" month="numeric" day="numeric" hour="2-digit"
+                                                     minute="2-digit" /> -->
+                    </lightning:tile>
+                </div>
+
+                <aura:set attribute="else">
+                    <div class="slds-col slds-size_2-of-2" style="padding: 5px;">
+                        <lightning:tile label="Data Alvo" class="slds-page-header slds-text-body_regular">
+                            <lightning:formattedDateTime class="slds-text-body_regular"
+                                                         value="{!v.simpleRecord.DueDate__c}" year="numeric"
+                                                         month="numeric" day="numeric" hour="2-digit"
+                                                         minute="2-digit" />
+                        </lightning:tile>
+                    </div>
+                </aura:set>
+            </aura:if>
+
+            <div class="slds-col slds-size_1-of-2" style="padding: 5px;">
+                <lightning:tile label="Data de Início" class="slds-page-header slds-text-body_regular">
+                    <lightning:formattedDateTime class="slds-text-body_regular"
+                                                 value="{!v.simpleRecord.OpeningDateTime__c}" year="numeric"
+                                                 month="numeric" day="numeric" hour="2-digit" minute="2-digit" />
+                </lightning:tile>
+            </div>
+            <div class="slds-col slds-size_1-of-2" style="padding: 5px;">
+                <lightning:tile label="Data de Termino" class="slds-page-header slds-text-body_regular">
+                    <lightning:formattedDateTime class="slds-text-body_regular"
+                                                 value="{!v.simpleRecord.ClosingDateTime__c}" year="numeric"
+                                                 month="numeric" day="numeric" hour="2-digit" minute="2-digit" />
+                </lightning:tile>
+            </div>
+
+            <aura:if isTrue="{! !v.simpleRecord.isPausedTime__c }">
+
+                <aura:if isTrue="{! v.hideValues }">
+                    <div class="slds-col slds-size_2-of-2" style="padding: 5px;">
+                        <lightning:tile label="Tempo Decorrido" class="slds-page-header slds-text-body_regular">
+                            <div class="slds-text-body_regular">Não Iniciado</div>
+                        </lightning:tile>
+                    </div>
+                    <aura:set attribute="else">
+                        <div class="slds-col slds-size_1-of-2" style="padding: 5px;">
+                            <lightning:tile label="Tempo Decorrido" class="slds-page-header slds-text-body_regular">
+                                <div class="slds-text-body_regular">{!v.tempoDecorrido}</div>
+                            </lightning:tile>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-2" style="padding: 5px;">
+                            <lightning:tile label="{!v.titleSlaRestante}"
+                                            class="slds-page-header slds-text-body_regular">
+                                <div class="slds-text-body_regular">{!v.tempoRestante}</div>
+                            </lightning:tile>
+                        </div>
+
+                    </aura:set>
+
+                </aura:if>
+
+                <aura:set attribute="else">
+
+                    <div class="slds-col slds-size_2-of-2" style="padding: 5px;">
+                        <lightning:tile label="Tempo Decorrido" class="slds-page-header slds-text-body_regular">
+                            <div class="slds-text-body_regular">Pausado</div>
+                        </lightning:tile>
+                    </div>
+                </aura:set>
+            </aura:if>
+
+        </div>
+    </lightning:card>
+
+</aura:component>
