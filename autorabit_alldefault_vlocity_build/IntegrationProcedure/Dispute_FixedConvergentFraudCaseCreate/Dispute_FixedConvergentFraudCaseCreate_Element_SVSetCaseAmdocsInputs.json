@@ -1,0 +1,41 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "DisputeFixedConvergentFraudCaseCreate",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/Dispute/FixedConvergentFraudCaseCreate/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "accountDocumentNumber": "%DMGetCaseAccountDetails:account:documentNumber%",
+            "accountExternalId": "%DMGetCaseAccountDetails:account:externalId%",
+            "accountHref": "%DMGetCaseAccountDetails:invoice:accountHref%",
+            "accountId": "=IF(ISBLANK(%accountId%), %DMGetCaseAccountDetails:case:accountId%, %accountId%)",
+            "caseId": "%caseId%",
+            "customerAccountId": "%DMGetCaseAccountDetails:account:customerAccountId%",
+            "customerInteractionId": "%DMGetCaseAccountDetails:case:customerInteractionId%",
+            "customerInteractionTopicTreeId": "%DMGetCaseAccountDetails:case:customerInteractionTopicTreeId%",
+            "instanceProduct": "%RAValidateInstanceProduct:instanceProduct%",
+            "notes": "%notes%",
+            "protocolNumber": "%DMGetCaseAccountDetails:case:protocolNumber%",
+            "serviceIdentifier": "%DMGetCaseAccountDetails:case:serviceIdentifier%"
+        },
+        "executionConditionalFormula": "",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues1",
+        "responseJSONNode": "caseAmdocs",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVSetCaseAmdocsInputs",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Dispute/FixedConvergentFraudCaseCreate/Procedure/SVSetCaseAmdocsInputs"
+}
