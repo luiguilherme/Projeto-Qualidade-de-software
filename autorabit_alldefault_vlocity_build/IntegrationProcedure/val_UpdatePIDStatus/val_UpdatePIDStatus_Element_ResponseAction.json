@@ -8,7 +8,7 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "returnMessage": "=IF(%IPCreateRemoteCustomer:success% == false, CONCAT(\"createRemoteCustomer: \",%IPCreateRemoteCustomer:errorMessage%), \"Atualização do status PID realizada com sucesso.\")"
+            "returnMessage": "=IF(%pidStatus% == \"Bloqueado\", CONCAT(\"PID Bloqueado.\", %pidStatus% == \"Liberado\"), \"Atualização do status PID realizada com sucesso.\")"
         },
         "disOnTplt": false,
         "executionConditionalFormula": "",
@@ -25,6 +25,8 @@
         "show": null,
         "useFormulas": true,
         "vlcResponseHeaders": {
+            "Content-Type": "application/json",
+            "StatusCode": 200
         }
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
