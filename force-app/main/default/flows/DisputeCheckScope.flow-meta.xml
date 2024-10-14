@@ -4,11 +4,11 @@
         <name>Funcion_rio_Tem_Escopo</name>
         <label>Funcionário Tem Escopo?</label>
         <locationX>402</locationX>
-        <locationY>1358</locationY>
+        <locationY>1550</locationY>
         <actionName>DisputeFixedFlowController</actionName>
         <actionType>apex</actionType>
         <connector>
-            <targetReference>crCreateActionStepHistory</targetReference>
+            <targetReference>dcIsThereActionStepHistory2</targetReference>
         </connector>
         <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
@@ -35,7 +35,7 @@
         <name>asSetActionAnswear</name>
         <label>Definir resposta da ação</label>
         <locationX>138</locationX>
-        <locationY>890</locationY>
+        <locationY>1082</locationY>
         <assignmentItems>
             <assignToReference>answear</assignToReference>
             <operator>Assign</operator>
@@ -48,7 +48,7 @@
         <name>asSetActionStepHistory</name>
         <label>Recuperar Id do histórico de execução de ação</label>
         <locationX>50</locationX>
-        <locationY>674</locationY>
+        <locationY>866</locationY>
         <assignmentItems>
             <assignToReference>actionStepHistoryId</assignToReference>
             <operator>Assign</operator>
@@ -61,26 +61,42 @@
         </connector>
     </assignments>
     <assignments>
-        <name>asSetFlowStepHistoryId</name>
+        <name>asSetFlowStepHistoryIdByCaseId</name>
         <label>Recuperar Id do histórico de execução</label>
-        <locationX>226</locationX>
+        <locationX>534</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>flowStepHistoryId</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>grGetStepHistory.Id</elementReference>
+                <elementReference>grGetStepHistoryByCaseId.Id</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>grGetActionStepHistory</targetReference>
+            <targetReference>decIsThereStepHistory</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>asSetFlowStepHistoryIdByDisputedItemIdAndCaseId</name>
+        <label>Recuperar Id do histórico de execução</label>
+        <locationX>270</locationX>
+        <locationY>350</locationY>
+        <assignmentItems>
+            <assignToReference>flowStepHistoryId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>grGetStepHistoryByDisputedItemIdAndCaseId.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>decIsThereStepHistory</targetReference>
         </connector>
     </assignments>
     <decisions>
         <name>dcIsNecessaryStepReExecution</name>
         <label>É necessário reexecutar esta etapa do fluxo?</label>
         <locationX>50</locationX>
-        <locationY>782</locationY>
+        <locationY>974</locationY>
         <defaultConnector>
             <targetReference>asSetActionAnswear</targetReference>
         </defaultConnector>
@@ -105,7 +121,7 @@
         <name>dcIsThereActionStepHistory</name>
         <label>Existe histórico de execução de ação</label>
         <locationX>226</locationX>
-        <locationY>566</locationY>
+        <locationY>758</locationY>
         <defaultConnector>
             <targetReference>Funcion_rio_Tem_Escopo</targetReference>
         </defaultConnector>
@@ -127,10 +143,60 @@
         </rules>
     </decisions>
     <decisions>
+        <name>dcIsThereActionStepHistory2</name>
+        <label>Existe histórico de execução de ação?</label>
+        <locationX>402</locationX>
+        <locationY>1658</locationY>
+        <defaultConnector>
+            <targetReference>crCreateActionStepHistory</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Não</defaultConnectorLabel>
+        <rules>
+            <name>dcIsThereActionStepHistory2Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>actionStepHistoryId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>urUpdateActionStepHistory</targetReference>
+            </connector>
+            <label>Sim</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>dcThereIsDisputedItem</name>
+        <label>Existe item a ser contestado?</label>
+        <locationX>402</locationX>
+        <locationY>134</locationY>
+        <defaultConnector>
+            <targetReference>grGetStepHistoryByCaseId</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Não</defaultConnectorLabel>
+        <rules>
+            <name>dcThereIsDisputedItemYes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>disputItemId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>grGetStepHistoryByDisputedItemIdAndCaseId</targetReference>
+            </connector>
+            <label>Sim</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>decIsThereStepHistory</name>
         <label>Existe histórico de execução</label>
         <locationX>402</locationX>
-        <locationY>242</locationY>
+        <locationY>542</locationY>
         <defaultConnector>
             <targetReference>crCreateStepHistory</targetReference>
         </defaultConnector>
@@ -139,14 +205,14 @@
             <name>decIsThereStepHistoryYes</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>grGetStepHistory</leftValueReference>
+                <leftValueReference>flowStepHistoryId</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>asSetFlowStepHistoryId</targetReference>
+                <targetReference>grGetActionStepHistory</targetReference>
             </connector>
             <label>Sim</label>
         </rules>
@@ -176,8 +242,8 @@
     <recordCreates>
         <name>crCreateActionStepHistory</name>
         <label>Criar histórico de execução de ação</label>
-        <locationX>402</locationX>
-        <locationY>1466</locationY>
+        <locationX>534</locationX>
+        <locationY>1766</locationY>
         <assignRecordIdToReference>actionStepHistoryId</assignRecordIdToReference>
         <connector>
             <targetReference>sfGenericAutomaticAction</targetReference>
@@ -212,7 +278,7 @@
         <name>crCreateStepHistory</name>
         <label>Criar histórico de execução</label>
         <locationX>578</locationX>
-        <locationY>350</locationY>
+        <locationY>650</locationY>
         <assignRecordIdToReference>flowStepHistoryId</assignRecordIdToReference>
         <connector>
             <targetReference>Funcion_rio_Tem_Escopo</targetReference>
@@ -235,7 +301,7 @@
         <name>grGetActionStepHistory</name>
         <label>Buscar histórico de execução de ação</label>
         <locationX>226</locationX>
-        <locationY>458</locationY>
+        <locationY>650</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>dcIsThereActionStepHistory</targetReference>
@@ -260,15 +326,15 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <name>grGetStepHistory</name>
-        <label>Buscar histórico de execução</label>
-        <locationX>402</locationX>
-        <locationY>134</locationY>
+        <name>grGetStepHistoryByCaseId</name>
+        <label>Buscar histórico de execução pelo caso</label>
+        <locationX>534</locationX>
+        <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>decIsThereStepHistory</targetReference>
+            <targetReference>asSetFlowStepHistoryIdByCaseId</targetReference>
         </connector>
-        <filterLogic>1 AND 2</filterLogic>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>CaseId__c</field>
             <operator>EqualTo</operator>
@@ -287,11 +353,70 @@
         <object>FlowExecutionStepHistory__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordLookups>
+        <name>grGetStepHistoryByDisputedItemIdAndCaseId</name>
+        <label>Buscar histórico de execução pelo item contestado e caso</label>
+        <locationX>270</locationX>
+        <locationY>242</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>asSetFlowStepHistoryIdByDisputedItemIdAndCaseId</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DisputedItem__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>disputItemId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>CaseId__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>caseId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>step</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>FlowExecutionStepHistory__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>urUpdateActionStepHistory</name>
+        <label>Atualizar histórico de execução de ação</label>
+        <locationX>270</locationX>
+        <locationY>1766</locationY>
+        <connector>
+            <targetReference>sfGenericAutomaticAction</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>actionStepHistoryId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Answer__c</field>
+            <value>
+                <elementReference>answear</elementReference>
+            </value>
+        </inputAssignments>
+        <object>FlowExecutionActionHistory__c</object>
+    </recordUpdates>
     <start>
         <locationX>276</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>grGetStepHistory</targetReference>
+            <targetReference>dcThereIsDisputedItem</targetReference>
         </connector>
     </start>
     <status>Active</status>
@@ -299,12 +424,18 @@
         <name>sfGenericAutomaticAction</name>
         <label>Ação automática</label>
         <locationX>402</locationX>
-        <locationY>1574</locationY>
+        <locationY>1958</locationY>
         <flowName>GenericAutomaticaAction</flowName>
         <inputAssignments>
             <name>answear</name>
             <value>
                 <elementReference>answear</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>hint</name>
+            <value>
+                <elementReference>hint</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -364,6 +495,16 @@
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>hint</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>Ação automática que valida se o representante pertence a um grupo de atendimento escopo E2E (V, ODC e Grupos Especiais).</stringValue>
+        </value>
     </variables>
     <variables>
         <name>question</name>

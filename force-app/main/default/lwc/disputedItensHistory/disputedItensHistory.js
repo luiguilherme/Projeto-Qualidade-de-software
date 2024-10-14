@@ -6,18 +6,14 @@ export default class DisputedItensHistory extends LightningElement {
     @api caseId;
     @track disputedItens = [];
     intervalId;
+    activeSections = ['A'];
 
     connectedCallback() {
         this.reloadDisputedItens();
-        this.intervalId = setInterval(() => { this.reloadDisputedItens(); }, 5000);    
     }
 
-    disconnectedCallback() {
-        clearInterval(this.intervalId);    
-    }
-
+    @api
     reloadDisputedItens() {  
-        console.log("Recarregando is itens contestados: " + this.caseId);
         if (this.caseId) {
             getByCaseId({ caseId: this.caseId })
             .then(result => {

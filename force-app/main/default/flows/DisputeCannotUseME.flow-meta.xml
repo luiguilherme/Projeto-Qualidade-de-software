@@ -105,7 +105,7 @@
             <name>dcME004Yes</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>ME004.answear</leftValueReference>
+                <leftValueReference>answearME004</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Sim</stringValue>
@@ -253,7 +253,7 @@
             <field>StepCode__c</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue> ATC-FX-FIN-CONT-AJ-ME-005</stringValue>
+                <stringValue>ATC-FX-FIN-CONT-AJ-ME-005</stringValue>
             </value>
         </filters>
         <filters>
@@ -519,7 +519,7 @@
             <targetReference>grGetDusputedItem</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>InvalidDraft</status>
     <subflows>
         <name>acME002</name>
         <label>ME002</label>
@@ -550,7 +550,7 @@
         <inputAssignments>
             <name>step</name>
             <value>
-                <stringValue> ME002</stringValue>
+                <stringValue>ME002</stringValue>
             </value>
         </inputAssignments>
         <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -579,7 +579,7 @@
         <inputAssignments>
             <name>step</name>
             <value>
-                <stringValue> ME001</stringValue>
+                <stringValue>ME001</stringValue>
             </value>
         </inputAssignments>
         <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -614,7 +614,7 @@
         <inputAssignments>
             <name>workOrder</name>
             <value>
-                <elementReference>ME008.workOrder</elementReference>
+                <elementReference>workOrder</elementReference>
             </value>
         </inputAssignments>
         <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -641,18 +641,25 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <name>order</name>
+            <value>
+                <elementReference>order</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <name>step</name>
             <value>
                 <stringValue>ME004</stringValue>
             </value>
         </inputAssignments>
-        <inputAssignments>
+        <outputAssignments>
+            <assignToReference>answearME004</assignToReference>
+            <name>answear</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>workOrder</assignToReference>
             <name>workOrder</name>
-            <value>
-                <elementReference>ME008.workOrder</elementReference>
-            </value>
-        </inputAssignments>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
+        </outputAssignments>
     </subflows>
     <subflows>
         <name>ME005</name>
@@ -766,7 +773,7 @@
         <inputAssignments>
             <name>step</name>
             <value>
-                <stringValue> ME008</stringValue>
+                <stringValue>ME008</stringValue>
             </value>
         </inputAssignments>
         <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -779,7 +786,7 @@
         <connector>
             <targetReference>dcME009</targetReference>
         </connector>
-        <flowName>DisputeCheckAddressChangeOrderHasCompletedLate</flowName>
+        <flowName>DisputeCheckAddressChangeOrderHasCancelledWhenLate</flowName>
         <inputAssignments>
             <name>caseId</name>
             <value>
@@ -978,6 +985,13 @@
         </inputAssignments>
     </subflows>
     <variables>
+        <name>answearME004</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
         <name>answearME005</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
@@ -1008,6 +1022,14 @@
     <variables>
         <name>order</name>
         <apexClass>Orders</apexClass>
+        <dataType>Apex</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>workOrder</name>
+        <apexClass>WorkOrderObject</apexClass>
         <dataType>Apex</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>

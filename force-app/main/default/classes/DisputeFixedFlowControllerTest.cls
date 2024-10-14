@@ -107,7 +107,7 @@ public class DisputeFixedFlowControllerTest {
             Map<String,String> result =  DisputeFixedFlowController.getCustomerInteractions(nuCase.Id);
         Test.stopTest();
 
-        System.assertEquals('testeNumber', result.get('protocolo'));
+        System.assertEquals(nuCI.Id, result.get('interactionId'));
     }
 
 }

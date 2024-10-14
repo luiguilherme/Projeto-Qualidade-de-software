@@ -23,6 +23,6 @@ public with sharing class OrderItemDetails {
     public String implActionTypeX9;
     @AuraEnabled
     @InvocableVariable
-    public List<OrderItemDetails> children; //_children
+    public List<OrderItemDetails> children;
 
 }

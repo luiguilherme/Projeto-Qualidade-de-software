@@ -26,23 +26,20 @@ public without sharing class BlockagesOrdersController{
         List<Orders> orders = new List<Orders>();
         List<List<Orders>> finalOrders = new List<List<Orders>>(); 
 
-
         for (RetrieveOrdersListResponse.Orders order : filteredOrders) {
             List<OrderItemList> orderItems = new  List<OrderItemList>();
 
             for (RetrieveOrdersListResponse.OrderItems item : order.orderItems) {
-                if (item.product.serviceId == filter[0].serviceId && item.replaceOfferIndicator) {
-                    OrderItemList singleOrderItem = new OrderItemList();
-                    singleOrderItem.id = item.serviceRequiredDate;
-                    singleOrderItem.serviceId = item.product.serviceId;
-                    singleOrderItem.actionType = item.actionType;
-                    singleOrderItem.status = item.actionType;
-                    singleOrderItem.implActionTypeX9 = item.implActionTypeX9;
-                    singleOrderItem.implOrderTypeX9 = item.implOrderTypeX9;
-                    singleOrderItem.closeDate = (item.oacloseDate != null) ? DateTime.newInstance(Long.valueOf(item.oacloseDate)).date() : null;
-                    singleOrderItem.workOrderIdX9 = item.workOrderIdX9;
-                    orderItems.add(singleOrderItem);
-                }
+                OrderItemList singleOrderItem = new OrderItemList();
+                singleOrderItem.id = item.serviceRequiredDate;
+                singleOrderItem.serviceId = item.product.serviceId;
+                singleOrderItem.actionType = item.actionType;
+                singleOrderItem.status = item.actionType;
+                singleOrderItem.implActionTypeX9 = item.implActionTypeX9;
+                singleOrderItem.implOrderTypeX9 = item.implOrderTypeX9;
+                singleOrderItem.closeDate = (item.oacloseDate != null) ? DateTime.newInstance(Long.valueOf(item.oacloseDate)).date() : null;
+                singleOrderItem.workOrderIdX9 = item.workOrderIdX9;
+                orderItems.add(singleOrderItem);
             }
 
             Orders singleOrder = new Orders();

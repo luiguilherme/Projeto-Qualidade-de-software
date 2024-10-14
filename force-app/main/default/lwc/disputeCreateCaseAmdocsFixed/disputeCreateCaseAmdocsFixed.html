@@ -1,0 +1,34 @@
+<template>
+    <lightning-layout multiple-rows>
+        <div lwc:if={isLoading}>
+            <lightning-spinner variant="brand" size="small" alternative-text="Criando Caso"></lightning-spinner>
+        </div>
+        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+            <h1>PROCEDIMENTO DE ABERTURA DE CASO DE FRAUDE</h1>
+        </lightning-layout-item>
+        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+            <lightning-textarea class="input-text-area slds-m-vertical_x-small"
+                label="Descreva os detalhes e informações do caso de Fraude no campo abaixo:"
+                name="caseDescription"
+                value={textAreaTemplate}
+                onchange={textAreaChangeHandler}
+                message-when-value-missing="Este campo é obrigatório."
+                required>
+            </lightning-textarea>
+        </lightning-layout-item>
+        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+            <lightning-button 
+                onclick={createCase}
+                onsubmit={createCase}
+                disabled={disabledCreateCaseButton}
+                label="Abrir Caso"
+                class="input-open-case-button"
+                variant="brand">
+            </lightning-button>
+        </lightning-layout-item>
+        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+            <h1 lwc:if={caseAmdocsId}>Número do Caso Amdocs criado: {caseAmdocsId}</h1>
+        </lightning-layout-item>
+        <br>
+    </lightning-layout>
+</template>

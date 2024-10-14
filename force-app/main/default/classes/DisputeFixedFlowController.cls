@@ -57,12 +57,9 @@ public with sharing class DisputeFixedFlowController {
 
         vlocity_cmt__CustomerInteractionTopic__c interactionTopic = CustomerInteractionTopicDAO.getByCaseId(caseId);
         Case interaction = CaseDAO.getCustomerInteractionByCaseId(caseId);
-        result.put('caseNumber',interaction.CaseNumber);
-        result.put('protocolo',interaction.Protocol__c);
         result.put('interactionTopicId',interactionTopic.Id);
-        result.put('statusLabel', interaction.Status);
         result.put('interactionId', interaction.CustomerInteractionId__c);
-        
+        result.put('uraInteraction', interaction.CustomerInteractionId__r.InteractionNumber__c);
         return result;
     }
 }

@@ -6,17 +6,13 @@ export default class FlowStepHistory extends LightningElement {
     @api caseId;
     @track historico = [];
     intervalId;
+    activeSections = ['A'];
 
     connectedCallback() {
-        this.intervalId = setInterval(() => { this.recarregarHistorico(); }, 2000);
+        this.recarregarHistorico();
     }
-
-    disconnectedCallback() {
-        clearInterval(this.intervalId);
-    }
-
+    @api
     recarregarHistorico() {
-        //console.log("Recarregando o histórico: " + this.caseId);
         if (this.caseId) {
             getByCaseId({ caseId: this.caseId })
             .then(result => {
@@ -33,9 +29,5 @@ export default class FlowStepHistory extends LightningElement {
                 );
             });
         }       
-    }
-
-    pararCarregamentoHistorico() {
-        clearInterval(this.intervalId);
     }
 }

@@ -3,7 +3,7 @@ public with sharing class OrderManagementControllerTeste {
 
     
     @isTest 
-    static void testFindReplaceOfferOrderByParams() {
+    public static void testFindReplaceOfferOrderByParams() {
 
         Webservice__c ws = new Webservice__c(
             Name = 'RetrieveOrdersListCallout',
@@ -26,14 +26,14 @@ public with sharing class OrderManagementControllerTeste {
 
         Test.startTest();
             Test.setMock(HttpCalloutMock.class, new OrderManagementServiceMock());
-            List<RetrieveOrdersListResponse> result = OrderManagementController.findReplaceOfferOrderByParams(filters);
+            List<AbstractOrderManagementController.RetrieveOrdersListResponse> result = OrderManagementController.findReplaceOfferOrderByParams(filters);
         Test.stopTest();
 
         System.assertNotEquals(null, result); 
     }
 
     @isTest 
-    static void testFindByFilters() {
+    public static void testFindByFilters() {
 
         Webservice__c ws = new Webservice__c(
             Name = 'RetrieveOrdersListCallout',

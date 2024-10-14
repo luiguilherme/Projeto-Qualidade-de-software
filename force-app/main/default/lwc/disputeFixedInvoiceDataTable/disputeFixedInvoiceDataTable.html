@@ -70,7 +70,7 @@
         </div>
     </div>
     <div class="slds-box slds-theme_default" if:true={divVisible}>
-        <div class="demo-only" style="height:6rem;position:relative" if:false={tableVisible} >
+        <div class="demo-only" style="height:6rem;position:relative" if:true={chargeSpinner} >
             <div class="slds-spinner_container">
               <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
                 <span class="slds-assistive-text">Loading</span>
@@ -78,8 +78,12 @@
                 <div class="slds-spinner__dot-b"></div>
               </div>
             </div>
-          </div>
-        <div if:true={tableVisible}>
+        </div>
+        <div if:true={chargeError} class="slds-theme_error slds-align_absolute-center slds-m-vertical_small slds-p-vertical_small">
+            <lightning-icon icon-name="utility:error" variant="inverse" size="small"></lightning-icon>
+            <span class="slds-text-heading_small">{chargeErrorMessage}</span>
+        </div>
+        <div if:true={chargeTable}>
             <nav class="slds-tabs_default__nav ">
                 <ul class="slds-tabs_default__list tab-container" role="tablist">
                     <template for:each={productTypes} for:item="type">

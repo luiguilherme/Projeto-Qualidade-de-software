@@ -107,7 +107,7 @@
         <locationX>242</locationX>
         <locationY>1874</locationY>
         <defaultConnector>
-            <targetReference>Carregar_ATC_FX_FIN_CONT_NEG_MULTA_002</targetReference>
+            <targetReference>Carregar_ATCFXFINCONTNEGMULTA001</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Não</defaultConnectorLabel>
         <rules>
@@ -177,8 +177,8 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <name>Carregar_ATC_FX_FIN_CONT_NEG_MULTA_002</name>
-        <label>Carregar   ATC-FX-FIN-CONT-NEG-MULTA-002</label>
+        <name>Carregar_ATCFXFINCONTNEGMULTA001</name>
+        <label>Carregar  ATC-FX-FIN-CONT-NEG-MULTA-001</label>
         <locationX>374</locationX>
         <locationY>1982</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
@@ -190,7 +190,7 @@
             <field>StepCode__c</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>ATC-FX-FIN-CONT-NEG-MULTA-003</stringValue>
+                <stringValue>ATC-FX-FIN-CONT-NEG-MULTA-001</stringValue>
             </value>
         </filters>
         <filters>
@@ -294,9 +294,15 @@
         <label>Exibir ATC-FX-FIN-CONT-AJ-MULTA-002</label>
         <locationX>110</locationX>
         <locationY>2198</locationY>
-        <flowName>generalServiceDefinition</flowName>
+        <flowName>DisputeGeneralUpdateDisputedItem</flowName>
         <inputAssignments>
-            <name>definicaoAtendimento</name>
+            <name>disputedItem</name>
+            <value>
+                <elementReference>grGetDisputedItem</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>serviceDefinition</name>
             <value>
                 <elementReference>Carregar_ATC_FX_FIN_CONT_AJ_MULTA_002</elementReference>
             </value>
@@ -307,11 +313,17 @@
         <label>Exibir ATC-FX-FIN-CONT-NEG-MULTA-001</label>
         <locationX>374</locationX>
         <locationY>2090</locationY>
-        <flowName>generalServiceDefinition</flowName>
+        <flowName>DisputeGeneralUpdateDisputedItem</flowName>
         <inputAssignments>
-            <name>definicaoAtendimento</name>
+            <name>disputedItem</name>
             <value>
-                <elementReference>Carregar_ATC_FX_FIN_CONT_NEG_MULTA_002</elementReference>
+                <elementReference>grGetDisputedItem</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>serviceDefinition</name>
+            <value>
+                <elementReference>Carregar_ATCFXFINCONTNEGMULTA001</elementReference>
             </value>
         </inputAssignments>
     </subflows>
@@ -628,7 +640,7 @@
         <inputAssignments>
             <name>step</name>
             <value>
-                <stringValue>Realizar a contestação da multa e informe que o valor proporcional da utilização é devido.</stringValue>
+                <stringValue>MULTA007</stringValue>
             </value>
         </inputAssignments>
         <storeOutputAutomatically>true</storeOutputAutomatically>
