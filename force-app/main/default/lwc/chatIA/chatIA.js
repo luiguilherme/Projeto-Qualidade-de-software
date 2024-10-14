@@ -42,6 +42,7 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
     @track letters = false;
     @track quantify = 2;
     @track _timeout = 0;
+    @track enter = true;
 
     height = 110;
     styleCSS = '<p style=\"align-items: flex-start; background-color: var(--colorIA, #5C169D); color: #ffffff; margin-left: -40px\; border-radius: 1.15rem; line-height: 1.25; max-width: 75%; padding: 0.5rem .875rem; position: relative; word-wrap: break-word">'
@@ -258,28 +259,31 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
         })
     }
     handleInputChange(event) {
+        this.enter = true;
         clearTimeout(this._timeout)
         this.inputValue = event.target.value;
-        this._timeout = setTimeout(() => this.postSuggestions(), 400);
+        this._timeout = setTimeout(() => this.postSuggestions(), 300);
     }
     postSuggestions(){
-        if (this.words) {
-            let regex = / (?=\S)/g;
-            let matches = this.inputValue.match(regex);
-            if(matches){
-                if (matches.length >= this.quantify) {
+        if(this.enter){
+            if (this.words) {
+                let regex = / (?=\S)/g;
+                let matches = this.inputValue.match(regex);
+                if(matches){
+                    if (matches.length >= this.quantify) {
+                        this.template.querySelector('c-chat-i-a-suggestions').updateSuggestions(this.inputValue);
+                    } else {
+                        this.template.querySelector('c-chat-i-a-suggestions').closeSuggestion();
+                    }
+                }else {
+                    this.template.querySelector('c-chat-i-a-suggestions').closeSuggestion();
+                } 
+            } else {
+                if (this.inputValue.length >= this.quantify) {
                     this.template.querySelector('c-chat-i-a-suggestions').updateSuggestions(this.inputValue);
                 } else {
                     this.template.querySelector('c-chat-i-a-suggestions').closeSuggestion();
                 }
-            }else {
-                this.template.querySelector('c-chat-i-a-suggestions').closeSuggestion();
-            } 
-        } else {
-            if (this.inputValue.length >= this.quantify) {
-                this.template.querySelector('c-chat-i-a-suggestions').updateSuggestions(this.inputValue);
-            } else {
-                this.template.querySelector('c-chat-i-a-suggestions').closeSuggestion();
             }
         }
     }
@@ -289,6 +293,7 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
     }
     async sendMessage(event) {
         this.template.querySelector('c-chat-i-a-suggestions').closeSuggestion();
+        this.enter = false;
         this.buttomDisabled = true;
         this.suggestions = false;
         let mensagemVar = event.target.value ? event.target.value : this.template.querySelector('lightning-input[data-id="campoMensagem"]').value;

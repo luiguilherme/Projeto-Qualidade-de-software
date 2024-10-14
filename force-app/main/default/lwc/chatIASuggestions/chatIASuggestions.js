@@ -17,14 +17,19 @@ export default class ChatIASuggestions extends LightningElement {
     @track endpoint = '';
     @track integracao = false;
     @track windowHight = window.innerHeight;
-
     async getSuggestions(inputValue) {
         try {
+            const controller = new AbortController();
+            const signal = controller.signal;
+            const timeout = 3100; // Tempo máximo de espera (em milissegundos)
             if (this.integracao === false) {
                 this.integracao = true;
                 this.showSuggestions = false;
                 this.suggestions = [];
-                const response = await fetch(this.endpoint + encodeURIComponent(inputValue), {
+                const timer = setTimeout(() => {
+                    controller.abort(); // Aborta a requisição após o timeout
+                }, timeout);
+                const response = await fetch(this.endpoint + inputValue, {
                     method: 'GET',
                     headers: {
                         'Content-Type': this.content_type,
@@ -35,7 +40,9 @@ export default class ChatIASuggestions extends LightningElement {
                         'service': this.service,
                         'session_id': this.session_id
                     },
+                    signal // Passa o sinal para o fetch
                 });
+                clearTimeout(timer); // Cancela o timer se a requisição for bem-sucedida
                 if (response.ok) {
                     const data = await response.json();
                     if (data) {
@@ -66,7 +73,11 @@ export default class ChatIASuggestions extends LightningElement {
                 }
             }
         } catch (error) {
+            if (error.name === 'AbortError') {
+                console.log('Requisição abortada: tempo de espera excedido');
+            } else {
                 console.log(error.message);
+            }
                 this.suggestions = [];
                 this.showSuggestions = false;
         } finally {
