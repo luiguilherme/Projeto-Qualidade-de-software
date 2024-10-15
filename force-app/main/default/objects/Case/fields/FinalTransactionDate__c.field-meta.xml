@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FinalTransactionDate__c</fullName>
+    <description>Para uso do HDE, informa a data final de tratativa ou quantos dias já fora excedidos</description>
+    <externalId>false</externalId>
+    <formula>IF(FinalSLA__c == &apos;1 DU&apos;, MID(TEXT(DueDate__c), 9, 2)&amp;&quot;/&quot;&amp;MID(TEXT(DueDate__c), 6, 2)&amp;&quot;/&quot;&amp;MID(TEXT(DueDate__c), 0, 4)&amp;&quot; &quot;&amp;TEXT(VALUE(MID(TEXT(DueDate__c), 12, 2))-3)&amp;MID(TEXT(DueDate__c), 14, 3),
+IF(FinalSLA__c == &apos;10 DC&apos;,
+IF(CreatedDate + 1 &gt; NOW(), MID(TEXT(CreatedDate + 10), 9, 2)&amp;&quot;/&quot;&amp;MID(TEXT(CreatedDate + 10), 6, 2)&amp;&quot;/&quot;&amp;MID(TEXT(CreatedDate + 10), 0, 4)&amp;&quot; &quot;&amp;TEXT(VALUE(MID(TEXT(CreatedDate + 10), 12, 2))-3)&amp; MID(TEXT(CreatedDate + 10), 14, 3), TEXT( ROUND( NOW() - (CreatedDate + 1), 0)) + &apos; dia(s) atrasado(s)&apos;),&apos;&apos;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Data Final de Tratativa</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HDECustomerProfile__c</fullName>
+    <description>Para uso do HDE, campo similar ao CustomerProfile__c do objeto Account, informa se o cliente tem indicador Negativo ou Neutro/Positivo</description>
+    <externalId>false</externalId>
+    <formula>IF(OR(Account.OpenTicketBD__c = true, Account.TDNA__c = true, Account.Recaller__c = true, Account.Bottom__c = true, Account.HighTemperature__c = true, Account.Reincident__c = true, 
+						Account.TDNARetention__c = true, Account.TicketBDReincident__c = true, Account.ODC__c = true, Account.NCC__c = true, Account.HDENoContact__c = true, TEXT(Account.CustomerMoodRating__c) = &quot;Sim&quot;), 
+			&quot;Cliente com Indicador Negativo&quot;, &quot;Cliente com Indicador Neutro/Positivo&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Perfil do Cliente</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
