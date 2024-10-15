@@ -15,42 +15,50 @@ public with sharing class CaseManagementTest {
         accountRec.DocumentNumber__c = '1234';
         insert accountRec;
 
-        Asset assetRec = new Asset();
-        assetRec.AccountId = accountRec.Id;
-        assetRec.Name = 'Test Asset';
-        assetRec.MainProductDescription__c = 'Vivo Fibra';
-        insert assetRec;
+        List<Asset> assetList = new List<Asset>();
 
-        Asset assetRecInternalCase = new Asset();
-        assetRecInternalCase.AccountId = accountRec.Id;
-        assetRecInternalCase.Name = 'Test Asset';
-        assetRecInternalCase.MainProductDescription__c = 'Vivo Fibra';
-        insert assetRecInternalCase;
+        Asset myRequestsAsset = new Asset();
+        myRequestsAsset.AccountId = accountRec.Id;
+        myRequestsAsset.Name = 'Test Asset';
+        myRequestsAsset.MainProductDescription__c = 'Vivo Fibra';
+        assetList.add(myRequestsAsset);
+    
+        Asset nonMyRequestsAsset = new Asset();
+        nonMyRequestsAsset.AccountId = accountRec.Id;
+        nonMyRequestsAsset.Name = 'Test Asset';
+        nonMyRequestsAsset.MainProductDescription__c = 'Vivo Fibra';
+        assetList.add(nonMyRequestsAsset);
 
-        Case caseRec = new Case();
-        caseRec.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(CasesMyRequestsB2C.CHARGE_OF_ADDRESS_RECORD_TYPE_API_NAME).getrecordTypeId();
-        caseRec.Subject = 'Test Case';
-        caseRec.Origin = 'URA';
-        caseRec.Protocol__c = '1234';
-        caseRec.Status =  'Em fila';
-        caseRec.AccountId = accountRec.Id;
-        caseRec.ComplainedAsset__c = assetRec.Id;
-        caseRec.Omnichannel__c = true;
-        insert caseRec;
+        insert assetList;
 
-        Case caseRec2 = new Case();
-        caseRec2.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(CasesMyRequestsB2C.CHARGE_OF_ADDRESS_RECORD_TYPE_API_NAME).getrecordTypeId();
-        caseRec2.Subject = 'Test Case Interno';
-        caseRec2.Origin = 'URA';
-        caseRec2.Protocol__c = '3456';
-        caseRec2.Status =  'Em fila';
-        caseRec2.AccountId = accountRec.Id;
-        caseRec2.ComplainedAsset__c = assetRecInternalCase.Id;
-        caseRec2.Omnichannel__c = false;
-        insert caseRec2;
+        List<Case> caseList = new List<Case>();
+
+        Case MyRequestsCase = new Case();
+        MyRequestsCase.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(CasesMyRequestsB2C.CHARGE_OF_ADDRESS_RECORD_TYPE_API_NAME).getrecordTypeId();
+        MyRequestsCase.Subject = 'Test Case';
+        MyRequestsCase.Origin = 'URA';
+        MyRequestsCase.Protocol__c = '1234';
+        MyRequestsCase.Status =  'Em fila';
+        MyRequestsCase.AccountId = accountRec.Id;
+        MyRequestsCase.ComplainedAsset__c = myRequestsAsset.Id;
+        MyRequestsCase.Omnichannel__c = true;
+        caseList.add(MyRequestsCase);
+
+        Case NonMyRequestsCase = new Case();
+        NonMyRequestsCase.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(CasesMyRequestsB2C.CHARGE_OF_ADDRESS_RECORD_TYPE_API_NAME).getrecordTypeId();
+        NonMyRequestsCase.Subject = 'Test Case NonMyRequestsCase';
+        NonMyRequestsCase.Origin = 'URA';
+        NonMyRequestsCase.Protocol__c = '3456';
+        NonMyRequestsCase.Status =  'Em fila';
+        NonMyRequestsCase.AccountId = accountRec.Id;
+        NonMyRequestsCase.ComplainedAsset__c = nonMyRequestsAsset.Id;
+        NonMyRequestsCase.Omnichannel__c = false;
+        caseList.add(NonMyRequestsCase);
+
+        insert caseList;
 
         CaseDetail__c casedatail = new CaseDetail__c();
-        casedatail.Case__c = caseRec.id;    
+        casedatail.Case__c = MyRequestsCase.id;    
         casedatail.OrderNumber__c = '123456';
         casedatail.CEP__c = '123456';
         casedatail.Street__c = 'Rua teste';
@@ -72,7 +80,7 @@ public with sharing class CaseManagementTest {
         insert casedatail;
 
         CaseComment__c caseComent = new CaseComment__c();
-        caseComent.ParentId__c = caseRec.id;
+        caseComent.ParentId__c = MyRequestsCase.id;
         caseComent.ViewDatetime__c = null;
         insert caseComent;
     }
@@ -540,7 +548,7 @@ public with sharing class CaseManagementTest {
         TriggerHandler.clearbypass('AccountTriggerHandler');
 
         String jwt = JWTUtilityTest.createValidJWT();
-        Case caseRec = [SELECT Id FROM Case WHERE Subject = 'Test Case Interno'];
+        Case caseRec = [SELECT Id FROM Case WHERE Subject = 'Test Case NonMyRequestsCase'];
 
         RestRequest req = new RestRequest();
         RestResponse res = new RestResponse();
@@ -557,7 +565,7 @@ public with sharing class CaseManagementTest {
         CaseManagement.getCases();
         Test.stopTest();
         
-        Assert.areEqual(404, res.statusCode, 'O caso interno não deve ser retornado.');
+        Assert.areEqual(404, res.statusCode, 'O caso não deve ser retornado.');
     }
 
     @isTest static void getCasesFiltrosWhithoutInternalCases() {
@@ -588,13 +596,13 @@ public with sharing class CaseManagementTest {
         GetCasesRequestWrapper responseReturn = (GetCasesRequestWrapper) Json.deserialize(res.responseBody.toString(),GetCasesRequestWrapper.class);
         Test.stopTest();
 
-        List<String> casesIds = new List<String>();
+        List<String> returnedCaseIds = new List<String>();
         for(GetCasesRequestWrapper.Cases cs : responseReturn.cases){
-            casesIds.add(cs.caseId);    
+            returnedCaseIds.add(cs.caseId);    
         }
 
-        Case caseRec = [SELECT Id FROM Case WHERE Subject = 'Test Case Interno'];
+        Case nonMyRequestsCase = [SELECT Id FROM Case WHERE Subject = 'Test Case NonMyRequestsCase'];
 
-        Assert.areNotEqual(true, casesIds.contains(caseRec.Id), 'O caso interno não deve ser retornado.');
+        Assert.isFalse(returnedCaseIds.contains(nonMyRequestsCase.Id), 'O caso não deve ser retornado na resposta.');
     }
 }
