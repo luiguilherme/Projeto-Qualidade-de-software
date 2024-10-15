@@ -10,7 +10,6 @@ trigger CaseTrigger on Case (before update, after update, before insert, after i
         }
         when BEFORE_UPDATE
         {
-            HDECasesService.validateNewOwnerSegment(Trigger.new);
             casesTriggerHandler.isBeforeUpdate();
         }
         when AFTER_INSERT

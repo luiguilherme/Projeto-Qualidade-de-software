@@ -48,11 +48,15 @@ public with sharing class CasesTriggerHandler
         NotificadorMinhasSolicitacoes.handleNotifications(newCases, null);
         this.casesMyRequestsB2C.sendNotificationForCreatedCases();
         this.casesMyRequestsB2C.processFieldsAfterInsert();
+
+        CustomerInteractionTopicService.updateRelatedInteractionTopicWithCaseId(this.newCases);
     }
 
-    public void isBeforeUpdate()
+    public void isBeforeUpdate() 
     {
         this.casesMyRequestsB2C.processFieldsBeforeUpdate();
+        
+        HDECasesService.validateNewOwnerSegment(this.newCases);
     }
 
     public void isAfterUpdate()
