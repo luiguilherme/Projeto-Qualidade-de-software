@@ -9,15 +9,21 @@ export default class CreateCaseRecordLWC extends NavigationMixin(LightningElemen
     ContactId;
     CustomerInteractionId;
     CustomerInteractionTopicId;
+    ComplainedAsset;
+    HDEOtherProducts;
+    SegmentProduct;
     
     connectedCallback(){
         let forceParamObject = JSON.parse(JSON.stringify(this.param))[0];
-        const { AccountId, vlocity_cmt__PrimaryContactId__c: ContactId, VarContextId:CustomerInteractionId, TopicId:CustomerInteractionTopicId} = forceParamObject;
+        const { AccountId, vlocity_cmt__PrimaryContactId__c: ContactId, VarContextId:CustomerInteractionId, TopicId:CustomerInteractionTopicId, OtherProduct:HDEOtherProducts, ProductType: SegmentProduct, AssetId:ComplainedAsset} = forceParamObject;
 
         this.AccountId = (AccountId !== undefined && AccountId !== "") ? AccountId : null;
         this.ContactId = (ContactId !== undefined && ContactId !== "") ? ContactId : null;
         this.CustomerInteractionId = (CustomerInteractionId !== undefined && CustomerInteractionId !== "") ? CustomerInteractionId : null;
         this.CustomerInteractionTopicId = (CustomerInteractionTopicId !== undefined && CustomerInteractionTopicId !== "") ? CustomerInteractionTopicId : null;
+        this.HDEOtherProducts = (HDEOtherProducts !== undefined && HDEOtherProducts !== "") ? HDEOtherProducts : null;
+        this.SegmentProduct = (SegmentProduct !== undefined && SegmentProduct !== "") ? SegmentProduct : null;
+        this.ComplainedAsset = (ComplainedAsset !== undefined && ComplainedAsset !== "") ? ComplainedAsset : null;
     }
 
     createNewCase() {
@@ -25,7 +31,10 @@ export default class CreateCaseRecordLWC extends NavigationMixin(LightningElemen
             AccountId: this.AccountId,
             ContactId: this.ContactId,
             CustomerInteractionId__c: this.CustomerInteractionId,
-            CustomerInteractionTopic__c: this.CustomerInteractionTopicId
+            CustomerInteractionTopic__c: this.CustomerInteractionTopicId,
+            HDEOtherProducts__c:this.HDEOtherProducts,
+            SegmentProduct__c:this.SegmentProduct,
+            ComplainedAsset__c:this.ComplainedAsset
         })
         
         this[NavigationMixin.Navigate]({
