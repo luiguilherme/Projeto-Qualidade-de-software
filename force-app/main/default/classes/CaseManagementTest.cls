@@ -33,32 +33,32 @@ public with sharing class CaseManagementTest {
 
         List<Case> caseList = new List<Case>();
 
-        Case MyRequestsCase = new Case();
-        MyRequestsCase.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(CasesMyRequestsB2C.CHARGE_OF_ADDRESS_RECORD_TYPE_API_NAME).getrecordTypeId();
-        MyRequestsCase.Subject = 'Test Case';
-        MyRequestsCase.Origin = 'URA';
-        MyRequestsCase.Protocol__c = '1234';
-        MyRequestsCase.Status =  'Em fila';
-        MyRequestsCase.AccountId = accountRec.Id;
-        MyRequestsCase.ComplainedAsset__c = myRequestsAsset.Id;
-        MyRequestsCase.Omnichannel__c = true;
-        caseList.add(MyRequestsCase);
+        Case myRequestsCase = new Case();
+        myRequestsCase.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(CasesMyRequestsB2C.CHARGE_OF_ADDRESS_RECORD_TYPE_API_NAME).getrecordTypeId();
+        myRequestsCase.Subject = 'Test Case';
+        myRequestsCase.Origin = 'URA';
+        myRequestsCase.Protocol__c = '1234';
+        myRequestsCase.Status =  'Em fila';
+        myRequestsCase.AccountId = accountRec.Id;
+        myRequestsCase.ComplainedAsset__c = myRequestsAsset.Id;
+        myRequestsCase.Omnichannel__c = true;
+        caseList.add(myRequestsCase);
 
-        Case NonMyRequestsCase = new Case();
-        NonMyRequestsCase.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(CasesMyRequestsB2C.CHARGE_OF_ADDRESS_RECORD_TYPE_API_NAME).getrecordTypeId();
-        NonMyRequestsCase.Subject = 'Test Case NonMyRequestsCase';
-        NonMyRequestsCase.Origin = 'URA';
-        NonMyRequestsCase.Protocol__c = '3456';
-        NonMyRequestsCase.Status =  'Em fila';
-        NonMyRequestsCase.AccountId = accountRec.Id;
-        NonMyRequestsCase.ComplainedAsset__c = nonMyRequestsAsset.Id;
-        NonMyRequestsCase.Omnichannel__c = false;
-        caseList.add(NonMyRequestsCase);
+        Case nonMyRequestsCase = new Case();
+        nonMyRequestsCase.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(CasesMyRequestsB2C.CHARGE_OF_ADDRESS_RECORD_TYPE_API_NAME).getrecordTypeId();
+        nonMyRequestsCase.Subject = 'Test Case NonMyRequestsCase';
+        nonMyRequestsCase.Origin = 'URA';
+        nonMyRequestsCase.Protocol__c = '3456';
+        nonMyRequestsCase.Status =  'Em fila';
+        nonMyRequestsCase.AccountId = accountRec.Id;
+        nonMyRequestsCase.ComplainedAsset__c = nonMyRequestsAsset.Id;
+        nonMyRequestsCase.Omnichannel__c = false;
+        caseList.add(nonMyRequestsCase);
 
         insert caseList;
 
         CaseDetail__c casedatail = new CaseDetail__c();
-        casedatail.Case__c = MyRequestsCase.id;    
+        casedatail.Case__c = myRequestsCase.id;    
         casedatail.OrderNumber__c = '123456';
         casedatail.CEP__c = '123456';
         casedatail.Street__c = 'Rua teste';
@@ -80,7 +80,7 @@ public with sharing class CaseManagementTest {
         insert casedatail;
 
         CaseComment__c caseComent = new CaseComment__c();
-        caseComent.ParentId__c = MyRequestsCase.id;
+        caseComent.ParentId__c = myRequestsCase.id;
         caseComent.ViewDatetime__c = null;
         insert caseComent;
     }
@@ -539,7 +539,7 @@ public with sharing class CaseManagementTest {
         Assert.areEqual(1, customerInteractionTopics.size(), 'É esperado a criação de um Registro de vlocity_cmt__CustomerInteractionTopic__c');
     }
 
-    @isTest static void getCasesIdUrlInternalCase() {
+    @isTest static void getCasesIdUrlNonMyRequestCases() {
         JWTUtilityTest.setPublicTestKey();
         Account acc = [SELECT Id FROM Account];
         acc.DocumentNumber__c = '63542141747';
@@ -568,7 +568,7 @@ public with sharing class CaseManagementTest {
         Assert.areEqual(404, res.statusCode, 'O caso não deve ser retornado.');
     }
 
-    @isTest static void getCasesFiltrosWhithoutInternalCases() {
+    @isTest static void getCasesFiltrosNonMyRequestCases() {
         JWTUtilityTest.setPublicTestKey();
         Account acc = [SELECT Id FROM Account];
         acc.DocumentNumber__c = '63542141747';
