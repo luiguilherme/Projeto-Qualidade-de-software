@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SLADeadline__c</fullName>
+    <description>Calcula a data e hora de vencimento do SLA com base no tipo de SLA (&apos;1 DU&apos; ou &apos;10 DC&apos;). Retorna a data de DueDate__c para &apos;1 DU&apos; e CreatedDate + 10 dias para &apos;10 DC&apos; se o prazo não tiver expirado; caso contrário, retorna NULL.</description>
+    <externalId>false</externalId>
+    <formula>IF(
+    FinalSLA__c == &apos;1 DU&apos;, 
+    DATETIMEVALUE(
+        TEXT(YEAR(DATEVALUE(DueDate__c))) &amp; &quot;-&quot; &amp; 
+        TEXT(MONTH(DATEVALUE(DueDate__c))) &amp; &quot;-&quot; &amp; 
+        TEXT(DAY(DATEVALUE(DueDate__c))) &amp; &quot; &quot; &amp; 
+        MID(TEXT(DueDate__c), 12, 2) &amp; &quot;:&quot; &amp; 
+        MID(TEXT(DueDate__c), 15, 2) &amp; &quot;:&quot; &amp; 
+        MID(TEXT(DueDate__c), 18, 2)
+    ),
+    
+    IF(
+        FinalSLA__c == &apos;10 DC&apos; &amp;&amp; (CreatedDate + 1) &gt; NOW(),
+        DATETIMEVALUE(
+            TEXT(YEAR(DATEVALUE(CreatedDate + 10))) &amp; &quot;-&quot; &amp; 
+            TEXT(MONTH(DATEVALUE(CreatedDate + 10))) &amp; &quot;-&quot; &amp; 
+            TEXT(DAY(DATEVALUE(CreatedDate + 10))) &amp; &quot; &quot; &amp; 
+            MID(TEXT(CreatedDate + 10), 12, 2) &amp; &quot;:&quot; &amp; 
+            MID(TEXT(CreatedDate + 10), 15, 2) &amp; &quot;:&quot; &amp; 
+            MID(TEXT(CreatedDate + 10), 18, 2)
+        ),
+        DueDate__c     
+    )
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Data Limite SLA</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

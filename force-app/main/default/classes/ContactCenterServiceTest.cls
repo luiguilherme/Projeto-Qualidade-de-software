@@ -72,4 +72,31 @@ private class ContactCenterServiceTest {
             Assert.areEqual('payload não pode ser nulo.', errorMessage);
         } 
     }
+
+    @IsTest
+    private static void buildOpenMediaInteractionPayLoadForRoutingTest() {
+        Account accountTest = DataFactory.createConsumerAccount();
+
+        insert accountTest;
+        
+        Case caseObj = DataFactory.createCase('GoldProcessesEscalation', 'Test Case', 'Caso Teste para Roteamento');
+         
+        caseObj.AccountId = accountTest.Id;
+        caseObj.Protocol__c = '1234';
+
+        insert caseObj;
+
+        ContactCenterService.Params paramsTest = new ContactCenterService.Params();
+
+        paramsTest.serviceType = ContactCenterService.INTEGRATIONTYPE_ROUTING;
+        paramsTest.action = ContactCenterService.ACTION_AGENT_QUEUE;
+        paramsTest.agent = 'A0123456';
+        paramsTest.priority = ContactCenterService.PRIORITY_MEDIA;
+        paramsTest.caseRecord = caseObj;
+
+        OpenMediaInteractionPayload payloadForRouting = ContactCenterService.buildOpenMediaInteractionPayLoad(paramsTest);
+
+        Assert.isNotNull(payloadForRouting);
+        Assert.isInstanceOfType(payloadForRouting, OpenMediaInteractionPayload.class);
+    }
 }

@@ -150,4 +150,45 @@ public with sharing class FromToMappingDAO {
             LIMIT 1
         ];
     }
+
+    public static List<FromToMapping__mdt> getByObjectAndOriginNameAndUsedIn(String objectName, String originName, String usedIn) {
+        return [
+            SELECT
+            	QualifiedApiName,
+            	DestinyApiName__c,
+            	DestinyName__c,
+            	OriginApiName__c,
+            	OriginName__c,
+            	Object__c,
+            	RecordType__c,
+            	UsedIn__c,
+            	OperatorSegment__c
+            FROM
+            	FromToMapping__mdt
+            WHERE
+                Object__c = :objectName AND 
+            	OriginName__c = :originName AND 
+                UsedIn__c = :usedIn
+        ];
+    }
+
+    public static List<FromToMapping__mdt> getByObjectNameAndUsedIn(Set<String> objectNames, String usedIn) {
+        return [
+            SELECT
+            	QualifiedApiName,
+            	DestinyApiName__c,
+            	DestinyName__c,
+            	OriginApiName__c,
+            	OriginName__c,
+            	Object__c,
+            	RecordType__c,
+            	UsedIn__c,
+            	OperatorSegment__c
+            FROM
+            	FromToMapping__mdt
+            WHERE
+                Object__c IN :objectNames AND 
+                UsedIn__c = :usedIn
+        ];
+    }
 }
