@@ -22,9 +22,9 @@ public with sharing class HDETaskDMLTest {
                 Case case1 = new Case();
                 case1.AccountId = account1.Id;
                 case1.Segment__c = 'Gold';
-                case1.CustomerServiceReason__c = 'Acompanhamento de Técnico Fixa';
-                case1.ContactPhone__c = '3132214002';
-                case1.CallerPhone__c = '3132214002';
+                case1.CustomerServiceReason__c = 'Acompanhamento Vivo Now';
+                case1.ContactPhone__c = '(031)32214002';
+                case1.CallerPhone__c = '(031)32214002';
                 case1.Comment__c = 'Caso Gold teste';
                 case1.Protocol__c = '123456';
                 case1.Status = 'A Iniciar';

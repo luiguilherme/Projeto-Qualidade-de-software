@@ -1,10 +1,170 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>53.0</apiVersion>
-    <description>HDE - Altera complexidade do caso e atribui à fila</description>
+    <assignments>
+        <description>Assign Case Channel as the StoreName of the User if is from internal or external Store. If not and the field is Null, define as &quot;Call Center&quot;. Assign Email from vlocity_cmt__PrimaryContactId__c of Account.</description>
+        <name>AssignChannelCallCenterAndEmail</name>
+        <label>Assign Channel And Email</label>
+        <locationX>314</locationX>
+        <locationY>1259</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Channel__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ChannelValue</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.SuppliedEmail</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Account.vlocity_cmt__PrimaryContactId__r.Email</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Assign HDEHighComplexityReasons Queue</description>
+        <name>AssignQueue</name>
+        <label>Assign Queue</label>
+        <locationX>314</locationX>
+        <locationY>1043</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Routing</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>AssignStatusMotivosAltaComplexidade</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Assign Status as &quot;Crítico&quot;, Priority as &quot;Critical&quot; and Complexity as &quot;Motivos de Alta Complexidade&quot;</description>
+        <name>AssignStatusMotivosAltaComplexidade</name>
+        <label>Assign Status for &quot;Motivos de Alta Complexidade&quot;</label>
+        <locationX>314</locationX>
+        <locationY>1151</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>StatusValue</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Priority</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Priority</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.CaseComplexityReason__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CaseComplexityReason</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>AssignChannelCallCenterAndEmail</targetReference>
+        </connector>
+    </assignments>
+    <customErrors>
+        <description>Quando Status selecionado for diferente de &quot;A Iniciar&quot;</description>
+        <name>Status_Diferente_de_A_iniciar</name>
+        <label>Status Diferente de A iniciar</label>
+        <locationX>50</locationX>
+        <locationY>1043</locationY>
+        <customErrorMessages>
+            <errorMessage>Atenção: No momento da abertura do chamado, não deve ser alterado o status inicial do chamado.</errorMessage>
+            <fieldSelection>Status</fieldSelection>
+            <isFieldError>true</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <description>Seleção de Status diferente de &quot;A Iniciar&quot; exibe mensagem de erro.</description>
+        <name>SelecaoStatusDiferenteAIniciar</name>
+        <label>Seleção de Status diferente de &quot;A Iniciar&quot;</label>
+        <locationX>182</locationX>
+        <locationY>935</locationY>
+        <defaultConnector>
+            <targetReference>AssignQueue</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Status igual A Iniciar</defaultConnectorLabel>
+        <rules>
+            <name>StatusDiferenteAIniciar</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>A Iniciar</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Status_Diferente_de_A_iniciar</targetReference>
+            </connector>
+            <label>Status diferente de A Iniciar</label>
+        </rules>
+    </decisions>
+    <description>Acompanhamento e Tratativa - Atribuição
+v1 - Definir o Owner e Channel__c do Case através do registro de Configuração</description>
     <environments>Default</environments>
+    <formulas>
+        <name>CaseComplexityReason</name>
+        <dataType>String</dataType>
+        <expression>IF(LOWER(TEXT({!GetHDEDePara2.RoutingComplexity__c}))=LOWER(&apos;Baixa&apos;), &apos;Motivos de baixa Complexidade&apos;,IF(LOWER(TEXT({!GetHDEDePara2.RoutingComplexity__c}))=LOWER(&apos;Alta&apos;), &apos;Motivos de Alta Complexidade&apos;,TEXT({!$Record.CaseComplexityReason__c})))</expression>
+    </formulas>
+    <formulas>
+        <description>Define Channel as StoreName__c of the user if Profile=&apos;Representante&apos; and License=&apos;Salesforce&apos; or Profile=&apos;&apos;AliadoExterno&apos; and License=&apos;Partner Community&apos;. If not and the value of Channel field is null, set &apos;Call Center&apos;.</description>
+        <name>ChannelValue</name>
+        <dataType>String</dataType>
+        <expression>IF(
+NOT(ISBLANK({!$Record.Channel__c})),{!$Record.Channel__c}, IF(
+OR(
+AND({!UserLicenseName}=&apos;Salesforce&apos;, CONTAINS({!$UserRole.DeveloperName}, &apos;Atend&apos;)),
+AND({!UserLicenseName}=&apos;Partner Community&apos;,CONTAINS(TEXT({!$User.PartnerGroup__c}), &apos;Atend&apos;))
+) ,&apos;Call Center&apos;, {!$User.StoreName__c}))</expression>
+    </formulas>
+    <formulas>
+        <name>CustomerSegmentFound</name>
+        <dataType>String</dataType>
+        <expression>IF(CONTAINS({!CustomerSegmentToFromHDE2}, &apos;N/A&apos;),
+&apos;N/A&apos;,
+IF(OR(TEXT({!$Record.Account.vlocity_cmt__CustomerValue__c}) = &apos;Púrpura&apos;,TEXT({!$Record.Account.vlocity_cmt__CustomerValue__c}) = &apos;PÚRPURA&apos;,TEXT({!$Record.Account.vlocity_cmt__CustomerValue__c}) = &apos;púrpura&apos;), 
+&apos;PURPURA&apos;,
+UPPER(TEXT({!$Record.Account.vlocity_cmt__CustomerValue__c}))))</expression>
+    </formulas>
+    <formulas>
+        <name>OperatorSegmentUpper</name>
+        <dataType>String</dataType>
+        <expression>UPPER({!OperatorSegment})</expression>
+    </formulas>
+    <formulas>
+        <description>Define ORG value from UserLicense</description>
+        <name>OrgFromUserLicense</name>
+        <dataType>String</dataType>
+        <expression>IF(CONTAINS({!UserLicenseName},&apos;Partner Community&apos;), &apos;Comunidades&apos;, &apos;Vivo&apos;)</expression>
+    </formulas>
+    <formulas>
+        <name>Priority</name>
+        <dataType>String</dataType>
+        <expression>IF(TEXT({!GetHDEDePara2.Status__c})=&apos;Critico&apos;, &apos;Critical&apos;,TEXT({!$Record.Priority}))</expression>
+    </formulas>
+    <formulas>
+        <description>If (Routing__c=&apos;Automático N2&apos; or &apos;Automático N2 e Automático N3&apos;) and RoutingComplexity__c=&apos;Alta&apos;, set Case Record Owner the HDEHighComplexityReasons Queue. If not, the current user is the Owner of the Case.</description>
+        <name>Routing</name>
+        <dataType>String</dataType>
+        <expression>IF(AND(OR(TEXT({!GetHDEDePara2.Routing__c})=&apos;Automático N2&apos;,TEXT({!GetHDEDePara2.Routing__c})=&apos;Automático N2 e Automático N3&apos;),TEXT({!GetHDEDePara2.RoutingComplexity__c})=&apos;Alta&apos;),{!GetHDEHighComplexityReasonsQueueId.Id}, {!$User.Id})</expression>
+    </formulas>
+    <formulas>
+        <name>StatusValue</name>
+        <dataType>String</dataType>
+        <expression>IF(TEXT({!GetHDEDePara2.Status__c})=&apos;Critico&apos;, &apos;Crítico&apos;,IF(TEXT({!GetHDEDePara2.Status__c})=&apos;A Iniciar&apos;, &apos;A Iniciar&apos;,TEXT({!$Record.Status})))</expression>
+    </formulas>
     <interviewLabel>HDE - Altera complexidade do caso e atribui à fila {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>HDE - Altera complexidade do caso e atribui à fila</label>
+    <label>Acompanhamento e Tratativa - Atribuição</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -25,108 +185,321 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordLookups>
-        <description>Obter Registros dos Metadados Personalizados utilizados na parametrização</description>
-        <name>GetCustomMetadataRecords</name>
-        <label>Obter Registros dos Metadados Personalizados</label>
-        <locationX>176</locationX>
-        <locationY>323</locationY>
+        <name>Get_UserLicense_Name</name>
+        <label>Get UserLicense.Name</label>
+        <locationX>182</locationX>
+        <locationY>503</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>UpdateCaseComplexity</targetReference>
+            <targetReference>GetHDEDePara2WithoutCustomerSegment</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>Object__c</field>
+            <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>Case</stringValue>
+                <elementReference>UserLicense</elementReference>
             </value>
         </filters>
+        <object>UserLicense</object>
+        <outputAssignments>
+            <assignToReference>UserLicenseName</assignToReference>
+            <field>Name</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <description>Get correspondent HDE - DePara 2 Record of TopicConfigFollowUpTreatmentCaseRecord</description>
+        <name>GetHDEDePara2</name>
+        <label>Get HDE - DePara 2</label>
+        <locationX>182</locationX>
+        <locationY>719</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>GetHDEHighComplexityReasonsQueueId</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
         <filters>
-            <field>UsedIn__c</field>
+            <field>CustomerSegment__c</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>HDE</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>SourceApiName__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>CustomerServiceReason__c</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>TargetApiName__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>CaseComplexityReason__c</stringValue>
+                <elementReference>CustomerSegmentFound</elementReference>
             </value>
         </filters>
         <filters>
             <field>OperatorSegment__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>$Record.Segment__c</elementReference>
+                <elementReference>OperatorSegmentUpper</elementReference>
             </value>
         </filters>
         <filters>
-            <field>SourcePicklistValue__c</field>
+            <field>CaseRecordType__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.RecordType.DeveloperName</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>ORG__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>OrgFromUserLicense</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>CustomerServiceReason__c</field>
             <operator>EqualTo</operator>
             <value>
                 <elementReference>$Record.CustomerServiceReason__c</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>ToFromHDE__mdt</object>
+        <object>ToFromHDE2__mdt</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
-    <recordUpdates>
-        <name>UpdateCaseComplexity</name>
-        <label>Atualiza a complexidade do caso</label>
-        <locationX>176</locationX>
-        <locationY>431</locationY>
+    <recordLookups>
+        <description>Get correspondent HDE - DePara 2 Record of TopicConfigFollowUpTreatmentCaseRecord without Customer Segment info.</description>
+        <name>GetHDEDePara2WithoutCustomerSegment</name>
+        <label>Get HDE - DePara 2 without Customer Segment</label>
+        <locationX>182</locationX>
+        <locationY>611</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>GetHDEDePara2</targetReference>
+        </connector>
         <filterLogic>and</filterLogic>
+        <filters>
+            <field>OperatorSegment__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>OperatorSegmentUpper</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>CaseRecordType__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.RecordType.DeveloperName</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>ORG__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>OrgFromUserLicense</elementReference>
+            </value>
+        </filters>
         <filters>
             <field>CustomerServiceReason__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>GetCustomMetadataRecords.SourcePicklistValue__c</elementReference>
+                <elementReference>$Record.CustomerServiceReason__c</elementReference>
             </value>
         </filters>
-        <inputAssignments>
-            <field>CaseComplexityReason__c</field>
+        <object>ToFromHDE2__mdt</object>
+        <outputAssignments>
+            <assignToReference>CustomerSegmentToFromHDE2</assignToReference>
+            <field>CustomerSegment__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <description>Get HDEHighComplexityReasons Queue Id</description>
+        <name>GetHDEHighComplexityReasonsQueueId</name>
+        <label>Get HDEHighComplexityReasons Queue Id</label>
+        <locationX>182</locationX>
+        <locationY>827</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>SelecaoStatusDiferenteAIniciar</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
             <value>
-                <elementReference>GetCustomMetadataRecords.TargetPicklistValue__c</elementReference>
+                <stringValue>HDEHighComplexityReasons</stringValue>
             </value>
-        </inputAssignments>
-        <inputReference>$Record</inputReference>
-    </recordUpdates>
+        </filters>
+        <filters>
+            <field>Type</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Queue</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Group</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Get Operator Segment by user of CreatedBy.</description>
+        <name>GetOperatorSegment</name>
+        <label>Get Operator Segment</label>
+        <locationX>182</locationX>
+        <locationY>287</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>GetUserLicense</targetReference>
+        </connector>
+        <filterLogic>3 AND (1 OR 5) AND (2 OR 4)</filterLogic>
+        <filters>
+            <field>Object__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Role</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>OriginName__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$UserRole.DeveloperName</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>UsedIn__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>ServiceFlow</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>OriginName__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$User.PartnerGroup__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Object__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>User</stringValue>
+            </value>
+        </filters>
+        <object>FromToMapping__mdt</object>
+        <outputAssignments>
+            <assignToReference>OperatorSegment</assignToReference>
+            <field>OperatorSegment__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <description>Get UserLicense from User</description>
+        <name>GetUserLicense</name>
+        <label>Get UserLicense</label>
+        <locationX>182</locationX>
+        <locationY>395</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_UserLicense_Name</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$User.ProfileId</elementReference>
+            </value>
+        </filters>
+        <object>Profile</object>
+        <outputAssignments>
+            <assignToReference>UserLicense</assignToReference>
+            <field>UserLicenseId</field>
+        </outputAssignments>
+    </recordLookups>
     <start>
-        <locationX>50</locationX>
+        <locationX>56</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>GetCustomMetadataRecords</targetReference>
+            <targetReference>GetOperatorSegment</targetReference>
         </connector>
         <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>CustomerServiceReason__c</field>
-            <operator>IsNull</operator>
-            <value>
-                <booleanValue>false</booleanValue>
-            </value>
-        </filters>
-        <filters>
-            <field>IsHDE__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </filters>
+        <filterFormula>AND(NOT(ISBLANK(TEXT({!$Record.CustomerServiceReason__c}))),OR(CONTAINS({!$Record.RecordType.Name}, &apos;HDE&apos;),CONTAINS({!$Record.RecordType.Name}, &apos;Acompanhamento&apos;),CONTAINS({!$Record.RecordType.Name}, &apos;Tratativa&apos;)))</filterFormula>
         <object>Case</object>
-        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <recordTriggerType>Create</recordTriggerType>
         <triggerType>RecordBeforeSave</triggerType>
     </start>
     <status>Active</status>
+    <variables>
+        <description>ConfigurationType of the RecordCase</description>
+        <name>ConfigurationType</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>CustomerSegmentToFromHDE2</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>OperatorSegment of the user</description>
+        <name>OperatorSegment</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>PicklistValueInfo</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>PicklistValueInfo</objectType>
+    </variables>
+    <variables>
+        <description>Picklist Value Info from CaseRecordType__c</description>
+        <name>PicklistValueInfoCaseRecordType</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>PicklistValueInfo</objectType>
+    </variables>
+    <variables>
+        <description>TopicConfigFollowUpTreatmentCase__c Record</description>
+        <name>TopicConfigFollowUpTreatmentCaseRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>TopicConfigFollowUpTreatmentCase__c</objectType>
+    </variables>
+    <variables>
+        <description>UserLicense or user</description>
+        <name>UserLicense</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>UserLicense.Name</description>
+        <name>UserLicenseName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Store UserRole</description>
+        <name>UserRole</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Values of CaseRecordType__c picklist</description>
+        <name>ValuesCaseRecordType</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
 </Flow>
