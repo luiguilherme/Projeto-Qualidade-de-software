@@ -11,11 +11,11 @@
         <chartType>Donut</chartType>
         <enableHoverLabels>false</enableHoverLabels>
         <expandOthers>false</expandOthers>
-        <groupingColumn>Case.CustomerProfileText__c</groupingColumn>
+        <groupingColumn>Case.SLAisOverdue__c</groupingColumn>
         <legendPosition>Right</legendPosition>
         <location>CHART_BOTTOM</location>
-        <showAxisLabels>false</showAxisLabels>
-        <showPercentage>true</showPercentage>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
         <showTotal>true</showTotal>
         <showValues>false</showValues>
         <size>Medium</size>
@@ -26,24 +26,21 @@
         <titleSize>18</titleSize>
     </chart>
     <columns>
-        <field>CASE_NUMBER</field>
+        <field>Case.OpenOrClosedCase__c</field>
     </columns>
     <columns>
-        <field>Case.EnrollmentRE__c</field>
+        <field>STATUS</field>
     </columns>
     <columns>
-        <field>ACCOUNT.NAME</field>
-    </columns>
-    <columns>
-        <field>OWNER</field>
+        <field>Case.FinalTransactionDate__c</field>
     </columns>
     <filter>
         <criteriaItems>
-            <column>Case.IsHDE__c</column>
+            <column>Case.OpenOrClosedCase__c</column>
             <columnToColumn>false</columnToColumn>
-            <isUnlocked>false</isUnlocked>
+            <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
-            <value>1</value>
+            <value>Caso Aberto</value>
         </criteriaItems>
         <criteriaItems>
             <column>Case.IsVisibleInListViewToCurrentUser__c</column>
@@ -52,15 +49,22 @@
             <operator>equals</operator>
             <value>1</value>
         </criteriaItems>
-        <language>pt_BR</language>
+        <criteriaItems>
+            <column>Case.IsHDE__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>Case.CustomerProfileText__c</field>
+        <field>Case.SLAisOverdue__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>Percentual Perfil Cliente</name>
+    <name>Casos Dentro e Fora do SLA</name>
     <params>
         <name>units</name>
         <value>h</value>

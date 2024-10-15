@@ -11,11 +11,11 @@
         <chartType>Donut</chartType>
         <enableHoverLabels>false</enableHoverLabels>
         <expandOthers>false</expandOthers>
-        <groupingColumn>Case.CustomerProfileText__c</groupingColumn>
+        <groupingColumn>Case.HDERootCause__c</groupingColumn>
         <legendPosition>Right</legendPosition>
         <location>CHART_BOTTOM</location>
         <showAxisLabels>false</showAxisLabels>
-        <showPercentage>true</showPercentage>
+        <showPercentage>false</showPercentage>
         <showTotal>true</showTotal>
         <showValues>false</showValues>
         <size>Medium</size>
@@ -26,18 +26,39 @@
         <titleSize>18</titleSize>
     </chart>
     <columns>
-        <field>CASE_NUMBER</field>
-    </columns>
-    <columns>
-        <field>Case.EnrollmentRE__c</field>
+        <field>OWNER</field>
     </columns>
     <columns>
         <field>ACCOUNT.NAME</field>
     </columns>
     <columns>
-        <field>OWNER</field>
+        <field>SUBJECT</field>
     </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>OPEN</field>
+    </columns>
+    <columns>
+        <field>CLOSED</field>
+    </columns>
+    <description>Casos fechados que tiveram a marcação de Causa Raiz Solucionada</description>
     <filter>
+        <criteriaItems>
+            <column>CLOSED</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.HDERootCause__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
         <criteriaItems>
             <column>Case.IsHDE__c</column>
             <columnToColumn>false</columnToColumn>
@@ -52,15 +73,15 @@
             <operator>equals</operator>
             <value>1</value>
         </criteriaItems>
-        <language>pt_BR</language>
+        <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>Case.CustomerProfileText__c</field>
+        <field>Case.HDERootCause__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>Percentual Perfil Cliente</name>
+    <name>Casos com Raiz Solucionada</name>
     <params>
         <name>units</name>
         <value>h</value>
