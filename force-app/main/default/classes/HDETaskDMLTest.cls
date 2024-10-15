@@ -28,8 +28,8 @@ public with sharing class HDETaskDMLTest {
                 case1.Comment__c = 'Caso Gold teste';
                 case1.Protocol__c = '123456';
                 case1.Status = 'A Iniciar';
-                case1.SegmentProduct__c = 'Fixa';
-                case1.HDEOtherProducts__c = 'Telefone Fixo Teste';
+                case1.SegmentProduct__c = 'OtherProduct';
+                case1.HDEOtherProducts__c = 'SIMCard';
                 case1.CustomerMoodRating__c = 'Não';
                 case1.Origin = 'HDE';
                 case1.CaseComplexityReason__c = 'Motivos de baixa Complexidade';

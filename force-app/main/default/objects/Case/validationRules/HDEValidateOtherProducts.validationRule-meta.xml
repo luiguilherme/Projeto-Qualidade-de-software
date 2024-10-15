@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HDEValidateOtherProducts</fullName>
+    <active>true</active>
+    <description>Caso o campo &quot;Tipo&quot; for preenchido com &quot;Outros Produtos&quot;, o preenchimento do campo &quot;Outros Produtos&quot; é obrigatório.</description>
+    <errorConditionFormula>AND(
+	($Profile.Name = &quot;Representante&quot; || $Profile.Name = &quot;AliadoExterno&quot;), 
+	IsHDE__c = true, 
+	TEXT(SegmentProduct__c) = &quot;OtherProduct&quot;, 
+	ISBLANK(HDEOtherProducts__c),
+	NOT(ISBLANK(ComplainedAsset__c))
+)</errorConditionFormula>
+    <errorDisplayField>HDEOtherProducts__c</errorDisplayField>
+    <errorMessage>O preenchimento do campo Outros Produtos é obrigatório e o campo Produto deve ser deixado em branco</errorMessage>
+</ValidationRule>
