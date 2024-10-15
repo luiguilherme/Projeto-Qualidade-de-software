@@ -1,7 +1,8 @@
-public without sharing class OrderManagementController {
+public without sharing class OrderManagementController extends AbstractOrderManagementController {
 
     @InvocableMethod(label='Order Management Controller' description='Classe utilizada para a busca de pedidos de clientes Vivo Next')
     public static List<RetrieveOrdersListResponse> findReplaceOfferOrderByParams(List<RetrieveOrdersListFilter> filter){
+        RetrieveOrdersListResponse result = new RetrieveOrdersListResponse();
 
         List<RetrieveOrdersListResponse.Orders> filteredOrders = OrderManagementService.findByFilter(
             filter[0].customerAccountId, filter[0].status, filter[0].types, filter[0].startDate, filter[0].endDate);
@@ -11,21 +12,24 @@ public without sharing class OrderManagementController {
         if(filteredOrders == null){
             return null;
         }
-        List<RetrieveOrdersListResponse.Orders> orders = new List<RetrieveOrdersListResponse.Orders>();
+
         for (RetrieveOrdersListResponse.Orders order : filteredOrders) {   
             for (RetrieveOrdersListResponse.OrderItems item : order.orderItems) {
-                if (item.product.serviceId == filter[0].serviceId && item.replaceOfferIndicator) {
-
-                    orders.add(order);
+                if (item.product != null && item.product.serviceId == filter[0].serviceId && item.replaceOfferIndicator) {
+                    Orders responseOrder = new Orders();
+                    responseOrder.creationDate = order.creationDate1.Date();
+                    responseOrder.referenceNumber = order.referenceNumber;
+                    responseOrder.status = order.status ;
+                    responseOrder.finalAmount = order.recurringPrice != null && order.recurringPrice.finalAmount != null ? 
+                        Decimal.valueOf(order.recurringPrice.finalAmount) : 0;
+                    
+                    result.order = responseOrder;
+                    break;
                 }
             }
-
-        }
+        }    
         
-        RetrieveOrdersListResponse response = new RetrieveOrdersListResponse();
-		response.orders = orders;
-        
-        return new List<RetrieveOrdersListResponse> { response };
+        return new List<RetrieveOrdersListResponse>{ result };
     }
 
     @AuraEnabled

@@ -11,16 +11,15 @@
         <div class="slds-align_absolute-center">
             <lightning-button variant="brand" label="Últimos 30 dias" onclick={handleSearchLast30Days}></lightning-button>&nbsp;&nbsp;
             <lightning-button variant="brand" label="Últimos 60 dias" onclick={handleSearchLast60Days}></lightning-button>&nbsp;&nbsp;
-            <!-- <lightning-button variant="brand" label="Últimos 90 dias" onclick={handleSearchLast90Days}></lightning-button>&nbsp;&nbsp; -->
             <lightning-button variant="brand" label="Outras datas" onclick={handleSearchOtherDates} disabled={isSearchButtonDisabled}></lightning-button>&nbsp;&nbsp;
         </div>
 
         <template if:true={otherDates}>
-            <div class="slds-align_absolute-center" style="align-items: end;">
-                <lightning-input type="date" placeholder="Início" value={startDate} onchange={handleStartDateChange}></lightning-input>&nbsp;&nbsp;
-                <lightning-input type="date" placeholder="Fim" value={endDate} onchange={handleEndDateChange}></lightning-input>&nbsp;&nbsp;
-                <lightning-button variant="brand" label="Pesquisar" onclick={handleCheckOrders}></lightning-button>
-            </div>
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col" style="padding-left: 80px;"><lightning-input type="date" date-style="short" placeholder="Início" value={startDate} onchange={handleStartDateChange}></lightning-input></div>
+                <div class="slds-col"><lightning-input type="date" date-style="short" placeholder="Fim" value={endDate} onchange={handleEndDateChange}></lightning-input></div>
+                <div class="slds-col" style="padding:17px; padding-right: 60px;"><lightning-button variant="brand" label="Pesquisar" onclick={handleCheckOrders}></lightning-button></div>
+              </div>
             <template if:true={error}>
                 <div class="slds-text-color_error slds-align_absolute-center">{errorMessage}</div>
             </template>

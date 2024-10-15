@@ -45,6 +45,8 @@ public class RetrieveOrdersListFacade {
         if (result == null || result.orders == null) {
             return null;
         }
+
+        System.debug('result:' + JSON.serialize(result));
         
         for (RetrieveOrdersListResponse.Orders order: result.orders) {
             String creationDateStr = String.valueOf(order.creationDate);

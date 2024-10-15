@@ -37,7 +37,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>sfDisputedFixedConvergent</targetReference>
+                <targetReference>sfDisputeZeroElevation</targetReference>
             </connector>
             <label>Não</label>
         </rules>
@@ -62,7 +62,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>sfDisputedFixedConvergent</targetReference>
+                <targetReference>sfDisputeZeroElevation</targetReference>
             </connector>
             <label>Sim</label>
         </rules>
@@ -87,7 +87,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>sfDisputedFixedConvergent</targetReference>
+                <targetReference>sfDisputeZeroElevation</targetReference>
             </connector>
             <label>Sim</label>
         </rules>
@@ -187,7 +187,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>sfDisputedFixedConvergent</targetReference>
+                <targetReference>sfDisputeZeroElevation</targetReference>
             </connector>
             <label>Sim</label>
         </rules>
@@ -248,7 +248,7 @@
         <expression>DATETIMEVALUE(DATE(VALUE(RIGHT({!SelectedInvoice.paymentDueDate}, 4)), VALUE(MID({!SelectedInvoice.paymentDueDate}, 4, 2)), VALUE(LEFT({!SelectedInvoice.paymentDueDate}, 2)))) + (3/24)</expression>
     </formulas>
     <interviewLabel>Contestação - Fixa/Convergente - Validações inicais {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Contestação - Fixa/Convergente - Validações inicais</label>
+    <label>Contestação - Fixa/Convergente - Validações iniciais(Alçada Zero V2)</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -298,6 +298,12 @@
             <field>FinancialAccountId__c</field>
             <value>
                 <elementReference>SelectedInvoice.financialAccountId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Prefill__c</field>
+            <value>
+                <elementReference>prefill</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -563,10 +569,15 @@
                 <assignToReference>accountHref</assignToReference>
                 <name>accountHref</name>
             </outputParameters>
+            <outputParameters>
+                <assignToReference>prefill</assignToReference>
+                <name>prefill</name>
+            </outputParameters>
         </fields>
+        <helpText>&lt;p&gt;SDAsdasdasda&lt;/p&gt;</helpText>
         <nextOrFinishButtonLabel>Próximo</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
+        <showHeader>false</showHeader>
     </screens>
     <start>
         <locationX>622</locationX>
@@ -580,7 +591,7 @@
         <name>adjustmentForm</name>
         <label>Ajustes</label>
         <locationX>748</locationX>
-        <locationY>2972</locationY>
+        <locationY>2864</locationY>
         <flowName>disputeFinalizeDisputeProcess</flowName>
         <inputAssignments>
             <name>caseId</name>
@@ -774,6 +785,12 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <name>hint</name>
+            <value>
+                <stringValue> </stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <name>question</name>
             <value>
                 <stringValue>Você pertence à um grupo com escopo para atendimento de funcionário Telefônica?</stringValue>
@@ -896,36 +913,14 @@
         </outputAssignments>
     </subflows>
     <subflows>
-        <name>sfDisputedFixedConvergent</name>
+        <name>sfDisputeZeroElevation</name>
         <label>Contestação - Fixa/Convergente - Alçada Zero</label>
         <locationX>303</locationX>
         <locationY>2672</locationY>
         <connector>
-            <targetReference>sfMotivos</targetReference>
-        </connector>
-        <flowName>DisputeFixedConvergentZeroElevation</flowName>
-        <inputAssignments>
-            <name>callActive</name>
-            <value>
-                <elementReference>callActive</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>caseId</name>
-            <value>
-                <elementReference>caseId</elementReference>
-            </value>
-        </inputAssignments>
-    </subflows>
-    <subflows>
-        <name>sfMotivos</name>
-        <label>Motivos</label>
-        <locationX>303</locationX>
-        <locationY>2780</locationY>
-        <connector>
             <targetReference>adjustmentForm</targetReference>
         </connector>
-        <flowName>DisputeFixedConvergentReasons</flowName>
+        <flowName>DisputeFixedConvergentZeroElevationV2</flowName>
         <inputAssignments>
             <name>caseId</name>
             <value>
@@ -1054,6 +1049,13 @@
     <variables>
         <name>isColab</name>
         <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>prefill</name>
+        <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>

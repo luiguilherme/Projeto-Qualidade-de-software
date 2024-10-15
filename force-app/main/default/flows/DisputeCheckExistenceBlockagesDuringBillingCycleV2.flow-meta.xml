@@ -62,7 +62,7 @@
     <assignments>
         <name>assBloqueiofraude</name>
         <label>Definir resposta da ação - Bloqueio de fraude</label>
-        <locationX>2778</locationX>
+        <locationX>2514</locationX>
         <locationY>2198</locationY>
         <assignmentItems>
             <assignToReference>answear</assignToReference>
@@ -86,7 +86,7 @@
     <assignments>
         <name>assBloqueiorelativo</name>
         <label>Definir resposta da ação - Bloqueio relativo a régua de cobrança</label>
-        <locationX>2250</locationX>
+        <locationX>1986</locationX>
         <locationY>2198</locationY>
         <assignmentItems>
             <assignToReference>answear</assignToReference>
@@ -110,7 +110,7 @@
     <assignments>
         <name>assBloqueioSuspensao</name>
         <label>Definir resposta da ação - Bloqueio por suspensão à pedido temporária</label>
-        <locationX>2514</locationX>
+        <locationX>2250</locationX>
         <locationY>2198</locationY>
         <assignmentItems>
             <assignToReference>answear</assignToReference>
@@ -193,33 +193,9 @@
         </connector>
     </assignments>
     <assignments>
-        <name>assSuspenderperdidosroubados</name>
-        <label>Definir resposta da ação - Suspender perdidos e roubados</label>
-        <locationX>3570</locationX>
-        <locationY>2198</locationY>
-        <assignmentItems>
-            <assignToReference>answear</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <stringValue>Suspender perdidos e roubados</stringValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>order</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>lpForeachOrder</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <isGoTo>true</isGoTo>
-            <targetReference>dcIsThereActionStepHistory2</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
         <name>assSuspensaolimitecredito</name>
         <label>Definir resposta da ação - Suspensão por limite de crédito</label>
-        <locationX>3306</locationX>
+        <locationX>3042</locationX>
         <locationY>2198</locationY>
         <assignmentItems>
             <assignToReference>answear</assignToReference>
@@ -243,7 +219,7 @@
     <assignments>
         <name>assSuspensaoRetencao</name>
         <label>Definir resposta da ação - Bloqueio de fraude</label>
-        <locationX>3042</locationX>
+        <locationX>2778</locationX>
         <locationY>2198</locationY>
         <assignmentItems>
             <assignToReference>answear</assignToReference>
@@ -342,7 +318,7 @@
     <decisions>
         <name>dcQualOrderType</name>
         <label>Quel é o tipo do item da ordem de bloqueio?</label>
-        <locationX>3042</locationX>
+        <locationX>2646</locationX>
         <locationY>2090</locationY>
         <defaultConnector>
             <targetReference>lpForeachOrderItem</targetReference>
@@ -423,21 +399,6 @@
             </connector>
             <label>Suspensão por limite de crédito</label>
         </rules>
-        <rules>
-            <name>dcQualOrderTypeSL</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>lpForeachOrderItem.implOrderTypeX9</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>SL</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>assSuspenderperdidosroubados</targetReference>
-            </connector>
-            <label>Suspender perdidos e roubados</label>
-        </rules>
     </decisions>
     <decisions>
         <name>dcThereIsDisputedItem</name>
@@ -509,7 +470,7 @@
     <loops>
         <name>lpForeachOrderItem</name>
         <label>Para cada item da ordem de bloqueio</label>
-        <locationX>2162</locationX>
+        <locationX>1898</locationX>
         <locationY>1982</locationY>
         <collectionReference>lpForeachOrder.itens</collectionReference>
         <iterationOrder>Asc</iterationOrder>
@@ -760,6 +721,12 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <name>hint</name>
+            <value>
+                <elementReference>hint</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <name>question</name>
             <value>
                 <elementReference>question</elementReference>
@@ -831,6 +798,9 @@
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
+        <value>
+            <stringValue>Ação que valida se existe Bloqueio de Fraude, Suspensão à pedido/Temporária, relativo à régua de cobrança, Suspensão de Retenção, Suspensão por limite de crédito, que impactou o uso do serviço durante o ciclo de faturamento.</stringValue>
+        </value>
     </variables>
     <variables>
         <name>order</name>
