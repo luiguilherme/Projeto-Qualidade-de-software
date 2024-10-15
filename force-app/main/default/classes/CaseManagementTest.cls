@@ -21,6 +21,12 @@ public with sharing class CaseManagementTest {
         assetRec.MainProductDescription__c = 'Vivo Fibra';
         insert assetRec;
 
+        Asset assetRecInternalCase = new Asset();
+        assetRecInternalCase.AccountId = accountRec.Id;
+        assetRecInternalCase.Name = 'Test Asset';
+        assetRecInternalCase.MainProductDescription__c = 'Vivo Fibra';
+        insert assetRecInternalCase;
+
         Case caseRec = new Case();
         caseRec.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(CasesMyRequestsB2C.CHARGE_OF_ADDRESS_RECORD_TYPE_API_NAME).getrecordTypeId();
         caseRec.Subject = 'Test Case';
@@ -29,7 +35,19 @@ public with sharing class CaseManagementTest {
         caseRec.Status =  'Em fila';
         caseRec.AccountId = accountRec.Id;
         caseRec.ComplainedAsset__c = assetRec.Id;
+        caseRec.Omnichannel__c = true;
         insert caseRec;
+
+        Case caseRec2 = new Case();
+        caseRec2.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(CasesMyRequestsB2C.CHARGE_OF_ADDRESS_RECORD_TYPE_API_NAME).getrecordTypeId();
+        caseRec2.Subject = 'Test Case Interno';
+        caseRec2.Origin = 'URA';
+        caseRec2.Protocol__c = '3456';
+        caseRec2.Status =  'Em fila';
+        caseRec2.AccountId = accountRec.Id;
+        caseRec2.ComplainedAsset__c = assetRecInternalCase.Id;
+        caseRec2.Omnichannel__c = false;
+        insert caseRec2;
 
         CaseDetail__c casedatail = new CaseDetail__c();
         casedatail.Case__c = caseRec.id;    
@@ -511,5 +529,72 @@ public with sharing class CaseManagementTest {
         Assert.areEqual(1, customerInteractions.size(), 'É esperado a criação de um Registro de vlocity_cmt__CustomerInteraction__c');
 
         Assert.areEqual(1, customerInteractionTopics.size(), 'É esperado a criação de um Registro de vlocity_cmt__CustomerInteractionTopic__c');
+    }
+
+    @isTest static void getCasesIdUrlInternalCase() {
+        JWTUtilityTest.setPublicTestKey();
+        Account acc = [SELECT Id FROM Account];
+        acc.DocumentNumber__c = '63542141747';
+        TriggerHandler.bypass('AccountTriggerHandler');
+        update acc;
+        TriggerHandler.clearbypass('AccountTriggerHandler');
+
+        String jwt = JWTUtilityTest.createValidJWT();
+        Case caseRec = [SELECT Id FROM Case WHERE Subject = 'Test Case Interno'];
+
+        RestRequest req = new RestRequest();
+        RestResponse res = new RestResponse();
+
+        req.requestURI = '/CaseManagement/v1/'+caseRec.Id;
+        req.headers.put('x-Authorization','Bearer ' + jwt);
+        req.httpMethod = 'GET';
+        req.params.put('documentNumber', '63542141747');
+        RestContext.request = req;
+        RestContext.response = res;
+        
+        Test.setMock(HttpCalloutMock.class, new UserProfileCalloutPessoaNotPrePaidMock());
+        Test.startTest();
+        CaseManagement.getCases();
+        Test.stopTest();
+        
+        Assert.areEqual(404, res.statusCode, 'O caso interno não deve ser retornado.');
+    }
+
+    @isTest static void getCasesFiltrosWhithoutInternalCases() {
+        JWTUtilityTest.setPublicTestKey();
+        Account acc = [SELECT Id FROM Account];
+        acc.DocumentNumber__c = '63542141747';
+        TriggerHandler.bypass('AccountTriggerHandler');
+        update acc;
+        TriggerHandler.clearbypass('AccountTriggerHandler');
+        String jwt = JWTUtilityTest.createValidJWT();
+
+        RestRequest req = new RestRequest();
+        RestResponse res = new RestResponse();
+
+        req.requestURI = '/CaseManagement/v1/';
+        req.httpMethod = 'GET';
+        req.headers.put('x-Authorization','Bearer ' + jwt);
+        req.addParameter('documentNumber','63542141747');
+        String filterStatusValues = '\'Em andamento\',\'Concluída\',\'Expirada\'';
+        req.addParameter('filterStatus', filterStatusValues);
+        req.addParameter('orderStatus','Em andamento,Expirada,Concluída');
+        RestContext.request = req;
+        RestContext.response = res;
+
+        Test.setMock(HttpCalloutMock.class, new UserProfileCalloutPessoaNotPrePaidMock());
+        Test.startTest();
+        CaseManagement.getCases();
+        GetCasesRequestWrapper responseReturn = (GetCasesRequestWrapper) Json.deserialize(res.responseBody.toString(),GetCasesRequestWrapper.class);
+        Test.stopTest();
+
+        List<String> casesIds = new List<String>();
+        for(GetCasesRequestWrapper.Cases cs : responseReturn.cases){
+            casesIds.add(cs.caseId);    
+        }
+
+        Case caseRec = [SELECT Id FROM Case WHERE Subject = 'Test Case Interno'];
+
+        Assert.areNotEqual(true, casesIds.contains(caseRec.Id), 'O caso interno não deve ser retornado.');
     }
 }
