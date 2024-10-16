@@ -1,0 +1,65 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "panGetEventManagementHistory",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/pan/GetEventManagementHistory/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "additionalInput": {
+        },
+        "additionalOutput": {
+        },
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "executionConditionalFormula": "",
+        "failOnStepError": false,
+        "failureConditionalFormula": "",
+        "failureResponse": {
+        },
+        "label": "HTTPAction1",
+        "namedCredential": "APITelefonica",
+        "postActionLogging": "",
+        "preActionLogging": "%endpoint%",
+        "responseJSONNode": "responseHTTP",
+        "responseJSONPath": "",
+        "restMethod": "GET",
+        "restOptions": {
+            "clientCertificateName": "",
+            "headers": {
+                "channel-id": "Salesforce",
+                "request-id": "%requestId%"
+            },
+            "isCompressed": false,
+            "params": {
+                "endDate": "%endDate%",
+                "operation": "%operation%",
+                "operationType": "%operationType%",
+                "page": "%page%",
+                "perPage": 10,
+                "startDate": "%startDate%"
+            },
+            "sendBody": true,
+            "timeout": 0,
+            "xmlEscapeResponse": false
+        },
+        "restPath": "/resourceLifecycleManagement/resourceEventManagement/v1/history/operation/msisdn/%networkNumber%",
+        "retryCount": 0,
+        "returnOnlyAdditionalOutput": false,
+        "returnOnlyFailureResponse": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "sendOnlyAdditionalInput": false,
+        "show": null,
+        "type": "Integration",
+        "useFormulas": true
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Rest Action",
+    "Name": "HTTPHistory",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/pan/GetEventManagementHistory/Procedure/HTTPHistory"
+}
