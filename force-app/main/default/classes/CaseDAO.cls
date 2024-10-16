@@ -149,10 +149,16 @@ public without sharing class CaseDAO {
                 Protocol__c,
                 RecordTypeId,
                 RecordType.Name,
+                RecordType.DeveloperName, 
                 AccountId,
                 ComplainedAsset__c,
             	Description,
-                ServiceReason__c
+                ServiceReason__c,
+                CustomerServiceReason__c,
+                View__c, 
+                IsHDE__c, 
+                CreatedById, 
+                OwnerId
             FROM
                 Case
             WHERE

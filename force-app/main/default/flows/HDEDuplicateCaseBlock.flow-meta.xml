@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <assignments>
+        <description>Por algum motivo passar diretamente na msg dava um erro...</description>
+        <name>Set_Case_Number</name>
+        <label>Set Found Case Number</label>
+        <locationX>50</locationX>
+        <locationY>827</locationY>
+        <assignmentItems>
+            <assignToReference>FoundNumber</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Old_Case.CaseNumber</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Mensagem_de_erro</targetReference>
+        </connector>
+    </assignments>
+    <customErrors>
+        <description>Mensagem de erro,</description>
+        <name>Mensagem_de_erro</name>
+        <label>Mensagem de erro</label>
+        <locationX>50</locationX>
+        <locationY>935</locationY>
+        <customErrorMessages>
+            <errorMessage>ATENÇÃO! Esse cliente já possui o Caso de Acompanhamento nº {!FoundNumber} aberto com o mesmo Motivo/Produto/Instância. Priorize o Caso.</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <name>Outro_registro</name>
+        <label>Outro registro</label>
+        <locationX>380</locationX>
+        <locationY>503</locationY>
+        <defaultConnectorLabel>Resultado padrão</defaultConnectorLabel>
+        <rules>
+            <name>Outro</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Old_Case</leftValueReference>
+                <operator>NotEqualTo</operator>
+            </conditions>
+            <connector>
+                <targetReference>Get_Operator_SegmentOLD</targetReference>
+            </connector>
+            <label>Outro</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>To_block</name>
+        <label>To block?</label>
+        <locationX>182</locationX>
+        <locationY>719</locationY>
+        <defaultConnectorLabel>Resultado padrão</defaultConnectorLabel>
+        <rules>
+            <name>block</name>
+            <conditionLogic>1</conditionLogic>
+            <conditions>
+                <leftValueReference>hierarchy1</leftValueReference>
+                <operator>GreaterThanOrEqualTo</operator>
+                <rightValue>
+                    <elementReference>hierarchy2</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Case_Number</targetReference>
+            </connector>
+            <label>block</label>
+        </rules>
+    </decisions>
+    <description>Bloquear Caso dentro do mesmo nível hierarquico ou nível abaixo com mesmo Motivo/Produto/Instância. Priorize o Caso.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>fórmula para comparar a hierarquia dos usuários. Considerar que a hierarquia é representada por um número onde um número menor indica uma hierarquia mais alta.</description>
+        <name>hierarchy1</name>
+        <dataType>Number</dataType>
+        <expression>IF(
+   {!OperatorSegment} == &apos;-&apos;, 
+   0, 
+   IF(
+      {!OperatorSegment} == &quot;Centro de Excelência&quot;, 1,
+      IF(
+         OR(
+            {!OperatorSegment} == &quot;Ouvidoria&quot;,
+            {!OperatorSegment} == &quot;Ouvidoria Comunidades&quot;
+         ), 2,
+         IF(
+            {!OperatorSegment} == &quot;Vivo V&quot;, 3,
+            IF(
+               OR(
+                  {!OperatorSegment} == &quot;Platinum&quot;,
+                  {!OperatorSegment} == &quot;Gold&quot;,
+                  {!OperatorSegment} == &quot;Silver&quot;,
+                  {!OperatorSegment} == &quot;Purpura&quot;,
+                  {!OperatorSegment} == &quot;Loja&quot;,
+                  {!OperatorSegment} == &quot;Lojas (Revendas)&quot;,
+                  {!OperatorSegment} == &quot;PAP&quot;,
+                  {!OperatorSegment} == &quot;Televendas&quot;
+               ), 4,
+               IF(
+                  {!OperatorSegment} == &quot;Omnichannel&quot;, 5,
+                  6
+               )
+            )
+         )
+      )
+   )
+)</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>hierarchy2</name>
+        <dataType>Number</dataType>
+        <expression>IF(
+   {!OperatorSegmentOLD} == &apos;-&apos;, 
+   0, 
+   IF(
+      {!OperatorSegmentOLD} == &quot;Centro de Excelência&quot;, 1,
+      IF(
+         OR(
+            {!OperatorSegmentOLD} == &quot;Ouvidoria&quot;,
+            {!OperatorSegmentOLD} == &quot;Ouvidoria Comunidades&quot;
+         ), 2,
+         IF(
+            {!OperatorSegmentOLD} == &quot;Vivo V&quot;, 3,
+            IF(
+               OR(
+                  {!OperatorSegmentOLD} == &quot;Platinum&quot;,
+                  {!OperatorSegmentOLD} == &quot;Gold&quot;,
+                  {!OperatorSegmentOLD} == &quot;Silver&quot;,
+                  {!OperatorSegmentOLD} == &quot;Purpura&quot;,
+                  {!OperatorSegmentOLD} == &quot;Loja&quot;,
+                  {!OperatorSegmentOLD} == &quot;Lojas (Revendas)&quot;,
+                  {!OperatorSegmentOLD} == &quot;PAP&quot;,
+                  {!OperatorSegmentOLD} == &quot;Televendas&quot;
+               ), 4,
+               IF(
+                  {!OperatorSegmentOLD} == &quot;Omnichannel&quot;, 5,
+                  6
+               )
+            )
+         )
+      )
+   )
+)</expression>
+        <scale>0</scale>
+    </formulas>
+    <interviewLabel>Acompanhamento e Tratativa - Bloqueio {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Acompanhamento e Tratativa - Bloqueio</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Operator_Segment</name>
+        <label>Get_Operator Segment</label>
+        <locationX>380</locationX>
+        <locationY>287</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Old_Case</targetReference>
+        </connector>
+        <filterLogic>3 AND (1 OR 2) AND (4 OR 5)</filterLogic>
+        <filters>
+            <field>Object__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Role</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Object__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>User</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>UsedIn__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>ServiceFlow</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>OriginName__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Owner:User.UserRole.DeveloperName</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>OriginName__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Owner:User.PartnerGroup__c</elementReference>
+            </value>
+        </filters>
+        <object>FromToMapping__mdt</object>
+        <outputAssignments>
+            <assignToReference>OperatorSegment</assignToReference>
+            <field>OperatorSegment__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Operator_SegmentOLD</name>
+        <label>Get_Operator SegmentOLD</label>
+        <locationX>182</locationX>
+        <locationY>611</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>To_block</targetReference>
+        </connector>
+        <filterLogic>3 AND (1 OR 2) AND (4 OR 5)</filterLogic>
+        <filters>
+            <field>Object__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Role</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Object__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>User</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>UsedIn__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>ServiceFlow</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>OriginName__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Old_Case.Owner:User.UserRole.DeveloperName</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>OriginName__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Old_Case.Owner:User.PartnerGroup__c</elementReference>
+            </value>
+        </filters>
+        <object>FromToMapping__mdt</object>
+        <outputAssignments>
+            <assignToReference>OperatorSegmentOLD</assignToReference>
+            <field>OperatorSegment__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <name>Old_Case</name>
+        <label>Old Case</label>
+        <locationX>380</locationX>
+        <locationY>395</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Outro_registro</targetReference>
+        </connector>
+        <filterLogic>(1 AND 2) AND ( (3 AND 4 AND 8) OR (3 AND 5 AND 7) ) AND 6 AND 9</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.AccountId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>CustomerServiceReason__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.CustomerServiceReason__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>ComplainedAsset__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ComplainedAsset__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>HDEOtherProducts__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.HDEOtherProducts__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Id</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>HDEOtherProducts__c</field>
+            <operator>NotEqualTo</operator>
+        </filters>
+        <filters>
+            <field>ComplainedAsset__c</field>
+            <operator>NotEqualTo</operator>
+        </filters>
+        <filters>
+            <field>CustomerServiceReason__c</field>
+            <operator>NotEqualTo</operator>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Case</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>254</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Operator_Segment</targetReference>
+        </connector>
+        <object>Case</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+    <triggerOrder>500</triggerOrder>
+    <variables>
+        <name>FoundNumber</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>---</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>OperatorSegment of the user</description>
+        <name>OperatorSegment</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>-</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>OperatorSegmentOLD</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>-</stringValue>
+        </value>
+    </variables>
+</Flow>

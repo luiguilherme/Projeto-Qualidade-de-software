@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CustomerProfileDetails__c</fullName>
+    <description>Mostra o detalhamento dos indicadores quando perfil Negativo.</description>
+    <externalId>false</externalId>
+    <formula>IF(OR(OpenTicketBD__c=true,TDNA__c=true,Recaller__c=true,Bottom__c=true,HighTemperature__c=true,Reincident__c=true,TDNARetention__c=true,TicketBDReincident__c=true,ODC__c=true,NCC__c=true,HDENoContact__c=true,TEXT(CustomerMoodRating__c)=&quot;Sim&quot;),
+&quot;Cliente com Indicador Negativo:&quot; 
+	&amp; IF(OpenTicketBD__c=true,&quot; [BD aberto]&quot;,&quot;&quot;)
+	&amp; IF(TDNA__c=true,&quot; [TDNA]&quot;,&quot;&quot;)
+	&amp; IF(Recaller__c=true,&quot; [Rechamador]&quot;,&quot;&quot;)
+	&amp; IF(Bottom__c=true,&quot; [Bottom]&quot;,&quot;&quot;)
+	&amp; IF(HighTemperature__c=true,&quot; [Temperatura Alta]&quot;,&quot;&quot;)
+	&amp; IF(Reincident__c=true,&quot; [Reincidente Contestação]&quot;,&quot;&quot;)
+	&amp; IF(TDNARetention__c=true,&quot; [TDNA Retenção]&quot;,&quot;&quot;)
+	&amp; IF(TicketBDReincident__c=true,&quot; [BD Reincidente]&quot;,&quot;&quot;)
+	&amp; IF(ODC__c=true,&quot; [Crítico Orgãos Proteção Consumidor]&quot;,&quot;&quot;)
+	&amp; IF(NCC__c=true,&quot; [NCC]&quot;,&quot;&quot;)
+	&amp; IF(HDENoContact__c=true,&quot; [HDE fechado sem contato]&quot;,&quot;&quot;)
+	&amp; IF(TEXT(CustomerMoodRating__c)=&quot;Sim&quot;,&quot; [Cliente Irritado no Atendimento]&quot;,&quot;&quot;),
+&quot;Cliente com Indicador Neutro/Positivo&quot;
+)</formula>
+    <inlineHelpText>Mostra o detalhamento dos indicadores quando perfil Negativo.</inlineHelpText>
+    <label>Perfil do Cliente Detalhado</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

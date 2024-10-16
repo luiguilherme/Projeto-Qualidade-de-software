@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HDEValidateProduct</fullName>
+    <active>true</active>
+    <description>Caso o campo &quot;Tipo&quot; for preenchido com &quot;Fixa&quot; ou &quot;Móvel&quot;, o preenchimento do campo &quot;Produto&quot; é obrigatório, caso contrário é obrigatório que o campo &quot;Produto&quot; fique vazio.</description>
+    <errorConditionFormula>AND(
+	($Profile.Name = &quot;Representante&quot; || $Profile.Name = &quot;AliadoExterno&quot;), 
+	IsHDE__c = true, 
+	(TEXT(SegmentProduct__c) = &quot;Fixa&quot; || TEXT(SegmentProduct__c) = &quot;Móvel&quot;), 
+	ISBLANK(ComplainedAsset__c),
+	NOT(ISBLANK(HDEOtherProducts__c))
+)</errorConditionFormula>
+    <errorDisplayField>ComplainedAsset__c</errorDisplayField>
+    <errorMessage>O preenchimento do campo Produto é obrigatório e o campo Outros Produtos deve ser deixado em branco</errorMessage>
+</ValidationRule>

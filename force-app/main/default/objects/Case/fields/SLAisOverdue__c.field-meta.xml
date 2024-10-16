@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SLAisOverdue__c</fullName>
+    <description>Essa fórmula de checkbox permitirá que você identifique facilmente se um caso está vencido</description>
+    <externalId>false</externalId>
+    <formula>IF(
+    FinalSLA__c == &apos;1 DU&apos;, 
+    NOT(NOW() &gt; DueDate__c),
+    
+    IF(
+        FinalSLA__c == &apos;10 DC&apos;, 
+        IF(
+            CreatedDate + 1 &gt; NOW(), 
+            NOW() &gt; (CreatedDate + 10),
+            FALSE  
+        ),
+        TRUE
+    )
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Dentro da SLA</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -316,7 +316,7 @@ public with sharing class CasesMyRequestsB2C
                 payload = ContactCenterService.buildOpenMediaInteractionPayLoad(caseRec, accountRec, assetRec);
                 ContactCenterService.populateRountingFields(payload, agentLogin, action);
                 ContactCenterService.validadePayload(payload);
-                String payloadSerialized = JSON.serialize(payload);
+                String payloadSerialized = JSON.serialize(payload, true);
                 System.debug(LoggingLevel.INFO, payloadSerialized);
                 ContactCenterService.createOpenMediaInteraction(payloadSerialized);
             }

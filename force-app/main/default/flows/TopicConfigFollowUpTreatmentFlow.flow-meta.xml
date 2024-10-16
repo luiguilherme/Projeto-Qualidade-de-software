@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <assignments>
+        <description>Assignment IdentificationRecord__c to block duplicated records.</description>
+        <name>Assignment_IdentificationRecord_c</name>
+        <label>Assignment IdentificationRecord__c</label>
+        <locationX>176</locationX>
+        <locationY>995</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.IdentificationRecord__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ConcatenateFields</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <customErrors>
+        <name>CustomErrorDuplicate</name>
+        <label>Custom Error Message 1</label>
+        <locationX>264</locationX>
+        <locationY>611</locationY>
+        <customErrorMessages>
+            <errorMessage>duplicate value found: IdentificationRecord__c duplicates value on record with id: {!Loop_1.Id}</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <name>PossuiConfiguracoMotivo</name>
+        <label>Já Possui Configuração com este Motivo?</label>
+        <locationX>396</locationX>
+        <locationY>503</locationY>
+        <defaultConnector>
+            <targetReference>Loop_1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Não possui Configuração com Segmento do Operador</defaultConnectorLabel>
+        <rules>
+            <name>PossuiConfiguracaMotivo</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Loop_1.CaseReason__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.CaseReason__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Loop_1.Id</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>CustomErrorDuplicate</targetReference>
+            </connector>
+            <label>Possui Configuração com mesmo Motivo</label>
+        </rules>
+    </decisions>
+    <description>Fluxo responsável por atualizar um registro de TopicConfigFollowUpTreatmentCase na criação e edição.
+v7 - Atualmente atualiza o campo IdentificationRecord com a concatenação dos valores dos campos ConfigurationType__c, OperatorSegment__c, TopicTreeId__c e VisibleTo__c.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Concatenação dos campos CustomerSegment__c,,OperatorSegment__c, ConfigurationType__c, CaseReason__c e TopicTreeId__c.</description>
+        <name>ConcatenateFields</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Record.OperatorSegment__c})&amp;TEXT({!$Record.ConfigurationType__c})&amp;{!$Record.TopicTreeId__c}&amp;TEXT({!$Record.VisibleTo__c})&amp;TEXT({!$Record.CaseReason__c})&amp;TEXT({!$Record.CaseRecordType__c})&amp;TEXT({!$Record.CustomerSegment__c})</expression>
+    </formulas>
+    <interviewLabel>Acompanhamento e Tratativa - Configuração Adicional {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Acompanhamento e Tratativa - Configuração Adicional</label>
+    <loops>
+        <name>Loop_1</name>
+        <label>Loop 1</label>
+        <locationX>176</locationX>
+        <locationY>395</locationY>
+        <collectionReference>GetTopicConfigRecords</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>PossuiConfiguracoMotivo</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Assignment_IdentificationRecord_c</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get Topic Config Records</description>
+        <name>GetTopicConfigRecords</name>
+        <label>Get Topic Config Records</label>
+        <locationX>176</locationX>
+        <locationY>287</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_1</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>OperatorSegment__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.OperatorSegment__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>TopicTreeId__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.TopicTreeId__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>ConfigurationType__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ConfigurationType__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>TopicConfigFollowUpTreatmentCase__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>GetTopicConfigRecords</targetReference>
+        </connector>
+        <object>TopicConfigFollowUpTreatmentCase__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

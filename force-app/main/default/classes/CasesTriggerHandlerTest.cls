@@ -113,6 +113,52 @@ private class CasesTriggerHandlerTest
     }
 
     @isTest
+    static void isAfterInsertUpdateRelatedInteractionTopicWithCaseIdTest() {
+        // Resolves account
+        Account accountTest = DataFactory.createConsumerAccount();
+
+        insert accountTest;
+
+        // Resolves Customer Interaction
+        vlocity_cmt__CustomerInteraction__c customerInteractionTest = 		
+            DataFactory.createCustomerInteraction(accountTest.Id);
+    
+        insert customerInteractionTest;
+
+        // Resolves Customer Interaction Topic
+        // Note that the CaseId is not being assigned
+        vlocity_cmt__CustomerInteractionTopic__c interactionTopicTest = 
+            new vlocity_cmt__CustomerInteractionTopic__c(
+                vlocity_cmt__CustomerInteractionId__c = customerInteractionTest.Id
+            );
+
+        insert interactionTopicTest;
+
+        // Resolves Cases
+        List<Case> ltNewCasesTests = new List<Case>();
+        Map<Id, Case> ltOldCasesTest = new Map<Id, Case>([SELECT Id, RecordTypeId FROM Case LIMIT 1]);
+
+        Case caseTest = DataFactory.createCase(
+            'Service', 
+            'Expectation Management Case Test', 
+            'Add new case test for test Trigger updateRelatedInteractionTopicWithCaseId method in CustomerInteractionTopicService class'
+        );
+
+        caseTest.CustomerInteractionTopic__c = interactionTopicTest.Id;
+
+        ltNewCasesTests.add(caseTest);
+
+        insert ltNewCasesTests;
+
+        // Verify
+        CasesTriggerHandler casesTrigger = new CasesTriggerHandler(ltNewCasesTests, ltOldCasesTest);
+
+        casesTrigger.isAfterInsert();
+
+        Assert.isTrue(casesTrigger != null);   
+    }
+
+    @isTest
     static void isAfterUpdateTest()
     { 
         List<CanalNotificacoesMinhasSolicitacoes__mdt> canais = new List<CanalNotificacoesMinhasSolicitacoes__mdt>();
