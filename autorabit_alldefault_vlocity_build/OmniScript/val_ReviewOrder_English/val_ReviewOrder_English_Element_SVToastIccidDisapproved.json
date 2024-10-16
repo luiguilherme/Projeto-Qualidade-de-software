@@ -10,21 +10,29 @@
         "HTMLTemplateId": "",
         "controlWidth": 12,
         "elementValueMap": {
-            "hasOptinValue": "=%StepResumo:Details:optin:acceptContact%",
-            "hasOptinValueLGPD": "=%StepResumo:Details:optin:acceptDataUse%"
+            "MessageReprovadoICCID": "Não foi possível gerar o ICCID, tente novamente."
         },
-        "label": "SVCheckOptin",
+        "label": "SVToastIccidDisapproved",
         "message": {
+            "channelName": "valReviewOrder_ChangeSimJourney",
+            "eventName": "validationToast",
+            "message": "%MessageReprovadoICCID%",
+            "variant": "error"
         },
-        "pubsub": false,
+        "pubsub": true,
         "show": {
             "group": {
                 "operator": "AND",
                 "rules": [
                     {
                         "condition": "=",
-                        "data": "false",
-                        "field": "OptinEmpty"
+                        "data": "eSim",
+                        "field": "tipoChip"
+                    },
+                    {
+                        "condition": "=",
+                        "data": "true",
+                        "field": "ResponseICCIDReprovado"
                     }
                 ]
             }
@@ -38,8 +46,8 @@
     },
     "%vlocity_namespace%__ReusableOmniScript__c": true,
     "%vlocity_namespace%__Type__c": "Set Values",
-    "Name": "SVCheckOptin",
+    "Name": "SVToastIccidDisapproved",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ReviewOrder/English/SVCheckOptin"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ReviewOrder/English/SVToastIccidDisapproved"
 }

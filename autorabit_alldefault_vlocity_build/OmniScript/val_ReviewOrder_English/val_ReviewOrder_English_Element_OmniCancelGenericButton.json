@@ -23,78 +23,81 @@
     "%vlocity_namespace%__PropertySet__c": {
         "bStandalone": false,
         "conditionType": "Hide if False",
-        "controlWidth": 12,
+        "controlWidth": 2,
         "customAttributes": [
             {
-                "name": "cf-validate-message-optin",
-                "source": "%MessageErrorFields%"
+                "name": "open-modal-button-label",
+                "source": "Cancelar"
             },
             {
-                "name": "record-id",
+                "name": "title",
+                "source": "Deseja cancelar?"
+            },
+            {
+                "name": "message",
+                "source": "Todos os dados do pedido serão perdidos. Confirma o cancelamento da operação"
+            },
+            {
+                "name": "label-button-left",
+                "source": "Não"
+            },
+            {
+                "name": "label-button-right",
+                "source": "Sim"
+            },
+            {
+                "name": "base-url",
+                "source": "%baseURL%"
+            },
+            {
+                "name": "context-id",
+                "source": "%ContextId%"
+            },
+            {
+                "name": "order-id",
                 "source": "%OrderId%"
             },
             {
-                "name": "cf-order-id",
-                "source": "%OrderId%"
+                "name": "account-id",
+                "source": "%ParentAccountId%"
             },
             {
-                "name": "cf-asset-id",
+                "name": "line-number",
+                "source": "%lineNumber%"
+            },
+            {
+                "name": "asset-id",
                 "source": "%AssetId%"
             },
             {
-                "name": "cf-functionality",
+                "name": "show-modal-cancel",
+                "source": "true"
+            },
+            {
+                "name": "functionality",
                 "source": "%Functionality%"
-            },
-            {
-                "name": "cf-imei",
-                "source": "%IMEI%"
-            },
-            {
-                "name": "cf-portability",
-                "source": "%HasPortability%"
-            },
-            {
-                "name": "cf-devide",
-                "source": "%DevideBlock%"
-            },
-            {
-                "name": "cf-model",
-                "source": "%MODEL%"
-            },
-            {
-                "name": "cf-vendor",
-                "source": "%VENDOR%"
-            },
-            {
-                "name": "cf-option-promotion",
-                "source": "%hasOptinValue%"
-            },
-            {
-                "name": "cf-optin-lgpd",
-                "source": "%hasOptinValueLGPD%"
-            },
-            {
-                "name": "cf-chip-select-name",
-                "source": "%chipSelectName%"
-            },
-            {
-                "name": "cf-chip-select-material",
-                "source": "%chipSelectMaterial%"
-            },
-            {
-                "name": "parent-attribute",
-                "source": "%DecisonChip%"
             }
         ],
         "hide": false,
-        "label": "Details",
-        "lwcName": "cfValReviewOrder",
-        "show": null
+        "label": "OmniCancelGenericButton",
+        "lwcName": "omniCancelGenericButton",
+        "show": {
+            "group": {
+                "operator": "AND",
+                "rules": [
+                    {
+                        "condition": "=",
+                        "data": "ChangeOwnership",
+                        "field": "Functionality"
+                    }
+                ]
+            }
+        }
     },
     "%vlocity_namespace%__ReusableOmniScript__c": true,
     "%vlocity_namespace%__Type__c": "Custom Lightning Web Component",
-    "Name": "Details",
+    "Name": "OmniCancelGenericButton",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ReviewOrder/English/Details"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ReviewOrder/English/OmniCancelGenericButton"
 }
