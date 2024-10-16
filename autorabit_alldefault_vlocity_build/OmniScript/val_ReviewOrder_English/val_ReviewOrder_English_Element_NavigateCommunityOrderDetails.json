@@ -8,15 +8,21 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "HTMLTemplateId": "",
+        "businessCategory": "",
+        "businessEvent": "",
         "controlWidth": 12,
-        "elementValueMap": {
-            "TopicNameByRequest": "=IF(%Functionality%=='RechargeJourney', 'Recarga sem Voucher',IF(%Functionality%=='SalesJourney' && %SalesJourneyChipSelect:ChooseChip%=='Sim' && %HasPortability% <> true, 'Habilitação Com Aquisição Chip',IF(%Functionality%=='SalesJourney' && %SalesJourneyChipSelect:ChooseChip%=='Não', 'Habilitação Sem Aquisição Chip',IF(%Functionality%=='SalesJourney' && %SalesJourneyChipSelect:ChooseChip%=='Sim' && %HasPortability% == true, 'Habilitação Com Aquisição Chip Com Portabilidade'))))",
-            "TopicNameByRequest3": "=IF(%changeEmailFormula% == true, \"Alteração Dados Contatos\", \"\")"
-        },
-        "label": "SVSetTopic",
+        "iconName": "standard-default",
+        "iconPosition": "left",
+        "iconVariant": "",
+        "label": "NavigateCommunityOrderDetails",
+        "loginAction": "login",
+        "lwcComponentOverride": "",
         "message": {
         },
+        "objectAction": "home",
         "pubsub": false,
+        "recordAction": "view",
+        "replace": true,
         "show": {
             "group": {
                 "operator": "OR",
@@ -34,6 +40,11 @@
                                     "condition": "=",
                                     "data": "SalesJourney",
                                     "field": "Functionality"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "true",
+                                    "field": "UserInCommunity"
                                 }
                             ]
                         }
@@ -44,8 +55,13 @@
                             "rules": [
                                 {
                                     "condition": "=",
-                                    "data": "RechargeJourney",
+                                    "data": "ChangeOwnership",
                                     "field": "Functionality"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "true",
+                                    "field": "UserInCommunity"
                                 }
                             ]
                         }
@@ -53,17 +69,23 @@
                 ]
             }
         },
-        "showPersistentComponent": [
-            true,
-            false
-        ],
         "ssm": false,
+        "targetFilter": "Recent",
+        "targetId": "%OrderId%",
+        "targetLWC": "c:valOrderDetailsPageEnglish",
+        "targetLWCLayout": "lightning",
+        "targetLWCParams": "&c__tabLabel=%OrderNumber%&c__customerId=%Parent.customerId%&c__accountId=%AccountId%&c__interactionId=%ContextId%&c__platform=%Platform%&c__ContextId=%OrderId%&c__interactionNumber=%InteractionNumber%",
+        "targetName": "Order",
+        "targetType": "Record",
+        "targetUrl": "%baseURL%?c__target=c:valOrderDetailsPageEnglish&c__tabLabel=%OrderNumber%&c__customerId=%Parent.customerId%&c__accountId=%AccountId%&c__interactionId=%ContextId%&c__platform=%Platform%&c__ContextId=%OrderId%&c__interactionNumber=%InteractionNumber%",
+        "validationRequired": "Submit",
+        "variant": "brand",
         "wpm": false
     },
     "%vlocity_namespace%__ReusableOmniScript__c": true,
-    "%vlocity_namespace%__Type__c": "Set Values",
-    "Name": "SVSetTopic",
+    "%vlocity_namespace%__Type__c": "Navigate Action",
+    "Name": "NavigateCommunityOrderDetails",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ReviewOrder/English/SVSetTopic"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ReviewOrder/English/NavigateCommunityOrderDetails"
 }
