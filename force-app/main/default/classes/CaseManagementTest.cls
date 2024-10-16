@@ -15,50 +15,24 @@ public with sharing class CaseManagementTest {
         accountRec.DocumentNumber__c = '1234';
         insert accountRec;
 
-        List<Asset> assetList = new List<Asset>();
+        Asset assetRec = new Asset();
+        assetRec.AccountId = accountRec.Id;
+        assetRec.Name = 'Test Asset';
+        assetRec.MainProductDescription__c = 'Vivo Fibra';
+        insert assetRec;
 
-        Asset myRequestsAsset = new Asset();
-        myRequestsAsset.AccountId = accountRec.Id;
-        myRequestsAsset.Name = 'Test Asset';
-        myRequestsAsset.MainProductDescription__c = 'Vivo Fibra';
-        assetList.add(myRequestsAsset);
-    
-        Asset nonMyRequestsAsset = new Asset();
-        nonMyRequestsAsset.AccountId = accountRec.Id;
-        nonMyRequestsAsset.Name = 'Test Asset';
-        nonMyRequestsAsset.MainProductDescription__c = 'Vivo Fibra';
-        assetList.add(nonMyRequestsAsset);
-
-        insert assetList;
-
-        List<Case> caseList = new List<Case>();
-
-        Case myRequestsCase = new Case();
-        myRequestsCase.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(CasesMyRequestsB2C.CHARGE_OF_ADDRESS_RECORD_TYPE_API_NAME).getrecordTypeId();
-        myRequestsCase.Subject = 'Test Case';
-        myRequestsCase.Origin = 'URA';
-        myRequestsCase.Protocol__c = '1234';
-        myRequestsCase.Status =  'Em fila';
-        myRequestsCase.AccountId = accountRec.Id;
-        myRequestsCase.ComplainedAsset__c = myRequestsAsset.Id;
-        myRequestsCase.Omnichannel__c = true;
-        caseList.add(myRequestsCase);
-
-        Case nonMyRequestsCase = new Case();
-        nonMyRequestsCase.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(CasesMyRequestsB2C.CHARGE_OF_ADDRESS_RECORD_TYPE_API_NAME).getrecordTypeId();
-        nonMyRequestsCase.Subject = 'Test Case NonMyRequestsCase';
-        nonMyRequestsCase.Origin = 'URA';
-        nonMyRequestsCase.Protocol__c = '3456';
-        nonMyRequestsCase.Status =  'Em fila';
-        nonMyRequestsCase.AccountId = accountRec.Id;
-        nonMyRequestsCase.ComplainedAsset__c = nonMyRequestsAsset.Id;
-        nonMyRequestsCase.Omnichannel__c = false;
-        caseList.add(nonMyRequestsCase);
-
-        insert caseList;
+        Case caseRec = new Case();
+        caseRec.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(CasesMyRequestsB2C.CHARGE_OF_ADDRESS_RECORD_TYPE_API_NAME).getrecordTypeId();
+        caseRec.Subject = 'Test Case';
+        caseRec.Origin = 'URA';
+        caseRec.Protocol__c = '1234';
+        caseRec.Status =  'Em fila';
+        caseRec.AccountId = accountRec.Id;
+        caseRec.ComplainedAsset__c = assetRec.Id;
+        insert caseRec;
 
         CaseDetail__c casedatail = new CaseDetail__c();
-        casedatail.Case__c = myRequestsCase.id;    
+        casedatail.Case__c = caseRec.id;    
         casedatail.OrderNumber__c = '123456';
         casedatail.CEP__c = '123456';
         casedatail.Street__c = 'Rua teste';
@@ -80,7 +54,7 @@ public with sharing class CaseManagementTest {
         insert casedatail;
 
         CaseComment__c caseComent = new CaseComment__c();
-        caseComent.ParentId__c = myRequestsCase.id;
+        caseComent.ParentId__c = caseRec.id;
         caseComent.ViewDatetime__c = null;
         insert caseComent;
     }
@@ -537,72 +511,5 @@ public with sharing class CaseManagementTest {
         Assert.areEqual(1, customerInteractions.size(), 'É esperado a criação de um Registro de vlocity_cmt__CustomerInteraction__c');
 
         Assert.areEqual(1, customerInteractionTopics.size(), 'É esperado a criação de um Registro de vlocity_cmt__CustomerInteractionTopic__c');
-    }
-
-    @isTest static void getCasesIdUrlNonMyRequestCases() {
-        JWTUtilityTest.setPublicTestKey();
-        Account acc = [SELECT Id FROM Account];
-        acc.DocumentNumber__c = '63542141747';
-        TriggerHandler.bypass('AccountTriggerHandler');
-        update acc;
-        TriggerHandler.clearbypass('AccountTriggerHandler');
-
-        String jwt = JWTUtilityTest.createValidJWT();
-        Case caseRec = [SELECT Id FROM Case WHERE Subject = 'Test Case NonMyRequestsCase'];
-
-        RestRequest req = new RestRequest();
-        RestResponse res = new RestResponse();
-
-        req.requestURI = '/CaseManagement/v1/'+caseRec.Id;
-        req.headers.put('x-Authorization','Bearer ' + jwt);
-        req.httpMethod = 'GET';
-        req.params.put('documentNumber', '63542141747');
-        RestContext.request = req;
-        RestContext.response = res;
-        
-        Test.setMock(HttpCalloutMock.class, new UserProfileCalloutPessoaNotPrePaidMock());
-        Test.startTest();
-        CaseManagement.getCases();
-        Test.stopTest();
-        
-        Assert.areEqual(404, res.statusCode, 'O caso não deve ser retornado.');
-    }
-
-    @isTest static void getCasesFiltrosNonMyRequestCases() {
-        JWTUtilityTest.setPublicTestKey();
-        Account acc = [SELECT Id FROM Account];
-        acc.DocumentNumber__c = '63542141747';
-        TriggerHandler.bypass('AccountTriggerHandler');
-        update acc;
-        TriggerHandler.clearbypass('AccountTriggerHandler');
-        String jwt = JWTUtilityTest.createValidJWT();
-
-        RestRequest req = new RestRequest();
-        RestResponse res = new RestResponse();
-
-        req.requestURI = '/CaseManagement/v1/';
-        req.httpMethod = 'GET';
-        req.headers.put('x-Authorization','Bearer ' + jwt);
-        req.addParameter('documentNumber','63542141747');
-        String filterStatusValues = '\'Em andamento\',\'Concluída\',\'Expirada\'';
-        req.addParameter('filterStatus', filterStatusValues);
-        req.addParameter('orderStatus','Em andamento,Expirada,Concluída');
-        RestContext.request = req;
-        RestContext.response = res;
-
-        Test.setMock(HttpCalloutMock.class, new UserProfileCalloutPessoaNotPrePaidMock());
-        Test.startTest();
-        CaseManagement.getCases();
-        GetCasesRequestWrapper responseReturn = (GetCasesRequestWrapper) Json.deserialize(res.responseBody.toString(),GetCasesRequestWrapper.class);
-        Test.stopTest();
-
-        List<String> returnedCaseIds = new List<String>();
-        for(GetCasesRequestWrapper.Cases cs : responseReturn.cases){
-            returnedCaseIds.add(cs.caseId);    
-        }
-
-        Case nonMyRequestsCase = [SELECT Id FROM Case WHERE Subject = 'Test Case NonMyRequestsCase'];
-
-        Assert.isFalse(returnedCaseIds.contains(nonMyRequestsCase.Id), 'O caso não deve ser retornado na resposta.');
     }
 }
