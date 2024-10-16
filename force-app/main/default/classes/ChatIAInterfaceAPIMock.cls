@@ -20,54 +20,21 @@ global class ChatIAInterfaceAPIMock implements HttpCalloutMock {
             res.setBody('{"content":"Desculpe, não temos a resposta neste momento. Por favor, entre em contato com seu supervisor.","supporting_snippets":[{"content":" ","document":{"name":"Manual LDI v3.pdf","url":"https://ai-br-pro.telefonicabigdata.com/pdfs/6479f3b4d324b32f05eb6b7f/Manual LDI v3.pdf"},"page_number":14},{"content":" ","document":{"name":"Manual LDI v3.pdf","url":"https://ai-br-pro.telefonicabigdata.com/pdfs/6479f3b4d324b32f05eb6b7f/Manual LDI v3.pdf"},"page_number":15},{"content":" ","document":{"name":"Manual_Gestão Dispositivo_vChatv3.pdf","url":"https://ai-br-pro.telefonicabigdata.com/pdfs/6479f3b4d324b32f05eb6b7f/Manual_Gestão Dispositivo_vChatv3.pdf"},"page_number":20}],"correlator":"1c404007-6398-4d66-b4bd-c44a5b0922c6"}');
             res.setStatusCode(200);
         }
-
-        // CreateNewChat();
-        if(req.getEndpoint() == 'https://ai-br-pro.telefonicabigdata.com/flow/chat/12345' && req.getMethod() == 'PUT'){
-            // Create a fake response
-            res.setHeader('Content-Type', 'application/json');
-            res.setBody('{"date":"2023-11-27","history":[{"type":"user","message":"a API está funcionando?","_id":"123"},{"type":"assistant","message":"Desculpe, não temos a resposta neste momento. Por favor, entre em contato com seu supervisor.","_id":"456"}],"_id":"6564cff7ff71047362031bd4"}');
-            res.setStatusCode(200);
-        }
-
-        // CreateNewHistory();
-        if(req.getEndpoint() == 'https://ai-br-pro.telefonicabigdata.com/flow/chat/12345' && req.getMethod() == 'POST'){
-            // Create a fake response
-            res.setHeader('Content-Type', 'application/json');
-            res.setBody('{"user_id": "0058J000001NLnDQAWAA12", "flow_id": "12345","chats": [{"date": "2024-01-19","history": [{"type": "user","message": "Como ativar o eSim?","correlator": null,"has_feedback": null,"feedback": null,"_id": "65aac862deb68aa9b434d6fd"},{"type": "assistant","message": "TESTE","correlator": "09a10af1-ada0-432e-9d50-afe3efb2fc29","has_feedback": null,"feedback": null,"_id": "65aac862deb68aa9b434d6fe"}],"_id": "65aac862deb68aa9b434d6fc"}],"_id": "65aac862deb68aa9b434d6fb","created_at": "2024-01-19T19:07:14.127Z","updated_at": "2024-01-19T19:07:14.127Z","__v": 0}');
-            res.setStatusCode(200);
-        }
-
-        // AddConversation();
-        if(req.getEndpoint() == 'https://ai-br-pro.telefonicabigdata.com/flow/chat/TESTE' && req.getMethod() == 'PUT'){
-            // Create a fake response
-            res.setHeader('Content-Type', 'application/json');
-            res.setBody('{"date":"2023-11-27","history":[{"type":"user","message":"a API está funcionando?","_id":"123"},{"type":"assistant","message":"Desculpe, não temos a resposta neste momento. Por favor, entre em contato com seu supervisor.","_id":"456"}],"_id":"6564cff7ff71047362031bd4"}');
-            res.setStatusCode(200);
-        }
        
         // GetHistoryById();
-        if(req.getEndpoint() == 'https://ai-br-pro.telefonicabigdata.com/flow/chat/12345' && req.getMethod() == 'GET'){
+        if(req.getEndpoint().contains('https://ai-br-pro.telefonicabigdata.com/v2/history/') && req.getMethod() == 'GET'){
             // Create a fake response
             res.setHeader('Content-Type', 'application/json');
-            res.setBody('{"date":"2023-11-28","history":[{"type":"user","message":"Como acessar minha conta?","_id":"6565dea8fbaa8bf6581f08a5"},{"type":"assistant","message":"Para acessar sua conta no portal Vivo Gestão, você deve informar seu usuário (login) e senha","_id":"6565dea8fbaa8bf6581f08a6"}],"_id":"6565dea8fbaa8bf6581f08a4"}');
+            res.setBody('[{"message":"Hello","response":"Success","feedback":"Positive","correlator":"12345","feedback_message":"Great job","userId":"0011p00000ABCD","subscriptionId":"sub_ABC123","createdAt":"2024-08-20","sessionId":"sess_123456"}]');
             res.setStatusCode(200);
         }
         
         // DeleteChatById();
-        if(req.getEndpoint() == 'https://ai-br-pro.telefonicabigdata.com/flow/chat/12345' && req.getMethod() == 'DELETE'){
+        if(req.getEndpoint().contains('https://ai-br-pro.telefonicabigdata.com/v2/history/') && req.getMethod() == 'DELETE'){
             // Create a fake response
             res.setHeader('Content-Type', 'application/json');
             res.setStatusCode(200);
         }
-        
-        // updateFeedback();
-        if(req.getEndpoint() == 'https://ai-br-pro.telefonicabigdata.com/flow/chat/feedback/12345' && req.getMethod() == 'PUT'){
-            // Create a fake response
-            res.setHeader('Content-Type', 'application/json');
-            res.setBody('{"history":[{"type":"user","message":"a API está funcionando?","_id":"123"},{"type":"assistant","message":"Desculpe, não temos a resposta neste momento. Por favor, entre em contato com seu supervisor.","_id":"456"}], "x_date":"01/01/2024", "x_id":"64ff7ca1d775598c686dabf8"}');
-            res.setStatusCode(200);
-        }
-
         // sendFeedback();
         if(req.getEndpoint() == 'https://ai-br-pro.telefonicabigdata.com/v1/feedback' && req.getMethod() == 'POST'){
             // Create a fake response
