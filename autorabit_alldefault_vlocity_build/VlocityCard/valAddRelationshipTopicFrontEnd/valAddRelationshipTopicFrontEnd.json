@@ -20,7 +20,7 @@
                 {
                     "actionIndex": 0,
                     "card": "{card}",
-                    "draggable": false,
+                    "draggable": true,
                     "isOpen": true,
                     "key": "1667925291158-08zth8hs7",
                     "label": "Action",
@@ -102,7 +102,7 @@
                 {
                     "actionIndex": 1,
                     "card": "{card}",
-                    "draggable": false,
+                    "draggable": true,
                     "isOpen": true,
                     "key": "1717609531076-iw1gwp5cl",
                     "label": "ActionOptionallySetOtherProduct",
@@ -397,9 +397,17 @@
                             {
                                 "fieldName": "ContactNumber",
                                 "fieldValue": "{action.ContactNumber}"
+                            },
+                            {
+                                "fieldName": "Block",
+                                "fieldValue": "{action.Block}"
+                            },
+                            {
+                                "fieldName": "Sucess",
+                                "fieldValue": "{action.Sucess}"
                             }
                         ],
-                        "id": "flex-action-1720809723819",
+                        "id": "flex-action-1722543878354",
                         "openUrlIn": "Current Window",
                         "targetType": "Web Page",
                         "type": "cardAction",
@@ -500,6 +508,45 @@
             "eventname": "fields",
             "eventtype": "pubsub",
             "key": "event-6",
+            "recordIndex": "0",
+            "showSpinner": "false"
+        },
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1722436171644-a26bbg3q9",
+                    "label": "Action",
+                    "stateAction": {
+                        "Web Page": {
+                            "targetName": "/apex"
+                        },
+                        "displayName": "Action",
+                        "eventName": "setValues",
+                        "fieldValues": [
+                            {
+                                "fieldName": "Sucess",
+                                "fieldValue": "{action.Sucess}"
+                            }
+                        ],
+                        "id": "flex-action-1722543966484",
+                        "openUrlIn": "Current Window",
+                        "targetType": "Web Page",
+                        "type": "cardAction",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "CreateCaseAutomaticWithTopic",
+            "displayLabel": "CreateCaseAutomaticWithTopic:priorizar",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "priorizar",
+            "eventtype": "pubsub",
+            "key": "event-7",
             "recordIndex": "0",
             "showSpinner": "false"
         }
@@ -790,7 +837,7 @@
                             ],
                             "class": "slds-col ",
                             "element": "block",
-                            "elementLabel": "Block-2",
+                            "elementLabel": "Block-1",
                             "name": "Block",
                             "property": {
                                 "card": "{card}",
@@ -1149,7 +1196,7 @@
                             ],
                             "class": "slds-col ",
                             "element": "block",
-                            "elementLabel": "Block-3",
+                            "elementLabel": "Block-2",
                             "name": "Block",
                             "property": {
                                 "card": "{card}",
@@ -1192,7 +1239,7 @@
                         {
                             "class": "slds-col ",
                             "element": "baseInputElement",
-                            "elementLabel": "Text Area-4",
+                            "elementLabel": "Text Area-3",
                             "name": "Text Area",
                             "property": {
                                 "card": "{card}",
@@ -1467,9 +1514,9 @@
                                     "class": "slds-col ",
                                     "element": "block",
                                     "elementLabel": "Block-3-Block-0",
-                                    "key": "element_element_block_4_0_block_0_0",
+                                    "key": "element_element_block_5_0_block_0_0",
                                     "name": "Block",
-                                    "parentElementKey": "element_block_4_0",
+                                    "parentElementKey": "element_block_5_0",
                                     "property": {
                                         "card": "{card}",
                                         "collapsedByDefault": false,
@@ -1583,9 +1630,9 @@
                                             "class": "slds-col ",
                                             "element": "action",
                                             "elementLabel": "RegisterButtonEnabled",
-                                            "key": "element_element_element_block_4_0_block_1_0_action_0_0",
+                                            "key": "element_element_element_block_5_0_block_1_0_action_0_0",
                                             "name": "Action",
-                                            "parentElementKey": "element_element_block_4_0_block_1_0",
+                                            "parentElementKey": "element_element_block_5_0_block_1_0",
                                             "property": {
                                                 "actionList": [
                                                     {
@@ -1704,8 +1751,8 @@
                                                     {
                                                         "actionIndex": 3,
                                                         "card": "{card}",
-                                                        "draggable": true,
-                                                        "isOpen": false,
+                                                        "draggable": false,
+                                                        "isOpen": true,
                                                         "key": "1720841706070-yd1qdvmz7",
                                                         "label": "ActionCreateFollowUpCase",
                                                         "stateAction": {
@@ -1727,6 +1774,15 @@
                                                                         "operator": "!=",
                                                                         "type": "custom",
                                                                         "value": "Caso/Processo"
+                                                                    },
+                                                                    {
+                                                                        "field": "Block",
+                                                                        "hasMergeField": false,
+                                                                        "id": "state-new-condition-0",
+                                                                        "logicalOperator": "&&",
+                                                                        "operator": "!=",
+                                                                        "type": "custom",
+                                                                        "value": "true"
                                                                     }
                                                                 ],
                                                                 "id": "state-condition-object",
@@ -1738,7 +1794,7 @@
                                                                 "InteractionTopicId": "{interactionTopicId}"
                                                             },
                                                             "hasExtraParams": true,
-                                                            "id": "flex-action-1720841796775",
+                                                            "id": "flex-action-1722523459474",
                                                             "message": "createcase",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -2236,7 +2292,7 @@
                                                         }
                                                     },
                                                     {
-                                                        "actionIndex": 15,
+                                                        "actionIndex": 16,
                                                         "card": "{card}",
                                                         "draggable": true,
                                                         "isOpen": false,
@@ -2295,7 +2351,7 @@
                                                                 "openedcanvas": "true"
                                                             },
                                                             "hasExtraParams": true,
-                                                            "id": "flex-action-1714496308954",
+                                                            "id": "flex-action-1721254844382",
                                                             "message": "openedcanvas",
                                                             "openUrlIn": "Current Window",
                                                             "subType": "PubSub",
@@ -2306,8 +2362,8 @@
                                                     {
                                                         "actionIndex": 16,
                                                         "card": "{card}",
-                                                        "draggable": false,
-                                                        "isOpen": true,
+                                                        "draggable": true,
+                                                        "isOpen": false,
                                                         "key": "1673986247889-myheu4aa7",
                                                         "label": "ActionRecoveryIds",
                                                         "stateAction": {
@@ -2552,8 +2608,8 @@
                                                     {
                                                         "actionIndex": 18,
                                                         "card": "{card}",
-                                                        "draggable": false,
-                                                        "isOpen": true,
+                                                        "draggable": true,
+                                                        "isOpen": false,
                                                         "key": "1713282829178-sjtlg4o6t",
                                                         "label": "ActionOpenDisputeFixed",
                                                         "stateAction": {
@@ -2710,9 +2766,50 @@
                                                                                     "operator": "!=",
                                                                                     "type": "custom",
                                                                                     "value": ""
+                                                                                },
+                                                                                {
+                                                                                    "field": "Block",
+                                                                                    "hasMergeField": false,
+                                                                                    "id": "state-new-condition-243",
+                                                                                    "logicalOperator": "&&",
+                                                                                    "operator": "!=",
+                                                                                    "type": "custom",
+                                                                                    "value": "true"
                                                                                 }
                                                                             ],
                                                                             "id": "state-new-group-1092",
+                                                                            "logicalOperator": "||"
+                                                                        },
+                                                                        {
+                                                                            "group": [
+                                                                                {
+                                                                                    "field": "Visibility",
+                                                                                    "hasMergeField": false,
+                                                                                    "id": "state-new-condition-25",
+                                                                                    "operator": "==",
+                                                                                    "type": "custom",
+                                                                                    "value": "true"
+                                                                                },
+                                                                                {
+                                                                                    "field": "Block",
+                                                                                    "hasMergeField": false,
+                                                                                    "id": "state-new-condition-723",
+                                                                                    "logicalOperator": "&&",
+                                                                                    "operator": "==",
+                                                                                    "type": "custom",
+                                                                                    "value": "true"
+                                                                                },
+                                                                                {
+                                                                                    "field": "Sucess",
+                                                                                    "hasMergeField": false,
+                                                                                    "id": "state-new-condition-1087",
+                                                                                    "logicalOperator": "&&",
+                                                                                    "operator": "==",
+                                                                                    "type": "custom",
+                                                                                    "value": "OK"
+                                                                                }
+                                                                            ],
+                                                                            "id": "state-new-group-26",
                                                                             "logicalOperator": "||"
                                                                         }
                                                                     ],
@@ -2805,9 +2902,50 @@
                                                                                     "operator": "!=",
                                                                                     "type": "custom",
                                                                                     "value": ""
+                                                                                },
+                                                                                {
+                                                                                    "field": "Block",
+                                                                                    "hasMergeField": false,
+                                                                                    "id": "state-new-condition-2561",
+                                                                                    "logicalOperator": "&&",
+                                                                                    "operator": "!=",
+                                                                                    "type": "custom",
+                                                                                    "value": "True"
                                                                                 }
                                                                             ],
                                                                             "id": "state-new-group-975",
+                                                                            "logicalOperator": "||"
+                                                                        },
+                                                                        {
+                                                                            "group": [
+                                                                                {
+                                                                                    "field": "Visibility",
+                                                                                    "hasMergeField": false,
+                                                                                    "id": "state-new-condition-1543",
+                                                                                    "operator": "==",
+                                                                                    "type": "custom",
+                                                                                    "value": "True"
+                                                                                },
+                                                                                {
+                                                                                    "field": "Block",
+                                                                                    "hasMergeField": false,
+                                                                                    "id": "state-new-condition-1922",
+                                                                                    "logicalOperator": "&&",
+                                                                                    "operator": "==",
+                                                                                    "type": "custom",
+                                                                                    "value": "True"
+                                                                                },
+                                                                                {
+                                                                                    "field": "Sucess",
+                                                                                    "hasMergeField": false,
+                                                                                    "id": "state-new-condition-2243",
+                                                                                    "logicalOperator": "&&",
+                                                                                    "operator": "==",
+                                                                                    "type": "custom",
+                                                                                    "value": "OK"
+                                                                                }
+                                                                            ],
+                                                                            "id": "state-new-group-1544",
                                                                             "logicalOperator": "||"
                                                                         }
                                                                     ],
@@ -2950,9 +3088,9 @@
                                             "class": "slds-col ",
                                             "element": "action",
                                             "elementLabel": "RegisterButtonDisabled",
-                                            "key": "element_element_element_block_4_0_block_1_0_action_1_0",
+                                            "key": "element_element_element_block_5_0_block_1_0_action_1_0",
                                             "name": "Action",
-                                            "parentElementKey": "element_element_block_4_0_block_1_0",
+                                            "parentElementKey": "element_element_block_5_0_block_1_0",
                                             "property": {
                                                 "actionList": [
                                                     {
@@ -3005,38 +3143,6 @@
                                                             "operator": "==",
                                                             "type": "custom",
                                                             "value": ""
-                                                        },
-                                                        {
-                                                            "group": [
-                                                                {
-                                                                    "field": "Session.SelectedRelationshipTargetFlow",
-                                                                    "hasMergeField": false,
-                                                                    "id": "state-new-condition-0",
-                                                                    "operator": "==",
-                                                                    "type": "custom",
-                                                                    "value": "InvoiceDispute"
-                                                                },
-                                                                {
-                                                                    "field": "Session.SelectedRelationshipLegacySystem",
-                                                                    "hasMergeField": false,
-                                                                    "id": "state-new-condition-42",
-                                                                    "logicalOperator": "&&",
-                                                                    "operator": "==",
-                                                                    "type": "custom",
-                                                                    "value": "NEXT"
-                                                                },
-                                                                {
-                                                                    "field": "Session.SelectedRelationshipAssetId",
-                                                                    "hasMergeField": false,
-                                                                    "id": "state-new-condition-81",
-                                                                    "logicalOperator": "&&",
-                                                                    "operator": "==",
-                                                                    "type": "custom",
-                                                                    "value": ""
-                                                                }
-                                                            ],
-                                                            "id": "state-new-group-1",
-                                                            "logicalOperator": "||"
                                                         },
                                                         {
                                                             "group": [
@@ -3099,6 +3205,15 @@
                                                                                     ],
                                                                                     "id": "state-new-group-1660",
                                                                                     "logicalOperator": "&&"
+                                                                                },
+                                                                                {
+                                                                                    "field": "Block",
+                                                                                    "hasMergeField": false,
+                                                                                    "id": "state-new-condition-138",
+                                                                                    "logicalOperator": "&&",
+                                                                                    "operator": "!=",
+                                                                                    "type": "custom",
+                                                                                    "value": "true"
                                                                                 }
                                                                             ],
                                                                             "id": "state-new-group-459",
@@ -3110,6 +3225,38 @@
                                                                 }
                                                             ],
                                                             "id": "state-new-group-88",
+                                                            "logicalOperator": "||"
+                                                        },
+                                                        {
+                                                            "group": [
+                                                                {
+                                                                    "field": "Visibility",
+                                                                    "hasMergeField": false,
+                                                                    "id": "state-new-condition-165",
+                                                                    "operator": "==",
+                                                                    "type": "custom",
+                                                                    "value": "true"
+                                                                },
+                                                                {
+                                                                    "field": "Block",
+                                                                    "hasMergeField": false,
+                                                                    "id": "state-new-condition-193",
+                                                                    "logicalOperator": "&&",
+                                                                    "operator": "==",
+                                                                    "type": "custom",
+                                                                    "value": "true"
+                                                                },
+                                                                {
+                                                                    "field": "Sucess",
+                                                                    "hasMergeField": false,
+                                                                    "id": "state-new-condition-220",
+                                                                    "logicalOperator": "&&",
+                                                                    "operator": "!=",
+                                                                    "type": "custom",
+                                                                    "value": "OK"
+                                                                }
+                                                            ],
+                                                            "id": "state-new-group-166",
                                                             "logicalOperator": "||"
                                                         }
                                                     ],
@@ -3244,9 +3391,9 @@
                                     "class": "slds-col ",
                                     "element": "block",
                                     "elementLabel": "ButtonContainer",
-                                    "key": "element_element_block_4_0_block_1_0",
+                                    "key": "element_element_block_5_0_block_1_0",
                                     "name": "Block",
-                                    "parentElementKey": "element_block_4_0",
+                                    "parentElementKey": "element_block_5_0",
                                     "property": {
                                         "card": "{card}",
                                         "collapsedByDefault": false,

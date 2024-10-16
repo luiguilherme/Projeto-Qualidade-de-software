@@ -4,14 +4,14 @@
         <name>postagem_no_Chatter</name>
         <label>postagem no Chatter</label>
         <locationX>50</locationX>
-        <locationY>647</locationY>
+        <locationY>755</locationY>
         <actionName>chatterPost</actionName>
         <actionType>chatterPost</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>text</name>
             <value>
-                <stringValue>Novo caso criado:\n - Status: {!Case_to_close.Status}\n - Usuário Atribuído: {!IF(ISBLANK(Case_to_close.OwnerId), &quot;FILA&quot;, TEXT(Case_to_close.Owner.Name))}\n - Data de Abertura: {!TEXT(Case_to_close.CreatedDate)}\n - Data de Vencimento do SLA Final: {!TEXT(Case_to_close.FinalTransactionDate__c)}\n - Data de Vencimento do Caso: {!TEXT(Case_to_close.DueDate)}</stringValue>
+                <stringValue>Novo caso criado: \n- Status: {!StatusCasoAntigo}; \n - Usuário Atribuído: {!OwnerName}; \n - Data de Abertura: {!Case_to_close.CreatedDate}; \n - Data de Vencimento do SLA Final: {!Case_to_close.FinalTransactionDate__c}; \n - Data de Vencimento do Caso: {!Case_to_close.DueDate__c}</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
@@ -20,9 +20,28 @@
                 <elementReference>$Record.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>chatterPost</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>61.0</apiVersion>
+    <assignments>
+        <description>Fechar Status Caso Antigo da coleção Case to close para postagem do Chatter.</description>
+        <name>FecharStatus</name>
+        <label>Fechar Status Caso Antigo</label>
+        <locationX>50</locationX>
+        <locationY>647</locationY>
+        <assignmentItems>
+            <assignToReference>Case_to_close.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>postagem_no_Chatter</targetReference>
+        </connector>
+    </assignments>
     <decisions>
         <name>Outro_registro</name>
         <label>Outro registro?</label>
@@ -50,6 +69,17 @@
         </rules>
     </decisions>
     <description>Quando o novo Caso for de um nível hierárquico superior e for encontrado um Caso duplicado, esse Caso (antigo) encontrado deve ser fechado</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>OwnerName</name>
+        <dataType>String</dataType>
+        <expression>IF(CONTAINS({!Case_to_close.OwnerId}, &quot;00G&quot;), &quot;FILA&quot;, {!Case_to_close.CaseOwnerFormula__c})</expression>
+    </formulas>
+    <formulas>
+        <name>StatusCasoAntigo</name>
+        <dataType>String</dataType>
+        <expression>IF(CONTAINS(TEXT({!Case_to_close.Status}),&apos;Closed&apos;),&apos;Fechado&apos;, TEXT({!Case_to_close.Status}))</expression>
+    </formulas>
     <interviewLabel>Acompanhamento e Tratativa - Pós Bloqueio {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Acompanhamento e Tratativa - Pós Bloqueio</label>
     <processMetadataValues>
@@ -146,7 +176,7 @@
         <locationX>50</locationX>
         <locationY>539</locationY>
         <connector>
-            <targetReference>postagem_no_Chatter</targetReference>
+            <targetReference>FecharStatus</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -156,38 +186,34 @@
                 <elementReference>Case_to_close.Id</elementReference>
             </value>
         </filters>
-        <filters>
+        <inputAssignments>
             <field>CaseCloseType__c</field>
-            <operator>EqualTo</operator>
             <value>
                 <stringValue>Procedente - Não executado</stringValue>
             </value>
-        </filters>
-        <filters>
+        </inputAssignments>
+        <inputAssignments>
             <field>CloseDescription__c</field>
-            <operator>EqualTo</operator>
             <value>
                 <stringValue>Automação Salesforce</stringValue>
             </value>
-        </filters>
-        <filters>
+        </inputAssignments>
+        <inputAssignments>
             <field>CloseDetail__c</field>
-            <operator>EqualTo</operator>
             <value>
                 <stringValue>Novo Chamado</stringValue>
             </value>
-        </filters>
-        <filters>
-            <field>SubDetailService__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Vazados Instância</stringValue>
-            </value>
-        </filters>
+        </inputAssignments>
         <inputAssignments>
             <field>Status</field>
             <value>
                 <stringValue>Closed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SubDetailService__c</field>
+            <value>
+                <stringValue>Vazados Instância</stringValue>
             </value>
         </inputAssignments>
         <object>Case</object>
