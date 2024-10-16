@@ -3,14 +3,14 @@ public with sharing class CasesTriggerHandler
     private List<Case> newCases;
     private Map<Id, Case> oldCases;
     private CasesMyRequestsB2C casesMyRequestsB2C;
-    private SenderCaseNotificationService CaseNotificationService;
+    private SenderCaseNotificationService caseNotificationService;
 
     public CasesTriggerHandler(List<Case> newCases, Map<Id, Case> oldCases)
     {
         this.newCases = newCases != null ? newCases : new List<Case>();
         this.oldCases = oldCases != null ? oldCases : new Map<Id, Case>();
         this.casesMyRequestsB2C = new CasesMyRequestsB2C();
-        this.CaseNotificationService = new SenderCaseNotificationService();
+        this.caseNotificationService = new SenderCaseNotificationService();
 
         this.splitNewCases();
         this.splitOldCases();
@@ -55,7 +55,7 @@ public with sharing class CasesTriggerHandler
 
         HDECaseDetailService.createCaseDetail(this.newCases);
         
-        this.CaseNotificationService.sendOnInsert(this.newCases);  
+        this.caseNotificationService.sendOnInsert(this.newCases);  
     }
 
     public void isBeforeUpdate() 
@@ -70,7 +70,7 @@ public with sharing class CasesTriggerHandler
         NotificadorMinhasSolicitacoes.handleNotifications(newCases, oldCases);
         this.casesMyRequestsB2C.sendNotificationForCasesWithUpdatedStatus();
         this.casesMyRequestsB2C.requestAllocationOfAttendantsForCasesWithUpdatedStatus();
-        this.CaseNotificationService.sendOnUpdate(this.newCases, this.oldCases);
+        this.caseNotificationService.sendOnUpdate(this.newCases, this.oldCases);
         
     }
 }

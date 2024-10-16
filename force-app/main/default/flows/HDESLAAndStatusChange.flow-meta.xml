@@ -1,226 +1,221 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
-        <description>Envio de email para o proprietario do caso, quando chegar no status Atenção</description>
-        <name>EnvioEmailAlertaAtencao1</name>
-        <label>Envio Email Alerta Atenção</label>
-        <locationX>842</locationX>
-        <locationY>768</locationY>
-        <actionName>Case.AlertaAlteracaoStatusHDE</actionName>
-        <actionType>emailAlert</actionType>
-        <connector>
-            <targetReference>NotificacaoPersonalizadaAtencao</targetReference>
-        </connector>
+        <name>CallApexCaseNotification01</name>
+        <label>Chamada Apex Case Notification</label>
+        <locationX>1832</locationX>
+        <locationY>2243</locationY>
+        <actionName>SenderCaseNotificationService</actionName>
+        <actionType>apex</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
-            <name>SObjectRowId</name>
+            <name>messageType</name>
             <value>
-                <elementReference>$Record.Id</elementReference>
+                <elementReference>GeneralSettingName</elementReference>
             </value>
         </inputParameters>
+        <inputParameters>
+            <name>varCase</name>
+            <value>
+                <elementReference>$Record</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>SenderCaseNotificationService</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
-        <description>Envio de email para o proprietario do caso, quando chegar no status Atenção</description>
-        <name>EnvioEmailAlertaAtencao2</name>
-        <label>Envio Email Alerta Atenção</label>
-        <locationX>2866</locationX>
-        <locationY>768</locationY>
-        <actionName>Case.AlertaAlteracaoStatusHDE</actionName>
-        <actionType>emailAlert</actionType>
-        <connector>
-            <targetReference>NotificacaoPersonalizadaAtencao1</targetReference>
-        </connector>
+        <name>CallApexCaseNotification02</name>
+        <label>Chamada Apex Case Notification</label>
+        <locationX>3482</locationX>
+        <locationY>1008</locationY>
+        <actionName>SenderCaseNotificationService</actionName>
+        <actionType>apex</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
-            <name>SObjectRowId</name>
+            <name>messageType</name>
             <value>
-                <elementReference>$Record.Id</elementReference>
-            </value>
-        </inputParameters>
-    </actionCalls>
-    <actionCalls>
-        <description>Envio de email para o proprietario do caso, quando chegar no status Critico.</description>
-        <name>EnvioEmailAlertaCritico</name>
-        <label>Envio Email Alerta Critico</label>
-        <locationX>1106</locationX>
-        <locationY>648</locationY>
-        <actionName>Case.AlertaAlteracaoStatusHDE</actionName>
-        <actionType>emailAlert</actionType>
-        <connector>
-            <targetReference>NotificacaoPersonalizadaCritico</targetReference>
-        </connector>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>SObjectRowId</name>
-            <value>
-                <elementReference>$Record.Id</elementReference>
-            </value>
-        </inputParameters>
-    </actionCalls>
-    <actionCalls>
-        <description>Envio de sininho para o proprietario do caso, quando chegar no status Atenção</description>
-        <name>NotificacaoPersonalizadaAtencao</name>
-        <label>Envio de Notificação Personalizada Atenção</label>
-        <locationX>842</locationX>
-        <locationY>888</locationY>
-        <actionName>customNotificationAction</actionName>
-        <actionType>customNotificationAction</actionType>
-        <connector>
-            <targetReference>VerifyIfStatusIsCritical</targetReference>
-        </connector>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>body</name>
-            <value>
-                <stringValue>Seu caso {!$Record.CaseNumber} foi atualizado para o status {!$Record.Status} !!</stringValue>
+                <elementReference>GeneralSettingName</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
-            <name>targetId</name>
+            <name>varCase</name>
             <value>
-                <elementReference>$Record.Id</elementReference>
+                <elementReference>$Record</elementReference>
             </value>
         </inputParameters>
-        <inputParameters>
-            <name>customNotifTypeId</name>
-            <value>
-                <elementReference>GetNotification.Id</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>recipientIds</name>
-            <value>
-                <elementReference>Owners</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>title</name>
-            <value>
-                <stringValue>Alteração de Status!!</stringValue>
-            </value>
-        </inputParameters>
-    </actionCalls>
-    <actionCalls>
-        <description>Envio de sininho para o proprietario do caso, quando chegar no status Atenção</description>
-        <name>NotificacaoPersonalizadaAtencao1</name>
-        <label>Envio Notificação Personalizada Atenção</label>
-        <locationX>2866</locationX>
-        <locationY>888</locationY>
-        <actionName>customNotificationAction</actionName>
-        <actionType>customNotificationAction</actionType>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>body</name>
-            <value>
-                <stringValue>Seu caso {!$Record.CaseNumber} foi atualizado para o status {!$Record.Status} !!</stringValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>targetId</name>
-            <value>
-                <elementReference>$Record.Id</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>customNotifTypeId</name>
-            <value>
-                <elementReference>GetNotification1.Id</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>recipientIds</name>
-            <value>
-                <elementReference>Owners</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>title</name>
-            <value>
-                <stringValue>Alteração de Status!!</stringValue>
-            </value>
-        </inputParameters>
-    </actionCalls>
-    <actionCalls>
-        <description>Envio de sininho para o proprietario do caso, quando chegar no status Critico</description>
-        <name>NotificacaoPersonalizadaCritico</name>
-        <label>Envio de Notificação Personalizada Critico</label>
-        <locationX>1106</locationX>
-        <locationY>768</locationY>
-        <actionName>customNotificationAction</actionName>
-        <actionType>customNotificationAction</actionType>
-        <connector>
-            <targetReference>VerifyIfStatusIsCritical</targetReference>
-        </connector>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>body</name>
-            <value>
-                <stringValue>Seu caso {!$Record.CaseNumber} foi atualizado para o status {!$Record.Status} !!</stringValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>targetId</name>
-            <value>
-                <elementReference>$Record.Id</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>customNotifTypeId</name>
-            <value>
-                <elementReference>GetNotification.Id</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>recipientIds</name>
-            <value>
-                <elementReference>Owners</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>title</name>
-            <value>
-                <stringValue>Alteração de Status!!</stringValue>
-            </value>
-        </inputParameters>
+        <nameSegment>SenderCaseNotificationService</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>53.0</apiVersion>
     <assignments>
-        <name>NotificacaoOwner</name>
-        <label>Atribuir Notificação Ao Proprietario</label>
-        <locationX>710</locationX>
-        <locationY>408</locationY>
+        <name>ClearVariable01</name>
+        <label>Limpar Variável</label>
+        <locationX>1700</locationX>
+        <locationY>1727</locationY>
         <assignmentItems>
-            <assignToReference>Owners</assignToReference>
-            <operator>Add</operator>
+            <assignToReference>GeneralSettingName</assignToReference>
+            <operator>RemoveAll</operator>
             <value>
-                <elementReference>$Record.OwnerId</elementReference>
+                <elementReference>GeneralSettingName</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Verifica_se_o_sla_foi_alterado</targetReference>
+            <targetReference>LoopNotificationRecords01</targetReference>
         </connector>
     </assignments>
     <assignments>
-        <name>NotificacaoOwner2</name>
-        <label>Atribuir Notificação Ao Proprietario</label>
-        <locationX>2734</locationX>
-        <locationY>408</locationY>
+        <name>ClearVariable02</name>
+        <label>Limpar Variável</label>
+        <locationX>3350</locationX>
+        <locationY>492</locationY>
         <assignmentItems>
-            <assignToReference>Owners</assignToReference>
-            <operator>Add</operator>
+            <assignToReference>GeneralSettingName</assignToReference>
+            <operator>RemoveAll</operator>
             <value>
-                <elementReference>$Record.OwnerId</elementReference>
+                <elementReference>GeneralSettingName</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>IsCritical2_0_0</targetReference>
+            <targetReference>LoopNotificationRecords02</targetReference>
         </connector>
     </assignments>
+    <assignments>
+        <name>GeneralSettingRecords01</name>
+        <label>Registros de Configurações Gerais</label>
+        <locationX>1788</locationX>
+        <locationY>1943</locationY>
+        <assignmentItems>
+            <assignToReference>GeneralSettingName</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>LoopNotificationRecords01.NotificationName__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>LoopNotificationRecords01</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>GeneralSettingRecords02</name>
+        <label>Registros de Configurações Gerais</label>
+        <locationX>3438</locationX>
+        <locationY>708</locationY>
+        <assignmentItems>
+            <assignToReference>GeneralSettingName</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>LoopNotificationRecords02.NotificationName__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>LoopNotificationRecords02</targetReference>
+        </connector>
+    </assignments>
+    <collectionProcessors>
+        <name>FilterNotificationRecords01</name>
+        <elementSubtype>FilterCollectionProcessor</elementSubtype>
+        <label>Filtrar Registros Notificação</label>
+        <locationX>1700</locationX>
+        <locationY>1619</locationY>
+        <assignNextValueToReference>currentItem_FilterNotificationRecords01</assignNextValueToReference>
+        <collectionProcessorType>FilterCollectionProcessor</collectionProcessorType>
+        <collectionReference>GetNotificationName01</collectionReference>
+        <conditionLogic>and</conditionLogic>
+        <conditions>
+            <leftValueReference>currentItem_FilterNotificationRecords01.CaseRecordType__c</leftValueReference>
+            <operator>Contains</operator>
+            <rightValue>
+                <elementReference>$Record.RecordType.DeveloperName</elementReference>
+            </rightValue>
+        </conditions>
+        <conditions>
+            <leftValueReference>currentItem_FilterNotificationRecords01.CaseStatus__c</leftValueReference>
+            <operator>Contains</operator>
+            <rightValue>
+                <elementReference>$Record.Status</elementReference>
+            </rightValue>
+        </conditions>
+        <connector>
+            <targetReference>ClearVariable01</targetReference>
+        </connector>
+    </collectionProcessors>
+    <collectionProcessors>
+        <name>FilterNotificationRecords02</name>
+        <elementSubtype>FilterCollectionProcessor</elementSubtype>
+        <label>Filtrar Registros Notificação</label>
+        <locationX>3350</locationX>
+        <locationY>384</locationY>
+        <assignNextValueToReference>currentItem_FilterNotificationRecords01</assignNextValueToReference>
+        <collectionProcessorType>FilterCollectionProcessor</collectionProcessorType>
+        <collectionReference>GetNotificationName02</collectionReference>
+        <conditionLogic>and</conditionLogic>
+        <conditions>
+            <leftValueReference>currentItem_FilterNotificationRecords01.CaseRecordType__c</leftValueReference>
+            <operator>Contains</operator>
+            <rightValue>
+                <elementReference>$Record.RecordType.DeveloperName</elementReference>
+            </rightValue>
+        </conditions>
+        <conditions>
+            <leftValueReference>currentItem_FilterNotificationRecords01.CaseStatus__c</leftValueReference>
+            <operator>Contains</operator>
+            <rightValue>
+                <elementReference>$Record.Status</elementReference>
+            </rightValue>
+        </conditions>
+        <connector>
+            <targetReference>ClearVariable02</targetReference>
+        </connector>
+    </collectionProcessors>
+    <decisions>
+        <name>HaveRecords01</name>
+        <label>Tem Registros?</label>
+        <locationX>1700</locationX>
+        <locationY>2135</locationY>
+        <defaultConnector>
+            <targetReference>CallApexCaseNotification01</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Sim</defaultConnectorLabel>
+        <rules>
+            <name>NoRecords01</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FilterNotificationRecords01</leftValueReference>
+                <operator>IsEmpty</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Não</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>HaveRecords02</name>
+        <label>Tem Registros?</label>
+        <locationX>3350</locationX>
+        <locationY>900</locationY>
+        <defaultConnector>
+            <targetReference>CallApexCaseNotification02</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Sim</defaultConnectorLabel>
+        <rules>
+            <name>NoRecords02</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FilterNotificationRecords02</leftValueReference>
+                <operator>IsEmpty</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Não</label>
+        </rules>
+    </decisions>
     <decisions>
         <name>IsCritical2</name>
         <label>É critico</label>
-        <locationX>1678</locationX>
-        <locationY>288</locationY>
+        <locationX>1766</locationX>
+        <locationY>276</locationY>
         <defaultConnector>
             <targetReference>UpdateCaseToGray</targetReference>
         </defaultConnector>
@@ -241,8 +236,8 @@
     <decisions>
         <name>IsCritical2_0</name>
         <label>É critico</label>
-        <locationX>2206</locationX>
-        <locationY>288</locationY>
+        <locationX>2294</locationX>
+        <locationY>276</locationY>
         <defaultConnector>
             <targetReference>UpdateCaseToYellow</targetReference>
         </defaultConnector>
@@ -263,8 +258,8 @@
     <decisions>
         <name>IsCritical2_0_0</name>
         <label>É critico</label>
-        <locationX>2734</locationX>
-        <locationY>528</locationY>
+        <locationX>2030</locationX>
+        <locationY>1403</locationY>
         <defaultConnector>
             <targetReference>UpdateCaseToRed</targetReference>
         </defaultConnector>
@@ -279,17 +274,29 @@
                     <stringValue>Crítico</stringValue>
                 </rightValue>
             </conditions>
+            <connector>
+                <targetReference>GetNotificationName01</targetReference>
+            </connector>
             <label>É critico</label>
+        </rules>
+        <rules>
+            <name>StatusAlreadyEqualAttention</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Atenção</stringValue>
+                </rightValue>
+            </conditions>
+            <label>Status já igual a Atenção</label>
         </rules>
     </decisions>
     <decisions>
         <name>Verifica_se_o_sla_foi_alterado</name>
         <label>Verifica se o sla foi alterado</label>
         <locationX>710</locationX>
-        <locationY>528</locationY>
-        <defaultConnector>
-            <targetReference>VerifyIfStatusIsCritical</targetReference>
-        </defaultConnector>
+        <locationY>684</locationY>
         <defaultConnectorLabel>Resultado padrão</defaultConnectorLabel>
         <rules>
             <name>SLA_Alterado</name>
@@ -431,9 +438,6 @@
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
-            <connector>
-                <targetReference>EnvioEmailAlertaCritico</targetReference>
-            </connector>
             <label>SLA Critico</label>
         </rules>
     </decisions>
@@ -442,7 +446,10 @@
         <name>VerifyIfStatusIsCritical</name>
         <label>Verificar se o Status é crítico</label>
         <locationX>710</locationX>
-        <locationY>1104</locationY>
+        <locationY>276</locationY>
+        <defaultConnector>
+            <targetReference>Verifica_se_o_sla_foi_alterado</targetReference>
+        </defaultConnector>
         <defaultConnectorLabel>Resultado padrão</defaultConnectorLabel>
         <rules>
             <name>IsNotCriticalAndReasonWasChanged</name>
@@ -475,8 +482,16 @@
             <label>Não é crítico e motivo foi alterado</label>
         </rules>
     </decisions>
-    <description>Calcula o SLA e altera o status de acordo com o a data de criação</description>
+    <description>PTI4349-61 - Gestão de Notificações para Casos de Acompanhamento</description>
     <environments>Default</environments>
+    <formulas>
+        <description>Padroniza o Customer Value para conferir com o metadata ToFromHDE2__mdt</description>
+        <name>CustomerSegment</name>
+        <dataType>String</dataType>
+        <expression>IF(OR(TEXT({!$Record.Account.vlocity_cmt__CustomerValue__c}) = &apos;Púrpura&apos;,TEXT({!$Record.Account.vlocity_cmt__CustomerValue__c}) = &apos;PÚRPURA&apos;,TEXT({!$Record.Account.vlocity_cmt__CustomerValue__c}) = &apos;púrpura&apos;), 
+&apos;PURPURA&apos;,
+UPPER(TEXT({!$Record.Account.vlocity_cmt__CustomerValue__c})))</expression>
+    </formulas>
     <formulas>
         <name>HoraBaseStatusAguardando</name>
         <dataType>DateTime</dataType>
@@ -498,8 +513,41 @@
         <dataType>DateTime</dataType>
         <expression>{!$Record.DueDate__c}  - 0.125</expression>
     </formulas>
+    <formulas>
+        <name>Org</name>
+        <dataType>String</dataType>
+        <expression>IF(CONTAINS({!$Record.CreatedBy.Profile.UserLicense.Name},&apos;Partner Community&apos;), &apos;Comunidades&apos;, &apos;Vivo&apos;)</expression>
+    </formulas>
     <interviewLabel>HDE - SLA e Alteração de status {!$Flow.CurrentDateTime}</interviewLabel>
     <label>HDE - SLA e Alteração de status</label>
+    <loops>
+        <name>LoopNotificationRecords01</name>
+        <label>Loop Registros Notificação</label>
+        <locationX>1700</locationX>
+        <locationY>1835</locationY>
+        <collectionReference>FilterNotificationRecords01</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>GeneralSettingRecords01</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>HaveRecords01</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <name>LoopNotificationRecords02</name>
+        <label>Loop Registros Notificação</label>
+        <locationX>3350</locationX>
+        <locationY>600</locationY>
+        <collectionReference>FilterNotificationRecords02</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>GeneralSettingRecords02</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>HaveRecords02</targetReference>
+        </noMoreValuesConnector>
+    </loops>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -523,52 +571,38 @@
         <name>GetCustomMetadata</name>
         <label>Obter metadados Personalizados</label>
         <locationX>578</locationX>
-        <locationY>1224</locationY>
+        <locationY>384</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>UpdateCaseStatus</targetReference>
         </connector>
-        <filterLogic>and</filterLogic>
+        <filterLogic>(1 OR 2) AND 3 AND 4 AND 5 AND 6 AND 7</filterLogic>
         <filters>
-            <field>Object__c</field>
+            <field>CustomerSegment__c</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>Case</stringValue>
+                <elementReference>CustomerSegment</elementReference>
             </value>
         </filters>
         <filters>
-            <field>UsedIn__c</field>
+            <field>CustomerSegment__c</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>HDE</stringValue>
+                <stringValue>N/A</stringValue>
             </value>
         </filters>
         <filters>
-            <field>SourceApiName__c</field>
+            <field>CaseRecordType__c</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>CustomerServiceReason__c</stringValue>
+                <elementReference>$Record.RecordType.DeveloperName</elementReference>
             </value>
         </filters>
         <filters>
-            <field>TargetApiName__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Status</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>SourcePicklistValue__c</field>
+            <field>CustomerServiceReason__c</field>
             <operator>EqualTo</operator>
             <value>
                 <elementReference>$Record.CustomerServiceReason__c</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>TargetPicklistValue__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Crítico</stringValue>
             </value>
         </filters>
         <filters>
@@ -578,60 +612,78 @@
                 <elementReference>$Record.Segment__c</elementReference>
             </value>
         </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>ToFromHDE__mdt</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>GetNotification</name>
-        <label>Buscar Notificação Personalizada1</label>
-        <locationX>710</locationX>
-        <locationY>288</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>NotificacaoOwner</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
         <filters>
-            <field>DeveloperName</field>
+            <field>Critical__c</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>ChangeStatusHDE</stringValue>
+                <stringValue>Sim</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>ORG__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Org</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>CustomNotificationType</object>
+        <object>ToFromHDE2__mdt</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <name>GetNotification1</name>
-        <label>Buscar Notificação Personalizada 2</label>
-        <locationX>2734</locationX>
-        <locationY>288</locationY>
+        <name>GetNotificationName01</name>
+        <label>Obter Nome Notificação</label>
+        <locationX>1700</locationX>
+        <locationY>1511</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>NotificacaoOwner2</targetReference>
+            <targetReference>FilterNotificationRecords01</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>DeveloperName</field>
+            <field>TriggerMoments__c</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>ChangeStatusHDE</stringValue>
+                <stringValue>SLAtoExpire</stringValue>
             </value>
         </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>CustomNotificationType</object>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>GeneralSetting__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>GetNotificationName02</name>
+        <label>Obter Nome Notificação</label>
+        <locationX>3350</locationX>
+        <locationY>276</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>FilterNotificationRecords02</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>TriggerMoments__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>ExpiredSLA</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>NotifiedUser__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>UserAbove3rd</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>GeneralSetting__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
         <name>AtualizaStatusDoCasoAguardando</name>
         <label>AtualizaStatusDoCasoAguardando</label>
         <locationX>314</locationX>
-        <locationY>648</locationY>
-        <connector>
-            <targetReference>VerifyIfStatusIsCritical</targetReference>
-        </connector>
+        <locationY>792</locationY>
         <inputAssignments>
             <field>Status</field>
             <value>
@@ -644,10 +696,7 @@
         <name>AtualizaStatusDoCasoAIniciar</name>
         <label>AtualizaStatusDoCasoAIniciar</label>
         <locationX>50</locationX>
-        <locationY>648</locationY>
-        <connector>
-            <targetReference>VerifyIfStatusIsCritical</targetReference>
-        </connector>
+        <locationY>792</locationY>
         <inputAssignments>
             <field>Status</field>
             <value>
@@ -660,10 +709,7 @@
         <name>AtualizaStatusDoCasoAtencao</name>
         <label>AtualizaStatusDoCasoAtencao</label>
         <locationX>842</locationX>
-        <locationY>648</locationY>
-        <connector>
-            <targetReference>EnvioEmailAlertaAtencao1</targetReference>
-        </connector>
+        <locationY>792</locationY>
         <inputAssignments>
             <field>Status</field>
             <value>
@@ -676,10 +722,7 @@
         <name>AtualizaStatusDoCasoEmAndamento</name>
         <label>AtualizaStatusDoCasoEmAndamento</label>
         <locationX>578</locationX>
-        <locationY>648</locationY>
-        <connector>
-            <targetReference>VerifyIfStatusIsCritical</targetReference>
-        </connector>
+        <locationY>792</locationY>
         <inputAssignments>
             <field>Status</field>
             <value>
@@ -692,13 +735,16 @@
         <name>UpdateCaseStatus</name>
         <label>Atualiza o status do caso</label>
         <locationX>578</locationX>
-        <locationY>1344</locationY>
+        <locationY>492</locationY>
+        <connector>
+            <targetReference>Verifica_se_o_sla_foi_alterado</targetReference>
+        </connector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>CustomerServiceReason__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>GetCustomMetadata.SourcePicklistValue__c</elementReference>
+                <elementReference>GetCustomMetadata.CustomerServiceReason__c</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -718,8 +764,8 @@
     <recordUpdates>
         <name>UpdateCaseToGray</name>
         <label>Atualiza o Caso para Aguardando</label>
-        <locationX>1810</locationX>
-        <locationY>408</locationY>
+        <locationX>1898</locationX>
+        <locationY>384</locationY>
         <inputAssignments>
             <field>Status</field>
             <value>
@@ -731,11 +777,8 @@
     <recordUpdates>
         <name>UpdateCaseToRed</name>
         <label>Atualiza o Caso para Atenção</label>
-        <locationX>2866</locationX>
-        <locationY>648</locationY>
-        <connector>
-            <targetReference>EnvioEmailAlertaAtencao2</targetReference>
-        </connector>
+        <locationX>2360</locationX>
+        <locationY>1511</locationY>
         <inputAssignments>
             <field>Status</field>
             <value>
@@ -747,8 +790,8 @@
     <recordUpdates>
         <name>UpdateCaseToYellow</name>
         <label>Atualiza o Caso para Andamento</label>
-        <locationX>2338</locationX>
-        <locationY>408</locationY>
+        <locationX>2426</locationX>
+        <locationY>384</locationY>
         <inputAssignments>
             <field>Status</field>
             <value>
@@ -758,10 +801,10 @@
         <inputReference>$Record</inputReference>
     </recordUpdates>
     <start>
-        <locationX>1596</locationX>
+        <locationX>1904</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>GetNotification</targetReference>
+            <targetReference>VerifyIfStatusIsCritical</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -806,7 +849,7 @@
         <scheduledPaths>
             <name>ChangeStatusToRed</name>
             <connector>
-                <targetReference>GetNotification1</targetReference>
+                <targetReference>IsCritical2_0_0</targetReference>
             </connector>
             <label>Muda status para &quot;Atenção&quot; faltando 3 horas para o vencimento</label>
             <offsetNumber>-3</offsetNumber>
@@ -814,20 +857,63 @@
             <recordField>DueDate__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
+        <scheduledPaths>
+            <name>TwoHoursToDueDate</name>
+            <connector>
+                <targetReference>IsCritical2_0_0</targetReference>
+            </connector>
+            <label>2 horas para o vencimento</label>
+            <offsetNumber>-2</offsetNumber>
+            <offsetUnit>Hours</offsetUnit>
+            <recordField>DueDate__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <scheduledPaths>
+            <name>OneHourToDueDate</name>
+            <connector>
+                <targetReference>IsCritical2_0_0</targetReference>
+            </connector>
+            <label>1 hora para o vencimento</label>
+            <offsetNumber>-1</offsetNumber>
+            <offsetUnit>Hours</offsetUnit>
+            <recordField>DueDate__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <scheduledPaths>
+            <name>CaseDueDate</name>
+            <connector>
+                <targetReference>GetNotificationName02</targetReference>
+            </connector>
+            <label>Vencimento do Caso</label>
+            <offsetNumber>0</offsetNumber>
+            <offsetUnit>Minutes</offsetUnit>
+            <recordField>DueDate__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
         <triggerType>RecordAfterSave</triggerType>
     </start>
     <status>Active</status>
-    <textTemplates>
-        <description>Mensagem utulizada para o envio do email</description>
-        <name>MensagemdoEmail</name>
-        <isViewedAsPlainText>false</isViewedAsPlainText>
-        <text>&lt;p&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255); font-size: 14px; font-family: Arial, Helvetica, sans-serif; color: rgb(0, 0, 0);&quot;&gt;ATENÇÃO!&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); font-size: 11.36px; font-family: Arial, Helvetica, sans-serif; color: rgb(0, 0, 0);&quot;&gt;Seu caso &lt;/span&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255); font-size: 11.36px; font-family: Arial, Helvetica, sans-serif; color: rgb(0, 0, 0);&quot;&gt;{!$Record.CaseNumber}&lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); font-size: 11.36px; font-family: Arial, Helvetica, sans-serif; color: rgb(0, 0, 0);&quot;&gt; foi atualizado para o status &lt;/span&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255); font-size: 11.36px; font-family: Arial, Helvetica, sans-serif; color: rgb(0, 0, 0);&quot;&gt;{!$Record.Status&lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); font-size: 11.36px; font-family: Arial, Helvetica, sans-serif; color: rgb(0, 0, 0);&quot;&gt;}, com a data de vencimento para o dia:&lt;/span&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255); font-size: 11.36px; font-family: Arial, Helvetica, sans-serif; color: rgb(0, 0, 0);&quot;&gt; {!$Record.DueDate__c}&lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); font-size: 11.36px; font-family: Arial, Helvetica, sans-serif; color: rgb(0, 0, 0);&quot;&gt;.&lt;/span&gt;&lt;/p&gt;</text>
-    </textTemplates>
     <variables>
-        <name>Owners</name>
+        <name>currentItem_FilterNotificationRecords01</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>GeneralSetting__c</objectType>
+    </variables>
+    <variables>
+        <name>currentItemFromSourceCollection</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>GeneralSetting__c</objectType>
+    </variables>
+    <variables>
+        <name>GeneralSettingName</name>
         <dataType>String</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
-        <isOutput>false</isOutput>
+        <isOutput>true</isOutput>
     </variables>
 </Flow>
