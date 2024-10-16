@@ -229,7 +229,7 @@ global with sharing class CaseManagement {
             if(isId){
                 String caseId = urlLastPartWithoutParameter;
                 String query = '';
-                Case[] caseReferenceList = [SELECT Id,ComplainedAsset__c,ComplainedAsset__r.MainProductDescription__c,ComplainedAsset__r.Name,ContactPhone__c,CustomerInteractionTopicTree__c,CustomerInteractionTopicTree__r.Name,StatusOmniChannel__c,Protocol__c,ContactPhone,Origin,RecordType.DeveloperName,RecordType.Name,CreatedDate,Status,account.DocumentNumber__c, Description FROM Case WHERE Id = :caseId AND Omnichannel__c = true];
+                Case[] caseReferenceList = [SELECT Id,ComplainedAsset__c,ComplainedAsset__r.MainProductDescription__c,ComplainedAsset__r.Name,ContactPhone__c,CustomerInteractionTopicTree__c,CustomerInteractionTopicTree__r.Name,StatusOmniChannel__c,Protocol__c,ContactPhone,Origin,RecordType.DeveloperName,RecordType.Name,CreatedDate,Status,account.DocumentNumber__c, Description FROM Case WHERE Id = :caseId];
                 GetCasesRequestWrapper.Cases responseWrapperReturn = new GetCasesRequestWrapper.Cases();
                 if(caseReferenceList.size() > 0){
                     Case caseReference = caseReferenceList[0];
@@ -403,8 +403,7 @@ global with sharing class CaseManagement {
             queryParameters += (queryParameters.contains('WHERE') ? ' AND ' : ' WHERE ') + 'CustomerInteractionTopicTree__c  = \'' + filterTopicTree + '\' ';
         }
 
-        queryParameters += (queryParameters.contains('WHERE') ? ' AND ' : ' WHERE ') + 'Omnichannel__c = true';
-
+            
         queryParameters += ' LIMIT ' + recordsLimit + ' OFFSET ' + offSet;  
 
         return queryParameters;
