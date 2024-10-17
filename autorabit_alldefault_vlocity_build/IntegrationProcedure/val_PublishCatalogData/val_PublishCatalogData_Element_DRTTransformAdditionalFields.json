@@ -9,11 +9,16 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "product": "=LIST(%LBResponseJoin:result:offerDetails:offer%)",
-            "qa": "=LIST(%LBResponseJoin:result:offerDetails:qa%)",
-            "step": "=LIST(%LBResponseJoin:result:offerDetails:step%)"
+            "bonusProduct": "=LIST(%DRTConvertingDataBonus%)",
+            "product": "=LIST(%LAGetOffers:offer%)",
+            "qa": "=LIST(%offerDetails:offers:QA%)",
+            "step": "=LIST(%offerDetails:offers:Step%)"
         },
         "additionalOutput": {
+            "product": "=LIST(%DRTTransformAdditionalFields:product%)",
+            "productPO": "=IF(ISNOTBLANK(%DRTTransformAdditionalFields:productPO%),  LIST(%DRTTransformAdditionalFields:productPO%), LIST())",
+            "qa": "=IF(ISNOTBLANK(%DRTTransformAdditionalFields:qa%), LIST(%DRTTransformAdditionalFields:qa%), LIST())",
+            "step": "=IF(ISNOTBLANK(%DRTTransformAdditionalFields:step%),  LIST(%DRTTransformAdditionalFields:step%), LIST())"
         },
         "bundle": "DRTransformOfferDetails4P",
         "chainOnStep": false,
@@ -27,7 +32,7 @@
         "label": "DataRaptorTransformAction1",
         "responseJSONNode": "",
         "responseJSONPath": "",
-        "returnOnlyAdditionalOutput": false,
+        "returnOnlyAdditionalOutput": true,
         "returnOnlyFailureResponse": false,
         "sendJSONNode": "",
         "sendJSONPath": "",
