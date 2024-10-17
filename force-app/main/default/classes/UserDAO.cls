@@ -92,4 +92,33 @@ public without sharing class UserDAO {
         ];
     }
 
+    public static List<User> getByLogin(Set<String> logins){
+        return [
+            SELECT 
+                Id, 
+                Name, 
+                UserRoleId, 
+                UserRole.Name, 
+                UserRole.DeveloperName, 
+                ProfileId, 
+                Profile.Name, 
+                Profile.UserLicense.Name, 
+                PartnerGroup__c, 
+                IsPortalEnabled, 
+                Alias, 
+                Login__c, 
+                Email, 
+                StoreCode__c, 
+                StoreName__c, 
+                StoreSegment__c, 
+                StoreConsultationDate__c, 
+                Adabas__c, 
+                ManagerId, 
+                SupervisorId__c 
+            FROM 
+                User 
+            WHERE 
+                Login__c IN :logins
+        ];
+    }
 }

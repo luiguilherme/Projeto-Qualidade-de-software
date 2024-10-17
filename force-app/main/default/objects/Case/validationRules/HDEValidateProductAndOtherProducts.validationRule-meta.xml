@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HDEValidateProductAndOtherProducts</fullName>
+    <active>true</active>
+    <description>O campo Produto deve ser preenchido para os Tipos Fixa ou Móvel e o campo Outros Produtos deve ser preenchido para o Tipo Outros Produtos.</description>
+    <errorConditionFormula>AND(
+	($Profile.Name = &quot;Representante&quot; || $Profile.Name = &quot;AliadoExterno&quot;), 
+	IsHDE__c = true, 
+	NOT(ISBLANK(ComplainedAsset__c)), 
+	NOT(ISBLANK(HDEOtherProducts__c))
+)</errorConditionFormula>
+    <errorMessage>O campo Produto deve ser preenchido para os Tipos Fixa ou Móvel e o campo Outros Produtos deve ser preenchido para o Tipo Outros Produtos</errorMessage>
+</ValidationRule>

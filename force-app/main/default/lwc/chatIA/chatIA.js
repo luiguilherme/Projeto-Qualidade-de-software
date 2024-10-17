@@ -1,33 +1,18 @@
 import { LightningElement, track, api } from 'lwc';
 import { NavigationMixin } from "lightning/navigation";
-import { createRecord, updateRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-
 import userId from "@salesforce/user/Id";
 import logoChatIA from '@salesforce/resourceUrl/LogoChatIA';
-import getSessionId from '@salesforce/apex/ChatIAController.getSessionId';
 import getQuestionSuggestion from '@salesforce/apex/ChatIAController.getQuestionSuggestion';
 import getChatById from '@salesforce/apex/ChatIAController.getChatById';
-import createNewChat from '@salesforce/apex/ChatIAController.createNewChat';
-import addConversation from '@salesforce/apex/ChatIAController.AddConversation';
 import deleteChatById from '@salesforce/apex/ChatIAController.deleteChatById';
 import getPermission from '@salesforce/apex/ChatIAController.getPermission';
-import createNewHistory from '@salesforce/apex/ChatIAController.createNewHistory';
 import getIntegracaoQNA from '@salesforce/apex/ChatIAController.getIntegracaoQNA';
+import getConfig from '@salesforce/apex/ChatIAController.getConfig';
 
-import CHATIA_OBJECT from "@salesforce/schema/ChatIA__c";
-import ID_FIELD from "@salesforce/schema/ChatIA__c.Id";
-import BACKUP_FIELD from "@salesforce/schema/ChatIA__c.Backup__c";
-import USUARIO_FIELD from "@salesforce/schema/ChatIA__c.Usuario__c";
-import ACTIVE_FIELD from "@salesforce/schema/ChatIA__c.Active__c";
-import HISTORY_FIELD from "@salesforce/schema/ChatIA__c.History__c";
 
 export default class ChatIA extends NavigationMixin(LightningElement) {
     @track userId = userId;
-    @track backupChat;
-    @track chatIAId;
-    @track active;
-    @track history;
     @track mensagemInput;
     @track correlator;
     @track correlatorFeedback = '';
@@ -35,10 +20,6 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
     @track conversaCompleta = [];
     @track questionSuggestions = [];
     @track lixeiraIsOpen = false;
-    @track fieldsChatIAInsert = {};
-    @track fieldsChatIAUpdate = {};
-    @track lastMensagemUser = []
-    @track lastMensagemIA = []
     //variáveis de controle
     @track thereIsPermission = true;
     @track loading = false;
@@ -55,13 +36,39 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
     @track typingEffectOff = true;
     @track concatenaMensagemTypingEffect = '';
     @track streamOff = false;
+    @track inputValue = '';
+    @track windowScreenHeight = 0;
+    @track words = true;
+    @track letters = false;
+    @track quantify = 2;
+    @track _timeout = 0;
+    @track enter = true;
 
+    height = 110;
     styleCSS = '<p style=\"align-items: flex-start; background-color: var(--colorIA, #5C169D); color: #ffffff; margin-left: -40px\; border-radius: 1.15rem; line-height: 1.25; max-width: 75%; padding: 0.5rem .875rem; position: relative; word-wrap: break-word">'
-
     connectedCallback() {
-        let size = (window.screen.height * 0.7) - 110;
-        this.heigthSize = 'height:' + size.toString() + 'px';
+        this.updateHeight();
         this.verifyPermission();
+        this.autocompleteSettings();
+    }
+    updateHeight() {
+        if (this.windowScreenHeight !== window.innerHeight) {
+            this.windowScreenHeight = window.innerHeight;
+            let size = (this.windowScreenHeight * 0.825) - this.height;
+            this.heigthSize = 'height:' + size.toString() + 'px';
+        }
+    }
+    async autocompleteSettings() {
+        try{
+            let config = await getConfig();
+            if(config){
+                this.words = config.words;
+                this.letters = config.letters;
+                this.quantify = config.quantify;
+            }
+        }catch(error){
+            console.log(error);
+        }
     }
     modalControl(event) {
         if (event.detail === 'cancelado') {
@@ -93,7 +100,7 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
             this.thereIsPermission = data;
             if (this.thereIsPermission === true) {
                 this.getQuestions();
-                this.startSessionId();
+                this.getChatHistory();
             }
         } catch {
             this.thereIsPermission = false;
@@ -109,67 +116,76 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
             this.notificarErro('Não foi possível obter as sugestões de perguntas.');
         }
     }
-    async startSessionId() {
-        try {
-            const data = await getSessionId();
-            if (data) {
-                this.backupChat = data.backupChat;
-                this.chatIAId = data.recordFound;
-                this.active = data.active;
-                this.history = data.history;
-            }
-            if (this.chatIAId === 'null') {
-                this.fieldsChatIAInsert[USUARIO_FIELD.fieldApiName] = this.userId;
-                this.fieldsChatIAInsert[ACTIVE_FIELD.fieldApiName] = true;
-                this.fieldsChatIAInsert[HISTORY_FIELD.fieldApiName] = true;
-                this.roleARIA = 'alert';
-            } else {
-                this.getChatHistory();
-            }
-            this.tabIndex = '0';
-        } catch {
-            this.notificarErro('Não foi possível obter a sessão ativa.');
-        }
-    }
     async getChatHistory() {
         this.loading = true;
         try {
-            const data = await getChatById({ backupChat: this.backupChat });
-            if (data.chatFound) {
+            const data = await getChatById();
+    
+            // Verifica se a resposta é válida e contém o histórico
+            if (data && data.response === true && Array.isArray(data.history)) {
                 data.history.forEach(hist => {
-                    let mensagemUser = {
-                        mensagemUsuario: hist.type === 'user' ? true : false,
-                        conteudoMensagem: hist.message,
+                    let historicoBr = hist.response.replace(/\\n/g, '<br>');
+                    let historicoTratado = historicoBr.replace(/"/g, '');
+                    let mensagemIA = {
+                        mensagemUsuario: false,
+                        conteudoMensagem: this.styleCSS + historicoTratado,
                         correlator: hist.correlator,
                         disableLike: false,
                         disableDislike: false,
                         css: '',
-                    }
+                    };
+                    
                     if (hist.feedback === 'positive') {
-                        mensagemUser.disableDislike = 'true';
-                        mensagemUser.css = '--slds-c-icon-color-foreground: #5C169D;margin-left: -20px;';
+                        mensagemIA.disableDislike = true;
+                        mensagemIA.css = '--slds-c-icon-color-foreground: #5C169D;margin-left: -20px;';
                     }
+                    
                     if (hist.feedback === 'negative') {
-                        mensagemUser.disableLike = 'true';
-                        mensagemUser.css = '--slds-c-icon-color-foreground: #5C169D;margin-left: -20px;';
+                        mensagemIA.disableLike = true;
+                        mensagemIA.css = '--slds-c-icon-color-foreground: #5C169D;margin-left: -20px;';
                     }
+    
+                    let conteudoMensagem = hist.message;
+                    let regex = /--- PERGUNTA ([\s\S]*?).\\n/;
+                    let match = conteudoMensagem.match(regex);
+                    let mensagemFinal = '';
+    
+                    if (match) {
+                        mensagemFinal = match[1].trim();
+                    } else {
+                        mensagemFinal = "Mensagem não encontrada.";
+                    }
+    
+                    let mensagemUser = {
+                        mensagemUsuario: true,
+                        conteudoMensagem: mensagemFinal,
+                        correlator: null,
+                        disableLike: false,
+                        disableDislike: false,
+                        css: '',
+                    };
+    
                     this.conversaCompleta.push(mensagemUser);
+                    this.conversaCompleta.push(mensagemIA);
+    
+                    if (this.suggestions === true) {
+                        this.suggestions = false;
+                    }                         
                 });
-                this.suggestions = false;
             } else {
-                let closeConfirmModal = true;
-                let showToast = true;
-                this.clearHistory(closeConfirmModal, showToast);
+                // Exibe o erro retornado pela API
+                this.notificarErro(`Erro ao obter histórico: ${data.message}`);
             }
-        } catch {
-            this.notificarErro('Não foi possível obter o histórico de chat.');
+        } catch (error) {
+            // Exibe erros inesperados
+            this.notificarErro('Não foi possível obter o histórico de chat. ' + error.message);
         }
         this.loading = false;
         setTimeout(() => {
             const inputScroll = this.template.querySelector('[data-id="scrollable"]');
             inputScroll.scrollTop = inputScroll.scrollHeight;
-        })
-    }
+        });
+    }   
     get logoChat() {
         return logoChatIA;
     }
@@ -196,28 +212,19 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
             this.loading = true;
             this.conversaCompleta = [];
             this.suggestions = true;
-
-            this.fieldsChatIAUpdate[ID_FIELD.fieldApiName] = this.chatIAId;
-            this.fieldsChatIAUpdate[ACTIVE_FIELD.fieldApiName] = false;
-
-            const updateChatIA = {
-                fields: this.fieldsChatIAUpdate
-            };
-            try {
-                const data = await updateRecord(updateChatIA);
-                this.chatIAId = 'null';
-            } catch {
-                this.notificarErro('Não foi possível encerrar a sessão.');
-            }
             if (showToast != true) {
                 try {
-                    const response = await deleteChatById({ backupChat: this.backupChat });
-                    this.dispatchEvent(new ShowToastEvent({
-                        title: 'Sucesso',
-                        message: 'Histórico deletado com sucesso.',
-                        variant: 'success'
-                    }));
-                } catch {
+                    const response = await deleteChatById();
+                    if(response.response){
+                            this.dispatchEvent(new ShowToastEvent({
+                            title: 'Sucesso',
+                            message: 'Histórico deletado com sucesso.',
+                            variant: 'success'
+                        }));
+                    }else{
+                        this.notificarErro('Não foi possível excluir o histórico. ' + response.code + ' - ' + response.message);
+                    }
+                } catch (error) {
                     this.notificarErro('Não foi possível excluir o histórico.');
                 }
             }
@@ -251,60 +258,42 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
             }
         })
     }
-    async armazenarMensagem() {
-        try {
-            let conversaParcial = [];
-            conversaParcial.push(this.lastMensagemUser);
-            conversaParcial.push(this.lastMensagemIA);
-            this.buttomDisabled = false;
-            if (this.chatIAId === 'null') {
-                if (this.history != 'null') {
-                    const newChat = await createNewChat({ chatList: JSON.stringify(conversaParcial) });
-                    if (newChat) {
-                        this.backupChat = newChat.x_id;
-                    } else {
-                        this.notificarErro('Não foi possível criar um novo chat.');
-                    }
-                } else {
-                    const newChat = await createNewHistory({ chatList: JSON.stringify(conversaParcial) });
-                    if (newChat) {
-                        this.backupChat = newChat.x_id;
-                    } else {
-                        this.notificarErro('Não foi possível criar um novo histórico.');
-                    }
-                }
-                this.fieldsChatIAInsert[USUARIO_FIELD.fieldApiName] = this.userId;
-                this.fieldsChatIAInsert[BACKUP_FIELD.fieldApiName] = this.backupChat;
-                this.fieldsChatIAInsert[ACTIVE_FIELD.fieldApiName] = true;
-                this.fieldsChatIAInsert[HISTORY_FIELD.fieldApiName] = true;
-                const createChatIA = {
-                    apiName: CHATIA_OBJECT.objectApiName,
-                    fields: this.fieldsChatIAInsert
-                };
-
-                const record = await createRecord(createChatIA);
-                if (record) {
-                    this.chatIAId = record.id;
-                } else {
-                    this.notificarErro('Não foi possível criar a sessão.');
-                }
-            }
-            else {
-                const data = await addConversation({ chatList: JSON.stringify(conversaParcial), backupChat: this.backupChat });
-                if (!data) {
-                    this.notificarErro('Não foi possível salvar o histórico da conversa.');
-                }
-            }
-            const input = this.template.querySelector('lightning-input[data-id="campoMensagem"]');
-            setTimeout(() => input.focus());
-        } catch (error) {
-            this.error(error.message);
-        }
-        this.lastMensagemIA = [];
-        this.lastMensagemUser = [];
+    handleInputChange(event) {
+        this.enter = true;
+        clearTimeout(this._timeout)
+        this.inputValue = event.target.value;
+        this._timeout = setTimeout(() => this.postSuggestions(), 300);
     }
-
+    postSuggestions(){
+        if(this.enter){
+            if (this.words) {
+                let regex = / (?=\S)/g;
+                let matches = this.inputValue.match(regex);
+                if(matches){
+                    if (matches.length >= this.quantify) {
+                        this.template.querySelector('c-chat-i-a-suggestions').updateSuggestions(this.inputValue);
+                    } else {
+                        this.template.querySelector('c-chat-i-a-suggestions').closeSuggestion();
+                    }
+                }else {
+                    this.template.querySelector('c-chat-i-a-suggestions').closeSuggestion();
+                } 
+            } else {
+                if (this.inputValue.length >= this.quantify) {
+                    this.template.querySelector('c-chat-i-a-suggestions').updateSuggestions(this.inputValue);
+                } else {
+                    this.template.querySelector('c-chat-i-a-suggestions').closeSuggestion();
+                }
+            }
+        }
+    }
+    handleInputInsert(event) {
+        this.mensagemInput = event.detail;
+        this.template.querySelector('lightning-input[data-id="campoMensagem"]').focus();
+    }
     async sendMessage(event) {
+        this.template.querySelector('c-chat-i-a-suggestions').closeSuggestion();
+        this.enter = false;
         this.buttomDisabled = true;
         this.suggestions = false;
         let mensagemVar = event.target.value ? event.target.value : this.template.querySelector('lightning-input[data-id="campoMensagem"]').value;
@@ -319,16 +308,17 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
         }
         this.lastMensagemUser = mensagemUser;
         this.conversaCompleta.push(mensagemUser);
+        let mensagemVarEncoded = encodeURIComponent(mensagemVar);
         this.dots = true;
         this.forceScroll();
-        const integracaoQNA = await getIntegracaoQNA();
+        const integracaoQNA = await getIntegracaoQNA();     
         if (integracaoQNA) {
             try {
-                const response = await fetch(integracaoQNA.endpoint_qna + integracaoQNA.header_subscriptionId + '/' + mensagemVar, {
+                const response = await fetch(integracaoQNA.endpoint_qna + integracaoQNA.header_subscriptionId + '/' + mensagemVarEncoded, {
                     method: 'GET',
                     headers: {
                         'Content-Type': integracaoQNA.header_ContentType,
-                        'token': integracaoQNA.header_token,
+                        'token':  integracaoQNA.header_token,
                         'user_id': integracaoQNA.header_userId,
                         'subscription_id': integracaoQNA.header_subscriptionId,
                         'Origin': integracaoQNA.header_Origin,
@@ -340,6 +330,9 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
                         'user_profile': integracaoQNA.header_userProfile
                     },
                 });
+                if (!response.ok) {
+                    throw new Error(`Status: ${response.status} - ${response.statusText}`);
+                }
                 await this.appendStreamMessage(response);
             } catch (error) {
                 this.notificarErro('Não foi possível obter resposta. - ' + error.message);
@@ -347,7 +340,7 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
         }
     }
     async appendStreamMessage(responseBody) {
-        const loadingDotsString = '<span style="display: inline-block; width: 0.75em; height: 0.75em; border-radius: 50%; background-color: #ffffff; animation: spin 1s linear infinite;margin-top:1px"></span>'; 
+        const loadingDotsString = '<span style="display: inline-block; width: 0.75em; height: 0.75em; border-radius: 50%; background-color: #ffffff; animation: spin 1s linear infinite;margin-top:1px"></span>';
         const decoder = new TextDecoder();
         const reader = responseBody.body.getReader();
         const correlator = responseBody.headers.get("correlator");
@@ -355,17 +348,17 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
         this.streamOff = false;
         let urlDocument = '';
         let firstUrl = true;
-        if (references != '') {       
+        if (references != '') {
             let referencias = JSON.parse(references);
             referencias.forEach(reference => {
-                if(firstUrl){
+                if (firstUrl) {
                     urlDocument += '<br><br>Referências:';
                 }
-                urlDocument += '<br><i><a href="' + reference.url + '"><font color=#80CEF9>'+ reference.filename +'.</a></i><br>';
+                urlDocument += '<br><i><a href="' + reference.url + '"><font color=#80CEF9>' + reference.filename + '.</a></i><br>';
                 firstUrl = false;
             });
         }
-        const velocidadeTypingEffect = 10;
+        const velocidadeTypingEffect = 2;
         let mensagemIAConcatenada = '';
         let novaMensagem = true;
         try {
@@ -398,22 +391,21 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
                     let index = 0;
                     const typingInterval = setInterval(() => {
                         if (index < this.concatenaMensagemTypingEffect.length) {
-                                ultimaMensagem.conteudoMensagem = ultimaMensagem.conteudoMensagem.replace(loadingDotsString, "");
-                                ultimaMensagem.conteudoMensagem += this.concatenaMensagemTypingEffect[index];
-                                ultimaMensagem.conteudoMensagem = ultimaMensagem.conteudoMensagem + loadingDotsString;
-                                this.forceScroll();
-                                index++;
+                            ultimaMensagem.conteudoMensagem = ultimaMensagem.conteudoMensagem.replace(loadingDotsString, "");
+                            ultimaMensagem.conteudoMensagem += this.concatenaMensagemTypingEffect[index];
+                            ultimaMensagem.conteudoMensagem = ultimaMensagem.conteudoMensagem + loadingDotsString;
+                            this.forceScroll();
+                            index++;
                         } else {
                             this.concatenaMensagemTypingEffect = '';
-                            this.typingEffectOff  = true;
+                            this.typingEffectOff = true;
                             ultimaMensagem.conteudoMensagem = ultimaMensagem.conteudoMensagem.replace(loadingDotsString, "");
-                            if(this.streamOff){
+                            if (this.streamOff) {
                                 ultimaMensagem.conteudoMensagem += urlDocument;
                                 ultimaMensagem.disableLike = false;
                                 ultimaMensagem.disableDislike = false;
                                 this.forceScroll();
-                                this.lastMensagemIA = ultimaMensagem;
-                                this.armazenarMensagem();
+                                this.buttomDisabled = false;
                             }
                             clearInterval(typingInterval);
                         }
@@ -424,7 +416,7 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
             this.notificarErro('Não foi possível obter resposta. - ' + error.message);
         }
     }
-    notificarErro(mensagem){
+    notificarErro(mensagem) {
         this.dots = false;
         this.loading = false;
         this.buttomDisabled = false;

@@ -1,0 +1,32 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "CreateCaseAutomaticTopic",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/CreateCaseAutomaticTopic/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "ContactNumber": "=IF((\r\n        (length(TOSTRING(%ContactNumberInput%)) = 12) &&\r\n        (SUBSTRING(TOSTRING(%ContactNumberInput%),0,1) = \"(\") &&\r\n        (SUBSTRING(TOSTRING(%ContactNumberInput%),3,4) = \")\") &&\r\n\t\t(NOT(validateOnlyTextFormat(SUBSTRING(TOSTRING(%ContactNumberInput%),4,12))))\r\n        ) ||  (\r\n        (length(TOSTRING(%ContactNumberInput%)) = 13) &&\r\n        (SUBSTRING(TOSTRING(%ContactNumberInput%),0,1) = \"(\") &&\r\n        (SUBSTRING(TOSTRING(%ContactNumberInput%),4,5) = \")\") &&\r\n\t\t(NOT(validateOnlyTextFormat(SUBSTRING(TOSTRING(%ContactNumberInput%),5,13))))\r\n        ) || (\r\n        (length(TOSTRING(%ContactNumberInput%)) = 13) &&\r\n        (SUBSTRING(TOSTRING(%ContactNumberInput%),0,1) = \"(\") &&\r\n        (SUBSTRING(TOSTRING(%ContactNumberInput%),3,4) = \")\") &&\r\n\t\t(NOT(validateOnlyTextFormat(SUBSTRING(TOSTRING(%ContactNumberInput%),4,13))))\r\n        ) || (\r\n        (length(TOSTRING(%ContactNumberInput%)) = 14) &&\r\n        (SUBSTRING(TOSTRING(%ContactNumberInput%),0,1) = \"(\") &&\r\n        (SUBSTRING(TOSTRING(%ContactNumberInput%),4,5) = \")\") &&\r\n\t\t(NOT(validateOnlyTextFormat(SUBSTRING(TOSTRING(%ContactNumberInput%),5,14))))\r\n        ),\r\n        true,\"\")",
+            "testeRegex": "=IF(ISNOTBLANK(%ContactNumberInput%),true,false)",
+            "verContactNumber": "=IF((\r\n        (length(TOSTRING(%ContactNumberInput%)) = 12) &&\r\n        (SUBSTRING(TOSTRING(%ContactNumberInput%),0,1) = \"(\") &&\r\n        (SUBSTRING(TOSTRING(%ContactNumberInput%),3,4) = \")\") &&\r\n\t\t(NOT(validateOnlyTextFormat(SUBSTRING(TOSTRING(%ContactNumberInput%),4,12))))\r\n        ) ||  (\r\n        (length(TOSTRING(%ContactNumberInput%)) = 13) &&\r\n        (SUBSTRING(TOSTRING(%ContactNumberInput%),0,1) = \"(\") &&\r\n        (SUBSTRING(TOSTRING(%ContactNumberInput%),4,5) = \")\") &&\r\n\t\t(NOT(validateOnlyTextFormat(SUBSTRING(TOSTRING(%ContactNumberInput%),5,13))))\r\n        ) || (\r\n        (length(TOSTRING(%ContactNumberInput%)) = 13) &&\r\n        (SUBSTRING(TOSTRING(%ContactNumberInput%),0,1) = \"(\") &&\r\n        (SUBSTRING(TOSTRING(%ContactNumberInput%),3,4) = \")\") &&\r\n\t\t(NOT(validateOnlyTextFormat(SUBSTRING(TOSTRING(%ContactNumberInput%),4,13))))\r\n        ) || (\r\n        (length(TOSTRING(%ContactNumberInput%)) = 14) &&\r\n        (SUBSTRING(TOSTRING(%ContactNumberInput%),0,1) = \"(\") &&\r\n        (SUBSTRING(TOSTRING(%ContactNumberInput%),4,5) = \")\") &&\r\n\t\t(NOT(validateOnlyTextFormat(SUBSTRING(TOSTRING(%ContactNumberInput%),5,14))))\r\n        ),\r\n        true,false)"
+        },
+        "executionConditionalFormula": "IF(ISNOTBLANK(%ContactNumberInput%),true,false)",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues3",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVContactNumber",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/CreateCaseAutomaticTopic/Procedure/SVContactNumber"
+}

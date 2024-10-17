@@ -12,7 +12,12 @@
         <controllingField>CaseCloseType__c</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
+            <value>
+                <fullName>---</fullName>
+                <default>false</default>
+                <label>---</label>
+            </value>
             <value>
                 <fullName>1.Guardião</fullName>
                 <default>false</default>
@@ -84,19 +89,14 @@
                 <label>4.Supervisão</label>
             </value>
             <value>
-                <fullName>Operador Follow Up</fullName>
+                <fullName>Acompanhamento / Gestão Expectativa</fullName>
                 <default>false</default>
-                <label>Operador Follow Up</label>
+                <label>Acompanhamento / Gestão Expectativa</label>
             </value>
             <value>
-                <fullName>Guardião</fullName>
+                <fullName>Automação Salesforce</fullName>
                 <default>false</default>
-                <label>Guardião</label>
-            </value>
-            <value>
-                <fullName>Supervisão</fullName>
-                <default>false</default>
-                <label>Supervisão</label>
+                <label>Automação Salesforce</label>
             </value>
             <value>
                 <fullName>Backoffice</fullName>
@@ -104,14 +104,59 @@
                 <label>Backoffice</label>
             </value>
             <value>
+                <fullName>Chamado Duplicado</fullName>
+                <default>false</default>
+                <label>Chamado Duplicado</label>
+            </value>
+            <value>
+                <fullName>Dados incorretos/divergentes</fullName>
+                <default>false</default>
+                <label>Dados incorretos/divergentes</label>
+            </value>
+            <value>
+                <fullName>Dentro do prazo inicial</fullName>
+                <default>false</default>
+                <label>Dentro do prazo inicial</label>
+            </value>
+            <value>
+                <fullName>Executado Escalonamento</fullName>
+                <default>false</default>
+                <label>Executado Escalonamento</label>
+            </value>
+            <value>
+                <fullName>Executado Sem Escalonamento</fullName>
+                <default>false</default>
+                <label>Executado Sem Escalonamento</label>
+            </value>
+            <value>
+                <fullName>Fora do prazo inicial</fullName>
+                <default>false</default>
+                <label>Fora do prazo inicial</label>
+            </value>
+            <value>
                 <fullName>Gerente</fullName>
                 <default>false</default>
                 <label>Gerente</label>
             </value>
             <value>
+                <fullName>Guardião</fullName>
+                <default>false</default>
+                <label>Guardião</label>
+            </value>
+            <value>
                 <fullName>Loja</fullName>
                 <default>false</default>
                 <label>Loja</label>
+            </value>
+            <value>
+                <fullName>Não Executado</fullName>
+                <default>false</default>
+                <label>Não Executado</label>
+            </value>
+            <value>
+                <fullName>Operador Follow Up</fullName>
+                <default>false</default>
+                <label>Operador Follow Up</label>
             </value>
             <value>
                 <fullName>Outra Área</fullName>
@@ -123,7 +168,30 @@
                 <default>false</default>
                 <label>Performance</label>
             </value>
+            <value>
+                <fullName>Produto inativo</fullName>
+                <default>false</default>
+                <label>Produto inativo</label>
+            </value>
+            <value>
+                <fullName>Solicitação fora da regra</fullName>
+                <default>false</default>
+                <label>Solicitação fora da regra</label>
+            </value>
+            <value>
+                <fullName>Supervisão</fullName>
+                <default>false</default>
+                <label>Supervisão</label>
+            </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Procedente - Executado</controllingFieldValue>
+            <valueName>Dentro do prazo inicial</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Procedente - Executado</controllingFieldValue>
+            <valueName>Fora do prazo inicial</valueName>
+        </valueSettings>
         <valueSettings>
             <controllingFieldValue>1.Improcedente - Não executado</controllingFieldValue>
             <valueName>1.Guardião</valueName>
@@ -182,16 +250,25 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Improcedente - Não executado</controllingFieldValue>
+            <valueName>Dados incorretos/divergentes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Improcedente - Não executado</controllingFieldValue>
             <controllingFieldValue>Procedente - Executado sem Escalonamento</controllingFieldValue>
             <controllingFieldValue>Procedente - Não executado</controllingFieldValue>
             <valueName>Guardião</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Improcedente - Não executado</controllingFieldValue>
+            <valueName>Produto inativo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Improcedente - Não executado</controllingFieldValue>
+            <valueName>Solicitação fora da regra</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Procedente - Executado Escalonamento</controllingFieldValue>
-            <controllingFieldValue>Procedente - Executado sem Escalonamento</controllingFieldValue>
-            <controllingFieldValue>Procedente - Não executado</controllingFieldValue>
-            <valueName>Supervisão</valueName>
+            <valueName>---</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Procedente - Executado Escalonamento</controllingFieldValue>
@@ -214,9 +291,39 @@
             <valueName>Performance</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Procedente - Executado Escalonamento</controllingFieldValue>
+            <valueName>Supervisão</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Procedente - Executado sem Escalonamento</controllingFieldValue>
             <controllingFieldValue>Procedente - Não executado</controllingFieldValue>
             <valueName>Operador Follow Up</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Procedente - Não executado</controllingFieldValue>
+            <valueName>Automação Salesforce</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Procedente - Não executado</controllingFieldValue>
+            <valueName>Chamado Duplicado</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Improcedente</controllingFieldValue>
+            <valueName>Acompanhamento / Gestão Expectativa</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Improcedente</controllingFieldValue>
+            <controllingFieldValue>Procedente</controllingFieldValue>
+            <valueName>Executado Sem Escalonamento</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Improcedente</controllingFieldValue>
+            <controllingFieldValue>Procedente</controllingFieldValue>
+            <valueName>Não Executado</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Procedente</controllingFieldValue>
+            <valueName>Executado Escalonamento</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

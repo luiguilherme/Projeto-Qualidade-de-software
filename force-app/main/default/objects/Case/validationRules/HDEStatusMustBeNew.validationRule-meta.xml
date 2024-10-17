@@ -3,8 +3,7 @@
     <fullName>HDEStatusMustBeNew</fullName>
     <active>true</active>
     <description>Atenção: No momento da abertura do chamado, não deve ser alterado o status inicial do chamado</description>
-    <errorConditionFormula>AND(ISNEW() , IsHDE__c = true, NOT(ISPICKVAL(Status, &quot;A Iniciar&quot;))  , ( $Profile.Name = &quot;Representante&quot; ||  $Profile.Name = &quot;AliadoExterno&quot;)
-)</errorConditionFormula>
+    <errorConditionFormula>AND(ISNEW() , IsHDE__c = true, AND(NOT(ISPICKVAL(Status, &quot;A Iniciar&quot;)),NOT(AND(ISPICKVAL(Status, &quot;Crítico&quot;),ISPICKVAL(Priority, &quot;Critical&quot;)))), ( $Profile.Name = &quot;Representante&quot; || $Profile.Name = &quot;AliadoExterno&quot;))</errorConditionFormula>
     <errorDisplayField>Status</errorDisplayField>
     <errorMessage>Atenção: No momento da abertura do chamado, não deve ser alterado o status inicial do chamado</errorMessage>
 </ValidationRule>

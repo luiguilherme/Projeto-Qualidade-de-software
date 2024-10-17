@@ -149,7 +149,7 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             String alias = data.username;
             userRecord.alias = alias.left(8);
 
-            Boolean updateGroup = false;
+            Boolean updateGroupPartner = false;
 
             if(contactRecord.Id != null && userRecord.Id == null) {
                 userRecord.ContactId = contactRecord.Id;
@@ -173,7 +173,7 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
                 userRecord.UserRoleId = Id.valueOf(userRole);
             } else{
                 if(userRecord.PartnerGroup__c != userRole) {
-                    updateGroup = true;
+                    updateGroupPartner = true;
                 }
                 userRecord.PartnerGroup__c = userRole;
             }
@@ -211,8 +211,11 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
                 updateUserFuture(JSON.serialize(userRecord));
             }
             
-            if(updateGroup == true) {
+            if(updateGroupPartner == true) {
                 updatePublicGroupFuture(JSON.serialize(userRecord), JSON.serialize(data.attributeMap.get('role')));
+            } else {
+                List<String> ltPermissionSetResponse = getPermissionSet(data.attributeMap.get('permission_sets'));
+                updatePublicGroupInternalFuture(JSON.serialize(userRecord), JSON.serialize(data.attributeMap.get('role')),ltPermissionSetResponse);
             }
             
             updatePermissionSetFuture(JSON.serialize(userRecord), JSON.serialize(ltPermissionSetSF));
@@ -384,6 +387,98 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
         }
 
         if(lstInsertGroup.size() > 0) {
+            insert lstInsertGroup;
+        }
+    }
+
+    @future
+    public static void updatePublicGroupInternalFuture(String userString, String roleResponse, List<String> permissionSet) {
+        User userRecord = (User) JSON.deserialize(userString, User.class);
+
+        if (userRecord == null || userRecord.Id == null) {
+            return;
+        }
+
+        List<PublicGroup__mdt> lstPublicGroup = [
+            SELECT 
+                PartnerGroup__c, 
+                PublicGroup__c, 
+                DeveloperName, 
+                PermissionSet__c 
+            FROM 
+                PublicGroup__mdt 
+            WHERE 
+                PermissionSet__c != ''
+        ];
+
+        if (lstPublicGroup == null || lstPublicGroup.size() == 0) {
+            return;
+        }
+  
+        Set<String> setGroupNameInMdt = new Set<String>();
+        Set<String> setGroupNameUser = new Set<String>();
+        
+        for (PublicGroup__mdt publicGroup : lstPublicGroup) {
+            setGroupNameInMdt.add(publicGroup.PublicGroup__c);
+            
+            if (permissionSet.contains(publicGroup.PermissionSet__c)) {
+                setGroupNameUser.add(publicGroup.PublicGroup__c);
+            }
+        }
+
+        Map<Id, Group> mapGroup = new Map<Id, Group>([
+            SELECT 
+                Id, 
+                DeveloperName 
+            FROM 
+                Group 
+            WHERE 
+                DeveloperName IN :setGroupNameInMdt
+        ]);        
+        
+        Map<Id, GroupMember> mapGroupMember = new Map<Id, GroupMember>([
+            SELECT 
+                Id, 
+                GroupId, 
+                Group.DeveloperName 
+            FROM 
+                GroupMember 
+            WHERE 
+                UserOrGroupID = :userRecord.Id AND 
+                GroupId IN :mapGroup.keySet()
+        ]);
+        
+        Set<Id> groupByUser = new Set<Id>();
+
+        for (GroupMember gm : mapGroupMember.values()) {
+            groupByUser.add(gm.GroupId);
+        }
+
+        List<GroupMember> lstInsertGroup = new List<GroupMember>();
+        List<GroupMember> lstDeleteGroup = new List<GroupMember>();
+        
+        for (Group grp : mapGroup.values()) {
+            if (!groupByUser.contains(grp.Id) && setGroupNameUser.contains(grp.DeveloperName)) {
+                GroupMember groupMember = new GroupMember();
+
+                groupMember.GroupId = grp.Id;
+                groupMember.UserOrGroupId = userRecord.Id;
+
+                lstInsertGroup.add(groupMember);
+            }
+        }
+
+        for (GroupMember groupMember : mapGroupMember.values()) {
+            if (!setGroupNameUser.contains(groupMember.Group.DeveloperName)) {
+                lstDeleteGroup.add(groupMember);
+            }
+        }
+
+        if (lstDeleteGroup.size() > 0) {
+            delete lstDeleteGroup;
+        }
+
+        if (lstInsertGroup.size() > 0) {
             insert lstInsertGroup;
         }
     }

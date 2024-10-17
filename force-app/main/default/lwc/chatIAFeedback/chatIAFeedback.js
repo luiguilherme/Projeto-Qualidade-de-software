@@ -1,7 +1,6 @@
 import { LightningElement, track, api } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import sendFeedback from '@salesforce/apex/ChatIAController.sendFeedback';
-import updateFeedback from '@salesforce/apex/ChatIAController.updateFeedback';
 export default class ChatIAFeedback extends LightningElement {
     @api
     correlator
@@ -27,6 +26,8 @@ export default class ChatIAFeedback extends LightningElement {
     error = false;
     @track
     enviado = false;
+    @track
+    sair = true;
 
     connectedCallback(){
         this.isModalOpen = true;
@@ -68,22 +69,16 @@ export default class ChatIAFeedback extends LightningElement {
                 message: this.mensagem
             });
             if(data){
-                console.log(JSON.stringify(data));
-                const historico = await updateFeedback({
-                    correlator: this.correlator,
-                    feedback: this.feedback,
-                    chatId : this.chatid
-                });
-                if(historico){
-                    this.loading = false;
-                    this.conclusao = true;
-                    this.enviado = true;
-                    this.titulo = 'Feedback enviado!';
-                }
+                this.loading = false;
+                this.conclusao = true;
+                this.enviado = true;
+                this.titulo = 'Feedback enviado!';
+                this.sair = false;
             }
         } catch{
             this.conclusao = true;
             this.error = true;
+            this.loading = false;
             this.dispatchEvent(new ShowToastEvent({
                 title: 'Erro',
                 message: 'Não foi possível obter o histórico do chat.',

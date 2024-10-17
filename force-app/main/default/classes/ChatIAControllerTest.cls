@@ -26,78 +26,6 @@ private class ChatIAControllerTest{
 		Test.stopTest();
 		Assert.areEqual(3, questoes.size());
 	}
-
-	@isTest static void testWithSessionId() {
-		String userId = UserInfo.getUserId();
-		ChatIA__c chatIA = new ChatIA__c();
-		chatIA.Backup__c = userId + 'Teste';
-		chatIA.Usuario__c = userId;
-		chatIA.Active__c = true;
-		chatIA.History__c = true;
-
-		insert chatIA;
-
-		Test.startTest();
-		ChatIAController.InfoChatIA InfoChatIA = ChatIAController.getSessionId();
-		Test.stopTest();
-		Assert.areNotEqual('null', InfoChatIA.recordFound);
-	}
-
-	@isTest static void testWithSessionIdHistoryfalse() {
-		String userId = UserInfo.getUserId();
-		ChatIA__c chatIA = new ChatIA__c();
-		chatIA.Backup__c = userId + 'Teste';
-		chatIA.Usuario__c = userId;
-		chatIA.Active__c = true;
-		chatIA.History__c = false;
-
-		insert chatIA;
-
-		Test.startTest();
-		ChatIAController.InfoChatIA InfoChatIA = ChatIAController.getSessionId();
-		Test.stopTest();
-		Assert.areEqual('null', InfoChatIA.recordFound);
-	}
-
-	@isTest static void testWithSessionIdActiveAndHistoryfalse() {
-		String userId = UserInfo.getUserId();
-		ChatIA__c chatIA = new ChatIA__c();
-		chatIA.Backup__c = userId + 'Teste';
-		chatIA.Usuario__c = userId;
-		chatIA.Active__c = false;
-		chatIA.History__c = false;
-
-		insert chatIA;
-
-		Test.startTest();
-		ChatIAController.InfoChatIA InfoChatIA = ChatIAController.getSessionId();
-		Test.stopTest();
-		Assert.areEqual('null', InfoChatIA.recordFound);
-	}
-
-	@isTest static void testWithSessionIdActivefalse() {
-		String userId = UserInfo.getUserId();
-		ChatIA__c chatIA = new ChatIA__c();
-		chatIA.Backup__c = userId + 'Teste';
-		chatIA.Usuario__c = userId;
-		chatIA.Active__c = false;
-		chatIA.History__c = true;
-
-		insert chatIA;
-
-		Test.startTest();
-		ChatIAController.InfoChatIA InfoChatIA = ChatIAController.getSessionId();
-		Test.stopTest();
-		Assert.areEqual('null', InfoChatIA.recordFound);
-	}
-
-	@isTest static void testWithoutSessionId() {
-		Test.startTest();
-		ChatIAController.InfoChatIA InfoChatIA = ChatIAController.getSessionId();
-		Test.stopTest();
-		Assert.areEqual('null', InfoChatIA.recordFound);
-	}
-
 	@isTest static void getAuthenticationTest() {
 
         Test.setMock(HttpCalloutMock.class, new ChatIAInterfaceAPIMock());
@@ -120,45 +48,6 @@ private class ChatIAControllerTest{
         System.assertEquals(expectedValue, info.endpoint_qna);
     }
 
-	@isTest static void createNewChatTest() {
-		List<ChatIAController.messageJSON> bodyList = new List<ChatIAController.messageJSON>();
-		ChatIAController.messageJSON body = new ChatIAController.messageJSON();
-		body.conteudoMensagem = 'TESTE';
-		body.mensagemUsuario = true;
-		bodyList.add(body);
-
-		String bodyToSend = JSON.serialize(bodyList);
-
-        Test.setMock(HttpCalloutMock.class, new ChatIAInterfaceAPIMock());
-		Test.startTest();
-        ChatIAHistoryVO.CreateNewChatResponse res = ChatIAController.createNewChat(bodyToSend);
-		Test.stopTest();
-
-        String expectedValue = '2023-11-27';
-        System.assertEquals(expectedValue, res.x_date);
-    }
-	@isTest static void createNewHistoryTest() {
-		List<ChatIAController.messageJSON> bodyList = new List<ChatIAController.messageJSON>();
-		ChatIAController.messageJSON body = new ChatIAController.messageJSON();
-		body.conteudoMensagem = 'TESTE';
-		body.mensagemUsuario = true;
-		bodyList.add(body);
-
-		String bodyToSend = JSON.serialize(bodyList);
-
-        Test.setMock(HttpCalloutMock.class, new ChatIAInterfaceAPIMock());
-		Test.startTest();
-        ChatIAHistoryVO.CreateNewChatResponse res = ChatIAController.createNewHistory(bodyToSend);
-		Test.stopTest();
-    }
-
-	@isTest static void updateFeedbackTest() {
-		
-        Test.setMock(HttpCalloutMock.class, new ChatIAInterfaceAPIMock());
-		Test.startTest();
-        ChatIAHistoryVO.CreateNewChatResponse res = ChatIAController.updateFeedback('abc123', 'Feedback Test', 'idchat123456');
-		Test.stopTest();
-    }
 
 	@isTest static void sendFeedbackTest() {
 		
@@ -167,44 +56,22 @@ private class ChatIAControllerTest{
         ChatIAFeedbackVO.FeedbackResponse res = ChatIAController.sendFeedback('abc123', 'Feedback Test', 'positive');
 		Test.stopTest();
     }
-
-	@isTest static void AddConversationTest() {
-		List<ChatIAController.messageJSON> bodyList = new List<ChatIAController.messageJSON>();
-		ChatIAController.messageJSON body = new ChatIAController.messageJSON();
-		body.conteudoMensagem = 'TESTE';
-		body.mensagemUsuario = true;
-		bodyList.add(body);
-
-		String bodyToSend = JSON.serialize(bodyList);
-
-        Test.setMock(HttpCalloutMock.class, new ChatIAInterfaceAPIMock());
-		Test.startTest();
-        ChatIAHistoryVO.CreateNewChatResponse res = ChatIAController.AddConversation(bodyToSend, '123');
-		Test.stopTest();
-
-        String expectedValue = '2023-11-27';
-        System.assertEquals(expectedValue, res.x_date);
-    }
-
 	@isTest static void getChatByIdTest() {
-
         Test.setMock(HttpCalloutMock.class, new ChatIAInterfaceAPIMock());
 		Test.startTest();
-        ChatIAHistoryVO.GetHistoryByIdResponse res = ChatIAController.getChatById('123');
+        ChatIAHistoryVO.GetHistoryByIdResponse res = ChatIAController.getChatById();
 		Test.stopTest();
-
-        String expectedValue = '2023-11-28';
-        System.assertEquals(expectedValue, res.x_date);
+        String expectedValue = 'Hello';
+       System.assertEquals(expectedValue, res.history[0].message);
     }
 
 	@isTest static void deleteChatByIdTest() {
-
         Test.setMock(HttpCalloutMock.class, new ChatIAInterfaceAPIMock());
 		Test.startTest();
-        Boolean res = ChatIAController.deleteChatById('123');
+        ChatIAHistoryVO.DeleteChatByIdResponse res = ChatIAController.deleteChatById();
 		Test.stopTest();
 
-        System.assertEquals(true, res);
+        System.assertEquals(true, res.response);
     }
 	@isTest static void retornaPermissaoVerdadeiro() {
 		String idUser = UserInfo.getUserId();
@@ -289,63 +156,21 @@ private class ChatIAControllerTest{
 		ChatIAHistoryVO.History history = new ChatIAHistoryVO.History();
 		history.correlator = '123456';
 		history.feedback = 'test';
-		history.has_feedback = true;
-
-		ChatIAHistoryVO.NewHistory newHist = new ChatIAHistoryVO.NewHistory();
-		newHist.correlator = '12345';
-		newHist.feedback = 'test';
-		newHist.has_feedback = true;
+		history.message = 'teste';
+		history.sessionId = 'teste';
+		history.subscriptionId = 'teste';
+		history.userId = 'teste';
+		history.createdAt = '23/09/2024';
+		history.response = 'teste';
+		history.feedback_message = 'teste';
 
 		List<ChatIAHistoryVO.History> hist = new List<ChatIAHistoryVO.History>();
-		List<ChatIAHistoryVO.Chat> chats = new List<ChatIAHistoryVO.Chat>();
-
-		ChatIAHistoryVO.CreateHistory createHistory = new ChatIAHistoryVO.CreateHistory();
-		createHistory.chats = chats;
-
-		ChatIAHistoryVO.CreateHistoryResponse createHistoryResponse = new ChatIAHistoryVO.CreateHistoryResponse();
-		createHistoryResponse.user_id = 'Teste';
-		createHistoryResponse.flow_id = 'Teste';
-		createHistoryResponse.chats = chats;
-
-		ChatIAHistoryVO.CreateNewChatResponse createNewChatResponse = new ChatIAHistoryVO.CreateNewChatResponse();
-		createNewChatResponse.x_id = 'Teste';
-		createNewChatResponse.x_date = 'Teste';
-		createNewChatResponse.history = hist;
-
         ChatIAHistoryVO.GetHistoryByIdResponse getHistoryByIdResponse = new ChatIAHistoryVO.GetHistoryByIdResponse();
-		getHistoryByIdResponse.x_id = 'Teste';
-		getHistoryByIdResponse.x_date = 'Teste';
 		getHistoryByIdResponse.history = hist;
-
-		ChatIAHistoryVO.GetAllHistoryResponse getAllHistoryResponse = new ChatIAHistoryVO.GetAllHistoryResponse();
-		getAllHistoryResponse.user_id = 'Teste';
-		getAllHistoryResponse.x_id = 'Teste';
-		getAllHistoryResponse.flow_id = 'Teste';
-		getAllHistoryResponse.chats = chats;
-
 		ChatIAHistoryVO.DeleteChatByIdResponse deleteChatByIdResponse = new ChatIAHistoryVO.DeleteChatByIdResponse();
-		deleteChatByIdResponse.response = 'Teste';
-
-		List<ChatIAHistoryVO.CreateNewChatResponse> createNewChatResponseList = new List<ChatIAHistoryVO.CreateNewChatResponse>();
-		createNewChatResponseList.add(createNewChatResponse);
-
-		ChatIAHistoryVO.CreateNewHistoryResponse historyResponse = new ChatIAHistoryVO.CreateNewHistoryResponse();
-		historyResponse.chats = createNewChatResponseList;
-		historyResponse.created_at = System.now();
-		historyResponse.flowx_id = '12345';
-		historyResponse.upx_dated_at = System.now();
-		historyResponse.userx_id = '132456';
-		historyResponse.v = '123456';
-		historyResponse.x_id = '123456';
-		
-
-		//ChatIAFeedbackVO
-		ChatIAFeedbackVO.Feedback feedback = new ChatIAFeedbackVO.Feedback();
-		feedback.correlator = 'abc123456';
-		feedback.feedback = 'feedbackTest';
-		feedback.message = 'feedback';
-
+		deleteChatByIdResponse.response = true;
 		ChatIAFeedbackVO.FeedbackResponse feedbackResponse = new ChatIAFeedbackVO.FeedbackResponse();
 		feedbackResponse.message = 'responseTest';
+
     }
 }

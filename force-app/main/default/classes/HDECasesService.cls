@@ -17,13 +17,13 @@ public with sharing class HDECasesService {
         }
         
         if (!lstChangedCase.isEmpty()) {
-            if (hasPerformancePermission()) {
+            if (hasPerformancePermission() || isIntegrationUser(currentUser)) {
                 return;
 
             } else if (hasRequiredPermissions()) {
                 List<User> lstAllOwnersUsers = UserDAO.getById(setOwnerId);
                 Set<String> setOwnersPartnerGroups = new Set<String>{currentUser.UserRole.DeveloperName};
-
+				
                 for (User iUser : lstAllOwnersUsers) {
                     setOwnersPartnerGroups.add(iUser.PartnerGroup__c != null ? iUser.PartnerGroup__c : 'null');
                     setOwnersPartnerGroups.add(iUser.PartnerGroup__c == null ? iUser.UserRole.DeveloperName : 'null');
@@ -41,7 +41,7 @@ public with sharing class HDECasesService {
                 for (FromToMapping__mdt iFromToMdt: lstSegmentsAvailable) {
                     if (iFromToMdt.OperatorSegment__c != null && iFromToMdt.OriginApiName__c == currentUser.UserRole.DeveloperName) {
                         currentUserSegment = iFromToMdt.OperatorSegment__c;
-                    } 
+                    }
                     
                     for (User iUser : lstAllOwnersUsers) {
                         Boolean hasRoleToTransfer;
@@ -50,7 +50,7 @@ public with sharing class HDECasesService {
                         } else{
                             hasRoleToTransfer = iFromToMdt.OperatorSegment__c != null && iFromToMdt.OriginApiName__c == iUser.UserRole.DeveloperName;
                         }
-
+                        
                         if (hasRoleToTransfer) {
                             if (mapSegmentUser.containsKey(iFromToMdt.OperatorSegment__c)) {
                                 List<Id> lstUserTemp = mapSegmentUser.get(iFromToMdt.OperatorSegment__c);
@@ -142,5 +142,44 @@ public with sharing class HDECasesService {
     public static Boolean isQueue(Id recordId) {
         String ownerId = recordId;
         return ownerId.startsWith('00G');
+    }
+
+    public static Boolean isIntegrationUser(User usr) {
+        return (usr.Profile.Name == 'IntegracaoSistema');
+    }
+
+    @InvocableMethod(label='sendCaseToAutomaticRouting' description='Enviar o Caso para roteamento automático pelo Genesys')
+    public static void sendCaseToAutomaticRouting(List<SendCaseToAutomaticRoutingInputs> parameters) {
+        if (parameters == null || parameters.isEmpty()) {
+            throw new IllegalArgumentException(
+                'O argumento parameters precisa ser passsado com a lista de Ids dos Casos e as Prioridades para o Genesys rotear.'
+            );
+        }
+
+        Map<Id, String> casesWithPriorities = new Map<Id, String>();
+
+        for (SendCaseToAutomaticRoutingInputs item : parameters) {
+            casesWithPriorities.put(item.caseId, item.priority);
+        }
+
+        List<Case> ltCases = CaseDAO.get(casesWithPriorities.keySet());
+        
+        if (ltCases == null || ltCases.isEmpty()) {
+            throw new IllegalArgumentException(
+                'Parâmetro inválido. Nenhum Caso foi retornado.'
+            );
+        }
+
+        BatchRoutingCasesCallout batchRouting = new BatchRoutingCasesCallout(ltCases, casesWithPriorities);
+
+        Id batchRoutingId = Database.executeBatch(batchRouting, 1);
+    }
+
+    public class SendCaseToAutomaticRoutingInputs {
+        @InvocableVariable
+        public String caseId;
+    
+        @InvocableVariable
+        public String priority;
     }
 }

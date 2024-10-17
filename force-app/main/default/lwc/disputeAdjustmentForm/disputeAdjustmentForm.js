@@ -50,6 +50,7 @@ import LightningAlert from 'lightning/alert';
     @track sessionFields = false;
     @track sessionNotes;
     @track isDisabled = false;
+    checkTime;
 
     // Variáveis Estáticas
     static MODALIDADES = {
@@ -105,6 +106,7 @@ import LightningAlert from 'lightning/alert';
 
     //Verificando quem irá disparar o evento recebido pelo Registrar 
     handleEvent(evt){
+        console.log('Hora do click do botão Flexcard: ', Date.now());
         // Id da interaction deve ser o mesmo recebido através do evt.value (Parâmetro da action Register:Btn)
         // Id recebido é o Id {recordId} do DisputeFlexCardWrapper
         this.WrapperContextId = evt.WrapperContextId;
@@ -632,9 +634,12 @@ import LightningAlert from 'lightning/alert';
                     ConvertNotesToStringConcession: convertNotesToStringConcession,
                     WrapperContextId: this.WrapperContextId
                 };
-
-                pubsub.fire('ServiceDefinition', 'SendRequestGetInformationAndCreateCredit', obj);
-                this.isDisabled = true;
+                if(!this.checkTime){
+                    //Permitir que dispare apenas no primeiro click
+                    this.checkTime = Date.now();     
+                    pubsub.fire('ServiceDefinition', 'SendRequestGetInformationAndCreateCredit', obj);
+                    this.isDisabled = true;
+                }
             }
         } else if (this.sessionFields){
             let notesFix = this.sessionNotes;
@@ -647,8 +652,12 @@ import LightningAlert from 'lightning/alert';
                 InteractionTopicId: this.interactionTopicId,
                 WrapperContextId: this.WrapperContextId
             };   
-           pubsub.fire('DisputeFlexCardServiceDefinitionMessage', 'CaseClosureDefinition', obj);
-           this.isDisabled = true;
+           if(!this.checkTime){
+                //Permitir que dispare apenas no primeiro click
+                this.checkTime = Date.now();    
+                pubsub.fire('DisputeFlexCardServiceDefinitionMessage', 'CaseClosureDefinition', obj);
+                this.isDisabled = true;
+           }
         }
     }
 

@@ -1,7 +1,48 @@
-public with sharing class ContactCenterService {
-    private static final String ORIGIN_SYSTEM = 'SALESFORCE_B2C';
-    private static final String ORIGIN_INTERACTION = 'APP_VIVO';
-    public static final String ACTION_AGENT_QUEUE = 'agent_queue';
+public with sharing class ContactCenterService
+{   
+    public static final String INTEGRATIONTYPE_ALLOCATION = 'AllocationOfAttendants';
+    public static final String INTEGRATIONTYPE_ROUTING = 'Routing';
+
+    public static final String SYSTEMID_SALESFORCE_B2B = 'SALESFORCE_B2B';
+	public static final String SYSTEMID_SALESFORCE_B2C = 'SALESFORCE_B2C';
+
+	public static final String SYSTEMIDINTERACTION_WHATSAPP = 'WHATSAPP';
+	public static final String SYSTEMIDINTERACTION_APP_VIVO = 'APP_VIVO';
+	public static final String SYSTEMIDINTERACTION_MVE = 'MVE';
+	public static final String SYSTEMIDINTERACTION_EMAIL = 'EMAIL';
+	public static final String SYSTEMIDINTERACTION_INSTAGRAM = 'INSTAGRAM';
+	public static final String SYSTEMIDINTERACTION_SALESFORCE_B2B = 'SALESFORCE_B2B';
+	public static final String SYSTEMIDINTERACTION_SALESFORCE_B2C = 'SALESFORCE_B2C';
+
+	public static final String PRIORITY_CRITICA = 'CRITICA';
+	public static final String PRIORITY_ALTA = 'ALTA';
+	public static final String PRIORITY_MEDIA = 'MEDIA';
+	public static final String PRIORITY_BAIXA = 'BAIXA';
+    
+	public static final String TEMPERATURE_ALTA = 'Alta';
+	public static final String TEMPERATURE_BAIXA = 'Baixa';
+
+    public static final String ACTION_AGENT_STOP = 'agent_stop';
+	public static final String ACTION_AGENT_QUEUE = 'agent_queue';
+    
+    public class Params {
+        public String serviceType {get; set;}
+        public User userAgent {get; set;}
+        public String userORG {get; set;}
+
+        public String action {get; set;}
+        public String agent {get; set;}
+        public String priority {get; set;}
+
+        public String interactionReason {get; set;}
+        public String interactionDetail {get; set;}
+
+        public String productSubType {get; set;}
+
+        public Case caseRecord {get; set;}
+        public Account accountRecord {get; set;}
+        public Asset assetRecord {get; set;}
+    }
 
     public static OpenMediaInteractionPayload buildOpenMediaInteractionPayLoad(Case caseRec, Account accountRec, Asset assetRec) {
         OpenMediaInteractionPayload payload = new OpenMediaInteractionPayload();
@@ -9,8 +50,23 @@ public with sharing class ContactCenterService {
         populateCustomerFields(payload, accountRec);
         populateCustomerInteractionFields(payload, caseRec);
         populateProductFields(payload, accountRec, assetRec);
-        populatePolicyApplicationFields(payload, ORIGIN_SYSTEM, ORIGIN_INTERACTION);
+        populatePolicyApplicationFields(payload, SYSTEMID_SALESFORCE_B2C, SYSTEMIDINTERACTION_APP_VIVO);
         return payload;
+    }
+
+    public static OpenMediaInteractionPayload buildOpenMediaInteractionPayLoad(Params params) {
+        OpenMediaInteractionPayload payload;
+
+        if (params != null && params.serviceType != null) {
+            if (params.serviceType == INTEGRATIONTYPE_ALLOCATION) {
+                payload = buildOpenMediaInteractionPayLoad(params.caseRecord, params.accountRecord, params.assetRecord);
+
+            } else if (params.serviceType == INTEGRATIONTYPE_ROUTING) {
+                payload = buildOpenMediaInteractionPayLoadForRouting(params);
+            }
+        }
+
+        return (payload);
     }
 
     private static void populateCaseFields(OpenMediaInteractionPayload payload, Case caseRec) {
@@ -24,7 +80,7 @@ public with sharing class ContactCenterService {
         payload.customer.documentType = accountRec.DocumentType__c ?? '';
         payload.customer.customerId = accountRec.Id ?? '';
         payload.customer.customerSegment = accountRec.vlocity_cmt__CustomerValue__c ?? '';
-        payload.customer.customerRank = accountRec.HighTemperature__c ? 'Alta' : 'Baixa';
+        payload.customer.customerRank = accountRec.HighTemperature__c ? TEMPERATURE_ALTA : TEMPERATURE_BAIXA;
     }
 
     private static void populateCustomerInteractionFields(OpenMediaInteractionPayload payload, Case caseRec) {
@@ -57,8 +113,44 @@ public with sharing class ContactCenterService {
         payload.action = action;
     }
 
+    private static OpenMediaInteractionPayload buildOpenMediaInteractionPayLoadForRouting(Params params) {
+        OpenMediaInteractionPayload payloadForRouting = new OpenMediaInteractionPayload();
+
+        payloadForRouting.action = params.action;
+        payloadForRouting.agent = params.agent;
+        payloadForRouting.caseId = params.caseRecord.Id;
+        payloadForRouting.priority = params.priority;
+
+        payloadForRouting.policyApplication = new OpenMediaInteractionPayload.PolicyApplicationWrapper();
+
+        payloadForRouting.policyApplication.systemId = SYSTEMID_SALESFORCE_B2C;
+        payloadForRouting.policyApplication.systemIdInteraction = SYSTEMIDINTERACTION_SALESFORCE_B2C;
+
+        payloadForRouting.customerInteraction = new OpenMediaInteractionPayload.CustomerInteractionWrapper();
+
+        payloadForRouting.customerInteraction.interactionReason = params.interactionReason;
+        payloadForRouting.customerInteraction.interactionDetail = params.interactionDetail;
+
+        payloadForRouting.product = new OpenMediaInteractionPayload.ProductWrapper();
+        
+        payloadForRouting.product.productCharacteristic = new OpenMediaInteractionPayload.ProductCharacteristicWrapper();
+
+        payloadForRouting.product.productCharacteristic.subType = params.productSubType;
+
+        payloadForRouting.customer = new OpenMediaInteractionPayload.CustomerWrapper();
+
+        payloadForRouting.customer.customerSegment = (params.accountRecord.vlocity_cmt__CustomerValue__c ?? '');
+
+        return (payloadForRouting);
+    }
+    
     @future(callout=true)
-    public static void createOpenMediaInteraction(String payload)
+    public static void createOpenMediaInteraction(String payload) 
+    {
+        callCreateOpenMediaInteraction(payload);
+    }
+    
+    public static void callCreateOpenMediaInteraction(String payload)
     {
         String environmentName = Util.getEnvironmentName();
         ContactCenterServiceIntegration contactCenterServiceIntegration = ContactCenterServiceIntegrationConfig.getService(environmentName);
