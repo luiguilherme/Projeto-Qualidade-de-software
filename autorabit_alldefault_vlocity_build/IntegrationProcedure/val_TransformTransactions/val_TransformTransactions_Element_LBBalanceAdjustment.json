@@ -1,6 +1,6 @@
 {
-    "%vlocity_namespace%__Active__c": false,
-    "%vlocity_namespace%__InternalNotes__c": "corrigir mapeamento",
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__InternalNotes__c": "Bug2551067 - Alterado a fórmula do validity",
     "%vlocity_namespace%__OmniScriptId__c": {
         "Name": "valTransformTransactions",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
@@ -14,17 +14,22 @@
         "loopList": "balanceAdjustment",
         "loopOutput": {
             "accountNumber": "%SubcriptionNumber%",
-            "amount": "=%balanceAdjustment:productCost%",
-            "clientCategory": "=%balanceAdjustment:networkNumberType%",
-            "csp": "",
-            "inpugnation": "",
-            "reason": "",
+            "adjustType": "=%balanceAdjustment:balanceOperation%",
+            "adjustmentDate": "=FORMATDATETIME(%balanceAdjustment:eventDateTime%, \"dd/MM/yyyy\",\"América/Sao_Paulo\")",
+            "amount": "=%balanceAdjustment:adjustedAmount%",
+            "balanceType": "=%balanceAdjustment:bucketName%",
+            "channel": "=%balanceAdjustment:channelDescription%",
+            "lineNumber": "=%networkNumber%",
+            "offerPlan": "=%balanceAdjustment:productName%",
+            "reason": "=%balanceAdjustment:operationReason%",
+            "system": "=%balanceAdjustment:channelId%",
             "systemUserId": "=%balanceAdjustment:accountId%",
             "timeStamp": "=IF(ISNOTBLANK(%balanceAdjustment:eventDateTime%),FORMATDATETIME(SUBSTRING(%balanceAdjustment:eventDateTime%, 0, 23), \"dd/MM/YYYY HH:mm\", \"Etc/GMT\"),NULL)",
-            "transactionType": "=%balanceAdjustment:operationReason%",
+            "transactionType": "=\"Ajuste de Saldo\"",
             "type": "=\"balanceAdjustment\"",
-            "unit": "=%balanceAdjustment:usageUnit%",
-            "userLogin": "=%balanceAdjustment:userLogin%"
+            "unit": "=%balanceAdjustment:unit%",
+            "userLogin": "=%balanceAdjustment:userLogin%",
+            "validity": "=IF(ISBLANK(DATEDIFF(%balanceAdjustment:usageStartDateTime%,%balanceAdjustment:usageEndDateTime%)),0,DATEDIFF(%balanceAdjustment:usageStartDateTime%,%balanceAdjustment:usageEndDateTime%)) + \" dia(s)\""
         },
         "show": null
     },
