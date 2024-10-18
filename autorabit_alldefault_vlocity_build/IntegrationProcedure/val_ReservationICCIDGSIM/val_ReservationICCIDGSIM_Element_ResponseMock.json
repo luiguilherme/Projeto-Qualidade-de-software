@@ -8,7 +8,9 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "ResponseICCIDReprovado": "=IF(%HTTPServidorMockInfo:statusCode% != 201, true, false)",
+            "ResponseICCIDReprovado": false,
+            "SMDPPlusPlatform": "=SUBSTRING(%HTTPServidorMock:reservationItem|1:appliedCapacityAmount:resource|1:characteristic|3:value%)",
+            "SMDSAddress": "=SUBSTRING(%HTTPServidorMock:reservationItem|1:appliedCapacityAmount:resource|1:characteristic|2:value%)",
             "iccidESim": "=SUBSTRING(%HTTPServidorMock:reservationItem|1:appliedCapacityAmount:resource|1:id%)",
             "response": "=%HTTPServidorMock%",
             "statusCode": "=%HTTPServidorMockInfo:statusCode%"
