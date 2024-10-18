@@ -49,7 +49,6 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
     connectedCallback() {
         this.updateHeight();
         this.verifyPermission();
-        this.autocompleteSettings();
     }
     updateHeight() {
         if (this.windowScreenHeight !== window.innerHeight) {
@@ -100,7 +99,6 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
             this.thereIsPermission = data;
             if (this.thereIsPermission === true) {
                 this.getQuestions();
-                this.getChatHistory();
             }
         } catch {
             this.thereIsPermission = false;
@@ -111,80 +109,11 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
             const data = await getQuestionSuggestion();
             this.questionSuggestions = data;
             this.suggestions = true;
+            this.loading = false;
         } catch {
             this.thereIsPermission = false;
             this.notificarErro('Não foi possível obter as sugestões de perguntas.');
         }
-    }
-    async getChatHistory() {
-        this.loading = true;
-        try {
-            const data = await getChatById();
-    
-            // Verifica se a resposta é válida e contém o histórico
-            if (data && data.response === true && Array.isArray(data.history)) {
-                data.history.forEach(hist => {
-                    let historicoBr = hist.response.replace(/\\n/g, '<br>');
-                    let historicoTratado = historicoBr.replace(/"/g, '');
-                    let mensagemIA = {
-                        mensagemUsuario: false,
-                        conteudoMensagem: this.styleCSS + historicoTratado,
-                        correlator: hist.correlator,
-                        disableLike: false,
-                        disableDislike: false,
-                        css: '',
-                    };
-                    
-                    if (hist.feedback === 'positive') {
-                        mensagemIA.disableDislike = true;
-                        mensagemIA.css = '--slds-c-icon-color-foreground: #5C169D;margin-left: -20px;';
-                    }
-                    
-                    if (hist.feedback === 'negative') {
-                        mensagemIA.disableLike = true;
-                        mensagemIA.css = '--slds-c-icon-color-foreground: #5C169D;margin-left: -20px;';
-                    }
-    
-                    let conteudoMensagem = hist.message;
-                    let regex = /--- PERGUNTA ([\s\S]*?).\\n/;
-                    let match = conteudoMensagem.match(regex);
-                    let mensagemFinal = '';
-    
-                    if (match) {
-                        mensagemFinal = match[1].trim();
-                    } else {
-                        mensagemFinal = "Mensagem não encontrada.";
-                    }
-    
-                    let mensagemUser = {
-                        mensagemUsuario: true,
-                        conteudoMensagem: mensagemFinal,
-                        correlator: null,
-                        disableLike: false,
-                        disableDislike: false,
-                        css: '',
-                    };
-    
-                    this.conversaCompleta.push(mensagemUser);
-                    this.conversaCompleta.push(mensagemIA);
-    
-                    if (this.suggestions === true) {
-                        this.suggestions = false;
-                    }                         
-                });
-            } else {
-                // Exibe o erro retornado pela API
-                this.notificarErro(`Erro ao obter histórico: ${data.message}`);
-            }
-        } catch (error) {
-            // Exibe erros inesperados
-            this.notificarErro('Não foi possível obter o histórico de chat. ' + error.message);
-        }
-        this.loading = false;
-        setTimeout(() => {
-            const inputScroll = this.template.querySelector('[data-id="scrollable"]');
-            inputScroll.scrollTop = inputScroll.scrollHeight;
-        });
     }   
     get logoChat() {
         return logoChatIA;
@@ -258,41 +187,11 @@ export default class ChatIA extends NavigationMixin(LightningElement) {
             }
         })
     }
-    handleInputChange(event) {
-        this.enter = true;
-        clearTimeout(this._timeout)
-        this.inputValue = event.target.value;
-        this._timeout = setTimeout(() => this.postSuggestions(), 300);
-    }
-    postSuggestions(){
-        if(this.enter){
-            if (this.words) {
-                let regex = / (?=\S)/g;
-                let matches = this.inputValue.match(regex);
-                if(matches){
-                    if (matches.length >= this.quantify) {
-                        this.template.querySelector('c-chat-i-a-suggestions').updateSuggestions(this.inputValue);
-                    } else {
-                        this.template.querySelector('c-chat-i-a-suggestions').closeSuggestion();
-                    }
-                }else {
-                    this.template.querySelector('c-chat-i-a-suggestions').closeSuggestion();
-                } 
-            } else {
-                if (this.inputValue.length >= this.quantify) {
-                    this.template.querySelector('c-chat-i-a-suggestions').updateSuggestions(this.inputValue);
-                } else {
-                    this.template.querySelector('c-chat-i-a-suggestions').closeSuggestion();
-                }
-            }
-        }
-    }
     handleInputInsert(event) {
         this.mensagemInput = event.detail;
         this.template.querySelector('lightning-input[data-id="campoMensagem"]').focus();
     }
     async sendMessage(event) {
-        this.template.querySelector('c-chat-i-a-suggestions').closeSuggestion();
         this.enter = false;
         this.buttomDisabled = true;
         this.suggestions = false;
