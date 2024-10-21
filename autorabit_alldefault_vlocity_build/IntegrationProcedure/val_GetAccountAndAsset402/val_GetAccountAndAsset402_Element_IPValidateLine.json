@@ -9,11 +9,13 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "DocumentNumber": "=IF(ISNOTBLANK(%DocumentBlock:DocumentNumberCPF%), %DocumentBlock:DocumentNumberCPF%,  IF(ISNOTBLANK(%DocumentBlock:DocumentNumberPassaport%), %DocumentBlock:DocumentNumberPassaport%, %DocumentBlock:DocumentNumberExt%))"
+            "ContextId": "%interactionId%",
+            "DocumentNumber": "=IF(ISNOTBLANK(%DocumentBlock:DocumentNumberCPF%), %DocumentBlock:DocumentNumberCPF%,  IF(ISNOTBLANK(%DocumentBlock:DocumentNumberPassaport%), %DocumentBlock:DocumentNumberPassaport%, %DocumentBlock:DocumentNumberExt%))",
+            "InteractionNumber": "%interactionNumber%"
         },
         "additionalOutput": {
         },
-        "chainOnStep": false,
+        "chainOnStep": true,
         "disOnTplt": false,
         "disableChainable": false,
         "executionConditionalFormula": "",

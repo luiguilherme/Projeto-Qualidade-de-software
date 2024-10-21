@@ -82,7 +82,7 @@
         "DeveloperName": "cfValBalanceDetailsInfo_9_Lucas",
         "Id": "0Rb5f000002WsQ7CAK",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfValPrePaidAssetDetailsButtons_RechargeButton_1_Telefonica",
+        "MasterLabel": "cfValBalanceDetailsInfo_9_Lucas",
         "NamespacePrefix": "c"
     },
     "osSupport": true,
@@ -117,7 +117,7 @@
                                             {
                                                 "actionIndex": 0,
                                                 "draggable": true,
-                                                "isOpen": false,
+                                                "isOpen": true,
                                                 "key": "1683225998376-qpabmu7h4",
                                                 "label": "Action",
                                                 "stateAction": {
@@ -130,8 +130,8 @@
                                                         "id": "state-condition-object",
                                                         "isParent": true
                                                     },
-                                                    "id": "flex-action-1683295811809",
-                                                    "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_CreateCustomerInteractionTopic\",\"vlocityAsync\":false,\"inputMap\":{\"topicName\":\"Início > Informação > Crédito > Saldo Detalhado\",\"interactionId\":\"{Parent.interactionId}\",\"process\":\"Consultar Consumo de Mensagens, Voz, Bonus\"},\"jsonMap\":\"{\\\"Parent.interactionId\\\":\\\"{Parent.interactionId}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"Parent.interactionId\",\"val\":\"\",\"id\":7}]}",
+                                                    "id": "flex-action-1721853986875",
+                                                    "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_CreateCustomerInteractionTopic\",\"vlocityAsync\":false,\"inputMap\":{\"topicName\":\"Início > Informação > Crédito > Saldo Detalhado\",\"interactionId\":\"{Parent.interactionId}\",\"process\":\"Consultar Consumo de Mensagens, Voz, Bonus\",\"assetId\":\"{Parent.assetId}\",\"origin\":\"Salesforce\"},\"jsonMap\":\"{\\\"Parent.interactionId\\\":\\\"{Parent.interactionId}\\\",\\\"Parent.assetId\\\":\\\"{Parent.assetId}\\\"}\",\"resultVar\":\"\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"Parent.interactionId\",\"val\":\"\",\"id\":7},{\"name\":\"Parent.assetId\",\"val\":\"\",\"id\":15}]}",
                                                     "openUrlIn": "Current Window",
                                                     "responseNode": "ProtocolResponse",
                                                     "targetType": "Web Page",
@@ -142,7 +142,7 @@
                                                 "actionIndex": 1,
                                                 "card": "{card}",
                                                 "draggable": true,
-                                                "isOpen": false,
+                                                "isOpen": true,
                                                 "key": "1683226218703-6ur1rxj3u",
                                                 "label": "palito",
                                                 "stateAction": {
@@ -168,7 +168,7 @@
                                                 "actionIndex": 2,
                                                 "card": "{card}",
                                                 "draggable": true,
-                                                "isOpen": false,
+                                                "isOpen": true,
                                                 "key": "1683296815147-uc27i76gr",
                                                 "label": "ShowTrue",
                                                 "stateAction": {
@@ -1031,7 +1031,7 @@
                                     "parentElementKey": "element_block_2_0",
                                     "property": {
                                         "card": "{card}",
-                                        "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2014pt;%22%3E%3Cstrong%3E%3Cspan%20style=%22color:%20#000000;%22%3ESaldo%20de%20Dados%3C/span%3E%3C/strong%3E%3C/span%3E%3C/div%3E",
+                                        "mergeField": "%3Cdiv%3E%3Cspan%20style=%22font-size:%2014pt;%22%3E%3Cstrong%3E%3Cspan%20style=%22color:%20#000000;%22%3ESaldo%20de%20Dados%3C/span%3E%3C/strong%3E%3C/span%3E%3C/div%3E%0A%3Cdiv%3E%3Cspan%20style=%22font-size:%2014pt;%22%3E%3Cstrong%3E%3Cspan%20style=%22color:%20#000000;%22%3E%7BVOL%5B0%5D.avaliableBalanceConvert%7D%3C/span%3E%3C/strong%3E%3C/span%3E%3C/div%3E",
                                         "record": "{record}"
                                     },
                                     "size": {
@@ -1684,6 +1684,12 @@
                                     "property": {
                                         "cardName": "valBalanceDetailsTypeVoice",
                                         "cardNode": "{record.balanceData[1]}",
+                                        "data-conditions": {
+                                            "group": [
+                                            ],
+                                            "id": "state-condition-object",
+                                            "isParent": true
+                                        },
                                         "isChildCardTrackingEnabled": false,
                                         "parentAttribute": {
                                             "SourceSystem": "{Parent.SourceSystem}",
@@ -1829,7 +1835,6 @@
                         {
                             "class": "slds-col ",
                             "element": "childCardPreview",
-                            "elementLabel": "FlexCard-6",
                             "name": "FlexCard",
                             "property": {
                                 "cardName": "valReviewPrepaidBalanceDetails",
@@ -1952,6 +1957,14 @@
             },
             "conditions": {
                 "group": [
+                    {
+                        "field": "State",
+                        "hasMergeField": false,
+                        "id": "state-new-condition-58",
+                        "operator": "!=",
+                        "type": "custom",
+                        "value": "ProductUpdate"
+                    }
                 ],
                 "id": "state-condition-object",
                 "isParent": true
@@ -1979,14 +1992,18 @@
                     "size": ""
                 },
                 "border": {
-                    "color": "#cccccc",
-                    "radius": "",
+                    "color": "#DDDBDA",
+                    "radius": "4px",
                     "style": "",
                     "type": [
+                        "border_top",
+                        "border_right",
+                        "border_bottom",
+                        "border_left"
                     ],
-                    "width": ""
+                    "width": "1"
                 },
-                "class": "slds-card  slds-p-around_x-small slds-m-around_none ",
+                "class": "slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-around_x-small slds-m-around_none ",
                 "container": {
                     "class": "slds-card"
                 },
@@ -2012,7 +2029,7 @@
                     "isResponsive": false
                 },
                 "sizeClass": "slds-size_12-of-12 ",
-                "style": "      \n         ",
+                "style": "     border-top: #DDDBDA 1px solid;border-right: #DDDBDA 1px solid;border-bottom: #DDDBDA 1px solid;border-left: #DDDBDA 1px solid; \n    border-radius:4px;     ",
                 "text": {
                     "align": "",
                     "color": ""

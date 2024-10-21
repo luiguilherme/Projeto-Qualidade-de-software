@@ -11,7 +11,7 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "GroupAssetIds": "=IF(ISNOTBLANK(replaceString(replaceString(TRIM(TOSTRING(%DREGetLineDetails:AssetServiceAccount%)),'{Id=',''),'}','')),CONCAT(%AssetId%)+','+replaceString(replaceString(TRIM(TOSTRING(%DREGetLineDetails:AssetServiceAccount%)),'{Id=',''),'}',''),%AssetId%)"
+            "GroupAssetIds": "=IF(ISNOTBLANK(%SVConvertAssetServiceAccount2:Assets%) && %Functionality%=='AdditionalPackage',CONCAT(%AssetId%,',',%SVConvertAssetServiceAccount2:Assets%), %AssetId%)"
         },
         "executionConditionalFormula": "",
         "failOnStepError": true,
