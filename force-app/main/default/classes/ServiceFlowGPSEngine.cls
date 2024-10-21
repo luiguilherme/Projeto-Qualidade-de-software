@@ -1047,18 +1047,6 @@ public with sharing class ServiceFlowGPSEngine {
             parameters.put('UserId', CURRENT_USER_ID);
 
             try{
-                Asset selectedAsset = AssetDAO.getAssetById(assetInstance);
-                if(selectedAsset.Instance__c != null){
-                    parameters.put('Asset', selectedAsset.Instance__c);
-                }else{
-                    parameters.put('Asset', selectedAsset.Name);
-                }
-                parameters.put('Status', selectedAsset.Status);
-            } catch (Exception e){
-                System.debug(EXCEPTION_MESSAGE + e.getMessage());
-            }
-
-            try{
                 Case c = CaseDAO.getCasebyId(caseId);
                 if(c.Status != CASE_STATUS_EM_ATENDIMENTO && c.status != CASE_STATUS_EM_EXECUCAO){
                     result.canOpenCanvas = false;
@@ -1081,6 +1069,22 @@ public with sharing class ServiceFlowGPSEngine {
             } catch (Exception e){
                 System.debug(EXCEPTION_MESSAGE + e.getMessage());
             }
+            
+            try{
+                Asset selectedAsset = AssetDAO.getAssetById(assetInstance);
+                if(ProductType=='Pre'){
+                	parameters.put('Asset', selectedAsset.vlocity_cmt__ServiceIdentifier__c);
+                }else{
+                    if(selectedAsset.Instance__c != null){
+                        parameters.put('Asset', selectedAsset.Instance__c);
+                    }else{
+                        parameters.put('Asset', selectedAsset.Name);
+                    }
+                }
+                parameters.put('Status', selectedAsset.Status);
+            } catch (Exception e){
+                System.debug(EXCEPTION_MESSAGE + e.getMessage());
+            }            
 
             try{
                 Account acc = AccountDAO.getAccountById(accountId)[0];

@@ -9,12 +9,13 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "CPF": "=IF(ISNOTBLANK(%DocumentBlock:DocumentNumberCPF%), %DocumentBlock:DocumentNumberCPF%,  IF(ISNOTBLANK(%DocumentBlock:DocumentNumberPassaport%), %DocumentBlock:DocumentNumberPassaport%, %DocumentBlock:DocumentNumberExt%))"
+            "CPF": "=IF(ISNOTBLANK(%DocumentBlock:DocumentNumberCPF%), %DocumentBlock:DocumentNumberCPF%,  IF(ISNOTBLANK(%DocumentBlock:DocumentNumberPassaport%), %DocumentBlock:DocumentNumberPassaport%, %DocumentBlock:DocumentNumberExt%))",
+            "Protocol": "%interactionNumber%"
         },
         "additionalOutput": {
             "BirdateCompare": true
         },
-        "chainOnStep": false,
+        "chainOnStep": true,
         "disOnTplt": false,
         "disableChainable": false,
         "executionConditionalFormula": "%DocumentBlock:DocumentType% == \"CPF\" && %SVConsumerAccountId:documentTrue% == true",
@@ -25,6 +26,7 @@
         "integrationProcedureKey": "val_ValidateEnableLine",
         "label": "IntegrationProcedureAction2",
         "remoteOptions": {
+            "chainable": true
         },
         "responseJSONNode": "response",
         "responseJSONPath": "",
