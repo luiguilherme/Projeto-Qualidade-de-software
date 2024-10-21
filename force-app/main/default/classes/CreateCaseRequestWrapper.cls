@@ -67,13 +67,17 @@ public with sharing class CreateCaseRequestWrapper {
 		public List<String> identifiers { get; set; }
 		public DateTime start_date { get; set; }
 		public String subscription_type { get; set; }
+		public List<Payload> sub_products {get; set;}
 		public String product_type { get; set; }
 		public String display_name { get; set; }
 		public String status { get; set; }
 		public String status_description { get; set; }
+		public String id {get;set;}
 		public Connection connection { get; set; }
 		public List<String> tags { get; set; }
 		public List<Descriptions> descriptions { get; set; }
+		public String idBundle {get;set;}
+		public String offerDescription {get;set;}
 	}
 
 	public class ResponseError {
