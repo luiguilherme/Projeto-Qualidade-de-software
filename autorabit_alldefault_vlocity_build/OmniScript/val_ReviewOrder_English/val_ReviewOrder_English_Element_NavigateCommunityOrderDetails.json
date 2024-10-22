@@ -33,18 +33,18 @@
                             "rules": [
                                 {
                                     "condition": "=",
-                                    "data": "true",
-                                    "field": "hasOptinValue"
-                                },
-                                {
-                                    "condition": "=",
                                     "data": "SalesJourney",
                                     "field": "Functionality"
                                 },
                                 {
                                     "condition": "=",
                                     "data": "true",
-                                    "field": "UserInCommunity"
+                                    "field": "RAUserInCommunity"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "true",
+                                    "field": "hasOptinValue"
                                 }
                             ]
                         }
@@ -61,7 +61,56 @@
                                 {
                                     "condition": "=",
                                     "data": "true",
-                                    "field": "UserInCommunity"
+                                    "field": "result"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "true",
+                                    "field": "RAUserInCommunity"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "ChangeSimCard",
+                                    "field": "Functionality"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "true",
+                                    "field": "RAUserInCommunity"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "false",
+                                    "field": "OptinEmpty"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "group": {
+                            "operator": "AND",
+                            "rules": [
+                                {
+                                    "condition": "=",
+                                    "data": "MVNOMigration",
+                                    "field": "Functionality"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "true",
+                                    "field": "RAUserInCommunity"
+                                },
+                                {
+                                    "condition": "=",
+                                    "data": "false",
+                                    "field": "OptinEmpty"
                                 }
                             ]
                         }
@@ -76,7 +125,7 @@
         "targetLWCLayout": "lightning",
         "targetLWCParams": "&c__tabLabel=%OrderNumber%&c__customerId=%Parent.customerId%&c__accountId=%AccountId%&c__interactionId=%ContextId%&c__platform=%Platform%&c__ContextId=%OrderId%&c__interactionNumber=%InteractionNumber%",
         "targetName": "Order",
-        "targetType": "Record",
+        "targetType": "Web Page",
         "targetUrl": "%baseURL%?c__target=c:valOrderDetailsPageEnglish&c__tabLabel=%OrderNumber%&c__customerId=%Parent.customerId%&c__accountId=%AccountId%&c__interactionId=%ContextId%&c__platform=%Platform%&c__ContextId=%OrderId%&c__interactionNumber=%InteractionNumber%",
         "validationRequired": "Submit",
         "variant": "brand",

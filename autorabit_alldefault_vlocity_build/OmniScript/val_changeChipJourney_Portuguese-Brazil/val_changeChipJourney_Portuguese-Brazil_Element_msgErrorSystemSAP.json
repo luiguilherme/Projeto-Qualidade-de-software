@@ -28,7 +28,7 @@
         "messages": [
             {
                 "active": true,
-                "text": "O sistema está indisponível. Verifique se este produto está disponível no estoque.",
+                "text": "%SapContingencyMessage%",
                 "type": "Warning",
                 "value": true
             },
@@ -40,6 +40,8 @@
             }
         ],
         "show": null,
+        "showMessageAs": "toast",
+        "toastMode": "dismissible",
         "validateExpression": {
             "group": {
                 "operator": "OR",
@@ -47,24 +49,7 @@
                     {
                         "condition": "=",
                         "data": "true",
-                        "field": "Error"
-                    },
-                    {
-                        "group": {
-                            "operator": "OR",
-                            "rules": [
-                                {
-                                    "condition": "=",
-                                    "data": "500",
-                                    "field": "statusCode"
-                                },
-                                {
-                                    "condition": "=",
-                                    "data": "300",
-                                    "field": "statusCode"
-                                }
-                            ]
-                        }
+                        "field": "HasSapContingency"
                     }
                 ]
             }
