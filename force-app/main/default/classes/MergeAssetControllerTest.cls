@@ -98,4 +98,150 @@ public with sharing class MergeAssetControllerTest {
         System.assert(assetToUpdate.StartDate__c == Datetime.newInstanceGMT(2022,04,16,09,00,00), 'O campo StartDate__c não foi atualizado como deveria.');        
         System.assert(assetToDelete.isEmpty(), 'O asset foi deletado.');
     }
+
+    @isTest
+    public static void getPlatformWhenMobileAndPostpaidTest(){
+        MergeAssetController.WrapperAPI assetToCreate = new MergeAssetController.WrapperAPI();
+
+        assetToCreate.product_type = 'mobile';
+        assetToCreate.subscription_type = 'postpaid';
+       
+        Test.startTest();
+        String result = MergeAssetController.getPlatform(assetToCreate);
+        Test.stopTest();
+
+        Assert.areEqual('Postpaid', result, 'O resultado deve ser igual a Postpaid');
+    }
+
+    @isTest
+    public static void getPlatformWhenMobileAndPrepaidTest(){
+        MergeAssetController.WrapperAPI assetToCreate = new MergeAssetController.WrapperAPI();
+
+        assetToCreate.product_type = 'mobile';
+        assetToCreate.subscription_type = 'prepaid';
+
+        Test.startTest();
+        String result = MergeAssetController.getPlatform(assetToCreate);
+        Test.stopTest();
+
+        Assert.areEqual('Prepaid', result, 'O resultado deve ser igual a Prepaid');
+    }
+
+    @isTest
+    public static void getPlatformWhenMobileAndEmptyTest(){
+        MergeAssetController.WrapperAPI assetToCreate = new MergeAssetController.WrapperAPI();
+
+        assetToCreate.product_type = 'mobile';
+        assetToCreate.subscription_type = '';
+
+        Test.startTest();
+        String result = MergeAssetController.getPlatform(assetToCreate);
+        Test.stopTest();
+
+        Assert.areEqual('', result, 'O resultado deve ser igual a uma string vazia');
+    }
+
+    @isTest
+    public static void getPlatformWhenEmptyTest(){
+        MergeAssetController.WrapperAPI assetToCreate = new MergeAssetController.WrapperAPI();
+
+        assetToCreate.product_type = '';
+        assetToCreate.subscription_type = '';
+
+        Test.startTest();
+        String result = MergeAssetController.getPlatform(assetToCreate);
+        Test.stopTest();
+
+        Assert.areEqual('', result, 'O resultado deve ser igual a uma string vazia');
+    }
+
+    @isTest
+    public static void getMainProductDescriptionWhenSourceSystemNginTest(){
+        List<MergeAssetController.Descriptions> descLst = new List<MergeAssetController.Descriptions>();
+
+        MergeAssetController.Descriptions description = new MergeAssetController.Descriptions();
+        description.text = 'wrong value';
+        description.title = 'wrong_value';
+        descLst.add(description);
+
+        MergeAssetController.Descriptions description2 = new MergeAssetController.Descriptions();
+        description2.text = 'correct value';
+        description2.title = 'commercial_name';
+        descLst.add(description2);
+
+        MergeAssetController.Descriptions description3 = new MergeAssetController.Descriptions();
+        description3.text = 'wrong value';    
+        description3.title = 'notthisvalue';
+        descLst.add(description3);
+
+        MergeAssetController.WrapperAPI assetToCreate = new MergeAssetController.WrapperAPI();
+        assetToCreate.descriptions = descLst;
+        assetToCreate.display_name = 'Teste';
+        String sourceSystem = 'Ngin';
+
+        Test.startTest();
+        String result = MergeAssetController.getMainProductDescription(assetToCreate, sourceSystem);
+        Test.stopTest();
+
+        Assert.areEqual(description2.text, result, 'O resultado esperado é correct value');
+    }
+
+    @isTest
+    public static void getMainProductDescriptionWhenSourceSystemNotEqualsToNginTest(){
+        MergeAssetController.WrapperAPI assetToCreate = new MergeAssetController.WrapperAPI();
+        List<MergeAssetController.Descriptions> descLst = new List<MergeAssetController.Descriptions>();
+        assetToCreate.descriptions = descLst;
+        assetToCreate.display_name = 'Teste';
+        String sourceSystem = 'Test';
+
+        Test.startTest();
+        String result = MergeAssetController.getMainProductDescription(assetToCreate, sourceSystem);
+        Test.stopTest();
+
+        Assert.areEqual(assetToCreate.display_name, result, 'O resultado deve ser igual ao displayName');
+    }
+
+    @isTest
+    public static void getMainProductDescriptionWhenDescriptionNotNullTest(){
+        List<MergeAssetController.Descriptions> descLst = new List<MergeAssetController.Descriptions>();
+
+        MergeAssetController.Descriptions description = new MergeAssetController.Descriptions();
+        description.text = 'wrong value';
+        description.title = 'wrong_value';
+        descLst.add(description);
+
+        MergeAssetController.Descriptions description2 = new MergeAssetController.Descriptions();
+        description2.text = 'correct value';
+        description2.title = 'commercial_name';
+        descLst.add(description2);
+
+        MergeAssetController.Descriptions description3 = new MergeAssetController.Descriptions();
+        description3.text = 'wrong value';    
+        description3.title = 'notthisvalue';
+        descLst.add(description3);
+ 
+        MergeAssetController.WrapperAPI assetToCreate = new MergeAssetController.WrapperAPI();
+        assetToCreate.descriptions = descLst;
+        String sourceSystem = 'Test';
+
+        Test.startTest();
+        String result = MergeAssetController.getMainProductDescription(assetToCreate, sourceSystem);
+        Test.stopTest();
+
+        Assert.areEqual(description2.text, result, 'O resultado esperado é correct value');
+    }
+
+    @isTest
+    public static void getMainProductDescriptionWhenDescriptionListIsEmpty(){
+        MergeAssetController.WrapperAPI assetToCreate = new MergeAssetController.WrapperAPI();
+        List<MergeAssetController.Descriptions> descLst = new List<MergeAssetController.Descriptions>();
+        assetToCreate.descriptions = descLst;
+        String sourceSystem = 'Test';
+
+        Test.startTest();
+        String result = MergeAssetController.getMainProductDescription(assetToCreate, sourceSystem);
+        Test.stopTest();
+
+        Assert.areEqual('', result, 'O resultado deve ser igual a uma string vazia');
+    }
 }
