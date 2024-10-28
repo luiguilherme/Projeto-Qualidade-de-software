@@ -8,6 +8,10 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
+            "AllowChallengeDisputeUser": "=%IPGetUserPermission:UserPermission:GrupodeAtendContestacaoLojas% || %IPGetUserPermission:UserPermission:GrupodeAtendContestacaoAtend%",
+            "AllowDisputeCancelationUser": "%IPGetUserPermission:UserPermission:CancelarContestacao%",
+            "AssetId": "%DREGetCaseData:AssetId%",
+            "OwnerCase": "%DREGetCaseData:ValidateOwnerCase%",
             "ShowAdjustBalanceButton": "=IF((%DREGetCaseData:RecordTypeDeveloperName%=='PreCaseReimbursement' && (%DREGetCaseData:currentGroup%=='Grupo de Atend. Ajuste Saldo - Lojas'|| %DREGetCaseData:currentGroup%=='Grupo de Atend. Ajuste Saldo - Atend'))&& %SVPermission:HasAccessToSameCaseGroup%,true, false)",
             "ShowChangeCaseOwner": "=%SVPermission:HasAccessToSameCaseGroup%",
             "ShowCloseCaseButton": "=IF((%DREGetCaseData:currentGroup%=='Grupo de Retorno - GT Unificado/Atend'||%DREGetCaseData:currentGroup%=='Grupo de Retorno - Resgate de Gravação'||%DREGetCaseData:currentGroup%=='Grupo de Retorno - Solução Online/Atend'||%DREGetCaseData:currentGroup%=='Grupo de Retorno - Ouvidoria') && %SVPermission:HasAccessToSameCaseGroup%,true, false)",

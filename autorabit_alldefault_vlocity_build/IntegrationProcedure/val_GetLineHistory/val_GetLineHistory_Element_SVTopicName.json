@@ -11,9 +11,9 @@
         "chainOnStep": false,
         "disOnTplt": false,
         "elementValueMap": {
-            "topicname": "=IF(%historyType% == \"events\",\"Consulta Histórico de Eventos\",IF(%historyType% == \"transactions\",\"Consulta Histórico de Operações\",IF(%historyType% == \"franchiseSharing\",\"Consulta de Compartilhamento de Dados\",IF(%historyType% == \"offers\",\"Consulta Histórico de Promoções\",IF(%historyType% == \"notificationSMS\",\"Consulta de Notificações\"NULL)))))"
+            "topicname": "=IF(%historyType% == \"events\",\"Consulta Histórico de Eventos\",IF(%historyType% == \"transactions\"||%historyType% == \"credAntecipado\",\"Consulta Histórico de Operações\",IF(%historyType% == \"franchiseSharing\",\"Consulta de Compartilhamento de Dados\",IF(%historyType% == \"offers\",\"Consulta Histórico de Promoções\",IF(%historyType% == \"notificationSMS\",\"Consulta de Notificações\"NULL)))))"
         },
-        "executionConditionalFormula": "",
+        "executionConditionalFormula": "%contest% != true",
         "failOnStepError": true,
         "failureConditionalFormula": "",
         "label": "SetValues1",

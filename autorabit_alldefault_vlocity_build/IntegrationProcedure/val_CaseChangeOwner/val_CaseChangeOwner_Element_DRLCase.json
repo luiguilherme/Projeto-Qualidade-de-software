@@ -10,10 +10,11 @@
         "actionMessage": "",
         "additionalInput": {
             "CaseId": "%caseId%",
+            "CaseReason": "%DREGetCaseData:closure%",
             "Channel": "=IF(%DREGetCaseData:ChannelName%!=null,%DREGetCaseData:ChannelName% ,' ')",
             "Manager": "",
             "OwnerId": "%SVOwnerSelected:Owner%",
-            "Status": "%SVStatus:Status%"
+            "Status": "=IF(%DREGetCaseData:RecordTypeDeveloperName% == \"PreCaseDispute\",\"Aberto\",%SVStatus:Status%)"
         },
         "additionalOutput": {
         },

@@ -1,0 +1,70 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valSearchEventsAndOperationsList",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/SearchEventsAndOperationsList/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__ParentElementId__c": {
+        "%vlocity_namespace%__OmniScriptId__c": {
+            "Name": "valSearchEventsAndOperationsList",
+            "VlocityDataPackType": "VlocityMatchingKeyObject",
+            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/SearchEventsAndOperationsList/Procedure",
+            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+        },
+        "Name": "LBPicklistOld",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/SearchEventsAndOperationsList/Procedure/LBPicklistOld",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
+    },
+    "%vlocity_namespace%__ParentElementName__c": "LBPicklistOld",
+    "%vlocity_namespace%__ParentElementType__c": "Loop Block",
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "balanceUnit": "%PicklistList:balanceUnit%",
+            "callType": "=IF(ISNOTBLANK(%PicklistList:callType%), %PicklistList:callType%, %PicklistList:transactionType%)",
+            "contestStatus": "%PicklistList:contestStatus%",
+            "eventDateTime": "=IF(ISNOTBLANK(%PicklistList:callType%), FORMATDATETIME(SUBSTRING(%PicklistList:eventDateTime%, 0, 23), \"dd/MM/YYYY HH:mm\", \"Etc/GMT\"), FORMATDATETIME(SUBSTRING(%PicklistList:timeStamp%, 0, 23), \"dd/MM/YYYY HH:mm\", \"Etc/GMT\"))",
+            "itemName": "=IF(ISNOTBLANK(%PicklistList:callType%), %PicklistList:service%, %PicklistList:offerPlan%)",
+            "itemRule": "=IF(ISNOTBLANK(%PicklistList:eventDateTime%), IF(DATEDIFF(%AutoImpugLimit%,FORMATDATETIME(%PicklistList:eventDateTime%,\"yyyy-MM-dd\")) >= 0, \"Auto\", \"Manual\"), IF(DATEDIFF(%AutoImpugLimit%,FORMATDATETIME(%PicklistList:timeStamp%,\"yyyy-MM-dd\")) >= 0, \"Auto\", \"Manual\"))",
+            "itemRuleIcon": "=IF(ISNOTBLANK(%PicklistList:eventDateTime%), IF(DATEDIFF(%AutoImpugLimit%,FORMATDATETIME(%PicklistList:eventDateTime%,\"yyyy-MM-dd\")) >= 0, \"utility:lightning_extension\", \"\"), IF(DATEDIFF(%AutoImpugLimit%,FORMATDATETIME(%PicklistList:timeStamp%,\"yyyy-MM-dd\")) >= 0, \"utility:lightning_extension\", \"\"))",
+            "parcialTotal": "%PicklistList:parcialTotal%",
+            "pickListOptions": "=%ContestPicklistOptions:AutoPicklistValues%",
+            "poExternalId": "%PicklistList:poExternalId%",
+            "poName": "%PicklistList:poName%",
+            "reason": "=IF(LISTSIZE(%ContestPicklistOptions:AutoPicklistValues%) == 2, %ContestPicklistOptions:AutoPicklistValues|2:value%, %PicklistList:reason%)",
+            "recordId": "%PicklistList:recordId%",
+            "recordTypeId": "%PicklistList:recordTypeId%",
+            "selectItem": "%PicklistList:selectItem%",
+            "service": "=IF(ISNOTBLANK(%PicklistList:callType%), %PicklistList:service%, %PicklistList:transactionType%)",
+            "showCheck": "%PicklistList:showCheck%",
+            "showCheckClass": "%PicklistList:showCheckClass%",
+            "usedAmountCAC": "%PicklistList:usedAmountCAC%",
+            "usedAmountCAE": "%PicklistList:usedAmountCAE%",
+            "usedAmountCAT": "%PicklistList:usedAmountCAT%",
+            "usedAmountDCA": "%PicklistList:usedAmountDCA%",
+            "usedAmountLoanAllDebts": "%PicklistList:usedAmountLoanAllDebts%",
+            "usedAmountNOR": "%PicklistList:usedAmountNOR%",
+            "usedAmountSNS": "%PicklistList:usedAmountSNS%",
+            "usedUnitOfMeasure": "=IF(ISNOTBLANK(%PicklistList:callType%), %PicklistList:usedUnitOfMeasure%, %PicklistList:unit%)",
+            "valorTotal": "=IF(%PicklistList:type% == \"scoreCredit\" AND ISNOTBLANK(%PicklistList:usedAmountDCA%) AND ISNOTBLANK(%PicklistList:usedAmountCAT%), TOSTRING(%PicklistList:usedAmountDCA% + %PicklistList:usedAmountCAT%), IF(ISNOTBLANK(%PicklistList:callType%), TOSTRING(%PicklistList:valorTotal%), TOSTRING(%PicklistList:amount%)))"
+        },
+        "executionConditionalFormula": "((ISNOTBLANK(%PicklistList:eventDateTime%) && DATEDIFF(%AutoImpugLimit%,FORMATDATETIME(%PicklistList:eventDateTime%,\"yyyy-MM-dd\")) >= 0) || (ISNOTBLANK(%PicklistList:timeStamp%) && DATEDIFF(%AutoImpugLimit%,FORMATDATETIME(%PicklistList:timeStamp%,\"yyyy-MM-dd\")) >= 0))",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues4",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVAutoOptions",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/SearchEventsAndOperationsList/Procedure/SVAutoOptions"
+}
