@@ -493,7 +493,11 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
                 when 'Call Center', 'Lojas Proprias' 
                 {
                     if(String.isNotEmpty(varSite)) {
-                    	lAdabasSite = [SELECT Name, AdabasCode__c, CNPJ__c FROM AdabasSite__c WHERE AdabasCode__c =: varSite]; 
+                    	lAdabasSite = [SELECT Name, AdabasCode__c, CNPJ__c FROM AdabasSite__c WHERE Site__c =: varSite]; 
+                    }
+                    
+                    if(lAdabasSite.isEmpty() && varChannelName.equalsIgnoreCase('Call Center') && String.isNotEmpty(varAdabas)) {
+                        lAdabasSite = [SELECT Name, AdabasCode__c, CNPJ__c FROM AdabasSite__c WHERE AdabasCode__c =: varAdabas];  
                     }
                 }
                 
