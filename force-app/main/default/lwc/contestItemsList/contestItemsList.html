@@ -1,0 +1,77 @@
+<template>
+    <div class="slds-box slds-theme_default" if:true={hasRecord}>
+        <template if:true={spinner}>
+            <div>
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>         
+        <template if:false={spinner}>  
+            <div class="slds-m-top_medium">
+                <lightning-card title="Eventos/Operações">   
+                    <template if:false={spinner}>                                                 
+                        <c-custom-dt-type-lwc
+                            key-field="recordId"
+                            data={pagedItems} 
+                            columns={selectionColumns} 
+                            draft-values={draftValues} 
+                            oncellchange={handleItemsCellChange} 
+                            ontoggelselect={handleItemsToggelSelect} 
+                            min-column-width="30"
+                            hide-checkbox-column
+                            show-row-number-column
+                            suppress-bottom-bar>
+                        </c-custom-dt-type-lwc>
+                        <div style="padding-top: 10px;text-align: right;padding-bottom: 10px;">
+                            <button style="margin-left: 10px;width: 12%" class="slds-button slds-button_brand" onclick={insertItems}>Incluir</button>
+                        </div>
+                    </template>                 
+                </lightning-card>                           
+            </div>
+            <div class="pagination">
+                <lightning-button 
+                    name="buttonBackwards" 
+                    label="" 
+                    title="" 
+                    icon-name="utility:back" 
+                    class="pagination-button" 
+                    onclick={handlePrevious}  
+                    disabled={isFirstPage}>
+                </lightning-button>            
+                <div>
+                    <span>Página {pageNumber}</span>
+                </div>
+                <!--<div if:false={itemsList.length}>
+                    <span>Nenhum item encontrado</span>
+                </div>-->            
+                <lightning-button 
+                    name="buttonForwards" 
+                    label="" 
+                    title="" 
+                    icon-name="utility:forward" 
+                    class="pagination-button" 
+                    onclick={handleNext} 
+                    disabled={isLastPage}>
+                </lightning-button> 
+            </div>
+            <template if:true={hasFilteredItems}>
+                <lightning-card title="Itens a Contestar">             
+                    <c-custom-dt-type-lwc
+                        key-field="recordId"
+                        data={filteredItems} 
+                        columns={filteredColumns} 
+                        draft-values={filteredDraftValues} 
+                        oncellchange={handleFilteredCellChange} 
+                        ontoggelselect={handleFilteredToggelSelect} 
+                        min-column-width="30"
+                        wrap-table-header
+                        hide-checkbox-column
+                        suppress-bottom-bar>
+                    </c-custom-dt-type-lwc>
+                    <div style="padding-top: 10px;text-align: right;padding-bottom: 10px;">
+                        <button style="width:12%" class="slds-button slds-button_outline-brand" onclick={removeItems}>Remover</button>
+                    </div>                
+                </lightning-card>  
+            </template> 
+        </template>             
+    </div>
+</template>

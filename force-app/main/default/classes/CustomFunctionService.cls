@@ -100,7 +100,9 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
             when 'productEligibilityQuery' 
             {output.put('result', productEligibilityQuery(arguments));}
             when 'removeNullValues'
-            {output.put('result', removeNullValues(inputs));}                      
+            {output.put('result', removeNullValues(inputs));} 
+            when 'impugnationCalculation' 
+            {output.put('result', impugnationCalculation(arguments));} 			
         }
         return true;
     }
@@ -1346,4 +1348,100 @@ global class CustomFunctionService implements vlocity_cmt.VlocityOpenInterface
         balanceData.put('attributesList', filteredList);
         return inputs;
     }
+	
+    /*
+    * Autor....: Valteir Junior - DTT
+    * Projeto..: Vivo - VALENTINA
+    * Descrição: Calculo de Impugnações
+    * Data.....:28/08/2024
+    */
+    public Map<String, Decimal> impugnationCalculation(List<Object> arguments) {  
+            
+
+        String impugnationReazon = (String) arguments[0];
+        Decimal impugnationValue = (Decimal) arguments[1];
+        Decimal interestMonthlyRate = (Decimal) arguments[2];
+        Integer interestPeriodinDays = Integer.valueOf(arguments[3]);
+        Decimal fine = (Decimal) arguments[4];
+        Boolean isDoubleImpugnation = (Boolean) arguments[5];
+        Boolean isParcialImpugnation = (Boolean) arguments[6];
+        Decimal NORValue = (Decimal) arguments[7];
+        Decimal SNSValue = (Decimal) arguments[8];
+        Decimal CACValue = (Decimal) arguments[9];
+        Decimal CAEValue = (Decimal) arguments[10];
+        Boolean IsTotalCalc = (Boolean) arguments[11];
+
+     
+        Map<String, Decimal> impugnationValues = new Map<String, Decimal>();
+
+        Decimal ImpugnationNORValue = 0;
+        Decimal ImpugnationSNSValue = 0;
+        Decimal ImpugnationCACValue = 0;
+        Decimal ImpugnationCAEValue = 0;
+        Decimal RestValue = 0;
+
+        if(isParcialImpugnation){
+            if(impugnationValue <= NORValue){
+                ImpugnationNORValue = impugnationValue;
+              
+
+            }else{
+                ImpugnationNORValue = NORValue;
+                RestValue = impugnationValue - ImpugnationNORValue;
+
+                if(RestValue <= SNSValue){
+                    ImpugnationSNSValue = RestValue;
+
+                }else{
+                    ImpugnationSNSValue = SNSValue;
+                    RestValue -= ImpugnationSNSValue;
+
+                    if(RestValue <= CACValue){
+                        ImpugnationCACValue = RestValue;
+                    }else{
+                        ImpugnationCACValue = CACValue;
+                        RestValue -= ImpugnationCACValue;
+                        ImpugnationCAEValue = RestValue;
+                        
+                    }
+                
+                }
+                
+            }
+            if(IsTotalCalc){
+                impugnationValues.put('impugnationPrincipalValue', impugnationValue);
+                impugnationValues.put('impungationNORValue', ImpugnationNORValue);
+                impugnationValues.put('impungationSNSValue', ImpugnationSNSValue);
+                impugnationValues.put('impungationCACValue', ImpugnationCACValue);
+                impugnationValues.put('impungationCAEValue', ImpugnationCAEValue);
+            }
+            
+
+        }else{
+            if(IsTotalCalc){
+                impugnationValues.put('impugnationPrincipalValue', impugnationValue);
+                impugnationValues.put('impungationNORValue', NORValue);
+                impugnationValues.put('impungationSNSValue', SNSValue);
+                impugnationValues.put('impungationCACValue', CACValue);
+                impugnationValues.put('impungationCAEValue', CAEValue);
+            }
+        
+        }
+        impugnationValues.put('impugnationPrincipalValue', impugnationValue);
+        Decimal impugnationExtraValue  = 0;
+        
+        if(impugnationReazon == 'Rectification - Billing Failure'){
+            impugnationExtraValue = ((interestMonthlyRate*interestPeriodinDays)*impugnationValue) + (fine*impugnationValue);
+                if (isDoubleImpugnation){
+                    impugnationExtraValue += impugnationValue;
+                }
+            impugnationValues.put('impugnationExtraValue', impugnationExtraValue);
+            impugnationValues.put('impugnationTotalValue', impugnationValue + impugnationExtraValue);
+            
+            return impugnationValues;
+        }
+        impugnationValues.put('impugnationExtraValue', impugnationExtraValue);
+        impugnationValues.put('impugnationTotalValue', impugnationValue + impugnationExtraValue);     
+        return impugnationValues;
+	} 	
 }
