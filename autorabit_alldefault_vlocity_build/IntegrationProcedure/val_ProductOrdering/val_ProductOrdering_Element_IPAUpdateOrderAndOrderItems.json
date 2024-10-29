@@ -1,5 +1,5 @@
 {
-    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__Active__c": false,
     "%vlocity_namespace%__OmniScriptId__c": {
         "Name": "valProductOrdering",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
@@ -24,7 +24,14 @@
         "actionMessage": "",
         "additionalInput": {
             "AccountId": "=%GetAssets|1:AccountId%",
-            "RootId": "=%GetAssets|1:Id%"
+            "ExternalRequestId": "=SUBSTRING(DATETIMETOUNIX(NOW()), 0, 10)",
+            "Id": "%IPAssetToOrder:cartId%",
+            "MSISDN": "=%orderItem:product:msisdn%",
+            "OrderId": "%IPAssetToOrder:cartId%",
+            "OriginalPlatform": "=Pré Pago",
+            "OriginalSystem": "=Salesforce",
+            "TargetPlatform": "=%channel:platform%",
+            "TargetSystem": "=%channel:name%"
         },
         "additionalOutput": {
         },
@@ -36,24 +43,25 @@
         "failureConditionalFormula": "",
         "failureResponse": {
         },
-        "integrationProcedureKey": "val_AssetToOrder",
-        "label": "IntegrationProcedureAction8",
+        "integrationProcedureKey": "val_MigrationOrderAndOrderItems",
+        "label": "IntegrationProcedureAction9",
         "remoteOptions": {
+            "chainable": true
         },
         "responseJSONNode": "",
         "responseJSONPath": "",
         "returnOnlyAdditionalOutput": false,
         "returnOnlyFailureResponse": false,
         "sendJSONNode": "",
-        "sendJSONPath": "",
-        "sendOnlyAdditionalInput": true,
+        "sendJSONPath": "DREGetOrderItemByOrder",
+        "sendOnlyAdditionalInput": false,
         "show": null,
         "useFormulas": true
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
     "%vlocity_namespace%__Type__c": "Integration Procedure Action",
-    "Name": "IPAssetToOrder",
+    "Name": "IPAUpdateOrderAndOrderItems",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ProductOrdering/Procedure/IPAssetToOrder"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ProductOrdering/Procedure/IPAUpdateOrderAndOrderItems"
 }
