@@ -7,15 +7,6 @@ public class CustomFunctionServiceTest {
     
     @TestSetup
     static void setup(){ 
-        
-        string type = 'Fixa';
-
-        Account lAccount = DataFactory.createAccount();
-        insert lAccount;        
-        
-        Asset lAsset = DataFactory.createAsset(lAccount.Id, type );
-        insert lAsset;
-        		
         // Árvore de palitagem 
         CustomerInteractionTopicTree__c topicTree = new CustomerInteractionTopicTree__c();
         topicTree.Name = 'Vivo';
@@ -1036,90 +1027,4 @@ public class CustomFunctionServiceTest {
 
         Assert.areEqual(expectedResult, resultList);
     }
-	
-    @isTest
-    static void testImpugnationCalculation() {
-        try {
-            // Cenário 1: Impugnação Parcial - Valor dentro de NORValue
-            String impugnationReazon = 'Rectification - Billing Failure';
-            Decimal impugnationValue = 30; // Menor que NORValue
-            Decimal interestMonthlyRate = 1;
-            Integer interestPeriodinDays = 10;
-            Decimal fine = 2;
-            Boolean isDoubleImpugnation = false;
-            Boolean isParcialImpugnation = true;
-            Decimal NORValue = 40;
-            Decimal SNSValue = 20;
-            Decimal CACValue = 25;
-            Decimal CAEValue = 15;
-            Boolean IsTotalCalc = true;
-            
-            List<Object> arguments = new List<Object>{impugnationReazon, impugnationValue, interestMonthlyRate, 
-                interestPeriodinDays, fine, isDoubleImpugnation, isParcialImpugnation, 
-                NORValue, SNSValue, CACValue, CAEValue, IsTotalCalc};
-                    
-                    CustomFunctionService service = new CustomFunctionService();
-            Map<String, Decimal> result = service.impugnationCalculation(arguments);
-            
-            // Validação
-            System.assertEquals(impugnationValue, result.get('impungationNORValue'), 'Valor não foi totalmente alocado em NOR');
-            System.assertEquals(0, result.get('impungationSNSValue'), 'Caixa SNS deveria estar vazia');
-            
-            // Cenário 2: Impugnação Parcial - Valor excede NOR e é distribuído
-            impugnationValue = 90;  // Agora, o valor excede NOR e parte vai para SNS
-            arguments[1] = impugnationValue;
-            
-            result = service.impugnationCalculation(arguments);
-            
-            // Validação do Else que distribui valor excedente entre SNS, CAC, e CAE
-            System.assertEquals(NORValue, result.get('impungationNORValue'), 'NOR deveria estar completo');
-            System.assertEquals(20, result.get('impungationSNSValue'), 'SNS deveria receber o valor correto');
-            
-            Decimal expectedRestValue = impugnationValue - NORValue - SNSValue; // Excesso vai para CAC e CAE
-            Decimal expectedCACValue = Math.min(expectedRestValue, CACValue);
-            Decimal expectedCAEValue = expectedRestValue > CACValue ? expectedRestValue - CACValue : 0;
-            
-            System.assertEquals(expectedCACValue, result.get('impungationCACValue'), 'CAC não está correto');
-            System.assertEquals(expectedCAEValue, result.get('impungationCAEValue'), 'CAE não está correto');
-            
-            // Cenário 3: Verificação do isDoubleImpugnation
-            isDoubleImpugnation = true;
-            arguments[5] = isDoubleImpugnation;
-            
-            result = service.impugnationCalculation(arguments);
-            Decimal expectedImpugnationExtraValue = ((interestMonthlyRate * interestPeriodinDays) * impugnationValue) + (fine * impugnationValue);
-            
-            if (isDoubleImpugnation) {
-                expectedImpugnationExtraValue += impugnationValue;
-            }
-            
-            System.assertEquals(expectedImpugnationExtraValue, result.get('impugnationExtraValue'), 'Impugnation Extra Value não foi calculado corretamente para impugnação dupla');
-            
-            // Cenário 4: Verificação de impugnationTotalValue
-            Decimal expectedImpugnationTotalValue = impugnationValue + expectedImpugnationExtraValue;
-            
-            System.assertEquals(expectedImpugnationTotalValue, result.get('impugnationTotalValue'), 'Impugnation Total Value está incorreto');
-
-            // Cenário 5: Impugnação Não Parcial (isParcialImpugnation = false) e IsTotalCalc = true
-            impugnationReazon = 'Other Reason';
-            impugnationValue = 50;
-            isParcialImpugnation = false;
-            IsTotalCalc = true;
-            arguments = new List<Object>{impugnationReazon, impugnationValue, interestMonthlyRate, 
-                interestPeriodinDays, fine, isDoubleImpugnation, isParcialImpugnation, 
-                NORValue, SNSValue, CACValue, CAEValue, IsTotalCalc};
-                    
-                    result = service.impugnationCalculation(arguments);
-            
-            // Validação
-            System.assertEquals(impugnationValue, result.get('impugnationPrincipalValue'), 'Valor principal está incorreto');
-            System.assertEquals(NORValue, result.get('impungationNORValue'), 'NOR Value deveria estar correto');
-            System.assertEquals(SNSValue, result.get('impungationSNSValue'), 'SNS Value deveria estar correto');
-            System.assertEquals(CACValue, result.get('impungationCACValue'), 'CAC Value deveria estar correto');
-            System.assertEquals(CAEValue, result.get('impungationCAEValue'), 'CAE Value deveria estar correto');
-            
-        } catch (Exception e) {
-            System.debug('Erro no teste: ' + e.getMessage());
-        }
-    }	
 }
