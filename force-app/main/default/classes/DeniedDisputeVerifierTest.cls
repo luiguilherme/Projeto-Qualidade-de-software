@@ -254,11 +254,13 @@ public class DeniedDisputeVerifierTest {
             insert acc;
 
             ServiceDefinition__c serviceDefinitionDisputeFalse = new ServiceDefinition__c();
+            serviceDefinitionDisputeFalse.Name = 'test_1';
             serviceDefinitionDisputeFalse.DisputeDenied__c = false;
             serviceDefinitionDisputeFalse.RootCause__c = false;
             insert serviceDefinitionDisputeFalse;
 
             ServiceDefinition__c serviceDefinitionDisputeTrue = new ServiceDefinition__c();
+            serviceDefinitionDisputeFalse.Name = 'test_2';
             serviceDefinitionDisputeTrue.DisputeDenied__c = true;
             serviceDefinitionDisputeTrue.RootCause__c = true;
             insert serviceDefinitionDisputeTrue;

@@ -8,12 +8,14 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "HTTPBiometryHistory:error": "=true",
-            "HTTPBiometryHistory:errorMessage": "=\"Erro no serviço HTTPBiometryHistory\" +  %HTTPBiometryHistoryinfo:statusCode% + \" \" + %HTTPBiometryHistoryinfo:status%"
+            "HasBiometryApproved": "=\"no\"",
+            "IsBiometryApproved": "=\"no\"",
+            "RequestBiometryReferenceNumber": "%LBHTTPBiometry:RemovedSuffix%",
+            "ResponseBiometry": "%LBHTTPBiometry:HTTPBiometryHistory%"
         },
         "disOnTplt": false,
-        "executionConditionalFormula": "%HTTPBiometryHistoryStatus% == false \r\n",
-        "label": "ResponseAction4",
+        "executionConditionalFormula": "%ValidateHTTPErrorBiometry:hasError%==true && %ValidateHTTPErrorBiometry:errorBiometry% == false",
+        "label": "ResponseAction9",
         "responseDefaultData": {
         },
         "responseFormat": "JSON",
