@@ -9,10 +9,11 @@
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
             "RAErrorHTTPPostRetrieveOrderDetails:error": "=true",
-            "RAErrorHTTPPostRetrieveOrderDetails:errorMessage": "=\"Erro no serviço RetrieveOrderDetails \" +  %LBOrderReferenceNumber|1:HTTPPostRetrieveOrderDetailsInfoError% + \" \" + %HTTPPostRetrieveOrderDetailsInfo:status% + \"\" + %LBOrderReferenceNumber|1:HTTPPostRetrieveOrderDetailsInfoErrorStatus%"
+            "RAErrorHTTPPostRetrieveOrderDetails:errorMessage": "=\"Erro no serviço RetrieveOrderDetails \" +  %LBRetrieveOrderDetails|1:HTTPPostRetrieveOrderDetailsInfoError% + \" \" + %HTTPPostRetrieveOrderDetailsInfo:status% + \"\" + %LBRetrieveOrderDetails|1:HTTPPostRetrieveOrderDetailsInfoErrorStatus%",
+            "ResponseOrderDetails": "%LBRetrieveOrderDetails:HTTPPostRetrieveOrderDetails%"
         },
         "disOnTplt": false,
-        "executionConditionalFormula": "%LBOrderReferenceNumber|1:HTTPPostRetrieveOrderDetailsStatus% == false && %LBOrderReferenceNumber|1:HTTPPostRetrieveOrderDetailsInfoError% == 500",
+        "executionConditionalFormula": "%ValidateHTTPErrorOrderList:hasError%==true",
         "label": "ResponseAction5",
         "responseDefaultData": {
         },

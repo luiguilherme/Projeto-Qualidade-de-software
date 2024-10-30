@@ -10,10 +10,12 @@
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
             "RAHTTPError:error": "=true",
-            "RAHTTPError:errorMessage": "=\"Erro no serviço customerBillInvoiceManagement \" +  %HTTPPostOrderListInfo:statusCode% + \" \" + %HTTPPostOrderListInfo:status%"
+            "RAHTTPError:errorMessage": "=\"Erro no serviço orderList, Error:\" + %HTTPPostOrderListInfo:statusCode% + \" \" + %HTTPPostOrderListInfo:status%",
+            "RequestBodyOrderList": "%body%",
+            "ResponseOrderList": "%HTTPPostOrderList%"
         },
         "disOnTplt": false,
-        "executionConditionalFormula": "%HTTPPostOrderListStatus% == false ",
+        "executionConditionalFormula": "%HTTPPostOrderListStatus% == false",
         "label": "ResponseAction4",
         "responseDefaultData": {
         },
