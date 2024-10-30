@@ -40,7 +40,7 @@
         "failureConditionalFormula": "",
         "failureResponse": {
         },
-        "filterListFormula": "=type == \"RC\" && ChargeCategory == \"Pacote Adicional\" || ChargeCategory == \"Pacote Adicional Serviços Eventuais\"  && datediffstart <= %filterFields:invoiceEndDate% && datediffstart <= %filterFields:invoiceEndDate45%",
+        "filterListFormula": "=type == \"RC\" && ChargeCategory == \"Pacote Adicional\" || ChargeCategory == \"Pacote Adicional Serviços Eventuais\" && datediffstart <= %filterFields:invoiceEndDate45%",
         "hasPrimary": false,
         "label": "ListAction3",
         "mergeFields": [
@@ -65,7 +65,8 @@
         "sortInDescendingOrder": true,
         "updateFieldValue": {
             "datediffend": "=DATEDIFF(SUBSTRING(endDate ,0,10),TODAY())",
-            "datediffstart": "=DATEDIFF(SUBSTRING(startDate,0,10),TODAY())"
+            "datediffstart": "=DATEDIFF(SUBSTRING(startDate,0,10),TODAY())",
+            "totalAmount": "=ROUND(totalAmount,2)"
         },
         "useFormulas": true
     },

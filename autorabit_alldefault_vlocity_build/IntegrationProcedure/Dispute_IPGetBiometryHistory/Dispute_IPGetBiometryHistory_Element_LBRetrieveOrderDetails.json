@@ -8,20 +8,21 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "disOnTplt": false,
-        "executionConditionalFormula": "",
+        "executionConditionalFormula": "%operation% == 'analyzeRecurringAdditionalPackage'",
         "label": "LoopBlock1",
         "loopList": "SVreturnOrderListReferenceNumber:orderReferenceNumber",
         "loopOutput": {
+            "HTTPPostRetrieveOrderDetails": "%HTTPPostRetrieveOrderDetails%",
             "HTTPPostRetrieveOrderDetailsInfoError": "=%HTTPPostRetrieveOrderDetailsInfo:statusCode%",
             "HTTPPostRetrieveOrderDetailsInfoErrorStatus": "=%HTTPPostRetrieveOrderDetailsInfo:status%",
-            "billingIdX9": "=%HTTPPostRetrieveOrderDetails:orderItems|1:services:containedServices:pricePackages:billingIdX9%"
+            "referenceNumberMatched": "%CompareOrder:Matched%"
         },
         "show": null
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,
     "%vlocity_namespace%__Type__c": "Loop Block",
-    "Name": "LBOrderReferenceNumber",
+    "Name": "LBRetrieveOrderDetails",
     "VlocityDataPackType": "SObject",
     "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
-    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Dispute/IPGetBiometryHistory/Procedure/LBOrderReferenceNumber"
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/Dispute/IPGetBiometryHistory/Procedure/LBRetrieveOrderDetails"
 }
