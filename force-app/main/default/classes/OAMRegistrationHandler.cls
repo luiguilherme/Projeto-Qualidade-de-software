@@ -5,8 +5,11 @@
 *
 */
 global class OAMRegistrationHandler implements Auth.RegistrationHandler {
+	private static final String APPLICATION_NAME = 'OAMRegistrationHandler';
     //Deve pegar o recordtype PartnerAccount, porém ainda não foi migrado comunidades
     private static final String CONST_PARTNER_ACCOUNT_RECORD_TYPE_ID = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Consumer').getrecordTypeId();
+	Boolean isActiveFeatureFlag = FeatureFlagService.applicationIsActive(APPLICATION_NAME);
+
     class RegHandlerException extends Exception {}
 
     global User createUser (Id portalId, Auth.UserData data) {
@@ -25,7 +28,7 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             String sandboxName      = getSandboxName();
             String userNameSandbox  = data.username + sandboxName;
             String CNPJResponse     = data.attributeMap.get('CNPJ');
-			
+      
             Profile userProfile         = getProfile(data.attributeMap.get('profile_name')); //getProfile('AdministracaoSistema'); 
             String  userLicenseProfile  = userProfile.Id == null ? '' : userProfile.UserLicense.Name;
             Boolean userInternal        = userLicenseProfile != 'Partner Community';
@@ -115,7 +118,7 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
         system.debug('roleResponse: ' + roleResponse);
         if (userInternal) {
             List<UserRole> ltRole = new List<UserRole>([SELECT Id FROM UserRole WHERE DeveloperName = :roleResponse LIMIT 1]);
-			system.debug('roleResponse: ' + roleResponse);
+      system.debug('roleResponse: ' + roleResponse);
             return (ltRole.size() > 0 ? String.valueOf(ltRole[0].Id) : 'null');
         } else {
             Set<String> setPartnerGroup = new Set<String>();
@@ -139,6 +142,7 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
                                     Auth.UserData data, 
                                     List<PermissionSet> ltPermissionSetSF) {
         try{
+            //Atualiza informações do usuário
             userRecord.IsActive     = true;
             userRecord.UserName     = data.username + sandboxName;
             userRecord.Email        = userInternal ? data.email : data.username; 
@@ -150,6 +154,9 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             userRecord.alias = alias.left(8);
 
             Boolean updateGroupPartner = false;
+
+            //Salva usuário existente
+            User oldUser            = userRecord.clone(true,true,true,true);
 
             if(contactRecord.Id != null && userRecord.Id == null) {
                 userRecord.ContactId = contactRecord.Id;
@@ -178,13 +185,13 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
                 userRecord.PartnerGroup__c = userRole;
             }
             if(data.attributeMap.containsKey('canal_atendimento')) {
-        		userRecord.ChannelName__c = data.attributeMap.get('canal_atendimento');
-   	        }
-	        if(data.attributeMap.containsKey('site')) {
-        		userRecord.Site__c = data.attributeMap.get('site');
-    	    }    
-	        if(data.attributeMap.containsKey('escritorio_vendas')) {
-		        SalesOffices__mdt office =  getOffice(data.attributeMap.get('escritorio_vendas'));
+            userRecord.ChannelName__c = data.attributeMap.get('canal_atendimento');
+             }
+          if(data.attributeMap.containsKey('site')) {
+            userRecord.Site__c = data.attributeMap.get('site');
+          }    
+          if(data.attributeMap.containsKey('escritorio_vendas')) {
+            SalesOffices__mdt office =  getOffice(data.attributeMap.get('escritorio_vendas'));
 
                 if (office != null) {
                     userRecord.Office__c = office.Office__c;
@@ -195,7 +202,7 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
                     userRecord.Center__c = null;
                     userRecord.Store__c = null;
                 }
-    	    }            
+          }            
             userRecord.LanguageLocaleKey    = 'pt_BR';
             userRecord.LocaleSidKey         = 'pt_BR';
             userRecord.TimeZoneSidKey       = 'America/Sao_Paulo';
@@ -205,20 +212,45 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             //Recuperar CNPJ atravês do código Adabas
             userRecord.AdabasAssignedDocument__c = getAdabasAssignedDocumentByAdabasCode(userRecord.ChannelName__c, userRecord.Site__c, userRecord.Adabas__c);
             
-            if (userRecord.Id == null) {
+			if (userRecord.Id == null) {
                 insert userRecord;
-            } else{
-                updateUserFuture(JSON.serialize(userRecord));
             }
+
+            if(isActiveFeatureFlag){			
+				if(userHasChanged(userRecord, oldUser)){
+					if(isActivating(oldUser)) {
+			    		update userRecord;
+					} else{
+						SObject sObj = userRecord.clone(true, true, true, true);
+						database.updateAsync(sObj); //----> @future
+					}
+				}
+			} 				
+			else{
+					updateUserFuture(JSON.serialize(userRecord));
+			}				
             
             if(updateGroupPartner == true) {
-                updatePublicGroupFuture(JSON.serialize(userRecord), JSON.serialize(data.attributeMap.get('role')));
+				if(isActiveFeatureFlag){
+					updatePublicGroup(JSON.serialize(userRecord), JSON.serialize(data.attributeMap.get('role')));
+				} else{
+					updatePublicGroupFuture(JSON.serialize(userRecord), JSON.serialize(data.attributeMap.get('role')));
+				}
             } else {
                 List<String> ltPermissionSetResponse = getPermissionSet(data.attributeMap.get('permission_sets'));
-                updatePublicGroupInternalFuture(JSON.serialize(userRecord), JSON.serialize(data.attributeMap.get('role')),ltPermissionSetResponse);
+                if(isActiveFeatureFlag){
+                    updatePublicGroupInternal(JSON.serialize(userRecord), JSON.serialize(data.attributeMap.get('role')),ltPermissionSetResponse);
+                } else {
+                    updatePublicGroupInternalFuture(JSON.serialize(userRecord), JSON.serialize(data.attributeMap.get('role')),ltPermissionSetResponse);
+                }                
             }
             
-            updatePermissionSetFuture(JSON.serialize(userRecord), JSON.serialize(ltPermissionSetSF));
+			if(isActiveFeatureFlag){
+				updatePermissionSet(JSON.serialize(userRecord), JSON.serialize(ltPermissionSetSF));
+			} else {
+				updatePermissionSetFuture(JSON.serialize(userRecord), JSON.serialize(ltPermissionSetSF));
+			}
+				
             return userRecord;
         } catch (Exception e) {
             System.debug(e);            
@@ -312,6 +344,47 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
 
     }
 
+    public static void updatePermissionSet(String userString, String permissionSetString) {
+
+        User userRecord = (User) JSON.deserialize(userString, User.class);
+        List<PermissionSet> ltPermissionSet = (List<PermissionSet>) JSON.deserialize(permissionSetString, List<PermissionSet>.class);
+        Set<Id> setPermissonSetId = new Set<Id>();
+
+        for(PermissionSet item : ltPermissionSet) {
+            setPermissonSetId.add(item.Id);
+        }
+
+        List<PermissionSetAssignment> ltCurrentPSA = new List<PermissionSetAssignment>([SELECT Id, PermissionSetId FROM PermissionSetAssignment 
+                                                                                            WHERE AssigneeId = : userRecord.Id AND PermissionSet.ProfileId = null]);
+        Set<Id> setCurrentPSA = new Set<Id>();
+        List<PermissionSetAssignment> ltInsertPSA = new List<PermissionSetAssignment>();
+        List<PermissionSetAssignment> ltDeletePSA = new List<PermissionSetAssignment>();
+
+        for(PermissionSetAssignment item : ltCurrentPSA) {
+            if(setPermissonSetId.contains(item.PermissionSetId)) {
+                setCurrentPSA.add(item.PermissionSetId);
+            } else {
+                ltDeletePSA.add(item);
+            }
+        }
+
+        for(PermissionSet item : ltPermissionSet) {
+            if(!setCurrentPSA.contains(item.Id)) {
+                ltInsertPSA.add(new PermissionSetAssignment(AssigneeId = userRecord.Id, PermissionSetId = item.Id));
+            }
+        }
+
+        if(ltDeletePSA.size() > 0) {
+				List<SObject> SObjectList = new List<SObject>();
+				SObjectList.addAll(ltDeletePSA);
+				database.deleteAsync(SObjectList); //----> @future
+		}		
+
+        if(ltInsertPSA.size() > 0){
+			executeAssigmentPermissionFuture(JSON.serialize(ltInsertPSA));
+		}
+    }
+
     // Função para atualizar usuário
     @future
     public static void updateUserFuture(String dados) {
@@ -390,7 +463,7 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
             insert lstInsertGroup;
         }
     }
-
+	
     @future
     public static void updatePublicGroupInternalFuture(String userString, String roleResponse, List<String> permissionSet) {
         User userRecord = (User) JSON.deserialize(userString, User.class);
@@ -480,6 +553,152 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
 
         if (lstInsertGroup.size() > 0) {
             insert lstInsertGroup;
+        }
+    }
+
+    public static void updatePublicGroup(String userString, String roleResponse) {
+        User userRecord = (User) JSON.deserialize(userString, User.class);
+        String role = roleResponse.replaceAll('"','');
+        List<PublicGroup__mdt> lstPublicGroup = [SELECT PartnerGroup__c, PublicGroup__c, DeveloperName FROM PublicGroup__mdt WHERE PartnerGroup__c =: role];
+
+        Set<String> setGroupName = new Set<String>();
+        Map<Id, GroupMember> mapGroupMember = new Map<Id, GroupMember>();
+
+        for(PublicGroup__mdt publicGroup : lstPublicGroup) {
+            setGroupName.add(publicGroup.PublicGroup__c);
+        }
+
+        //Busca os grupos relacionados ao metadado
+        List<Group> lstGroup = [SELECT Id, DeveloperName FROM Group WHERE DeveloperName IN: setGroupName];        
+        List<GroupMember> lstGroupMember = [SELECT Id, GroupId FROM GroupMember WHERE UserOrGroupID =: userRecord.Id];
+    
+        Set<Id> setCurrentGroupId = new Set<Id>();
+        Set<Id> setGroupId = new Set<Id>();
+        List<GroupMember> lstInsertGroup = new List<GroupMember>();
+        List<GroupMember> lstDeleteGroup = new List<GroupMember>();
+        
+        for(Group grp : lstGroup) {
+            setGroupId.add(grp.Id);
+        }
+        
+        for(GroupMember groupMember : lstGroupMember) {
+            if(setGroupId.contains(groupMember.GroupId)) {
+                setCurrentGroupId.add(groupMember.GroupId);
+            } else {
+                lstDeleteGroup.add(groupMember);
+            }
+        }
+        
+        for(Group grp : lstGroup) {
+            if(!setCurrentGroupId.contains(grp.Id) && userRecord.id != null) {
+                GroupMember groupMember = new GroupMember();
+                groupMember.GroupId = grp.id;
+                groupMember.UserOrGroupId = userRecord.id;
+                lstInsertGroup.add(groupMember);
+            }
+        }
+
+        if(lstDeleteGroup.size() > 0) {
+            List<SObject> SObjectList = new List<SObject>();
+            SObjectList.addAll(lstDeleteGroup);
+            database.deleteAsync(SObjectList); //----> @future
+        }
+
+        if(lstInsertGroup.size() > 0){
+            executeAssigmentPublicGroupFuture(JSON.serialize(lstInsertGroup));
+        } 
+    }
+
+    public static void updatePublicGroupInternal(String userString, String roleResponse, List<String> permissionSet) {
+        User userRecord = (User) JSON.deserialize(userString, User.class);
+
+        if (userRecord == null || userRecord.Id == null) {
+            return;
+        }
+
+        List<PublicGroup__mdt> lstPublicGroup = [
+            SELECT 
+                PartnerGroup__c, 
+                PublicGroup__c, 
+                DeveloperName, 
+                PermissionSet__c 
+            FROM 
+                PublicGroup__mdt 
+            WHERE 
+                PermissionSet__c != ''
+        ];
+
+        if (lstPublicGroup == null || lstPublicGroup.size() == 0) {
+            return;
+        }
+  
+        Set<String> setGroupNameInMdt = new Set<String>();
+        Set<String> setGroupNameUser = new Set<String>();
+        
+        for (PublicGroup__mdt publicGroup : lstPublicGroup) {
+            setGroupNameInMdt.add(publicGroup.PublicGroup__c);
+            
+            if (permissionSet.contains(publicGroup.PermissionSet__c)) {
+                setGroupNameUser.add(publicGroup.PublicGroup__c);
+            }
+        }
+
+        Map<Id, Group> mapGroup = new Map<Id, Group>([
+            SELECT 
+                Id, 
+                DeveloperName 
+            FROM 
+                Group 
+            WHERE 
+                DeveloperName IN :setGroupNameInMdt
+        ]);        
+        
+        Map<Id, GroupMember> mapGroupMember = new Map<Id, GroupMember>([
+            SELECT 
+                Id, 
+                GroupId, 
+                Group.DeveloperName 
+            FROM 
+                GroupMember 
+            WHERE 
+                UserOrGroupID = :userRecord.Id AND 
+                GroupId IN :mapGroup.keySet()
+        ]);
+        
+        Set<Id> groupByUser = new Set<Id>();
+
+        for (GroupMember gm : mapGroupMember.values()) {
+            groupByUser.add(gm.GroupId);
+        }
+
+        List<GroupMember> lstInsertGroup = new List<GroupMember>();
+        List<GroupMember> lstDeleteGroup = new List<GroupMember>();
+        
+        for (Group grp : mapGroup.values()) {
+            if (!groupByUser.contains(grp.Id) && setGroupNameUser.contains(grp.DeveloperName)) {
+                GroupMember groupMember = new GroupMember();
+
+                groupMember.GroupId = grp.Id;
+                groupMember.UserOrGroupId = userRecord.Id;
+
+                lstInsertGroup.add(groupMember);
+            }
+        }
+
+        for (GroupMember groupMember : mapGroupMember.values()) {
+            if (!setGroupNameUser.contains(groupMember.Group.DeveloperName)) {
+                lstDeleteGroup.add(groupMember);
+            }
+        }
+
+        if (lstDeleteGroup.size() > 0) {
+            List<SObject> SObjectList = new List<SObject>();
+            SObjectList.addAll(lstDeleteGroup);
+            database.deleteAsync(SObjectList); //----> @future
+        }
+
+        if (lstInsertGroup.size() > 0) {
+            executeAssigmentPublicGroupInternalFuture(JSON.serialize(lstInsertGroup));
         }
     }
 
@@ -595,7 +814,7 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
                 when 'Lojas Revendas'
                 {
                     if(String.isNotEmpty(varAdabas)) {
-                    	lAdabasSite = [SELECT Name, AdabasCode__c, CNPJ__c FROM AdabasSite__c WHERE AdabasCode__c =: varAdabas];  
+                      lAdabasSite = [SELECT Name, AdabasCode__c, CNPJ__c FROM AdabasSite__c WHERE AdabasCode__c =: varAdabas];  
                     }
                 }            
             }
@@ -604,5 +823,43 @@ global class OAMRegistrationHandler implements Auth.RegistrationHandler {
         system.debug('OAMRegistrationHandler.getAdabasAssignedDocumentByAdabasCode sobjectAdabasSite: ' + json.serialize(lAdabasSite));
         
         return (!lAdabasSite.isEmpty() ? lAdabasSite[0].CNPJ__c : NULL);
+	}
+	
+    @future
+    public static void executeAssigmentPermissionFuture(string permissionSetAssignmentString){
+        List<PermissionSetAssignment> ltInsertPSA = (List<PermissionSetAssignment>) JSON.deserialize(permissionSetAssignmentString, List<PermissionSetAssignment>.class);
+        if(!ltInsertPSA.IsEmpty()) insert ltInsertPSA;
+    }
+
+    @future
+    public static void executeAssigmentPublicGroupFuture(string publicGroupAssignmentString){
+        List<GroupMember> lstInsertGroup = (List<GroupMember>) JSON.deserialize(publicGroupAssignmentString, List<GroupMember>.class);
+        if(!lstInsertGroup.IsEmpty()) insert lstInsertGroup;
+    }
+
+    @future
+    public static void executeAssigmentPublicGroupInternalFuture(string publicGroupInternalAssignmentString){
+        List<GroupMember> lstInsertGroup = (List<GroupMember>) JSON.deserialize(publicGroupInternalAssignmentString, List<GroupMember>.class);
+        if(!lstInsertGroup.IsEmpty()) insert lstInsertGroup;
+    }
+
+    @Testvisible
+    private static boolean userHasChanged(user userRecord, User oldUser){
+        return
+        userRecord.IsActive					!= oldUser.isActive ||
+        userRecord.ProfileId				!= oldUser.ProfileId ||
+        userRecord.FirstName				!= oldUser.FirstName ||
+        userRecord.LastName					!= oldUser.LastName ||
+        userRecord.FederationIdentifier		!= oldUser.FederationIdentifier ||
+        userRecord.Login__c					!= oldUser.Login__c ||
+        userRecord.Adabas__c				!= oldUser.Adabas__c ||
+        userRecord.EmployeeNumber			!= oldUser.EmployeeNumber ||
+        userRecord.MobilePhone				!= oldUser.MobilePhone ||
+        userRecord.email					!= oldUser.email;
+    }
+
+    
+    private static boolean isActivating(User oldUser){
+        return !oldUser.IsActive;
     }
 }
