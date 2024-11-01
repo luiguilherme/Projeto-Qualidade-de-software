@@ -222,7 +222,7 @@ export default class PidTokenValidate extends LightningElement {
 
             parentThis.refreshData();
             parentThis.timeMiliseconds -= 1000;
-        }, 1000);
+        }, 5000);
         
         
     }
