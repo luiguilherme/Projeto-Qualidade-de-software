@@ -706,7 +706,8 @@ export default class DisputeFixedAdjustmentForm extends OmniscriptBaseMixin(Ligh
                     NameFull__c: item.NameFull__c,            
                     StatusPt: item.statusLabel,
                     AttendantMessage: item.ServiceDefinitionId__r.AttendantMessage__c,
-                    StepCode: item.ServiceDefinitionId__r.StepCode__c
+                    StepCode: item.ServiceDefinitionId__r.StepCode__c,
+                    ServiceDefinitionName: item.ServiceDefinitionId__r.ServiceDefinitionName__c
                     }
                     return adjustmentItens;
                 });
