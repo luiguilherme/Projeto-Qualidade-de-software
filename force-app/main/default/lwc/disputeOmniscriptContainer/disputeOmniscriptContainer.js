@@ -47,7 +47,10 @@ export default class DisputeOmniscriptContainer extends OmniscriptBaseMixin(Ligh
         this.prefill.AssetId = this.case.ComplainedAsset__c;
         this.prefill.AccountId = this.case.AccountId;
         this.prefill.calledByFlow = true;
-        console.log('prefillCreated', this.prefill);
+        this.prefill.responseIP.invoiceCharges = JSON.parse(this.disputedInvoice.PrefillInvoiceCharges__c);
+        this.prefill.responseIP.invoiceCredits = JSON.parse(this.disputedInvoice.PrefillInvoiceCredits__c);
+
+        console.log('prefillCreated', JSON.stringify(this.prefill));
         if(this.omniVisible == 'disputeDuplicateBilling'){
             this.prefill.hasHiringAdditionalLooseService = this.hasHiringAdditionalLooseService;
         }
