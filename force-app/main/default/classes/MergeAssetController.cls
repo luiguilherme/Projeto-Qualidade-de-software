@@ -107,7 +107,9 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
         wrapperAPIBefore.display_name = lstProductsAPIBefore.display_name;
         wrapperAPIBefore.status = lstProductsAPIBefore.status;
         wrapperAPIBefore.status_description = lstProductsAPIBefore.status_description;
-        
+        String subProductsJson = JSON.serialize(lstProductsAPIBefore.sub_products);
+        wrapperAPIBefore.sub_products = (List<WrapperAPI>) JSON.deserialize(subProductsJson, List<WrapperAPI>.class);
+
         Connection newConnection = new Connection();
         if(lstProductsAPIBefore.connection != null) {
             newConnection.downlink_mbps = lstProductsAPIBefore.connection.downlink_mbps;
@@ -339,16 +341,19 @@ global without sharing class MergeAssetController implements vlocity_cmt.Vlocity
     
     public static String getMainProductDescription(WrapperAPI assetToCreate, String sourceSystem){
         String description = '';
-        for (Descriptions assetDesc : assetToCreate.descriptions) {
-            if (assetDesc.title == 'commercial_name') {
-                description = assetDesc.text;
-                break;
+        if (assetToCreate.descriptions != null) {
+            for (Descriptions assetDesc : assetToCreate.descriptions) {
+                if (assetDesc.title == 'commercial_name') {
+                    description = assetDesc.text;
+                    break;
+                }
             }
         }
         String displayName = assetToCreate.display_name;
         
         if(LST_PRODUCT_TYPE_TO_GET_DESC.contains(assetToCreate.product_type)){
-            return assetToCreate.descriptions.size() == 1 ? description : displayName;
+            return assetToCreate.descriptions != null && assetToCreate.descriptions.size() == 1 ?
+                description : displayName;
         }
         
         switch on sourceSystem {
