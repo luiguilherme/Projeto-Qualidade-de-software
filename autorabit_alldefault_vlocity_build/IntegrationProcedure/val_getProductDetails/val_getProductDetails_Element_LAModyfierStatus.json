@@ -47,7 +47,7 @@
         ],
         "sortInDescendingOrder": false,
         "updateFieldValue": {
-            "Status": "=IF(%Status% == \"Active\" OR %Status% == \"Ativo\" , \"Ativo\",%Status%)"
+            "Status": "=IF(OR(%Status% == \"Active\", %Status% == \"Ativo\"), \"Ativo\", IF((OR(%Status% == \"Suspenso\", %Status% == \"ProductSuspend\") AND  %AutomaticRecurrence% == \"No\" AND %SubType% == \"Package\"), \"Pré-Ativo\", %Status%))"
         },
         "useFormulas": true
     },
