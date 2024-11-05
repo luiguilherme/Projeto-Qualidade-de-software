@@ -1,0 +1,34 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "CalloutActivationManagement",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ActivationManagement/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "Price": "=TOSTRING(ROUND(%DREGetProductPrice:Price:%vlocity_namespace%__PricingElementAmount__c%, 2, DOWN))",
+            "endDate": "=ADDDAY(TODAY(), IF(%RAGetAttributes:ATT_DC_DURATION% == null, 0, %RAGetAttributes:ATT_DC_DURATION%))",
+            "initialValue": "=IF(%RAGetAttributes:ATT_DT_DATAPACK_VALUE% != null, TOSTRING(%RAGetAttributes:ATT_DT_DATAPACK_VALUE% * 1024), IF(%RAGetAttributes:ATT_DT_SMS_ON_NET% != null, %RAGetAttributes:ATT_DT_SMS_ON_NET%, IF(%RAGetAttributes:ATT_DT_SMS_OFF_NET% != null, %RAGetAttributes:ATT_DT_SMS_OFF_NET%, IF(%RAGetAttributes:ATT_DC_VOICE_OFF_NET% != null, %RAGetAttributes:ATT_DC_VOICE_OFF_NET%, IF(%RAGetAttributes:ATT_DC_VOICE_ON_NET% != null, %RAGetAttributes:ATT_DC_VOICE_ON_NET%, \"\")))))",
+            "startDate": "=NOW()",
+            "unitOfMeasure": "=IF(%RAGetAttributes:ATT_DC_VOICE_ON_NET% != null, \"minutes\",IF(%RAGetAttributes:ATT_DC_VOICE_OFF_NET% != null, \"minutes\",IF(%RAGetAttributes:ATT_DT_SMS_ON_NET% != null, \"units\",IF(%RAGetAttributes:ATT_DT_SMS_OFF_NET% != null, \"units\",IF(%RAGetAttributes:ATT_DT_DATAPACK_VALUE% != null, \"megabyte\", \"\")))))"
+        },
+        "executionConditionalFormula": "",
+        "failOnStepError": false,
+        "failureConditionalFormula": "",
+        "label": "SetValues2",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "Name": "SVFormatted",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ActivationManagement/Procedure/SVFormatted"
+}

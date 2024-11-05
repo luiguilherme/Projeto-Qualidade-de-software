@@ -1,0 +1,503 @@
+{
+    "dataSource": {
+        "contextVariables": [
+        ],
+        "orderBy": {
+            "isReverse": "",
+            "name": ""
+        },
+        "type": "Custom",
+        "value": {
+            "body": "[\n\t\t\t{\n\t\t\t\t\"trackingCode\": \"1039230002\",\n\t\t\t\t\"description\": \"VIVO CRÉDITO ANTECIPADO\",\n\t\t\t\t\"offerType\": 1,\n\t\t\t\t\"token\": \"TW230810141800979FAs\",\n\t\t\t\t\"validDate\": \"2025-12-10T16:18:01.561-03:00\",\n\t\t\t\t\"creditValue\": 10.99,\n\t\t\t\t\"taxValue\": 4.79,\n\t\t\t\t\"originType\": \"ALR\",\n\t\t\t\t\"partnerName\": \"TIMWE\",\n\t\t\t\t\"partnerCode\": \"31\",\n\t\t\t\t\"phrase\": \"Precisando de Credito? Antecipe R$10.990 para falar e navegar na internet. Oferta valida por 1h envie SIM  e contrate. Valor a pagar R$15.780 (Valor concedido +R$4.790 de taxa).\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"trackingCode\": \"1039230003\",\n\t\t\t\t\"description\": \"VIVO CRÉDITO ANTECIPADO\",\n\t\t\t\t\"offerType\": 1,\n\t\t\t\t\"token\": \"TW230810141800979FUo\",\n\t\t\t\t\"validDate\": \"2025-06-02T13:12:01.561-03:00\",\n\t\t\t\t\"creditValue\": 8.99,\n\t\t\t\t\"taxValue\": 2.99,\n\t\t\t\t\"originType\": \"ALR\",\n\t\t\t\t\"partnerName\": \"TIMWE\",\n\t\t\t\t\"partnerCode\": \"31\",\n\t\t\t\t\"phrase\": \"Precisando de Credito? Antecipe R$8.990 para falar e navegar na internet. Oferta valida por 1h envie SIM  e contrate. Valor a pagar R$11.980 (Valor concedido +R$2.990 de taxa).\"\n\t\t\t}\n\t\t]",
+            "dsDelay": "",
+            "resultVar": ""
+        }
+    },
+    "enableLwc": true,
+    "events": [
+        {
+            "actionList": [
+                {
+                    "actionIndex": 0,
+                    "card": "{card}",
+                    "draggable": false,
+                    "isOpen": true,
+                    "key": "1716581234041-ey3h053np",
+                    "label": "Action",
+                    "stateAction": {
+                        "bubbles": true,
+                        "composed": true,
+                        "displayName": "Action",
+                        "eventName": "resetselectedcards",
+                        "id": "flex-action-1716581287998",
+                        "openUrlIn": "Current Window",
+                        "subType": "Custom",
+                        "type": "Event",
+                        "vlocityIcon": "standard-default"
+                    }
+                }
+            ],
+            "channelname": "selectLine",
+            "displayLabel": "selectLine:removeSelected",
+            "element": "action",
+            "eventLabel": "pubsub",
+            "eventname": "removeSelected",
+            "eventtype": "pubsub",
+            "key": "event-0",
+            "recordIndex": "0",
+            "showSpinner": "true"
+        }
+    ],
+    "isFlex": true,
+    "lwc": {
+        "DeveloperName": "cfValAdvanceCreditOffersData_1_Valentina",
+        "Id": "0Rb76000000L722CAC",
+        "ManageableState": "unmanaged",
+        "MasterLabel": "cfValAdvanceCreditOffersData_1_Valentina",
+        "NamespacePrefix": "c"
+    },
+    "osSupport": true,
+    "selectableField": "isSelected",
+    "selectableMode": "Single",
+    "selectedCardsLabel": "cards",
+    "states": [
+        {
+            "actions": [
+            ],
+            "childCards": [
+            ],
+            "components": {
+                "layer-0": {
+                    "children": [
+                        {
+                            "children": [
+                                {
+                                    "class": "slds-col ",
+                                    "element": "action",
+                                    "elementLabel": "Action-1",
+                                    "key": "element_element_block_0_0_action_0_0",
+                                    "name": "Action",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "actionList": [
+                                            {
+                                                "actionIndex": 0,
+                                                "draggable": false,
+                                                "isOpen": true,
+                                                "key": "1716583021248-ogekdv0xx",
+                                                "label": "SelectCard",
+                                                "stateAction": {
+                                                    "Web Page": {
+                                                        "targetName": "/apex"
+                                                    },
+                                                    "eventName": "selectcards",
+                                                    "id": "flex-action-1716583377246",
+                                                    "openUrlIn": "Current Window",
+                                                    "targetType": "Web Page",
+                                                    "type": "cardAction"
+                                                }
+                                            },
+                                            {
+                                                "actionIndex": 1,
+                                                "card": "{card}",
+                                                "draggable": true,
+                                                "isOpen": true,
+                                                "key": "1716774177582-nbvfia8ap",
+                                                "label": "UpdateSelectedData",
+                                                "stateAction": {
+                                                    "bubbles": true,
+                                                    "composed": true,
+                                                    "displayName": "Action",
+                                                    "eventName": "valUpdateSelectedOffer",
+                                                    "extraParams": {
+                                                        "selectedCredito": "{creditValue}",
+                                                        "selectedDataValidade": "{validDate}",
+                                                        "selectedTaxa": "{taxValue}",
+                                                        "selectedToken": "{token}"
+                                                    },
+                                                    "hasExtraParams": true,
+                                                    "id": "flex-action-1716985858035",
+                                                    "openUrlIn": "Current Window",
+                                                    "subType": "Custom",
+                                                    "type": "Event",
+                                                    "vlocityIcon": "standard-default"
+                                                }
+                                            }
+                                        ],
+                                        "card": "{card}",
+                                        "disabled": "",
+                                        "displayAsButton": false,
+                                        "flyoutDetails": {
+                                        },
+                                        "hideActionIcon": false,
+                                        "iconName": "checkbox",
+                                        "iconOnly": true,
+                                        "iconSize": "small",
+                                        "label": "VIVO CRÉDITO ANTECIPADO",
+                                        "record": "{record}",
+                                        "showSpinner": "false",
+                                        "stateObj": "{record}"
+                                    },
+                                    "size": {
+                                        "default": "3",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                            "iconSize": "small"
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                        ],
+                                        "size": {
+                                            "default": "3",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_3-of-12 ",
+                                        "style": "      \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    },
+                                    "styleObjects": [
+                                        {
+                                            "conditionString": "",
+                                            "conditions": "default",
+                                            "draggable": false,
+                                            "key": 0,
+                                            "label": "Default",
+                                            "name": "Default",
+                                            "styleObject": {
+                                                "background": {
+                                                    "color": "",
+                                                    "image": "",
+                                                    "position": "",
+                                                    "repeat": "",
+                                                    "size": ""
+                                                },
+                                                "border": {
+                                                    "color": "",
+                                                    "radius": "",
+                                                    "style": "",
+                                                    "type": "",
+                                                    "width": ""
+                                                },
+                                                "class": "",
+                                                "container": {
+                                                    "class": ""
+                                                },
+                                                "elementStyleProperties": {
+                                                    "iconSize": "small"
+                                                },
+                                                "inlineStyle": "",
+                                                "margin": [
+                                                ],
+                                                "padding": [
+                                                ],
+                                                "size": {
+                                                    "default": "3",
+                                                    "isResponsive": false
+                                                },
+                                                "sizeClass": "slds-size_3-of-12 ",
+                                                "style": "      \n         ",
+                                                "text": {
+                                                    "align": "",
+                                                    "color": ""
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "outputField",
+                                    "elementLabel": "Field-1",
+                                    "key": "element_element_block_0_0_outputField_1_0",
+                                    "name": "Field",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "fieldName": "validDate",
+                                        "format": "DD/MM/YYYY HH:mm",
+                                        "placeholder": "",
+                                        "record": "{record}",
+                                        "type": "datetime"
+                                    },
+                                    "size": {
+                                        "default": "3",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "size": {
+                                            "default": "3",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_3-of-12 "
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "outputField",
+                                    "elementLabel": "Field-2",
+                                    "key": "element_element_block_0_0_outputField_2_0",
+                                    "name": "Field",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "currency": "BRL",
+                                        "fieldName": "creditValue",
+                                        "format": "DD/MM/YYYY HH:mm",
+                                        "locale": "pt-BR",
+                                        "placeholder": "",
+                                        "record": "{record}",
+                                        "type": "currency"
+                                    },
+                                    "size": {
+                                        "default": "3",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "size": {
+                                            "default": "3",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_3-of-12 "
+                                    },
+                                    "type": "element"
+                                },
+                                {
+                                    "class": "slds-col ",
+                                    "element": "outputField",
+                                    "elementLabel": "Field-3",
+                                    "key": "element_element_block_0_0_outputField_3_0",
+                                    "name": "Field",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "card": "{card}",
+                                        "currency": "BRL",
+                                        "fieldName": "taxValue",
+                                        "format": "DD/MM/YYYY HH:mm",
+                                        "locale": "pt-BR",
+                                        "placeholder": "",
+                                        "record": "{record}",
+                                        "type": "currency"
+                                    },
+                                    "size": {
+                                        "default": "3",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "size": {
+                                            "default": "3",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_3-of-12 "
+                                    },
+                                    "type": "element"
+                                }
+                            ],
+                            "class": "slds-col ",
+                            "element": "block",
+                            "elementLabel": "Block-0",
+                            "name": "Block",
+                            "property": {
+                                "card": "{card}",
+                                "collapsedByDefault": false,
+                                "collapsible": false,
+                                "label": "Block",
+                                "record": "{record}"
+                            },
+                            "size": {
+                                "default": "12",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "background": {
+                                    "color": "",
+                                    "image": "",
+                                    "position": "",
+                                    "repeat": "",
+                                    "size": ""
+                                },
+                                "border": {
+                                    "color": "#BABABA",
+                                    "radius": "",
+                                    "style": "",
+                                    "type": "border_bottom",
+                                    "width": "1px"
+                                },
+                                "class": "slds-border_bottom slds-p-around_x-small ",
+                                "container": {
+                                    "class": ""
+                                },
+                                "elementStyleProperties": {
+                                },
+                                "inlineStyle": "",
+                                "margin": [
+                                ],
+                                "padding": [
+                                    {
+                                        "label": "around:x-small",
+                                        "size": "x-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "size": {
+                                    "default": "12",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_12-of-12 ",
+                                "style": "     border-bottom: #BABABA 1pxpx solid; \n         ",
+                                "text": {
+                                    "align": "",
+                                    "color": ""
+                                }
+                            },
+                            "styleObjects": [
+                                {
+                                    "conditionString": "",
+                                    "conditions": "default",
+                                    "draggable": false,
+                                    "key": 0,
+                                    "label": "Default",
+                                    "name": "Default",
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "#BABABA",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "border_bottom",
+                                            "width": "1px"
+                                        },
+                                        "class": "slds-border_bottom slds-p-around_x-small ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                            {
+                                                "label": "around:x-small",
+                                                "size": "x-small",
+                                                "type": "around"
+                                            }
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "     border-bottom: #BABABA 1pxpx solid; \n         ",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    }
+                                }
+                            ],
+                            "type": "block"
+                        }
+                    ]
+                }
+            },
+            "conditions": {
+                "group": [
+                ],
+                "id": "state-condition-object",
+                "isParent": true
+            },
+            "definedActions": {
+                "actions": [
+                ]
+            },
+            "documents": [
+            ],
+            "fields": [
+            ],
+            "isSmartAction": false,
+            "name": "Active",
+            "omniscripts": [
+            ],
+            "smartAction": {
+            },
+            "styleObject": {
+                "background": {
+                    "color": "",
+                    "image": "",
+                    "position": "",
+                    "repeat": "",
+                    "size": ""
+                },
+                "border": {
+                    "color": "#cccccc",
+                    "radius": "",
+                    "style": "",
+                    "type": [
+                    ],
+                    "width": ""
+                },
+                "class": "slds-card  ",
+                "container": {
+                    "class": "slds-card"
+                },
+                "elementStyleProperties": {
+                },
+                "inlineStyle": "",
+                "margin": [
+                ],
+                "padding": [
+                ],
+                "size": {
+                    "default": "12",
+                    "isResponsive": false
+                },
+                "sizeClass": "slds-size_12-of-12 ",
+                "style": "      \n         ",
+                "text": {
+                    "align": "",
+                    "color": ""
+                }
+            }
+        }
+    ],
+    "theme": "slds",
+    "title": "valAdvanceCreditOffersData"
+}

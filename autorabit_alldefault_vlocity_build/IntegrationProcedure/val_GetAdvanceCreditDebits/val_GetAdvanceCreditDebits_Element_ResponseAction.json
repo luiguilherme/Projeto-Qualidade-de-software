@@ -1,0 +1,41 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "ValGetAdvanceCreditDebits",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/GetAdvanceCreditDebits/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "additionalOutput": {
+            "Pagination": "%DRTSetPagesFinal:PageControl%",
+            "consolidatedList": "%ConsolidatedList%",
+            "debtList": "%IPASetListPaginationFinal:ListView%",
+            "errorcode": "=IF(NOT(ISBLANK(%HTTPResponse:code%)), %HTTPResponse:code%, 200)",
+            "isblank": "=IF(ISBLANK(%ResponseList%), true, false)",
+            "totalAmount": "=TOSTRING(ABS(%HTTPResponse:consolidatedList|1:amount:value%+%HTTPResponse:consolidatedList|2:amount:value%))"
+        },
+        "disOnTplt": false,
+        "executionConditionalFormula": "",
+        "label": "ResponseAction2",
+        "responseDefaultData": {
+        },
+        "responseFormat": "JSON",
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "returnFullDataJSON": false,
+        "returnOnlyAdditionalOutput": true,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "show": null,
+        "useFormulas": true,
+        "vlcResponseHeaders": {
+        }
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Response Action",
+    "Name": "ResponseAction",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/GetAdvanceCreditDebits/Procedure/ResponseAction"
+}
