@@ -4,6 +4,10 @@ public with sharing class CustomerProblemManagementFacade {
 
     public static List<CaseAmdocs> findByCustomerId(String customerId, DateTime startDate, DateTime endDate){
 
+        startDate.addHours(3);
+        endDate.addHours(26);
+        endDate.addMinutes(59);
+        endDate.addSeconds(59);
 		WebService__c ws = WebService__c.getInstance(CONST_STRING_WEBSERVICENAME);
 		System.debug('ws: ' + ws);
 		String strStartDate = startDate.format('yyyy-MM-dd\'T\'HH:mm:ss.SSS') + '-03:00';

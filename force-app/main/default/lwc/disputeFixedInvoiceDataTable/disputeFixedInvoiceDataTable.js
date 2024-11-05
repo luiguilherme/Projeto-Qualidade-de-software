@@ -31,6 +31,8 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
     @api selectedInvoice;
     @api previousInvoices;
     @api prefill;
+    @api prefillInvoiceCharges;
+    @api prefillInvoiceCredits;
     customerIds;
     //Variáveis que eram recebidas agora vão ser recuperadas
     // dentro do LWC em uma chamada para IP IPInvoiceDisputeIntegration
@@ -520,7 +522,11 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
             console.log('AllSelections: '+JSON.stringify(this.allSelections)); 
         }
         this.prefill = JSON.stringify(this.createPrefill());
+        this.prefillInvoiceCharges = JSON.stringify(this.createPrefillInvoiceCharges());
+        this.prefillInvoiceCredits = JSON.stringify(this.createPrefillInvoiceCredits());
         console.log('prefill', this.prefill);
+        console.log('prefillInvoiceCharges', this.prefillInvoiceCharges);
+        console.log('prefillInvoiceCredits', this.prefillInvoiceCredits);
     }
 
     createPrefill(){
@@ -533,9 +539,17 @@ export default class disputeFixedInvoicesDataTable extends OmniscriptBaseMixin(L
             'selectedInvoice': this.selectedInvoice,
             'previousInvoice': this.previousInvoices
            },
-           'responseIP' : this.responseIP
+           'responseIP' : {}
         }
       }
+
+    createPrefillInvoiceCharges() {
+        return this.responseIP.invoiceCharges;
+    }
+
+    createPrefillInvoiceCredits() {
+        return this.responseIP.invoiceCredits;
+    }
     
     @api
     validate() {

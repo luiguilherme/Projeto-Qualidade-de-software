@@ -11,6 +11,12 @@ private class OAMRegistrationHandlerTest {
     static void setup(){
         User adminUser = [SELECT Id FROM User WHERE (Profile.Name='Administrador do sistema' OR Profile.Name='System Administrator') AND UserRoleId != null AND ISACTIVE = true LIMIT 1];
         
+        FeatureFlag__c featureFlag = new FeatureFlag__c();
+		featureFlag.Name = 'OAMRegistrationHandler';
+		featureFlag.Application__c = 'OAMRegistrationHandler';
+		featureFlag.Active__c = true ;
+		insert featureFlag;
+
         Account acc = DataFactory.createAccount();
         acc.ownerId = adminUser.Id;
         insert acc;
