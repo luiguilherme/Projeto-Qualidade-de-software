@@ -22,11 +22,11 @@
     "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "returnCode": "PO-ERROR-002",
-            "returnMessage": "Estado da linha não permite realizar ativação de promoção."
+            "returnCode": "PO-ERROR-000",
+            "returnMessage": "Erro interno do servidor."
         },
         "disOnTplt": false,
-        "executionConditionalFormula": "IF(AND(ISNOTBLANK(%IPCheckMigrationAvailability:message%), %category:checkElegibility% == true), %IPCheckMigrationAvailability:message% == \"Erro interno de servidor.\", %IPCheckMigrationAvailability:allowedProductActivation% == false) || %IPMigratePrepaid:error% == \"500\"",
+        "executionConditionalFormula": "IF(ISNOTBLANK(%IPCheckMigrationAvailability:message%) || %IPCheckMigrationAvailability:message% == \"Erro interno de servidor.\" ||%IPCheckMigrationAvailability:allowedProductActivation% == false || %IPMigratePrepaid:error% == \"500\" || DREGetOrderItemByOrderStatus == false || DRPChangeOrderItemActionStatus == false ), true, false)",
         "label": "ResponseAction27",
         "responseDefaultData": {
         },
@@ -40,6 +40,8 @@
         "show": null,
         "useFormulas": true,
         "vlcResponseHeaders": {
+            "Content-Type": "application/json",
+            "statusCode": 500
         }
     },
     "%vlocity_namespace%__ReusableOmniScript__c": false,

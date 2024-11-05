@@ -12,6 +12,7 @@
         "disOnTplt": false,
         "elementValueMap": {
             "CancelOrder": "=%DREGetTicketIdFromNetworkNumber:OrderType% != \"Habilitação Pré\" AND %DREGetTicketIdFromNetworkNumber:OrderType% != \"ReversalPortout\"",
+            "CreateSwapNumber": "=IF(%event:transactionStatus% = \"em-processo\", true, false)",
             "HasNumberSwap": "=IF(ISNOTBLANK(DREvalGetSwapNumber), true, false)",
             "HasProvisional": "=IF(ISNOTBLANK(DRTCheckProvisional:Order|1:Id), true, false)"
         },
