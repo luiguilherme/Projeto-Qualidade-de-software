@@ -23,10 +23,10 @@
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
             "returnCode": "=\"PO-ERROR-005\"",
-            "returnMessage": "=IF(%GetAssets:asset:Product2:%vlocity_namespace%__SubType__c% == \"Package\" && %orderItem:action% == \"add\" || %orderItem:action% == \"delete\", \"Linha recém ativada no pré-pago não permite realizar ativação de pacote.\")"
+            "returnMessage": "=IF(%GetAssets:Product2:%vlocity_namespace%__SubType__c% == \"Package\" && %orderItem:action% == \"add\" || %orderItem:action% == \"delete\", \"Linha recém ativada no pré-pago não permite realizar ativação de pacote.\")"
         },
         "disOnTplt": false,
-        "executionConditionalFormula": "IF(%HTTPGetProductBalanceAndStatus:subscription:activationDate% <  LAST_30_DAYS, true, false)",
+        "executionConditionalFormula": "IF(%GetAssets:Product2:%vlocity_namespace%__SubType__c% == \"Package\"  && %HTTPGetProductBalanceAndStatus:subscription:activationDate% <  LAST_30_DAYS, true, false)",
         "label": "ResponseAction5",
         "responseDefaultData": {
         },

@@ -23,11 +23,11 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
-            "AccountId": "%GetAssets:asset|1:AccountId%",
-            "AssetId": "%GetAssets:asset|1:Id%",
+            "AccountId": "%GetAssets|1:AccountId%",
+            "AssetId": "%GetAssets|1:Id%",
             "CreateMigrationOrder": true,
-            "LegacyIdentifier": "%DRTGetAssetsByMSISDN:asset|1:LegacyIdentifier__c%",
-            "SubscriptionId": "%GetAssets:asset|1:%vlocity_namespace%__SubscriptionId__c%",
+            "LegacyIdentifier": "%GetAssets|1:LegacyIdentifier__c%",
+            "SubscriptionId": "%GetAssets|1:%vlocity_namespace%__SubscriptionId__c%",
             "category": {
                 "checkElegibility": "%category:checkElegibility%",
                 "orchestrate": "%category:orchestrate%",
@@ -47,7 +47,7 @@
         },
         "additionalOutput": {
         },
-        "chainOnStep": false,
+        "chainOnStep": true,
         "disOnTplt": false,
         "disableChainable": false,
         "executionConditionalFormula": "(%IPCheckMigrationAvailability:allowedProductActivation% || NOT(%category:checkElegibility%)) && %channel:platform% != \"MVNO\"",
@@ -58,6 +58,7 @@
         "integrationProcedureKey": "val_MigratePrepaid",
         "label": "IntegrationProcedureAction7",
         "remoteOptions": {
+            "chainable": true
         },
         "responseJSONNode": "",
         "responseJSONPath": "",

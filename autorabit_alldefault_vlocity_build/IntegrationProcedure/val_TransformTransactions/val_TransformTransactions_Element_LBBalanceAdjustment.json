@@ -1,6 +1,6 @@
 {
     "%vlocity_namespace%__Active__c": true,
-    "%vlocity_namespace%__InternalNotes__c": "corrigir mapeamento",
+    "%vlocity_namespace%__InternalNotes__c": "Bug2551067 - Alterado a fórmula do validity",
     "%vlocity_namespace%__OmniScriptId__c": {
         "Name": "valTransformTransactions",
         "VlocityDataPackType": "VlocityMatchingKeyObject",
@@ -29,7 +29,7 @@
             "type": "=\"balanceAdjustment\"",
             "unit": "=%balanceAdjustment:unit%",
             "userLogin": "=%balanceAdjustment:userLogin%",
-            "validity": "=DATEDIFF(%balanceAdjustment:usageStartDateTime%,%balanceAdjustment:usageEndDateTime%) + \" dia(s)\""
+            "validity": "=IF(ISBLANK(DATEDIFF(%balanceAdjustment:usageStartDateTime%,%balanceAdjustment:usageEndDateTime%)),0,DATEDIFF(%balanceAdjustment:usageStartDateTime%,%balanceAdjustment:usageEndDateTime%)) + \" dia(s)\""
         },
         "show": null
     },
