@@ -9,9 +9,13 @@
     "%vlocity_namespace%__PropertySet__c": {
         "actionMessage": "",
         "additionalInput": {
+            "AccountId": "=%DRGetAccountByDocument:ConsumerAccountId%",
             "ContextId": "%interactionId%",
             "DocumentNumber": "=IF(ISNOTBLANK(%DocumentBlock:DocumentNumberCPF%), %DocumentBlock:DocumentNumberCPF%,  IF(ISNOTBLANK(%DocumentBlock:DocumentNumberPassaport%), %DocumentBlock:DocumentNumberPassaport%, %DocumentBlock:DocumentNumberExt%))",
-            "InteractionNumber": "%interactionNumber%"
+            "DocumentType": "=%DocumentBlock:DocumentType%",
+            "Functionality": "=IF(%functionality% = 'ChangeOwnership', 'TROCA_TITULARIDADE-VALIDATE_CUSTOMER_LINE', 'ASSOCIACAO_CADASTRO-VALIDATE_CUSTOMER_LINE')",
+            "InteractionNumber": "%interactionNumber%",
+            "LineNumber": "%lineNumber%"
         },
         "additionalOutput": {
         },
