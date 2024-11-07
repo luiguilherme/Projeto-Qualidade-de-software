@@ -482,4 +482,29 @@ public without sharing class AssetDAO {
             AND AccountId = :accountId
         ];
     }
+
+    public static Asset getAssetByServiceIdentifier(String serviceIdentifier) {
+        List<Asset> lstAsset = [
+            SELECT  
+                Id,
+                Account.DocumentNumber__c,
+                Account.Name,
+                vlocity_cmt__ServiceAccountId__r.BillingAddressType__c,
+                vlocity_cmt__ServiceAccountId__r.BillingCity,
+                vlocity_cmt__ServiceAccountId__r.BillingNeighborhood__c,
+                vlocity_cmt__ServiceAccountId__r.BillingNumber__c,
+                vlocity_cmt__ServiceAccountId__r.BillingPostalCode,
+                vlocity_cmt__ServiceAccountId__r.BillingState,
+                vlocity_cmt__ServiceAccountId__r.BillingStreet
+            FROM 
+                Asset 
+            WHERE 
+                vlocity_cmt__ServiceIdentifier__c =: serviceIdentifier AND
+                Status = 'Ativo' AND
+                Platform__c != 'SIM Card' AND 
+            	vlocity_cmt__SubscriptionId__c != null
+        ];
+
+        return (lstAsset.isEmpty() ? null : lstAsset[0]);
+    }
 }
