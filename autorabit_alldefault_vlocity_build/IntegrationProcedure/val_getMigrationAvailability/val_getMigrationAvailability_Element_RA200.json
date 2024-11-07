@@ -8,9 +8,11 @@
     },
     "%vlocity_namespace%__PropertySet__c": {
         "additionalOutput": {
-            "allowedProductActivation": "=IF(%valValidateAllJourneys:blockJourney% == true, \"false\", \"true\")",
+            "allowedProductActivation": "=IF(%IPUpdateSubscriptionStatusViaRM:HTTPResponse:subscription:networkNumberType% == 'pre-VIVO',IF(%valValidateAllJourneys:blockJourney% == true,\"false\",IF(%valValidateAllJourneys:blockJourney% == false &&(%IPUpdateSubscriptionStatusViaRM:HTTPResponse:subscription:networkNumberStatus% == 'Ativo' || %IPUpdateSubscriptionStatusViaRM:HTTPResponse:subscription:networkNumberStatus% == 'Barrado'),\"true\",\"false\"),\"false\"),\"false\")",
             "availableBalance": "%IPCalloutGetBalanceLine:totalMonetary%",
             "iccid": "%DRGetAssetByMSISDN:ICCID%",
+            "lineType": "%IPUpdateSubscriptionStatusViaRM:HTTPResponse:subscription:networkNumberType%",
+            "message": "%valValidateAllJourneys:message%",
             "outPromotion": "=%DRGetAssetByMSISDN:Product:subType:Sub-tipo% != Null",
             "plataform": "Prepaid"
         },

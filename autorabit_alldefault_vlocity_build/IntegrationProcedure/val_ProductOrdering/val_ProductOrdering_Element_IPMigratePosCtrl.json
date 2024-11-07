@@ -1,0 +1,78 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "valProductOrdering",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ProductOrdering/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__ParentElementId__c": {
+        "%vlocity_namespace%__OmniScriptId__c": {
+            "Name": "valProductOrdering",
+            "VlocityDataPackType": "VlocityMatchingKeyObject",
+            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/val/ProductOrdering/Procedure",
+            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+        },
+        "Name": "CBMigrationPosCtrl",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ProductOrdering/Procedure/CBMigrationPosCtrl",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
+    },
+    "%vlocity_namespace%__ParentElementName__c": "CBMigrationPosCtrl",
+    "%vlocity_namespace%__ParentElementType__c": "Conditional Block",
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "additionalInput": {
+            "AccountId": "%GetAssets|1:AccountId%",
+            "AssetId": "%GetAssets|1:Id%",
+            "CreateMigrationOrder": true,
+            "LegacyIdentifier": "%GetAssets|1:LegacyIdentifier__c%",
+            "SubscriptionId": "%GetAssets|1:%vlocity_namespace%__SubscriptionId__c%",
+            "category": {
+                "checkElegibility": "%category:checkElegibility%",
+                "orchestrate": "%category:orchestrate%",
+                "type": "%category:type%"
+            },
+            "channel": {
+                "name": "%channel:name%",
+                "platform": "%channel:platform%"
+            },
+            "orderItem": {
+                "action": "%orderItem:action%",
+                "product": {
+                    "msisdn": "%orderItem:product:msisdn%"
+                }
+            },
+            "requestId": "=DATETIMETOUNIX(NOW())"
+        },
+        "additionalOutput": {
+        },
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "disableChainable": false,
+        "executionConditionalFormula": "%orderItem:action% == \"delete\" && %category:type% == \"Migração\" && %channel:platform% != \"MVNO\"",
+        "failOnStepError": false,
+        "failureConditionalFormula": "",
+        "failureResponse": {
+        },
+        "integrationProcedureKey": "val_MigratePrepaidPosCtrl",
+        "label": "IntegrationProcedureAction7",
+        "remoteOptions": {
+        },
+        "responseJSONNode": "",
+        "responseJSONPath": "",
+        "returnOnlyAdditionalOutput": false,
+        "returnOnlyFailureResponse": false,
+        "sendJSONNode": "",
+        "sendJSONPath": "",
+        "sendOnlyAdditionalInput": true,
+        "show": null,
+        "useFormulas": true
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Integration Procedure Action",
+    "Name": "IPMigratePosCtrl",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/val/ProductOrdering/Procedure/IPMigratePosCtrl"
+}

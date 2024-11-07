@@ -10,7 +10,7 @@
         "additionalOutput": {
             "AccountDataValidation": "=IF(ISNOTBLANK(%responseDR:CustomerDetails:PersonalData:CustomerName%) && ISNOTBLANK(%responseDR:CustomerDetails:PersonalData:Birthdate%) && ( %responseDR:CustomerDetails:ContactDetails:Email% != \"Não Cadastrado\" || %responseDR:CustomerDetails:ContactDetails:OtherEmail% != \"Não Cadastrado\" || %responseDR:CustomerDetails:ContactDetails:ContactPhone% != \"Não Cadastrado\" || %responseDR:CustomerDetails:ContactDetails:HomePhone% != \"Não Cadastrado\" || %responseDR:CustomerDetails:ContactDetails:MobilePhone% != \"Não Cadastrado\" || %responseDR:CustomerDetails:ContactDetails:OtherPhone% != \"Não Cadastrado\"), true, false)",
             "FinalizarAtendimento": "=%IPCheckPermission:UserPermission:FinalizaAtendimento%",
-            "InteractionNumberResponse": "%DREGetProtocolNumber:InteractionNumber%",
+            "InteractionNumberResponse": "=%SVNewInteractionNumber:InteractionNumberOrigin%",
             "PrefixId": "=SUBSTRING(%recordId%,0,3)",
             "ProtocolOrigin": "=%DREGetProtocolNumber:Origin%",
             "RealizarAlteracaoCadastral": "=%IPCheckPermission:UserPermission:RealizarAlteracaoCadastral%",
