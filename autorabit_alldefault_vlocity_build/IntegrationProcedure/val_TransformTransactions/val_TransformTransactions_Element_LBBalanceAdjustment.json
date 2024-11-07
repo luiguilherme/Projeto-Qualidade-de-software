@@ -29,7 +29,7 @@
             "type": "=\"balanceAdjustment\"",
             "unit": "=%balanceAdjustment:unit%",
             "userLogin": "=%balanceAdjustment:userLogin%",
-            "validity": "=IF(ISBLANK(DATEDIFF(%balanceAdjustment:usageStartDateTime%,%balanceAdjustment:usageEndDateTime%)),0,DATEDIFF(%balanceAdjustment:usageStartDateTime%,%balanceAdjustment:usageEndDateTime%)) + \" dia(s)\""
+            "validity": "=IF(ISBLANK(%balanceAdjustment:usageEndDateTime%),\"\",FORMATDATETIME(%balanceAdjustment:usageEndDateTime%, \"dd/MM/yyyy\",\"América/Sao_Paulo\"))"
         },
         "show": null
     },
