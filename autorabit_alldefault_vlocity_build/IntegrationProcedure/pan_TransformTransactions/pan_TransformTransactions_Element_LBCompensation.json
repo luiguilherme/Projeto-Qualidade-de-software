@@ -1,0 +1,42 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__InternalNotes__c": "corrigir mapeamento",
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "panTransformTransactions",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/pan/TransformTransactions/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "disOnTplt": false,
+        "executionConditionalFormula": "",
+        "label": "LoopBlock4",
+        "loopList": "compensation",
+        "loopOutput": {
+            "accountNumber": "%SubcriptionNumber%",
+            "adjustType": "=%compensation:balanceOperation%",
+            "adjustmentDate": "=FORMATDATETIME(%compensation:eventDateTime%, \"dd/MM/yyyy\",\"América/Sao_Paulo\")",
+            "amount": "=\"-\"",
+            "balanceType": "=\"-\"",
+            "channel": "=%compensation:channel%",
+            "lineNumber": "=%networkNumber%",
+            "offerPlan": "=%compensation:productName%",
+            "reason": "=%compensation:operationReason%",
+            "system": "=%compensation:channelId%",
+            "systemUserId": "=%compensation:accountId%",
+            "timeStamp": "=IF(ISNOTBLANK(%compensation:eventDateTime%),FORMATDATETIME(SUBSTRING(%compensation:eventDateTime%, 0, 23), \"dd/MM/YYYY HH:mm\", \"Etc/GMT\"),NULL)",
+            "transactionType": "=\"Oferta de Ressarcimento\"",
+            "type": "=\"compensation\"",
+            "unit": "=%compensation:usageUnit%",
+            "userLogin": "=%compensation:userLogin%",
+            "validity": "=DATEDIFF(%compensation:usageStartDateTime%,%compensation:usageEndDateTime%) + \" dia(s)\""
+        },
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Loop Block",
+    "Name": "LBCompensation",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/pan/TransformTransactions/Procedure/LBCompensation"
+}

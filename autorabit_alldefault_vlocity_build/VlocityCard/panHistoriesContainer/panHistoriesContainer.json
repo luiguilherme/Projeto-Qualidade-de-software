@@ -19,23 +19,21 @@
     ],
     "isFlex": true,
     "lwc": {
-        "DeveloperName": "cfPanHistoriesContainer_4_Pandora",
-        "Id": "0Rb8L000000D6ErSAK",
+        "DeveloperName": "cfPanHistoriesContainer_8_Pandora",
+        "Id": "0Rb8L000000D6PRSA0",
         "ManageableState": "unmanaged",
-        "MasterLabel": "cfPanHistoriesContainer_4_Pandora",
+        "MasterLabel": "cfPanHistoriesContainer_8_Pandora",
         "NamespacePrefix": "c"
     },
     "selectableMode": "Multi",
     "sessionVars": [
         {
-            "id": 2,
             "name": "type",
-            "val": "transactions"
+            "val": "events"
         },
         {
-            "id": 3,
             "name": "filter",
-            "val": "changeClientState"
+            "val": "all"
         }
     ],
     "states": [
@@ -212,6 +210,12 @@
                                             "options": [
                                                 {
                                                     "group": "",
+                                                    "id": 0,
+                                                    "label": "Eventos",
+                                                    "value": "events"
+                                                },
+                                                {
+                                                    "group": "",
                                                     "id": 1,
                                                     "label": "Operações",
                                                     "value": "transactions"
@@ -275,7 +279,7 @@
                                                         "eventName": "setValues",
                                                         "fieldValues": [
                                                             {
-                                                                "fieldName": "filter",
+                                                                "fieldName": "Session.filter",
                                                                 "fieldValue": "{element.value}"
                                                             },
                                                             {
@@ -283,7 +287,7 @@
                                                                 "fieldValue": "false"
                                                             }
                                                         ],
-                                                        "id": "flex-action-1718114342465",
+                                                        "id": "flex-action-1730314473404",
                                                         "openUrlIn": "Current Window",
                                                         "targetType": "Web Page",
                                                         "type": "cardAction",
@@ -329,7 +333,7 @@
                                                             "eventName": "setValues",
                                                             "fieldValues": [
                                                                 {
-                                                                    "fieldName": "filter",
+                                                                    "fieldName": "Session.filter",
                                                                     "fieldValue": "{element.value}"
                                                                 },
                                                                 {
@@ -337,7 +341,7 @@
                                                                     "fieldValue": "false"
                                                                 }
                                                             ],
-                                                            "id": "flex-action-1718114342465",
+                                                            "id": "flex-action-1730314473404",
                                                             "openUrlIn": "Current Window",
                                                             "targetType": "Web Page",
                                                             "type": "cardAction",
@@ -414,7 +418,7 @@
                                 {
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
-                                    "elementLabel": "Block-2-Select-2",
+                                    "elementLabel": "Block-2-Select-3",
                                     "key": "element_element_block_2_0_baseInputElement_2_0",
                                     "name": "Select",
                                     "parentElementKey": "element_block_2_0",
@@ -436,7 +440,7 @@
                                                         "eventName": "setValues",
                                                         "fieldValues": [
                                                             {
-                                                                "fieldName": "filter",
+                                                                "fieldName": "Session.filter",
                                                                 "fieldValue": "{element.value}"
                                                             },
                                                             {
@@ -444,7 +448,7 @@
                                                                 "fieldValue": "false"
                                                             }
                                                         ],
-                                                        "id": "flex-action-1718114356687",
+                                                        "id": "flex-action-1730314132514",
                                                         "openUrlIn": "Current Window",
                                                         "targetType": "Web Page",
                                                         "type": "cardAction",
@@ -490,7 +494,7 @@
                                                             "eventName": "setValues",
                                                             "fieldValues": [
                                                                 {
-                                                                    "fieldName": "filter",
+                                                                    "fieldName": "Session.filter",
                                                                     "fieldValue": "{element.value}"
                                                                 },
                                                                 {
@@ -498,7 +502,7 @@
                                                                     "fieldValue": "false"
                                                                 }
                                                             ],
-                                                            "id": "flex-action-1718114356687",
+                                                            "id": "flex-action-1730314132514",
                                                             "openUrlIn": "Current Window",
                                                             "targetType": "Web Page",
                                                             "type": "cardAction",
@@ -516,6 +520,12 @@
                                             "options": [
                                                 {
                                                     "group": "",
+                                                    "id": 10,
+                                                    "label": "Todas as Operações",
+                                                    "value": "all"
+                                                },
+                                                {
+                                                    "group": "",
                                                     "id": 1,
                                                     "label": "Movimentações na Linha (ativações, cancelamentos, migrações, suspensões)",
                                                     "value": "changeClientState"
@@ -528,9 +538,33 @@
                                                 },
                                                 {
                                                     "group": "",
+                                                    "id": 5,
+                                                    "label": "Alterações de Estado de Produto",
+                                                    "value": "changeOffer"
+                                                },
+                                                {
+                                                    "group": "",
+                                                    "id": 7,
+                                                    "label": "Alterações nos Serviços da Linha (ativações e inativações)",
+                                                    "value": "changeService"
+                                                },
+                                                {
+                                                    "group": "",
+                                                    "id": 9,
+                                                    "label": "Ajustes de Saldo",
+                                                    "value": "balanceAdjustment"
+                                                },
+                                                {
+                                                    "group": "",
                                                     "id": 10,
                                                     "label": "Compartilhamento de Internet",
                                                     "value": "balanceSharing"
+                                                },
+                                                {
+                                                    "group": "",
+                                                    "id": 11,
+                                                    "label": "Pacotes Avulsos (Detalhado)",
+                                                    "value": "purchaseEvent"
                                                 },
                                                 {
                                                     "group": "",
@@ -551,15 +585,37 @@
                                     },
                                     "stateIndex": 0,
                                     "styleObject": {
-                                        "class": "slds-p-right_x-small",
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "slds-p-right_small slds-m-bottom_xx-small ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                        },
+                                        "inlineStyle": "border-radius:10 px 20px;",
                                         "margin": [
                                             {
+                                                "label": "bottom:xx-small",
                                                 "size": "xx-small",
                                                 "type": "bottom"
                                             }
                                         ],
                                         "padding": [
                                             {
+                                                "label": "right:small",
                                                 "size": "small",
                                                 "type": "right"
                                             }
@@ -568,9 +624,72 @@
                                             "default": "3",
                                             "isResponsive": false
                                         },
-                                        "sizeClass": "slds-size_3-of-12 "
+                                        "sizeClass": "slds-size_3-of-12 ",
+                                        "style": "      \n         border-radius:10 px 20px;",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
                                     },
-                                    "type": "element"
+                                    "styleObjects": [
+                                        {
+                                            "conditionString": "",
+                                            "conditions": "default",
+                                            "draggable": false,
+                                            "key": 0,
+                                            "label": "Default",
+                                            "name": "Default",
+                                            "styleObject": {
+                                                "background": {
+                                                    "color": "",
+                                                    "image": "",
+                                                    "position": "",
+                                                    "repeat": "",
+                                                    "size": ""
+                                                },
+                                                "border": {
+                                                    "color": "",
+                                                    "radius": "",
+                                                    "style": "",
+                                                    "type": "",
+                                                    "width": ""
+                                                },
+                                                "class": "slds-p-right_small slds-m-bottom_xx-small ",
+                                                "container": {
+                                                    "class": ""
+                                                },
+                                                "elementStyleProperties": {
+                                                },
+                                                "inlineStyle": "border-radius:10 px 20px;",
+                                                "margin": [
+                                                    {
+                                                        "label": "bottom:xx-small",
+                                                        "size": "xx-small",
+                                                        "type": "bottom"
+                                                    }
+                                                ],
+                                                "padding": [
+                                                    {
+                                                        "label": "right:small",
+                                                        "size": "small",
+                                                        "type": "right"
+                                                    }
+                                                ],
+                                                "size": {
+                                                    "default": "3",
+                                                    "isResponsive": false
+                                                },
+                                                "sizeClass": "slds-size_3-of-12 ",
+                                                "style": "      \n         border-radius:10 px 20px;",
+                                                "text": {
+                                                    "align": "",
+                                                    "color": ""
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "type": "element",
+                                    "userUpdatedElementLabel": true
                                 },
                                 {
                                     "children": [
@@ -945,7 +1064,7 @@
                                 {
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
-                                    "elementLabel": "Block-2-Date-6",
+                                    "elementLabel": "Block-2-Date-5",
                                     "key": "element_element_block_2_0_baseInputElement_4_0",
                                     "name": "Date",
                                     "parentElementKey": "element_block_2_0",
@@ -1156,12 +1275,13 @@
                                             }
                                         }
                                     ],
-                                    "type": "element"
+                                    "type": "element",
+                                    "userUpdatedElementLabel": true
                                 },
                                 {
                                     "class": "slds-col ",
                                     "element": "baseInputElement",
-                                    "elementLabel": "Block-2-Date-7",
+                                    "elementLabel": "Block-2-Date-6",
                                     "key": "element_element_block_2_0_baseInputElement_5_0",
                                     "name": "Date",
                                     "parentElementKey": "element_block_2_0",
@@ -1286,12 +1406,13 @@
                                         },
                                         "sizeClass": "slds-size_3-of-12 "
                                     },
-                                    "type": "element"
+                                    "type": "element",
+                                    "userUpdatedElementLabel": true
                                 },
                                 {
                                     "class": "slds-col ",
                                     "element": "action",
-                                    "elementLabel": "Block-2-Action-8",
+                                    "elementLabel": "Pesquisar",
                                     "key": "element_element_block_2_0_action_6_0",
                                     "name": "Action",
                                     "parentElementKey": "element_block_2_0",
@@ -1310,8 +1431,8 @@
                                                     },
                                                     "displayName": "Action",
                                                     "eventName": "updatedatasource",
-                                                    "id": "flex-action-1715781571975",
-                                                    "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_DateUtilitiesOneMonth\",\"vlocityAsync\":false,\"inputMap\":{\"InputFinalDate\":\"{todayUtil}\",\"InputInitialDate\":\"{minus1MonthUtil}\",\"executed\":\"true\"},\"jsonMap\":\"{\\\"todayUtil\\\":\\\"{todayUtil}\\\",\\\"minus1MonthUtil\\\":\\\"{minus1MonthUtil}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"todayUtil\",\"val\":\"01/12/2023\",\"id\":3},{\"name\":\"minus1MonthUtil\",\"val\":\"07/12/2023\",\"id\":4}]}",
+                                                    "id": "flex-action-1730316454003",
+                                                    "message": "{\"type\":\"IntegrationProcedures\",\"value\":{\"dsDelay\":\"\",\"ipMethod\":\"val_DateUtilitiesOneMonth\",\"vlocityAsync\":false,\"inputMap\":{\"InputFinalDate\":\"{todayUtil}\",\"InputInitialDate\":\"{minus1MonthUtil}\",\"executed\":\"true\"},\"jsonMap\":\"{\\\"todayUtil\\\":\\\"{todayUtil}\\\",\\\"minus1MonthUtil\\\":\\\"{minus1MonthUtil}\\\"}\"},\"orderBy\":{\"name\":\"\",\"isReverse\":\"\"},\"contextVariables\":[{\"name\":\"todayUtil\",\"val\":\"\",\"id\":3},{\"name\":\"minus1MonthUtil\",\"val\":\"\",\"id\":4}]}",
                                                     "openUrlIn": "Current Window",
                                                     "targetType": "Web Page",
                                                     "type": "DataAction",
@@ -1324,7 +1445,7 @@
                                                 "draggable": false,
                                                 "isOpen": true,
                                                 "key": "1701945008609-h85suhk5r",
-                                                "label": "GetHistoryData",
+                                                "label": "eventHistoryTableView",
                                                 "stateAction": {
                                                     "actionConditions": {
                                                         "group": [
@@ -1346,7 +1467,7 @@
                                                         "accountId": "{Parent.accountId}",
                                                         "assetId": "{Parent.assetId}",
                                                         "customerId": "{Parent.lineNumber}",
-                                                        "endDate": "{today}",
+                                                        "endDate": "{todayUtil}",
                                                         "filter": "{Session.filter}",
                                                         "historyType": "{Session.type}",
                                                         "initialDate": "{minus1MonthUtil}",
@@ -1355,7 +1476,7 @@
                                                         "pageSum": "0"
                                                     },
                                                     "hasExtraParams": true,
-                                                    "id": "flex-action-1722450296682",
+                                                    "id": "flex-action-1729625729745",
                                                     "message": "setUpdateSource",
                                                     "openUrlIn": "Current Window",
                                                     "subType": "PubSub",
@@ -1366,10 +1487,10 @@
                                             {
                                                 "actionIndex": 2,
                                                 "card": "{card}",
-                                                "draggable": true,
-                                                "isOpen": false,
+                                                "draggable": false,
+                                                "isOpen": true,
                                                 "key": "1682347711899-qmaymabmg",
-                                                "label": "viewData",
+                                                "label": "SVViewData",
                                                 "stateAction": {
                                                     "Web Page": {
                                                         "targetName": "/apex"
@@ -1413,7 +1534,7 @@
                                         "iconName": "standard-default",
                                         "label": "Pesquisar",
                                         "record": "{record}",
-                                        "showSpinner": "true",
+                                        "showSpinner": "false",
                                         "stateObj": "{record}"
                                     },
                                     "size": {
@@ -1436,7 +1557,7 @@
                                             "type": "",
                                             "width": ""
                                         },
-                                        "class": "slds-text-align_left slds-p-bottom_large ",
+                                        "class": "slds-p-bottom_large ",
                                         "container": {
                                             "class": ""
                                         },
@@ -1459,7 +1580,7 @@
                                         "sizeClass": "slds-size_1-of-12 ",
                                         "style": "      \n         ",
                                         "text": {
-                                            "align": "left",
+                                            "align": "",
                                             "color": ""
                                         }
                                     },
@@ -1486,7 +1607,7 @@
                                                     "type": "",
                                                     "width": ""
                                                 },
-                                                "class": "slds-text-align_left slds-p-bottom_large ",
+                                                "class": "slds-p-bottom_large ",
                                                 "container": {
                                                     "class": ""
                                                 },
@@ -1509,13 +1630,14 @@
                                                 "sizeClass": "slds-size_1-of-12 ",
                                                 "style": "      \n         ",
                                                 "text": {
-                                                    "align": "left",
+                                                    "align": "",
                                                     "color": ""
                                                 }
                                             }
                                         }
                                     ],
-                                    "type": "element"
+                                    "type": "element",
+                                    "userUpdatedElementLabel": true
                                 },
                                 {
                                     "class": "slds-col ",
@@ -1867,7 +1989,7 @@
                                         "isChildCardTrackingEnabled": false,
                                         "parentAttribute": {
                                             "customerId": "{Parent.lineNumber}",
-                                            "endDate": "{today}",
+                                            "endDate": "{todayUtil}",
                                             "filter": "{Session.filter}",
                                             "historyType": "{Session.type}",
                                             "initialDate": "{minus1MonthUtil}"
