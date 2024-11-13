@@ -19,26 +19,6 @@ public with sharing class JWTUtilityTest {
         setPublicTestKey();
     }
 
-    public static String createValidProspectJWT() {
-        String algorithmName = 'RSA-SHA256';
-        Blob privateKeyBlob = EncodingUtil.base64Decode(PRIVATE_KEY);
-        String tokenPart1 = '{"alg":"HS256","typ":"JWT"}';
-        Blob tokenPart1Blob = Blob.valueOf(tokenPart1);
-        String tokenPart2 = '{"sub":"1234567890","name":"John Doe","iat":1516239022,"iss":"user","identifier":"+5511999689574","nrdocumento": "32185142585"}';
-        Blob tokenPart2Blob = Blob.valueOf(tokenPart2);
-        String separator = '.';
- 
-        String tokenHeader = EncodingUtil.base64Encode(tokenPart1Blob) + separator + EncodingUtil.base64Encode(tokenPart2Blob);
-        Blob tokenHeaderBlob = Blob.valueOf(tokenHeader);
-        Blob signature = Crypto.sign(algorithmName, tokenHeaderBlob, privateKeyBlob);
-        String signatureBase64 = EncodingUtil.base64Encode(signature);
-        String urlSafeSignatureBase64 = signatureBase64.replace('+', '-').replace('/', '_');
-        urlSafeSignatureBase64 = urlSafeSignatureBase64.replace('=', '');
-        String tokenPart3 = urlSafeSignatureBase64;
-        String jwt = tokenHeader + separator + tokenPart3;
-        return jwt;
-    }
-
     public static String createValidJWT() {
         String algorithmName = 'RSA-SHA256';
         Blob privateKeyBlob = EncodingUtil.base64Decode(PRIVATE_KEY);
@@ -147,17 +127,6 @@ public with sharing class JWTUtilityTest {
         
         Assert.isTrue(isInvalid);
 
-    }
-    
-    @IsTest
-    public static void isToValidateJWT() {
-        String jwt = createValidJWT();
-        String iss = 'https://authhml.vivo.com.br:443/oauth2';
-        Test.startTest();
-            setPublicTestKey();
-            Boolean valid = JWTUtility.isToValidate(iss);
-        Test.stopTest();
-        Assert.isTrue(valid, 'o iss não é OAMExterno');
     }
     
 }

@@ -27,15 +27,6 @@ public with sharing class JWTUtility {
 
     }
 
-    //Validar se o iss que vem do token é OAMExterno
-    public static Boolean isToValidate(String iss){
-        String OAMExterno = ValidaJWT__mdt.getInstance('OAMExterno').OAM__c;
-
-        if(iss == OAMExterno){
-            return true;
-        }
-        return false;
-    }
 
     public class PayLoadJwtWrapper{
         public String sub {get;set;}
@@ -44,18 +35,5 @@ public with sharing class JWTUtility {
         public String iss {get;set;}   
         public String identifier {get;set;}
         public String nrdocumento {get;set;}
-        public List<AuthenticationContext> authentication_context {get;set;}
-        
-        public String getIdentifier() {
-            if (authentication_context  != null && !authentication_context.isEmpty()) {
-                return authentication_context[0].identifier;
-            }
-            return null;
-        }
-    }
-    
-    public class AuthenticationContext {
-        public String identifier { get; set; }
-        public String type { get; set; }
     }
 }
